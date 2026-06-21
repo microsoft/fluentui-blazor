@@ -1,26 +1,32 @@
 ﻿@inject INotificationService NotificationService
 
 <FluentStack Wrap="true" HorizontalGap="12px">
-    <FluentButton OnClick="@(() => NotificationService.ShowSuccessToastAsync($"Success toast #{counter++}", lifetime: 5))">
+    <FluentButton OnClick="@(async e => await NotificationService.ShowSuccessToastAsync($"Success toast #{counter++}", lifetime: 5))">
         Show Success
     </FluentButton>
-    <FluentButton OnClick="@(() => NotificationService.ShowWarningToastAsync($"Warning toast #{counter++}", lifetime: 5))">
+    <FluentButton OnClick="@(async e => await NotificationService.ShowWarningToastAsync($"Warning toast #{counter++}", lifetime: 5))">
         Show Warning
     </FluentButton>
-    <FluentButton OnClick="@(() => NotificationService.ShowErrorToastAsync($"Error toast #{counter++}", lifetime: 5))">
+    <FluentButton OnClick="@(async e => await NotificationService.ShowErrorToastAsync($"Error toast #{counter++}", lifetime: 5))">
         Show Error
     </FluentButton>
-    <FluentButton OnClick="@(() => NotificationService.ShowInfoToastAsync($"Info toast #{counter++}", lifetime: 5))">
+    <FluentButton OnClick="@(async e => await NotificationService.ShowInfoToastAsync($"Info toast #{counter++}", lifetime: 5))">
         Show Info
     </FluentButton>
-    <FluentButton OnClick="@(() => NotificationService.ShowProgressToastAsync($"Progress toast #{counter++}", lifetime: 5))">
+    <FluentButton OnClick="@(async e => { ProgressResult = await NotificationService.ShowProgressToastAsync($"Progress toast #{counter++}"); })">
         Show Progress
+    </FluentButton>
+    <FluentButton OnClick="@(async e => { if (ProgressResult is not null) await ProgressResult.Instance.CloseAsync(); })"
+                  Disabled="@(ProgressResult is null)">
+        Close Progress
     </FluentButton>
 </FluentStack>
 
 @code {
 
     int counter = 1;
+
+    ToastResult? ProgressResult;
 }
 
 

@@ -1,0 +1,47 @@
+﻿@inject INotificationService NotificationService
+
+<FluentStack Wrap="true" HorizontalGap="12px">
+    <FluentButton OnClick="@OpenResultTimingOnCloseAsync">
+        Show Lifetime On Close
+    </FluentButton>
+
+    <FluentButton OnClick="@OpenResultTimingOnVisibleAsync">
+        Show Lifetime On Visible
+    </FluentButton>
+</FluentStack>
+
+<ul>
+    <li>@ResultTimingOnClose</li>
+    <li>@ResultTimingOnVisible</li>
+</ul>
+
+@code {
+
+    string ResultTimingOnClose = "";
+    string ResultTimingOnVisible = "";
+
+    async Task OpenResultTimingOnCloseAsync()
+    {
+        var resultOnClose = await NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = $"App update available";
+            options.Lifetime = TimeSpan.FromSeconds(5);
+            options.ResultTiming = ToastResultTiming.Closed;    // ResultTiming = On Close, which is the default behavior
+        });
+
+        ResultTimingOnClose = $"Toast closed with reason: {resultOnClose.Reason}";
+    }
+
+    async Task OpenResultTimingOnVisibleAsync()
+    {
+        var resultOnVisible = await NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = $"App update available";
+            options.Lifetime = TimeSpan.FromSeconds(5);
+            options.ResultTiming = ToastResultTiming.Visible;   // ResultTiming = On Visible, which means the result will complete as soon as the toast is rendered and visible to the user
+        });
+
+        ResultTimingOnVisible = $"Toast visible with reason: {resultOnVisible.Reason}";
+    }
+}
+

@@ -77,6 +77,11 @@ by using a required title plus optional message and dismiss button details.
 
 This example shows the standard toast setup with default behavior and intent. Use it as the baseline pattern for simple status feedback.
 
+In this example, **Success**, **Warning**, **Error**, and **Info** toasts are shown for 5 seconds (`lifetime = 5`) and then close automatically.
+The **Progress** toast behaves differently: the line `ProgressResult = await NotificationService.ShowProgressToastAsync()` returns immediately 
+a toast instance that is stored in `ProgressResult.Instance`.
+When `ProgressResult` is available, the [Close Progress] button is enabled so the user can close that toast manually.
+
 {{ FluentToastDefaultOptions }}
 
 ### Custom dismissal
@@ -105,6 +110,27 @@ With this approach, you can open any Razor component in the toast and fully cust
 This example shows quick action links inside the toast so people can immediately respond to the notification.
 
 {{ FluentToastQuickActions }}
+
+### Result Timing
+
+This example shows when your application should consider an interaction with a context notification to be complete and when the .NET code should continue executing
+`var result = await NotificationService.ShowToastAsync()`.
+
+By default, `await NotificationService.ShowToastAsync(...)` resumes only when the toast is closed.
+
+If you do not want to wait for the result, start the call without waiting for completion:
+`_ = NotificationService.ShowToastAsync(...);`
+
+You can also control when the awaited result is completed with `ResultTiming`:
+- `ResultTiming = Closed` (default): code after `await` runs after the toast is closed.
+- `ResultTiming = Visible`: code after `await` runs as soon as the toast is visible.
+
+When using `Visible`, keep the returned `result.Instance` if you need to interact with that toast later (for example, close it programmatically).
+
+In the sample, both toasts stay visible for 5 seconds. **Show Lifetime On Close** reports the result after the toast closes, 
+while **Show Lifetime On Visible** reports it immediately when the toast appears.
+
+{{ FluentToastResultTiming }}
 
 ### Inverted toast
 

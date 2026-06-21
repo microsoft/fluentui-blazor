@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public enum ToastResultTiming
 {
     /// <summary>
-    /// Complete the result when the toast is closed.
+    /// Complete the result when the toast is dismissed or closed.
     /// </summary>
     Closed,
 

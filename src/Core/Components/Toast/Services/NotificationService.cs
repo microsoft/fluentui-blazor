@@ -56,7 +56,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
     /// <inheritdoc cref="INotificationService.ShowProgressToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
     public Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
-        => ShowSimpleToastAsync(ToastIntent.Progress, title, message, lifetime, dismissLabel, dismissOnClickAsync);
+        => ShowSimpleToastAsync(ToastIntent.Progress, title, message, lifetime, dismissLabel, dismissOnClickAsync, ToastResultTiming.Visible);
 
     /// <inheritdoc cref="INotificationService.ShowToastAsync(ToastOptions)"/>
     public async Task<ToastResult> ShowToastAsync(ToastOptions options)
@@ -122,13 +122,14 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     /// <summary>
     /// Internal helper that builds and shows a simple intent-based toast.
     /// </summary>
-    private Task<ToastResult> ShowSimpleToastAsync(ToastIntent intent, string title, string? message, int? lifetime, string? dismissLabel, Func<ToastEventArgs, Task>? dismissOnClickAsync)
+    private Task<ToastResult> ShowSimpleToastAsync(ToastIntent intent, string title, string? message, int? lifetime, string? dismissLabel, Func<ToastEventArgs, Task>? dismissOnClickAsync, ToastResultTiming? resultTiming = null)
     {
         var options = new ToastOptions
         {
             Intent = intent,
             Title = title,
             Message = message,
+            ResultTiming = resultTiming ?? ToastResultTiming.Closed,
             Lifetime = lifetime.HasValue ? TimeSpan.FromSeconds(lifetime.Value) : null,
         };
 

@@ -31,7 +31,6 @@
             options.Message = "Toasts are used to show brief messages to the user.";
             options.Subtitle = "Sent by Fluent UI Blazor";
             options.AllowDismiss = true;
-            options.Lifetime = TimeSpan.FromSeconds(5);
             options.OnStatusChange = (e) =>
             {
                 Console.WriteLine($" . '{e.Instance.Options.Title}' status changed to: {e.Status}");
