@@ -57,7 +57,7 @@
         {
             <FluentButton slot="@FluentSlot.ToastAction"
                           Appearance="@ButtonAppearance.Subtle"
-                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor(Inverted ? "var(--info-inverted)" : "currentColor"))"
                           IconOnly="true"
                           Size="ButtonSize.Small"
                           OnClick="@DismissClickAsync"

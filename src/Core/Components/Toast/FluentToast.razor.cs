@@ -164,7 +164,7 @@ public partial class FluentToast : FluentComponentBase
     public bool AllowDismiss { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the dismiss label and action button (e.g., `DismissLabel="Close"`).
+    /// Gets or sets the dismiss link and action button (e.g., `DismissLabel="Close"`).
     /// Only relevant when <see cref="AllowDismiss"/> is <see langword="true"/>.
     /// </summary>
     [Parameter]

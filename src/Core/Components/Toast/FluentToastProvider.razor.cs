@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -84,6 +85,50 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
         }
 
         builder.AddContent(0, new MarkupStringSanitized(toast.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
+    };
+
+    /// <summary>
+    /// Renders the footer content of the toast, including the primary and secondary quick actions if they are defined in the toast options.
+    /// </summary>
+    private RenderFragment RenderFooterContent(IToastInstance toast) => builder =>
+    {
+        var hasPrimaryAction = !string.IsNullOrEmpty(toast.Options.QuickAction1.Label);
+        var hasSecondaryAction = !string.IsNullOrEmpty(toast.Options.QuickAction2.Label);
+
+        if (!hasPrimaryAction && !hasSecondaryAction)
+        {
+            return;
+        }
+
+        var inverted = toast.Options.Inverted ?? configuration.Toast.Inverted;
+        var actions = new List<ToastOptionsAction> { toast.Options.QuickAction1, toast.Options.QuickAction2 };
+
+        builder.OpenComponent<FluentStack>(0);
+        builder.AddComponentParameter(1, nameof(FluentStack.HorizontalGap), "12px");
+        builder.AddComponentParameter(2, nameof(FluentStack.ChildContent), (RenderFragment)(stackBuilder =>
+        {
+            foreach (var action in actions)
+            {
+                if (string.IsNullOrEmpty(action.Label))
+                {
+                    continue;
+                }
+
+                stackBuilder.OpenComponent<FluentLink>(0);
+                stackBuilder.AddComponentParameter(1, nameof(FluentLink.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+                {
+                    if (action.CallbackAsync is not null)
+                    {
+                        await action.CallbackAsync.Invoke(new ToastEventArgs(toast, ToastLifecycleStatus.Visible));
+                    }
+                }));
+                stackBuilder.AddComponentParameter(2, nameof(FluentLink.Tooltip), action.Tooltip);
+                stackBuilder.AddComponentParameter(3, nameof(FluentLink.Style), inverted ? "color: var(--colorBrandForegroundInverted);" : null);
+                stackBuilder.AddComponentParameter(4, nameof(FluentLink.ChildContent), (RenderFragment)(contentBuilder => contentBuilder.AddContent(0, action.Label)));
+                stackBuilder.CloseComponent();
+            }
+        }));
+        builder.CloseComponent();
     };
 
     /// <summary>

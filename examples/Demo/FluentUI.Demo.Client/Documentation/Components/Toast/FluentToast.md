@@ -124,6 +124,8 @@ This example shows a toast with a custom dismissal configuration. It uses an act
 
 {{ FluentToastCustomDismiss }}
 
+{{ FluentToastQuickActions }}
+
 ### Inverted toast
 
 You can use the `Inverted` property to show a toast with an inverted color scheme. This allows for showing a dark toast on a light background, or a light toast on a dark background.

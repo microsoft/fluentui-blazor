@@ -142,12 +142,26 @@ public class ToastOptions : IFluentComponentBase
     public bool? AllowDismiss { get; set; }
 
     /// <summary>
-    /// Gets or sets the dismiss action displayed in the toast.
+    /// Gets or sets the dismiss action link displayed in the toast.
     /// Only relevant when <see cref="AllowDismiss"/> is <see langword="true"/>.
     /// If `CallbackAsync` is set, the toast is not closed automatically, and the action is responsible for closing the toast by calling <see cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/>.
     /// If `CallbackAsync` is not set, the toast is closed setting the <see cref="ToastResult.Reason"/> to <see cref="ToastCloseReason.Dismissed"/>.
     /// </summary>
     public ToastOptionsAction DismissAction { get; } = new ToastOptionsAction();
+
+    /// <summary>
+    /// Gets or sets the primary action for the toast.
+    /// This action link in displayed in the footer of the toast, and is used to trigger the most important action related to the toast message.
+    /// When the user clicks on this action, the toast is not closed automatically, and the action is responsible for closing the toast by calling <see cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/> with the appropriate <see cref="ToastCloseReason"/>.
+    /// </summary>
+    public ToastOptionsAction QuickAction1 { get; } = new ToastOptionsAction();
+
+    /// <summary>
+    /// Gets or sets the secondary action for the toast.
+    /// This action link in displayed in the footer of the toast, and is used to trigger the secondary action related to the toast message.
+    /// When the user clicks on this action, the toast is not closed automatically, and the action is responsible for closing the toast by calling <see cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/> with the appropriate <see cref="ToastCloseReason"/>.
+    /// </summary>
+    public ToastOptionsAction QuickAction2 { get; } = new ToastOptionsAction();
 
     /// <summary>
     /// Gets or sets the timestamp when the toast was created.
