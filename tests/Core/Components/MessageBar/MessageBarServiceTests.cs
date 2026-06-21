@@ -22,7 +22,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
     {
         // Arrange
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
 
         // Act
         service.Subscribe(null, _ => Task.CompletedTask);
@@ -37,7 +37,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
     {
         // Arrange
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
 
         // Act
         service.Subscribe(string.Empty, _ => Task.CompletedTask);
@@ -51,7 +51,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
     {
         // Arrange
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
 
         // Act
         service.Subscribe("provider-1", null!);
@@ -71,7 +71,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
         service.Unsubscribe(null);
 
         // Assert: Existing subscription remains in place.
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         Assert.Equal("provider-1", serviceBase.ProviderId);
     }
 
@@ -86,7 +86,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
         service.Unsubscribe(string.Empty);
 
         // Assert: Existing subscription remains in place.
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         Assert.Equal("provider-1", serviceBase.ProviderId);
     }
 
@@ -95,7 +95,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
     {
         // Arrange
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
         // Act
@@ -111,7 +111,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
     {
         // Arrange
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
         service.Subscribe("provider-2", _ => Task.CompletedTask);
 
@@ -129,7 +129,7 @@ public class MessageBarServiceTests : Bunit.BunitContext
     {
         // Arrange
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
         service.Subscribe("provider-2", _ => Task.CompletedTask);
 

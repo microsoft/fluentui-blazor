@@ -96,8 +96,8 @@ public class MessageBarInstanceTests : Bunit.BunitContext
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
         var options = new MessageBarOptions { Section = "section", Id = "to-close" };
         var instance = new MessageBarInstance(service, options);
-        ((IFluentServiceBase<IMessageBarInstance>)service).Items.TryAdd(instance.Id, instance);
-        ((IFluentServiceBase<IMessageBarInstance>)service).ProviderId = "provider";
+        ((IFluentServiceBase<INotificationInstance>)service).Items.TryAdd(instance.Id, instance);
+        ((IFluentServiceBase<INotificationInstance>)service).ProviderId = "provider";
 
         // Act
         await instance.CloseAsync();
@@ -116,8 +116,8 @@ public class MessageBarInstanceTests : Bunit.BunitContext
         var service = (NotificationService)Services.GetRequiredService<INotificationService>();
         var options = new MessageBarOptions { Section = "section" };
         var instance = new MessageBarInstance(service, options);
-        ((IFluentServiceBase<IMessageBarInstance>)service).Items.TryAdd(instance.Id, instance);
-        ((IFluentServiceBase<IMessageBarInstance>)service).ProviderId = "provider";
+        ((IFluentServiceBase<INotificationInstance>)service).Items.TryAdd(instance.Id, instance);
+        ((IFluentServiceBase<INotificationInstance>)service).ProviderId = "provider";
 
         // Act
         await instance.CloseAsync(MessageBarResult.OfDismissed("payload"));
