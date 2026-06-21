@@ -53,7 +53,7 @@
     @* Slot Action (right of title)*@
     @if (AllowDismiss)
     {
-        @if (string.IsNullOrEmpty(DismissLabel))
+        @if (string.IsNullOrEmpty(DismissAction.Label))
         {
             <FluentButton slot="@FluentSlot.ToastAction"
                           Appearance="@ButtonAppearance.Subtle"
@@ -61,15 +61,15 @@
                           IconOnly="true"
                           Size="ButtonSize.Small"
                           OnClick="@DismissClickAsync"
-                          Tooltip="@DismissTooltip" />
+                          Tooltip="@DismissAction.Tooltip" />
         }
         else
         {
             <FluentLink slot="@FluentSlot.ToastAction"
                         OnClick="@DismissClickAsync"
-                        Tooltip="@DismissTooltip"
+                        Tooltip="@DismissAction.Tooltip"
                         Style="@(Inverted ? "color: var(--colorBrandForegroundInverted);" : null)">
-                @DismissLabel
+                @DismissAction.Label
             </FluentLink>
         }
     }

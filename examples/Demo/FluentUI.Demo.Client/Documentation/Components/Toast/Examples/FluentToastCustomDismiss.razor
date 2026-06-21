@@ -14,9 +14,9 @@
             options.Title = $"App update available";
             options.Lifetime = TimeSpan.FromSeconds(10);
             options.Message = "This toast has a custom dismiss action.";
-            options.DismissLabel = "Review";
-            options.DismissTooltip = "Click to review the update.";
-            options.DismissCallback = async (e) =>
+            options.DismissAction.Label = "Review";
+            options.DismissAction.Tooltip = "Click to review the update.";
+            options.DismissAction.CallbackAsync = async (e) =>
             {
                 Console.WriteLine($"Review action clicked.");
                 await e.Instance.CloseAsync(ToastCloseReason.Dismissed);
