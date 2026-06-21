@@ -56,7 +56,7 @@
         @if (string.IsNullOrEmpty(DismissAction.Label))
         {
             <FluentButton slot="@FluentSlot.ToastAction"
-                          Appearance="@ButtonAppearance.Subtle"
+                          Appearance="@ButtonAppearance.Transparent"
                           IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor(Inverted ? "var(--info-inverted)" : "currentColor"))"
                           IconOnly="true"
                           Size="ButtonSize.Small"

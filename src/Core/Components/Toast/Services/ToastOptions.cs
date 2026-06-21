@@ -164,11 +164,6 @@ public class ToastOptions : IFluentComponentBase
     public ToastOptionsAction QuickAction2 { get; } = new ToastOptionsAction();
 
     /// <summary>
-    /// Gets or sets the timestamp when the toast was created.
-    /// </summary>
-    public DateTime? TimeStamp { get; set; }
-
-    /// <summary>
     /// Gets or sets the action raised when the toast lifecycle status changes.
     /// </summary>
     public Action<ToastEventArgs>? OnStatusChange { get; set; }
