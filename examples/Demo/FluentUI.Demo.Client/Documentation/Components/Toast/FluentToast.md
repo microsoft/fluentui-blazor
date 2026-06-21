@@ -1,10 +1,3 @@
----
-title: Toast
-route: /Toast
-category: 20|Components
-icon: FoodToast
----
-
 # Toast
 
 A toast communicates the status of an action someone is trying to take or that something happened elsewhere in the app. Toasts are temporary surfaces.
