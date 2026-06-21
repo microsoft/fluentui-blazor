@@ -69,7 +69,7 @@ public class ToastInstance : IToastInstance
     /// <inheritdoc cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/>
     public Task CloseAsync(ToastCloseReason reason, object? data = null)
     {
-        return NotificationService.CloseAsync(this, new ToastResult(reason, data));
+        return NotificationService.CloseAsync(this, new ToastResult(this, reason, data));
     }
 
     /// <summary>
@@ -90,6 +90,23 @@ public class ToastInstance : IToastInstance
         {
             var args = new ToastEventArgs(this, status);
             Options.OnStatusChange.Invoke(args);
+        }
+
+        TryCompleteResultOnStatus(status);
+    }
+
+    /// <summary />
+    private void TryCompleteResultOnStatus(ToastLifecycleStatus status)
+    {
+        if (Options.ResultTiming == ToastResultTiming.Queued && status == ToastLifecycleStatus.Queued)
+        {
+            ResultCompletion.TrySetResult(ToastResult.OfQueued(this));
+            return;
+        }
+
+        if (Options.ResultTiming == ToastResultTiming.Visible && status == ToastLifecycleStatus.Visible)
+        {
+            ResultCompletion.TrySetResult(ToastResult.OfVisible(this));
         }
     }
 }

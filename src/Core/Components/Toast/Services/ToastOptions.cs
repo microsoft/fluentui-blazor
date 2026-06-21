@@ -181,6 +181,12 @@ public class ToastOptions : IFluentComponentBase
     public string? Width { get; set; }
 
     /// <summary>
+    /// Gets or sets when the <see cref="IToastInstance.Result"/> task is completed.
+    /// The default is <see cref="ToastResultTiming.Closed"/>.
+    /// </summary>
+    public ToastResultTiming ResultTiming { get; set; } = ToastResultTiming.Closed;
+
+    /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.
     /// </summary>
     internal virtual string? ClassValue => new CssBuilder(Class)

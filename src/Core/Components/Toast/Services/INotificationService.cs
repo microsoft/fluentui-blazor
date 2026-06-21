@@ -68,7 +68,7 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
     Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
-    /// <summary>
+  /// <summary>
     /// Shows a toast using the supplied options and waits for the close result.
     /// </summary>
     /// <param name="options">Options to configure the toast.</param>

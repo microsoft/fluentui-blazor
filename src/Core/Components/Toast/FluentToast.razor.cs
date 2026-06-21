@@ -261,7 +261,7 @@ public partial class FluentToast : FluentComponentBase
             }
 
             // Set the result of the toast to TimedOut.
-            toast.ResultCompletion.TrySetResult(ToastResult.OfTimedOut());
+            toast.ResultCompletion.TrySetResult(ToastResult.OfTimedOut(instance: toast));
         }
     }
 

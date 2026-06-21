@@ -66,7 +66,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return await instance.Result;
     }
 
-    /// <inheritdoc cref="INotificationService.ShowToastAsync{TToast}(ToastOptions)"/>
+    /// <inheritdoc cref="INotificationService.ShowToastAsync(Action{ToastOptions})"/>
     public Task<ToastResult> ShowToastAsync(Action<ToastOptions> options)
         => ShowToastAsync(new ToastOptions(options));
 
@@ -103,7 +103,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             return CloseCoreAsync(toast, result);
         }
 
-        return CloseCoreAsync(toast, ToastResult.OfProgrammatic(data));
+        return CloseCoreAsync(toast, ToastResult.OfProgrammatic(toast, data));
     }
 
     /// <inheritdoc cref="INotificationService.CloseAllToastsAsync"/>
@@ -113,7 +113,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
         foreach (var toast in toasts)
         {
-            await CloseCoreAsync(toast, ToastResult.OfProgrammatic());
+            await CloseCoreAsync(toast, ToastResult.OfProgrammatic(toast));
         }
 
         return toasts.Count;
@@ -193,7 +193,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         // Remove the Toast from the ToastProvider.
         await RemoveToastFromProviderAsync(instance);
 
-        // Set the result of the Toast.
+        // Set the result of the Toast.        
         instance.ResultCompletion.TrySetResult(result);
     }
 

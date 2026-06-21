@@ -115,7 +115,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
             if (notification is IToastInstance toast)
             {
-                await CloseCoreAsync((IToastInstance)toast, ToastResult.OfProgrammatic(data));
+                await CloseCoreAsync((IToastInstance)toast, ToastResult.OfProgrammatic(toast, data));
                 return true;
             }
         }
