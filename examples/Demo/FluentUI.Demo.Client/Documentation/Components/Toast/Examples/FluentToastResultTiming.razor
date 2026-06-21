@@ -11,14 +11,14 @@
 </FluentStack>
 
 <ul>
-    <li>@ResultTimingOnClose</li>
-    <li>@ResultTimingOnVisible</li>
+    <li>Toast "On Closed": @ResultTimingOnClose</li>
+    <li>Toast "On Visible": @ResultTimingOnVisible</li>
 </ul>
 
 @code {
 
-    string ResultTimingOnClose = "";
-    string ResultTimingOnVisible = "";
+    string ResultTimingOnClose = "...";
+    string ResultTimingOnVisible = "...";
 
     async Task OpenResultTimingOnCloseAsync()
     {
