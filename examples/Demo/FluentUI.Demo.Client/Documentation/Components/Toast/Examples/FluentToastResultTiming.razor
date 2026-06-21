@@ -29,7 +29,7 @@
             options.ResultTiming = ToastResultTiming.Closed;    // ResultTiming = On Close, which is the default behavior
         });
 
-        ResultTimingOnClose = $"Toast closed with reason: {resultOnClose.Reason}";
+        ResultTimingOnClose = $"Toast result completed with reason: {resultOnClose.Reason}";
     }
 
     async Task OpenResultTimingOnVisibleAsync()
@@ -41,7 +41,7 @@
             options.ResultTiming = ToastResultTiming.Visible;   // ResultTiming = On Visible, which means the result will complete as soon as the toast is rendered and visible to the user
         });
 
-        ResultTimingOnVisible = $"Toast visible with reason: {resultOnVisible.Reason}";
+        ResultTimingOnVisible = $"Toast result completed with reason: {resultOnVisible.Reason}";
     }
 }
 
