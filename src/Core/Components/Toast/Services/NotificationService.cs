@@ -40,32 +40,23 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
     /// <inheritdoc cref="INotificationService.ShowSuccessToastAsync(string?, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
     public Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
-    {
-        var options = new ToastOptions
-        {
-            Intent = ToastIntent.Success,
-            Title = title,
-            Message = message,
-            Lifetime = lifetime.HasValue ? TimeSpan.FromSeconds(lifetime.Value) : null,
-        };
+        => ShowSimpleToastAsync(ToastIntent.Success, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
-        if (!string.IsNullOrEmpty(dismissLabel))
-        {
-            options.AllowDismiss = true;
-            options.DismissAction.Label = dismissLabel;
-            options.DismissAction.OnClickAsync = async (e) =>
-            {
-                if (dismissOnClickAsync is not null)
-                {
-                    await dismissOnClickAsync.Invoke(e);
-                }
+    /// <inheritdoc cref="INotificationService.ShowWarningToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
+    public Task<ToastResult> ShowWarningToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+        => ShowSimpleToastAsync(ToastIntent.Warning, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
-                await e.Instance.CloseAsync(ToastCloseReason.Dismissed);
-            };
-        }
+    /// <inheritdoc cref="INotificationService.ShowErrorToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
+    public Task<ToastResult> ShowErrorToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+        => ShowSimpleToastAsync(ToastIntent.Error, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
-        return ShowToastAsync(options);
-    }
+    /// <inheritdoc cref="INotificationService.ShowInfoToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
+    public Task<ToastResult> ShowInfoToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+        => ShowSimpleToastAsync(ToastIntent.Info, title, message, lifetime, dismissLabel, dismissOnClickAsync);
+
+    /// <inheritdoc cref="INotificationService.ShowProgressToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
+    public Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+        => ShowSimpleToastAsync(ToastIntent.Progress, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowToastAsync(ToastOptions)"/>
     public async Task<ToastResult> ShowToastAsync(ToastOptions options)
@@ -126,6 +117,37 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         }
 
         return toasts.Count;
+    }
+
+    /// <summary>
+    /// Internal helper that builds and shows a simple intent-based toast.
+    /// </summary>
+    private Task<ToastResult> ShowSimpleToastAsync(ToastIntent intent, string title, string? message, int? lifetime, string? dismissLabel, Func<ToastEventArgs, Task>? dismissOnClickAsync)
+    {
+        var options = new ToastOptions
+        {
+            Intent = intent,
+            Title = title,
+            Message = message,
+            Lifetime = lifetime.HasValue ? TimeSpan.FromSeconds(lifetime.Value) : null,
+        };
+
+        if (!string.IsNullOrEmpty(dismissLabel))
+        {
+            options.AllowDismiss = true;
+            options.DismissAction.Label = dismissLabel;
+            options.DismissAction.OnClickAsync = async (e) =>
+            {
+                if (dismissOnClickAsync is not null)
+                {
+                    await dismissOnClickAsync.Invoke(e);
+                }
+
+                await e.Instance.CloseAsync(ToastCloseReason.Dismissed);
+            };
+        }
+
+        return ShowToastAsync(options);
     }
 
     /// <summary />
