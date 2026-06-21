@@ -34,7 +34,7 @@
             options.Lifetime = TimeSpan.FromSeconds(5);
             options.OnStatusChange = (e) =>
             {
-                Console.WriteLine($" . '{e.Instance?.Options.Title}' status changed to: {e.Status}");
+                Console.WriteLine($" . '{e.Instance.Options.Title}' status changed to: {e.Status}");
             };
         });
 

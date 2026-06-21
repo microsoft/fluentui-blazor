@@ -151,7 +151,7 @@
     [Fact]
     public void FluentToast_IsDismissable_TrueWithDismissAction_RendersDismissLink()
     {
-        var cut = Render(@<FluentToast Message="Toast body" IsDismissable="true" DismissAction="Dismiss now" />);
+        var cut = Render(@<FluentToast Message="Toast body" IsDismissable="true" DismissLabel="Dismiss now" />);
 
         Assert.Contains("Dismiss now", cut.Markup);
         Assert.Contains("fluent-link", cut.Markup);
@@ -213,7 +213,7 @@
         {
             options.Body = "Dismiss callback body";
             options.AllowDismiss = true;
-            options.DismissAction = "Dismiss now";
+            options.DismissLabel = "Dismiss now";
             options.DismissActionCallback = () =>
             {
                 dismissActionCallbackInvoked = true;
@@ -227,7 +227,7 @@
         var toastInstance = Assert.IsType<ToastInstance>(toast.Instance.Instance);
 
         Assert.True(toast.Instance.IsDismissable);
-        Assert.Equal("Dismiss now", toast.Instance.DismissAction);
+        Assert.Equal("Dismiss now", toast.Instance.DismissLabel);
 
         toast.Find("fluent-link").Click();
 

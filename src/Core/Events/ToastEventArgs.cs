@@ -10,31 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class ToastEventArgs : EventArgs
 {
     /// <summary />
-    internal ToastEventArgs(IToastInstance? instance, ToastLifecycleStatus status)
+    internal ToastEventArgs(IToastInstance instance, ToastLifecycleStatus status)
     {
-        Id = instance?.Id ?? string.Empty;
+        Id = instance.Id;
         Instance = instance;
         Status = status;
-    }
-
-    /// <summary />
-    internal ToastEventArgs(IToastInstance? instance, DialogToggleEventArgs args)
-        : this(instance, args.Id, args.Type, args.OldState, args.NewState)
-    {
-    }
-
-    /// <summary />
-    internal ToastEventArgs(IToastInstance? instance, string? id, string? eventType, string? oldState, string? newState)
-    {
-        Id = id ?? string.Empty;
-        Instance = instance;
-
-        Status = DialogEventArgs.GetDialogState(eventType, oldState, newState) switch
-        {
-            DialogState.Open => ToastLifecycleStatus.Visible,
-            DialogState.Closing => ToastLifecycleStatus.Dismissed,
-            _ => ToastLifecycleStatus.Queued,
-        };
     }
 
     /// <summary>
@@ -51,5 +31,5 @@ public class ToastEventArgs : EventArgs
     /// Gets the instance used by the <see cref="NotificationService" />.
     /// This value may be null if the toast is not managed by the <see cref="NotificationService"/>.
     /// </summary>
-    public IToastInstance? Instance { get; }
+    public IToastInstance Instance { get; }
 }

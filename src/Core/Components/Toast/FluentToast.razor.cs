@@ -158,17 +158,32 @@ public partial class FluentToast : FluentComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the toast can be dismissed by the user. Default is <see langword="true"/>.
     /// When <see langword="true"/>, a dismiss button is rendered;
-    /// Use <see cref="DismissAction"/> to customize its label.
+    /// Use <see cref="DismissLabel"/> to customize its label.
     /// </summary>
     [Parameter]
     public bool AllowDismiss { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the label for the dismiss action button (e.g., `DismissAction="Close"`).
+    /// Gets or sets the label for the dismiss action button (e.g., `DismissLabel="Close"`).
     /// Only relevant when <see cref="AllowDismiss"/> is <see langword="true"/>.
     /// </summary>
     [Parameter]
-    public string? DismissAction { get; set; }
+    public string? DismissLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip for the dismiss action button.
+    /// Only relevant when <see cref="AllowDismiss"/> is <see langword="true"/>.
+    /// </summary>
+    [Parameter]
+    public string? DismissTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the action invoked when the toast is dismissed, clicking on the dismiss button or the <see cref="DismissLabel"/>.
+    /// If set, the toast is not closed automatically, and the action is responsible for closing the toast by calling <see cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/>.
+    /// If not set, the toast is closed setting the <see cref="ToastResult.Reason"/> to <see cref="ToastCloseReason.Dismissed"/>.
+    /// </summary>
+    [Parameter]
+    public Action<ToastEventArgs>? DismissCallback { get; set; }
 
     /// <summary>
     /// Gets or sets the content rendered in the toast body.
@@ -316,6 +331,14 @@ public partial class FluentToast : FluentComponentBase
         if (ToastInstance is null)
         {
             await CloseAsync();
+            return;
+        }
+
+        if (DismissCallback is not null)
+        {
+            // The current status is still Visible.
+            var args = new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Visible);
+            DismissCallback.Invoke(args);
             return;
         }
 

@@ -33,7 +33,9 @@
                              Title="@toast.Options.Title"
                              Subtitle="@toast.Options.Subtitle"
                              AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
-                             DismissAction="@toast.Options.DismissAction"
+                             DismissLabel="@toast.Options.DismissLabel"
+                             DismissTooltip="@toast.Options.DismissTooltip"
+                             DismissCallback="@toast.Options.DismissCallback"
                              Width="@(toast.Options.Width ?? configuration.Toast.Width)"
                              AdditionalAttributes="@toast.Options.AdditionalAttributes">
                     @RenderToastContent(toast)

@@ -144,7 +144,20 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets dismiss action label.
     /// </summary>
-    public string? DismissAction { get; set; }
+    public string? DismissLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tooltip for the dismiss action button.
+    /// Only relevant when <see cref="AllowDismiss"/> is <see langword="true"/>.
+    /// </summary>
+    public string? DismissTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the action invoked when the toast is dismissed, clicking on the dismiss button or the <see cref="DismissLabel"/>.
+    /// If set, the toast is not closed automatically, and the action is responsible for closing the toast by calling <see cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/>.
+    /// If not set, the toast is closed setting the <see cref="ToastResult.Reason"/> to <see cref="ToastCloseReason.Dismissed"/>.
+    /// </summary>
+    public Action<ToastEventArgs>? DismissCallback { get; set; }
 
     /// <summary>
     /// Gets or sets the timestamp when the toast was created.

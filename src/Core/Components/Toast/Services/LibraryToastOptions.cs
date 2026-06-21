@@ -61,9 +61,9 @@ public class LibraryToastOptions
 
     /// <summary>
     /// Gets or sets a value indicating whether visible toasts can be dismissed by the user.
-    /// Default is `false`, which is the recommended behavior according to Fluent UI design guidelines.
+    /// Default is `true`, which is the recommended behavior according to Fluent UI design guidelines.
     /// </summary>
-    public bool AllowDismiss { get; set; }
+    public bool AllowDismiss { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value indicating whether the toast uses inverted colors.
