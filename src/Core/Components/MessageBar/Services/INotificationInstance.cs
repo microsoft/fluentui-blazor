@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -13,6 +15,7 @@ public partial interface INotificationInstance
     /// Gets the optional component type rendered for this notification.
     /// When <see langword="null"/>, the default notification component is rendered.
     /// </summary>
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     internal Type? ComponentType { get; }
 
     /// <summary>

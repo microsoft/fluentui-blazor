@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -14,6 +15,7 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     private static long _counter;
     internal readonly TaskCompletionSource<MessageBarResult> ResultCompletion = new();
     private readonly CancellationTokenSource _lifetimeCts = new();
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     private readonly Type? _componentType;
     private bool _disposed;
 
@@ -24,7 +26,7 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     }
 
     /// <summary />
-    internal MessageBarInstance(INotificationService notificationService, Type? componentType, MessageBarOptions options)
+    internal MessageBarInstance(INotificationService notificationService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type? componentType, MessageBarOptions options)
     {
         Options = options;
         NotificationService = notificationService;
@@ -34,6 +36,7 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     }
 
     /// <summary />
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     Type? INotificationInstance.ComponentType => _componentType;
 
     /// <summary />

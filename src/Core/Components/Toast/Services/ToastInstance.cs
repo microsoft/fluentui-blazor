@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -13,6 +14,7 @@ public class ToastInstance : IToastInstance
 {
     private static long _counter;
     internal readonly TaskCompletionSource<ToastResult> ResultCompletion = new();
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     private readonly Type? _componentType;
 
     /// <summary />
@@ -22,7 +24,7 @@ public class ToastInstance : IToastInstance
     }
 
     /// <summary />
-    internal ToastInstance(INotificationService notificationService, Type? componentType, ToastOptions options)
+    internal ToastInstance(INotificationService notificationService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type? componentType, ToastOptions options)
     {
         Options = options;
         NotificationService = notificationService;
@@ -37,6 +39,7 @@ public class ToastInstance : IToastInstance
     internal Func<bool, Task> UpdateOpenedAsync { get; set; } = _ => Task.CompletedTask;
 
     /// <summary />
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     Type? INotificationInstance.ComponentType => _componentType;
 
     /// <summary />

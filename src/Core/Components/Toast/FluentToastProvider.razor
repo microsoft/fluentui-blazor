@@ -32,18 +32,12 @@
                              Icon="@toast.Options.Icon"
                              Title="@toast.Options.Title"
                              Subtitle="@toast.Options.Subtitle"
+                             ChildContent="@RenderToastContent(toast)"
                              AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
                              DismissAction="@toast.Options.DismissAction"
                              FooterTemplate="@RenderFooterContent(toast)"
                              Width="@(toast.Options.Width ?? configuration.Toast.Width)"
-                             AdditionalAttributes="@toast.Options.AdditionalAttributes">
-                    @RenderToastContent(toast)
-                    @if (toast.ComponentType is not null)
-                    {
-                        <DynamicComponent Type="@toast.ComponentType"
-                                          Parameters="@toast.Options.Parameters" />
-                    }
-                </FluentToast>
+                             AdditionalAttributes="@toast.Options.AdditionalAttributes" />                
             </CascadingValue>
         }
     }

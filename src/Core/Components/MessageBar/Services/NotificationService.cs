@@ -137,7 +137,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     }
 
     /// <summary />
-    private MessageBarInstance ShowMessageInstanceCore(Type? componentType, MessageBarOptions options)
+    private MessageBarInstance ShowMessageInstanceCore([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type? componentType, MessageBarOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
 

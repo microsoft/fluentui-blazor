@@ -95,6 +95,9 @@ This example shows an indeterminate progress toast for operations where completi
 
 This example shows a determinate progress toast that updates as the operation advances toward completion.
 
+It uses `ShowToastAsync<TToast>(...)`, where the generic type `TToast` is the Razor component **dynamically** rendered inside the toast body.
+With this approach, you can open any Razor component in the toast and fully customize its content and behavior.
+
 {{ FluentToastDeterminateProgress }}
 
 ### Quick actions

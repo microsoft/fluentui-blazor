@@ -79,12 +79,40 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
     /// <summary />
     private RenderFragment? RenderToastContent(IToastInstance? toast)
     {
-        if (toast is null || string.IsNullOrEmpty(toast.Options.Message))
+        if (toast is null)
         {
             return null;
         }
 
-        return builder => builder.AddContent(0, new MarkupStringSanitized(toast.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
+        var hasMessage = !string.IsNullOrEmpty(toast.Options.Message);
+        var hasComponent = toast.ComponentType is not null;
+
+        if (!hasMessage && !hasComponent)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            if (hasMessage)
+            {
+                builder.AddContent(0, new MarkupStringSanitized(toast.Options.Message!, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
+            }
+
+            if (hasComponent)
+            {
+                builder.OpenComponent(1, toast.ComponentType!);
+                if (toast.Options.Parameters is not null)
+                {
+                    foreach (var parameter in toast.Options.Parameters)
+                    {
+                        builder.AddAttribute(2, parameter.Key, parameter.Value);
+                    }
+                }
+
+                builder.CloseComponent();
+            }
+        };
     }
 
     /// <summary>

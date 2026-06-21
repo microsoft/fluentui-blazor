@@ -151,7 +151,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     }
 
     /// <summary />
-    private ToastInstance ShowToastInstanceCore(Type? componentType, ToastOptions options)
+    private ToastInstance ShowToastInstanceCore([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type? componentType, ToastOptions options)
     {
         ArgumentNullException.ThrowIfNull(options);
 
