@@ -117,9 +117,9 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
                 stackBuilder.OpenComponent<FluentLink>(0);
                 stackBuilder.AddComponentParameter(1, nameof(FluentLink.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
                 {
-                    if (action.CallbackAsync is not null)
+                    if (action.OnClickAsync is not null)
                     {
-                        await action.CallbackAsync.Invoke(new ToastEventArgs(toast, ToastLifecycleStatus.Visible));
+                        await action.OnClickAsync.Invoke(new ToastEventArgs(toast, ToastLifecycleStatus.Visible));
                     }
                 }));
                 stackBuilder.AddComponentParameter(2, nameof(FluentLink.Tooltip), action.Tooltip);

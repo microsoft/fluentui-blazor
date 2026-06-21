@@ -66,11 +66,18 @@ builder.Services.AddFluentUIComponents(config =>
 
 ## Examples
 
+### Fastest helper methods
+
+This example shows the fastest helper methods to display **success**, **info**, **warning**, **error** and **progress** toasts 
+by using a required title plus optional message and dismiss button details.
+
+{{ FluentToastDefault }}
+
 ### Default
 
 This example shows the standard toast setup with default behavior and intent. Use it as the baseline pattern for simple status feedback.
 
-{{ FluentToastDefault }}
+{{ FluentToastDefaultOptions }}
 
 ### Custom dismissal
 

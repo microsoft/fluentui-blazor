@@ -22,5 +22,5 @@ public class ToastOptionsAction
     /// <summary>
     /// Gets or sets the callback to invoke when the action button is clicked.
     /// </summary>
-    public Func<ToastEventArgs, Task>? CallbackAsync { get; set; }
+    public Func<ToastEventArgs, Task>? OnClickAsync { get; set; }
 }

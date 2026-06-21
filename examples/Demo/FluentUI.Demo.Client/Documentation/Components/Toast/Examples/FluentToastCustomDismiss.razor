@@ -16,7 +16,7 @@
             options.Message = "This toast has a custom dismiss action.";
             options.DismissAction.Label = "Review";
             options.DismissAction.Tooltip = "Click to review the update.";
-            options.DismissAction.CallbackAsync = async (e) =>
+            options.DismissAction.OnClickAsync = async (e) =>
             {
                 Console.WriteLine($"Review action clicked.");
                 await e.Instance.CloseAsync(ToastCloseReason.Dismissed);

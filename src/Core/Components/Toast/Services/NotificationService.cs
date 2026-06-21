@@ -38,6 +38,35 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     /// <summary />
     protected IFluentLocalizer Localizer { get; }
 
+    /// <inheritdoc cref="INotificationService.ShowSuccessToastAsync(string?, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
+    public Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+    {
+        var options = new ToastOptions
+        {
+            Intent = ToastIntent.Success,
+            Title = title,
+            Message = message,
+            Lifetime = lifetime.HasValue ? TimeSpan.FromSeconds(lifetime.Value) : null,
+        };
+
+        if (!string.IsNullOrEmpty(dismissLabel))
+        {
+            options.AllowDismiss = true;
+            options.DismissAction.Label = dismissLabel;
+            options.DismissAction.OnClickAsync = async (e) =>
+            {
+                if (dismissOnClickAsync is not null)
+                {
+                    await dismissOnClickAsync.Invoke(e);
+                }
+
+                await e.Instance.CloseAsync(ToastCloseReason.Dismissed);
+            };
+        }
+
+        return ShowToastAsync(options);
+    }
+
     /// <inheritdoc cref="INotificationService.ShowToastAsync(ToastOptions)"/>
     public async Task<ToastResult> ShowToastAsync(ToastOptions options)
     {

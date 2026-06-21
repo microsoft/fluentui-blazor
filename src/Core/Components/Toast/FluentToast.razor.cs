@@ -319,11 +319,11 @@ public partial class FluentToast : FluentComponentBase
             return;
         }
 
-        if (DismissAction.CallbackAsync is not null)
+        if (DismissAction.OnClickAsync is not null)
         {
             // The current status is still Visible.
             var args = new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Visible);
-            await DismissAction.CallbackAsync.Invoke(args);
+            await DismissAction.OnClickAsync.Invoke(args);
             return;
         }
 
