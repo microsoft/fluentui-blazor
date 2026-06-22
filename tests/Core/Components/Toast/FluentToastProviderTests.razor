@@ -1,3 +1,5 @@
+@using System.Linq
+@using System.Reflection
 @using Xunit
 @using Microsoft.Extensions.DependencyInjection
 @inherits FluentUITestContext
@@ -260,5 +262,49 @@
             Assert.Contains("No actions", cut.Markup);
             Assert.DoesNotContain("slot=\"footer\"", cut.Markup);
         });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_QuickActionClicked_InvokesOnClickAsync()
+    {
+        // Arrange
+        var invoked = false;
+        var cut = Render(@<FluentToastProvider />);
+
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Quick action click";
+            options.QuickAction1.Label = "Action 1";
+            options.QuickAction1.OnClickAsync = _ =>
+            {
+                invoked = true;
+                return Task.CompletedTask;
+            };
+        });
+        await Task.CompletedTask;
+
+        cut.WaitForAssertion(() => Assert.Contains("Action 1", cut.Markup));
+
+        // Act
+        var link = cut.FindAll("fluent-link").First(element => element.TextContent.Contains("Action 1"));
+        await cut.InvokeAsync(() => link.Click());
+
+        // Assert
+        Assert.True(invoked);
+    }
+
+    [Fact]
+    public void FluentToastProvider_RenderToastContent_NullToast_ReturnsNull()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var method = typeof(FluentToastProvider).GetMethod("RenderToastContent", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Act
+        var result = method!.Invoke(provider, new object?[] { null });
+
+        // Assert
+        Assert.Null(result);
     }
 }
