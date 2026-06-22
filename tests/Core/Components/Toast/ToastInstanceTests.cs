@@ -187,4 +187,80 @@ public class ToastInstanceTests : Bunit.BunitContext
         // Assert
         Assert.False(instance.Result.IsCompleted);
     }
+
+    [Fact]
+    public void ToastInstance_NotificationService_ReturnsOwningService()
+    {
+        // Arrange
+        var service = GetService();
+
+        // Act
+        var instance = new ToastInstance(service, new ToastOptions());
+
+        // Assert
+        Assert.Same(service, instance.NotificationService);
+    }
+
+    /// <summary>
+    /// Subscribes a fake provider so the service considers a provider available,
+    /// then shows a toast and returns its registered <see cref="ToastInstance"/>.
+    /// </summary>
+    private ToastInstance ShowRegisteredToast(NotificationService service, ToastOptions options)
+    {
+        service.Subscribe("toast-provider", _ => Task.CompletedTask);
+        _ = service.ShowToastAsync(options);
+        return (ToastInstance)service.GetToastInstance(options.Id!)!;
+    }
+
+    [Fact]
+    public async Task ToastInstance_CloseAsync_ClosesThroughService_WithProgrammaticReason()
+    {
+        // Arrange
+        var service = GetService();
+        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-1", Title = "Title" });
+
+        // Act
+        await instance.CloseAsync();
+        var result = await instance.Result;
+
+        // Assert
+        Assert.Equal(ToastLifecycleStatus.Dismissed, instance.LifecycleStatus);
+        Assert.Equal(ToastCloseReason.Programmatic, result.Reason);
+        Assert.Same(instance, result.Instance);
+    }
+
+    [Fact]
+    public async Task ToastInstance_CloseAsync_WithReasonAndData_PassesThemToResult()
+    {
+        // Arrange
+        var service = GetService();
+        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-2", Title = "Title" });
+
+        // Act
+        await instance.CloseAsync(ToastCloseReason.QuickAction, "payload");
+        var result = await instance.Result;
+
+        // Assert
+        Assert.Equal(ToastLifecycleStatus.Dismissed, instance.LifecycleStatus);
+        Assert.Equal(ToastCloseReason.QuickAction, result.Reason);
+        Assert.Equal("payload", result.Data);
+        Assert.Same(instance, result.Instance);
+    }
+
+    [Fact]
+    public async Task ToastInstance_CloseAsync_WithReasonOnly_HasNullData()
+    {
+        // Arrange
+        var service = GetService();
+        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-3", Title = "Title" });
+
+        // Act
+        await instance.CloseAsync(ToastCloseReason.TimedOut);
+        var result = await instance.Result;
+
+        // Assert
+        Assert.Equal(ToastCloseReason.TimedOut, result.Reason);
+        Assert.Null(result.Data);
+    }
 }
+

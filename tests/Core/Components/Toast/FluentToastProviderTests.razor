@@ -99,4 +99,166 @@
         var exception = Record.Exception(() => provider.Dispose());
         Assert.Null(exception);
     }
+
+    // The inverted CSS variable applied to footer quick action links when the toast is inverted.
+    private const string INVERTED_LINK_COLOR = "color: var(--colorBrandForegroundInverted);";
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_NotInverted_RendersLinkWithoutInvertedColor()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Not inverted";
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.DoesNotContain(INVERTED_LINK_COLOR, cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_InvertedFromOptions_RendersLinkWithInvertedColor()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Inverted from options";
+            options.Inverted = true;
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.Contains(INVERTED_LINK_COLOR, cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_InvertedFromConfiguration_RendersLinkWithInvertedColor()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.Inverted = true;
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Inverted from configuration";
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.Contains(INVERTED_LINK_COLOR, cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_PrimaryAndSecondaryActions_RendersBothLinks()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Both actions";
+            options.QuickAction1.Label = "Action 1";
+            options.QuickAction2.Label = "Action 2";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("slot=\"footer\"", cut.Markup);
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.Contains("Action 2", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_PrimaryActionOnly_RendersPrimaryLink()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Primary action only";
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("slot=\"footer\"", cut.Markup);
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.DoesNotContain("Action 2", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_SecondaryActionOnly_RendersSecondaryLink()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Secondary action only";
+            options.QuickAction2.Label = "Action 2";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("slot=\"footer\"", cut.Markup);
+            Assert.Contains("Action 2", cut.Markup);
+            Assert.DoesNotContain("Action 1", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_NoActions_RendersNoFooter()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "No actions";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("No actions", cut.Markup);
+            Assert.DoesNotContain("slot=\"footer\"", cut.Markup);
+        });
+    }
 }
