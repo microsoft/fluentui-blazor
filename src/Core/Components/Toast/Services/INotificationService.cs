@@ -58,7 +58,6 @@ public partial interface INotificationService : IFluentServiceBase<INotification
 
     /// <summary>
     /// Shows a progress toast with the specified title and message and waits for the close result.
-    /// The toast persists until explicitly closed (no automatic dismissal by default).
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>

@@ -18,7 +18,7 @@ public class LibraryToastOptions
     /// <summary>
     /// Gets or sets the maximum number of toasts displayed at the same time.
     /// Default is 4 toasts, which is the recommended maximum number of toasts to be displayed according to Fluent UI design guidelines.
-    /// When the maximum count is reached, the oldest toast is dismissed when a new toast is added. 
+    /// When the maximum count is reached, additional toasts are queued and displayed as room becomes available. 
     /// Setting this value to 0 allows an unlimited number of toasts to be displayed, which can lead to a poor user experience and is not recommended.
     /// </summary>
     public int MaxToastCount { get; set; } = 4;

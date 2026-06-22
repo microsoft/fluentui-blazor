@@ -29,7 +29,6 @@ public class ToastEventArgs : EventArgs
 
     /// <summary>
     /// Gets the instance used by the <see cref="NotificationService" />.
-    /// This value may be null if the toast is not managed by the <see cref="NotificationService"/>.
     /// </summary>
     public IToastInstance Instance { get; }
 }
