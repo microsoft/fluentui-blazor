@@ -369,5 +369,160 @@ public class NotificationServiceToastTests : Bunit.BunitContext
             Assert.Contains("from-test", cut.Markup);
         });
     }
+
+    [Fact]
+    public async Task ShowSimpleToastAsync_DismissOnClick_InvokesCallbackAndClosesToast()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+        var callbackInvoked = false;
+
+        _ = service.ShowInfoToastAsync(
+            "Title",
+            dismissLabel: "Close",
+            lifetime: null,
+            dismissOnClickAsync: _ =>
+            {
+                callbackInvoked = true;
+                return Task.CompletedTask;
+            });
+
+        var instance = SingleToast(service);
+        var args = new ToastEventArgs(instance, ToastLifecycleStatus.Visible);
+
+        // Act
+        await instance.Options.DismissAction.OnClickAsync!.Invoke(args);
+
+        // Assert
+        Assert.True(callbackInvoked);
+        Assert.Equal(ToastLifecycleStatus.Dismissed, instance.LifecycleStatus);
+    }
+
+    [Fact]
+    public async Task ShowSimpleToastAsync_DismissOnClick_WithoutCallback_ClosesToast()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+
+        _ = service.ShowInfoToastAsync("Title", dismissLabel: "Close", lifetime: null);
+
+        var instance = SingleToast(service);
+        var args = new ToastEventArgs(instance, ToastLifecycleStatus.Visible);
+
+        // Act
+        await instance.Options.DismissAction.OnClickAsync!.Invoke(args);
+
+        // Assert
+        Assert.Equal(ToastLifecycleStatus.Dismissed, instance.LifecycleStatus);
+    }
+
+    [Fact]
+    public async Task CloseCoreAsync_NonToastInstance_DoesNothing()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+        var fake = new FakeToastInstance();
+
+        // Act & Assert (does not throw and returns)
+        await service.CloseAsync(fake);
+    }
+
+    [Fact]
+    public async Task CloseCoreAsync_AlreadyUnmounted_DoesNotSetResult()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+
+        // A freshly created instance defaults to the Unmounted status.
+        var instance = new ToastInstance(service, new ToastOptions { Id = "unmounted" });
+        Assert.Equal(ToastLifecycleStatus.Unmounted, instance.LifecycleStatus);
+
+        // Act
+        await service.CloseAsync(instance);
+
+        // Assert
+        Assert.False(instance.Result.IsCompleted);
+    }
+
+    [Fact]
+    public async Task RemoveToastFromProviderAsync_Null_DoesNothing()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+
+        // Act & Assert (does not throw)
+        await service.RemoveToastFromProviderAsync(null);
+    }
+
+    [Fact]
+    public async Task RemoveToastFromProviderAsync_NonToastInstance_DoesNothing()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+
+        // Act & Assert (does not throw)
+        await service.RemoveToastFromProviderAsync(new FakeToastInstance());
+    }
+
+    [Fact]
+    public async Task RemoveToastFromProviderAsync_RemovesToast_AndRaisesUnmountedStatus()
+    {
+        // Arrange
+        var service = GetService();
+        INotificationInstance? notified = null;
+        service.Subscribe(TEST_PROVIDER, instance =>
+        {
+            notified = instance;
+            return Task.CompletedTask;
+        });
+
+        _ = service.ShowToastAsync(new ToastOptions { Id = "remove-id", Title = "Title" });
+        var instance = service.GetToastInstance("remove-id")!;
+
+        // Act
+        await service.CloseAsync(instance);
+
+        // Assert: the fire-and-forget removal completes after the closing animation delay.
+        await WaitForAsync(() => service.GetToastInstance("remove-id") is null);
+        Assert.Null(service.GetToastInstance("remove-id"));
+        Assert.Equal(ToastLifecycleStatus.Unmounted, instance.LifecycleStatus);
+        Assert.NotNull(notified);
+        Assert.Equal("remove-id", notified!.Id);
+    }
+
+    private static async Task WaitForAsync(Func<bool> condition, int timeoutMilliseconds = 5000)
+    {
+        var elapsed = 0;
+        const int interval = 50;
+
+        while (!condition() && elapsed < timeoutMilliseconds)
+        {
+            await Task.Delay(interval);
+            elapsed += interval;
+        }
+    }
+
+    /// <summary>
+    /// A test double implementing <see cref="IToastInstance"/> that is not a <see cref="ToastInstance"/>,
+    /// used to exercise the type-guard branches of the service.
+    /// </summary>
+    private sealed class FakeToastInstance : IToastInstance
+    {
+        public ToastOptions Options { get; } = new();
+
+        public Task<ToastResult> Result => Task.FromResult(ToastResult.OfProgrammatic(this));
+
+        public ToastLifecycleStatus LifecycleStatus => ToastLifecycleStatus.Queued;
+
+        public string Id { get; } = "fake-id";
+
+        public long Index => 0;
+
+        Type? INotificationInstance.ComponentType => null;
+
+        public Task CloseAsync() => Task.CompletedTask;
+
+        public Task CloseAsync(ToastCloseReason reason, object? data = null) => Task.CompletedTask;
+    }
 }
 

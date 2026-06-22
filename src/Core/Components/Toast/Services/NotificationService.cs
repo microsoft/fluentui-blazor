@@ -21,22 +21,17 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     /// Initializes a new instance of the <see cref="NotificationService"/> class.
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
-    /// <param name="localizer">Localizer for the application.</param>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarEventArgs))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarInstance))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(INotificationInstance))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastInstance))]
-    public NotificationService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
+    public NotificationService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
         _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
-        Localizer = localizer ?? FluentLocalizerInternal.Default;
         ServiceProvider.OnUpdatedAsync = DispatchOnUpdatedAsync;
     }
-
-    /// <summary />
-    protected IFluentLocalizer Localizer { get; }
 
     /// <inheritdoc cref="INotificationService.ShowSuccessToastAsync(string?, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
     public Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = 5, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
