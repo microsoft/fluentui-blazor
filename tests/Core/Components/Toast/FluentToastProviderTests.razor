@@ -307,4 +307,52 @@
         // Assert
         Assert.Null(result);
     }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_SynchronizeToastQueue_PromotesQueuedToastsUpToMaxCount()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.MaxToastCount = 2;
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        for (var i = 1; i <= 4; i++)
+        {
+            _ = NotificationService.ShowToastAsync(new ToastOptions { Title = $"Queued toast {i}" });
+        }
+        await Task.CompletedTask;
+
+        // Assert
+        var items = ((IFluentServiceBase<INotificationInstance>)NotificationService).Items;
+        cut.WaitForAssertion(() =>
+        {
+            var toasts = items.Values.OfType<IToastInstance>().ToList();
+            Assert.Equal(2, toasts.Count(toast => toast.LifecycleStatus == ToastLifecycleStatus.Visible));
+            Assert.Equal(2, toasts.Count(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued));
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_SynchronizeToastQueue_PromotesAllQueuedToasts_WhenUnderMaxCount()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.MaxToastCount = 5;
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        for (var i = 1; i <= 3; i++)
+        {
+            _ = NotificationService.ShowToastAsync(new ToastOptions { Title = $"Visible toast {i}" });
+        }
+        await Task.CompletedTask;
+
+        // Assert
+        var items = ((IFluentServiceBase<INotificationInstance>)NotificationService).Items;
+        cut.WaitForAssertion(() =>
+        {
+            var toasts = items.Values.OfType<IToastInstance>().ToList();
+            Assert.Equal(3, toasts.Count(toast => toast.LifecycleStatus == ToastLifecycleStatus.Visible));
+            Assert.DoesNotContain(toasts, toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued);
+        });
+    }
 }
