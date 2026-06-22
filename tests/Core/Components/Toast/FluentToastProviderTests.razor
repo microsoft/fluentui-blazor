@@ -1,0 +1,102 @@
+@using Xunit
+@using Microsoft.Extensions.DependencyInjection
+@inherits FluentUITestContext
+
+@code
+{
+    // A timeout used when a toast is opened but not explicitly closed.
+    private const int TEST_TIMEOUT = 3000;
+
+    public FluentToastProviderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        NotificationService = Services.GetRequiredService<INotificationService>();
+    }
+
+    /// <summary>
+    /// Gets the notification service.
+    /// </summary>
+    public INotificationService NotificationService { get; }
+
+    [Fact]
+    public void FluentToastProvider_RendersEmpty()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToastProvider />);
+
+        // Assert
+        Assert.DoesNotContain("<fluent-toast-b", cut.Markup);
+        Assert.Contains("fluent-toast-provider", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToastProvider_HasZIndexStyle()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToastProvider />);
+
+        // Assert
+        Assert.Contains("z-index", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GeneratesId()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToastProvider />);
+
+        // Assert
+        Assert.False(string.IsNullOrEmpty(cut.FindComponent<FluentToastProvider>().Instance.Id));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_ShowInfo_RendersToast()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowInfoToastAsync("Info title", "Info message", lifetime: null);
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("<fluent-toast-b", cut.Markup);
+            Assert.Contains("Info title", cut.Markup);
+            Assert.Contains("Info message", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_ShowToast_RendersTitle()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(new ToastOptions
+        {
+            Title = "Direct options",
+            Intent = ToastIntent.Success,
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("Direct options", cut.Markup));
+    }  
+
+    [Fact]
+    public void FluentToastProvider_Dispose_DoesNotThrow()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+
+        // Act & Assert
+        var exception = Record.Exception(() => provider.Dispose());
+        Assert.Null(exception);
+    }
+}

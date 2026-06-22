@@ -30,6 +30,7 @@
             options.Title = $"{intent} toast #{counter++}";
             options.Message = "Toasts are used to show brief messages to the user.";
             options.Subtitle = "Sent by Fluent UI Blazor";
+            options.Lifetime = TimeSpan.FromSeconds(10);
             options.AllowDismiss = true;
             options.OnStatusChange = (e) =>
             {
