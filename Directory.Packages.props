@@ -1,6 +1,9 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <RuntimeVersion8>8.0.0</RuntimeVersion8>
+    <AspNetCoreVersion8>8.0.22</AspNetCoreVersion8>
+    <EfCoreVersion8>8.0.0</EfCoreVersion8>
     <RuntimeVersion9>9.0.17</RuntimeVersion9>
     <AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.17</EfCoreVersion9>
@@ -40,6 +43,27 @@
     <!-- For templates generation -->
     <PackageVersion Include="System.CommandLine" Version="2.0.5" />
     <PackageVersion Include="Microsoft.Extensions.FileSystemGlobbing" Version="$(RuntimeVersion10)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
+    <!-- Build dependencies -->
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Analyzers" Version="$(AspNetCoreVersion8)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion8)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion8)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion8)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion8)" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion8)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion8)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion8)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion8)" />
+    <PackageVersion Include="System.IO.Pipelines" Version="$(RuntimeVersion8)" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
     <!-- Build dependencies -->
