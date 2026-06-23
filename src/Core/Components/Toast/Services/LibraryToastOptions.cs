@@ -8,6 +8,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class LibraryToastOptions
 {
+    // Recommanded default lifetime is 7 seconds according to Fluent UI design guidelines.
+    internal const int DefaultLifetimeSeconds = 7;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="LibraryToastOptions"/> class.
     /// </summary>
@@ -28,7 +31,7 @@ public class LibraryToastOptions
     /// When set to a positive value, the toast is automatically removed after this duration elapses.
     /// When `null`, the toast stays visible until it is dismissed programmatically or by the user.
     /// </summary>
-    public TimeSpan? Lifetime { get; set; }
+    public TimeSpan? Lifetime { get; set; } = TimeSpan.FromSeconds(DefaultLifetimeSeconds);
 
     /// <summary>
     /// Gets or sets the default toast position.

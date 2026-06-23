@@ -19,7 +19,7 @@
                              Class="@toast.Options.ClassValue"
                              Style="@toast.Options.StyleValue"
                              Data="@toast.Options.Data"
-                             Lifetime="@(toast.Options.Lifetime ?? configuration.Toast.Lifetime)"
+                             Lifetime="@(GetLifetime(toast))"
                              Position="@(toast.Options.Position ?? configuration.Toast.Position)"
                              VerticalOffset="@(toast.Options.VerticalOffset ?? configuration.Toast.VerticalOffset)"
                              HorizontalOffset="@(toast.Options.HorizontalOffset ?? configuration.Toast.HorizontalOffset)"

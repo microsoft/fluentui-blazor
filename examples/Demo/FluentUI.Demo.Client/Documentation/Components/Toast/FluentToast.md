@@ -40,7 +40,7 @@ Global default values (used for all instances) can be set using the `LibraryConf
 The type of this member is `LibraryToastOptions`, and has the following properties (and default values):
 
 - `MaxToastCount = 4`
-- `Lifetime = null`
+- `Lifetime = 7 seconds`
 - `Position = ToastPosition.BottomEnd`
 - `VerticalOffset = 16`
 - `HorizontalOffset = 20`
@@ -52,6 +52,10 @@ The type of this member is `LibraryToastOptions`, and has the following properti
 
 The preferred defaults can be set in the `AddFluentUIComponents` method when configuring services.
 
+> [!NOTE] By default, toasts stay on the screen for seven seconds. On hover or focus, the toast’s timer will pause 
+> and resume when the person navigates away from it.
+> When a toast contains at least one quick action and no explicit `Lifetime` is set, the default lifetime
+> is automatically set to `0` to disable automatic closing.
 
 **Example**
 
@@ -77,7 +81,7 @@ by using a required title plus optional message and dismiss button details.
 
 This example shows the standard toast setup with default behavior and intent. Use it as the baseline pattern for simple status feedback.
 
-In this example, **Success**, **Warning**, **Error**, and **Info** toasts are shown for 5 seconds (`lifetime = 5`) and then close automatically.
+In this example, **Success**, **Warning**, **Error**, and **Info** toasts are shown for 7 seconds (`lifetime = 7`) and then close automatically.
 The **Progress** toast behaves differently: the line `ProgressResult = await NotificationService.ShowProgressToastAsync()` returns immediately 
 a toast instance that is stored in `ProgressResult.Instance`.
 When `ProgressResult` is available, the [Close Progress] button is enabled so the user can close that toast manually.
@@ -109,6 +113,10 @@ With this approach, you can open any Razor component in the toast and fully cust
 
 This example shows quick action links inside the toast so people can immediately respond to the notification.
 
+> [!NOTE] When a toast contains at least one quick action and no explicit `Lifetime` is set, the default lifetime
+> is automatically set to `0` to disable automatic closing. This keeps the toast on screen so the user has time
+> to interact with the action. To override this behavior, set an explicit `Lifetime` value in the `ToastOptions`.
+
 {{ FluentToastQuickActions }}
 
 ### Result Timing
@@ -127,7 +135,7 @@ You can also control when the awaited result is completed with `ResultTiming`:
 
 When using `Visible`, keep the returned `result.Instance` if you need to interact with that toast later (for example, close it programmatically).
 
-In the sample, both toasts stay visible for 5 seconds. **Show Lifetime On Close** reports the result after the toast closes, 
+In the sample, both toasts stay visible for 7 seconds. **Show Lifetime On Close** reports the result after the toast closes, 
 while **Show Lifetime On Visible** reports it immediately when the toast appears.
 
 {{ FluentToastResultTiming }}

@@ -74,7 +74,7 @@ public class ToastOptions : IFluentComponentBase
     /// <summary>
     /// Gets or sets the lifetime of the toast.
     /// When set to a positive value, the toast is automatically removed after this duration elapses.
-    /// When `null`, the toast stays visible until it is dismissed programmatically or by the user.
+    /// When `TimeSpan.Zero`, the toast stays visible until it is dismissed programmatically or by the user.
     /// </summary>
     public TimeSpan? Lifetime { get; set; }
 

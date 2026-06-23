@@ -115,6 +115,26 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
         };
     }
 
+    private TimeSpan GetLifetime(IToastInstance toast)
+    {
+        // If the toast has a specific lifetime defined, use it.
+        if (toast.Options.Lifetime.HasValue)
+        {
+            return toast.Options.Lifetime.Value;
+        }
+
+        // Keep the toast open until the user interacts with it or dismisses it.
+        var hasPrimaryAction = !string.IsNullOrEmpty(toast.Options.QuickAction1.Label);
+        var hasSecondaryAction = !string.IsNullOrEmpty(toast.Options.QuickAction2.Label);
+        if (hasPrimaryAction || hasSecondaryAction)
+        {
+            return TimeSpan.Zero;
+        }
+
+        // Otherwise, use the default lifetime from the configuration, or TimeSpan.Zero if not defined.
+        return configuration.Toast.Lifetime ?? TimeSpan.Zero;
+    }
+
     /// <summary>
     /// Renders the footer content of the toast, including the primary and secondary quick actions if they are defined in the toast options.
     /// </summary>

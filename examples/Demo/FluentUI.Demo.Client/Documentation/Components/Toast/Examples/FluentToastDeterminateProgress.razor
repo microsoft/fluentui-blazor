@@ -17,6 +17,7 @@
         var result = await NotificationService.ShowToastAsync<Toast.CustomizedProgressToast>(options =>
         {
             options.Title = "Downloading file";
+            options.Lifetime = TimeSpan.Zero; // Keep the toast open until closed after the progress is complete
             options.Icon = new Icons.Regular.Size24.ArrowDownload();
             options.AllowDismiss = false;
             options.Width = "400px";

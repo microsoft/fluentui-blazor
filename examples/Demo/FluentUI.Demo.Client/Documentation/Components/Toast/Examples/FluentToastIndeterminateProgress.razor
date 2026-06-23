@@ -26,6 +26,7 @@
             options.Id = "my-progress-toast";
             options.Intent = ToastIntent.Progress;
             options.Title = "Task in progress";
+            options.Lifetime = TimeSpan.Zero; // Keep the toast open until closed programmatically
             options.Message = "No idea when this will be finished...";
             options.AllowDismiss = false;
             options.OnStatusChange = (e) =>
