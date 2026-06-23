@@ -510,6 +510,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
         }
 
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(GetOptionValue(_internalSelectedItem));
+        }
+
         NotifyValidationFieldChanged();
     }
 
