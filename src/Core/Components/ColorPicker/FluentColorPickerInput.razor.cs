@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>, ITooltipComponent
 {
     [GeneratedRegex(@"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", RegexOptions.None, matchTimeoutMilliseconds: 100)]
-    private static partial Regex HexColorRegex();
+    private static partial Regex HexColorRegex { get; }
 
     private FluentColorPicker _colorPicker = default!;
 
@@ -30,7 +30,12 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
         // Default message displayed when the value is invalid
         MessageCondition = (field) =>
         {
-            if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex.IsMatch(CurrentValueAsString))
             {
                 field.MessageIcon = FluentStatus.ErrorIcon;
                 field.Message = Localizer[Localization.LanguageResource.ColorPickerInput_InvalidHexMessage];
@@ -137,7 +142,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
             return true;
         }
 
-        if (!HexColorRegex().IsMatch(value))
+        if (!HexColorRegex.IsMatch(value))
         {
             validationErrorMessage = Localizer[Localization.LanguageResource.ColorPickerInput_InvalidHexMessage];
             return false;
@@ -157,7 +162,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
     {
         var value = CurrentValueAsString;
 
-        if (!string.IsNullOrEmpty(value) && HexColorRegex().IsMatch(value))
+        if (!string.IsNullOrEmpty(value) && HexColorRegex.IsMatch(value))
         {
             return value;
         }

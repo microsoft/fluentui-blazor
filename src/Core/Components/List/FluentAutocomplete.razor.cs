@@ -100,7 +100,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public override IEnumerable<TOption> SelectedItems
     {
         get => _internalSelectedItems;
-        set => _internalSelectedItems = Multiple ? [.. value] : [.. value.Take(1)];
+        set => _internalSelectedItems = value is null ? [] : (Multiple ? [.. value] : [.. value.Take(1)]);
     }
 
     /// <summary>
@@ -146,8 +146,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public string? MaxSelectedWidth { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the dismiss (clear) button is visible. When <c>true</c> (default), the
-    /// dismiss button is shown; when <c>false</c>, the search icon is shown instead.
+    /// Gets or sets whether the dismiss (clear) button is visible. When <see langword="true"/> (default), the
+    /// dismiss button is shown; when <see langword="false"/>, the search icon is shown instead.
     /// </summary>
     [Parameter]
     public bool ShowDismiss { get; set; } = true;
@@ -189,7 +189,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public TOption? SelectedItem { get; set; }
 
     /// <summary>
-    /// Gets or sets an event callback that is raised when the <see cref="SelectedItem"/> changes. 
+    /// Gets or sets an event callback that is raised when the <see cref="SelectedItem"/> changes.
     /// This is only relevant when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
     /// </summary>
     [Parameter]
@@ -209,6 +209,10 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// Gets a value indicating whether the number of selected options has reached the maximum defined by <see cref="MaximumSelectedOptions"/>.
     /// </summary>
     public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
+
+    private LambdaExpression? ValidationFieldAccessor => Multiple
+        ? SelectedItemsExpression
+        : SelectedItemExpression;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -258,6 +262,28 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         await base.OnParametersSetAsync();
     }
 
+    /// <summary>
+    /// Notifies the EditContext that the validation field has changed, based on whether the component is in multiple or single selection mode.
+    /// </summary>
+    protected override void NotifyValidationFieldChanged()
+    {
+        if (Multiple && SelectedItemsExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+            return;
+        }
+
+        if (!Multiple && SelectedItemExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+            return;
+        }
+
+        base.NotifyValidationFieldChanged();
+    }
+
     /// <summary />
     public override async Task SetParametersAsync(ParameterView parameters)
     {
@@ -304,7 +330,7 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         else
         {
             var selectedItem = _internalSelectedItems.FirstOrDefault();
-            var isInsideFilteredItems = _internalFilteredItems.Any(item => comparer.Equals(item, selectedItem));
+            var isInsideFilteredItems = _internalFilteredItems.Exists(item => comparer.Equals(item, selectedItem));
             if (!items.Any() && isInsideFilteredItems)
             {
                 _internalSelectedItems.Clear();
@@ -339,6 +365,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             await ValueChanged.InvokeAsync(value);
         }
 
+        NotifyValidationFieldChanged();
+
         await SetInputFocusAsync();
     }
 
@@ -354,9 +382,9 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             // When Backspace is pressed and there is no text in the input, remove the last selected item
             case "Backspace":
             case "Delete":
-                if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Any())
+                if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Count > 0)
                 {
-                    await RemoveSelectedItemAsync(_internalSelectedItems.Last());
+                    await RemoveSelectedItemAsync(_internalSelectedItems[^1]);
                 }
 
                 break;
@@ -474,6 +502,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         {
             await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
         }
+
+        NotifyValidationFieldChanged();
     }
 
     /// <summary>
@@ -510,6 +540,8 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         {
             await SelectedItemChanged.InvokeAsync(SelectedItem);
         }
+
+        NotifyValidationFieldChanged();
     }
 
     /// <summary>

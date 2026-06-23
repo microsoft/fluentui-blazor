@@ -41,17 +41,77 @@ If you want to display an Action and a TimeStamp, you can use the `ActionsTempla
 
 {{ MessageBarLayouts }}
 
-## Message Service
+## Notification Service
 
-TODO in the next PR.
+Use the `NotificationService` to display message bars from C# code (for example, from an event handler, a service, or after an API call).
 
-> [!WARNING] `FluentMessageBars` are rendered by the `<FluentProviders />`.  
-> This component needs to be added to the layout of your application.
-> See the [Installation page](/installation) for more information.
+The service is registered automatically when you call `AddFluentUIComponents()` in your `Program.cs`:
+
+You can then inject it into any component or service:
+
+```csharp
+@inject INotificationService NotificationService
+```
+
+**FluentMessageBarProvider**
+
+For the message bars created by the service to be rendered, you **must** add at least one `FluentMessageBarProvider`
+component in your application (typically in `MainLayout.razor`, or in any page where you want the messages to appear).
+
+```razor
+<FluentMessageBarProvider Section="MAIN" />
+```
+
+The `Section` parameter is **required** and used to identify the provider.
+When you call one of the `ShowMessageAsync` / `ShowSuccessMessageAsync` / `ShowWarningMessageAsync` / `ShowErrorMessageAsync` / `ShowInfoMessageAsync`
+methods, the first argument (or the `MessageBarOptions.Section` property) specifies in which provider the message will be displayed.
+
+This allows you to have several independent provider zones on the same page (for example, one global provider in the layout
+and a local provider scoped to a specific panel or dialog), and to route each message to the appropriate one.
+
+>[!Note] A message published to a section that has no matching `FluentMessageBarProvider` will not be visible.
+> Make sure the `Section` value passed to the service matches the `Section` value of the provider.
+
+**Showing a message bar**
+
+The simplest way to display a message is to use one of the typed helpers, passing the target section and the message text:
+
+- `NotificationService.ShowSuccessBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowWarningBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowErrorBarAsync("SECTION", "Title", "Message")`
+- `NotificationService.ShowInfoBarAsync("SECTION", "Title", "Message")`
+
+{{ MessageBarServiceDefault }}
+
+**Configuring the message bar**
+
+For more control (title, intent, layout, lifetime, dismiss button, ...), use the `ShowMessageAsync` overload that accepts
+an `Action<MessageBarOptions>`. The returned `MessageBarResult` indicates how the message bar was closed.
+
+{{ MessageBarServiceOptions }}
+
+**Using a custom component**
+
+You can also display a fully custom component inside the message bar by using the generic `ShowMessageAsync<TComponent>` overload.
+This is useful when the default layout is not enough and you need to render rich content.
+
+{{ MessageBarServiceCustomized Files=Code:MessageBarServiceCustomized.razor;CustomizedMessageBar:CustomizedMessageBar.razor;CustomizedComponent:CustomizedComponent.razor }}
 
 ## API FluentMessageBar
 
 {{ API Type=FluentMessageBar }}
+
+## API NotificationService
+
+{{ API Type=NotificationService }}
+
+## API MessageBarOptions
+
+{{ API Type=MessageBarOptions Properties=All }}
+
+## API FluentMessageBarProvider
+
+{{ API Type=FluentMessageBarProvider }}
 
 ## Migrating to v5
 

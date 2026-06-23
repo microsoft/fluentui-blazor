@@ -23,12 +23,23 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
         LabelPosition = Components.LabelPosition.After;
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the width of the checkbox (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+    
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
 
     /// <summary>
-    /// Gets or sets the three-state value of the checkbox: <c>true</c> (checked), <c>false</c> (unchecked), or <c>null</c> (indeterminate).
+    /// Gets or sets the three-state value of the checkbox: <see langword="true"/> (checked), <see langword="false"/> (unchecked), or <see langword="null"/> (indeterminate).
     /// Used when <see cref="ThreeState"/> is enabled.
     /// </summary>
     [Parameter]
@@ -64,8 +75,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
 
     /// <summary>
     /// Gets or sets a value indicating the order of the three states of the CheckBox.
-    /// False(by default), the order is Unchecked -> Checked -> Intermediate.
-    /// True: the order is Unchecked -> Intermediate -> Checked.
+    /// <see langword="false"/> (by default), the order is Unchecked -> Checked -> Intermediate.
+    /// <see langword="true"/>: the order is Unchecked -> Intermediate -> Checked.
     /// </summary>
     [Parameter]
     public bool ThreeStateOrderUncheckToIntermediate { get; set; }
@@ -151,6 +162,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
         {
             await CheckStateChanged.InvokeAsync(newValue);
         }
+
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
     }
 
     private async Task OnCheckChangedHandlerAsync(ChangeEventArgs e)
@@ -209,7 +222,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
 
     private async Task SetToCheckedAsync()
     {
-        await SetCheckStateChangedAsync(true);
+        await SetCheckStateChangedAsync(newValue: true);
     }
 
     private async Task SetToUncheckedAsync()

@@ -13,6 +13,9 @@
     -->
     <NetVersion>net9.0</NetVersion>
 
+    <!-- .NET Framework Version used with the Assets projects -->
+    <AssetsNetVersion>net9.0</AssetsNetVersion>
+
     <!-- Target .NET versions for multi-targeting -->
     <!-- Used with the published libraries: Core; McpServer -->
     <!-- Debug: single target for faster builds; Release: full multi-targeting -->
@@ -33,6 +36,7 @@
     <RepositoryUrl>https://github.com/microsoft/fluentui-blazor</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <License>MIT</License>
     <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
     <AssemblyVersion>$(VersionFile)</AssemblyVersion>
