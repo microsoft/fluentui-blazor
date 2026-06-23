@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverflow : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overflow/FluentOverflow.razor.js";
-    private readonly List<FluentOverflowItem> _items = [];
+    private readonly List<OverflowItem> _items = [];
     private DotNetObjectReference<FluentOverflow>? _dotNetHelper;
 
     /// <summary />
@@ -31,7 +31,7 @@ public partial class FluentOverflow : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    internal FluentOverflow(LibraryConfiguration configuration, List<FluentOverflowItem> items) : this(configuration)
+    internal FluentOverflow(LibraryConfiguration configuration, List<OverflowItem> items) : this(configuration)
     {
         _items = items;
     }
@@ -63,10 +63,24 @@ public partial class FluentOverflow : FluentComponentBase
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
+    /// Gets or sets the CSS selector of direct children to include in the overflow.
+    /// If null or empty, all direct children except the built-in More button are considered.
+    /// </summary>
+    [Parameter]
+    public string? Selector { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the CSS selectors of the items to include in the overflow.
+    /// Use <see cref="Selector"/> instead.
     /// </summary>
     [Parameter]
     public string? Selectors { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets whether overflow items are cached in JavaScript memory.
+    /// </summary>
+    [Parameter]
+    public bool StoreOverflowInMemory { get; set; }
 
     /// <summary>
     /// Gets or sets whether the tooltip is displayed using the TooltipService.
@@ -75,10 +89,10 @@ public partial class FluentOverflow : FluentComponentBase
     public bool UseTooltipService { get; set; } = false;
 
     /// <summary>
-    /// Event raised when a <see cref="FluentOverflowItem"/> enter or leave the current panel.
+    /// Event raised when an item enters or leaves the current panel.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<FluentOverflowItem>> OnOverflowRaised { get; set; }
+    public EventCallback<IEnumerable<OverflowItem>> OnOverflowRaised { get; set; }
 
     /// <summary>
     /// Gets or sets the content to display.
@@ -88,16 +102,23 @@ public partial class FluentOverflow : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets all items with <see cref="FluentOverflowItem.Overflow"/> assigned to True.
+    /// Gets all items with <see cref="OverflowItem.Overflow"/> assigned to true.
     /// </summary>
-    public IEnumerable<FluentOverflowItem> ItemsOverflow => _items.Where(i => i.Overflow == true);
+    public IEnumerable<OverflowItem> ItemsOverflow => _items.Where(i => i.Overflow);
 
     /// <summary>
     /// Gets the unique identifier associated to the more button ([Id]-more).
     /// </summary>
     public string IdMoreButton => $"{Id}-more";
 
+    /// <summary />
+    protected virtual string? MoreButtonStyleValue => DefaultStyleBuilder
+        .AddStyle("visibility", "hidden", !ItemsOverflow.Any())
+        .AddStyle("anchor-name", $"--{IdMoreButton}")
+        .Build();
+
     private bool IsHorizontal => Orientation == Orientation.Horizontal;
+    private string? ItemSelector => string.IsNullOrWhiteSpace(Selector) ? Selectors : Selector;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -107,7 +128,7 @@ public partial class FluentOverflow : FluentComponentBase
             await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
 
             _dotNetHelper = DotNetObjectReference.Create(this);
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Initialize", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Initialize", _dotNetHelper, Id, IsHorizontal, ItemSelector, 25);
             VisibleOnLoad = true;
         }
     }
@@ -122,7 +143,7 @@ public partial class FluentOverflow : FluentComponentBase
     {
         if (JSModule is not null)
         {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, IsHorizontal, ItemSelector, 25);
         }
     }
 
@@ -130,17 +151,8 @@ public partial class FluentOverflow : FluentComponentBase
     [JSInvokable]
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        if (items == null || items.Length == 0)
-        {
-            return;
-        }
-
-        // Update Item components
-        foreach (var item in items)
-        {
-            var element = _items.FirstOrDefault(i => string.Equals(i.Id, item.Id, StringComparison.OrdinalIgnoreCase));
-            element?.SetProperties(item.Overflow, item.Text);
-        }
+        _items.Clear();
+        _items.AddRange(items ?? []);
 
         // Raise event
         if (OnOverflowRaised.HasDelegate)
@@ -149,16 +161,6 @@ public partial class FluentOverflow : FluentComponentBase
         }
 
         await InvokeAsync(StateHasChanged);
-    }
-    internal async Task RegisterAsync(FluentOverflowItem item)
-    {
-        await InvokeAsync(() => _items.Add(item));
-    }
-
-    internal async Task UnregisterAsync(FluentOverflowItem item)
-    {
-        _items.Remove(item);
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", item.Id);
     }
 
     /// <inheritdoc />
@@ -178,9 +180,15 @@ public partial class FluentOverflow : FluentComponentBase
         public string? Id { get; set; }
 
         /// <summary />
-        public bool? Overflow { get; set; }
+        public bool Overflow { get; set; }
 
         /// <summary />
         public string? Text { get; set; }
+
+        /// <summary />
+        public string? Fixed { get; set; }
+
+        /// <summary />
+        public int Index { get; set; }
     }
 }

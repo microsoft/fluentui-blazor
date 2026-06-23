@@ -3,7 +3,7 @@
         <ChildContent>
             @foreach (var item in Items)
             {
-                <FluentOverflowItem><FluentBadge Content="@item"></FluentBadge></FluentOverflowItem>
+                <div><FluentBadge Content="@item"></FluentBadge></div>
             }
         </ChildContent>
         <MoreButtonTemplate>
@@ -31,7 +31,7 @@
 
     List<string> Items = new List<string>() { Catalog[0], Catalog[1] };
 
-    void OverflowHandler(IEnumerable<FluentOverflowItem> items)
+    void OverflowHandler(IEnumerable<FluentOverflow.OverflowItem> items)
     {
         var text = String.Join("; ", items.Select(i => i.Text));
 

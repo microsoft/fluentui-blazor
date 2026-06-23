@@ -5,114 +5,317 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
     Id: string;
     Overflow: boolean;
     Text: string;
+    Fixed?: string | null;
+    Index?: number;
   }
 
   interface OverflowElement extends HTMLElement {
     overflowSize?: number | null;
   }
 
-  interface LastHandledState {
-    id: string | null;
-    isHorizontal: boolean | null;
+  interface OverflowElementHost extends HTMLElement {
+    refresh?: () => void;
+    getOverflowItems?: () => OverflowItem[];
   }
 
-  let resizeObserver: ResizeObserver | undefined;
-  let observerAddRemove: MutationObserver | undefined;
-  let lastHandledState: LastHandledState = { id: null, isHorizontal: null };
+  interface ObserverContext {
+    resizeObserver: ResizeObserver;
+    mutationObserver: MutationObserver;
+    resizeTimeout?: number;
+    lastHandledState: boolean | null;
+    listener?: EventListener;
+  }
+
+  interface RefreshResult {
+    items: OverflowItem[];
+    overflowChanged: boolean;
+    isHorizontal: boolean;
+  }
+
+  const observerContexts = new Map<string, ObserverContext>();
+
+  class FluentOverflow extends HTMLElement {
+    private resizeObserver?: ResizeObserver;
+    private mutationObserver?: MutationObserver;
+    private resizeTimeout?: number;
+    private lastHandledState: boolean | null = null;
+    private overflowItems: OverflowItem[] = [];
+
+    static get observedAttributes() {
+      return ["orientation", "selector", "selectors", "threshold", "visible-on-load", "store-overflow-in-memory"];
+    }
+
+    connectedCallback() {
+      this.classList.add("fluent-overflow");
+      this.setupObservers();
+      this.refresh();
+      this.setAttribute("visible-on-load", "true");
+      this.style.visibility = "";
+    }
+
+    disconnectedCallback() {
+      this.cleanupObservers();
+    }
+
+    attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+      if (oldValue === newValue) {
+        return;
+      }
+
+      if (name === "visible-on-load") {
+        this.style.visibility = newValue === "false" ? "hidden" : "";
+        return;
+      }
+
+      this.refresh();
+    }
+
+    refresh() {
+      const result = refreshContainer(this, this.getIsHorizontal(), this.getQuerySelector(), this.getThreshold(), this.lastHandledState);
+      this.lastHandledState = result.isHorizontal;
+
+      if (this.getStoreOverflowInMemory()) {
+        this.overflowItems = result.items;
+      }
+
+      if (result.overflowChanged) {
+        if (!this.getStoreOverflowInMemory()) {
+          this.overflowItems = result.items;
+        }
+
+        this.dispatchEvent(new CustomEvent("overflowchange", {
+          detail: {
+            items: result.items,
+            overflowCount: result.items.filter(i => i.Overflow).length
+          },
+          bubbles: true,
+          composed: true
+        }));
+      }
+    }
+
+    getOverflowItems(): OverflowItem[] {
+      if (this.overflowItems.length > 0) {
+        return [...this.overflowItems];
+      }
+
+      return getCurrentItems(this, this.getQuerySelector());
+    }
+
+    getOverflowCount(): number {
+      return this.getOverflowItems().filter(i => i.Overflow).length;
+    }
+
+    private setupObservers() {
+      this.cleanupObservers();
+
+      if (typeof ResizeObserver !== "undefined") {
+        this.resizeObserver = new ResizeObserver(() => {
+          clearTimeout(this.resizeTimeout);
+          this.resizeTimeout = window.setTimeout(() => this.refresh(), 100);
+        });
+        this.resizeObserver.observe(this);
+      }
+
+      this.mutationObserver = new MutationObserver(() => this.refresh());
+      this.mutationObserver.observe(this, { childList: true, subtree: false });
+    }
+
+    private cleanupObservers() {
+      this.resizeObserver?.disconnect();
+      this.resizeObserver = undefined;
+      this.mutationObserver?.disconnect();
+      this.mutationObserver = undefined;
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = undefined;
+    }
+
+    private getIsHorizontal(): boolean {
+      const orientation = this.getAttribute("orientation");
+      return orientation !== "vertical";
+    }
+
+    private getThreshold(): number {
+      const value = Number.parseFloat(this.getAttribute("threshold") ?? "25");
+      return Number.isFinite(value) ? value : 25;
+    }
+
+    private getStoreOverflowInMemory(): boolean {
+      const value = this.getAttribute("store-overflow-in-memory");
+      return value === "true" || value === "";
+    }
+
+    private getQuerySelector(): string | null {
+      return this.getAttribute("selector") ?? this.getAttribute("selectors");
+    }
+  }
+
+  if (!customElements.get("fluent-overflow")) {
+    customElements.define("fluent-overflow", FluentOverflow);
+  }
 
   export function Initialize(dotNetHelper: DotNet.DotNetObject, id: string, isHorizontal: boolean, querySelector: string | null, threshold: number): void {
-    let localSelector = querySelector;
-    if (!localSelector) {
-      localSelector = ".fluent-overflow-item";
+    const container = document.getElementById(id) as OverflowElementHost | null;
+    if (!container) {
+      return;
     }
 
-    observerAddRemove = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.type !== 'childList' && (mutation.addedNodes.length > 0 || mutation.removedNodes.length > 0)) {
-          return;
-        }
-        const node = mutation.addedNodes.length > 0 ? mutation.addedNodes[0] : mutation.removedNodes[0];
-        if (node.nodeType !== Node.ELEMENT_NODE || !(node as Element).matches(localSelector!)) {
-          return;
-        }
-        Refresh(dotNetHelper, id, isHorizontal, querySelector, threshold);
+    Dispose(id);
+
+    const listener: EventListener = (event) => {
+      const overflowEvent = event as CustomEvent<{ items: OverflowItem[] }>;
+      const items = overflowEvent.detail?.items ?? [];
+      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", items);
+    };
+
+    container.addEventListener("overflowchange", listener);
+
+    if (container.tagName.toLowerCase() === "fluent-overflow" && typeof container.refresh === "function") {
+      container.setAttribute("orientation", isHorizontal ? "horizontal" : "vertical");
+      container.setAttribute("threshold", String(threshold));
+      if (querySelector) {
+        container.setAttribute("selector", querySelector);
+      } else {
+        container.removeAttribute("selector");
+      }
+
+      observerContexts.set(id, {
+        resizeObserver: new ResizeObserver(() => { }),
+        mutationObserver: new MutationObserver(() => { }),
+        listener,
+        lastHandledState: isHorizontal
       });
+
+      container.refresh();
+      return;
+    }
+
+    const context: ObserverContext = {
+      resizeObserver: new ResizeObserver(() => { }),
+      mutationObserver: new MutationObserver(() => { }),
+      listener,
+      lastHandledState: isHorizontal
+    };
+
+    context.mutationObserver = new MutationObserver(mutations => {
+      for (const mutation of mutations) {
+        if (mutation.type !== "childList") {
+          continue;
+        }
+
+        const node = mutation.addedNodes.length > 0 ? mutation.addedNodes[0] : mutation.removedNodes[0];
+        if (node?.nodeType !== Node.ELEMENT_NODE) {
+          continue;
+        }
+
+        const selector = buildQuerySelector(querySelector);
+        if (!(node as Element).matches(selector)) {
+          continue;
+        }
+
+        Refresh(dotNetHelper, id, isHorizontal, querySelector, threshold);
+        break;
+      }
     });
 
-    const el = document.getElementById(id);
-    if (resizeObserver && el) {
-      resizeObserver.unobserve(el);
-    }
-
-    let resizeTimeout: number | undefined;
-    resizeObserver = new ResizeObserver(() => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = window.setTimeout(() => {
+    context.resizeObserver = new ResizeObserver(() => {
+      clearTimeout(context.resizeTimeout);
+      context.resizeTimeout = window.setTimeout(() => {
         Refresh(dotNetHelper, id, isHorizontal, querySelector, threshold);
       }, 100);
     });
 
-    if (el) {
-      resizeObserver.observe(el);
-      observerAddRemove.observe(el, { childList: true, subtree: false });
-    }
+    context.resizeObserver.observe(container);
+    context.mutationObserver.observe(container, { childList: true, subtree: false });
+    observerContexts.set(id, context);
 
-    lastHandledState.id = id;
-    lastHandledState.isHorizontal = isHorizontal;
+    Refresh(dotNetHelper, id, isHorizontal, querySelector, threshold);
   }
 
   export function Refresh(dotNetHelper: DotNet.DotNetObject, id: string, isHorizontal: boolean, querySelector: string | null, threshold: number): void {
-    const container = document.getElementById(id);
-    if (!container) return;
-
-    let localQuerySelector: string;
-    if (!querySelector) {
-      localQuerySelector = ":scope .fluent-overflow-item";
-    } else {
-      localQuerySelector = ":scope >" + querySelector;
+    const container = document.getElementById(id) as OverflowElementHost | null;
+    if (!container) {
+      return;
     }
 
-    const allItems = container.querySelectorAll<OverflowElement>(localQuerySelector);
-    const items = container.querySelectorAll<OverflowElement>(localQuerySelector + ":not([fixed])");
+    if (container.tagName.toLowerCase() === "fluent-overflow" && typeof container.refresh === "function") {
+      container.refresh();
+      if (typeof container.getOverflowItems === "function") {
+        dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", container.getOverflowItems());
+      }
+      return;
+    }
 
-    const fixedItemsFromSelector = container.querySelectorAll<OverflowElement>(localQuerySelector + "[fixed]");
-    const otherFixedItems = container.querySelectorAll<OverflowElement>(":scope > [fixed]:not(" + localQuerySelector + ")");
-    const fixedItems = [
-      ...Array.from(fixedItemsFromSelector),
-      ...Array.from(otherFixedItems)
-    ].filter(el => el.getAttribute("fixed") !== "ellipsis");
+    const context = observerContexts.get(id);
+    const result = refreshContainer(container, isHorizontal, querySelector, threshold, context?.lastHandledState ?? null);
+    if (context) {
+      context.lastHandledState = isHorizontal;
+    }
 
-    const ellipsisItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector + "[fixed='ellipsis']"));
+    if (result.overflowChanged) {
+      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", result.items);
+    }
+  }
+
+  export function Dispose(id: string): void {
+    const context = observerContexts.get(id);
+    if (!context) {
+      return;
+    }
+
+    const container = document.getElementById(id);
+    if (container && context.listener) {
+      container.removeEventListener("overflowchange", context.listener);
+    }
+
+    context.resizeObserver.disconnect();
+    context.mutationObserver.disconnect();
+    if (context.resizeTimeout) {
+      clearTimeout(context.resizeTimeout);
+    }
+
+    observerContexts.delete(id);
+  }
+
+  function refreshContainer(container: HTMLElement, isHorizontal: boolean, querySelector: string | null, threshold: number, lastHandledState: boolean | null): RefreshResult {
+    const localQuerySelector = buildQuerySelector(querySelector);
+    const allItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector));
+    const items = allItems.filter(element => !element.hasAttribute("fixed"));
+    const fixedItems = allItems.filter(element => element.hasAttribute("fixed") && element.getAttribute("fixed") !== "ellipsis");
+    const ellipsisItems = allItems.filter(element => element.getAttribute("fixed") === "ellipsis");
 
     let ellipsisTotal = 0;
     let containerGap = parseFloat(window.getComputedStyle(container).gap);
-    if (!containerGap) containerGap = 0;
+    if (!containerGap) {
+      containerGap = 0;
+    }
 
-    ellipsisItems.forEach((el, idx) => {
-      el.overflowSize = isHorizontal ? getElementWidth(el) : getElementHeight(el);
-      ellipsisTotal += el.overflowSize || 0;
-      if (idx > 0) ellipsisTotal += containerGap;
+    ellipsisItems.forEach((element, index) => {
+      element.overflowSize = isHorizontal ? getElementWidth(element) : getElementHeight(element);
+      ellipsisTotal += element.overflowSize || 0;
+      if (index > 0) {
+        ellipsisTotal += containerGap;
+      }
     });
 
     let itemsTotalSize = threshold > 0 ? 10 : 0;
     let containerMaxSize = isHorizontal ? container.offsetWidth : container.offsetHeight;
     let overflowChanged = false;
-
     containerMaxSize -= threshold;
 
-    const availableSize = containerMaxSize - fixedItems.reduce((sum, el, idx) => sum + (el.overflowSize || 0) + (idx > 0 ? containerGap : 0), 0);
+    const availableSize = containerMaxSize - fixedItems.reduce((sum, element, index) => sum + (element.overflowSize || 0) + (index > 0 ? containerGap : 0), 0);
 
     if (ellipsisTotal > availableSize) {
-      ellipsisItems.forEach(el => {
-        el.style.flexShrink = "1";
+      ellipsisItems.forEach(element => {
+        element.style.flexShrink = "1";
       });
     } else {
-      ellipsisItems.forEach(el => {
-        el.style.flexShrink = "0";
+      ellipsisItems.forEach(element => {
+        element.style.flexShrink = "0";
       });
     }
 
-    if (lastHandledState.id === id && lastHandledState.isHorizontal !== isHorizontal) {
+    if (lastHandledState !== null && lastHandledState !== isHorizontal) {
       allItems.forEach(element => {
         element.removeAttribute("overflow");
         element.overflowSize = null;
@@ -147,28 +350,35 @@ export namespace Microsoft.FluentUI.Blazor.Overflow {
       }
     });
 
-    if (overflowChanged) {
-      const listOfOverflow: OverflowItem[] = [];
-      items.forEach(element => {
-        listOfOverflow.push({
-          Id: element.id,
-          Overflow: element.hasAttribute("overflow"),
-          Text: element.innerText.trim()
-        });
-      });
-      dotNetHelper.invokeMethodAsync("OverflowRaisedAsync", listOfOverflow);
-    }
-
-    lastHandledState.id = id;
-    lastHandledState.isHorizontal = isHorizontal;
+    return {
+      items: toOverflowItems(items),
+      overflowChanged,
+      isHorizontal
+    };
   }
 
-  export function Dispose(id: string): void {
-    const el = document.getElementById(id);
-    if (el) {
-      resizeObserver?.unobserve(el);
-      observerAddRemove?.disconnect();
+  function getCurrentItems(container: HTMLElement, querySelector: string | null): OverflowItem[] {
+    const localQuerySelector = buildQuerySelector(querySelector);
+    const items = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector))
+      .filter(element => !element.hasAttribute("fixed"));
+    return toOverflowItems(items);
+  }
+
+  function toOverflowItems(items: OverflowElement[]): OverflowItem[] {
+    return items.map((element, index) => ({
+      Id: element.id,
+      Overflow: element.hasAttribute("overflow"),
+      Text: element.innerText.trim(),
+      Fixed: element.getAttribute("fixed"),
+      Index: index
+    }));
+  }
+
+  function buildQuerySelector(querySelector: string | null): string {
+    if (!querySelector) {
+      return ":scope > :not(.fluent-overflow-more)";
     }
+    return `:scope > ${querySelector}`;
   }
 
   function getElementWidth(element: HTMLElement): number {

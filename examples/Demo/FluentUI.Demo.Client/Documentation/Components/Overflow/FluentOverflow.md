@@ -33,6 +33,3 @@ Then refresh the page to see the difference between this example and the one abo
 ## API FluentOverflow   
 
 {{ API Type=FluentOverflow }}
-
-{{ API Type=FluentOverflowItem }}
-

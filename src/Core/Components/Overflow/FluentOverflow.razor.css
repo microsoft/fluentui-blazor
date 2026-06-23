@@ -29,7 +29,7 @@
     flex-shrink: 0;
 }
 
-.fluent-overflow .fluent-overflow-item[fixed='ellipsis'] {
+.fluent-overflow > *[fixed='ellipsis'] {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
