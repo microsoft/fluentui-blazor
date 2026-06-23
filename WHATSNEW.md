@@ -1,3 +1,17 @@
+## V4.14.3
+
+### Components
+
+- \[Chore\] Publish symbols from CI builds to internal symbol server ([#4910](https://github.com/microsoft/fluentui-blazor/pull/4910))
+- \[Chore\] Update dependencies in package.json ([#4946](https://github.com/microsoft/fluentui-blazor/pull/4946))
+- \[Docs\] Update link to v5 docs ([#4927](https://github.com/microsoft/fluentui-blazor/pull/4927))
+
+### Icons and Emoji
+
+- Update to Fluent UI System Icons 1.1.330
+
+See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 ## V4.14.2
 
 ### Components
