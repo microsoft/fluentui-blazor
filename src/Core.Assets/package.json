@@ -12,11 +12,11 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@microsoft/fast-element": "1.13.0",
-    "@microsoft/fast-foundation": "2.49.6",
+    "@microsoft/fast-element": "1.14.0",
+    "@microsoft/fast-foundation": "2.50.0",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
-    "esbuild": "0.25.0",
+    "esbuild": "0.28.1",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "8.57.0",
     "rimraf": "^5.0.5",
@@ -26,3 +26,4 @@
     "@fluentui/web-components": "2.6.1"
   }
 }
+

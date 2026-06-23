@@ -180,6 +180,14 @@ extends:
             projects: ${{ parameters.Projects }}
             arguments: '--configuration Release /p:ContinuousIntegrationBuild=true /p:DebugType=portable /p:DebugSymbols=true'
 
+        # Stage shipping binaries for symbol upload BEFORE the test step;
+        # see publish-symbols-stage.yml for why this must run pre-test.
+        # Pipeline only triggers on v* tags, but condition is explicit so
+        # a manual queue against a branch does not unintentionally upload.
+        - template: /eng/pipelines/publish-symbols-stage.yml@self
+          parameters:
+            condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
           condition: eq(variables['ShouldTest'], 'true')
@@ -214,6 +222,10 @@ extends:
           inputs:
             SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
             SymbolServerType: 'TeamServices'
+
+        - template: /eng/pipelines/publish-symbols-upload.yml@self
+          parameters:
+            condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
 
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2
