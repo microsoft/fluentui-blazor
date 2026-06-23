@@ -355,4 +355,95 @@
             Assert.DoesNotContain(toasts, toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued);
         });
     }
+
+    /// <summary>
+    /// Invokes the private <c>GetLifetime</c> method on the provider for the given toast.
+    /// </summary>
+    private static TimeSpan InvokeGetLifetime(FluentToastProvider provider, IToastInstance toast)
+    {
+        var method = typeof(FluentToastProvider).GetMethod("GetLifetime", BindingFlags.NonPublic | BindingFlags.Instance);
+        return (TimeSpan)method!.Invoke(provider, new object?[] { toast })!;
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_OptionsLifetimeDefined_ReturnsOptionsLifetime()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var options = new ToastOptions { Lifetime = TimeSpan.FromSeconds(12) };
+        var toast = new ToastInstance((NotificationService)NotificationService, options);
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.FromSeconds(12), lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_PrimaryActionDefined_ReturnsZero()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var options = new ToastOptions();
+        options.QuickAction1.Label = "Action 1";
+        var toast = new ToastInstance((NotificationService)NotificationService, options);
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.Zero, lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_SecondaryActionDefined_ReturnsZero()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var options = new ToastOptions();
+        options.QuickAction2.Label = "Action 2";
+        var toast = new ToastInstance((NotificationService)NotificationService, options);
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.Zero, lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_NoLifetimeNoActions_ReturnsConfigurationLifetime()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.Lifetime = TimeSpan.FromSeconds(5);
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var toast = new ToastInstance((NotificationService)NotificationService, new ToastOptions());
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.FromSeconds(5), lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_NoLifetimeNoActionsNoConfiguration_ReturnsZero()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.Lifetime = null;
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var toast = new ToastInstance((NotificationService)NotificationService, new ToastOptions());
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.Zero, lifetime);
+    }
 }
