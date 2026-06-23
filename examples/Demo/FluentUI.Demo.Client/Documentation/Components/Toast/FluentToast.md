@@ -28,6 +28,69 @@ Use these guidance points to keep toast usage consistent:
 - Prefer no more than four visible toasts in the same toaster.
 - Use timed dismissal for informational success feedback, and persistent behavior for active progress.
 
+## Types
+
+Toasts generally fall into three categories: confirmation, progress, and communication.
+The ideal configuration and usage of each toast type is described below:
+
+**Confirmation toast**
+
+Confirmation toasts are shown to someone as a direct result of their action. 
+A confirmation toast’s state can be success, error, warning, informational, or progress.
+
+**Progress toast**
+
+Progress toasts inform someone about the status of an operation they initiated.
+
+**Communication toast**
+
+Communication toasts inform someone of messages from the system or another person’s actions. 
+These messages can include mentions, event reminders, replies, and system updates.
+They include a call to action directly linking to a solution or the content that they reference. 
+They can be either temporary or persistent. They’re dismissible only if there is another surface, 
+like a notification center, where the customer can find this content again later.
+
+## Behavior
+
+### Dismissal
+
+Toasts can have timed, conditional, or express dismissals, dependent on their use case.
+
+**Timed dismissal**
+
+If there is no action to take, toast will time out after seven seconds. 
+Timed dismissal is best when there is no further action to take, like for a successful confirmation toast.
+
+People who navigate via mouse can pause the timer by hovering over the toast. 
+However, toasts that don’t include actions won’t receive keyboard focus for people who navigate primarily by keyboard.
+
+**Conditional dismissal**
+
+Use conditional dismissal for toasts that should persist until a condition is met, like a progress toast that dismisses once a task is complete.
+
+Don’t use toasts for necessary actions. If you need the encourage people to take an action before moving forward, 
+try a more forceful surface like a message bar or a dialog.
+
+**Express dismissal**
+
+Include the "Close" button to allow people to expressly dismiss toasts only if they can find that information again elsewhere, 
+like in a notification center.
+
+>[!Note] We do not have a way yet to facilitate showing toast messages on other surfaces like a notification center, so use the express dismissal option with caution.
+
+### Determinate and indeterminate progress
+
+Progress toasts can be either determinate or indeterminate, depending on the needs of your app and the 
+capabilities of the technology you’re building on.
+
+When the completion time can be predicted, show a determinate progress bar and percentage of completion. 
+Determinate progress bars offer a reliable user experience since they communicate status and assure people things are still working.
+
+If the completion time is unknown or its accuracy is unreliable, show an indeterminate spinner icon instead.
+
+Although a specific type of toast needs to be specified through the `ToastOptions`, the library does not prevent you 
+from showing both a spinner icon and a progress bar in the same toast, but we recommend strongly against doing this.
+
 ## Accessibility
 
 Toasts are announced with an alert role and live region behavior based on intent. Use the `Intent` value in `ToastOptions` to apply semantic styling and announcement priority.
