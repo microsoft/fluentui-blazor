@@ -281,6 +281,13 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             return;
         }
 
+        if (!Multiple && ValueExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+            return;
+        }
+
         base.NotifyValidationFieldChanged();
     }
 
