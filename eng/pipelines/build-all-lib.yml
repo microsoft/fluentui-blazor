@@ -182,11 +182,12 @@ extends:
 
         # Stage shipping binaries for symbol upload BEFORE the test step;
         # see publish-symbols-stage.yml for why this must run pre-test.
-        # Pipeline only triggers on v* tags, but condition is explicit so
-        # a manual queue against a branch does not unintentionally upload.
+        # Releases are cut by manually queueing this pipeline against a release
+        # branch HEAD, so gate on the branch allowlist (consistent with
+        # build-core-lib.yml); the tag check covers the declared trigger.
         - template: /eng/pipelines/publish-symbols-stage.yml@self
           parameters:
-            condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/dev', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/'), startsWith(variables['Build.SourceBranch'], 'refs/tags/v')))
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -225,7 +226,7 @@ extends:
 
         - template: /eng/pipelines/publish-symbols-upload.yml@self
           parameters:
-            condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/dev', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/'), startsWith(variables['Build.SourceBranch'], 'refs/tags/v')))
 
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2
