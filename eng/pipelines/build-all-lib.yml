@@ -182,9 +182,8 @@ extends:
 
         # Stage shipping binaries for symbol upload BEFORE the test step;
         # see publish-symbols-stage.yml for why this must run pre-test.
-        # Releases are cut by manually queueing this pipeline against a release
-        # branch HEAD, so gate on the branch allowlist (consistent with
-        # build-core-lib.yml); the tag check covers the declared trigger.
+        # Symbols publish from the branches we ship from (main/dev/dev-v5/archives/*),
+        # whether the run is queued manually or via the declared tag trigger.
         - template: /eng/pipelines/publish-symbols-stage.yml@self
           parameters:
             condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/dev', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/'), startsWith(variables['Build.SourceBranch'], 'refs/tags/v')))
