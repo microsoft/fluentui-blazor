@@ -274,10 +274,20 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             return;
         }
 
-        if (!Multiple && SelectedItemExpression is not null)
+        if (!Multiple)
         {
-            EditContext?.NotifyFieldChanged(
-                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+            if (SelectedItemExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+            }
+
+            if (ValueExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+            }
+
             return;
         }
 
@@ -503,6 +513,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
         }
 
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(GetOptionValue(_internalSelectedItem));
+        }
+
         NotifyValidationFieldChanged();
     }
 
@@ -539,6 +554,11 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
         if (SelectedItemChanged.HasDelegate)
         {
             await SelectedItemChanged.InvokeAsync(SelectedItem);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(GetOptionValue(SelectedItem));
         }
 
         NotifyValidationFieldChanged();
