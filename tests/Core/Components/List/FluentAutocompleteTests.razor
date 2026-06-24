@@ -936,7 +936,7 @@
         var cut = Render(@<FluentAutocomplete Id="my-list"
                                               TOption="string"
                                               TValue="string"
-                                              Multiple="true"
+                                              Multiple="false"
                                               Items="@Digits"
                                               SelectedItem="@selectedItem"
                                               SelectedItemChanged="@((value) => selectedItem = value)" />);
@@ -956,7 +956,7 @@
         var cut = Render(@<FluentAutocomplete Id="my-list"
                                               TOption="string"
                                               TValue="string"
-                                              Multiple="true"
+                                              Multiple="false"
                                               Items="@Digits"
                                               Value="@selectedItem"
                                               ValueChanged="@((value) => selectedItem = value)" />);
@@ -1365,7 +1365,7 @@
                                               Multiple="false"
                                               @bind-Value="selectedId"
                                               OnOptionsSearch="@((e) => e.Items = items)"
-                                              OnSetValue="@((e) => e.Item = items.FirstOrDefault(x => x.Id == e.Value))" />);
+                                              OnSetValue="@((e) => e.Item = e.Value is int id ? items.FirstOrDefault(x => x.Id == id) : null)" />);
 
         // Assert that the component does not update the value on load
         Assert.Equal(2, selectedId);

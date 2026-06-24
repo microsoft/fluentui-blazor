@@ -274,17 +274,20 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
             return;
         }
 
-        if (!Multiple && SelectedItemExpression is not null)
+        if (!Multiple)
         {
-            EditContext?.NotifyFieldChanged(
-                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
-            return;
-        }
+            if (SelectedItemExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+            }
 
-        if (!Multiple && ValueExpression is not null)
-        {
-            EditContext?.NotifyFieldChanged(
-                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+            if (ValueExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+            }
+
             return;
         }
 
