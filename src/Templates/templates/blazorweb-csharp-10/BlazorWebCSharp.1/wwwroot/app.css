@@ -1,8 +1,27 @@
-@import '_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
-#main-menu {
-  padding-top: 12px;
-  height: 100%;
+body {
+  --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
+  font-family: var(--body-font);
+  font-size: var(--type-ramp-base-font-size);
+  line-height: var(--type-ramp-base-line-height);
+  margin: 0;
+}
+
+.navmenu-icon {
+  display: none;
+}
+
+.main {
+  min-height: calc(100dvh - 86px);
+  color: var(--neutral-foreground-rest);
+  align-items: stretch !important;
+}
+
+nav {
+  align-self: stretch;
+  height: calc(100dvh - 80px) !important;
+  display: flex;
 }
 
 .content {
@@ -11,9 +30,36 @@
   width: 100%;
 }
 
-  .content .fluent-nav {
-    padding-top: calc(var(--spacingHorizontalXXL) + 1px);
+.manage {
+  width: 100dvw;
+}
+
+.fluent-layout-item[area="footer"] {
+  background: var(--neutral-layer-4);
+  color: var(--neutral-foreground-rest);
+  align-items: center;
+  padding: 10px 10px;
+}
+
+  .fluent-layout-item[area="footer"] fluent-link {
+    color: var(--neutral-foreground-rest);
+    text-decoration: none;
   }
+
+    .fluent-layout-item[area="footer"] fluent-link:focus {
+      outline: 1px dashed;
+      outline-offset: 3px;
+    }
+
+    .fluent-layout-item[area="footer"] fluent-link:hover {
+      text-decoration: underline;
+    }
+
+
+.alert {
+  border: 1px dashed var(--accent-fill-rest);
+  padding: 5px;
+}
 
 
 #blazor-error-ui {
@@ -83,8 +129,64 @@ code {
   color: #c02d76;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
+  .header-gutters {
+    margin: 0.5rem 3rem 0.5rem 1.5rem !important;
+  }
+
+  [dir="rtl"] .header-gutters {
+    margin: 0.5rem 1.5rem 0.5rem 3rem !important;
+  }
+
+  .main {
+    flex-direction: column !important;
+    row-gap: 0 !important;
+  }
+
+  nav.sitenav {
+    width: 100%;
+    height: 100%;
+  }
+
   #main-menu {
     width: 100% !important;
+  }
+
+    #main-menu > div:first-child:is(.expander) {
+      display: none;
+    }
+
+  .navmenu {
+    width: 100%;
+  }
+
+  #navmenu-toggle {
+    appearance: none;
+  }
+
+    #navmenu-toggle ~ nav {
+      display: none;
+    }
+
+    #navmenu-toggle:checked ~ nav {
+      display: block;
+    }
+
+  .navmenu-icon {
+    cursor: pointer;
+    z-index: 10;
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: unset;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    border: none;
+  }
+
+  [dir="rtl"] .navmenu-icon {
+    left: 20px;
+    right: unset;
   }
 }
