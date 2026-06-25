@@ -122,4 +122,29 @@ public static class FluentSlot
     /// Slot for the Action element of a fluent-message-bar
     /// </summary>
     internal const string Actions = "actions";
+
+    /// <summary>
+    /// Slot for the Media element of a fluent-toast-b
+    /// </summary>
+    internal const string ToastMedia = "media";
+
+    /// <summary>
+    /// Slot for the Title element of a fluent-toast-b
+    /// </summary>
+    internal const string ToastTitle = "title";
+
+    /// <summary>
+    /// Slot for the Action element of a fluent-toast-b
+    /// </summary>
+    internal const string ToastAction = "action";
+
+    /// <summary>
+    /// Slot for the Subtitle element of a fluent-toast-b
+    /// </summary>
+    internal const string ToastSubtitle = "subtitle";
+
+    /// <summary>
+    /// Slot for the Footer element of a fluent-toast-b
+    /// </summary>
+    internal const string ToastFooter = "footer";
 }

@@ -61,12 +61,17 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    private IEnumerable<IMessageBarInstance> GetRenderedMessageBars()
+    private IEnumerable<IMessageBarInstance> MessageBarItems 
         => NotificationService?.Items.Values
-            .Where(messageBar => string.Compare(messageBar.Options.Section, Section, StringComparison.OrdinalIgnoreCase) == 0 &&
+                               .Where(item => item is IMessageBarInstance)
+                               .Cast<IMessageBarInstance>()
+        ?? [];
+
+    /// <summary />
+    private IEnumerable<IMessageBarInstance> GetRenderedMessageBars()
+        => MessageBarItems.Where(messageBar => string.Compare(messageBar.Options.Section, Section, StringComparison.OrdinalIgnoreCase) == 0 &&
                                  messageBar.LifecycleStatus == MessageBarLifecycleStatus.Visible)
-            .OrderBy(messageBar => messageBar.Index)
-            ?? Enumerable.Empty<IMessageBarInstance>();
+            .OrderBy(messageBar => messageBar.Index);
 
     /// <summary />
     private RenderFragment RenderMessageBarContent(IMessageBarInstance? messageBar) => builder =>

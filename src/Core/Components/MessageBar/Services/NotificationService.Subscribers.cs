@@ -13,12 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class NotificationService
 {
-    private readonly ConcurrentDictionary<string, Func<IMessageBarInstance, Task>> _subscribers = new(StringComparer.Ordinal);
+    private readonly ConcurrentDictionary<string, Func<INotificationInstance, Task>> _subscribers = new(StringComparer.Ordinal);
 
     /// <summary>
     /// Registers a provider callback so it gets notified when the items collection changes.
     /// </summary>
-    internal void Subscribe(string? providerId, Func<IMessageBarInstance, Task> callback)
+    internal void Subscribe(string? providerId, Func<INotificationInstance, Task> callback)
     {
         if (string.IsNullOrEmpty(providerId) || callback is null)
         {
@@ -59,7 +59,7 @@ public partial class NotificationService
     /// Invokes every registered subscriber. Each provider decides whether the
     /// instance is relevant to it (typically via the <c>Section</c> filter).
     /// </summary>
-    private async Task DispatchOnUpdatedAsync(IMessageBarInstance instance)
+    private async Task DispatchOnUpdatedAsync(INotificationInstance instance)
     {
         foreach (var callback in _subscribers.Values)
         {

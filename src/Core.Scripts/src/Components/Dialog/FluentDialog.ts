@@ -1,6 +1,12 @@
 export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
 
   /**
+   * Tag names of non-modal, transient elements (e.g. toasts) that reuse the
+   * dialog toggle plumbing but must never restore focus when they open or close.
+   */
+  const NonFocusRestoringTagNames: string[] = ['FLUENT-TOAST-B'];
+
+  /**
    * Display the fluent-dialog with the given id
    * @param id The id of the fluent-dialog to display
    */
@@ -26,6 +32,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
   export function DialogToggle_PreviousActiveElement(id: string, newState: string): void {
     const dialog = document.getElementById(id) as any;
     if (dialog) {
+      // Exclude non-modal, transient elements that reuse the dialog toggle plumbing 
+      // but must never restore focus when they open or close.
+      if (NonFocusRestoringTagNames.includes(dialog.tagName)) {
+        return;
+      }
+
       if (newState === 'open') {
         dialog.previousActiveElement = document.activeElement;
       }

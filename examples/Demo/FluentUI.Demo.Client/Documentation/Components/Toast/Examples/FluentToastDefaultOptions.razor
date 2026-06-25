@@ -1,0 +1,44 @@
+﻿@inject INotificationService NotificationService
+
+<FluentStack Wrap="true" HorizontalGap="12px">
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Info))">
+        Show Info
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Success))">
+        Show Success
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Warning))">
+        Show Warning
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Error))">
+        Show Error
+    </FluentButton>
+    <FluentButton OnClick="@(() => OpenToastAsync(ToastIntent.Progress))">
+        Show Progress
+    </FluentButton>
+</FluentStack>
+
+@code {
+
+    int counter = 1;
+
+    async Task OpenToastAsync(ToastIntent intent)
+    {
+        var result = await NotificationService.ShowToastAsync(options =>
+        {
+            options.Intent = intent;
+            options.Title = $"{intent} toast #{counter++}";
+            options.Message = "Toasts are used to show brief messages to the user.";
+            options.Subtitle = "Sent by Fluent UI Blazor";
+            options.Lifetime = TimeSpan.FromSeconds(10);
+            options.AllowDismiss = true;
+            options.OnStatusChange = (e) =>
+            {
+                Console.WriteLine($" . '{e.Instance.Options.Title}' status changed to: {e.Status}");
+            };
+        });
+
+        Console.WriteLine($"'{result.Instance.Options.Title}' closed with Reason: {result.Reason}");
+    }
+}
+
