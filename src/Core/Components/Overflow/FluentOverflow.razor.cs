@@ -30,11 +30,6 @@ public partial class FluentOverflow : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    internal FluentOverflow(LibraryConfiguration configuration, List<OverflowItem> items) : this(configuration)
-    {
-        SetOverflowItems(items, items.Count(item => item.Overflow));
-    }
-
     /// <summary>
     /// Gets or sets the template to display <see cref="ItemsOverflow"/> elements.
     /// </summary>

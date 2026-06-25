@@ -1,3 +1,4 @@
+﻿@using System.Reflection
 @using Xunit
 @using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow
 @inherits FluentUITestContext
@@ -107,4 +108,202 @@
         Assert.NotNull(tooltip);
         Assert.Equal("below-start", tooltip.GetAttribute("positioning"));
     }
+
+    [Fact]
+    public async Task FluentOverflow_RefreshAsync_LoadsOverflowItemsAndCount()
+    {
+        var cut = Render(@<div><FluentOverflow Id="overflow">
+            <div id="item1">Item 1</div>
+            <div id="item2">Item 2</div>
+        </FluentOverflow></div>);
+
+        JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh", args => (string?)args.Arguments[0] == "overflow")
+            .SetVoidResult();
+        JSInterop.Setup<OverflowItem[]>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowItems", args => (string?)args.Arguments[0] == "overflow")
+            .SetResult([
+                new OverflowItem { Id = "item1", Overflow = true, Text = "Item 1", Fixed = "fixed", Index = 0 },
+                new OverflowItem { Id = "item2", Overflow = false, Text = "Item 2", Fixed = null, Index = 1 }
+            ]);
+        JSInterop.Setup<int>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowCount", args => (string?)args.Arguments[0] == "overflow")
+            .SetResult(3);
+
+        var overflow = cut.FindComponent<FluentOverflow>();
+        await overflow.Instance.RefreshAsync();
+
+        Assert.Equal(3, overflow.Instance.OverflowCount);
+        var items = overflow.Instance.ItemsOverflow.ToList();
+        Assert.Single(items);
+        Assert.Equal("item1", items[0].Id);
+        Assert.Equal("Item 1", items[0].Text);
+        Assert.Contains(JSInterop.Invocations, x => x.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+        Assert.Contains(JSInterop.Invocations, x => x.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowItems");
+        Assert.Contains(JSInterop.Invocations, x => x.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowCount");
+    }
+
+    [Fact]
+    public async Task FluentOverflow_RefreshAsync_NoJsRuntime_DoesNothing()
+    {
+        var overflow = new FluentOverflow(new LibraryConfiguration());
+
+        await overflow.RefreshAsync();
+
+        Assert.Equal(0, overflow.OverflowCount);
+        Assert.Empty(overflow.ItemsOverflow);
+    }
+
+    [Fact]
+    public async Task FluentOverflow_OnOverflowChangedAsync_UpdatesStateAndRaisesCallback()
+    {
+        var overflowRaised = false;
+        var cut = Render(@<div><FluentOverflow Id="overflow" OnOverflowRaised="@(() => overflowRaised = true)">
+            <div id="item1">Item 1</div>
+            <div id="item2">Item 2</div>
+        </FluentOverflow></div>);
+
+        var overflow = cut.FindComponent<FluentOverflow>();
+        var method = GetPrivateMethod("OnOverflowChangedAsync", typeof(OverflowChangedEventArgs));
+        var args = new OverflowChangedEventArgs
+        {
+            Id = "overflow",
+            OverflowCount = 2,
+            FirstOverflowIndex = 1,
+            Items =
+            [
+                new OverflowChangedItem { Id = "item1", Overflow = true, Text = "Item 1", Fixed = "fixed", Index = 0 },
+                new OverflowChangedItem { Id = "item2", Overflow = false, Text = "Item 2", Fixed = null, Index = 1 }
+            ]
+        };
+
+        await ((Task)method.Invoke(overflow.Instance, [args])!);
+
+        Assert.True(overflowRaised);
+        Assert.Equal(2, overflow.Instance.OverflowCount);
+        var items = overflow.Instance.ItemsOverflow.ToList();
+        Assert.Single(items);
+        Assert.Equal("item1", items[0].Id);
+        Assert.Equal("fixed", items[0].Fixed);
+    }
+
+    [Fact]
+    public async Task FluentOverflow_OnOverflowChangedAsync_IgnoresDifferentComponentId()
+    {
+        var overflowRaised = false;
+        var cut = Render(@<div><FluentOverflow Id="overflow" OnOverflowRaised="@(() => overflowRaised = true)">
+            <div id="item1">Item 1</div>
+        </FluentOverflow></div>);
+
+        var overflow = cut.FindComponent<FluentOverflow>();
+        await overflow.Instance.OverflowRaisedAsync([
+            new OverflowItem { Id = "item1", Overflow = true, Text = "Item 1", Index = 0 }
+        ]);
+        overflowRaised = false;
+
+        var method = GetPrivateMethod("OnOverflowChangedAsync", typeof(OverflowChangedEventArgs));
+        var args = new OverflowChangedEventArgs
+        {
+            Id = "other-overflow",
+            OverflowCount = 0,
+            Items =
+            [
+                new OverflowChangedItem { Id = "item1", Overflow = false, Text = "Item 1", Index = 0 }
+            ]
+        };
+
+        await ((Task)method.Invoke(overflow.Instance, [args])!);
+
+        Assert.False(overflowRaised);
+        Assert.Equal(1, overflow.Instance.OverflowCount);
+        Assert.Single(overflow.Instance.ItemsOverflow);
+    }
+
+    [Fact]
+    public async Task FluentOverflow_LoadOverflowItemsAsync_LoadsItemsAndCountFromJs()
+    {
+        var cut = Render(@<div><FluentOverflow Id="overflow">
+            <div id="item1">Item 1</div>
+        </FluentOverflow></div>);
+
+        JSInterop.Setup<OverflowItem[]>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowItems", args => (string?)args.Arguments[0] == "overflow")
+            .SetResult([
+                new OverflowItem { Id = "item1", Overflow = true, Text = "Item 1", Fixed = "ellipsis", Index = 4 },
+                new OverflowItem { Id = "item2", Overflow = false, Text = "Item 2", Fixed = null, Index = 5 }
+            ]);
+        JSInterop.Setup<int>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowCount", args => (string?)args.Arguments[0] == "overflow")
+            .SetResult(7);
+
+        var overflow = cut.FindComponent<FluentOverflow>();
+        var method = GetPrivateMethod("LoadOverflowItemsAsync");
+        await ((Task)method.Invoke(overflow.Instance, [])!);
+
+        Assert.Equal(7, overflow.Instance.OverflowCount);
+        var items = overflow.Instance.ItemsOverflow.ToList();
+        Assert.Single(items);
+        Assert.Equal("item1", items[0].Id);
+        Assert.Equal("ellipsis", items[0].Fixed);
+        Assert.Equal(4, items[0].Index);
+    }
+
+    [Fact]
+    public void FluentOverflow_SetOverflowItems_OverflowItemOverload_SetsExpectedState()
+    {
+        var cut = Render(@<div><FluentOverflow Id="overflow">
+            <div id="item1">Item 1</div>
+        </FluentOverflow></div>);
+        var overflow = cut.FindComponent<FluentOverflow>();
+        var method = GetPrivateMethod("SetOverflowItems", typeof(IEnumerable<OverflowItem>), typeof(int));
+
+        method.Invoke(overflow.Instance, new object?[]
+        {
+            new OverflowItem[]
+            {
+                new() { Id = "item1", Overflow = true, Text = "Item 1", Index = 0 },
+                new() { Id = "item2", Overflow = false, Text = "Item 2", Index = 1 }
+            },
+            5
+        });
+
+        Assert.Equal(5, overflow.Instance.OverflowCount);
+        var items = overflow.Instance.ItemsOverflow.ToList();
+        Assert.Single(items);
+        Assert.Equal("item1", items[0].Id);
+
+        method.Invoke(overflow.Instance, new object?[] { null, -2 });
+        Assert.Equal(0, overflow.Instance.OverflowCount);
+        Assert.Empty(overflow.Instance.ItemsOverflow);
+    }
+
+    [Fact]
+    public void FluentOverflow_SetOverflowItems_OverflowChangedItemOverload_SetsExpectedState()
+    {
+        var cut = Render(@<div><FluentOverflow Id="overflow">
+            <div id="item1">Item 1</div>
+        </FluentOverflow></div>);
+        var overflow = cut.FindComponent<FluentOverflow>();
+        var method = GetPrivateMethod("SetOverflowItems", typeof(IEnumerable<OverflowChangedItem>), typeof(int));
+
+        method.Invoke(overflow.Instance, new object?[]
+        {
+            new OverflowChangedItem[]
+            {
+                new() { Id = "item1", Overflow = true, Text = "Item 1", Fixed = "fixed", Index = 2 },
+                new() { Id = "item2", Overflow = false, Text = "Item 2", Fixed = null, Index = 3 }
+            },
+            6
+        });
+
+        Assert.Equal(6, overflow.Instance.OverflowCount);
+        var items = overflow.Instance.ItemsOverflow.ToList();
+        Assert.Single(items);
+        Assert.Equal("item1", items[0].Id);
+        Assert.Equal("fixed", items[0].Fixed);
+        Assert.Equal(2, items[0].Index);
+
+        method.Invoke(overflow.Instance, new object?[] { null, -1 });
+        Assert.Equal(0, overflow.Instance.OverflowCount);
+        Assert.Empty(overflow.Instance.ItemsOverflow);
+    }
+
+    private static MethodInfo GetPrivateMethod(string name, params Type[] parameterTypes) =>
+        typeof(FluentOverflow).GetMethod(name, BindingFlags.Instance | BindingFlags.NonPublic, null, parameterTypes, null)
+        ?? throw new InvalidOperationException($"Private method '{name}' not found.");
 }
