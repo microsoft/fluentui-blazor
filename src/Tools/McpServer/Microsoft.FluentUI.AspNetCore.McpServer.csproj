@@ -175,20 +175,20 @@
 
     <!-- Restore and Build DocApiGen -->
     <MSBuild Projects="$(DocApiGenProject)" Targets="Restore" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(DocApiGenProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(ExampleNetVersion)" />
 
     <!-- Run DocApiGen to generate MCP JSON -->
-    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) --framework $(ExampleNetVersion) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpDocumentationJsonPath)&quot; --format json --mode all" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="MCP documentation JSON generated at $(McpDocumentationJsonPath)" Importance="high" />
 
     <!-- Run DocApiGen to generate icon catalog JSON -->
-    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpIconCatalogJsonPath)&quot; --format json --mode icons" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) --framework $(ExampleNetVersion) -- --xml &quot;$(FluentUIComponentsXml)&quot; --dll &quot;$(FluentUIComponentsDll)&quot; --output &quot;$(McpIconCatalogJsonPath)&quot; --format json --mode icons" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="Icon catalog JSON generated at $(McpIconCatalogJsonPath)" Importance="high" />
 
     <!-- Run DocApiGen to generate chart JSON -->
-    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) -- --xml &quot;$(FluentUIChartsXml)&quot; --dll &quot;$(FluentUIChartsDll)&quot; --output &quot;$(McpChartJsonPath)&quot; --format json" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
+    <Exec Command="dotnet run --project &quot;$(DocApiGenProject)&quot; --no-build -c $(Configuration) --framework $(ExampleNetVersion) -- --xml &quot;$(FluentUIChartsXml)&quot; --dll &quot;$(FluentUIChartsDll)&quot; --output &quot;$(McpChartJsonPath)&quot; --format json" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" />
 
     <Message Text="Chart documentation JSON generated at $(McpChartJsonPath)" Importance="high" />
   </Target>
