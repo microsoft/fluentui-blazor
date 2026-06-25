@@ -69,6 +69,7 @@ public class NotificationServiceToastTests : Bunit.BunitContext
 
         // Assert
         var instance = SingleToast(service);
+        Assert.Equal(ToastResultTiming.Queued, instance.Options.ResultTiming);
         Assert.Equal(ToastIntent.Success, instance.Options.Intent);
         Assert.Equal("Title", instance.Options.Title);
         Assert.Equal("Message", instance.Options.Message);
@@ -125,7 +126,7 @@ public class NotificationServiceToastTests : Bunit.BunitContext
         // Assert
         var instance = SingleToast(service);
         Assert.Equal(ToastIntent.Progress, instance.Options.Intent);
-        Assert.Equal(ToastResultTiming.Visible, instance.Options.ResultTiming);
+        Assert.Equal(ToastResultTiming.Queued, instance.Options.ResultTiming);
     }
 
     [Fact]
