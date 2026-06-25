@@ -22,7 +22,7 @@
     <!-- Target .NET versions for multi-targeting -->
     <!-- Used with the published libraries: Core; McpServer; Charts; DataGrid adapters -->
     <!-- Debug: minimum version for faster builds; Release: full multi-targeting -->
-    <TargetNetVersions Condition="'$(Configuration)' == 'Release'">net8.0;net9.0;net10.0;net11.0</TargetNetVersions>
+    <TargetNetVersions Condition="'$(Configuration)' == 'Release'">net8.0;net9.0;net10.0</TargetNetVersions>
     <TargetNetVersions Condition="'$(Configuration)' != 'Release'">$(NetVersion)</TargetNetVersions>
 
     <!-- Versioning -->
