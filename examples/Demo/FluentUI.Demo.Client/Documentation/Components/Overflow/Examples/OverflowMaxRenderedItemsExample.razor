@@ -1,0 +1,41 @@
+﻿<div style="background-color: var(--colorNeutralBackground4); overflow: auto; resize: horizontal; padding: 10px; min-width: 160px;">
+    <FluentOverflow @ref="_overflow"
+                    MaxRenderedItems="2"
+                    OnOverflowRaised="OnOverflowRaised">
+        <ChildContent>
+            <FluentBadge Content="Blazor" />
+            <FluentBadge Content="Microsoft" />
+            <FluentBadge Content="Azure" />
+            <FluentBadge Content="DevOps" />
+            <FluentBadge Content="Framework" />
+            <FluentBadge Content="Office" />
+        </ChildContent>
+        <OverflowTemplate>
+            <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
+                <div style="display: flex; flex-direction: column; gap: 6px; margin: 8px;">
+                    @foreach (var item in context.ItemsOverflow)
+                    {
+                        <FluentBadge Content="@item.Text" />
+                    }
+                </div>
+            </FluentTooltip>
+        </OverflowTemplate>
+    </FluentOverflow>
+</div>
+<div style="margin-top: 8px;">
+    <div>Total overflow count: @_overflowCount</div>
+    <div>Rendered in payload (MaxRenderedItems=2): @_renderedInPayloadCount</div>
+</div>
+
+@code
+{
+    private FluentOverflow? _overflow;
+    private int _overflowCount;
+    private int _renderedInPayloadCount;
+
+    private void OnOverflowRaised(IEnumerable<FluentOverflow.OverflowItem> items)
+    {
+        _renderedInPayloadCount = items.Count();
+        _overflowCount = _overflow?.OverflowCount ?? 0;
+    }
+}

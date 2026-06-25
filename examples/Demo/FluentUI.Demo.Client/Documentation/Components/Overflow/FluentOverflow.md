@@ -13,6 +13,7 @@ The `FluentOverflow` component is used to manage and display a collection of ite
 {{ OverflowDefault }}
 
 ## Overflow with ellipsis
+
 In the following example, the first element will always be displayed (fixed), but an ellipse (...)
 will be added when the container size is too small.
 
@@ -21,15 +22,50 @@ will be added when the container size is too small.
 {{ OverflowEllipsis }}
 
 ## Overflow not visible on load
+
 With below example the `VisibleOnLoad` parameter is set to false.Make sure the screen dimension is small enough to show an overflow badge with count.
 Then refresh the page to see the difference between this example and the one above
 
 {{ OverflowVisibleOnLoad }}
 
-## Horizontal Overflow example
+## Custom templates and dynamic items
 
-{{ OverflowHorizontalExample }}
+This example shows a fully customized More button and tooltip content, and includes add/remove actions to demonstrate dynamic overflow recalculation.
+{{ OverflowCustomExample }}
 
-## API FluentOverflow   
+## Selector-based overflow
+
+This example uses `Selector=".overflow-item"` so only matching children are overflow-managed; the non-matching `fixed` badges stay visible.
+{{ OverflowSelectorExample }}
+
+## MaxRenderedItems payload cap
+
+This example sets `MaxRenderedItems="2"` and shows the difference between `OverflowCount` (total) and `ItemsOverflow` (rendered subset).
+{{ OverflowMaxRenderedItemsExample }}
+
+## Fixed item modes
+
+The `fixed` attribute on direct children supports these modes:
+
+| Value | Behavior |
+| --- | --- |
+| `fixed="fixed"` | Item always remains visible at full size and does not move to overflow. |
+| `fixed="ellipsis"` | Item always remains visible but can shrink with text ellipsis when space is limited. |
+
+Notes:
+
+- `fixed` is an HTML attribute on child elements (not a `FluentOverflow` parameter).
+- Use `Selector` to control which children are overflow-managed; non-selected children can still be marked with `fixed`.
+
+## Multiple fixed items
+
+This example demonstrates multiple fixed ellipsis items (`fixed="ellipsis"`) combined with normal overflowed items.
+{{ OverflowMultipleFixedItemsExample }}
+
+## API FluentOverflow
 
 {{ API Type=FluentOverflow }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentOverflow }}

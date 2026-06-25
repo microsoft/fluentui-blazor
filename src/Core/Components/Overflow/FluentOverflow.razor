@@ -9,16 +9,18 @@
                  selector="@ItemSelector"
                  visible-on-load="@(VisibleOnLoad ? "true" : "false")"
                  store-overflow-in-memory="@(StoreOverflowInMemory ? "true" : null)"
+                 max-rendered-items="@MaxRenderedItems"
+                 @onoverflowchange="@OnOverflowChangedAsync"
                  @attributes="@AdditionalAttributes">
     @ChildContent
     <div id="@IdMoreButton" class="fluent-overflow-more" style="@MoreButtonStyleValue" fixed="fixed">
-        @if (MoreButtonTemplate != null)
+        @if (MoreTemplate != null)
         {
-            @MoreButtonTemplate(this)
+            @MoreTemplate(this)
         }
         else
         {
-            <FluentBadge Appearance="BadgeAppearance.Filled" Style="min-width: 32px; max-width:32px;" Content="@($"+{ItemsOverflow.Count()}")" />
+            <FluentBadge Appearance="BadgeAppearance.Filled" Style="min-width: 32px; max-width:32px;" Content="@($"+{OverflowCount}")" />
         }
     </div>
 </fluent-overflow>

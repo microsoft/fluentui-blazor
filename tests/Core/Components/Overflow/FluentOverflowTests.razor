@@ -1,4 +1,4 @@
-﻿@using Xunit
+@using Xunit
 @using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow
 @inherits FluentUITestContext
 
@@ -33,12 +33,22 @@
     }
 
     [Fact]
-    public void FluentOverflow_Custom_MoreButtonTemplate()
+    public void FluentOverflow_Renders_MaxRenderedItems_Attribute()
+    {
+        var cut = Render(@<div><FluentOverflow MaxRenderedItems="5">
+            <div>Item 1</div>
+        </FluentOverflow></div>);
+
+        var container = cut.Find("fluent-overflow");
+        Assert.Equal("5", container.GetAttribute("max-rendered-items"));
+    }
+    [Fact]
+    public void FluentOverflow_Custom_MoreTemplate()
     {
         var cut = Render(@<div><FluentOverflow>
-            <MoreButtonTemplate>
+            <MoreTemplate>
                 <p>Custom More</p>
-            </MoreButtonTemplate>
+            </MoreTemplate>
             <ChildContent>
                 <div>Item 1</div>
             </ChildContent>

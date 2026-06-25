@@ -1,20 +1,22 @@
-﻿<div style="background-color: var(--neutral-layer-4); overflow: auto; resize: horizontal; padding: 10px;">
-    <FluentOverflow OnOverflowRaised="OverflowHandler" Style="width: 100%; border: 1px solid darkgray; padding: 2px; margin-bottom: 4px;">
+﻿<div style="background-color: var(--colorNeutralBackground4); overflow: auto; resize: horizontal; border: 1px solid darkgray; margin-bottom: 10px;">
+    <FluentOverflow OnOverflowRaised="OverflowHandler" Style="display: flex; align-items: center; width: 100%;  padding: 2px; margin-bottom: 4px;">
         <ChildContent>
             @foreach (var item in Items)
             {
-                <div><FluentBadge Content="@item"></FluentBadge></div>
+                <FluentLabel Style="border:dashed 1px red; padding: 2px;">@item</FluentLabel>
             }
         </ChildContent>
-        <MoreButtonTemplate>
-            <FluentBadge Style="min-width: 32px; max-width:32px;" Content="@($"+{context.ItemsOverflow.Count()}")" />
-        </MoreButtonTemplate>
+        <MoreTemplate>
+            <FluentButton Appearance="ButtonAppearance.Subtle" Style="height: 20px; min-width: 32px; max-width:32px;">@($"+{context.ItemsOverflow.Count()}")</FluentButton>
+        </MoreTemplate>
         <OverflowTemplate>
             <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
-                @foreach (var item in context.ItemsOverflow)
-                {
-                    <div style="margin: 5px;">@item.Text</div>
-                }
+                <div style="display: flex; flex-direction: column; align-items: flex-start; width: max-content;">
+                    @foreach (var item in context.ItemsOverflow)
+                    {
+                        <FluentLabel Style="border:dashed 1px red; padding: 2px; margin: 3px;">@item.Text</FluentLabel>
+                    }
+                </div>
             </FluentTooltip>
         </OverflowTemplate>
     </FluentOverflow>

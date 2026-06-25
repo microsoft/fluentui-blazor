@@ -167,6 +167,20 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
   }
 
+  export function Overflow(blazor: Blazor) {
+    blazor.registerCustomEventType('overflowchange', {
+      browserEventName: 'overflowchange',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target?.id ?? '',
+          items: event.detail?.items ?? [],
+          overflowCount: event.detail?.overflowCount ?? 0,
+          firstOverflowIndex: event.detail?.firstOverflowIndex ?? -1,
+        };
+      }
+    });
+  }
+
   // [^^^ Add your other custom events before this line ^^^]
 
 }

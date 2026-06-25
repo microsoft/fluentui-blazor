@@ -43,6 +43,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentMenuButton | High | [Migration](/Migration/MenuButton) |
   | FluentMessageBar | Medium | [Migration](/Migration/MessageBar) |
   | FluentOverlay | High | [Migration](/Migration/Overlay) |
+  | FluentOverflow | High | [Migration](/Migration/Overflow) |
   | FluentPopover | High | [Migration](/Migration/Popover) |
   | FluentPresenceBadge | Medium | [Migration](/Migration/PresenceBadge) |
   | FluentProgressBar (was FluentProgress) | Medium | [Migration](/Migration/ProgressBar) |
