@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
     <AspNetCoreVersion8>8.0.22</AspNetCoreVersion8>
-    <EfCoreVersion8>8.0.0</EfCoreVersion8>
+    <EfCoreVersion8>8.0.28</EfCoreVersion8>
     <RuntimeVersion9>9.0.17</RuntimeVersion9>
     <AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.17</EfCoreVersion9>
