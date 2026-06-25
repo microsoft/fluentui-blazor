@@ -65,6 +65,44 @@
     }
 
     [Fact]
+    public async Task FluentAppBar_OnOverflowChangedAsync_UsesOrderedItemIds()
+    {
+        // Arrange
+        var items = new List<IAppBarItem>
+        {
+            new TestAppBarItem { Id = "1", Text = "Item 1", IconRest = new Samples.Icons.Samples.Info() },
+            new TestAppBarItem { Id = "2", Text = "Item 2", IconRest = new Samples.Icons.Samples.Warning() },
+            new TestAppBarItem { Id = "3", Text = "Item 3", IconRest = new Samples.Icons.Samples.Info() }
+        };
+        var cut = Render<FluentAppBar>(
+            @<FluentAppBar Items="items"></FluentAppBar>
+        );
+        var method = typeof(FluentAppBar).GetMethod("OnOverflowChangedAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        var context = GetPrivateField<InternalAppBarContext>(cut.Instance, "_internalAppBarContext");
+        Assert.NotNull(method);
+        Assert.NotNull(context);
+
+        var args = new OverflowChangedEventArgs
+        {
+            Id = $"{cut.Instance.Id}-overflow",
+            FirstOverflowIndex = 1,
+            OrderedItemIds = ["3", "2", "1"]
+        };
+
+        // Act
+        var result = method!.Invoke(cut.Instance, [args]);
+        if (result is Task task)
+        {
+            await task;
+        }
+
+        // Assert
+        Assert.False(context!.Apps["3"].Overflow ?? false);
+        Assert.True(context.Apps["2"].Overflow ?? false);
+        Assert.True(context.Apps["1"].Overflow ?? false);
+    }
+
+    [Fact]
     public async Task FluentAppBar_NoPopoverSearch()
     {
         // Arrange

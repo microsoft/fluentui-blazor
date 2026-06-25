@@ -103,7 +103,7 @@ public partial class FluentAppBar : FluentComponentBase
             return;
         }
 
-        ApplyOverflowState(args.FirstOverflowIndex);
+        ApplyOverflowState(args.FirstOverflowIndex, args.OrderedItemIds);
         await InvokeAsync(StateHasChanged);
     }
 
@@ -121,12 +121,26 @@ public partial class FluentAppBar : FluentComponentBase
         await InvokeAsync(StateHasChanged);
     }
 
-    private void ApplyOverflowState(int firstOverflowIndex)
+    private void ApplyOverflowState(int firstOverflowIndex, IReadOnlyList<string>? orderedItemIds)
     {
-        var orderedApps = _internalAppBarContext.Apps.Values.ToList();
-        for (var index = 0; index < orderedApps.Count; index++)
+        foreach (var app in _internalAppBarContext.Apps.Values)
         {
-            orderedApps[index].Overflow = firstOverflowIndex >= 0 && index >= firstOverflowIndex;
+            app.Overflow = false;
+        }
+
+        if (orderedItemIds is null || orderedItemIds.Count == 0 || firstOverflowIndex < 0)
+        {
+            return;
+        }
+
+        for (var index = 0; index < orderedItemIds.Count; index++)
+        {
+            if (!_internalAppBarContext.Apps.TryGetValue(orderedItemIds[index], out var app))
+            {
+                continue;
+            }
+
+            app.Overflow = index >= firstOverflowIndex;
         }
     }
 

@@ -176,6 +176,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
           items: event.detail?.items ?? [],
           overflowCount: event.detail?.overflowCount ?? 0,
           firstOverflowIndex: event.detail?.firstOverflowIndex ?? -1,
+          orderedItemIds: event.detail?.orderedItemIds ?? [],
         };
       }
     });

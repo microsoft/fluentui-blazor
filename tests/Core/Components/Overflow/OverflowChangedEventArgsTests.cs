@@ -19,6 +19,7 @@ public class OverflowChangedEventArgsTests
         Assert.Null(args.Items);
         Assert.Equal(0, args.OverflowCount);
         Assert.Equal(-1, args.FirstOverflowIndex);
+        Assert.Null(args.OrderedItemIds);
     }
 
     [Fact]
@@ -36,6 +37,7 @@ public class OverflowChangedEventArgsTests
                 Index = 3
             }
         ];
+        IReadOnlyList<string> orderedItemIds = ["item-0", "item-1", "item-2"];
 
         // Act
         var args = new OverflowChangedEventArgs
@@ -43,7 +45,8 @@ public class OverflowChangedEventArgsTests
             Id = "overflow-1",
             Items = items,
             OverflowCount = 5,
-            FirstOverflowIndex = 3
+            FirstOverflowIndex = 3,
+            OrderedItemIds = orderedItemIds
         };
 
         // Assert
@@ -51,6 +54,7 @@ public class OverflowChangedEventArgsTests
         Assert.Same(items, args.Items);
         Assert.Equal(5, args.OverflowCount);
         Assert.Equal(3, args.FirstOverflowIndex);
+        Assert.Same(orderedItemIds, args.OrderedItemIds);
     }
 }
 

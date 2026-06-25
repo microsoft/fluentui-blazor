@@ -25,7 +25,12 @@ public class OverflowChangedEventArgs : EventArgs
     public int OverflowCount { get; set; }
 
     /// <summary>
-    /// Gets or sets the index of the first overflowed item in DOM order.
+    /// Gets or sets the index of the first overflowed managed item (selector match, excluding fixed items).
     /// </summary>
     public int FirstOverflowIndex { get; set; } = -1;
+
+    /// <summary>
+    /// Gets or sets the ordered item IDs in the same DOM order used by overflow calculations.
+    /// </summary>
+    public IReadOnlyList<string>? OrderedItemIds { get; set; }
 }

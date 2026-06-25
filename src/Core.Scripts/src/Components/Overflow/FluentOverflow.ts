@@ -17,6 +17,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     overflowItems: OverflowItem[];
     overflowCount: number;
     firstOverflowIndex: number;
+    orderedItemIds: string[];
   }
 
   interface RefreshResult extends OverflowState {
@@ -34,6 +35,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     private cachedContainerGap: number | null = null;
     private lastOverflowCount = 0;
     private lastFirstOverflowIndex = -1;
+    private lastOrderedItemIds: string[] = [];
     private overflowItems: OverflowItem[] = [];
 
     static get observedAttributes() {
@@ -47,6 +49,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.lastContainerSize = 0;
       this.lastOverflowCount = 0;
       this.lastFirstOverflowIndex = -1;
+      this.lastOrderedItemIds = [];
       this.classList.add("fluent-overflow");
       this.setupObservers();
       this.refresh();
@@ -94,10 +97,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       const payloadChanged = result.overflowChanged
         || this.lastOverflowCount !== result.overflowCount
         || this.lastFirstOverflowIndex !== result.firstOverflowIndex
+        || !areStringArraysEqual(this.lastOrderedItemIds, result.orderedItemIds)
         || !areOverflowItemsEqual(this.overflowItems, result.overflowItems);
 
       this.lastOverflowCount = result.overflowCount;
       this.lastFirstOverflowIndex = result.firstOverflowIndex;
+      this.lastOrderedItemIds = result.orderedItemIds;
 
       const storeInMemory = this.getStoreOverflowInMemory();
       if (storeInMemory || payloadChanged) {
@@ -109,7 +114,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
           detail: {
             items: result.overflowItems,
             overflowCount: result.overflowCount,
-            firstOverflowIndex: result.firstOverflowIndex
+            firstOverflowIndex: result.firstOverflowIndex,
+            orderedItemIds: result.orderedItemIds
           },
           bubbles: true,
           composed: true
@@ -393,6 +399,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       overflowItems: buildOverflowItems(managedItems, desiredOverflowStates, maxRenderedItems),
       overflowCount,
       firstOverflowIndex,
+      orderedItemIds: managedItems.map(item => item.id ?? ""),
       overflowChanged,
       isHorizontal
     };
@@ -421,7 +428,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     return {
       overflowItems: buildOverflowItems(managedItems, overflowStates, maxRenderedItems),
       overflowCount,
-      firstOverflowIndex
+      firstOverflowIndex,
+      orderedItemIds: managedItems.map(item => item.id ?? "")
     };
   }
 
@@ -462,6 +470,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       const leftItem = left[index];
       const rightItem = right[index];
       if (leftItem.Id !== rightItem.Id || leftItem.Text !== rightItem.Text || leftItem.Index !== rightItem.Index) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function areStringArraysEqual(left: string[], right: string[]): boolean {
+    if (left.length !== right.length) {
+      return false;
+    }
+
+    for (let index = 0; index < left.length; index++) {
+      if (left[index] !== right[index]) {
         return false;
       }
     }
