@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(NetVersion)</TargetFramework>
+    <TargetFramework>$(ExampleNetVersion)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -28,9 +28,29 @@
     <ProjectReference Include="..\..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj" />
   </ItemGroup>
 
+  <!-- Path to the generated MCP documentation JSON produced by the McpServer project -->
+  <PropertyGroup>
+    <McpDocumentationJsonPath>$(MSBuildThisFileDirectory)..\..\..\src\Tools\McpServer\FluentUIComponentsDocumentation.json</McpDocumentationJsonPath>
+  </PropertyGroup>
+
+  <!--
+    The JSON documentation file is generated (and git-ignored) by the McpServer project's
+    GenerateMcpDocumentation target, which only runs during its $(NetVersion) inner build.
+    Because this test project targets $(ExampleNetVersion), the ProjectReference resolves to a
+    different inner build and may not trigger generation. Ensure the file exists before the copy.
+  -->
+  <Target Name="EnsureMcpDocumentationJson"
+          BeforeTargets="BeforeBuild"
+          Condition="!Exists('$(McpDocumentationJsonPath)')">
+    <Message Text="MCP documentation JSON missing; generating via McpServer project..." Importance="high" />
+    <MSBuild Projects="..\..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj"
+             Targets="GenerateMcpDocumentation"
+             Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
+  </Target>
+
   <!-- Copy the JSON documentation file for testing -->
   <ItemGroup>
-    <None Include="..\..\..\src\Tools\McpServer\FluentUIComponentsDocumentation.json" Link="FluentUIComponentsDocumentation.json">
+    <None Include="$(McpDocumentationJsonPath)" Link="FluentUIComponentsDocumentation.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -16,7 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>, ITooltipComponent
 {
     [GeneratedRegex(@"^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$", RegexOptions.None, matchTimeoutMilliseconds: 100)]
-    private static partial Regex HexColorRegex { get; }
+    private static partial Regex HexColorRegex();
 
     private FluentColorPicker _colorPicker = default!;
 
@@ -35,7 +35,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex.IsMatch(CurrentValueAsString))
+            if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
             {
                 field.MessageIcon = FluentStatus.ErrorIcon;
                 field.Message = Localizer[Localization.LanguageResource.ColorPickerInput_InvalidHexMessage];
@@ -142,7 +142,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
             return true;
         }
 
-        if (!HexColorRegex.IsMatch(value))
+        if (!HexColorRegex().IsMatch(value))
         {
             validationErrorMessage = Localizer[Localization.LanguageResource.ColorPickerInput_InvalidHexMessage];
             return false;
@@ -162,7 +162,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
     {
         var value = CurrentValueAsString;
 
-        if (!string.IsNullOrEmpty(value) && HexColorRegex.IsMatch(value))
+        if (!string.IsNullOrEmpty(value) && HexColorRegex().IsMatch(value))
         {
             return value;
         }
