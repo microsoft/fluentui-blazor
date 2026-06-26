@@ -169,8 +169,11 @@ When `ProgressResult` is not `null`, the **Close Progress** button is enabled so
 
 This example shows the standard toast setup with default behavior and intent. Use it as the baseline pattern for simple status feedback.
 
-**Note:** By default `ResultTiming = ToastResultTiming.Closed`, so the code flow after `await` resumes only when the toast is closed. 
-In other words, the process is blocked until the toast is dismissed.
+> **Note**: By default, `ResultTiming = ToastResultTiming.Queued`. The code after `await` resumes as soon as the toast is queued
+> (just before it becomes visible). 
+> 
+> Set this property to `ToastResultTiming.Visible` to block execution until the toast is visible.
+> Set this property to `ToastResultTiming.Closed` to block execution until the toast is dismissed.
 
 {{ FluentToastDefaultOptions }}
 
