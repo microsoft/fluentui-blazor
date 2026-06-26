@@ -7,8 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @{
-    //var DemoRenderMode = new InteractiveWebAssemblyRenderMode(false);
-    var DemoRenderMode = new InteractiveServerRenderMode(false);
+    // See the DocViewer.DemoRenderMode property in DocViewer.razor for the current render mode.
 }
 <head>
     <meta charset="utf-8" />
@@ -17,7 +16,7 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="@Assets["FluentUI.Demo.styles.css"]" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <HeadOutlet @rendermode="@DemoRenderMode" />
+    <HeadOutlet @rendermode="@DocViewer.DemoRenderMode" />
 
     <style>
         /* Set the default dark mode styles,
@@ -35,7 +34,7 @@
 </head>
 
 <body use-reboot="@reboot">
-    <Routes @rendermode="@DemoRenderMode" />
+    <Routes />
     <script src="_framework/blazor.web.js"></script>
 
     <!-- Include highlight.js -->

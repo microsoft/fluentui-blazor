@@ -1,10 +1,12 @@
 ﻿@page "/{*Path:nonfile}"
 @using FluentUI.Demo.DocViewer.Components
 
-<MarkdownViewer Route="@Path" @key="@Path" />
+<MarkdownViewer Route="@Path" @key="@Path" SampleRenderMode="@DemoRenderMode" />
 
 @code
 {
+    public static IComponentRenderMode DemoRenderMode = new InteractiveServerRenderMode();
+
     [Parameter]
     public string Path { get; set; } = string.Empty;
 }
