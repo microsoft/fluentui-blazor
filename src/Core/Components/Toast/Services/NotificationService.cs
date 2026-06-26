@@ -51,7 +51,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
     /// <inheritdoc cref="INotificationService.ShowProgressToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
     public Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
-        => ShowSimpleToastAsync(ToastIntent.Progress, title, message, lifetime, dismissLabel, dismissOnClickAsync, ToastResultTiming.Visible);
+        => ShowSimpleToastAsync(ToastIntent.Progress, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowToastAsync(ToastOptions)"/>
     public async Task<ToastResult> ShowToastAsync(ToastOptions options)
@@ -124,7 +124,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
             Intent = intent,
             Title = title,
             Message = message,
-            ResultTiming = resultTiming ?? ToastResultTiming.Closed,
+            ResultTiming = resultTiming ?? ToastResultTiming.Queued,
             Lifetime = lifetime.HasValue ? TimeSpan.FromSeconds(lifetime.Value) : null,
         };
 

@@ -69,6 +69,7 @@ public class NotificationServiceToastTests : Bunit.BunitContext
 
         // Assert
         var instance = SingleToast(service);
+        Assert.Equal(ToastResultTiming.Queued, instance.Options.ResultTiming);
         Assert.Equal(ToastIntent.Success, instance.Options.Intent);
         Assert.Equal("Title", instance.Options.Title);
         Assert.Equal("Message", instance.Options.Message);
@@ -125,7 +126,7 @@ public class NotificationServiceToastTests : Bunit.BunitContext
         // Assert
         var instance = SingleToast(service);
         Assert.Equal(ToastIntent.Progress, instance.Options.Intent);
-        Assert.Equal(ToastResultTiming.Visible, instance.Options.ResultTiming);
+        Assert.Equal(ToastResultTiming.Queued, instance.Options.ResultTiming);
     }
 
     [Fact]
@@ -259,7 +260,7 @@ public class NotificationServiceToastTests : Bunit.BunitContext
     {
         // Arrange
         var service = GetServiceWithProvider();
-        _ = service.ShowToastAsync(new ToastOptions { Id = "close-id", Title = "Title" });
+        _ = service.ShowToastAsync(new ToastOptions { Id = "close-id", Title = "Title", ResultTiming = ToastResultTiming.Closed });
         var instance = service.GetToastInstance("close-id")!;
         var providedResult = ToastResult.OfQuickAction(instance, "payload");
 

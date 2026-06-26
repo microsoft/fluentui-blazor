@@ -182,9 +182,9 @@ public class ToastOptions : IFluentComponentBase
 
     /// <summary>
     /// Gets or sets when the <see cref="IToastInstance.Result"/> task is completed.
-    /// The default is <see cref="ToastResultTiming.Closed"/>.
+    /// The default is <see cref="ToastResultTiming.Queued"/>.
     /// </summary>
-    public ToastResultTiming ResultTiming { get; set; } = ToastResultTiming.Closed;
+    public ToastResultTiming ResultTiming { get; set; } = ToastResultTiming.Queued;
 
     /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.

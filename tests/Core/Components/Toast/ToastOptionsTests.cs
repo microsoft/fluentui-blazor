@@ -43,7 +43,7 @@ public class ToastOptionsTests
         Assert.NotNull(options.DismissAction);
         Assert.NotNull(options.QuickAction1);
         Assert.NotNull(options.QuickAction2);
-        Assert.Equal(ToastResultTiming.Closed, options.ResultTiming);
+        Assert.Equal(ToastResultTiming.Queued, options.ResultTiming);
     }
 
     [Fact]
