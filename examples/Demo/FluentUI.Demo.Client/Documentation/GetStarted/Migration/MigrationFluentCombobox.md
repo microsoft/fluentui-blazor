@@ -63,7 +63,6 @@ The `Appearance` property type has changed from `Appearance?` to `ListAppearance
 - `Position` (`SelectPosition?`) — popup positioning is now handled internally.
 - `SelectedOption` — use `Value` instead.
 - `SelectedOptionExpression`
-- `SelectedOptions` — use `SelectedItems` instead.
 - `SelectedOptionsExpression`
 - `Title`
 - `SelectedOptionChanged` — use `ValueChanged` instead.
