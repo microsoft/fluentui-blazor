@@ -74,10 +74,8 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUICustomEvents.TextInput(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 
-    // Register enhancedload listener to apply styles on each navigation
     if (blazor.addEventListener && typeof blazor.addEventListener === 'function') {
       blazor.addEventListener('enhancedload', () => {
-        Logger.debug('enhancedload event triggered, reapplying FluentUI styles');
         FluentUIStyles.reapplyStyles();
       });
     }
