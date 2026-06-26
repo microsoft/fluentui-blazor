@@ -4,6 +4,7 @@ order: 0020
 category: 10|Get Started
 route: /MigrationV5
 icon: WrenchScrewdriver
+hidden: true
 ---
 
 # Changes introduced in this version
