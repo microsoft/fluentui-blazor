@@ -27,6 +27,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentButton | Medium | [Migration](/Migration/Button) |
   | FluentCard | Medium | [Migration](/Migration/Card) |
   | FluentCheckbox | Medium | [Migration](/Migration/Checkbox) |
+  | FluentCombobox | High | [Migration](/Migration/Combobox) |
   | FluentCounterBadge | High | [Migration](/Migration/CounterBadge) |
   | FluentDataGrid | Medium | [Migration](/Migration/DataGrid) |
   | FluentDatePicker / FluentTimePicker | High | [Migration](/Migration/DateTime) |
