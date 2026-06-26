@@ -1495,7 +1495,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                     var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
                     request.CancellationToken.ThrowIfCancellationRequested();
 
-                    if (request.Count.HasValue && request.Count.Value > 0)
+                    if (!request.Count.HasValue || request.Count.Value > 0)
                     {
                         resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
                         request.CancellationToken.ThrowIfCancellationRequested();
