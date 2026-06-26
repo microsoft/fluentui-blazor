@@ -58,23 +58,36 @@ if ($publishChoice -eq "n") {
 # Clean previous build artifacts
 Write-Host "👉 Cleaning previous build artifacts (bin and obj)..." -ForegroundColor Yellow
 
-dotnet clean Microsoft.FluentUI-v5.slnx
+# Remove bin/obj folders directly instead of running 'dotnet clean'.
+# A solution-level 'dotnet clean' requires a valid restore (project.assets.json) that
+# matches the current target frameworks; if a previous build restored a different set
+# of frameworks it fails with NETSDK1005. Deleting the folders is deterministic and
+# immune to restore-state mismatches.
+$artifactPaths = @(
+    "./examples/Demo/FluentUI.Demo/bin",
+    "./examples/Demo/FluentUI.Demo/obj",
+    "./examples/Demo/FluentUI.Demo.Client/bin",
+    "./examples/Demo/FluentUI.Demo.Client/obj",
+    "./examples/Tools/FluentUI.Demo.DocApiGen/bin",
+    "./examples/Tools/FluentUI.Demo.DocApiGen/obj",
+    "./src/Core/bin",
+    "./src/Core/obj",
+    "./src/Charts/bin",
+    "./src/Charts/obj",
+    "./src/Tools/McpServer/bin",
+    "./src/Tools/McpServer/obj"
+)
 
-if (Test-Path "./examples/Demo/FluentUI.Demo/bin") {
-    Remove-Item -Path "./examples/Demo/FluentUI.Demo/bin" -Recurse -Force
+foreach ($artifactPath in $artifactPaths) {
+    if (Test-Path $artifactPath) {
+        Remove-Item -Path $artifactPath -Recurse -Force
+    }
 }
 
-if (Test-Path "./examples/Demo/FluentUI.Demo/obj") {
-    Remove-Item -Path "./examples/Demo/FluentUI.Demo/obj" -Recurse -Force
-}
-
-if (Test-Path "./src/Core/bin/") {
-    Remove-Item -Path "./src/Core/bin" -Recurse -Force
-}
-
-if (Test-Path "./src/Core/obj/") {
-    Remove-Item -Path "./src/Core/obj" -Recurse -Force
-}
+# Remove generated MCP documentation JSON files so they are regenerated during the build
+Remove-Item -Path "./src/Tools/McpServer/FluentUIComponentsDocumentation.json", `
+    "./src/Tools/McpServer/all-icons.json", `
+    "./src/Tools/McpServer/chart-comments.json" -Force -ErrorAction SilentlyContinue
 
 $RootDir = $PSScriptRoot
 
@@ -131,28 +144,30 @@ if ($node.InnerText -ne $NetVersion) {
 }
 
 if ($fullBuild) {
-    # Build the core project
+    # Build the Core and Charts projects to their DEFAULT output locations.
+    # The MCP Server build runs a documentation-generation target that loads these
+    # assemblies via an AssemblyDependencyResolver, so it requires the assembly,
+    # its .deps.json and its .xml files to exist at bin/<Configuration>/<NetVersion>.
     Write-Host "👉 Building Core project..." -ForegroundColor Yellow
-    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -o "./src/Core/bin/Publish" -f $NetVersion
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -f $NetVersion
 
-    # Copy Core build output to default location (so MCP Server project can resolve the dependency)
-    $defaultCoreOutput = "./src/Core/bin/Release/$NetVersion"
-    if (-not (Test-Path $defaultCoreOutput)) {
-        New-Item -ItemType Directory -Path $defaultCoreOutput -Force | Out-Null
-    }
-    Copy-Item -Path "./src/Core/bin/Publish/*" -Destination $defaultCoreOutput -Recurse -Force
+    Write-Host "👉 Building Charts project..." -ForegroundColor Yellow
+    dotnet build "./src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" -c Release -f $NetVersion
+
+    # Build the DocApiGen project (must exist for the MCP Server build to run it with --no-build)
+    Write-Host "👉 Building DocApiGen project..." -ForegroundColor Yellow
+    dotnet build ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
 
     # Build the MCP Server project
     Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
     dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
 
-    # Build the DocApiGen project
-    Write-Host "👉 Building DocApiGen project..." -ForegroundColor Yellow
-    dotnet build ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
+    # Location of the Core build output used by the documentation generator
+    $coreOutput = "$RootDir/src/Core/bin/Release/$NetVersion"
 
     # Generate API documentation file
     Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
-    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$RootDir/src/Core/bin/Publish/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json -f $NetVersion
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$coreOutput/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$coreOutput/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json -f $NetVersion
 
     # Generate MCP documentation file
     Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
