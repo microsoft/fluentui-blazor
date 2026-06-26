@@ -103,6 +103,17 @@ if ($node.InnerText -ne $NetVersion) {
     $xml.Save($resolvedPath)
 }
 
+# Process ExampleNetVersion
+$node = $xml.SelectSingleNode("//ExampleNetVersion")
+if ($null -eq $node) {
+    throw "Matching ExampleNetVersion element not found."
+}
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated ExampleNetVersion temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
+}
+
 # Process TargetNetVersions
 $nodes = $xml.SelectNodes("//TargetNetVersions")
 $node = $nodes |
