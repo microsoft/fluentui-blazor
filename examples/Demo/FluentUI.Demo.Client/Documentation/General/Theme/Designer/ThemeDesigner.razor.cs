@@ -21,11 +21,6 @@ public partial class ThemeDesigner
     [Inject]
     private IThemeService ThemeService { get; set; } = default!;
 
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

@@ -5,7 +5,7 @@
 
 @code
 {
-    public static IComponentRenderMode DemoRenderMode = new InteractiveServerRenderMode(false);
+    public static readonly IComponentRenderMode DemoRenderMode = new InteractiveServerRenderMode(false);
 
     [Parameter]
     public string Path { get; set; } = string.Empty;
