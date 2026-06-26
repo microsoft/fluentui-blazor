@@ -1302,19 +1302,32 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
     // because in that case there's going to be a re-render anyway.
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Not going to do artificial optimization because of some random arbitrary determined line count number")]
     private async Task RefreshDataCoreAsync()
     {
         // Move into a "loading" state, cancelling any earlier-but-still-pending load
         _pendingDataLoadCancellationTokenSource?.CancelAsync();
         var thisLoadCts = _pendingDataLoadCancellationTokenSource = new CancellationTokenSource();
 
-        if (_virtualizeComponent is not null)
+        if (Virtualize)
         {
-            // If we're using Virtualize, we have to go through its RefreshDataAsync API otherwise:
-            // (1) It won't know to update its own internal state if the provider output has changed
-            // (2) We won't know what slice of data to query for
-            await _virtualizeComponent.RefreshDataAsync();
-            _pendingDataLoadCancellationTokenSource = null;
+            if (_virtualizeComponent is not null)
+            {
+                // If we're using Virtualize, we have to go through its RefreshDataAsync API otherwise:
+                // (1) It won't know to update its own internal state if the provider output has changed
+                // (2) We won't know what slice of data to query for
+                // ProvideVirtualizedItemsAsync updates _internalGridContext.Items and fires ItemsChanged,
+                // so no second query is needed here.
+                await _virtualizeComponent.RefreshDataAsync();
+                _pendingDataLoadCancellationTokenSource = null;
+                return;
+            }
+            // If Virtualize is true but we don't have a reference to the component yet,
+            // it means we're still in the first render. The Virtualize component will call us when it's ready,
+            // so we can just wait for that instead of trying to load data now.
+            Loading = false;
+            StateHasChanged();
+            return;
         }
 
         // If we're not using Virtualize, we build and execute a request against the items provider directly
@@ -1365,6 +1378,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
     [ExcludeFromCodeCoverage(Justification = "This method requires Virtualiztion which cannot be tested with bunit.")]
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Not going to do artificial optimization because of some random arbitrary determined line count number")]
     private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
     {
         _lastRefreshedPaginationState = Pagination;
@@ -1375,7 +1389,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
         else
         {
-            await Task.Delay(20);
+            try
+            {
+                await Task.Delay(20, request.CancellationToken);
+            }
+            catch (TaskCanceledException)
+            {
+                return default;
+            }
         }
 
         if (request.CancellationToken.IsCancellationRequested)
@@ -1467,8 +1488,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 if (_asyncQueryExecutor is not null)
                 {
                     await OnItemsLoading.InvokeAsync(true);
+
+                    var resultArray = Array.Empty<TGridItem>();
                     var totalItemCount = await _asyncQueryExecutor.CountAsync(Items, request.CancellationToken);
-                    var resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+                    request.CancellationToken.ThrowIfCancellationRequested();
+
+                    if (request.Count > 0)
+                    {
+                        resultArray = await _asyncQueryExecutor.ToArrayAsync(result, request.CancellationToken);
+                        request.CancellationToken.ThrowIfCancellationRequested();
+                    }
 
                     Loading = false;
                     _asyncQueryExecuted = true;
