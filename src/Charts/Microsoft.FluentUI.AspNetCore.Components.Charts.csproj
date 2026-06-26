@@ -57,6 +57,18 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
+  <!--
+    tsconfig.json is a build-time TypeScript configuration. The StaticWebAssets SDK
+    includes it as Content with CopyToPublishDirectory=PreserveNewest, so it flows to
+    a consuming app's publish output at the root. When more than one referenced library
+    (e.g. Core and Charts) does this, the duplicate root-level tsconfig.json triggers
+    NETSDK1152. Exclude it from the output and publish directories.
+  -->
+  <ItemGroup>
+    <Content Update="tsconfig.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <None Update="tsconfig.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>

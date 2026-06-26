@@ -46,7 +46,7 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <IsShipping>true</IsShipping>
     <Optimize>True</Optimize>
-    <NoWarn>1701;1702;8669;1591</NoWarn>
+    <NoWarn>$(NoWarn);1701;1702;8669;1591;NU5128</NoWarn>
     <DebuggerSupport>false</DebuggerSupport>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
