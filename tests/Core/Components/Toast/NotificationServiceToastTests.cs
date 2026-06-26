@@ -260,7 +260,7 @@ public class NotificationServiceToastTests : Bunit.BunitContext
     {
         // Arrange
         var service = GetServiceWithProvider();
-        _ = service.ShowToastAsync(new ToastOptions { Id = "close-id", Title = "Title" });
+        _ = service.ShowToastAsync(new ToastOptions { Id = "close-id", Title = "Title", ResultTiming = ToastResultTiming.Closed });
         var instance = service.GetToastInstance("close-id")!;
         var providedResult = ToastResult.OfQuickAction(instance, "payload");
 
