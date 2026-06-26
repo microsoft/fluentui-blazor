@@ -108,7 +108,7 @@
   </PropertyGroup>
 
   <!-- Copy XML files to the Demo project (to generate the API documentation) -->
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(TargetFramework)' == '$(NetVersion)'">
     <ItemGroup>
       <XmlFiles Include="$(ProjectDir)bin\$(Configuration)\$(NetVersion)\*.xml" />
     </ItemGroup>
