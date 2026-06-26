@@ -23,13 +23,14 @@ public partial class ThemeDesigner
 
     protected override async Task OnInitializedAsync()
     {
-        _isDark = await ThemeService.IsSystemDarkAsync();
+
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
+            _isDark = await ThemeService.IsSystemDarkAsync();
             await PreviewThemeAsync();
         }
     }
