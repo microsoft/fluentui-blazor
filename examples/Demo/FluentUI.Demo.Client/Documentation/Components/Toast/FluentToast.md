@@ -138,16 +138,41 @@ builder.Services.AddFluentUIComponents(config =>
 This example shows the fastest helper methods to display **success**, **info**, **warning**, **error** and **progress** toasts 
 by using a required title plus optional message and dismiss button details.
 
+In this example, **Success**, **Warning**, **Error**, **Info**, and **Progress** toasts are shown for 7 seconds (`lifetime = 7`) 
+and then close automatically.
+
+These five helper methods are non-blocking. Because they use `ToastResultTiming.Queued`, the awaited call completes 
+as soon as the toast is queued, so the code after `await` continues to run immediately, without waiting for the toast 
+to be rendered or closed:
+
+```csharp
+await NotificationService.ShowSuccessToastAsync("Saved");
+```
+
+The **Progress** toast follows the same pattern, returning the `ToastResult` instance immediately so you can keep a 
+reference to it:
+
+```csharp
+// Show the Progress Toast
+var ProgressResult = await NotificationService.ShowProgressToastAsync("Working...");
+
+// Use the kept reference later to interact with the toast
+await ProgressResult.Instance.CloseAsync();
+```
+
+When `ProgressResult` is not `null`, the **Close Progress** button is enabled so the user can close that toast manually.
+
+
 {{ FluentToastDefault }}
 
 ### Default
 
 This example shows the standard toast setup with default behavior and intent. Use it as the baseline pattern for simple status feedback.
 
-In this example, **Success**, **Warning**, **Error**, and **Info** toasts are shown for 7 seconds (`lifetime = 7`) and then close automatically.
-The **Progress** toast behaves differently: the line `ProgressResult = await NotificationService.ShowProgressToastAsync()` returns immediately 
-a toast instance that is stored in `ProgressResult.Instance`.
-When `ProgressResult` is available, the [Close Progress] button is enabled so the user can close that toast manually.
+**Notes**: 
+- By default, `ResultTiming = ToastResultTiming.Queued`. The code after `await` resumes as soon as the toast is queued (just before it becomes visible). 
+- Set this property to `ToastResultTiming.Visible` to block execution until the toast is visible.
+- Set this property to `ToastResultTiming.Closed` to block execution until the toast is dismissed.
 
 {{ FluentToastDefaultOptions }}
 

@@ -234,7 +234,7 @@ public class ToastInstanceTests : Bunit.BunitContext
     {
         // Arrange
         var service = GetService();
-        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-2", Title = "Title" });
+        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-2", Title = "Title", ResultTiming = ToastResultTiming.Closed });
 
         // Act
         await instance.CloseAsync(ToastCloseReason.QuickAction, "payload");
@@ -252,13 +252,14 @@ public class ToastInstanceTests : Bunit.BunitContext
     {
         // Arrange
         var service = GetService();
-        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-3", Title = "Title" });
+        var instance = ShowRegisteredToast(service, new ToastOptions { Id = "close-3", Title = "Title", ResultTiming = ToastResultTiming.Closed });
 
         // Act
         await instance.CloseAsync(ToastCloseReason.TimedOut);
         var result = await instance.Result;
 
         // Assert
+        Assert.Equal(ToastLifecycleStatus.Dismissed, instance.LifecycleStatus);
         Assert.Equal(ToastCloseReason.TimedOut, result.Reason);
         Assert.Null(result.Data);
     }

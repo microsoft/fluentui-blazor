@@ -5,5 +5,8 @@
         { "label": "Fluent UI Blazor v5", "url": "https://fluentui-blazor-v5.azurewebsites.net/" }
     ],
     "dotnetPulse.projectBuildToConsole": "externalTerminal",
-    "dotnetPulse.projectUri": "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj"
+    "dotnetPulse.projectUri": "examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj",
+
+    // C# Dev Kit: solution open by default 
+    "dotnet.defaultSolution": "Microsoft.FluentUI-v5.slnx"
 }
