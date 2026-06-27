@@ -1,8 +1,13 @@
 ---
 title: Migration Guide V4 → V5
+order: 0020
 route: /Migration
+category: 10|Get Started
+icon: WrenchScrewdriver
 hidden: false
 ---
+
+# Migration Guide V4 → V5
 
 This guide helps you migrate from **Fluent UI Blazor V4** to **V5**.
 Each page below covers specific component changes, removed components, and new additions.
@@ -27,6 +32,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentButton | Medium | [Migration](/Migration/Button) |
   | FluentCard | Medium | [Migration](/Migration/Card) |
   | FluentCheckbox | Medium | [Migration](/Migration/Checkbox) |
+  | FluentCombobox | High | [Migration](/Migration/Combobox) |
   | FluentCounterBadge | High | [Migration](/Migration/CounterBadge) |
   | FluentDataGrid | Medium | [Migration](/Migration/DataGrid) |
   | FluentDatePicker / FluentTimePicker | High | [Migration](/Migration/DateTime) |

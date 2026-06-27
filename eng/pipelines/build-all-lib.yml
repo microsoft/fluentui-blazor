@@ -15,6 +15,11 @@ parameters:
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
       **/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
       **/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Templates.csproj
+      **/Components.Icons.Package.csproj
+      **/Components.Emoji.Package.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
     default: |
