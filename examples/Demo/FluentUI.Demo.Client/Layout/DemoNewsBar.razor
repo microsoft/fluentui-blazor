@@ -1,0 +1,25 @@
+<FluentMessageBar Intent="MessageBarIntent.Info"
+                  AllowDismiss="true"
+                  Class="demo-notification">
+    Hello World! This is a demo of the Fluent UI Blazor components.
+    Hello World! This is a demo of the Fluent UI Blazor components.
+</FluentMessageBar>
+
+<script>
+    // This script is used to override the default max-width of the <fluent-message-bar> component.    
+    (function () {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync('.content { max-width: unset; }');
+
+        // Wait until the <fluent-message-bar> custom element definition is loaded.
+        customElements.whenDefined('fluent-message-bar').then(() => {
+            const bar = document.querySelector('fluent-message-bar.demo-notification');
+            if (bar && bar.shadowRoot) {
+                bar.shadowRoot.adoptedStyleSheets = [
+                    ...bar.shadowRoot.adoptedStyleSheets,
+                    sheet
+                ];
+            }
+        });
+    })();
+</script>

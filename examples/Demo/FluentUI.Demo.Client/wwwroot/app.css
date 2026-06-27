@@ -18,6 +18,20 @@ body[data-media="xs"] svg g[data-name="MS-symbol"] {
   display: none;
 }
 
+/* Web Site Notification bar height variable */
+body {
+    --demo-notification-height: 0px;
+}
+
+body:has(fluent-message-bar.demo-notification) {
+    --demo-notification-height: 60px;
+}
+
+.demo-notification {
+  height: var(--demo-notification-height);
+  overflow-y: auto;
+}
+
 /* Blazor Styles */
 
 #blazor-error-ui {
