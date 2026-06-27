@@ -1,13 +1,32 @@
-<FluentMessageBar Intent="MessageBarIntent.Info"
-                  AllowDismiss="true"
-                  Class="demo-notification">
-    Hello World! This is a demo of the Fluent UI Blazor components.
-    Hello World! This is a demo of the Fluent UI Blazor components.
-</FluentMessageBar>
+@if (Visible)
+{
+    <FluentMessageBar Intent="@NewsIntent"
+                      AllowDismiss="false"
+                      Class="demo-notification">
+        <FluentStack>
+            <div>
+                @if (!string.IsNullOrEmpty(NewsContent))
+                {
+                    <strong>@NewsTitle:</strong>
+                }
+                @NewsContent
+            </div>
+            <FluentSpacer />
+            <FluentButton Appearance="ButtonAppearance.Transparent"
+                          IconStart="@(new Icons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconOnly="true"
+                          Title="Dismiss"
+                          Size="ButtonSize.Small"
+                          OnClick="@DismissClickAsync" />
+        </FluentStack>
+
+    </FluentMessageBar>
+}
 
 <script>
-    // This script is used to override the default max-width of the <fluent-message-bar> component.    
-    (function () {
+    // This function overrides the default max-width of the <fluent-message-bar> component.
+    // It is invoked from C# when the message bar becomes visible.
+    window.applyDemoNotificationStyle = function () {
         const sheet = new CSSStyleSheet();
         sheet.replaceSync('.content { max-width: unset; }');
 
@@ -21,5 +40,5 @@
                 ];
             }
         });
-    })();
+    };
 </script>
