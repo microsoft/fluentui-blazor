@@ -3,11 +3,11 @@
     <FluentMessageBar Intent="@NewsIntent"
                       AllowDismiss="false"
                       Class="demo-notification">
-        <FluentStack>
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
             <div>
                 @if (!string.IsNullOrEmpty(NewsContent))
                 {
-                    <strong>@NewsTitle:</strong>
+                    <strong>@NewsTitle:&nbsp;</strong>
                 }
                 @NewsContent
             </div>
