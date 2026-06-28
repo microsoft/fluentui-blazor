@@ -100,19 +100,6 @@
     <ProjectReference Include="..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </ItemGroup>
 
-  <!-- Pin the minimum published Microsoft.FluentUI.AspNetCore.Components version in the produced nupkg dependencies -->
-  <!-- NOTE: To be removed when RC4+ is released -->
-  <PropertyGroup>
-    <FluentUICoreMinVersion>[5.0.0-0,5.0.0)</FluentUICoreMinVersion>
-  </PropertyGroup>
-  <Target Name="SetFluentUICoreDependencyVersion" AfterTargets="_GetProjectReferenceVersions">
-    <ItemGroup>
-      <_ProjectReferencesWithVersions Update="@(_ProjectReferencesWithVersions)" Condition="'%(Filename)' == 'Microsoft.FluentUI.AspNetCore.Components'">
-        <ProjectVersion>$(FluentUICoreMinVersion)</ProjectVersion>
-      </_ProjectReferencesWithVersions>
-    </ItemGroup>
-  </Target>
-
   <!-- Enable deterministic builds for CI environments and Release configuration -->
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' Or '$(TF_BUILD)' == 'true' Or '$(Configuration)' == 'Release'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
