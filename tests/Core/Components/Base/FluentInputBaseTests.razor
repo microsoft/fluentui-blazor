@@ -1,7 +1,6 @@
 ﻿@using System.ComponentModel.DataAnnotations
 @using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -52,7 +51,7 @@
         // Arrange & Act
         var cut = Render(
             @<EditForm Model="@(new TestModel())">
-                <FluentTextInput 
+                <FluentTextInput
                     Label="Test Label"
                     Disabled="true"
                     Required="true"
@@ -87,7 +86,7 @@
         // Act
         var cut = Render(
             @<EditForm Model="@(new TestModel())">
-                <FluentTextInput 
+                <FluentTextInput
                     Class="my-custom-class"
                     Style="color: red; font-weight: bold;"
                     Margin="large"
@@ -300,9 +299,9 @@
         // Act
         var cut = Render(
             @<EditForm Model="@(new TestModel())">
-                <FluentTextInput 
-                    MessageCondition="@condition" 
-                    Message="Error message" 
+                <FluentTextInput
+                    MessageCondition="@condition"
+                    Message="Error message"
                     MessageState="MessageState.Error" />
             </EditForm>
         );
@@ -372,7 +371,7 @@
         // Arrange & Act
         var cut = Render(
             @<EditForm Model="@(new TestModel())">
-                <FluentTextInput 
+                <FluentTextInput
                     Id="combo-test"
                     Label="User Input"
                     AriaLabel="Enter user input"
