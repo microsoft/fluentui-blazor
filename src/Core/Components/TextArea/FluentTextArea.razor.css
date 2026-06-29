@@ -1,4 +1,12 @@
-fluent-textarea[style~="width:"]::part(root) {
+fluent-textarea {
+  width: 100%;
+}
+
+fluent-field:not([style~="width:"]):has(fluent-textarea) {
+  min-width: 180px;
+}
+
+fluent-textarea::part(root) {
   width: 100%;
 }
 

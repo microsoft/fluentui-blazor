@@ -31,6 +31,7 @@
                               Text="@GetOptionText(item)"
                               Value="@GetOptionValue(item)"
                               Selected="@(GetOptionSelected(item))"
+                              Class="@OptionClass"
                               Disabled="@(GetOptionDisabled(item))">
                     @if (OptionTemplate is not null)
                     {

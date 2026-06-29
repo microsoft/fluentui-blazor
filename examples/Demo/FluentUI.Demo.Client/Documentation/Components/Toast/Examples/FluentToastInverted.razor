@@ -1,35 +1,21 @@
-﻿@inject IToastService ToastService
+﻿@inject INotificationService NotificationService
 
-<FluentButton OnClick="@OpenToastAsync">
-   Make toast
+<FluentButton OnClick="@ShowInvertedToastAsync">
+    Show Inverted
 </FluentButton>
 
 @code {
-    int clickCount = 0;
 
-    private async Task OpenToastAsync()
+    int counter = 1;
+
+    async Task ShowInvertedToastAsync()
     {
-        var result = await ToastService.ShowToastAsync(options =>
+        var result = await NotificationService.ShowToastAsync(options =>
         {
             options.Intent = ToastIntent.Info;
-            options.Title = $"Toast title {++clickCount}";
-            options.Body = "Toasts are used to show brief messages to the user.";
-            options.Subtitle = "subtitle";
-            options.QuickAction1 = "Action";
-            options.QuickAction1Callback = () =>
-            {
-                Console.WriteLine("Action 1 executed.");
-                return Task.CompletedTask;
-            };
-            options.IsDismissable = true;
-            options.DismissAction = "Close";
-            options.OnStatusChange = (e) =>
-            {
-                   Console.WriteLine($"Status changed: {e.Id} - {e.Status}");
-            };
             options.Inverted = true;
+            options.Title = $"Inverted toast #{counter++}";
+            options.Message = "Toasts are used to show brief messages to the user.";
         });
-        Console.WriteLine($"Toast result: {result}");
     }
 }
-

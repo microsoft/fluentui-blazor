@@ -1,0 +1,13 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.MessageBar.Templates
+
+<div class="custom-message-bar" data-instance-id="@(MessageBarInstance?.Id)">
+    Custom: @Text
+</div>
+
+@code {
+    [CascadingParameter]
+    public IMessageBarInstance? MessageBarInstance { get; set; }
+
+    [Parameter]
+    public string? Text { get; set; }
+}

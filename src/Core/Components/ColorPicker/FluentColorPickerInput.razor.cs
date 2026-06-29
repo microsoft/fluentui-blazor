@@ -30,6 +30,11 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
         // Default message displayed when the value is invalid
         MessageCondition = (field) =>
         {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
             if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
             {
                 field.MessageIcon = FluentStatus.ErrorIcon;

@@ -15,7 +15,10 @@
                         @attributes="@AdditionalAttributes">
 
         <AddTag Name="span" slot="@FluentSlot.Icon" TagWhen="@(() => Layout == MessageBarLayout.Notification)" class="notification-title">
-            <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
+            @if (Icon is not null || Intent is not null)
+            {
+                <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
+            }
 
             @if (!string.IsNullOrEmpty(Title))
             {

@@ -9,6 +9,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     private handleCloseKeydown = this.onCloseKeydown.bind(this);
     private lastAnchorRect: DOMRect | null = null;
     private positionObserverInterval: number | null = null;
+    private positionUpdateFrame: number | null = null;
 
     // Add backing field for opened property
     private _opened: boolean = false;
@@ -72,6 +73,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     disconnectedCallback() {
       this.removeEventsAfterClosing();
       this.stopAnchorPositionObserver();
+      if (this.positionUpdateFrame !== null) {
+        cancelAnimationFrame(this.positionUpdateFrame);
+        this.positionUpdateFrame = null;
+      }
       window.removeEventListener('scroll', this.handleWindowChange, true);
       window.removeEventListener('resize', this.handleWindowChange, true);
     }
@@ -92,11 +97,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       }
 
       if (value && !this.dialogIsOpen) {
+        window.visualViewport?.addEventListener('scroll', this.handleWindowChange);
+        window.visualViewport?.addEventListener('resize', this.handleWindowChange);
         this.showPopover();
         return;
       }
 
       if (!value && this.dialogIsOpen) {
+        window.visualViewport?.removeEventListener('scroll', this.handleWindowChange);
+        window.visualViewport?.removeEventListener('resize', this.handleWindowChange);
         this.closePopover();
         return;
       }
@@ -242,9 +251,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     /* ****************************************************** */
 
     private handleWindowChange = () => {
-      if (this.dialogIsOpen) {
-        this.adjustDialogPosition();
+      if (!this.dialogIsOpen) {
+        return;
       }
+
+      // On iOS, showing/hiding the keyboard changes the visual viewport.
+      // Schedule the update in the next frame so visualViewport has its latest values.
+      if (this.positionUpdateFrame !== null) {
+        cancelAnimationFrame(this.positionUpdateFrame);
+      }
+
+      this.positionUpdateFrame = requestAnimationFrame(() => {
+        this.positionUpdateFrame = null;
+        this.adjustDialogPosition();
+      });
     };
 
     private startAnchorPositionObserver() {
@@ -288,10 +308,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       const dialogHeight = this.dialog.offsetHeight + this.offsetVertical;
       const dialogWidth = this.dialog.offsetWidth + this.offsetHorizontal;
 
-      const spaceAbove = rect.top;
-      const spaceBelow = viewportHeight - rect.bottom;
-      const spaceLeft = rect.right;
-      const spaceRight = viewportWidth - rect.left;
+      const viewportBottom = viewportTop + viewportHeight;
+      const viewportRight = viewportLeft + viewportWidth;
+
+      const spaceAbove = rect.top - viewportTop;
+      const spaceBelow = viewportBottom - rect.bottom;
+      const spaceLeft = rect.right - viewportLeft;
+      const spaceRight = viewportRight - rect.left;
 
       // Position dialog above the target
       const positionDialogAbove = () => {
@@ -349,7 +372,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     * @param mode
     */
   export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
-    if (typeof blazor.addEventListener === 'function' && mode === StartedMode.Web) {
+    if (typeof customElements !== 'undefined' && !customElements.get('fluent-popover-b')) {
       customElements.define('fluent-popover-b', FluentPopover);
     }
   };

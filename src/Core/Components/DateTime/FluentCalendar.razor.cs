@@ -44,6 +44,11 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         // Default conditions for the message
         MessageCondition = (field) =>
         {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
             field.MessageIcon = FluentStatus.ErrorIcon;
             field.Message = Localizer[Localization.LanguageResource.Calendar_RequiredMessage];
 

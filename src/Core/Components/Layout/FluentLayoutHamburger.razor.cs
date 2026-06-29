@@ -135,7 +135,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// <summary />
     protected override void OnInitialized()
     {
-        IconTitle = Localizer[Localization.LanguageResource.LayoutHamburger_Title];
+        IconTitle ??= Localizer[Localization.LanguageResource.LayoutHamburger_Title];
         LayoutContainer?.AddItem(this);
     }
 

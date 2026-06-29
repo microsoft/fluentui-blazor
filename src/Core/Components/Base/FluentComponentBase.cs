@@ -27,6 +27,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
         LibraryConfiguration = configuration;
     }
 
+    /// <summary />
     [Inject]
     private IServiceProvider ServiceProvider { get; set; } = default!;
 

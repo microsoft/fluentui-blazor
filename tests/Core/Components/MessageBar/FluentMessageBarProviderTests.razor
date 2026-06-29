@@ -1,0 +1,665 @@
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    // A timeout can be set when you open a message bar and do not close it.
+    private const int TEST_TIMEOUT = 3000;
+    private const string TEST_SECTION = "test";
+
+    public FluentMessageBarProviderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        NotificationService = Services.GetRequiredService<INotificationService>();
+    }
+
+    /// <summary>
+    /// Gets the message bar service.
+    /// </summary>
+    public INotificationService NotificationService { get; }
+
+    [Fact]
+    public void FluentMessageBarProvider_RenderEmpty()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Assert
+        Assert.DoesNotContain("<fluent-message-bar", cut.Markup);
+        Assert.Contains("fluent-message-bar-provider", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentMessageBarProvider_GeneratesId()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Assert
+        Assert.False(string.IsNullOrEmpty(cut.FindComponent<FluentMessageBarProvider>().Instance.Id));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ShowInfo_RendersMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Info title", "Info message");
+
+        // Don't wait for the message bar to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("intent=\"info\"", cut.Markup);
+            Assert.Contains("Info title", cut.Markup);
+            Assert.Contains("Info message", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ShowSuccess_RendersMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        _ = NotificationService.ShowSuccessBarAsync(TEST_SECTION, "Success title");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("intent=\"success\"", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ShowWarning_RendersMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        _ = NotificationService.ShowWarningBarAsync(TEST_SECTION, "Warning title");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("intent=\"warning\"", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ShowError_RendersMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        _ = NotificationService.ShowErrorBarAsync(TEST_SECTION, "Error title");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("intent=\"error\"", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ShowMessage_OptionsObject()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var options = new MessageBarOptions
+        {
+            Section = TEST_SECTION,
+            Intent = MessageBarIntent.Info,
+            Title = "Direct options",
+            Message = "Message content",
+        };
+
+        // Act
+        _ = NotificationService.ShowMessageBarAsync(options);
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Direct options", cut.Markup);
+            Assert.Contains("Message content", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_Section_OnlyRendersMatchingSection()
+    {
+        // Arrange
+        var cutA = Render(@<FluentMessageBarProvider Section="section-A" />);
+        var cutB = Render(@<FluentMessageBarProvider Section="section-B" />);
+
+        // Act
+        _ = NotificationService.ShowInfoBarAsync("section-A", "For A");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cutA.WaitForAssertion(() => Assert.Contains("For A", cutA.Markup));
+        Assert.DoesNotContain("For A", cutB.Markup);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_Section_CaseInsensitive()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="LOWER" />);
+
+        // Act
+        _ = NotificationService.ShowInfoBarAsync("lower", "Case insensitive");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("Case insensitive", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_Dismiss_RemovesMessage()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var task = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Dismiss me");
+        cut.WaitForAssertion(() => Assert.Contains("Dismiss me", cut.Markup));
+
+        // Act
+        cut.Find("fluent-button[slot='dismiss']").Click();
+
+        // Wait for the result
+        var result = await task;
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Dismissed, result.Reason);
+        cut.WaitForAssertion(() => Assert.DoesNotContain("<fluent-message-bar", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CloseAsync_ById_Closes()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Id = "to-close";
+            o.Title = "Close me";
+        });
+        cut.WaitForAssertion(() => Assert.Contains("Close me", cut.Markup));
+
+        // Act
+        var closed = await NotificationService.CloseAsync("to-close", "payload");
+        var result = await task;
+
+        // Assert
+        Assert.True(closed);
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Equal("payload", result.Data);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CloseAsync_UnknownId_ReturnsFalse()
+    {
+        // Arrange
+        Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        var closed = await NotificationService.CloseAsync("unknown");
+
+        // Assert
+        Assert.False(closed);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task FluentMessageBarProvider_CloseAsync_InvalidId_ReturnsFalse(string? id)
+    {
+        // Arrange
+        Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        var closed = await NotificationService.CloseAsync(id!);
+
+        // Assert
+        Assert.False(closed);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CloseAsync_Instance_Programmatic()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        IMessageBarInstance? captured = null;
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Instance close";
+            o.OnStatusChange = args =>
+            {
+                if (args.Status == MessageBarLifecycleStatus.Visible)
+                {
+                    captured = args.Instance;
+                }
+            };
+        });
+
+        cut.WaitForAssertion(() => Assert.NotNull(captured));
+
+        // Act
+        await NotificationService.CloseAsync(captured!);
+        var result = await task;
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CloseAsync_Instance_WithMessageBarResult()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        IMessageBarInstance? captured = null;
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "With result";
+            o.OnStatusChange = args =>
+            {
+                if (args.Status == MessageBarLifecycleStatus.Visible)
+                {
+                    captured = args.Instance;
+                }
+            };
+        });
+
+        cut.WaitForAssertion(() => Assert.NotNull(captured));
+
+        // Act
+        var customResult = MessageBarResult.OfDismissed("custom");
+        await NotificationService.CloseAsync(captured!, customResult);
+        var result = await task;
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Dismissed, result.Reason);
+        Assert.Equal("custom", result.Data);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CloseAsync_NonInstance_NoOp()
+    {
+        // Arrange
+        Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var fake = new FakeMessageBarInstance();
+
+        // Act & Assert (must not throw)
+        await NotificationService.CloseAsync(fake);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CloseAllAsync_RemovesAll()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var task1 = NotificationService.ShowInfoBarAsync(TEST_SECTION, "One");
+        var task2 = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Two");
+
+        cut.WaitForAssertion(() => Assert.Equal(2, cut.FindAll("fluent-message-bar").Count));
+
+        // Act
+        var closed = await NotificationService.CloseAllMessageBarsAsync();
+        var r1 = await task1;
+        var r2 = await task2;
+
+        // Assert
+        Assert.Equal(2, closed);
+        Assert.Equal(MessageBarCloseReason.Programmatic, r1.Reason);
+        Assert.Equal(MessageBarCloseReason.Programmatic, r2.Reason);
+        cut.WaitForAssertion(() => Assert.Empty(cut.FindAll("fluent-message-bar")));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_DoubleClose_NoOp()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        IMessageBarInstance? captured = null;
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Double";
+            o.OnStatusChange = args =>
+            {
+                if (args.Status == MessageBarLifecycleStatus.Visible)
+                {
+                    captured = args.Instance;
+                }
+            };
+        });
+        cut.WaitForAssertion(() => Assert.NotNull(captured));
+
+        // Act: close twice
+        await NotificationService.CloseAsync(captured!);
+        var result = await task;
+        await NotificationService.CloseAsync(captured!);
+
+        // Assert: only one result was produced
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_Lifetime_AutoDismiss_TimedOut()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Auto";
+            o.Lifetime = TimeSpan.FromMilliseconds(100);
+        });
+
+        var result = await task;
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.TimedOut, result.Reason);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_Lifetime_Zero_StaysOpen()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act: a zero (or negative) lifetime should NOT schedule auto-dismiss
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "NoAuto";
+            o.Lifetime = TimeSpan.Zero;
+        });
+
+        // Give the scheduler a chance
+        await Task.Delay(50, Xunit.TestContext.Current.CancellationToken);
+
+        // Assert: the message is still rendered
+        cut.WaitForAssertion(() => Assert.Contains("NoAuto", cut.Markup));
+
+        // Cleanup
+        await NotificationService.CloseAllMessageBarsAsync();
+        await task;
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_OnStatusChange_RaisesAllEvents()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var statuses = new List<MessageBarLifecycleStatus>();
+
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Events";
+            o.OnStatusChange = args => statuses.Add(args.Status);
+        });
+
+        cut.WaitForAssertion(() => Assert.Single(statuses));
+
+        // Act
+        await NotificationService.CloseAllMessageBarsAsync();
+        await task;
+
+        // Assert: Visible, Dismissed, Unmounted
+        Assert.Equal(
+            new[] { MessageBarLifecycleStatus.Visible, MessageBarLifecycleStatus.Dismissed, MessageBarLifecycleStatus.Unmounted },
+            statuses);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_DuplicateId_Throws()
+    {
+        // Arrange
+        Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var first = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Id = "dupe";
+            o.Title = "First";
+        });
+
+        // Act
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        {
+            await NotificationService.ShowMessageBarAsync(o =>
+            {
+                o.Section = TEST_SECTION;
+                o.Id = "dupe";
+                o.Title = "Second";
+            });
+        });
+
+        // Assert
+        Assert.Contains("dupe", ex.Message);
+
+        // Cleanup
+        await NotificationService.CloseAllMessageBarsAsync();
+        await first;
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ShowMessage_NullOptions_Throws()
+    {
+        // Arrange
+        Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ArgumentNullException>(async () =>
+        {
+            await NotificationService.ShowMessageBarAsync((MessageBarOptions)null!);
+        });
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("   ")]
+    public async Task FluentMessageBarProvider_ShowMessage_EmptySection_Throws(string? section)
+    {
+        // Arrange
+        Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<ArgumentException>(async () =>
+        {
+            await NotificationService.ShowMessageBarAsync(o =>
+            {
+                o.Section = section!;
+                o.Title = "No section";
+            });
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_NotRendered_Throws()
+    {
+        // Arrange: no FluentMessageBarProvider rendered
+
+        // Act & Assert
+        await Assert.ThrowsAsync<FluentServiceProviderException<FluentMessageBarProvider>>(async () =>
+        {
+            await NotificationService.ShowInfoBarAsync(TEST_SECTION, "No provider");
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_Dispose_UnsubscribesAndAllowsAnotherProvider()
+    {
+        // Arrange
+        var first = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act: dispose by re-rendering with a different component (drops the first)
+        first.FindComponent<FluentMessageBarProvider>().Instance.Dispose();
+
+        var second = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "After dispose");
+
+        await Task.CompletedTask;
+
+        // Assert
+        second.WaitForAssertion(() => Assert.Contains("After dispose", second.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_AllProvidersDisposed_ServiceUnavailable()
+    {
+        // Arrange
+        var provider = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        provider.FindComponent<FluentMessageBarProvider>().Instance.Dispose();
+
+        // Assert: ProviderId is reset, ShowMessage throws
+        await Assert.ThrowsAsync<FluentServiceProviderException<FluentMessageBarProvider>>(async () =>
+        {
+            await NotificationService.ShowInfoBarAsync(TEST_SECTION, "Nope");
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CustomComponent_Rendered()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        _ = NotificationService.ShowMessageBarAsync<Templates.CustomMessageBarTemplate>(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Parameters[nameof(Templates.CustomMessageBarTemplate.Text)] = "from-test";
+        });
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("custom-message-bar", cut.Markup));
+        cut.WaitForAssertion(() => Assert.Contains("from-test", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_CustomComponent_OptionsObject()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+        var options = new MessageBarOptions
+        {
+            Section = TEST_SECTION,
+        };
+        options.Parameters[nameof(Templates.CustomMessageBarTemplate.Text)] = "options-text";
+
+        // Act
+        _ = NotificationService.ShowMessageBarAsync<Templates.CustomMessageBarTemplate>(options);
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("options-text", cut.Markup));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_EmptyMessage_DoesNotRenderContent()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act: Show a message with Title only (no Message)
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "OnlyTitle");
+
+        await Task.CompletedTask;
+
+        // Assert: title is rendered and the content span has no inner text
+        cut.WaitForAssertion(() => Assert.Contains("OnlyTitle", cut.Markup));
+        Assert.Contains("<span class=\"content\"></span>", cut.Markup);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_MultipleMessages_OrderedByIndex()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "First");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Second");
+        _ = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Third");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Equal(3, cut.FindAll("fluent-message-bar").Count));
+        var firstIndex = cut.Markup.IndexOf("First", StringComparison.Ordinal);
+        var secondIndex = cut.Markup.IndexOf("Second", StringComparison.Ordinal);
+        var thirdIndex = cut.Markup.IndexOf("Third", StringComparison.Ordinal);
+        Assert.True(firstIndex < secondIndex && secondIndex < thirdIndex);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_TwoProviders_DifferentSections()
+    {
+        // Arrange
+        var cutA = Render(@<FluentMessageBarProvider Section="A" />);
+        var cutB = Render(@<FluentMessageBarProvider Section="B" />);
+
+        // Act
+        _ = NotificationService.ShowInfoBarAsync("A", "OnlyA");
+        _ = NotificationService.ShowInfoBarAsync("B", "OnlyB");
+
+        await Task.CompletedTask;
+
+        // Assert
+        cutA.WaitForAssertion(() => Assert.Contains("OnlyA", cutA.Markup));
+        cutB.WaitForAssertion(() => Assert.Contains("OnlyB", cutB.Markup));
+        Assert.DoesNotContain("OnlyB", cutA.Markup);
+        Assert.DoesNotContain("OnlyA", cutB.Markup);
+    }
+
+    /// <summary>
+    /// A fake <see cref="IMessageBarInstance"/> used to verify that <see cref="NotificationService.CloseAsync(IMessageBarInstance, object?)"/>
+    /// is a no-op when the instance is not a <see cref="MessageBarInstance"/>.
+    /// </summary>
+    private sealed class FakeMessageBarInstance : IMessageBarInstance
+    {
+        Type? INotificationInstance.ComponentType => null;
+        public string Id => "fake";
+        public long Index => 0;
+        public MessageBarOptions Options { get; } = new() { Section = "fake" };
+        public Task<MessageBarResult> Result => Task.FromResult(MessageBarResult.OfProgrammatic());
+        public MessageBarLifecycleStatus LifecycleStatus => MessageBarLifecycleStatus.Visible;
+        public Task CloseAsync() => Task.CompletedTask;
+        public Task CloseAsync(MessageBarResult result) => Task.CompletedTask;
+    }
+}
