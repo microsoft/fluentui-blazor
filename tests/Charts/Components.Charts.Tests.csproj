@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\..\src\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" />
     <ProjectReference Include="..\Shared\Components.Tests.Shared.csproj" />
   </ItemGroup>
 
@@ -74,5 +75,4 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  </Project>
+</Project>

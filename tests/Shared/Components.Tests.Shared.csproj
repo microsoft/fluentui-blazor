@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>$(NetVersion)</TargetFramework>
@@ -8,8 +8,8 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
-    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests</AssemblyName>
-    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests</RootNamespace>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests.Shared</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests.Shared</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <ProjectReference Include="..\Shared\Components.Tests.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,5 +73,4 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  </Project>
+</Project>
