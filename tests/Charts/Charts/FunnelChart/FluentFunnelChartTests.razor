@@ -1,0 +1,283 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<FunnelDataPoint> DefaultData =
+    [
+        new FunnelDataPoint { Stage = "Awareness",   Value = 500 },
+        new FunnelDataPoint { Stage = "Interest",    Value = 400 },
+        new FunnelDataPoint { Stage = "Evaluation",  Value = 250 },
+        new FunnelDataPoint { Stage = "Decision",    Value = 100 },
+    ];
+
+    public FluentFunnelChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentFunnelChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentFunnelChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" ChartTitle="Sales Funnel" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("chart-title");
+        Assert.Equal("Sales Funnel", attribute);
+    }
+
+    [Theory]
+    [InlineData(Orientation.Horizontal, "horizontal")]
+    [InlineData(Orientation.Vertical, "vertical")]
+    public void FluentFunnelChart_Orientation(Orientation value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" Orientation="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("orientation");
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_HideTooltip_False()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" HideTooltip="false" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("hide-tooltip");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_RoundedCorners()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" RoundedCorners="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("round-corners");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_LegendListLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" LegendListLabel="Stages" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("legend-list-label");
+        Assert.Equal("Stages", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_AllowMultipleLegendSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" AllowMultipleLegendSelection="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("allow-multiple-legend-selection");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" Width="600px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("width");
+        Assert.Equal("600px", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("de-DE");
+
+        // Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("culture");
+        Assert.Equal("de-DE", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_Culture_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" Culture="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("culture");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" Class="my-funnel" />);
+
+        // Assert
+        var element = cut.Find("fluent-funnel-chart");
+        Assert.Contains("my-funnel", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-funnel-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@DefaultData" aria-label="Conversion funnel" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-funnel-chart").GetAttribute("aria-label");
+        Assert.Equal("Conversion funnel", attribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<FunnelDataPoint>
+        {
+            new FunnelDataPoint { Stage = "Step 1", Value = 100 },
+        };
+
+        // Act
+        var cut = Render(@<FluentFunnelChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-funnel-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("Step 1", dataAttribute);
+        Assert.Contains("100", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_DataPoint_WithColor()
+    {
+        // Arrange
+        var data = new List<FunnelDataPoint>
+        {
+            new FunnelDataPoint { Stage = "Top", Value = 200, Color = DataVizPalette.Color2 },
+        };
+
+        // Act
+        var cut = Render(@<FluentFunnelChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-funnel-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("color2", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<FunnelDataPoint>
+        {
+            new FunnelDataPoint { Stage = "Top", Value = 200, Color = DataVizPalette.Custom, CustomColor = "#A23B72" },
+        };
+
+        // Act
+        var cut = Render(@<FluentFunnelChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-funnel-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("#A23B72", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentFunnelChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentFunnelChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentFunnelChart>
+        );
+
+        // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentFunnelChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentFunnelChart ChartData="@(Array.Empty<FunnelDataPoint>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-funnel-chart");
+        Assert.NotNull(element);
+    }
+}
