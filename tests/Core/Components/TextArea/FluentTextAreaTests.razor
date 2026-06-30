@@ -1,7 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Utilities
-@using System.ComponentModel.DataAnnotations
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -133,6 +130,25 @@
            .MarkupMatches("<fluent-textarea id=\"myId\" slot=\"input\" value=\"new value\" />");
     }
 
+    [Fact]
+    public void FluentTextArea_OnChange_ReportsValidity()
+    {
+        // Arrange
+        using var context = new IdentifierContext(i => "myId");
+        var value = "init";
+        var cut = Render(@<FluentTextArea @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-textarea").Change("new value");
+
+        // Assert
+        var reportValidityInvocations = JSInterop.Invocations
+            .Where(invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity")
+            .ToList();
+
+        Assert.Single(reportValidityInvocations);
+    }
+
     [Theory]
     [InlineData(false, 0, "init", "init")]              // No Immediate
     [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
@@ -197,6 +213,7 @@
         var cut = Render(@<FluentTextArea Width="150px" Height="100px" />);
 
         // Assert
-        Assert.Equal("width: 150px; height: 100px;", cut.Find("fluent-textarea").GetAttribute("style"));
+        Assert.Equal("height: 100px;", cut.Find("fluent-textarea").GetAttribute("style"));
+        Assert.Equal("width: 150px;", cut.Find("fluent-field").GetAttribute("style"));
     }
 }

@@ -1,0 +1,47 @@
+﻿@inject INotificationService NotificationService
+
+<FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
+                          Margin="@Margin.Vertical2" />
+
+<FluentButton OnClick="@ShowCustomizedMessageBar"
+              Margin="@Margin.End4"
+              Appearance="ButtonAppearance.Primary">
+    Show MessageBar (10 seconds)
+</FluentButton>
+
+<FluentButton OnClick="@ShowCustomizedComponent"
+              Appearance="ButtonAppearance.Default">
+    Show Component (5 seconds)
+</FluentButton>
+
+@code
+{
+    const string MESSAGEBAR_SECTION = "MESSAGEBAR_SERVICE_CUSTOMIZED";
+
+    async Task ShowCustomizedMessageBar()
+    {
+        var result = await NotificationService.ShowMessageBarAsync<Message.CustomizedMessageBar>(options =>
+        {
+            options.Section = MESSAGEBAR_SECTION;
+
+            options.Intent = MessageBarIntent.Success;
+            options.Title = "Hello from the NotificationService!";
+            options.Lifetime = TimeSpan.FromSeconds(10);
+        });
+
+        Console.WriteLine($"Message bar closed: {result.Reason}");
+    }
+
+    async Task ShowCustomizedComponent()
+    {
+        var result = await NotificationService.ShowMessageBarAsync<Message.CustomizedComponent>(options =>
+        {
+            options.Section = MESSAGEBAR_SECTION;
+
+            options.Title = "Hello from the NotificationService!";
+            options.Lifetime = TimeSpan.FromSeconds(5);
+        });
+
+        Console.WriteLine($"Message bar closed: {result.Reason}");
+    }
+}

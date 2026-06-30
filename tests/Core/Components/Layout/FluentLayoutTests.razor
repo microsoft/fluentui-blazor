@@ -99,6 +99,7 @@
         var layout = cut.FindComponent<FluentLayout>();
 
         // Assert
+        Assert.Contains("--layout-header-height: 40px;", cut.Markup);
         Assert.Equal("40px", layout.Instance.HeaderHeight);
         Assert.True(layout.Instance.HasHeader);
         Assert.True(layout.Instance.HeaderSticky);

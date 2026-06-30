@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -11,6 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public interface IFluentField
 {
+    /// <summary>
+    /// Gets the value expression used to identify the field in an <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
+    /// </summary>
+    LambdaExpression? ValueExpression { get; }
+
     /// <summary>
     /// Gets a value indicating whether the input component has already lost the focus.
     /// As long as the user has been in this field at least once and has left it, this property remains false.

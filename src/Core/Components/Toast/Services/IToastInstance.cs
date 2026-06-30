@@ -5,30 +5,19 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Interface for ToastReference
+/// Interface for a toast instance managed by the <see cref="INotificationService"/>.
 /// </summary>
-public interface IToastInstance
+public interface IToastInstance : INotificationInstance
 {
     /// <summary>
-    /// Gets the unique identifier for the Toast. If this value is not set in the <see cref="ToastOptions"/>, a new
-    /// identifier is generated.
-    /// </summary>
-    string Id { get; }
-
-    /// <summary>
-    /// Gets the index of the Toast (sequential number).
-    /// </summary>
-    long Index { get; }
-
-    /// <summary>
-    /// Gets the options used to configure the Toast.
+    /// Gets the options used to configure the toast.
     /// </summary>
     ToastOptions Options { get; }
 
     /// <summary>
-    /// Gets the close reason of the Toast.
+    /// Gets the result of the toast.
     /// </summary>
-    Task<ToastCloseReason> Result { get; }
+    Task<ToastResult> Result { get; }
 
     /// <summary>
     /// Gets the lifecycle status of the toast.
@@ -36,28 +25,9 @@ public interface IToastInstance
     ToastLifecycleStatus LifecycleStatus { get; }
 
     /// <summary>
-    /// Closes the Toast programmatically.
+    /// Closes the toast with the specified result.
     /// </summary>
-    /// <returns></returns>
-    Task CloseAsync();
-
-    /// <summary>
-    /// Closes the Toast with the specified reason.
-    /// </summary>
-    /// <param name="reason">Reason to close the Toast with.</param>
-    /// <returns></returns>
-    Task CloseAsync(ToastCloseReason reason);
-
-    /// <summary>
-    /// Dismisses the Toast.
-    /// </summary>
-    /// <returns></returns>
-    Task DismissAsync();
-
-    /// <summary>
-    /// Updates the toast options while the toast is shown.
-    /// </summary>
-    /// <param name="update">The action that mutates the current options.</param>
-    /// <returns></returns>
-    Task UpdateAsync(Action<ToastOptions> update);
+    /// <param name="reason">Reason for closing the toast.</param>
+    /// <param name="data">Optional data associated with the close action.</param>
+    Task CloseAsync(ToastCloseReason reason, object? data = null);
 }

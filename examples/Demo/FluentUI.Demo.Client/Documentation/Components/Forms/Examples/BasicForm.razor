@@ -1,5 +1,4 @@
 ﻿@page "/basicform-fluentui-components"
-@using FluentUI.Demo.SampleData
 @using static FluentUI.Demo.SampleData.Olympics2024
 
 
@@ -26,6 +25,20 @@
         </div>
         <div>
             <FluentTextArea Name="description" @bind-Value="starship.Description" Label="Description (min. 10 characters)" Required="true" />
+        </div>
+        <div>
+            <FluentAutocomplete TOption="Country"
+                                TValue="string"
+                                Name="countries"
+                                Required="true"
+                                Label="Select countries"
+                                Width="250px"
+                                Placeholder="Select countries"
+                                OnOptionsSearch="@OnSearch"
+                                MaximumSelectedOptions="3"
+                                OptionText="@(item => item.Name)"
+                                Multiple="true"
+                                @bind-SelectedItems="@starship.Countries" />
         </div>
         <div>
             <FluentSelect Name="class" Id="classification" @bind-Value="starship.Classification" TOption="string" TValue="string" Required="true" Label="Primary Classification">

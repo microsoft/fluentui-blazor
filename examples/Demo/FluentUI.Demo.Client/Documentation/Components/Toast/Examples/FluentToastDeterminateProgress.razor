@@ -1,40 +1,31 @@
-﻿@inject IToastService ToastService
+﻿@inject INotificationService NotificationService
 
-<FluentButton @ref="openToastButton" OnClick="@OpenToastAsync">
-    Make toast
+<FluentButton OnClick="@OpenProgressToastAsync"
+              Disabled="@InProgress">
+    Show Toast
 </FluentButton>
 
 @code {
-    FluentButton openToastButton = default!;
 
-    private static RenderFragment BuildProgressContent(int value) =>
-    @<div>
-        <FluentProgressBar Min="0" Max="100" Value="value" Width="100%" />
-        @($"{value}% complete")
-    </div>;
+    bool InProgress = false;
 
-    private async Task OpenToastAsync()
+    async Task OpenProgressToastAsync()
     {
-        openToastButton.SetDisabled(true);
+        InProgress = true;
 
-        var instance = await ToastService.ShowToastInstanceAsync(options =>
+        // Show the "CustomizedProgressToast" razor component
+        var result = await NotificationService.ShowToastAsync<Toast.CustomizedProgressToast>(options =>
         {
-            options.Type = ToastType.DeterminateProgress;
-            options.Icon = new Icons.Regular.Size20.ArrowDownload();
             options.Title = "Downloading file";
-            options.BodyContent = BuildProgressContent(0);
+            options.Lifetime = TimeSpan.Zero; // Keep the toast open until closed after the progress is complete
+            options.Icon = new Icons.Regular.Size24.ArrowDownload();
+            options.AllowDismiss = false;
+            options.Width = "400px";
+            options.Parameters.Add("ProgressValue", 0);
         });
 
-        for (int i = 0; i <= 100; i += 10)
-        {
-            await Task.Delay(500); // Simulate work being done
-            await instance.UpdateAsync(options =>
-            {
-                options.BodyContent = BuildProgressContent(i);
-            });
-        }
-
-        openToastButton.SetDisabled(false);
+        // Completed
+        InProgress = false;
+        Console.WriteLine($"'Progress toast' closed with Reason: {result.Reason} and Data: {result.Data}");
     }
 }
-

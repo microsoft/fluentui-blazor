@@ -41,6 +41,17 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipCom
         }
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the width of the slider (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
     /// <summary>
     /// Gets or sets the size for the slider.
     /// </summary>

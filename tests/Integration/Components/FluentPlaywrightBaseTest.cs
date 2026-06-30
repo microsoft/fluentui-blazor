@@ -42,7 +42,7 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
         _playwright = await Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
         {
-            Devtools = openDevTools,
+            // Devtools = openDevTools,
             Headless = openHeadlessBrowser
         });
 

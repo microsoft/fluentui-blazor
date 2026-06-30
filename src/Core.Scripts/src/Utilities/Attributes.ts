@@ -36,6 +36,31 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
   }
 
   /**
+   * Calls reportValidity on a custom element by reference or by id.
+   * @param elementOrId The element or its ID.
+   * @returns True when reportValidity is available and was called.
+   */
+  export function reportValidity(elementOrId: HTMLElement | string): boolean {
+    let element: HTMLElement | null;
+    if (typeof elementOrId === 'string') {
+      element = document.getElementById(elementOrId);
+    } else {
+      element = elementOrId;
+    }
+
+    if (!element) {
+      return false;
+    }
+
+    const reportValidityMethod = (element as any).reportValidity;
+    if (typeof reportValidityMethod !== 'function') {
+      return false;
+    }
+
+    return reportValidityMethod.call(element);
+  }
+
+  /**
   * Observe the change in the HTML `attributeName` attribute to update the element's `propertyName` JavaScript property.
   * @param element The element to observe.
   * @param attributeName The name of the attribute to observe.

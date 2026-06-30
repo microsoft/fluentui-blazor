@@ -163,6 +163,7 @@
 
     internal class MockFluentField : IFluentField
     {
+        public System.Linq.Expressions.LambdaExpression? ValueExpression { get; }
         public bool FocusLost { get; }
         public string? Label { get; set; }
         public RenderFragment? LabelTemplate { get; set; }

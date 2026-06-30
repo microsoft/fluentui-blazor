@@ -1,5 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+
 @inherits FluentListBase<TOption, TValue>
 @typeparam TOption
 @typeparam TValue
@@ -14,6 +14,7 @@
                     IsFixed="true">
 
         <FluentTextInput Id="@Id"
+                         ValidationFieldFor="@ValidationFieldAccessor"
                          Class="@ClassValue"
                          Immediate="true"
                          ImmediateDelay="@ImmediateDelay"
@@ -41,7 +42,7 @@
                          auto-complete="true"
                          dismiss="@(ShowDismiss ? null : "hidden")"
                          Width="@Width"
-                         AutoComplete="false"
+                         AutoComplete="off"
                          Tooltip="@Tooltip"
                          @attributes="AdditionalAttributes"
                          @onkeydown="@OnTextInputKeyDownAsync"
