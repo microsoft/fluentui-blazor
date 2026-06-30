@@ -31,7 +31,8 @@ else
                         <FluentLabelInfo InfoText="@Parameters.LabelInfo.InfoText"
                                          InfoActionLink="@Parameters.LabelInfo.InfoActionLink"
                                          InfoActionText="@Parameters.LabelInfo.InfoActionText"
-                                         InfoActionTarget="@Parameters.LabelInfo.InfoActionTarget">
+                                         InfoActionTarget="@Parameters.LabelInfo.InfoActionTarget"
+                                         MaxWidth="@Parameters.LabelInfo.MaxWidth">
                             @Parameters.Label
                             @Parameters.LabelTemplate
                         </FluentLabelInfo>
@@ -57,6 +58,12 @@ else
                         @ChildContent
                     </div>
                 }
+            }
+
+            @if (HasValidationMessages)
+            {
+                <FluentValidationMessage TValue="object"
+                                         Field="@_fieldIdentifier" />
             }
 
             @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)

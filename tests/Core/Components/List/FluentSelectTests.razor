@@ -107,6 +107,32 @@
     }
 
     [Fact]
+    public void FluentSelect_OptionClass()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" OptionClass="my-option" TOption="string" TValue="string" />);
+
+        // Assert - the custom CSS class is applied to every rendered option
+        var options = cut.FindAll("fluent-option");
+
+        Assert.NotEmpty(options);
+        Assert.All(options, option => Assert.Contains("my-option", option.GetAttribute("class")));
+    }
+
+    [Fact]
+    public void FluentSelect_OptionNoWrapMaxWidth()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" OptionNoWrapMaxWidth="200px" TOption="string" TValue="string" />);
+
+        // Assert - the no-wrap attribute is applied to the listbox with the provided max width
+        var listbox = cut.Find("fluent-listbox");
+
+        Assert.True(listbox.HasAttribute("no-wrap"));
+        Assert.Equal("200px", listbox.GetAttribute("no-wrap"));
+    }
+
+    [Fact]
     public void FluentSelect_Default_InitialSelection()
     {
         string? value = "Two";
@@ -472,9 +498,12 @@
         var cut = Render(@<FluentSelect Items="@Digits" TOption="string" TValue="string" Width="200px" Height="300px" />);
 
         // Assert - Width is applied to the dropdown, Height to the listbox
+        var field = cut.Find("fluent-field");
         var dropdown = cut.Find("fluent-dropdown");
         var dropdownStyle = dropdown.GetAttribute("style");
-        Assert.Contains("width: 200px", dropdownStyle);
+        var fieldStyle = field.GetAttribute("style");
+        
+        Assert.Contains("width: 200px", fieldStyle);
 
         var listbox = cut.Find("fluent-listbox");
         var listboxStyle = listbox.GetAttribute("style");

@@ -384,4 +384,10 @@
   <data name="Wizard_LabelButtonDone" xml:space="preserve">
     <value>Done</value>
   </data>
+  <data name="LabelInfo_InfoActionText" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="LabelInfo_InfoText" xml:space="preserve">
+    <value>More information</value>
+  </data>
 </root>

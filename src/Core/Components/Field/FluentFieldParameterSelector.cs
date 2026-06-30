@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Localization;
 
@@ -25,6 +26,12 @@ internal class FluentFieldParameterSelector : IFluentField
 
     /// <summary />
     public bool HasInputComponent => _component.InputComponent != null;
+
+    /// <summary />
+    public LambdaExpression? ValueExpression
+    {
+        get => _component.ValueExpression ?? _component.InputComponent?.ValueExpression;
+    }
 
     /// <summary />
     public bool FocusLost
@@ -130,7 +137,7 @@ internal class FluentFieldParameterSelector : IFluentField
             Components.MessageState.Success => FluentStatus.SuccessIcon,
             Components.MessageState.Error => FluentStatus.ErrorIcon,
             Components.MessageState.Warning => FluentStatus.WarningIcon,
-            _ => null
+            _ => null,
         };
     }
 
@@ -142,7 +149,7 @@ internal class FluentFieldParameterSelector : IFluentField
             Components.MessageState.Success => localizer[LanguageResource.Field_SuccessMessage],
             Components.MessageState.Error => localizer[LanguageResource.Field_ErrorMessage],
             Components.MessageState.Warning => localizer[LanguageResource.Field_WarningMessage],
-            _ => null
+            _ => null,
         };
     }
 
@@ -184,7 +191,7 @@ internal class FluentFieldParameterSelector : IFluentField
                 builder.CloseComponent();
             }
             ,
-            _ => null
+            _ => null,
         };
     }
 }

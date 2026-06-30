@@ -1,6 +1,7 @@
 .fluent-label-info {
     display: inline-flex;
     align-items: center;
+    --fluent-label-info-width: fit-content;
 }
 
 .fluent-label-info>button {
@@ -16,6 +17,7 @@
 
 .fluent-label-info>fluent-popover-b::part(dialog) {
     padding: var(--spacingVerticalS, 8px) var(--spacingHorizontalS, 8px);
+    max-width: var(--fluent-label-info-width, fit-content);
 }
 
 .fluent-label-info>fluent-popover-b fluent-link[part="info-link"] {

@@ -1,0 +1,459 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentInputBaseTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    private sealed class TestModel
+    {
+        [Required]
+        public string? Name { get; set; }
+
+        [Range(1, 100)]
+        public int Age { get; set; }
+    }
+
+    /// <summary>
+    /// Tests that FocusLost property defaults to false on component creation.
+    /// This tests the base IFluentField.FocusLost property implementation.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_FocusLost_DefaultIsFalse()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput Label="Test" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.False(textInput.Instance.FocusLost);
+    }
+
+    /// <summary>
+    /// Tests that IFluentField properties can be set and retrieved on a derived component.
+    /// This validates the base class parameter bindings for Label, Disabled, Required, Message, MessageState, and LabelPosition.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_IFluentField_AllPropertiesSetAndRetrieved()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput
+                    Label="Test Label"
+                    Disabled="true"
+                    Required="true"
+                    Message="This field is required"
+                    MessageState="MessageState.Error"
+                    LabelPosition="LabelPosition.Above" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var instance = textInput.Instance;
+
+        // Assert
+        Assert.Equal("Test Label", instance.Label);
+        Assert.True(instance.Disabled);
+        Assert.True(instance.Required);
+        Assert.Equal("This field is required", instance.Message);
+        Assert.Equal(MessageState.Error, instance.MessageState);
+        Assert.Equal(LabelPosition.Above, instance.LabelPosition);
+    }
+
+    /// <summary>
+    /// Tests that IFluentComponentBase properties can be set and retrieved.
+    /// This validates Class, Style, Margin, Padding, and Data parameter bindings.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_IFluentComponentBase_AllPropertiesSetAndRetrieved()
+    {
+        // Arrange
+        var customData = new { userId = 123, role = "admin" };
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput
+                    Class="my-custom-class"
+                    Style="color: red; font-weight: bold;"
+                    Margin="large"
+                    Padding="medium"
+                    Data="@customData" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var instance = textInput.Instance;
+
+        // Assert
+        Assert.Equal("my-custom-class", instance.Class);
+        Assert.Equal("color: red; font-weight: bold;", instance.Style);
+        Assert.Equal("large", instance.Margin);
+        Assert.Equal("medium", instance.Padding);
+        Assert.NotNull(instance.Data);
+        Assert.Same(customData, instance.Data);
+    }
+
+    /// <summary>
+    /// Tests that the Autofocus parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_Autofocus_IsSet()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput Autofocus="true" AriaLabel="Focus on load" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.True(textInput.Instance.Autofocus);
+    }
+
+    /// <summary>
+    /// Tests that the AriaLabel parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_AriaLabel_IsSet()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput AriaLabel="Enter your name here" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.Equal("Enter your name here", textInput.Instance.AriaLabel);
+    }
+
+    /// <summary>
+    /// Tests that the Name parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_Name_IsSet()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput Name="userNameField" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.Equal("userNameField", textInput.Instance.Name);
+    }
+
+    /// <summary>
+    /// Tests that the ReadOnly parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_ReadOnly_IsSet()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput ReadOnly="true" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.True(textInput.Instance.ReadOnly);
+    }
+
+    /// <summary>
+    /// Tests that the Id parameter is auto-generated if not provided.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_Id_AutoGeneratedWhenNotProvided()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.NotNull(textInput.Instance.Id);
+        Assert.NotEmpty(textInput.Instance.Id);
+    }
+
+    /// <summary>
+    /// Tests that a custom Id can be set and retrieved.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_Id_CustomValueUsedWhenProvided()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput Id="custom-input-id" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.Equal("custom-input-id", textInput.Instance.Id);
+    }
+
+    /// <summary>
+    /// Tests that the LabelTemplate parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_LabelTemplate_IsSet()
+    {
+        // Arrange
+        RenderFragment labelTemplate = @<strong>Custom Label</strong>;
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput LabelTemplate="@labelTemplate" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.NotNull(textInput.Instance.LabelTemplate);
+        Assert.Same(labelTemplate, textInput.Instance.LabelTemplate);
+    }
+
+    /// <summary>
+    /// Tests that the MessageTemplate parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_MessageTemplate_IsSet()
+    {
+        // Arrange
+        RenderFragment messageTemplate = @<span class="error">Error occurred</span>;
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput MessageTemplate="@messageTemplate" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.NotNull(textInput.Instance.MessageTemplate);
+        Assert.Same(messageTemplate, textInput.Instance.MessageTemplate);
+    }
+
+    /// <summary>
+    /// Tests that the LabelWidth parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_LabelWidth_IsSet()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput LabelWidth="150px" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.Equal("150px", textInput.Instance.LabelWidth);
+    }
+
+    /// <summary>
+    /// Tests that the MessageCondition parameter is properly set and callable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_MessageCondition_IsSetAndCallable()
+    {
+        // Arrange
+        Func<IFluentField, bool> condition = field => field.MessageState == MessageState.Error;
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput
+                    MessageCondition="@condition"
+                    Message="Error message"
+                    MessageState="MessageState.Error" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var retrieved = textInput.Instance.MessageCondition;
+        var result = retrieved?.Invoke(textInput.Instance) ?? false;
+
+        // Assert
+        Assert.NotNull(retrieved);
+        Assert.Same(condition, retrieved);
+        Assert.True(result);
+    }
+
+    /// <summary>
+    /// Tests that the LabelInfo parameter is properly set and retrievable.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_LabelInfo_IsSet()
+    {
+        // Arrange
+        var labelInfo = new FluentUI.AspNetCore.Components.LabelInfo();
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput Label="Info Label" LabelInfo="@labelInfo" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.NotNull(textInput.Instance.LabelInfo);
+        Assert.Same(labelInfo, textInput.Instance.LabelInfo);
+    }
+
+    /// <summary>
+    /// Tests SetParametersAsync with a valid parameter dictionary.
+    /// This validates the parameter validation in the base class.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_SetParametersAsync_WithValidParameters()
+    {
+        // Arrange & Act
+        var testModel = new TestModel { Name = "Test" };
+        var cut = Render(
+            @<EditForm Model="@testModel">
+                <FluentTextInput Label="Test Label" Message="Test Message" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>().Instance;
+
+        // Assert - verify component was created successfully with parameters
+        Assert.NotNull(textInput);
+        Assert.Equal("Test Label", textInput.Label);
+    }
+
+    /// <summary>
+    /// Tests that multiple parameters can be combined and work together.
+    /// This validates that the base class properly integrates all parameters.
+    /// </summary>
+    [Fact]
+    public void FluentInputBase_MultipleParameters_WorkTogether()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput
+                    Id="combo-test"
+                    Label="User Input"
+                    AriaLabel="Enter user input"
+                    Name="userInput"
+                    Class="form-input"
+                    Style="border: 2px solid blue;"
+                    Margin="small"
+                    Padding="medium"
+                    Required="true"
+                    Disabled="false"
+                    ReadOnly="false"
+                    Autofocus="true"
+                    Message="This field is required"
+                    MessageState="MessageState.Error"
+                    LabelPosition="LabelPosition.Above"
+                    LabelWidth="100px" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var instance = textInput.Instance;
+
+        // Assert all properties are correctly set
+        Assert.Equal("combo-test", instance.Id);
+        Assert.Equal("User Input", instance.Label);
+        Assert.Equal("Enter user input", instance.AriaLabel);
+        Assert.Equal("userInput", instance.Name);
+        Assert.Equal("form-input", instance.Class);
+        Assert.Equal("border: 2px solid blue;", instance.Style);
+        Assert.Equal("small", instance.Margin);
+        Assert.Equal("medium", instance.Padding);
+        Assert.True(instance.Required);
+        Assert.False(instance.Disabled);
+        Assert.False(instance.ReadOnly);
+        Assert.True(instance.Autofocus);
+        Assert.Equal("This field is required", instance.Message);
+        Assert.Equal(MessageState.Error, instance.MessageState);
+        Assert.Equal(LabelPosition.Above, instance.LabelPosition);
+        Assert.Equal("100px", instance.LabelWidth);
+    }
+
+    /// <summary>
+    /// Tests that the component renders properly with different MessageState values.
+    /// </summary>
+    [Theory]
+    [InlineData(MessageState.Error)]
+    [InlineData(MessageState.Success)]
+    [InlineData(MessageState.Warning)]
+    public void FluentInputBase_MessageState_VariousValues(MessageState state)
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput MessageState="@state" Message="Test message" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.Equal(state, textInput.Instance.MessageState);
+    }
+
+    /// <summary>
+    /// Tests that the component renders properly with different LabelPosition values.
+    /// </summary>
+    [Theory]
+    [InlineData(LabelPosition.Above)]
+    [InlineData(LabelPosition.Before)]
+    [InlineData(LabelPosition.After)]
+    public void FluentInputBase_LabelPosition_VariousValues(LabelPosition position)
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<EditForm Model="@(new TestModel())">
+                <FluentTextInput Label="Test" LabelPosition="@position" />
+            </EditForm>
+        );
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+
+        // Assert
+        Assert.Equal(position, textInput.Instance.LabelPosition);
+    }
+}

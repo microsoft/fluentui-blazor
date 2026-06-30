@@ -13,7 +13,17 @@ The grid component helps keeping layout consistent across various screen resolut
 
 You can resize your browser to see how elements respond to different screen sizes.
 
-{{ GridDefault }}
+{{ GridDefault Files=Code:GridDefault.razor;Simplified:GridDefaultSimplified.razor }}
+
+> [!TIP]
+> When the direct children of a `FluentGrid` are HTML `<div>` elements (instead of `FluentGridItem` components),
+> you can simplify your markup by using the lowercase HTML attributes `xs`, `sm`, `md`, `lg`, `xl`, `xxl`
+> to define the column span per breakpoint, and the `hidden-when` attribute to hide the element on specific breakpoints.
+>
+> Example: `<div xs="12" sm="6" hidden-when="xs sm">...</div>` behaves like
+> `<FluentGridItem Xs="12" Sm="6" HiddenWhen="GridItemHidden.SmAndDown">...</FluentGridItem>`.
+>
+> This shortcut is **only available for `<div>` sub-elements**. Other components must use the `FluentGridItem` parameters.
 
 ## No breakpoints
 

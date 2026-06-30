@@ -1,0 +1,44 @@
+﻿@inherits LayoutComponentBase
+
+@*#if (SampleContent) -->
+<FluentLayout>
+    <FluentLayoutItem Area="LayoutArea.Header">
+        <FluentLayoutHamburger />
+        ComponentsWebAssembly-CSharp
+        <FluentSpacer />
+        <LoginDisplay />
+    </FluentLayoutItem>
+    <FluentLayoutItem Area="LayoutArea.Navigation">
+        <NavMenu />
+    </FluentLayoutItem>
+    <FluentLayoutItem Area="LayoutArea.Content" Class="main">
+        <ErrorBoundary>
+            <ChildContent>
+                <div class="content">
+                    @Body
+                </div>
+            </ChildContent>
+            <ErrorContent Context="ex">
+                <div class="blazor-error-boundary">@ex.Message</div>
+            </ErrorContent>
+        </ErrorBoundary>
+    </FluentLayoutItem>
+
+    <FluentLayoutItem Area="LayoutArea.Footer">
+        <div style="display: flex">
+            <FluentLink Href="https://www.fluentui-blazor.net" Target="LinkTarget.Blank" IconEnd="@(new Icons.Regular.Size16.ArrowExit())">
+                Documentation and demos
+            </FluentLink>
+            <FluentSpacer />
+            <FluentLink Href="https://learn.microsoft.com/en-us/aspnet/core/blazor" Target="LinkTarget.Blank" IconEnd="@(new Icons.Regular.Size16.ArrowExit())">
+                About Blazor
+            </FluentLink>
+        </div>
+    </FluentLayoutItem>
+</FluentLayout>
+##else
+<LoginDisplay />
+<div class="content">
+    @Body
+</div>
+##endif*@

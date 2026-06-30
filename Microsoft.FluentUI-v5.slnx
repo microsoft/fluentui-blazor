@@ -35,6 +35,10 @@
     </Project>
     <Project Path="src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" />
   </Folder>
+  <Folder Name="/src/Extensions/">
+    <Project Path="src/Extensions/DataGrid.EntityFrameworkAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj" />
+    <Project Path="src/Extensions/DataGrid.ODataAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj" />
+  </Folder>
   <Folder Name="/src/Tools/">
     <Project Path="src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" />
   </Folder>

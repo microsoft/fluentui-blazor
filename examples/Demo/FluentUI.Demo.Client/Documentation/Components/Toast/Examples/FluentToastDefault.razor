@@ -1,39 +1,32 @@
-﻿@inject IToastService ToastService
+﻿@inject INotificationService NotificationService
 
-<FluentButton OnClick="@OpenToastAsync">
-   Make toast
-</FluentButton>
+<FluentStack Wrap="true" HorizontalGap="12px">
+    <FluentButton OnClick="@(async e => await NotificationService.ShowSuccessToastAsync($"Success toast #{counter++}", lifetime: 5))">
+        Show Success
+    </FluentButton>
+    <FluentButton OnClick="@(async e => await NotificationService.ShowWarningToastAsync($"Warning toast #{counter++}", lifetime: 5))">
+        Show Warning
+    </FluentButton>
+    <FluentButton OnClick="@(async e => await NotificationService.ShowErrorToastAsync($"Error toast #{counter++}", lifetime: 5))">
+        Show Error
+    </FluentButton>
+    <FluentButton OnClick="@(async e => await NotificationService.ShowInfoToastAsync($"Info toast #{counter++}", lifetime: 5))">
+        Show Info
+    </FluentButton>
+    <FluentButton OnClick="@(async e => { ProgressResult = await NotificationService.ShowProgressToastAsync($"Progress toast #{counter++}"); })">
+        Show Progress
+    </FluentButton>
+    <FluentButton OnClick="@(async e => { if (ProgressResult is not null) await ProgressResult.Instance.CloseAsync(); })"
+                  Disabled="@(ProgressResult is null)">
+        Close Progress
+    </FluentButton>
+</FluentStack>
 
 @code {
-    int clickCount = 0;
 
-    private async Task OpenToastAsync()
-    {
-        var result = await ToastService.ShowToastAsync(options =>
-        {
-            options.Title = $"Toast title {++clickCount}";
-            options.Body = "Toasts are used to show brief messages to the user.";
-            options.Subtitle = "subtitle";
-            options.QuickAction1 = "Action";
-            options.QuickAction1Callback = () =>
-            {
-                Console.WriteLine("Action 1 executed.");
-                return Task.CompletedTask;
-            };
-            options.QuickAction2 = "Action";
-            options.QuickAction2Callback = () =>
-            {
-                Console.WriteLine("Action 2 executed.");
-                return Task.CompletedTask;
-            };
-            options.IsDismissable = true;
-            options.OnStatusChange = (e) =>
-            {
-                   Console.WriteLine($"Status changed: {e.Id} - {e.Status}");
-            };
+    int counter = 1;
 
-        });
-        Console.WriteLine($"Toast result: {result}");
-    }
+    ToastResult? ProgressResult;
 }
+
 

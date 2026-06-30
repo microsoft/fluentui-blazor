@@ -1,41 +1,44 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
+@{
+#pragma warning disable IL2111
+}
 
 <div id="@Id"
      class="@ClassValue"
      style="@StyleValue"
      @attributes="AdditionalAttributes">
-    @if (ToastService != null)
+    @if (NotificationService != null)
     {
         @foreach (var toast in GetRenderedToasts())
         {
-            <FluentToast @key="toast.Id"
-                         Id="@toast.Id"
-                         Class="@toast.Options.ClassValue"
-                         Style="@toast.Options.StyleValue"
-                         Data="@toast.Options.Data"
-                         Timeout="@GetTimeout(toast)"
-                         Position="@GetPosition(toast)"
-                         VerticalOffset="@GetVerticalOffset(toast)"
-                         HorizontalOffset="@GetHorizontalOffset(toast)"
-                         Type="@toast.Options.Type"
-                         Inverted="@toast.Options.Inverted"
-                         Intent="@toast.Options.Intent"
-                         Politeness="@toast.Options.Politeness"
-                         PauseOnHover="@GetPauseOnHover(toast)"
-                         PauseOnWindowBlur="@GetPauseOnWindowBlur(toast)"
-                         Instance="@toast"
-                         OnStatusChange="@GetOnStatusChangeCallback(toast)"
-                         Icon="@toast.Options.Icon"
-                         Title="@toast.Options.Title"
-                         Body="@toast.Options.Body"
-                         BodyContent="@toast.Options.BodyContent"
-                         Subtitle="@toast.Options.Subtitle"
-                         QuickAction1="@toast.Options.QuickAction1"
-                         QuickAction2="@toast.Options.QuickAction2"
-                         IsDismissable="@GetIsDismissable(toast)"
-                         DismissAction="@toast.Options.DismissAction"
-                         AdditionalAttributes="@toast.Options.AdditionalAttributes" />
+            <CascadingValue @key="toast.Id"
+                            Value="toast"
+                            IsFixed="true">
+                <FluentToast Id="@toast.Id"
+                             Class="@toast.Options.ClassValue"
+                             Style="@toast.Options.StyleValue"
+                             Data="@toast.Options.Data"
+                             Lifetime="@(GetLifetime(toast))"
+                             Position="@(toast.Options.Position ?? configuration.Toast.Position)"
+                             VerticalOffset="@(toast.Options.VerticalOffset ?? configuration.Toast.VerticalOffset)"
+                             HorizontalOffset="@(toast.Options.HorizontalOffset ?? configuration.Toast.HorizontalOffset)"
+                             Inverted="@(toast.Options.Inverted ?? configuration.Toast.Inverted)"
+                             Intent="@toast.Options.Intent"
+                             Politeness="@toast.Options.Politeness"
+                             PauseOnHover="@(toast.Options.PauseOnHover ?? configuration.Toast.PauseOnHover)"
+                             PauseOnWindowBlur="@(toast.Options.PauseOnWindowBlur ?? configuration.Toast.PauseOnWindowBlur)"
+                             OnStatusChange="@GetOnStatusChangeCallback(toast)"
+                             Icon="@toast.Options.Icon"
+                             Title="@toast.Options.Title"
+                             Subtitle="@toast.Options.Subtitle"
+                             ChildContent="@RenderToastContent(toast)"
+                             AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
+                             DismissAction="@toast.Options.DismissAction"
+                             FooterTemplate="@RenderFooterContent(toast)"
+                             Width="@(toast.Options.Width ?? configuration.Toast.Width)"
+                             AdditionalAttributes="@toast.Options.AdditionalAttributes" />                
+            </CascadingValue>
         }
     }
 </div>
