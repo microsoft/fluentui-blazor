@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
-    <!--<ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" />-->
+    <ProjectReference Include="..\..\src\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" />
   </ItemGroup>
 
 </Project>
