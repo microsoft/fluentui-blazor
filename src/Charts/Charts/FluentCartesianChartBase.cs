@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components;
@@ -209,6 +210,7 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
 [JsonSerializable(typeof(IDictionary<string, string>))]
 [JsonSerializable(typeof(Dictionary<string, string>))]
 [JsonSourceGenerationOptions(WriteIndented = false)]
+[ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
 #pragma warning disable MA0048 // File name must match type name
 internal partial class ChartJsonSerializerContext : JsonSerializerContext
 #pragma warning restore MA0048 // File name must match type name
