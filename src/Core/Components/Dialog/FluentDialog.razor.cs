@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// The dialog component is a window overlaid on either the primary window or another dialog window.
 /// Windows under a modal dialog are inert.
 /// </summary>
-public partial class FluentDialog : FluentComponentBase
+public partial class FluentDialog : FluentComponentBase, IHandleEvent
 {
     private string? _shownInstanceId;
 
@@ -109,7 +109,13 @@ public partial class FluentDialog : FluentComponentBase
     /// <summary />
     internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
-        if (string.CompareOrdinal(args.Id, Instance?.Id) != 0)
+        // The 'beforetoggle'/'toggle' DOM events are shared by the native <dialog> element and the
+        // Popover API. Any popover rendered inside the dialog/drawer content (e.g. fluent-menu-list,
+        // select listbox, tooltip) also raises these events. Blazor's event delegation attributes
+        // them to this dialog's @ondialogtoggle handler. We must ignore events that don't target
+        // this dialog instance; otherwise the IHandleEvent implementation below would re-render the
+        // whole dialog subtree and detach any open popover content.
+        if (args is null || string.CompareOrdinal(args.Id, Instance?.Id) != 0)
         {
             return;
         }
@@ -133,6 +139,29 @@ public partial class FluentDialog : FluentComponentBase
             }
         }
     }
+
+    /// <summary>
+    /// Handles UI events for this component.
+    /// </summary>
+    /// <remarks>
+    /// The dialog's content is supplied by the consumer (declaratively or through the
+    /// <see cref="DialogService"/>) and is re-rendered on its own. The dialog's own event handlers
+    /// (<see cref="OnKeyDownHandlerAsync"/> and <see cref="OnToggleAsync"/>) only forward to dialog
+    /// actions/state callbacks that already request their own renders, so they don't need the
+    /// automatic <c>StateHasChanged</c> that the default <see cref="IHandleEvent"/> implementation
+    /// performs after every callback.
+    /// <para>
+    /// Suppressing that automatic render is important because the 'beforetoggle'/'toggle' and
+    /// 'keydown' DOM events also bubble from content rendered inside the dialog/drawer (for example a
+    /// <c>fluent-menu-list</c> popover, a select listbox or a DataGrid header). Blazor's event
+    /// delegation attributes those to this dialog's handlers, and an unnecessary re-render of the
+    /// dialog subtree would recreate keyed child content (e.g. DataGrid header cells) and detach any
+    /// open popover.
+    /// </para>
+    /// </remarks>
+    [ExcludeFromCodeCoverage(Justification = "Tested in aspnetcore code")]
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        => callback.InvokeAsync(arg);
 
     /// <summary />
     private async Task<DialogEventArgs> RaiseOnStateChangeAsync(DialogEventArgs args)
