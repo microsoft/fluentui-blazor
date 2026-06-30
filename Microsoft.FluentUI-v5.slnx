@@ -48,6 +48,6 @@
     <Project Path="tests/Integration/Components.IntegrationTests.csproj">
       <Build Solution="Debug|*" Project="false" />
     </Project>
-    <Project Path="tests/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj" />
+    <Project Path="tests/McpServer/McpServer.Tests.csproj" />
     <Project Path="tests/Tools/Components.Tests.Tools.csproj" />
   </Folder></Solution>
