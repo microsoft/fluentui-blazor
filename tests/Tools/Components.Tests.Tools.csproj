@@ -2,32 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>$(NetVersion)</TargetFramework>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
-    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests.Shared</AssemblyName>
-    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests.Shared</RootNamespace>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests.Tools</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="bunit" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit.v3" />
-    <PackageReference Include="xunit.runner.visualstudio">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.msbuild">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+
   </ItemGroup>
 
   <ItemGroup>
@@ -56,10 +44,20 @@
     </None>
 
     <None Include="**\*.received.razor.html" />
+
+    <Compile Remove="**" />
+
+    <Content Remove="**" />
+
+    <EmbeddedResource Remove="**" />
+
+    <None Remove="**" />
     <None Update="**\*.received.razor.html">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
     </None>
+
+    <Compile Include="Verify\**" />
   </ItemGroup>
 
   <ItemGroup>

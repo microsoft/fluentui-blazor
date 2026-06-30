@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>$(NetVersion)</TargetFramework>
@@ -8,8 +8,8 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
-    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests</AssemblyName>
-    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests</RootNamespace>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Charts.Tests</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Charts.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
     <ProjectReference Include="..\..\src\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" />
-    <ProjectReference Include="..\Shared\Components.Tests.Shared.csproj" />
+    <ProjectReference Include="..\Tools\Components.Tests.Tools.csproj" />
   </ItemGroup>
 
   <ItemGroup>

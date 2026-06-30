@@ -48,9 +48,6 @@
     <Project Path="tests/Integration/Components.IntegrationTests.csproj">
       <Build Solution="Debug|*" Project="false" />
     </Project>
-    <Project Path="tests/Shared/Components.Tests.Shared.csproj" Id="e584d7eb-dd04-453c-84bd-6a879fb1d9dd" />
-  </Folder>
-  <Folder Name="/tests/Tools/">
+    <Project Path="tests/Tools/Components.Tests.Tools.csproj" />
     <Project Path="tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj" />
-  </Folder>
-</Solution>
+  </Folder></Solution>
