@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Provides shared source-generated JSON serialization helpers for chart payloads.
 /// </summary>
-[ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
+[ExcludeFromCodeCoverage(Justification = "Thin convenience wrapper around source-generated JSON contexts; behavior is covered by serializer context tests.")]
 public static class ChartJson
 {
     /// <summary>

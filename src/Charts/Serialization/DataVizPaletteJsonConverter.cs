@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// (e.g. <c>"color5"</c>, <c>"info"</c>) so the chart web components can
 /// resolve it to an actual hex color at runtime.
 /// </summary>
-[ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
+[ExcludeFromCodeCoverage(Justification = "Serialization glue with minimal behavior; covered by higher-level serialization tests.")]
 internal sealed class DataVizPaletteJsonConverter : JsonConverter<DataVizPalette>
 {
     /// <inheritdoc/>
