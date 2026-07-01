@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@fluentui/web-components": "^3.0.0",
-    "@microsoft/fast-element": "^2.10.5",
+    "@microsoft/fast-element": "^3.0.1",
     "@microsoft/fast-web-utilities": "^6.0.0",
     "d3-format": "^3.0.0",
     "d3-selection": "^3.0.0",

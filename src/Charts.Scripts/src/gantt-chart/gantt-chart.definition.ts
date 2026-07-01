@@ -1,5 +1,5 @@
 import { FluentDesignSystem } from '@fluentui/web-components';
-import { GanttChart } from './gantt-chart.js';
+import { type PartialFASTElementDefinition } from '@microsoft/fast-element';
 import { styles } from './gantt-chart.styles.js';
 import { template } from './gantt-chart.template.js';
 
@@ -8,11 +8,12 @@ import { template } from './gantt-chart.template.js';
  * @remarks
  * HTML Element: `<fluent-gantt-chart>`
  */
-export const definition = GanttChart.compose({
+export const definition: PartialFASTElementDefinition = {
   name: `${FluentDesignSystem.prefix}-gantt-chart`,
+  registry: FluentDesignSystem.registry,
   template,
   styles,
   shadowOptions: {
     delegatesFocus: true,
   },
-});
+};
