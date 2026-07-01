@@ -8,8 +8,8 @@
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>false</IsPackable>
-    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests</AssemblyName>
-    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests</RootNamespace>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Charts.Tests</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Charts.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\..\src\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" />
     <ProjectReference Include="..\Tools\Components.Tests.Tools.csproj" />
   </ItemGroup>
 
@@ -57,14 +58,6 @@
     </None>
 
     <None Include="**\*.received.razor.html" />
-
-    <Compile Remove="Verify\**" />
-
-    <Content Remove="Verify\**" />
-
-    <EmbeddedResource Remove="Verify\**" />
-
-    <None Remove="Verify\**" />
     <None Update="**\*.received.razor.html">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
@@ -82,5 +75,4 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
-  </Project>
+</Project>

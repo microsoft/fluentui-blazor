@@ -49,7 +49,7 @@
 
   <!-- Expose internals to test project -->
   <ItemGroup>
-    <InternalsVisibleTo Include="Microsoft.FluentUI.AspNetCore.McpServer.Tests" />
+    <InternalsVisibleTo Include="McpServer.Tests" />
   </ItemGroup>
 
   <!-- Release -->
