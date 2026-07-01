@@ -27,9 +27,13 @@ env:
     ./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
     ./src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
     ./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+    ./src/Extensions/DataGrid.ODataAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj
+    ./src/Extensions/DataGrid.EntityFrameworkAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+    ./src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj
   TESTS: >
     ./tests/Core/Components.Tests.csproj
-    ./tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
+    ./tests/Charts/Components.Charts.Tests.csproj
+    ./tests/McpServer/McpServer.Tests.csproj
   INTEGRATION_TEST: "" # DISABLING: ./tests/Integration/Components.IntegrationTests.csproj
   MIN_COVERAGE: "98"
 

@@ -1,0 +1,38 @@
+﻿@inject INotificationService NotificationService
+@inject IJSRuntime JS
+
+<FluentButton OnClick="@OpenQuickActionToastAsync">
+    Show Quick Action Toast
+</FluentButton>
+
+@code {
+
+    async Task OpenQuickActionToastAsync()
+    {
+        var result = await NotificationService.ShowToastAsync(options =>
+        {
+            options.Intent = ToastIntent.Info;
+            options.Title = $"Your dashboard changed";
+            options.Lifetime = TimeSpan.FromSeconds(10);
+            options.Message = "Update were made to Comtoso Dashboard.";
+            
+            options.QuickAction1.Label = "Review changes";
+            options.QuickAction1.Tooltip = "Click to review changes made in Comtoso Dashboard.";
+            options.QuickAction1.OnClickAsync = async (e) =>
+            {
+                Console.WriteLine($"Review action clicked.");
+                await e.Instance.CloseAsync(ToastCloseReason.Dismissed);
+            };
+
+            options.QuickAction2.Label = "See dashboard";
+            options.QuickAction2.Tooltip = "Click to see the dashboard.";
+            options.QuickAction2.OnClickAsync = async (e) =>
+            {
+                Console.WriteLine($"See dashboard action clicked.");
+                await JS.InvokeVoidAsync("open", "https://www.microsoft.com/", "_blank");
+                await e.Instance.CloseAsync(ToastCloseReason.Dismissed);
+            };
+        });        
+    }
+}
+

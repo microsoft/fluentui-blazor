@@ -206,6 +206,36 @@ public class GridSortTests : Bunit.BunitContext
         Assert.Equal("Number", resultDesc[1].PropertyName);
     }
 
+    [Theory]
+    [InlineData(true, new int[] { 4, 6, 5, 1, 2, 3 })]
+    [InlineData(false, new int[] { 1, 3, 2, 4, 5, 6 })]
+    public void GridSortTests_HierarchicalData_KeepsParentChildOrder(bool ascending, IList<int> expected)
+    {
+        var sort = GridSort<HierarchicalGridRow>.ByAscending(x => x.Group);
+
+        var ordered = sort.Apply(CreateHierarchicalGridRows().AsQueryable(), ascending).ToList();
+
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
+    }
+
+    private static List<HierarchicalGridRow> CreateHierarchicalGridRows()
+    {
+        var rootBravo = new HierarchicalGridRow(1, "Bravo", 0);
+        var bravoChildAlpha = new HierarchicalGridRow(2, "Alpha", 1);
+        var bravoChildCharlie = new HierarchicalGridRow(3, "Charlie", 1);
+
+        var rootAlpha = new HierarchicalGridRow(4, "Alpha", 0);
+        var alphaChildDelta = new HierarchicalGridRow(5, "Delta", 1);
+        var alphaChildBravo = new HierarchicalGridRow(6, "Bravo", 1);
+
+        rootBravo.ChildRows.Add(bravoChildAlpha);
+        rootBravo.ChildRows.Add(bravoChildCharlie);
+        rootAlpha.ChildRows.Add(alphaChildDelta);
+        rootAlpha.ChildRows.Add(alphaChildBravo);
+
+        return [rootBravo, bravoChildAlpha, bravoChildCharlie, rootAlpha, alphaChildDelta, alphaChildBravo];
+    }
+
     public class NestedRow
     {
         public InnerRow Inner { get; set; } = new();
@@ -228,4 +258,18 @@ public class TripleRow(int number, string group, string name)
     public int Number { get; } = number;
     public string Group { get; } = group;
     public string Name { get; } = name;
+}
+
+public class HierarchicalGridRow(int number, string group, int depth) : IHierarchicalGridItem
+{
+    public int Number { get; } = number;
+    public string Group { get; } = group;
+    public int Depth { get; set; } = depth;
+    public bool IsHidden { get; set; }
+    public bool IsCollapsed { get; set; }
+    public bool HasChildren => ChildRows.Count > 0;
+    public bool? IsSelected { get; set; }
+    public List<HierarchicalGridRow> ChildRows { get; } = [];
+
+    public IEnumerable<IHierarchicalGridItem> Children => ChildRows;
 }

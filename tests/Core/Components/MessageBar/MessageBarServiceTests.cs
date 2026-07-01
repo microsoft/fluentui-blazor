@@ -2,18 +2,27 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Bunit;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.MessageBar;
 
-public class MessageBarServiceTests
+public class MessageBarServiceTests : Bunit.BunitContext
 {
+    public MessageBarServiceTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
     [Fact]
     public void MessageBarService_Subscribe_NullProviderId_NoOp()
     {
         // Arrange
-        var service = new NotificationService();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
 
         // Act
         service.Subscribe(null, _ => Task.CompletedTask);
@@ -27,8 +36,8 @@ public class MessageBarServiceTests
     public void MessageBarService_Subscribe_EmptyProviderId_NoOp()
     {
         // Arrange
-        var service = new NotificationService();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
 
         // Act
         service.Subscribe(string.Empty, _ => Task.CompletedTask);
@@ -41,8 +50,8 @@ public class MessageBarServiceTests
     public void MessageBarService_Subscribe_NullCallback_NoOp()
     {
         // Arrange
-        var service = new NotificationService();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
 
         // Act
         service.Subscribe("provider-1", null!);
@@ -55,14 +64,14 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_NullProviderId_NoOp()
     {
         // Arrange
-        var service = new NotificationService();
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
         // Act
         service.Unsubscribe(null);
 
         // Assert: Existing subscription remains in place.
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         Assert.Equal("provider-1", serviceBase.ProviderId);
     }
 
@@ -70,14 +79,14 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_EmptyProviderId_NoOp()
     {
         // Arrange
-        var service = new NotificationService();
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
         // Act
         service.Unsubscribe(string.Empty);
 
         // Assert: Existing subscription remains in place.
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         Assert.Equal("provider-1", serviceBase.ProviderId);
     }
 
@@ -85,8 +94,8 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_OnlyProvider_ResetsProviderId()
     {
         // Arrange
-        var service = new NotificationService();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
 
         // Act
@@ -101,8 +110,8 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_FirstOfMany_SwitchesProviderId()
     {
         // Arrange
-        var service = new NotificationService();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
         service.Subscribe("provider-2", _ => Task.CompletedTask);
 
@@ -119,8 +128,8 @@ public class MessageBarServiceTests
     public void MessageBarService_Unsubscribe_NotCurrentProviderId_KeepsCurrent()
     {
         // Arrange
-        var service = new NotificationService();
-        var serviceBase = (IFluentServiceBase<IMessageBarInstance>)service;
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var serviceBase = (IFluentServiceBase<INotificationInstance>)service;
         service.Subscribe("provider-1", _ => Task.CompletedTask);
         service.Subscribe("provider-2", _ => Task.CompletedTask);
 
@@ -137,7 +146,7 @@ public class MessageBarServiceTests
     public async Task MessageBarService_Dispatch_SwallowsSubscriberExceptions()
     {
         // Arrange
-        var service = new NotificationService();
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
         var goodCalled = false;
 
         service.Subscribe("bad", _ => throw new InvalidOperationException("boom"));

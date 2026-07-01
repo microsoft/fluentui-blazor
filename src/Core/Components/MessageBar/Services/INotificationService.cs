@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Components;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Interface for the MessageBar service.
+/// Interface for the Notification service.
 /// </summary>
-public partial interface INotificationService : IFluentServiceBase<IMessageBarInstance>
+public partial interface INotificationService : IFluentServiceBase<INotificationInstance>
 {
     /// <summary>
     /// Shows a success message bar with the specified title and message and waits for the close result.
@@ -86,12 +86,12 @@ public partial interface INotificationService : IFluentServiceBase<IMessageBarIn
     Task CloseAsync(IMessageBarInstance messageBar, object? data = null);
 
     /// <summary>
-    /// Closes the message bar with the specified identifier.
+    /// Closes the notification (message bar or toast) with the specified identifier.
     /// </summary>
-    /// <param name="messageBarId">The identifier of the message bar to close.</param>
+    /// <param name="id">The identifier of the notification to close.</param>
     /// <param name="data">Optional data to include with the close result.</param>
-    /// <returns><see langword="true"/> when a matching message bar was found; otherwise <see langword="false"/>.</returns>
-    Task<bool> CloseAsync(string messageBarId, object? data = null);
+    /// <returns><see langword="true"/> when a matching notification was found; otherwise <see langword="false"/>.</returns>
+    Task<bool> CloseAsync(string id, object? data = null);
 
     /// <summary>
     /// Closes all current message bars.

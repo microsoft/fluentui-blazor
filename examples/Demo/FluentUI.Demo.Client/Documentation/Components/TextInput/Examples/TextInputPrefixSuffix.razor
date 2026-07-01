@@ -1,5 +1,5 @@
 ﻿@inject IJSRuntime JSRuntime
-@inject IToastService ToastService
+@inject INotificationService NotificationService
 
 <FluentStack HorizontalGap="20px" Wrap="true">
     <FluentTextInput Label="Company Url" @bind-Value="@Domain">
@@ -38,7 +38,7 @@
     {
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", EmailAddress);
         
-        await ToastService.ShowToastAsync(options => {
+        await NotificationService.ShowToastAsync(options => {
             options.Intent = ToastIntent.Success;
             options.Title = "Email address copied to clipboard!";
         });

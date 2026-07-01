@@ -78,6 +78,12 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUICustomEvents.Overflow(blazor);
     // [^^^ Add your other custom events before this line ^^^]
 
+    if (blazor.addEventListener && typeof blazor.addEventListener === 'function') {
+      blazor.addEventListener('enhancedload', () => {
+        FluentUIStyles.reapplyStyles();
+      });
+    }
+
     // Finishing
     afterStartedCalled = true;
   }

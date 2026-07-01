@@ -57,6 +57,18 @@
     <None Include="**\*.ts" />
   </ItemGroup>
 
+  <!--
+    tsconfig.json is a build-time TypeScript configuration. The StaticWebAssets SDK
+    includes it as Content with CopyToPublishDirectory=PreserveNewest, so it flows to
+    a consuming app's publish output at the root. When more than one referenced library
+    (e.g. Core and Charts) does this, the duplicate root-level tsconfig.json triggers
+    NETSDK1152. Exclude it from the output and publish directories.
+  -->
+  <ItemGroup>
+    <Content Update="tsconfig.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+    <None Update="tsconfig.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -91,7 +103,7 @@
   <!-- Pin the minimum published Microsoft.FluentUI.AspNetCore.Components version in the produced nupkg dependencies -->
   <!-- NOTE: To be removed when RC4+ is released -->
   <PropertyGroup>
-    <FluentUICoreMinVersion>[5.0.0-0,5.0.0)</FluentUICoreMinVersion>
+    <FluentUICoreMinVersion>[5.0.0-rc.1,5.0.0)</FluentUICoreMinVersion>
   </PropertyGroup>
   <Target Name="SetFluentUICoreDependencyVersion" AfterTargets="_GetProjectReferenceVersions">
     <ItemGroup>

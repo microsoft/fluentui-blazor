@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>$(NetVersion)</TargetFramework>
+    <TargetFramework>$(ExampleNetVersion)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
@@ -37,7 +37,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='$(NetVersion)'">
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='$(ExampleNetVersion)'">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -58,7 +58,7 @@
   </ItemGroup>
 
   <!-- Copy all .razor files to .txt files in wwwroot\sources -->
-  <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='$(NetVersion)'">
+  <Target Name="CopySources" BeforeTargets="BeforeBuild" Condition="'$(TargetFramework)'=='$(ExampleNetVersion)'">
     <ItemGroup>
       <Sources Include="$(ProjectDir)\Documentation\**\*.razor*;$(ProjectDir)\Documentation\**\*.cs*;" />
     </ItemGroup>

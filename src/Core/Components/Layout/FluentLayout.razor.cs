@@ -148,6 +148,7 @@ public partial class FluentLayout : FluentComponentBase
         {
             case FluentLayoutItem layoutItem:
                 Areas.Add(layoutItem);
+                StateHasChanged();
                 break;
 
             case FluentLayoutHamburger layoutHamburger:

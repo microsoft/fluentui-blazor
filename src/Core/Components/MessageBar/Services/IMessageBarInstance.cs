@@ -7,25 +7,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Interface for a message bar instance managed by the <see cref="INotificationService"/>.
 /// </summary>
-public interface IMessageBarInstance
+public interface IMessageBarInstance : INotificationInstance
 {
-    /// <summary>
-    /// Gets the optional component type rendered for this message bar.
-    /// When <see langword="null"/>, the default <see cref="FluentMessageBar"/> is rendered.
-    /// </summary>
-    internal Type? ComponentType { get; }
-
-    /// <summary>
-    /// Gets the unique identifier for the MessageBar. If this value is not set in the <see cref="MessageBarOptions"/>,
-    /// a new identifier is generated.
-    /// </summary>
-    string Id { get; }
-
-    /// <summary>
-    /// Gets the index of the MessageBar (sequential number).
-    /// </summary>
-    long Index { get; }
-
     /// <summary>
     /// Gets the options used to configure the MessageBar.
     /// </summary>
@@ -40,11 +23,6 @@ public interface IMessageBarInstance
     /// Gets the lifecycle status of the MessageBar.
     /// </summary>
     MessageBarLifecycleStatus LifecycleStatus { get; }
-
-    /// <summary>
-    /// Closes the MessageBar programmatically.
-    /// </summary>
-    Task CloseAsync();
 
     /// <summary>
     /// Closes the MessageBar with the specified result.

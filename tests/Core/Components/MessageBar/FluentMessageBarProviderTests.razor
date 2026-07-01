@@ -653,7 +653,7 @@
     /// </summary>
     private sealed class FakeMessageBarInstance : IMessageBarInstance
     {
-        Type? IMessageBarInstance.ComponentType => null;
+        Type? INotificationInstance.ComponentType => null;
         public string Id => "fake";
         public long Index => 0;
         public MessageBarOptions Options { get; } = new() { Section = "fake" };

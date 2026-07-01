@@ -22,7 +22,7 @@ public class MessageBarOptions : IFluentComponentBase
     /// Initializes a new instance of the <see cref="MessageBarOptions"/> class
     /// using the specified implementation factory.
     /// </summary>
-    /// <param name="implementationFactory"></param>
+    /// <param name="implementationFactory">Action used to configure the message bar options.</param>
     public MessageBarOptions(Action<MessageBarOptions> implementationFactory)
     {
         implementationFactory.Invoke(this);

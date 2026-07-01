@@ -48,71 +48,125 @@ body:has(.prevent-scroll) {
 
   const BODY_ATTRIBUTE_NOFUIBSTYLE: string = 'no-fuib-style';
   const BODY_ATTRIBUTE_USEREBOOT: string = 'use-reboot';
-  const ID_DEFAULT_FUIB_CSS: string = 'default-fuib-css';
-  const ID_REBOOT_CSS: string = 'reboot-css';
+  const REBOOT_CSS_URL: string = './_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+  const DEFAULT_FUIB_CSS_URL: string = './_content/Microsoft.FluentUI.AspNetCore.Components/css/default-fuib.css';
+
+  let fluentUIStyleSheet: CSSStyleSheet | null = null;
+  let defaultFuibStyleSheet: CSSStyleSheet | null = null;
+  let rebootStyleSheet: CSSStyleSheet | null = null;
+  let styleObserver: MutationObserver | null = null;
 
   /**
    * Update the default FluentUI Blazor styles to the document
    */
   export const applyStyles = (): void => {
+    // Only add the adopted stylesheet once
+    if (!fluentUIStyleSheet) {
+      fluentUIStyleSheet = new CSSStyleSheet();
+      fluentUIStyleSheet.replaceSync(styles);
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, fluentUIStyleSheet];
+    }
 
-    var styleSheet = new CSSStyleSheet();
-    styleSheet.replaceSync(styles);
-    document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+    AddOrRemoveDefaultStyleSheet();
+    AddOrRemoveRebootStyleSheet();
 
-    // Read (or not) the default styles: `fluentui-blazor.css` and 'reboot.css'
-    AddOrRemoveDefaultStyle();
-    AddOrRemoveReboot();
-    observeDefaultStyle();
+    if (!styleObserver) {
+      styleObserver = observeDefaultStyle();
+    }
   }
 
-  // Add or remove the `default-fuib.css` styles to the document
-  function AddOrRemoveDefaultStyle() {
+  export const reapplyStyles = (): void => {
+    if (fluentUIStyleSheet) {
+      const alreadyIncluded = Array.from(document.adoptedStyleSheets).indexOf(fluentUIStyleSheet) !== -1;
+      if (!alreadyIncluded) {
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, fluentUIStyleSheet];
+      }
+    }
+
+    EnsureDefaultStyleSheet();
+    EnsureRebootStyleSheet();
+  }
+
+    async function AddOrRemoveDefaultStyleSheet() {
     const noDefaultStyle =
       document.body?.hasAttribute(BODY_ATTRIBUTE_NOFUIBSTYLE) === true ||
       document.documentElement?.hasAttribute(BODY_ATTRIBUTE_NOFUIBSTYLE) === true;
 
-    // Remove the style
     if (noDefaultStyle) {
-      const link = document.getElementById(ID_DEFAULT_FUIB_CSS);
-      if (link) {
-        link.remove();
+        if (defaultFuibStyleSheet && document.adoptedStyleSheets.indexOf(defaultFuibStyleSheet) !== -1) {
+        const sheets = document.adoptedStyleSheets.filter(sheet => sheet !== defaultFuibStyleSheet);
+        document.adoptedStyleSheets = sheets;
       }
+      return;
     }
 
-    // Add the style
-    else {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = './_content/Microsoft.FluentUI.AspNetCore.Components/css/default-fuib.css';
-      link.id = ID_DEFAULT_FUIB_CSS;
-      document.head.appendChild(link);
+      if (!defaultFuibStyleSheet) {
+      defaultFuibStyleSheet = await LoadCSSAsAdoptedStyleSheet(DEFAULT_FUIB_CSS_URL);
+      if (defaultFuibStyleSheet) {
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, defaultFuibStyleSheet];
+      }
     }
   }
 
-  // Add or remove the `Reboot.css` styles to the document
-  function AddOrRemoveReboot() {
+  async function AddOrRemoveRebootStyleSheet() {
     const useRebootStyle =
       document.body?.hasAttribute(BODY_ATTRIBUTE_USEREBOOT) === true ||
       document.documentElement?.hasAttribute(BODY_ATTRIBUTE_USEREBOOT) === true;
 
-    // Add the style
     if (useRebootStyle) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = './_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
-      link.id = ID_REBOOT_CSS;
-      document.head.appendChild(link);
+        if (!rebootStyleSheet) {
+        rebootStyleSheet = await LoadCSSAsAdoptedStyleSheet(REBOOT_CSS_URL);
+        if (rebootStyleSheet) {
+          document.adoptedStyleSheets = [...document.adoptedStyleSheets, rebootStyleSheet];
+        }
+      }
+    } else {
+      // Remove if present
+      if (rebootStyleSheet && document.adoptedStyleSheets.indexOf(rebootStyleSheet) !== -1) {
+        const sheets = document.adoptedStyleSheets.filter(sheet => sheet !== rebootStyleSheet);
+        document.adoptedStyleSheets = sheets;
+        rebootStyleSheet = null;
+      }
+    }
+  }
+  function EnsureDefaultStyleSheet() {
+    const noDefaultStyle =
+      document.body?.hasAttribute(BODY_ATTRIBUTE_NOFUIBSTYLE) === true ||
+      document.documentElement?.hasAttribute(BODY_ATTRIBUTE_NOFUIBSTYLE) === true;
+
+    if (noDefaultStyle) {
+      return;
     }
 
-    // Remove the style
-    else {
-      const link = document.getElementById(ID_REBOOT_CSS);
-      if (link) {
-        link.remove();
+    if (defaultFuibStyleSheet && document.adoptedStyleSheets.indexOf(defaultFuibStyleSheet) === -1) {
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, defaultFuibStyleSheet];
+    }
+  }
+
+  function EnsureRebootStyleSheet() {
+    const useRebootStyle =
+      document.body?.hasAttribute(BODY_ATTRIBUTE_USEREBOOT) === true ||
+      document.documentElement?.hasAttribute(BODY_ATTRIBUTE_USEREBOOT) === true;
+
+    if (useRebootStyle && rebootStyleSheet && document.adoptedStyleSheets.indexOf(rebootStyleSheet) === -1) {
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, rebootStyleSheet];
+    }
+  }
+
+    async function LoadCSSAsAdoptedStyleSheet(url: string): Promise<CSSStyleSheet | null> {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        console.warn(`Failed to load CSS from ${url}: ${response.statusText}`);
+        return null;
       }
+      const cssText = await response.text();
+      const styleSheet = new CSSStyleSheet();
+      styleSheet.replaceSync(cssText);
+      return styleSheet;
+    } catch (error) {
+      console.error(`Error loading CSS from ${url}:`, error);
+      return null;
     }
   }
 
@@ -120,13 +174,14 @@ body:has(.prevent-scroll) {
     const observer = new MutationObserver((mutationsList) => {
       for (const mutation of mutationsList) {
         if (mutation.type === 'attributes' && mutation.attributeName === BODY_ATTRIBUTE_NOFUIBSTYLE) {
-          AddOrRemoveDefaultStyle();
+          AddOrRemoveDefaultStyleSheet();
         }
         if (mutation.type === 'attributes' && mutation.attributeName === BODY_ATTRIBUTE_USEREBOOT) {
-          AddOrRemoveReboot();
+          AddOrRemoveRebootStyleSheet();
         }
       }
     });
     observer.observe(document.body, { attributes: true });
+    return observer;
   }
 }

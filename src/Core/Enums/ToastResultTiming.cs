@@ -5,27 +5,22 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Describes the type of toast.
+/// Controls when <see cref="IToastInstance.Result"/> is completed.
 /// </summary>
-public enum ToastType
+public enum ToastResultTiming
 {
     /// <summary>
-    /// A confirmation toast.
+    /// Complete the result when the toast is dismissed or closed.
     /// </summary>
-    Confirmation,
+    Closed,
 
     /// <summary>
-    /// A communication toast.
+    /// Complete the result when the toast becomes visible.
     /// </summary>
-    Communication,
+    Visible,
 
     /// <summary>
-    /// A determinate progress toast.
+    /// Complete the result when the toast is queued.
     /// </summary>
-    DeterminateProgress,
-
-    /// <summary>
-    /// An indeterminate progress toast.
-    /// </summary>
-    IndeterminateProgress,
+    Queued,
 }
