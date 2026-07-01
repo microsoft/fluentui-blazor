@@ -8,135 +8,133 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
    * Initialize and define all the FluentUI WebComponents
    */
   export function defineComponents() {
-    const registry = FluentUIComponents.FluentDesignSystem.registry;
-
     // To generate these definitions, run the `_ExtractWebComponents.ps1` file
     // and paste the output here.
     defineOnce('fluentui:web-components:accordion', () => {
-      FluentUIComponents.accordionDefinition.define(registry);
+      FluentUIComponents.Accordion.define(FluentUIComponents.AccordionDefinition);
     });
     defineOnce('fluentui:web-components:accordion-item', () => {
-      FluentUIComponents.accordionItemDefinition.define(registry);
+      FluentUIComponents.AccordionItem.define(FluentUIComponents.AccordionItemDefinition);
     });
     defineOnce('fluentui:web-components:anchor-button', () => {
-      FluentUIComponents.AnchorButtonDefinition.define(registry);
+      FluentUIComponents.AnchorButton.define(FluentUIComponents.AnchorButtonDefinition);
     });
     defineOnce('fluentui:web-components:avatar', () => {
-      FluentUIComponents.AvatarDefinition.define(registry);
+      FluentUIComponents.Avatar.define(FluentUIComponents.AvatarDefinition);
     });
     defineOnce('fluentui:web-components:badge', () => {
-      FluentUIComponents.BadgeDefinition.define(registry);
+      FluentUIComponents.Badge.define(FluentUIComponents.BadgeDefinition);
     });
     defineOnce('fluentui:web-components:button', () => {
-      FluentUIComponents.ButtonDefinition.define(registry);
+      FluentUIComponents.Button.define(FluentUIComponents.ButtonDefinition);
     });
     defineOnce('fluentui:web-components:checkbox', () => {
-      FluentUIComponents.CheckboxDefinition.define(registry);
+      FluentUIComponents.Checkbox.define(FluentUIComponents.CheckboxDefinition);
     });
     defineOnce('fluentui:web-components:compound-button', () => {
-      FluentUIComponents.CompoundButtonDefinition.define(registry);
+      FluentUIComponents.CompoundButton.define(FluentUIComponents.CompoundButtonDefinition);
     });
     defineOnce('fluentui:web-components:counter-badge', () => {
-      FluentUIComponents.CounterBadgeDefinition.define(registry);
+      FluentUIComponents.CounterBadge.define(FluentUIComponents.CounterBadgeDefinition);
     });
     defineOnce('fluentui:web-components:dialog-body', () => {
-      FluentUIComponents.DialogBodyDefinition.define(registry);
+      FluentUIComponents.DialogBody.define(FluentUIComponents.DialogBodyDefinition);
     });
     defineOnce('fluentui:web-components:dialog', () => {
-      FluentUIComponents.DialogDefinition.define(registry);
+      FluentUIComponents.Dialog.define(FluentUIComponents.DialogDefinition);
     });
     defineOnce('fluentui:web-components:divider', () => {
-      FluentUIComponents.DividerDefinition.define(registry);
+      FluentUIComponents.Divider.define(FluentUIComponents.DividerDefinition);
     });
     defineOnce('fluentui:web-components:drawer-body', () => {
-      FluentUIComponents.DrawerBodyDefinition.define(registry);
+      FluentUIComponents.DrawerBody.define(FluentUIComponents.DrawerBodyDefinition);
     });
     defineOnce('fluentui:web-components:drawer', () => {
-      FluentUIComponents.DrawerDefinition.define(registry);
+      FluentUIComponents.Drawer.define(FluentUIComponents.DrawerDefinition);
     });
     defineOnce('fluentui:web-components:dropdown', () => {
-      FluentUIComponents.DropdownDefinition.define(registry);
+      FluentUIComponents.Dropdown.define(FluentUIComponents.DropdownDefinition);
     });
     defineOnce('fluentui:web-components:dropdown-option', () => {
-      FluentUIComponents.DropdownOptionDefinition.define(registry);
+      FluentUIComponents.DropdownOption.define(FluentUIComponents.DropdownOptionDefinition);
     });
     defineOnce('fluentui:web-components:field', () => {
-      FluentUIComponents.FieldDefinition.define(registry);
+      FluentUIComponents.Field.define(FluentUIComponents.FieldDefinition);
     });
     defineOnce('fluentui:web-components:image', () => {
-      FluentUIComponents.ImageDefinition.define(registry);
+      FluentUIComponents.Image.define(FluentUIComponents.ImageDefinition);
     });
     defineOnce('fluentui:web-components:label', () => {
-      FluentUIComponents.LabelDefinition.define(registry);
+      FluentUIComponents.Label.define(FluentUIComponents.LabelDefinition);
     });
     defineOnce('fluentui:web-components:link', () => {
-      FluentUIComponents.LinkDefinition.define(registry);
+      FluentUIComponents.Link.define(FluentUIComponents.LinkDefinition);
     });
     defineOnce('fluentui:web-components:listbox', () => {
-      FluentUIComponents.ListboxDefinition.define(registry);
+      FluentUIComponents.Listbox.define(FluentUIComponents.ListboxDefinition);
     });
     defineOnce('fluentui:web-components:menu-button', () => {
-      FluentUIComponents.MenuButtonDefinition.define(registry);
+      FluentUIComponents.MenuButton.define(FluentUIComponents.MenuButtonDefinition);
     });
     defineOnce('fluentui:web-components:menu', () => {
-      FluentUIComponents.MenuDefinition.define(registry);
+      FluentUIComponents.Menu.define(FluentUIComponents.MenuDefinition);
     });
     defineOnce('fluentui:web-components:menu-item', () => {
-      FluentUIComponents.MenuItemDefinition.define(registry);
+      FluentUIComponents.MenuItem.define(FluentUIComponents.MenuItemDefinition);
     });
     defineOnce('fluentui:web-components:menu-list', () => {
-      FluentUIComponents.MenuListDefinition.define(registry);
+      FluentUIComponents.MenuList.define(FluentUIComponents.MenuListDefinition);
     });
     defineOnce('fluentui:web-components:message-bar', () => {
-      FluentUIComponents.MessageBarDefinition.define(registry);
+      FluentUIComponents.MessageBar.define(FluentUIComponents.MessageBarDefinition);
     });
     defineOnce('fluentui:web-components:progress-bar', () => {
-      FluentUIComponents.ProgressBarDefinition.define(registry);
+      FluentUIComponents.ProgressBar.define(FluentUIComponents.ProgressBarDefinition);
     });
     defineOnce('fluentui:web-components:radio', () => {
-      FluentUIComponents.RadioDefinition.define(registry);
+      FluentUIComponents.Radio.define(FluentUIComponents.RadioDefinition);
     });
     defineOnce('fluentui:web-components:radio-group', () => {
-      FluentUIComponents.RadioGroupDefinition.define(registry);
+      FluentUIComponents.RadioGroup.define(FluentUIComponents.RadioGroupDefinition);
     });
     defineOnce('fluentui:web-components:rating-display', () => {
-      FluentUIComponents.RatingDisplayDefinition.define(registry);
+      FluentUIComponents.RatingDisplay.define(FluentUIComponents.RatingDisplayDefinition);
     });
     defineOnce('fluentui:web-components:slider', () => {
-      FluentUIComponents.SliderDefinition.define(registry);
+      FluentUIComponents.Slider.define(FluentUIComponents.SliderDefinition);
     });
     defineOnce('fluentui:web-components:spinner', () => {
-      FluentUIComponents.SpinnerDefinition.define(registry);
+      FluentUIComponents.Spinner.define(FluentUIComponents.SpinnerDefinition);
     });
     defineOnce('fluentui:web-components:switch', () => {
-      FluentUIComponents.SwitchDefinition.define(registry);
+      FluentUIComponents.Switch.define(FluentUIComponents.SwitchDefinition);
     });
     defineOnce('fluentui:web-components:tab', () => {
-      FluentUIComponents.TabDefinition.define(registry);
+      FluentUIComponents.Tab.define(FluentUIComponents.TabDefinition);
     });
     defineOnce('fluentui:web-components:tablist', () => {
-      FluentUIComponents.TablistDefinition.define(registry);
+      FluentUIComponents.Tablist.define(FluentUIComponents.TablistDefinition);
     });
     defineOnce('fluentui:web-components:text-area', () => {
-      FluentUIComponents.TextAreaDefinition.define(registry);
+      FluentUIComponents.TextArea.define(FluentUIComponents.TextAreaDefinition);
     });
     defineOnce('fluentui:web-components:text', () => {
-      FluentUIComponents.TextDefinition.define(registry);
+      FluentUIComponents.Text.define(FluentUIComponents.TextDefinition);
     });
     defineOnce('fluentui:web-components:text-input', () => {
-      FluentUIComponents.TextInputDefinition.define(registry);
+      FluentUIComponents.TextInput.define(FluentUIComponents.TextInputDefinition);
     });
     defineOnce('fluentui:web-components:toggle-button', () => {
-      FluentUIComponents.ToggleButtonDefinition.define(registry);
+      FluentUIComponents.ToggleButton.define(FluentUIComponents.ToggleButtonDefinition);
     });
     defineOnce('fluentui:web-components:tooltip', () => {
-      FluentUIComponents.TooltipDefinition.define(registry);
+      FluentUIComponents.Tooltip.define(FluentUIComponents.TooltipDefinition);
     });
     defineOnce('fluentui:web-components:tree', () => {
-      FluentUIComponents.TreeDefinition.define(registry);
+      FluentUIComponents.Tree.define(FluentUIComponents.TreeDefinition);
     });
     defineOnce('fluentui:web-components:tree-item', () => {
-      FluentUIComponents.TreeItemDefinition.define(registry);
+      FluentUIComponents.TreeItem.define(FluentUIComponents.TreeItemDefinition);
     });
   }
 }
