@@ -1,3 +1,34 @@
+
+# ---------------------------------------------------------------------------
+# Code Coverage for Components (Core) and Charts test projects combined.
+# ---------------------------------------------------------------------------
+#
+# Prerequisites (install once, globally):
+#   dotnet tool install --global dotnet-reportgenerator-globaltool
+#
+#   Use this command to list installed tools:
+#   dotnet tool list --global
+#
+# How it works:
+#   Both test projects are run with the built-in "XPlat Code Coverage"
+#   DataCollector (provided by coverlet.collector). Each run writes its
+#   coverage.cobertura.xml under tests\TestResults\{Core|Charts}\.
+#   ReportGenerator then merges all cobertura files in one step and outputs
+#   the merged report to tests\TestResults\Report.
+#
+#   A stamp file is written to TestResults\_stamps\ after each successful
+#   test run. On the next invocation, PowerShell checks whether any .cs,
+#   .razor, or .csproj file under the relevant source and test directories
+#   is newer than the stamp. If nothing changed the project is skipped,
+#   and the previous coverage.cobertura.xml is reused for the merged report.
+#
+#   Note: TestResults\ should be in .gitignore so stamps are local-only.
+#
+# Usage:
+#   _StartCodeCoverage.cmd           - run changed projects and open report
+#   _StartCodeCoverage.cmd /noopen   - run changed projects, skip browser
+#   _StartCodeCoverage.cmd /force    - ignore stamps, always re-run all tests
+
 param(
     [switch]$Force,
     [switch]$NoOpen,
