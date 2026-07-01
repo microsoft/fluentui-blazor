@@ -24,7 +24,7 @@ public partial class DemoNewsBar
         Title: New release available
         Intent: Success
         ---
-        Version <b>RC4</b> is now available with many new components.
+        Version RC4 is now available with many new components.
         Check out the changelog for all the details and breaking changes.
     */
 
@@ -33,7 +33,7 @@ public partial class DemoNewsBar
     /// </summary>
     private static readonly Uri NewsUri = new("https://raw.githubusercontent.com/microsoft/fluentui-blazor/refs/heads/dev-v5/NEWS-BANNER.md");
 
-    private const string LocalStorageKey = "demo-newsbar-sha";
+    private const string LocalStorageKey = "fluentui-demo-newsbar-sha";
 
     private string NewsTitle { get; set; } = "News";
 
@@ -67,6 +67,7 @@ public partial class DemoNewsBar
         }
         catch (HttpRequestException)
         {
+            Console.WriteLine($"DemoNewsBar: Failed to read the news content from {NewsUri}");
         }
 
         if (string.IsNullOrWhiteSpace(raw))
@@ -117,8 +118,8 @@ public partial class DemoNewsBar
     {
         var hash = SHA256.HashData(Encoding.UTF8.GetBytes(content));
 
-        // Keep a small SHA: the first 8 bytes are enough to detect content changes.
-        return Convert.ToHexString(hash, 0, 8).ToLowerInvariant();
+        // Keep a small SHA: the first 16 bytes are enough to detect content changes.
+        return Convert.ToHexString(hash, 0, 16).ToLowerInvariant();
     }
 
     /// <summary>
