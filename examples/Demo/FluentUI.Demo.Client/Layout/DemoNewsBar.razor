@@ -1,0 +1,44 @@
+@if (Visible)
+{
+    <FluentMessageBar Intent="@NewsIntent"
+                      AllowDismiss="false"
+                      Class="demo-notification">
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
+            <div>
+                @if (!string.IsNullOrEmpty(NewsContent))
+                {
+                    <strong>@NewsTitle:&nbsp;</strong>
+                }
+                @NewsContent
+            </div>
+            <FluentSpacer />
+            <FluentButton Appearance="ButtonAppearance.Transparent"
+                          IconStart="@(new Icons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconOnly="true"
+                          Title="Dismiss"
+                          Size="ButtonSize.Small"
+                          OnClick="@DismissClickAsync" />
+        </FluentStack>
+
+    </FluentMessageBar>
+}
+
+<script>
+    // This function overrides the default max-width of the <fluent-message-bar> component.
+    // It is invoked from C# when the message bar becomes visible.
+    window.applyDemoNotificationStyle = function () {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync('.content { max-width: unset; }');
+
+        // Wait until the <fluent-message-bar> custom element definition is loaded.
+        customElements.whenDefined('fluent-message-bar').then(() => {
+            const bar = document.querySelector('fluent-message-bar.demo-notification');
+            if (bar && bar.shadowRoot) {
+                bar.shadowRoot.adoptedStyleSheets = [
+                    ...bar.shadowRoot.adoptedStyleSheets,
+                    sheet
+                ];
+            }
+        });
+    };
+</script>
