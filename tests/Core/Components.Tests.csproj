@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>$(ExampleNetVersion)</TargetFramework>
@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\Tools\Components.Tests.Tools.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +57,14 @@
     </None>
 
     <None Include="**\*.received.razor.html" />
+
+    <Compile Remove="Verify\**" />
+
+    <Content Remove="Verify\**" />
+
+    <EmbeddedResource Remove="Verify\**" />
+
+    <None Remove="Verify\**" />
     <None Update="**\*.received.razor.html">
       <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
       <DependentUpon>%(ParentFile).razor</DependentUpon>
@@ -73,4 +82,5 @@
       <DependentUpon>FluentLocalizer.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-</Project>
+
+  </Project>

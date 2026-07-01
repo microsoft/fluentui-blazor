@@ -1,5 +1,5 @@
-import { FluentDesignSystem } from '@fluentui/web-components';
 import '../chart-legend/define.js';
+import { DonutChart } from './donut-chart.js';
 import { definition } from './donut-chart.definition.js';
 
-definition.define(FluentDesignSystem.registry);
+DonutChart.define(definition);

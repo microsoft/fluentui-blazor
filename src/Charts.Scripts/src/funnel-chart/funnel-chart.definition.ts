@@ -1,5 +1,5 @@
 import { FluentDesignSystem } from '@fluentui/web-components';
-import { FunnelChart } from './funnel-chart.js';
+import { type PartialFASTElementDefinition } from '@microsoft/fast-element';
 import { styles } from './funnel-chart.styles.js';
 import { template } from './funnel-chart.template.js';
 
@@ -8,11 +8,12 @@ import { template } from './funnel-chart.template.js';
  * @remarks
  * HTML Element: `<fluent-funnel-chart>`
  */
-export const definition = FunnelChart.compose({
+export const definition: PartialFASTElementDefinition = {
   name: `${FluentDesignSystem.prefix}-funnel-chart`,
+  registry: FluentDesignSystem.registry,
   template,
   styles,
   shadowOptions: {
     delegatesFocus: true,
   },
-});
+};

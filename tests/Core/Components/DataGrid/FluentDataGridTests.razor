@@ -1443,6 +1443,46 @@
         cut.WaitForAssertion(() => Assert.NotNull(cut.FindComponent<ColumnReorderOptions<Customer>>()));
     }
 
+    [Theory]
+    [InlineData(0, new[] { "created", "name", "status" })]
+    [InlineData(1, new[] { "created", "name", "status" })]
+    [InlineData(2, new[] { "name", "status", "created" })]
+    [InlineData(3, new[] { "name", "status", "created" })]
+    public async Task FluentDataGrid_ColumnReorderOptions_Buttons_InvokeMoveHandlers(int buttonIndex, string[] expectedOrder)
+    {
+        // Arrange
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             @ref="@grid"
+                             Items="@GetCustomers().AsQueryable()"
+                             DisplayMode="DataGridDisplayMode.Table"
+                             ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Title="Name" Width="150px" Property="@(x => x.Name)" />
+                <PropertyColumn ColumnId="created" Title="Created" Width="150px" Property="@(x => x.CreatedDate)" />
+                <PropertyColumn ColumnId="status" Title="Status" Width="150px" Property="@(x => x.Status)" />
+            </FluentDataGrid>);
+
+        var activeColumn = grid!._columns.Single(x => x.ColumnId == "created");
+        await cut.InvokeAsync(() => grid.ShowColumnReorderAsync(activeColumn));
+
+        var reorderOptions = cut.FindComponent<ColumnReorderOptions<Customer>>();
+        var moveButtons = reorderOptions.FindAll("fluent-button");
+
+        // Act
+        moveButtons[buttonIndex].Click();
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Equal(expectedOrder, grid.GetColumnOrder());
+            Assert.Equal(expectedOrder, cut.FindAll("th .col-title-text")
+                .Select(x => x.TextContent.Trim().ToLowerInvariant())
+                .ToArray());
+        });
+    }
+
     [Fact]
     public async Task FluentDataGrid_SetColumnWidthExact()
     {
