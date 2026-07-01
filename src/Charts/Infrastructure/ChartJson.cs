@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
@@ -9,6 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Provides shared source-generated JSON serialization helpers for chart payloads.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Thin convenience wrapper around source-generated JSON contexts; behavior is covered by serializer context tests.")]
 public static class ChartJson
 {
     /// <summary>
