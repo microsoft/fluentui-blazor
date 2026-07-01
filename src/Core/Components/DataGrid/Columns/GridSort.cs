@@ -248,9 +248,9 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 
         var itemOrder = sortedItems
             .Select((item, index) => (Item: (object)item!, Index: index))
-            .ToDictionary(x => x.Item, x => x.Index);
+            .ToDictionary(x => x.Item, x => x.Index, ReferenceEqualityComparer.Instance);
 
-        var visibleItemsSet = new HashSet<TGridItem>(sortedItems);
+        var visibleItemsSet = new HashSet<object>(sortedItems.Select(item => (object)item!), ReferenceEqualityComparer.Instance);
         var rootItems = sortedItems
             .Where(item => item is IHierarchicalGridItem { Depth: 0 })
             .ToList();
@@ -261,14 +261,14 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
         }
 
         var orderedItems = new List<TGridItem>(sortedItems.Count);
-        var orderedItemsSet = new HashSet<TGridItem>();
+        var orderedItemsSet = new HashSet<object>(ReferenceEqualityComparer.Instance);
 
         AppendSortedHierarchy(rootItems, visibleItemsSet, orderedItems, orderedItemsSet, itemOrder);
 
-        var remainingItems = sortedItems.Where(item => !orderedItemsSet.Contains(item));
+        var remainingItems = sortedItems.Where(item => !orderedItemsSet.Contains((object)item!));
         foreach (var item in remainingItems)
         {
-            if (orderedItemsSet.Add(item))
+            if (orderedItemsSet.Add((object)item!))
             {
                 orderedItems.Add(item);
             }
@@ -276,21 +276,21 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 
         var hierarchyOrder = orderedItems
             .Select((item, index) => (Item: (object)item!, Index: index))
-            .ToDictionary(x => x.Item, x => x.Index);
+            .ToDictionary(x => x.Item, x => x.Index, ReferenceEqualityComparer.Instance);
 
         return queryable.OrderBy(item => hierarchyOrder[(object)item!]);
     }
 
     private static void AppendSortedHierarchy(
         IReadOnlyList<TGridItem> siblings,
-        HashSet<TGridItem> visibleItemsSet,
+        HashSet<object> visibleItemsSet,
         List<TGridItem> orderedItems,
-        HashSet<TGridItem> orderedItemsSet,
+        HashSet<object> orderedItemsSet,
         IReadOnlyDictionary<object, int> itemOrder)
     {
         foreach (var item in siblings.OrderBy(item => itemOrder[(object)item!]))
         {
-            if (!orderedItemsSet.Add(item))
+            if (!orderedItemsSet.Add((object)item!))
             {
                 continue;
             }
@@ -304,7 +304,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 
             var visibleChildren = hierarchicalItem.Children
                 .OfType<TGridItem>()
-                .Where(visibleItemsSet.Contains)
+                .Where(child => visibleItemsSet.Contains((object)child!))
                 .ToList();
 
             if (visibleChildren.Count > 0)
