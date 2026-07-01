@@ -240,10 +240,11 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 
     private IOrderedQueryable<TGridItem> ApplyHierarchicalSorting(IQueryable<TGridItem> queryable, bool ascending)
     {
-        var sortedItems = ApplyStandardSorting(queryable, ascending).ToList();
+        var standardSortedQueryable = ApplyStandardSorting(queryable, ascending);
+        var sortedItems = standardSortedQueryable.ToList();
         if (sortedItems.Count == 0)
         {
-            return ApplyStandardSorting(queryable, ascending);
+            return standardSortedQueryable;
         }
 
         var itemOrder = sortedItems
@@ -257,7 +258,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 
         if (rootItems.Count == 0)
         {
-            return ApplyStandardSorting(queryable, ascending);
+            return standardSortedQueryable;
         }
 
         var orderedItems = new List<TGridItem>(sortedItems.Count);
