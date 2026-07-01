@@ -25,9 +25,9 @@
 #   Note: TestResults\ should be in .gitignore so stamps are local-only.
 #
 # Usage:
-#   _StartCodeCoverage.cmd           - run changed projects and open report
-#   _StartCodeCoverage.cmd /noopen   - run changed projects, skip browser
-#   _StartCodeCoverage.cmd /force    - ignore stamps, always re-run all tests
+#   _StartCodeCoverage.ps1           - run changed projects and open report
+#   _StartCodeCoverage.ps1 /noopen   - run changed projects, skip browser
+#   _StartCodeCoverage.ps1 /force    - ignore stamps, always re-run all tests
 
 param(
     [switch]$Force,
