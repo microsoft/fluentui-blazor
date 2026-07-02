@@ -21,9 +21,7 @@ public class FluentInputValidationDefaultsTests
         ctx.Services.AddFluentUIComponents();
 
         // Arrange
-#pragma warning disable CS0619 // RenderComponent is obsolete in current bUnit, but safe for tests
         var cut = ctx.Render<FluentTextArea>(parameters => parameters.Add(p => p.Id, "myId").Add(p => p.Value, "init"));
-#pragma warning restore CS0619
 
         // Act
         cut.Find("fluent-textarea").Change("new value");
@@ -45,9 +43,7 @@ public class FluentInputValidationDefaultsTests
         ctx.Services.AddFluentUIComponents(config => config.UseNativeConstraintValidationUi = true);
 
         // Arrange
-#pragma warning disable CS0619 // RenderComponent is obsolete in current bUnit, but safe for tests
         var cut = ctx.Render<FluentTextArea>(parameters => parameters.Add(p => p.Id, "myId").Add(p => p.Value, "init"));
-#pragma warning restore CS0619
 
         // Act
         cut.Find("fluent-textarea").Change("new value");

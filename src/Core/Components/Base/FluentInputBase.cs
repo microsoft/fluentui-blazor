@@ -37,7 +37,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         // and can be overridden by setting the component parameter in markup.
         if (configuration is not null)
         {
-            UseNativeConstraintValidationUi = configuration.UseNativeConstraintValidationUi;
+            UseNativeConstraintValidationUI = configuration.UseNativeConstraintValidationUI;
         }
     }
 
@@ -218,7 +218,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Gets or sets whether the control will use the native browser constraint validation UI.
     /// </summary>
     [Parameter]
-    public bool UseNativeConstraintValidationUi { get; set; }
+    public bool UseNativeConstraintValidationUI { get; set; }
 
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
@@ -244,8 +244,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected virtual async Task ReportValidityAsync()
     {
         // Only call the browser native constraint validation UI when enabled.
-        // This behavior is opt-in via UseNativeValidationUi (default is false).
-        if (!UseNativeConstraintValidationUi)
+        // This behavior is opt-in via UseNativeConstraintValidationUi (default is false).
+        if (!UseNativeConstraintValidationUI)
         {
             return;
         }
