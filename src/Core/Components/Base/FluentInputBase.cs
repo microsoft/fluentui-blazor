@@ -31,6 +31,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     {
         ValueExpression = () => CurrentValueOrDefault;
         configuration?.DefaultValues.ApplyDefaults(this);
+
+        // Apply the library configured default for using the native browser
+        // constraint validation UI. This value acts as the component default
+        // and can be overridden by setting the component parameter in markup.
+        if (configuration is not null)
+        {
+            UseNativeConstraintValidationUi = configuration.UseNativeConstraintValidationUi;
+        }
     }
 
     [Inject]
@@ -206,6 +214,12 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual bool ReadOnly { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the control will use the native browser constraint validation UI.
+    /// </summary>
+    [Parameter]
+    public bool UseNativeConstraintValidationUi { get; set; }
+
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
@@ -229,6 +243,13 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// </summary>
     protected virtual async Task ReportValidityAsync()
     {
+        // Only call the browser native constraint validation UI when enabled.
+        // This behavior is opt-in via UseNativeValidationUi (default is false).
+        if (!UseNativeConstraintValidationUi)
+        {
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(Id))
         {
             return;
