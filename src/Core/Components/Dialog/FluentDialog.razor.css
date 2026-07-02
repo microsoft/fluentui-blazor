@@ -26,3 +26,8 @@ fluent-dialog[fuib][size="full"]::part(dialog) {
 fluent-dialog-body::part(content) { 
   overflow: auto;
 }
+
+fluent-drawer[fuib][size="medium"]::part(dialog) {
+  width: 592px;
+  max-width: min(592px, 100vw);
+}
