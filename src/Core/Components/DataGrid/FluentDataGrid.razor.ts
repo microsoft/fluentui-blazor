@@ -329,9 +329,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     document.body.addEventListener('click', bodyClickHandler, { signal });
     document.body.addEventListener('mousedown', bodyClickHandler, { signal });
     document.body.addEventListener('keydown', bodyKeyDownHandler, { signal });
-    // Listen at document capture phase so keyboard navigation still works when focus is
-    // inside inner elements that stop propagation before table-level handlers run.
-    document.addEventListener('keydown', keyDownHandler, { signal, capture: true });
+
+    gridElement.addEventListener('keydown', keyDownHandler, { signal, capture: true });
 
     return {
       stop: () => {
@@ -766,7 +765,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     let headerBeingResized: HTMLElement | null | undefined;
 
     if (!column) {
-      const targetElement = (document.activeElement as HTMLElement)?.parentElement?.parentElement?.parentElement?.parentElement;
+      const targetElement = (document.activeElement as HTMLElement)?.parentElement;
       if (!(targetElement && targetElement.classList.contains('column-header') && targetElement.classList.contains('resizable'))) {
         return;
       }

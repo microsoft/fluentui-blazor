@@ -117,14 +117,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
       return false;
     }
 
-    // Never steal keyboard handling from editable/menu-like controls in dialog content.
-    if (
-      activeElement.matches('input, textarea, select, fluent-data-grid, [contenteditable=""], [contenteditable="true"], [role="textbox"], [role="combobox"], [role="spinbutton"], [role="listbox"], [role="menu"], [role="menuitem"]') ||
-      !!activeElement.closest('fluent-menu, fluent-menu-list, fluent-menu-item, .col-header-ui')
-    ) {
-      return false;
-    }
-
     // Keep shortcuts active for explicit dialog action surfaces.
     return !!activeElement.closest('[slot="action"], [slot="footer"], [slot="close"], [slot="title-action"]');
   }
