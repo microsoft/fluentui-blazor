@@ -1,5 +1,5 @@
 import { FluentDesignSystem } from '@fluentui/web-components';
-import { HorizontalBarChartWithAxis } from './horizontal-bar-chart-with-axis.js';
+import { type PartialFASTElementDefinition } from '@microsoft/fast-element';
 import { styles } from './horizontal-bar-chart-with-axis.styles.js';
 import { template } from './horizontal-bar-chart-with-axis.template.js';
 
@@ -8,11 +8,12 @@ import { template } from './horizontal-bar-chart-with-axis.template.js';
  * @remarks
  * HTML Element: `<fluent-horizontal-bar-chart-with-axis>`
  */
-export const definition = HorizontalBarChartWithAxis.compose({
+export const definition: PartialFASTElementDefinition = {
   name: `${FluentDesignSystem.prefix}-horizontal-bar-chart-with-axis`,
+  registry: FluentDesignSystem.registry,
   template,
   styles,
   shadowOptions: {
     delegatesFocus: true,
   },
-});
+};

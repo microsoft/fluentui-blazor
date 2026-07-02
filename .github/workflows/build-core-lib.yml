@@ -32,7 +32,8 @@ env:
     ./src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj
   TESTS: >
     ./tests/Core/Components.Tests.csproj
-    ./tests/Tools/McpServer.Tests/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
+    ./tests/Charts/Components.Charts.Tests.csproj
+    ./tests/McpServer/McpServer.Tests.csproj
   INTEGRATION_TEST: "" # DISABLING: ./tests/Integration/Components.IntegrationTests.csproj
   MIN_COVERAGE: "98"
 
