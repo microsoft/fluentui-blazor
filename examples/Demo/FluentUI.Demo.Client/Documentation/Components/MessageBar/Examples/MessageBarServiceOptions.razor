@@ -25,6 +25,11 @@
             options.AllowDismiss = true;
             options.Lifetime = TimeSpan.FromSeconds(5);
             options.ResultTiming = MessageBarResultTiming.Closed;
+
+            options.OnStatusChange = (args) =>
+            {
+                Console.WriteLine($"Message bar status changed: {args.Status}");
+            };
         });
 
         Console.WriteLine($"Message bar closed: {result.Reason}");
