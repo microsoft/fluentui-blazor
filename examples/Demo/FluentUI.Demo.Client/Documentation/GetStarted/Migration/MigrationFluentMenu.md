@@ -10,7 +10,7 @@ displaying the menu (using `popover` when available).
 
 
 
-### Removed parameters💥
+### Removed parameters
   - `UseMenuService`
   - `Anchor`
   - `Open` and `OpenChanged`
@@ -48,7 +48,7 @@ displaying the menu (using `popover` when available).
 
 ### FluentMenuItem changes
 
-#### Removed properties 💥
+#### Removed properties 
 - `Expanded` (`bool`)
 - `KeepOpen` (`bool`)
 

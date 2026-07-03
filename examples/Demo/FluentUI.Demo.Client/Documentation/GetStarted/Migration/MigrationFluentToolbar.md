@@ -4,7 +4,7 @@ route: /Migration/Toolbar
 hidden: true
 ---
 
-- ### Component removed 💥
+- ### Component removed 
 
   `FluentToolbar` has been **removed** in V5.
 

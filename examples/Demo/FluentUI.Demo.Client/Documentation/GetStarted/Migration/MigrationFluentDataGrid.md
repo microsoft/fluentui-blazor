@@ -13,7 +13,7 @@ These `...UISettings` parameters are now only used to set a custom icon and icon
 have now been replaced with our standard Localization capabilities. You can use a custom localizer to set custom labels for these UI settings.
 An example of this can be found in the `Server` project of the demo application, where a custom localizer is registered in the `Program.cs` file.
 
-### Removed properties 💥
+### Removed properties 
 - `NoTabbing` (`bool`) — removed.
 
 ### Type changes

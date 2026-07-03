@@ -4,7 +4,7 @@ route: /Migration/TextField
 hidden: true
 ---
 
-- ### Three components merged into one 💥
+- ### Three components merged into one 
 
   `FluentTextField`, `FluentNumberField`, and `FluentSearch` have been **removed** in V5.
   They are all replaced by `FluentTextInput`.

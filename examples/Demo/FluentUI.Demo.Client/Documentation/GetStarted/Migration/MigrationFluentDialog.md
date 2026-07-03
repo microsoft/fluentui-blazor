@@ -4,11 +4,11 @@ route: /Migration/Dialog
 hidden: true
 ---
 
-- ### Major rearchitecture 💥
+- ### Major rearchitecture 
 
   The dialog system has been completely redesigned in V5. This is one of the most impactful migration changes.
 
-- ### DialogParameters → DialogOptions 💥
+- ### DialogParameters → DialogOptions 
 
   V4's `DialogParameters` class is replaced by V5's `DialogOptions` with a restructured API:
 
@@ -36,7 +36,7 @@ hidden: true
 
 - ### Dialog component changes
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `Hidden` / `HiddenChanged` — use `ShowAsync()` / `HideAsync()` methods instead.
   - `TrapFocus`
   - `PreventScroll`
@@ -50,7 +50,7 @@ hidden: true
   | `Modal` (`bool?`) | `Modal` (`bool`, default `true`) | No longer nullable |
   | `Instance` (`DialogInstance`) | `Instance` (`IDialogInstance?`) | Type changed to interface |
 
-- ### FluentDialogHeader and FluentDialogFooter removed 💥
+- ### FluentDialogHeader and FluentDialogFooter removed 
 
   V4's `FluentDialogHeader` and `FluentDialogFooter` components are **removed**.
   Header and footer are now configured through `DialogOptions`:
@@ -76,7 +76,7 @@ hidden: true
   };
   ```
 
-- ### Dialog vs Drawer 💥
+- ### Dialog vs Drawer 
 
   V4 used `DialogType` to distinguish dialogs from panels/drawers.
   V5 uses the `Alignment` property:
@@ -96,7 +96,7 @@ hidden: true
 
   V4's `IDialogContentComponent<T>` is replaced by V5's `FluentDialogInstance` abstract base class.
 
-- ### Lifecycle model 💥
+- ### Lifecycle model 
 
   | V4 | V5 |
   |----|----|

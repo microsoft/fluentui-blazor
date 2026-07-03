@@ -4,7 +4,7 @@ route: /Migration/DesignTheme
 hidden: true
 ---
 
-- ### Components removed 💥
+- ### Components removed 
 
   Both `FluentDesignSystemProvider` and `FluentDesignTheme` have been **removed** in V5.
   Theming is now CSS-variable-based rather than component-based.
