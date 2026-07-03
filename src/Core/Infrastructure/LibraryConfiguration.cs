@@ -56,6 +56,14 @@ public class LibraryConfiguration
     public LibraryToastOptions Toast { get; } = new LibraryToastOptions();
 
     /// <summary>
+    /// Gets or sets a value indicating whether Fluent input components should use the
+    /// browser's native constraint validation UI by default (e.g., showing built-in
+    /// validation bubbles). Default is false. Consumers can opt-in to enable the
+    /// native validation UI for parity with existing browser behavior.
+    /// </summary>
+    public bool UseNativeConstraintValidationUI { get; set; }
+
+    /// <summary>
     /// Gets the sanitized markup string for safe rendering in HTML/Styles contexts.
     /// </summary>
     public MarkupSanitizedOptions MarkupSanitized { get; } = new MarkupSanitizedOptions();
