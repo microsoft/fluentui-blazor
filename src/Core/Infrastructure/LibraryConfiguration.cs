@@ -61,7 +61,7 @@ public class LibraryConfiguration
     /// validation bubbles). Default is false. Consumers can opt-in to enable the
     /// native validation UI for parity with existing browser behavior.
     /// </summary>
-    public bool UseNativeConstraintValidationUi { get; set; }
+    public bool UseNativeConstraintValidationUI { get; set; }
 
     /// <summary>
     /// Gets the sanitized markup string for safe rendering in HTML/Styles contexts.

@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Validation;
 
-public class FluentInputValidationDefaultsTests
+public class ReportValidityTests
 {
     [Fact]
     public void Default_NoOptIn_ReportValidityNotCalled()
@@ -40,7 +40,7 @@ public class FluentInputValidationDefaultsTests
         using var ctx = new Bunit.BunitContext();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddSingleton<IHtmlParser>(new HtmlParser());
-        ctx.Services.AddFluentUIComponents(config => config.UseNativeConstraintValidationUi = true);
+        ctx.Services.AddFluentUIComponents(config => config.UseNativeConstraintValidationUI = true);
 
         // Arrange
         var cut = ctx.Render<FluentTextArea>(parameters => parameters.Add(p => p.Id, "myId").Add(p => p.Value, "init"));
