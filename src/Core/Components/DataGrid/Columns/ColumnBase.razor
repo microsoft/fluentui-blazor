@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Components.Rendering
-@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @typeparam TGridItem
@@ -35,7 +34,7 @@
 
             @if (headerCapabilities.HasAnyAction)
             {
-                <FluentButton Id="@_columnId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                <FluentButton Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
                     <div class="col-title-text" title="@tooltip">
                         @HeaderTitleContent
                     </div>
@@ -65,7 +64,7 @@
                     </div>
                 </div>
             }
-            <FluentMenu @key="@(_columnId + ":" + Index)" @ref="@_menu" Trigger="@_columnId" Style="@headerPopupLayerStyle">
+            <FluentMenu @key="@HeaderMenuId" Id="@HeaderMenuId" @ref="@_menu" Trigger="@HeaderButtonId" Style="@headerPopupLayerStyle">
                 <FluentMenuList>
                     @if (headerCapabilities.CanSort)
                     {
@@ -188,7 +187,7 @@
     private RenderFragment OptionsButton()
     {
         return
-            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" @onkeydown="@HandleOptionsButtonKeyDownAsync" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Default" Width="20px" Style="opacity: var(--fluent-data-grid-header-opacity);" />
             </FluentButton>;
     }
