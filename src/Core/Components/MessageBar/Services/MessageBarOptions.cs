@@ -148,9 +148,9 @@ public class MessageBarOptions : IFluentComponentBase
 
     /// <summary>
     /// Gets or sets when the <see cref="IMessageBarInstance.Result"/> task is completed.
-    /// The default is <see cref="MessageBarResultTiming.Closed"/>.
+    /// The default is <see cref="MessageBarResultTiming.Visible"/>.
     /// </summary>
-    public MessageBarResultTiming ResultTiming { get; set; } = MessageBarResultTiming.Closed;
+    public MessageBarResultTiming ResultTiming { get; set; } = MessageBarResultTiming.Visible;
 
     /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.

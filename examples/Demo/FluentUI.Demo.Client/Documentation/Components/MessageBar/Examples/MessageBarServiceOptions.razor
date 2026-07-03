@@ -24,6 +24,7 @@
             options.Message = "Successfully deleted 'XYZ-blazor.pdf'";
             options.AllowDismiss = true;
             options.Lifetime = TimeSpan.FromSeconds(5);
+            options.ResultTiming = MessageBarResultTiming.Closed;
         });
 
         Console.WriteLine($"Message bar closed: {result.Reason}");

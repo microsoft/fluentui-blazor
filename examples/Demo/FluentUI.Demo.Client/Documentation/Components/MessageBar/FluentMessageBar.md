@@ -76,6 +76,10 @@ and a local provider scoped to a specific panel or dialog), and to route each me
 
 The simplest way to display a message is to use one of the typed helpers, passing the target section and the message text:
 
+These four helper methods are non-blocking. Because they use `MessageBarResultTiming.Visible`, the awaited call completes 
+as soon as the bar is displayed; thus, the code following the `await` statement continues to execute immediately, without waiting for the bar 
+to be closed:
+
 - `NotificationService.ShowSuccessBarAsync("SECTION", "Title", "Message")`
 - `NotificationService.ShowWarningBarAsync("SECTION", "Title", "Message")`
 - `NotificationService.ShowErrorBarAsync("SECTION", "Title", "Message")`
@@ -89,6 +93,10 @@ For more control (title, intent, layout, lifetime, dismiss button, ...), use the
 an `Action<MessageBarOptions>`. The returned `MessageBarResult` indicates how the message bar was closed.
 
 {{ MessageBarServiceOptions }}
+
+**Notes**: 
+- By default, `ResultTiming = MessageBarResultTiming.Visible`. The code after `await` resumes as soon as the bar is visible. 
+- Set this property to `MessageBarResultTiming.Closed` to block execution until the bar is dismissed.
 
 **Using a custom component**
 

@@ -18,6 +18,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Success;
             options.Title = title;
             options.Message = message;
@@ -30,6 +31,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Warning;
             options.Title = title;
             options.Message = message;
@@ -42,6 +44,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Error;
             options.Title = title;
             options.Message = message;
@@ -54,6 +57,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Info;
             options.Title = title;
             options.Message = message;
