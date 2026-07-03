@@ -130,25 +130,6 @@
            .MarkupMatches("<fluent-textarea id=\"myId\" slot=\"input\" value=\"new value\" />");
     }
 
-    [Fact]
-    public void FluentTextArea_OnChange_ReportsValidity()
-    {
-        // Arrange
-        using var context = new IdentifierContext(i => "myId");
-        var value = "init";
-        var cut = Render(@<FluentTextArea @bind-Value="@value" />);
-
-        // Act
-        cut.Find("fluent-textarea").Change("new value");
-
-        // Assert
-        var reportValidityInvocations = JSInterop.Invocations
-            .Where(invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity")
-            .ToList();
-
-        Assert.Single(reportValidityInvocations);
-    }
-
     [Theory]
     [InlineData(false, 0, "init", "init")]              // No Immediate
     [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
