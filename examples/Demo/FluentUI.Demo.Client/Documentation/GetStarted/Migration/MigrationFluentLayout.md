@@ -20,7 +20,7 @@ hidden: true
    </FluentLayout>
    ```
 
-- ### Removed components💥
+- ### Removed components
   The `FluentHeader`, `FluentBodyContent`, `FluentFooter`, `FluentMainLayout` components have been removed.
 
   Use the `FluentLayoutItem Area="..."` component instead.

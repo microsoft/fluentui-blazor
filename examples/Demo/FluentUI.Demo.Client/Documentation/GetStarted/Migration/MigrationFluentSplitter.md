@@ -4,7 +4,7 @@ route: /Migration/Splitter
 hidden: true
 ---
 
-- ### FluentSplitter removed 💥
+- ### FluentSplitter removed 
 
   The `FluentSplitter` component has been **removed** in V5. Only `FluentMultiSplitter` remains.
   Migrate from `FluentSplitter` to `FluentMultiSplitter` with two `FluentMultiSplitterPane` children.

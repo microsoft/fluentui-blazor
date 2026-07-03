@@ -12,6 +12,52 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       element.style.visibility = 'hidden';
     }
   };
+
+  const getDeepActiveElement = (): HTMLElement | null => {
+    let activeElement: Element | null = document.activeElement;
+    while (activeElement instanceof HTMLElement && activeElement.shadowRoot?.activeElement) {
+      activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return activeElement instanceof HTMLElement ? activeElement : null;
+  };
+
+  const getFocusedGridElement = (gridElement: HTMLElement, event: KeyboardEvent): HTMLElement | null => {
+    const composedPath = event.composedPath();
+
+    for (const entry of composedPath) {
+      if (!(entry instanceof HTMLElement)) {
+        continue;
+      }
+
+      const tableCell = entry.closest('td,th');
+      if (tableCell instanceof HTMLElement && gridElement.contains(tableCell)) {
+        return tableCell;
+      }
+
+      if (entry === gridElement) {
+        return gridElement;
+      }
+    }
+
+    const activeElement = getDeepActiveElement();
+    if (activeElement) {
+      const tableCell = activeElement.closest('td,th');
+      if (tableCell instanceof HTMLElement && gridElement.contains(tableCell)) {
+        return tableCell;
+      }
+
+      const table = activeElement.closest('table');
+      if (table instanceof HTMLElement && table === gridElement) {
+        return table;
+      }
+    }
+
+    return null;
+  };
+
+  const handledArrowNavigationEventFlag = '__fluentDataGridArrowNavigationHandled';
+
   interface Grid {
     id: string;
     columns: Column[]; // or a more specific type if you have one
@@ -77,49 +123,173 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     };
     const keyboardNavigation = (sibling: HTMLElement | null) => {
       if (sibling !== null) {
-        if (start) start.focus();
-        sibling.focus();
-        start = sibling;
+        // th elements are not focusable; transfer focus to the inner header button instead.
+        if (sibling.matches('th')) {
+          const headerButton = sibling.querySelector<HTMLElement>('.col-sort-button, .col-options-button');
+          if (headerButton) {
+            sibling = headerButton;
+          }
+        }
+
+        const focusSibling = () => {
+          sibling?.focus({ preventScroll: true });
+          start = sibling;
+        };
+
+        // Defer focusing until after the current key event completes so focus traps
+        // or inner component key handlers cannot immediately override DataGrid focus.
+        setTimeout(() => {
+          focusSibling();
+
+          // Some host components can move focus again on the next frame.
+          // Re-apply focus once when focus escaped the current grid.
+          requestAnimationFrame(() => {
+            const activeElement = getDeepActiveElement();
+            if (!activeElement || !gridElement.contains(activeElement)) {
+              focusSibling();
+            }
+          });
+        }, 0);
       }
     }
+    const getHeaderButtons = () => {
+      return Array.from(
+        gridElement.querySelectorAll<HTMLElement>('.column-header .col-sort-button, .column-header .col-options-button')
+      ).filter(button => button.tabIndex >= 0 && !button.hasAttribute('disabled'));
+    };
+    const moveHeaderFocus = (current: HTMLElement, shiftKey: boolean) => {
+      const headerButtons = getHeaderButtons();
+      const currentIndex = headerButtons.indexOf(current);
+      if (currentIndex < 0) {
+        return false;
+      }
+
+      const nextIndex = shiftKey ? currentIndex - 1 : currentIndex + 1;
+      if (nextIndex < 0 || nextIndex >= headerButtons.length) {
+        return false;
+      }
+
+      headerButtons[nextIndex].focus({ preventScroll: true });
+      return true;
+    };
+    const moveFocusIntoHeader = () => {
+      const headerButtons = getHeaderButtons();
+      const firstHeaderButton = headerButtons[0];
+      if (!firstHeaderButton) {
+        return false;
+      }
+
+      firstHeaderButton.focus({ preventScroll: true });
+      return true;
+    };
+    const getAdjacentRowCell = (cell: HTMLTableCellElement, direction: 'up' | 'down') => {
+      const row = cell.parentElement as HTMLTableRowElement | null;
+      if (!row) {
+        return null;
+      }
+
+      const rowGroupName = row.parentElement?.tagName.toLowerCase();
+      let targetRow = direction === 'up'
+        ? row.previousElementSibling as HTMLTableRowElement | null
+        : row.nextElementSibling as HTMLTableRowElement | null;
+
+      if (!targetRow) {
+        const table = row.closest('table');
+        if (direction === 'down' && rowGroupName === 'thead') {
+          targetRow = table?.querySelector('tbody tr') as HTMLTableRowElement | null;
+        } else if (direction === 'up' && rowGroupName === 'tbody') {
+          targetRow = table?.querySelector('thead tr:last-child') as HTMLTableRowElement | null;
+        }
+      }
+
+      if (!targetRow) {
+        return null;
+      }
+
+      return targetRow.cells[cell.cellIndex] as HTMLTableCellElement | null;
+    };
     const keyDownHandler = (event: KeyboardEvent) => {
-      const headerUiElement = gridElement?.querySelector(headerUiSelector);
-      if (headerUiElement && headerUiElement.contains(event.target as HTMLElement)) {
-        if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
+      if ((event as any)[handledArrowNavigationEventFlag]) {
+        return;
+      }
+
+      const isArrowKey = event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp";
+      const targetElement = event.target instanceof HTMLElement ? event.target : null;
+      const isMenuInteraction = event.composedPath().some((entry) =>
+        entry instanceof HTMLElement &&
+        (entry.matches('fluent-menu, fluent-menu-list, fluent-menu-item, [role="menu"], [role="menuitem"]') ||
+          !!entry.closest('fluent-menu, fluent-menu-list, fluent-menu-item, [role="menu"], [role="menuitem"]'))
+      );
+
+      if (isArrowKey && isMenuInteraction) {
+        return;
+      }
+
+      if (event.key === "Tab" && !event.shiftKey) {
+        const activeElement = getDeepActiveElement();
+        if (activeElement && !activeElement.matches('.col-sort-button, .col-options-button')) {
+          const focusableElements = Array.from(
+            document.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])')
+          ).filter(element => element.tabIndex >= 0 && !element.hasAttribute('disabled') && element.getClientRects().length > 0);
+          const currentIndex = focusableElements.indexOf(activeElement);
+          if (currentIndex >= 0) {
+            const nextFocusable = focusableElements[currentIndex + 1] ?? null;
+            if (nextFocusable && getHeaderButtons().includes(nextFocusable) && moveFocusIntoHeader()) {
+              event.preventDefault();
+              event.stopPropagation();
+              return;
+            }
+          }
+        }
+      }
+
+      if (event.key === "Tab" && targetElement && (targetElement.matches('.col-sort-button') || targetElement.matches('.col-options-button'))) {
+        if (moveHeaderFocus(targetElement, event.shiftKey)) {
+          event.preventDefault();
           event.stopPropagation();
           return;
         }
       }
 
-      if (document.activeElement?.tagName.toLowerCase() != 'table' && document.activeElement?.tagName.toLowerCase() != 'td' && document.activeElement?.tagName.toLowerCase() != 'th') {
+      const headerUiElement = gridElement?.querySelector(headerUiSelector);
+      if (headerUiElement && headerUiElement.contains(event.target as HTMLElement)) {
+        if (isArrowKey) {
+          event.stopPropagation();
+          return;
+        }
+      }
+
+      if (!isArrowKey) {
         return;
       }
 
-      if ((event.target as HTMLElement).getAttribute('role') !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp")) {
+      const focusedGridElement = getFocusedGridElement(gridElement, event);
+      if (!(focusedGridElement instanceof HTMLTableCellElement)) {
         return;
       }
 
-      // check if start is a child of gridElement
-      if (start !== null && (gridElement.contains(start) || gridElement === start) && document.activeElement === start && document.activeElement.tagName.toLowerCase() !== 'fluent-text-field' && document.activeElement.tagName.toLowerCase() !== 'fluent-menu-item') {
-        const idx = (start as HTMLTableCellElement).cellIndex;
+      if (targetElement && targetElement !== focusedGridElement && targetElement.closest('[role="gridcell"]') === focusedGridElement) {
+        return;
+      }
+
+      if (start !== focusedGridElement) {
+        start = focusedGridElement;
+      }
+
+      if (start !== null && (gridElement.contains(start) || gridElement === start)) {
+        (event as any)[handledArrowNavigationEventFlag] = true;
         const isRTL = getComputedStyle(gridElement).direction === 'rtl';
 
         if (event.key === "ArrowUp") {
-          // up arrow
-          const previousRow = start.parentElement?.previousElementSibling as HTMLTableRowElement | null;
-          if (previousRow !== null) {
-            event.preventDefault();
-            const previousSibling = previousRow.cells[idx];
-            keyboardNavigation(previousSibling);
-          }
+          event.preventDefault();
+          const previousSibling = getAdjacentRowCell(start as HTMLTableCellElement, 'up');
+          keyboardNavigation(previousSibling);
+          event.stopPropagation();
         } else if (event.key === "ArrowDown") {
-          // down arrow
-          const nextRow = start.parentElement?.nextElementSibling as HTMLTableRowElement | null;
-          if (nextRow !== null) {
-            event.preventDefault();
-            const nextSibling = nextRow.cells[idx];
-            keyboardNavigation(nextSibling);
-          }
+          event.preventDefault();
+          const nextSibling = getAdjacentRowCell(start as HTMLTableCellElement, 'down');
+          keyboardNavigation(nextSibling);
+          event.stopPropagation();
         } else if (event.key === "ArrowLeft") {
           // left arrow
           event.preventDefault();
@@ -134,10 +304,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           event.stopPropagation();
         }
       }
-      else {
-        start = document.activeElement as HTMLElement;
-      }
-
     };
 
     const cells = gridElement.querySelectorAll('[role="gridcell"]');
@@ -151,7 +317,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }
       cell.addEventListener(
         "keydown",
-        (event: KeyboardEvent ) => {
+        (event: KeyboardEvent) => {
           if ((event.target as HTMLElement).role !== "gridcell" && (event.key === "ArrowRight" || event.key === "ArrowLeft")) {
             event.stopPropagation();
           }
@@ -163,7 +329,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     document.body.addEventListener('click', bodyClickHandler, { signal });
     document.body.addEventListener('mousedown', bodyClickHandler, { signal });
     document.body.addEventListener('keydown', bodyKeyDownHandler, { signal });
-    gridElement.addEventListener('keydown', keyDownHandler, { signal });
+
+    gridElement.addEventListener('keydown', keyDownHandler, { signal, capture: true });
 
     return {
       stop: () => {
@@ -195,10 +362,20 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       colPopup.style.visibility = 'visible';
       (colPopup as any).scrollIntoViewIfNeeded?.();
 
-      const autoFocusElem = colPopup.querySelector('[autofocus]') as HTMLElement | null;
-      if (autoFocusElem) {
-        autoFocusElem.focus();
-      }
+      requestAnimationFrame(() => {
+        const autoFocusElem = colPopup.querySelector<HTMLElement>('[autofocus]');
+        if (autoFocusElem) {
+          autoFocusElem.focus({ preventScroll: true });
+          return;
+        }
+
+        const firstFocusable = colPopup.querySelector<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (firstFocusable && firstFocusable.getClientRects().length > 0) {
+          firstFocusable.focus({ preventScroll: true });
+        }
+      });
     }
   }
 
@@ -588,7 +765,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     let headerBeingResized: HTMLElement | null | undefined;
 
     if (!column) {
-      const targetElement = (document.activeElement as HTMLElement)?.parentElement?.parentElement?.parentElement?.parentElement;
+      const targetElement = (document.activeElement as HTMLElement)?.parentElement;
       if (!(targetElement && targetElement.classList.contains('column-header') && targetElement.classList.contains('resizable'))) {
         return;
       }

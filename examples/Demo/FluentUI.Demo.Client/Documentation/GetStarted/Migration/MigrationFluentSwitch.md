@@ -4,7 +4,7 @@ route: /Migration/Switch
 hidden: true
 ---
 
-### Removed values💥
+### Removed values
 
 The `CheckedMessage` and `UncheckedMessage` properties have been removed.
 

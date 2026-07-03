@@ -4,7 +4,7 @@ route: /Migration/Breadcrumb
 hidden: true
 ---
 
-- ### Component removed 💥
+- ### Component removed 
 
   `FluentBreadcrumb` and `FluentBreadcrumbItem` have been **removed** in V5.
   There is no direct replacement component.

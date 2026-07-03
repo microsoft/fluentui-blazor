@@ -10,7 +10,7 @@ hidden: true
   |-------------|-------------|--------|
   | `Orientation` (`Orientation?`) | `Orientation` (`Orientation`, default `Horizontal`) | No longer nullable |
 
-- ### Removed properties 💥
+- ### Removed properties 
 
   - `Mode` (`SliderMode?`) — the slider mode enum is no longer supported.
   - `FluentSliderLabel<TValue>` — the companion label component has been removed.

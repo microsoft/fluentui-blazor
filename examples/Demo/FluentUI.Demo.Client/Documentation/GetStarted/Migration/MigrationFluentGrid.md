@@ -6,7 +6,7 @@ hidden: true
 
 - ### FluentGrid changes
 
-  #### Default spacing changed 💥
+  #### Default spacing changed 
 
   The `Spacing` parameter default has changed from `3` to `0`.
   If you relied on the default spacing, you must now set it explicitly.
@@ -19,7 +19,7 @@ hidden: true
   <FluentGrid Spacing="3">...</FluentGrid>
   ```
 
-- ### FluentGridItem changes (reminder) 💥
+- ### FluentGridItem changes (reminder) 
 
   Properties have been renamed to PascalCase:
 

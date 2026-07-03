@@ -4,7 +4,7 @@ route: /Migration/Button
 hidden: true
 ---
 
-### Renamed parameters 💥
+### Renamed parameters 
 
 - `Autofocus` → `AutoFocus` (also changed from `bool?` to `bool`)
 - `Action` → `FormAction`
@@ -13,7 +13,7 @@ hidden: true
 - `NoValidate` → `FormNoValidate`
 - `Target` → `FormTarget`
 
-### Appearance 💥
+### Appearance 
 
 The `Appearance` parameter has been updated to use the `ButtonAppearance` enum
 instead of the `Appearance` enum.

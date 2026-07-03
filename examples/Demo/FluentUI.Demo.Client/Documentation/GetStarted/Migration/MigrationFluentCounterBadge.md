@@ -11,7 +11,7 @@ accepts `ChildContent`, `BadgeContent` or `BadgeTemplate` render fragments. Posi
 parameters have been removed — use `FluentBadge` with `Positioning` if you need to anchor
 a counter to an element.
 
-### Removed parameters 💥
+### Removed parameters 
 
 - `ChildContent` and `BadgeContent` — the component no longer wraps other content.
 - `BadgeTemplate` (`RenderFragment<int?>`) — custom badge rendering template removed.
@@ -21,11 +21,11 @@ a counter to an element.
 - `BackgroundColor` and `Color` — no longer supported on `FluentCounterBadge`.
 - `ShowOverflow` — overflow display is now controlled by `OverflowCount`.
 
-### Renamed parameters 💥
+### Renamed parameters 
 
 - `Max` → `OverflowCount` — the maximum count value before showing overflow (e.g. "99+").
 
-### Type-changed parameters 💥
+### Type-changed parameters 
 
 - `ShowZero`: Changed from `bool` to `bool?`.
 
