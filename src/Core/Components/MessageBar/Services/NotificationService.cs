@@ -163,6 +163,9 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
         options.OnStatusChange?.Invoke(new MessageBarEventArgs(instance, MessageBarLifecycleStatus.Visible));
 
+        // Complete the result now if the caller requested completion when the message bar becomes visible.
+        instance.TryCompleteResultOnVisible();
+
         // Schedule the auto-dismiss when a lifetime is configured.
         if (options.Lifetime is TimeSpan lifetime && lifetime > TimeSpan.Zero)
         {

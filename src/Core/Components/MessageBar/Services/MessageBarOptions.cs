@@ -147,6 +147,12 @@ public class MessageBarOptions : IFluentComponentBase
     public Action<MessageBarEventArgs>? OnStatusChange { get; set; }
 
     /// <summary>
+    /// Gets or sets when the <see cref="IMessageBarInstance.Result"/> task is completed.
+    /// The default is <see cref="MessageBarResultTiming.Closed"/>.
+    /// </summary>
+    public MessageBarResultTiming ResultTiming { get; set; } = MessageBarResultTiming.Closed;
+
+    /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.
     /// </summary>
     internal virtual string? ClassValue => new CssBuilder(Class)
