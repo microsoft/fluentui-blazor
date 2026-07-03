@@ -4,7 +4,7 @@ route: /Migration/Autocomplete
 hidden: true
 ---
 
-### Type parameter change 💥
+### Type parameter change 
 
 The component now requires **two** type parameters: `TOption` and `TValue`.
 
@@ -16,7 +16,7 @@ The component now requires **two** type parameters: `TOption` and `TValue`.
 <FluentAutocomplete TOption="Country" TValue="string" ... />
 ```
 
-### Renamed parameters 💥
+### Renamed parameters 
 
 - `@bind-SelectedOptions` → `@bind-SelectedItems`
 - `@bind-SelectedOption` → Use `Multiple="false"` with `@bind-SelectedItems`
@@ -24,7 +24,7 @@ The component now requires **two** type parameters: `TOption` and `TValue`.
 - `OptionComparer` → `OptionSelectedComparer`
 - `ValueText` / `ValueTextChangedAsync` → `@bind-Value`
 
-### Removed parameters 💥
+### Removed parameters 
 
 - `AutoComplete` — browser autocomplete attribute, no longer exposed.
 - `Position` (`SelectPosition?`) — popup positioning is now handled internally.
@@ -44,13 +44,13 @@ The component now requires **two** type parameters: `TOption` and `TValue`.
 - `OptionValueToString` (`Func<TValue, string>?`) — function to convert a value to string.
 - Various inherited input parameters: `Message`, `MessageTemplate`, `MessageState`, `MessageIcon`, `LabelPosition`, `LabelWidth`, `Margin`, `Padding`, `Tooltip`.
 
-### HeaderContent / FooterContent context type change 💥
+### HeaderContent / FooterContent context type change 
 
 The context type for `HeaderContent` and `FooterContent` has been renamed
 from `HeaderFooterContent<TOption>` to `AutocompleteHeaderFooterContent<TOption>`.
 The properties remain the same (`Items` and `InProgress`).
 
-### Single selection mode 💥
+### Single selection mode 
 
 In v4, single selection used a separate `@bind-SelectedOption` binding.
 In v5, use `Multiple="false"` with `@bind-SelectedItems`.

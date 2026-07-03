@@ -4,11 +4,11 @@ route: /Migration/Tooltip
 hidden: true
 ---
 
-### Removed properties💥
+### Removed properties
   The `Visible` property has been removed. The tooltip is now visible when the user hovers over the target element.
   The `OnToggle` event is triggered when the tooltip is shown or hidden.
 
-### Position 💥
+### Position 
   The `Position` property has been updated to use the `Positioning` property name and the `Positioning` enum
   instead of `TooltipPosition` enum.
 

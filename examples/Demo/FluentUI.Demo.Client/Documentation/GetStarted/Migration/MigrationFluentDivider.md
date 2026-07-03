@@ -4,7 +4,7 @@ route: /Migration/Divider
 hidden: true
 ---
 
-- ### Removed properties 💥
+- ### Removed properties 
 
   - `Role` (`DividerRole?`) — the role attribute is no longer configurable.
   - `Orientation` (`Orientation?`) — use `Vertical="true"` instead.

@@ -10,12 +10,12 @@ to be coherent with the Web Components and React naming conventions.
 > [!NOTE] The new component `FluentSpinner` cannot be paused. It must always be spinning.
 > So, the `Paused`, `Min`, `Max`, `Value` properties has been removed.
 
-### Renamed properties 🔃
+### Renamed properties 
 
   `Stroke` property has been renamed to `Size`.
   The `Stroke` property has been flagged as obsolete and will be removed in the next major version.
 
-### Removed properties💥
+### Removed properties
   The `ChildContent` property has been removed. Use `FluentField` instead, to display
   a message below the ProgressBar.
 

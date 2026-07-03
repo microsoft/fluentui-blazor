@@ -4,17 +4,17 @@ route: /Migration/Accordion
 hidden: true
 ---
 
-### FluentAccordionItem - Renamed parameters 💥
+### FluentAccordionItem - Renamed parameters 
 
 - `Heading` → `Header`
 - `HeadingTemplate` → `HeaderTemplate`
 - `HeadingTooltip` → `HeaderTooltip`
 
-### FluentAccordionItem - Type-changed parameters 💥
+### FluentAccordionItem - Type-changed parameters 
 
 - `HeadingLevel`: Changed from `string?` to `int?`.
 
-### FluentAccordion - Type-changed parameters 💥
+### FluentAccordion - Type-changed parameters 
 
 - `OnAccordionItemChange`: Changed from `EventCallback<FluentAccordionItem>` to `EventCallback<AccordionItemEventArgs>`.
   The affected item can be found in the event arguments via the `Item` property.

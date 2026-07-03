@@ -7,12 +7,12 @@ hidden: true
 The component itself has been renamed from `FluentProgress` to `FluentProgressBar`
 to be coherent with the Web Components and React naming conventions.
 
-### Renamed properties 🔃
+### Renamed properties 
 
   `Stroke` property has been renamed to `Thickness`.
   The `Stroke` property has been flagged as obsolete and will be removed in the next major version.
 
-### Removed properties💥
+### Removed properties
   The `ChildContent` property has been removed. Use `FluentField` instead, to display
   a message below the ProgressBar.
 

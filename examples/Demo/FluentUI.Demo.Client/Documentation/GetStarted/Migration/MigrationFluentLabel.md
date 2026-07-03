@@ -4,10 +4,10 @@ route: /Migration/Label
 hidden: true
 ---
 
-### Changed properties 🔃
+### Changed properties 
 - `Weight`, now used to determine if the label text is shown regular or semibold
 
-### Removed properties💥
+### Removed properties
 
 - `Alignment`
 - `Color`
