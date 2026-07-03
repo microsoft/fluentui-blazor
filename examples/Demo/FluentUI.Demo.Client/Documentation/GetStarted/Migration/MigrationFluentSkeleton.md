@@ -4,7 +4,7 @@ route: /Migration/Skeleton
 hidden: true
 ---
 
-- ### No longer a web component 💥
+- ### No longer a web component 
 
   V4 rendered `<fluent-skeleton>`. V5 renders a plain `<div>` with CSS classes.
 
@@ -22,7 +22,7 @@ hidden: true
   | `Width` (`string`, default `"50px"`) | `Width` (`string?`, default `"100%"`) | Default changed |
   | `Height` (`string`, default `"50px"`) | `Height` (`string?`, default `"48px"`) | Default changed |
 
-- ### Removed properties 💥
+- ### Removed properties 
 
   - `Fill` (`string?`) — no longer supported.
   - `Shape` (`SkeletonShape?`) — use `Circular="true"` for circle shapes, default is rectangle.

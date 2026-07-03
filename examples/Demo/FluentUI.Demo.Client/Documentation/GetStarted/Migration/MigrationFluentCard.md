@@ -4,7 +4,7 @@ route: /Migration/Card
 hidden: true
 ---
 
-### Removed parameters 💥
+### Removed parameters 
 
 - `AreaRestricted` — no longer applicable since the web component has been removed.
 - `MinimalStyle` — use the `Appearance` parameter instead to control the visual style.

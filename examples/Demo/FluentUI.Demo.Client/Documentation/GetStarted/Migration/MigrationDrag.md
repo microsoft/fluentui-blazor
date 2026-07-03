@@ -4,7 +4,7 @@ route: /Migration/Drag
 hidden: true
 ---
 
-### General changes 💥
+### General changes 
 
 All events associated with this component have been updated to use `EventCallback<FluentDragEventArgs<TItem>>` instead of `Action<FluentDragEventArgs<TItem>>`. This change allows developers to use different method signatures and properly await tasks.
 

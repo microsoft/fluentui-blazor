@@ -11,7 +11,7 @@ hidden: true
   | `OnFileError` (`EventCallback<FluentInputFileEventArgs>`) | `OnFileError` (`EventCallback<FluentInputFileErrorEventArgs>`) | Type changed to new error-specific event args |
   | `AnchorId` (`string`, default `""`) | `AnchorId` (`string?`) | Now nullable |
 
-- ### Removed properties 💥
+- ### Removed properties 
 
   - `OnFileCountExceeded` (`EventCallback<int>`) — merged into `OnFileError`.
     The file count exceeded scenario is now reported via `FluentInputFileErrorEventArgs.FileCountExceeded`.

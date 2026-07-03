@@ -4,7 +4,7 @@ route: /Migration/List
 hidden: true
 ---
 
-- ### Two type parameters required 💥
+- ### Two type parameters required 
 
   All list components now require two type parameters: `TOption` and `TValue`.
   See the [FluentSelect migration page](/Migration/Select) for full details on the base class change
@@ -14,7 +14,7 @@ hidden: true
 
   `FluentCombobox` now inherits from `FluentSelect` instead of `ListComponentBase` directly.
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `Autocomplete` (`ComboboxAutocomplete?`)
   - `Open` (`bool?`)
   - `EnableClickToClose` (`bool?`)
@@ -25,7 +25,7 @@ hidden: true
 
 - ### FluentListbox changes
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `Size` (`int`) — the integer size parameter is removed.
 
   #### Renamed properties

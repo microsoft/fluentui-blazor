@@ -4,7 +4,7 @@ route: /Migration/DateTime
 hidden: true
 ---
 
-- ### Generic type parameter 💥
+- ### Generic type parameter 
 
   Both `FluentDatePicker` and `FluentTimePicker` are now generic components.
 
@@ -32,13 +32,13 @@ hidden: true
   | `DoubleClickToDate` (`DateTime?`) | `DoubleClickToDate` (`TValue?`) | Now generic |
   | `DayFormat` (`DayFormat?` enum) | `DayFormat` (`CalendarDayFormat?` enum) | Enum renamed |
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `PopupHorizontalPosition` — the popover now uses `FluentPopover` for positioning.
   - `ParsingErrorMessage` — handled by the localization system.
 
 - ### FluentTimePicker changes
 
-  #### Completely new UX 💥
+  #### Completely new UX 
 
   The time picker has been fully redesigned. V4 used a native HTML `<input type="time">`.
   V5 uses a `FluentCombobox` with a dropdown list of time slots.
@@ -49,7 +49,7 @@ hidden: true
   |-------------|-------------|--------|
   | `Appearance` (`FluentInputAppearance`) | `Appearance` (`ListAppearance`) | Enum type changed |
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `TimeDisplay` (`TimeDisplay` enum) — no longer applicable with the new combobox UX.
 
   #### Migration example
