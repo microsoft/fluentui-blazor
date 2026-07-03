@@ -1,4 +1,4 @@
-@using Xunit
+﻿@using Xunit
 @inherits FluentUITestContext
 @code
 {
@@ -180,6 +180,20 @@
     }
 
     [Fact]
+    public async Task DialogService_HideOverlayAsync_WhenJsInteropThrows_PropagatesException()
+    {
+        // Arrange
+        JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Overlay.Close", _ => true)
+            .SetException(new InvalidOperationException("close failed"));
+
+        // Act & Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        {
+            await DialogService.HideOverlayAsync();
+        });
+    }
+
+    [Fact]
     public async Task DialogService_ShowOverlayAsync_WhenProviderNotAvailable_ThrowsFluentServiceProviderException()
     {
         // Arrange
@@ -189,6 +203,19 @@
         await Assert.ThrowsAsync<FluentServiceProviderException<FluentDialogProvider>>(async () =>
         {
             await DialogService.ShowOverlayAsync(options => options.Text = "Should fail");
+        });
+    }
+
+    [Fact]
+    public async Task DialogService_HideOverlayAsync_WhenProviderNotAvailable_ThrowsFluentServiceProviderException()
+    {
+        // Arrange
+        DialogProvider.Instance.UpdateId(null);
+
+        // Act & Assert
+        await Assert.ThrowsAsync<FluentServiceProviderException<FluentDialogProvider>>(async () =>
+        {
+            await DialogService.HideOverlayAsync();
         });
     }
 

@@ -44,6 +44,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     private container: HTMLElement;
     private listbox: FluentUIComponents.Listbox;
     private pendingSelectedOptionsChange: boolean = false;
+    private lastSelectedOptions: string = '';
 
     /**
      * Initializes a new instance of the ListboxExtended class.
@@ -57,6 +58,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       // Set initial selected options based on the current state
       setTimeout(() => {
         this.refresh(true);
+        this.lastSelectedOptions = this.listbox.selectedOptions.map(option => option.id).join(';');
         this.setupListboxObserver();
         this.isInitialized = true;
       }, 50);
@@ -281,11 +283,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         return;
       }
 
+      const currentSelectedOptions = this.listbox.selectedOptions.map(option => option.id).join(';');
+
+      // Skip if the selection hasn't actually changed (e.g. Blazor re-render updating DOM attributes)
+      if (currentSelectedOptions === this.lastSelectedOptions) {
+        return;
+      }
+
+      this.lastSelectedOptions = currentSelectedOptions;
+
       const event = new CustomEvent('listboxchange', {
         bubbles: true,
         composed: true,
         detail: {
-          selectedOptions: this.listbox.selectedOptions.map(option => option.id).join(';')
+          selectedOptions: currentSelectedOptions
         }
       });
 

@@ -25,12 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj" />
+    <ProjectReference Include="..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj" />
   </ItemGroup>
 
   <!-- Path to the generated MCP documentation JSON produced by the McpServer project -->
   <PropertyGroup>
-    <McpDocumentationJsonPath>$(MSBuildThisFileDirectory)..\..\..\src\Tools\McpServer\FluentUIComponentsDocumentation.json</McpDocumentationJsonPath>
+    <McpDocumentationJsonPath>$(MSBuildThisFileDirectory)..\..\src\Tools\McpServer\FluentUIComponentsDocumentation.json</McpDocumentationJsonPath>
   </PropertyGroup>
 
   <!--

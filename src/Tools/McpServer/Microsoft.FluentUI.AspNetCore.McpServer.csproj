@@ -49,7 +49,7 @@
 
   <!-- Expose internals to test project -->
   <ItemGroup>
-    <InternalsVisibleTo Include="Microsoft.FluentUI.AspNetCore.McpServer.Tests" />
+    <InternalsVisibleTo Include="McpServer.Tests" />
   </ItemGroup>
 
   <!-- Release -->
@@ -172,6 +172,9 @@
 
     <!-- Build the FluentUI Components first to ensure DLL and XML exist -->
     <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
+
+    <!-- Build the FluentUI Charts to ensure the Charts DLL and XML exist -->
+    <MSBuild Projects="$(MSBuildThisFileDirectory)..\..\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" Targets="Build" Properties="Configuration=$(Configuration)" />
 
     <!-- Restore and Build DocApiGen -->
     <MSBuild Projects="$(DocApiGenProject)" Targets="Restore" Properties="Configuration=$(Configuration);TargetFramework=$(ExampleNetVersion)" />

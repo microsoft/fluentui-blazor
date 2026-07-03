@@ -1,0 +1,303 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentWizardAdvancedTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    private sealed class WizardFormModel
+    {
+        [Required]
+        public string? Name { get; set; }
+    }
+
+    [Fact]
+    public void FluentWizard_StepperSize_InvalidStepperPosition_DoesNotRenderStyle()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard StepperPosition="@((StepperPosition)999)" StepperSize="120px">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        // Assert: unknown position uses default switch branch => no stepper size style output
+        var stepper = cut.Find("ol");
+        Assert.Null(stepper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentWizard_FinishAsync_WithValidator_UsesEditContextValidation()
+    {
+        // Arrange
+        var finishCalled = false;
+        var model = new WizardFormModel(); // invalid: Name is required
+        var editContext = new EditContext(model);
+        FluentWizard wizard = default!;
+
+        var cut = Render(
+            @<FluentWizard @ref="wizard" OnFinish="@(() => finishCalled = true)">
+                <Steps>
+                    <FluentWizardStep Label="Only Step">
+                        <EditForm EditContext="@editContext">
+                            <DataAnnotationsValidator />
+                            <FluentWizardStepValidator />
+                        </EditForm>
+                    </FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        // Act 1: invalid model => FinishAsync(validate=true) must not invoke OnFinish
+        await cut.InvokeAsync(() => wizard.FinishAsync(validateEditContexts: true));
+
+        // Assert 1
+        Assert.False(finishCalled);
+
+        // Act 2: make model valid, then finish again
+        model.Name = "John";
+        await cut.InvokeAsync(() => editContext.Validate());
+        await cut.InvokeAsync(() => wizard.FinishAsync(validateEditContexts: true));
+
+        // Assert 2
+        Assert.True(finishCalled);
+
+        // Dispose component tree to execute FluentWizardStepValidator.Dispose unregister path
+        cut.Dispose();
+    }
+
+    [Fact]
+    public void FluentWizardStep_WithoutFluentWizard_ThrowsArgumentException()
+    {
+        // Arrange + Act + Assert
+        var ex = Assert.Throws<ArgumentException>(() =>
+        {
+            Render(@<FluentWizardStep Label="Standalone">Content</FluentWizardStep>);
+        });
+
+        Assert.Contains("must be included in the FluentWizard", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void FluentWizardStepValidator_OutsideFluentWizardStep_ThrowsInvalidOperationException()
+    {
+        // Arrange + Act + Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(@<FluentWizardStepValidator />);
+        });
+
+        Assert.Contains("must be used inside a FluentWizardStep", ex.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void FluentWizardStepValidator_InsideFluentWizardStepWithoutEditForm_ThrowsInvalidOperationException()
+    {
+        // Arrange + Act + Assert
+        var ex = Assert.Throws<InvalidOperationException>(() =>
+        {
+            Render(
+                @<FluentWizard>
+                    <Steps>
+                        <FluentWizardStep Label="Step 1">
+                            <FluentWizardStepValidator />
+                        </FluentWizardStep>
+                    </Steps>
+                </FluentWizard>
+            );
+        });
+
+        Assert.Contains("must be used inside an EditForm", ex.Message, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData(StepperPosition.Left, "width: 120px")]
+    [InlineData(StepperPosition.Top, "height: 120px")]
+    public void FluentWizard_StepperSize_WithKnownPosition_RendersExpectedStyle(StepperPosition position, string expectedStyle)
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentWizard StepperPosition="position" StepperSize="120px">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        // Assert
+        var stepper = cut.Find("ol");
+        Assert.Equal(expectedStyle, stepper.GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentWizard_SetParametersAsync_NormalizesOutOfRangeValue()
+    {
+        // Arrange
+        var cut = Render(
+            @<FluentWizard Value="0">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        var wizard = cut.FindComponent<FluentWizard>().Instance;
+
+        // Act: above max => normalize to last index
+        await cut.InvokeAsync(() => wizard.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            [nameof(FluentWizard.Value)] = 99,
+        })));
+
+        // Assert
+        var stepsAfterHighValue = cut.FindAll("li");
+        Assert.Equal("current", stepsAfterHighValue[2].GetAttribute("status"));
+
+        // Act: below min => normalize to zero
+        await cut.InvokeAsync(() => wizard.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            [nameof(FluentWizard.Value)] = -5,
+        })));
+
+        // Assert
+        var stepsAfterLowValue = cut.FindAll("li");
+        Assert.Equal("current", stepsAfterLowValue[0].GetAttribute("status"));
+    }
+
+    [Fact]
+    public async Task FluentWizardStep_RegisterEditFormAndContext_FinishAndDeferredNavigation_CoversValidationBranches()
+    {
+        // Arrange
+        var model = new WizardFormModel();
+        var editContext = new EditContext(model);
+        var validSubmitCount = 0;
+        var invalidSubmitCount = 0;
+
+        FluentWizard wizard = default!;
+        FluentWizardStep firstStep = default!;
+
+        var cut = Render(
+            @<FluentWizard @ref="wizard">
+                <Steps>
+                    <FluentWizardStep @ref="firstStep" Label="Step 1" DeferredLoading="true">
+                        <EditForm EditContext="@editContext"
+                                  OnValidSubmit="@(_ => validSubmitCount++)"
+                                  OnInvalidSubmit="@(_ => invalidSubmitCount++)">
+                            <DataAnnotationsValidator />
+                            <InputText @bind-Value="model.Name" />
+                        </EditForm>
+                    </FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        var editForm = cut.FindComponent<EditForm>().Instance;
+        firstStep.RegisterEditFormAndContext(editForm, editContext);
+
+        // Act: invalid model
+        var invalidBeforeFinish = await cut.InvokeAsync(() => firstStep.ValidateEditContexts());
+        await cut.InvokeAsync(() => wizard.FinishAsync(validateEditContexts: true));
+
+        // Assert invalid path
+        Assert.False(invalidBeforeFinish);
+        Assert.Equal(0, validSubmitCount);
+        Assert.Equal(1, invalidSubmitCount);
+
+        // Act: valid model
+        model.Name = "John";
+        await cut.InvokeAsync(() => editContext.Validate());
+        await cut.InvokeAsync(() => wizard.FinishAsync(validateEditContexts: true));
+
+        // Assert valid path
+        Assert.Equal(1, validSubmitCount);
+        Assert.Equal(1, invalidSubmitCount);
+
+        // Act: deferred loading should clear registered forms/contexts when leaving step 1
+        await cut.InvokeAsync(() => wizard.GoToStepAsync(1));
+
+        // Assert clear path
+        model.Name = null;
+        var validationAfterClear = await cut.InvokeAsync(() => firstStep.ValidateEditContexts());
+        Assert.True(validationAfterClear);
+    }
+
+    [Fact]
+    public void FluentWizardStep_StepTemplate_RendersCustomTemplate()
+    {
+        // Arrange
+        RenderFragment<FluentWizardStepArgs> template = args =>
+            @<span class="custom-step">Template @(args.Index)</span>;
+
+        // Act
+        var cut = Render(
+            @<FluentWizard>
+                <Steps>
+                    <FluentWizardStep Label="Step 1"
+                                      StepTemplate="template">
+                        Content 1
+                    </FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        // Assert
+        Assert.Contains("Template 0", cut.Markup);
+        Assert.Contains("custom-step", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentWizardStep_OnClickHandler_RespectsSequenceAndCurrentStepRules()
+    {
+        // Arrange
+        var value = 0;
+        var cut = Render(
+            @<FluentWizard @bind-Value="value" StepSequence="WizardStepSequence.Visited">
+                <Steps>
+                    <FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+                    <FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+                    <FluentWizardStep Label="Step 3" Summary="Summary 3">Content 3</FluentWizardStep>
+                </Steps>
+            </FluentWizard>
+        );
+
+        var steps = cut.FindAll("li");
+
+        // Act: current step is not clickable
+        steps[0].Click();
+
+        // Assert
+        Assert.Equal(0, value);
+
+        // Act: in visited mode, unvisited future step is not clickable
+        steps[2].Click();
+
+        // Assert
+        Assert.Equal(0, value);
+
+        // Act: visit next step, then go back by clicking already visited previous step
+        var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+        nextButton.Click();
+        Assert.Equal(1, value);
+
+        steps[0].Click();
+
+        // Assert: visited step click works
+        Assert.Equal(0, value);
+        Assert.Contains("Summary 3", cut.Markup);
+    }
+}

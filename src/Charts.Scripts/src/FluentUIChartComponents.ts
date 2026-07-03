@@ -1,35 +1,32 @@
-import { FluentDesignSystem } from '@fluentui/web-components';
 import * as FluentUIComponents from './components';
 import { defineOnce } from '@core/RegistrationState';
 
 export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
 
   export function defineComponents() {
-    const registry = FluentDesignSystem.registry;
-
     // Register Chart Web Components
     defineOnce('fluentui:chart-components:chart-legend', () => {
-      FluentUIComponents.ChartLegendDefinition.define(registry);
+      FluentUIComponents.ChartLegend.define(FluentUIComponents.ChartLegendDefinition);
     });
 
     defineOnce('fluentui:chart-components:donut-chart', () => {
-      FluentUIComponents.DonutChartDefinition.define(registry);
+      FluentUIComponents.DonutChart.define(FluentUIComponents.DonutChartDefinition);
     });
 
     defineOnce('fluentui:chart-components:horizontal-bar-chart', () => {
-      FluentUIComponents.HorizontalBarChartDefinition.define(registry);
+      FluentUIComponents.HorizontalBarChart.define(FluentUIComponents.HorizontalBarChartDefinition);
     });
 
     defineOnce('fluentui:chart-components:horizontal-bar-chart-with-axis', () => {
-      FluentUIComponents.HorizontalBarChartWithAxisDefinition.define(registry);
+      FluentUIComponents.HorizontalBarChartWithAxis.define(FluentUIComponents.HorizontalBarChartWithAxisDefinition);
     });
 
     defineOnce('fluentui:chart-components:funnel-chart', () => {
-      FluentUIComponents.FunnelChartDefinition.define(registry);
+      FluentUIComponents.FunnelChart.define(FluentUIComponents.FunnelChartDefinition);
     });
 
     defineOnce('fluentui:chart-components:gantt-chart', () => {
-      FluentUIComponents.GanttChartDefinition.define(registry);
+      FluentUIComponents.GanttChart.define(FluentUIComponents.GanttChartDefinition);
     });
 
   }

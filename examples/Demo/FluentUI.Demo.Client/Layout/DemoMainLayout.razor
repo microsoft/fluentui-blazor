@@ -2,7 +2,9 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<FluentLayout @key="@GetLayoutKey()" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
+<DemoNewsBar />
+
+<FluentLayout @key="@GetLayoutKey()" Height="calc(100dvh - var(--demo-notification-height, 0px))" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
 
 	@* ------------------- *@
 	@*       Header        *@

@@ -1,0 +1,461 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<HorizontalBarChartWithAxisDataPoint> DefaultData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { X = 120, Y = "Category A", Legend = "Series 1" },
+        new HorizontalBarChartWithAxisDataPoint { X =  85, Y = "Category B", Legend = "Series 1" },
+        new HorizontalBarChartWithAxisDataPoint { X =  60, Y = "Category C", Legend = "Series 1" },
+    ];
+
+    public FluentHorizontalBarChartWithAxisTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" ChartTitle="Sales by Category" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("chart-title");
+        Assert.Equal("Sales by Category", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_HideTooltip_False()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" HideTooltip="false" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("hide-tooltip");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_RoundedCorners()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" RoundedCorners="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("round-corners");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_UseSingleColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" UseSingleColor="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("use-single-color");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_ShowYAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" ShowYAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("show-y-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_ShowYAxisLabelsTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" ShowYAxisLabelsTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("show-y-axis-labels-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_AllowMultipleLegendSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" AllowMultipleLegendSelection="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("allow-multiple-legend-selection");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_LegendListLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" LegendListLabel="Categories" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("legend-list-label");
+        Assert.Equal("Categories", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_BarHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" BarHeight="24" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("bar-height");
+        Assert.Equal("24", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_XAxisTickCount()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" XAxisTickCount="4" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("x-axis-tick-count");
+        Assert.Equal("4", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_YAxisPadding()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" YAxisPadding="1" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("y-axis-padding");
+        Assert.Equal("1", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_XAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" XAxisTitle="Value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("x-axis-title");
+        Assert.Equal("Value", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_YAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" YAxisTitle="Category" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("y-axis-title");
+        Assert.Equal("Category", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_XMinValue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" XMinValue="0" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("x-min-value");
+        Assert.Equal("0", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_XMaxValue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" XMaxValue="200" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("x-max-value");
+        Assert.Equal("200", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_SupportNegativeData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" SupportNegativeData="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("support-negative-data");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_RoundedTicks()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" RoundedTicks="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("rounded-ticks");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_WrapXAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" WrapXAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("wrap-x-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_RotateXAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" RotateXAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("rotate-x-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_StrokeWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" StrokeWidth="2" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("stroke-width");
+        Assert.Equal("2", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("fr-FR");
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("culture");
+        Assert.Equal("fr-FR", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_Culture_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" Culture="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("culture");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" Width="700px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("width");
+        Assert.Equal("700px", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" Class="my-axis-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-horizontal-bar-chart-with-axis");
+        Assert.Contains("my-axis-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-horizontal-bar-chart-with-axis", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@DefaultData" aria-label="Sales by category" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("aria-label");
+        Assert.Equal("Sales by category", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<HorizontalBarChartWithAxisDataPoint>
+        {
+            new HorizontalBarChartWithAxisDataPoint { X = 42, Y = "Test Category", Legend = "Series A" },
+        };
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("Test Category", dataAttribute);
+        Assert.Contains("42", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_DataPoint_WithColor()
+    {
+        // Arrange
+        var data = new List<HorizontalBarChartWithAxisDataPoint>
+        {
+            new HorizontalBarChartWithAxisDataPoint { X = 50, Y = "Cat", Legend = "L", Color = DataVizPalette.Color4 },
+        };
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("color4", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<HorizontalBarChartWithAxisDataPoint>
+        {
+            new HorizontalBarChartWithAxisDataPoint { X = 50, Y = "Cat", Legend = "L", Color = DataVizPalette.Custom, CustomColor = "#457B9D" },
+        };
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-horizontal-bar-chart-with-axis").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("#457B9D", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentHorizontalBarChartWithAxis ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentHorizontalBarChartWithAxis>
+        );
+
+        // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentHorizontalBarChartWithAxis ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend – @ctx.XValue</span>
+                </CartesianTooltipTemplate>
+            </FluentHorizontalBarChartWithAxis>
+        );
+
+        // Assert — portal div is present when CartesianTooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChartWithAxis_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChartWithAxis ChartData="@(Array.Empty<HorizontalBarChartWithAxisDataPoint>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-horizontal-bar-chart-with-axis");
+        Assert.NotNull(element);
+    }
+}

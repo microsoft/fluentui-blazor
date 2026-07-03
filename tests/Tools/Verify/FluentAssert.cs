@@ -18,21 +18,21 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Verify;
 /* Add this configuration in Unit Tests .csproj file.
    to display all .verified and .received json files under the test class.
 
-	<ItemGroup>
+    <ItemGroup>
 
-		<!-- Dependent Test Result HTML files -->
-		<None Include="**\*.verified.html" />
-		<None Update="**\*.verified.html">
-			<ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-			<DependentUpon>%(ParentFile).cs</DependentUpon>
-		</None>
-		<None Include="**\*.received.html" />
-		<None Update="**\*.received.html">
-			<ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-			<DependentUpon>%(ParentFile).cs</DependentUpon>
-		</None>
+        <!-- Dependent Test Result HTML files -->
+        <None Include="**\*.verified.html" />
+        <None Update="**\*.verified.html">
+            <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+            <DependentUpon>%(ParentFile).cs</DependentUpon>
+        </None>
+        <None Include="**\*.received.html" />
+        <None Update="**\*.received.html">
+            <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+            <DependentUpon>%(ParentFile).cs</DependentUpon>
+        </None>
 
-	</ItemGroup>
+    </ItemGroup>
  */
 
 /// <summary>
@@ -65,7 +65,7 @@ public static class FluentAssert
         {
             return;
         }
-        
+
         // Valid?
         ArgumentNullException.ThrowIfNull(filename, nameof(filename));
         ArgumentNullException.ThrowIfNull(memberName, nameof(memberName));
