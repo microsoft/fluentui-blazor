@@ -8,6 +8,7 @@
     public FluentDialogTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
+        JSInterop.Setup<bool>("Microsoft.FluentUI.Blazor.Components.Dialog.ShouldHandleShortcut", _ => true).SetResult(true);
         Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
 
         DialogService = Services.GetRequiredService<IDialogService>();
@@ -227,13 +228,6 @@
                        options.Footer.SecondaryAction.ShortCut = item.SecondaryShortcut;
                    }
                });
-
-        // Ensure dialog is rendered before sending keyboard shortcut.
-        // This avoids CI race conditions where the key event is dispatched too early.
-        DialogProvider.WaitForAssertion(() =>
-        {
-            var _ = DialogProvider.Find("fluent-dialog");
-        });
 
         // Send a shortcut to close the dialog
         if (item.Pressed is not null)
