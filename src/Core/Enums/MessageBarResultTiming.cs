@@ -15,7 +15,8 @@ public enum MessageBarResultTiming
     Closed,
 
     /// <summary>
-    /// Complete the result when the message bar becomes visible.
+    /// Complete the result when the message bar is registered as visible.
+    /// In this mode, <see cref="MessageBarResult.Reason"/> will be <see cref="MessageBarCloseReason.Programmatic"/>.
     /// </summary>
     Visible,
 }
