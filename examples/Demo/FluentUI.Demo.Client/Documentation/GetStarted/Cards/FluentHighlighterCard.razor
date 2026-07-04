@@ -1,1 +1,11 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row" style="display:inline;">
+    <FluentHighlighter HighlightedText="@Highlight"
+                       Delimiters=" ,;"
+                       Text="@Text" />
+</div>
+
+@code
+{
+    static string Text = SampleData.Text.GenerateLoremIpsum(1,50);
+    string Highlight = "Lorem";
+}

@@ -1,1 +1,21 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+    <FluentDataGrid Items="@people" >
+        <PropertyColumn Width="75px" Property="@(p => p.PersonId)" Sortable="true" />
+        <PropertyColumn Width="175px" Property="@(p => p.Name)" Sortable="true" />
+        <PropertyColumn Width="110px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+    </FluentDataGrid>
+
+@code {
+    PaginationState pagination = new PaginationState() { ItemsPerPage = 2 };
+
+    record Person(int PersonId, string Name, DateOnly BirthDate);
+
+    IQueryable<Person> people = new[]
+    {
+        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)),
+        new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
+        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
+    }.AsQueryable();
+
+}
+</div>

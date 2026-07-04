@@ -1,1 +1,12 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+    <FluentCombobox Label="Country"
+                Placeholder="Select your country"
+                Multiple="false"
+                OptionText="@(i => i?.Name)"
+                OptionValue="@(i => i?.Code)"
+                Items="@Countries" />
+</div>
+
+@code {
+    IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+}
