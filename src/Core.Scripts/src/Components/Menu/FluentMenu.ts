@@ -8,31 +8,34 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
    * @param triggerId The id of the trigger element that will open the menu when clicked.
    */
   export function Initialize(id: string, triggerId: string) {
-    const trigger = document.getElementById(triggerId) as HTMLElement | null;
-    if (!trigger) return;
-
-    trigger.style["anchor-name" as any] = `--anchor-${triggerId}`;
-    const menuElement = document.getElementById(id) as Menu | null;
-    if (!menuElement) return;
-
-    // Set the anchor name for the menu list to position it relative to the trigger
-    const doInit = () => {
+    const initWithRetry = (attempt: number = 0) => {
+      const trigger = document.getElementById(triggerId) as HTMLElement | null;
       const menu = document.getElementById(id) as Menu | null;
-      if (menu && menu.slottedMenuList?.length) {
-        menu.slottedMenuList[0].style["position-anchor" as any] = `--anchor-${triggerId}`;
-        menu.slottedTriggersChanged(menu.slottedTriggers, [trigger]);
+      if (!trigger || !menu) {
+        if (attempt < 10) {
+          requestAnimationFrame(() => initWithRetry(attempt + 1));
+        }
+        return;
       }
+
+      trigger.style["anchor-name" as any] = `--anchor-${triggerId}`;
+
+      // Keep trigger wiring explicit for hosted surfaces (drawer/dialog/shadow-heavy layouts).
+      menu.setAttribute("trigger", triggerId);
+
+      const menuList = menu.slottedMenuList?.[0] as MenuList | undefined;
+      if (!menuList) {
+        if (attempt < 10) {
+          requestAnimationFrame(() => initWithRetry(attempt + 1));
+        }
+        return;
+      }
+
+      menuList.style["position-anchor" as any] = `--anchor-${triggerId}`;
+      menu.slottedTriggersChanged(menu.slottedTriggers ?? [], [trigger]);
     };
 
-    // already populated (e.g. hot-reload / re-render)
-    if (menuElement.slottedMenuList?.length) {
-      doInit();
-    }
-
-    // wait for slotchange macrotask
-    else {
-      requestAnimationFrame(doInit);
-    }
+    initWithRetry();
   }
 
   /**

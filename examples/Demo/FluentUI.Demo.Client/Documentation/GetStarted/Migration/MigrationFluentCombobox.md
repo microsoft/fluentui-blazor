@@ -4,7 +4,7 @@ route: /Migration/Combobox
 hidden: true
 ---
 
-### Base class change 💥
+### Base class change 
 
 `FluentCombobox` now inherits directly from `FluentSelect` instead of `ListComponentBase`.
 This means all [FluentSelect migration changes](/Migration/Select) also apply to `FluentCombobox`.
@@ -24,7 +24,7 @@ All list components (`FluentSelect`, `FluentCombobox`, `FluentListbox`) now requ
                 @bind-Value="selectedCountryCode" />
 ```
 
-### Appearance 💥
+### Appearance 
 
 The `Appearance` property type has changed from `Appearance?` to `ListAppearance?`.
 
@@ -34,7 +34,7 @@ The `Appearance` property type has changed from `Appearance?` to `ListAppearance
 - `Outline`
 - `Transparent`
 
-### Changed properties 💥
+### Changed properties 
 
 | V4 Property | V5 Property | Change |
 |-------------|-------------|--------|
@@ -47,7 +47,7 @@ The `Appearance` property type has changed from `Appearance?` to `ListAppearance
 | `SelectedOptions` (`IEnumerable<TOption>?`) | `SelectedItems` (`IEnumerable<TOption>`) | **Renamed**, now non-nullable (defaults to `[]`) |
 | `SelectedOptionsChanged` | `SelectedItemsChanged` | **Renamed** |
 
-### Removed properties 💥
+### Removed properties 
 
 - `Autocomplete` (`ComboboxAutocomplete?`) — browser autocomplete is no longer exposed.
 - `ChangeOnEnterOnly`

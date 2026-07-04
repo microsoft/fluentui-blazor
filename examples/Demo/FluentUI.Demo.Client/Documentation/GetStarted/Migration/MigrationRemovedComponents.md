@@ -4,14 +4,14 @@ route: /Migration/RemovedComponents
 hidden: true
 ---
 
-- ### Overview
+## Overview
 
   The following V4 components have been **removed** in V5 with no direct replacement.
   This page covers the smaller components that don't warrant their own migration page.
 
 ---
 
-- ### FluentFlipper — Removed
+## FluentFlipper
 
   `FluentFlipper` (left/right navigation arrows) has been removed.
 
@@ -31,7 +31,7 @@ hidden: true
 
 ---
 
-- ### FluentHorizontalScroll — Removed
+## FluentHorizontalScroll
 
   `FluentHorizontalScroll` (horizontal scrolling container) has been removed.
 
@@ -47,7 +47,7 @@ hidden: true
 
 ---
 
-- ### FluentCollapsibleRegion — Removed
+## FluentCollapsibleRegion
 
   `FluentCollapsibleRegion` has been removed.
 
@@ -69,7 +69,7 @@ hidden: true
 
 ---
 
-- ### FluentAccessibility — Removed
+## FluentAccessibility
 
   `FluentAccessibility` (keyboard shortcut registration with notifications) has been removed.
 
@@ -77,7 +77,7 @@ hidden: true
 
 ---
 
-- ### FluentEditForm — Removed
+## FluentEditForm
 
   `FluentEditForm` (wrapper around Blazor's `EditForm`) has been removed.
   V5 extends standard Blazor `EditForm` directly with Fluent styling.
@@ -87,7 +87,7 @@ hidden: true
 
 ---
 
-- ### FluentProfileMenu — Removed
+## FluentProfileMenu
 
   `FluentProfileMenu` (user profile dropdown with avatar) has been removed.
 

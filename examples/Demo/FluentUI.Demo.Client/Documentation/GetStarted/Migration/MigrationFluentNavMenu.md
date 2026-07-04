@@ -4,7 +4,7 @@ route: /Migration/NavMenu
 hidden: true
 ---
 
-- ### Components removed and replaced 💥
+- ### Components removed and replaced 
 
   `FluentNavMenu`, `FluentNavGroup`, `FluentNavLink` have been **removed** in V5.
   `FluentNavMenuTree`, `FluentNavMenuGroup`, `FluentNavMenuLink` (already obsolete in V4) are also removed.

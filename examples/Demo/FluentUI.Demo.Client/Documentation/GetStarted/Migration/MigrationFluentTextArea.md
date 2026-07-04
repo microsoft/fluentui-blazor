@@ -10,7 +10,7 @@ hidden: true
   |-------------|-------------|--------|
   | `Appearance` (`FluentInputAppearance`) | `Appearance` (`TextAreaAppearance?`) | Enum renamed |
 
-### Removed properties💥
+### Removed properties
 
 - `Cols` — use `Width` instead.
 - `Rows` — use `Height` instead.

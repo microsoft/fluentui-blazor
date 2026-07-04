@@ -24,7 +24,8 @@ parameters:
   - name: Tests		        # List of Unit-Test projects to run
     default: |
       **/Components.Tests.csproj
-      **/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
+      **/Components.Charts.Tests.csproj
+      **/McpServer.Tests.csproj
 
   - name: NugetPackageVersion # NuGet package version to use (overrides computed version)
     type: string

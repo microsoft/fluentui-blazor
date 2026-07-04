@@ -11,6 +11,9 @@ public partial class DataGridHierarchical
 {
     private readonly List<OlympicGridItem> items = [];
 
+    private readonly GridSort<OlympicGridItem> continentSort = GridSort<OlympicGridItem>
+        .ByDescending(x => x.Item.Name);
+
     protected override void OnInitialized()
     {
         foreach (var continent in Continents)

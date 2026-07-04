@@ -14,7 +14,7 @@ hidden: true
   | `ActiveTabId` (`string`) | `ActiveTabId` (`string?`) | Now nullable |
   | `Orientation` (`Orientation`) | `Orientation` (`Orientation?`) | Now nullable |
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `OnTabSelect` (`EventCallback<FluentTab>`) — use `ActiveTabChanged` instead.
   - `OnTabClose` (`EventCallback<FluentTab>`) — no built-in close/dismiss UI in V5.
   - `OnTabChange` (`EventCallback<FluentTab>`) — use `ActiveTabChanged` instead.
@@ -29,7 +29,7 @@ hidden: true
 
 - ### FluentTab changes
 
-  #### Renamed properties 💥
+  #### Renamed properties 
 
   | V4 Property | V5 Property |
   |-------------|-------------|
@@ -40,7 +40,7 @@ hidden: true
   | `Icon` (`Icon?`) | `IconStart` (`Icon?`) |
   | `LoadingContent` (`RenderFragment?`) | `LoadingTemplate` (`RenderFragment?`) |
 
-  #### Removed properties 💥
+  #### Removed properties 
   - `Label` — use `Header` instead.
   - `LabelChanged` (`EventCallback<string>`) — no longer editable inline.
   - `LabelEditable` (`bool`) — inline label editing is no longer supported.

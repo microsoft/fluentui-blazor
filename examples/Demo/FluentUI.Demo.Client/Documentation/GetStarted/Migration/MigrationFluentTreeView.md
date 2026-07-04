@@ -4,7 +4,7 @@ route: /Migration/TreeView
 hidden: true
 ---
 
-### Removed properties💥
+### Removed properties
   - The `RenderCollapsedNodes` property has been removed.
   Use `LazyLoadItems` instead.
 

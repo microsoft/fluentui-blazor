@@ -4,7 +4,7 @@ route: /Migration/Select
 hidden: true
 ---
 
-- ### Base class change 💥
+- ### Base class change 
 
   The base class for all list components has changed:
   - V4: `ListComponentBase<TOption>` inheriting from `FluentInputBase<string?>`
@@ -25,7 +25,7 @@ hidden: true
                 @bind-Value="selectedCountryCode" />
   ```
 
-- ### Appearance 💥
+- ### Appearance 
 
   The `Appearance` property has been updated to use the `ListAppearance` enum
   instead of `Appearance` enum.
@@ -36,7 +36,7 @@ hidden: true
   - `Outline`
   - `Transparent`
 
-- ### Changed properties 💥
+- ### Changed properties 
 
   | V4 Property | V5 Property | Change |
   |-------------|-------------|--------|
@@ -49,7 +49,7 @@ hidden: true
   | `SelectedOptions` (`IEnumerable<TOption>?`) | `SelectedItems` (`IEnumerable<TOption>`) | **Renamed**, now non-nullable (defaults to `[]`) |
   | `SelectedOptionsChanged` | `SelectedItemsChanged` | **Renamed** |
 
-- ### Removed properties 💥
+- ### Removed properties 
 
   - `ChangeOnEnterOnly`
   - `Embedded`

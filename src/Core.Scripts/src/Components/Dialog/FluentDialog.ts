@@ -1,5 +1,14 @@
 export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
 
+  const getDeepActiveElement = (): HTMLElement | null => {
+    let activeElement: Element | null = document.activeElement;
+    while (activeElement instanceof HTMLElement && activeElement.shadowRoot?.activeElement) {
+      activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return activeElement instanceof HTMLElement ? activeElement : null;
+  };
+
   /**
    * Tag names of non-modal, transient elements (e.g. toasts) that reuse the
    * dialog toggle plumbing but must never restore focus when they open or close.
@@ -89,5 +98,26 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
       dialog._escapeHandler = handler;
       dialog.addEventListener('keydown', handler, true);
     }
+  }
+
+  /**
+   * Returns whether dialog keyboard shortcuts should be handled for the current focused element.
+   * Shortcuts are limited to dialog action areas so interactive content inside drawers/dialogs
+   * can use Enter/Space/Arrow keys without being intercepted.
+   * @param id The id of the fluent-dialog/fluent-drawer element
+   */
+  export function ShouldHandleShortcut(id: string): boolean {
+    const dialog = document.getElementById(id) as HTMLElement | null;
+    if (!dialog) {
+      return false;
+    }
+
+    const activeElement = getDeepActiveElement();
+    if (!activeElement || !dialog.contains(activeElement)) {
+      return false;
+    }
+
+    // Keep shortcuts active for explicit dialog action surfaces.
+    return !!activeElement.closest('[slot="action"], [slot="footer"], [slot="close"], [slot="title-action"]');
   }
 }
