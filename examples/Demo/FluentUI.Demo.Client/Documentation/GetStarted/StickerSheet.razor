@@ -1,12 +1,14 @@
 ﻿@using FluentUI.Demo.Client.Documentation.GetStarted.Cards
-<div class="sticker-sheet">
-    @foreach(var card in cards)
-    {
-        <section class="sticker-card">
-            <FluentText As="TextTag.H3" Size="TextSize.Size500" Weight="TextWeight.Semibold">@card.Title</FluentText>
-            <DynamicComponent Type="@card.Type" />
-        </section>
-    }
+<div class="sticker-sheet-root">
+    <div class="sticker-sheet">
+        @foreach (var card in cards)
+        {
+            <section class="sticker-card">
+                <FluentText As="TextTag.H3" Size="TextSize.Size500" Weight="TextWeight.Semibold">@card.Title</FluentText>
+                <DynamicComponent Type="@card.Type" />
+            </section>
+        }
+    </div>
 </div>
 
 @code {
