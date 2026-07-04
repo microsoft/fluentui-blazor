@@ -1,0 +1,49 @@
+﻿<div class="sticker-row">
+    <FluentAppBar Orientation="Orientation.Horizontal" Style="width: 350px;">
+        <FluentAppBarItem IconRest="ResourcesIcon()"
+                          IconActive="ResourcesIcon(active: true)"
+                          Text="Resources" />
+        <FluentAppBarItem IconRest="ConsoleLogsIcon()"
+                          IconActive="ConsoleLogsIcon(active: true)"
+                          Text="Console Logs" />
+        <FluentAppBarItem Href="/sticker-sheet"
+                          IconRest="StickerSheetIcon()"
+                          IconActive="StickerSheetIcon(active: true)"
+                          Text="Sticker Sheet" />
+        <FluentAppBarItem IconRest="StructuredLogsIcon()"
+                          IconActive="StructuredLogsIcon(active: true)"
+                          Text="Logs"
+                          Tooltip="Structured Logs" />
+        <FluentAppBarItem IconRest="TracesIcon()"
+                          IconActive="TracesIcon(active: true)"
+                          Text="Traces" />
+        <FluentAppBarItem IconRest="MetricsIcon()"
+                          IconActive="MetricsIcon(active: true)"
+                          Text="Metrics" />
+    </FluentAppBar>
+</div>
+
+@code {
+    private static Icon ResourcesIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.AppFolder()
+               : new Icons.Regular.Size24.AppFolder();
+
+    private static Icon ConsoleLogsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.SlideText()
+               : new Icons.Regular.Size24.SlideText();
+
+    private static Icon StructuredLogsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.SlideTextSparkle()
+               : new Icons.Regular.Size24.SlideTextSparkle();
+
+    private static Icon TracesIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.GanttChart()
+               : new Icons.Regular.Size24.GanttChart();
+
+    private static Icon MetricsIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.ChartMultiple()
+               : new Icons.Regular.Size24.ChartMultiple();
+    private static Icon StickerSheetIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.Sticker()
+               : new Icons.Regular.Size24.Sticker();
+}
