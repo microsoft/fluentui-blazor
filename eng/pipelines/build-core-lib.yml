@@ -209,7 +209,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"'
             publishTestResults: true
 
         # Coverage Generation
@@ -220,6 +220,7 @@ extends:
             reports: '**/*.cobertura.xml'
             targetdir: 'CoverageFolder'
             reporttypes: 'HtmlInline_AzurePipelines'
+            assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
 
         # Publish code coverage
         - task: PublishCodeCoverageResults@2
