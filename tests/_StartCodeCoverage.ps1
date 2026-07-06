@@ -136,7 +136,7 @@ else {
         & dotnet test (Join-Path $scriptDir 'Core\Components.Tests.csproj') `
             '--collect:XPlat Code Coverage' `
             '--results-directory' $coreResults `
-            '--' 'DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include=[Microsoft.FluentUI.AspNetCore.Components]*'
+            '--' 'DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include=[Microsoft.FluentUI.AspNetCore.Components]*' 'DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Exclude=[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*'
 
         if ($LASTEXITCODE -eq 0) {
             New-Item -ItemType File -Path $coreStamp -Force | Out-Null
@@ -170,7 +170,7 @@ Write-Host '=== Merging coverage reports ==='
     "-reports:$resultsDir\**\coverage.cobertura.xml" `
     "-targetdir:$resultsDir\Report" `
     '-reporttypes:HtmlInline_AzurePipelines' `
-    '-assemblyfilters:+Microsoft.FluentUI.AspNetCore.Components;+Microsoft.FluentUI.AspNetCore.Components.Charts' `
+    '-assemblyfilters:+Microsoft.FluentUI.AspNetCore.Components;+Microsoft.FluentUI.AspNetCore.Components.Charts;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools' `
     '-classfilters:-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*' `
     '-filefilters:-*RegexGenerator.g.cs' `
     'riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30' `
