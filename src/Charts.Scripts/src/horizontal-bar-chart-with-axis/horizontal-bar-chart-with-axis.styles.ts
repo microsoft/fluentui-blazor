@@ -34,6 +34,7 @@ export const styles: ElementStyles = css`
       'chart'
       'legend';
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
     position: relative;
     width: 100%;
   }

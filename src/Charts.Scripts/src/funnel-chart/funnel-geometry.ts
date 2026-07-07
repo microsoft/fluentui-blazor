@@ -1,10 +1,10 @@
-import type { FunnelDataPoint } from './funnel-chart.options.js';
+import type { FunnelChartDataPoint } from './funnel-chart.options.js';
 
-export interface SimpleFunnelDataPoint extends FunnelDataPoint {
+export interface SimpleFunnelDataPoint extends FunnelChartDataPoint {
   value: number;
 }
 
-export function isSimpleFunnelDataPoint(dataPoint: FunnelDataPoint): dataPoint is SimpleFunnelDataPoint {
+export function isSimpleFunnelDataPoint(dataPoint: FunnelChartDataPoint): dataPoint is SimpleFunnelDataPoint {
   return typeof dataPoint.value === 'number' && Number.isFinite(dataPoint.value);
 }
 
@@ -506,7 +506,7 @@ export function getContrastTextColor(hexColor: string): string {
 /**
  * Returns true when the data array uses stacked sub-values for every stage.
  */
-export function isStackedFunnelData(data: FunnelDataPoint[]): boolean {
+export function isStackedFunnelData(data: FunnelChartDataPoint[]): boolean {
   return (
     Array.isArray(data) &&
     data.length > 0 &&
@@ -517,7 +517,7 @@ export function isStackedFunnelData(data: FunnelDataPoint[]): boolean {
 /**
  * Returns the stage geometry params for stacked mode.
  */
-export function buildStackedGeometryParams(data: FunnelDataPoint[]): {
+export function buildStackedGeometryParams(data: FunnelChartDataPoint[]): {
   stages: Array<{ subValues: SubValue[] }>;
   totals: number[];
   maxTotal: number;

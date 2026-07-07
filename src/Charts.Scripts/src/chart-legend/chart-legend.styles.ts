@@ -1,7 +1,11 @@
 import type { ElementStyles } from '@microsoft/fast-element';
 import { css } from '@microsoft/fast-element';
 import {
+  borderRadiusSmall,
+  borderRadiusMedium,
   colorNeutralForeground1,
+  colorStrokeFocus2,
+  colorSubtleBackgroundHover,
   spacingHorizontalL,
   spacingHorizontalNone,
   spacingHorizontalS,
@@ -9,6 +13,7 @@ import {
   spacingVerticalNone,
   spacingVerticalS,
   strokeWidthThin,
+  strokeWidthThick,
   typographyCaption1Styles,
 } from '@fluentui/web-components';
 
@@ -21,15 +26,23 @@ export const styles: ElementStyles = css`
   :host {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: clip;
+    overflow-y: visible;
+    position: relative;
+    box-sizing: border-box;
     padding-top: ${spacingVerticalL};
+    padding-inline-start: ${spacingHorizontalS};
     width: 100%;
     align-items: center;
-    margin: -${spacingVerticalS} ${spacingHorizontalNone} ${spacingVerticalNone} -${spacingHorizontalS};
   }
 
   :host([hidden]) {
     display: none;
+  }
+
+  :host([center]) {
+    justify-content: center;
   }
 
   /* ── Position overrides ──────────────────────────────────────────── */
@@ -40,10 +53,11 @@ export const styles: ElementStyles = css`
     padding-bottom: ${spacingVerticalL};
   }
 
-  /* start: legend sits inline-start of chart */
+  /* start / end: vertical column layout — restore wrapping, no overflow detection */
   :host([position='start']) {
     flex-direction: column;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    overflow: visible;
     width: auto;
     padding-top: 0;
     padding-inline-end: ${spacingHorizontalL};
@@ -51,10 +65,10 @@ export const styles: ElementStyles = css`
     margin: 0;
   }
 
-  /* end: legend sits inline-end of chart */
   :host([position='end']) {
     flex-direction: column;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    overflow: visible;
     width: auto;
     padding-top: 0;
     padding-inline-start: ${spacingHorizontalL};
@@ -64,12 +78,23 @@ export const styles: ElementStyles = css`
 
   .legend {
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     cursor: pointer;
     border: none;
     padding: ${spacingHorizontalS};
     background: none;
     text-transform: capitalize;
+    border-radius: ${borderRadiusMedium};
+  }
+
+  .legend:hover {
+    background-color: ${colorSubtleBackgroundHover};
+  }
+
+  .legend:focus-visible {
+    outline: ${strokeWidthThick} solid ${colorStrokeFocus2};
+    outline-offset: 1px;
   }
 
   .legend-rect {
@@ -79,6 +104,14 @@ export const styles: ElementStyles = css`
     border: ${strokeWidthThin} solid;
   }
 
+  .legend-rect.rounded {
+    border-radius: ${borderRadiusSmall};
+  }
+
+/* Same for overflow menu items */
+fluent-menu-item .legend-rect.rounded {
+  border-radius: ${borderRadiusSmall};
+}
   .legend-text {
     ${typographyCaption1Styles}
     color: ${colorNeutralForeground1};
@@ -90,6 +123,43 @@ export const styles: ElementStyles = css`
 
   .legend.inactive .legend-text {
     opacity: 0.67;
+  }
+
+  /* ── Overflow menu (fluent-menu/fluent-menu-item) ───────────────── */
+
+  fluent-menu {
+    flex-shrink: 0;
+  }
+
+  /*
+   * fluent-menu-list sets data-indent="2" on all items when any item has
+   * role="menuitemcheckbox", which reserves a 20px column for the checkmark.
+   * We suppress the checkmark visually (empty <span slot="indicator">) and
+   * collapse that first column to 0px so no space is wasted.
+   * Outer-context author styles beat :host() shadow rules in the CSS cascade.
+   */
+  fluent-menu-item {
+    grid-template-columns: 0 20px auto auto;
+  }
+
+  fluent-menu-item .legend-rect {
+    width: 12px;
+    height: 12px;
+    border: ${strokeWidthThin} solid;
+  }
+
+  fluent-menu-item.inactive .legend-rect {
+    opacity: 0.1;
+  }
+
+  fluent-menu-item.inactive .legend-text {
+    opacity: 0.67;
+  }
+
+  fluent-menu-item .legend-text {
+    ${typographyCaption1Styles}
+    color: ${colorNeutralForeground1};
+    text-transform: capitalize;
   }
 
   @media (forced-colors: active) {
