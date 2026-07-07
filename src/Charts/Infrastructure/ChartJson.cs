@@ -14,6 +14,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 public static class ChartJson
 {
     /// <summary>
+    /// Serializes area chart data using the area chart serializer context.
+    /// </summary>
+    /// <param name="value">The area chart data payload.</param>
+    /// <returns>A JSON string suitable for the <c>fluent-area-chart</c> component.</returns>
+    public static string Serialize(IReadOnlyList<AreaChartSeries> value) =>
+        JsonSerializer.Serialize(
+            value,
+            AreaChartDataJsonSerializerContext.Default.IReadOnlyListAreaChartSeries);
+
+    /// <summary>
     /// Serializes donut chart data using the donut chart serializer context.
     /// </summary>
     /// <param name="value">The donut chart data payload.</param>

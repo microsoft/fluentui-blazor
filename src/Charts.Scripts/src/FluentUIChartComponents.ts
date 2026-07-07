@@ -5,6 +5,10 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIChartComponents {
 
   export function defineComponents() {
     // Register Chart Web Components
+    defineOnce('fluentui:chart-components:area-chart', () => {
+      FluentUIComponents.AreaChart.define(FluentUIComponents.AreaChartDefinition);
+    });
+
     defineOnce('fluentui:chart-components:chart-legend', () => {
       FluentUIComponents.ChartLegend.define(FluentUIComponents.ChartLegendDefinition);
     });

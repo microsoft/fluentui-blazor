@@ -164,6 +164,12 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     public string? TickFormat { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether to hide overlapping ticks on the chart.
+    /// </summary>
+    [Parameter]
+    public bool HideTickOverlap { get; set; }
+
+    /// <summary>
     /// Gets or sets the pixel width of the stroke (outline) drawn on each bar.
     /// When not set, no stroke is applied.
     /// </summary>

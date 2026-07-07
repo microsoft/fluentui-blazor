@@ -1,0 +1,122 @@
+﻿@page "/Charts/AreaChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Allow multiple legend selection" Disabled="@(hideLegends)" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentAreaChart ChartData="@data"
+                     ChartTitle="Area chart rounded corners example"
+                     Width="@($"{width}px")"
+                     Height="@($"{height}px")"
+                     HideLabels="@hideLabels"
+                     HideTooltip="@hideTooltips"
+                     RoundedCorners="@roundCorners"
+                     HideLegends="@hideLegends"
+                     AllowMultipleLegendSelection="@allowMultipleLegendSelection" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries { Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 7000 },
+                new AreaChartDataPoint { X = 25, Y = 9000 },
+                new AreaChartDataPoint { X = 30, Y = 13000 },
+                new AreaChartDataPoint { X = 35, Y = 15000 },
+                new AreaChartDataPoint { X = 40, Y = 11000 },
+                new AreaChartDataPoint { X = 45, Y = 8760 },
+                new AreaChartDataPoint { X = 50, Y = 3500 },
+                new AreaChartDataPoint { X = 55, Y = 20000 },
+                new AreaChartDataPoint { X = 60, Y = 17000 },
+                new AreaChartDataPoint { X = 65, Y = 1000 },
+                new AreaChartDataPoint { X = 70, Y = 12000 },
+                new AreaChartDataPoint { X = 75, Y = 6876 },
+                new AreaChartDataPoint { X = 80, Y = 12000 },
+                new AreaChartDataPoint { X = 85, Y = 7000 },
+                new AreaChartDataPoint { X = 90, Y = 10000 }
+            }
+        },
+        new AreaChartSeries { Legend = "legend2",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 12000 },
+                new AreaChartDataPoint { X = 25, Y = 14000 },
+                new AreaChartDataPoint { X = 30, Y = 18000 },
+                new AreaChartDataPoint { X = 35, Y = 20000 },
+                new AreaChartDataPoint { X = 40, Y = 16000 },
+                new AreaChartDataPoint { X = 45, Y = 13760 },
+                new AreaChartDataPoint { X = 50, Y = 8500 },
+                new AreaChartDataPoint { X = 55, Y = 25000 },
+                new AreaChartDataPoint { X = 60, Y = 22000 },
+                new AreaChartDataPoint { X = 65, Y = 6000 },
+                new AreaChartDataPoint { X = 70, Y = 17000 },
+                new AreaChartDataPoint { X = 75, Y = 11876 },
+                new AreaChartDataPoint { X = 80, Y = 17000 },
+                new AreaChartDataPoint { X = 85, Y = 12000 },
+                new AreaChartDataPoint { X = 90, Y = 15000 }
+           }
+        },
+        new AreaChartSeries { Legend = "legend3",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 14000 },
+                new AreaChartDataPoint { X = 25, Y = 16000 },
+                new AreaChartDataPoint { X = 30, Y = 20000 },
+                new AreaChartDataPoint { X = 35, Y = 22000 },
+                new AreaChartDataPoint { X = 40, Y = 18000 },
+                new AreaChartDataPoint { X = 45, Y = 15760 },
+                new AreaChartDataPoint { X = 50, Y = 10500 },
+                new AreaChartDataPoint { X = 55, Y = 27000 },
+                new AreaChartDataPoint { X = 60, Y = 24000 },
+                new AreaChartDataPoint { X = 65, Y = 8000 },
+                new AreaChartDataPoint { X = 70, Y = 19000 },
+                new AreaChartDataPoint { X = 75, Y = 13876 },
+                new AreaChartDataPoint { X = 80, Y = 19000 },
+                new AreaChartDataPoint { X = 85, Y = 14000 },
+                new AreaChartDataPoint { X = 90, Y = 17000 }
+            }
+        }
+    };
+
+    private int width = 400;
+    private int height = 400;
+    private bool roundCorners;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+    private bool allowMultipleLegendSelection;
+}

@@ -156,5 +156,8 @@
       <NoWarn>CS1591</NoWarn>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Charts\AreaChart\" />
+  </ItemGroup>
 
 </Project>
