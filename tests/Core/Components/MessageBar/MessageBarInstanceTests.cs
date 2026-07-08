@@ -186,4 +186,57 @@ public class MessageBarInstanceTests : Bunit.BunitContext
         Assert.Null(exception);
         Assert.True(token.IsCancellationRequested);
     }
+
+    [Fact]
+    public async Task MessageBarInstance_TryCompleteResultOnVisible_TimingVisible_CompletesResult()
+    {
+        // Arrange
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var options = new MessageBarOptions { Section = "section", ResultTiming = MessageBarResultTiming.Visible };
+        var instance = new MessageBarInstance(service, options);
+
+        // Act
+        instance.TryCompleteResultOnVisible();
+        var result = await instance.Result;
+
+        // Assert
+        Assert.True(instance.Result.IsCompleted);
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Null(result.Data);
+    }
+
+    [Fact]
+    public void MessageBarInstance_TryCompleteResultOnVisible_TimingClosed_DoesNotCompleteResult()
+    {
+        // Arrange
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var options = new MessageBarOptions { Section = "section", ResultTiming = MessageBarResultTiming.Closed };
+        var instance = new MessageBarInstance(service, options);
+
+        // Act
+        instance.TryCompleteResultOnVisible();
+
+        // Assert
+        Assert.False(instance.Result.IsCompleted);
+    }
+
+    [Fact]
+    public async Task MessageBarInstance_TryCompleteResultOnVisible_ThenClose_KeepsVisibleResult()
+    {
+        // Arrange
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var options = new MessageBarOptions { Section = "section", ResultTiming = MessageBarResultTiming.Visible };
+        var instance = new MessageBarInstance(service, options);
+        ((IFluentServiceBase<INotificationInstance>)service).Items.TryAdd(instance.Id, instance);
+        ((IFluentServiceBase<INotificationInstance>)service).ProviderId = "provider";
+
+        // Act
+        instance.TryCompleteResultOnVisible();
+        await instance.CloseAsync(MessageBarResult.OfDismissed("late"));
+        var result = await instance.Result;
+
+        // Assert: the result completed at visible time is not overwritten by the close.
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Null(result.Data);
+    }
 }

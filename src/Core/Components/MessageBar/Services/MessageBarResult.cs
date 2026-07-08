@@ -12,6 +12,7 @@ public class MessageBarResult
     internal static MessageBarResult OfDismissed(object? data = null) => new(MessageBarCloseReason.Dismissed, data);
     internal static MessageBarResult OfProgrammatic(object? data = null) => new(MessageBarCloseReason.Programmatic, data);
     internal static MessageBarResult OfTimedOut(object? data = null) => new(MessageBarCloseReason.TimedOut, data);
+    internal static MessageBarResult OfVisible(object? data = null) => new(MessageBarCloseReason.Programmatic, data);
 
     /// <summary />
     protected internal MessageBarResult(MessageBarCloseReason reason, object? data)
