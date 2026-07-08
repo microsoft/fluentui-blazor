@@ -87,9 +87,10 @@ public class Debounce : IDisposable
             await action.Invoke(internalToken);
             _isCompleted = true;
         }
-        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+        catch (OperationCanceledException) when (internalToken.IsCancellationRequested && !cancellationToken.IsCancellationRequested)
         {
-            // If the task was canceled internally by the debounce (a new RunAsync call reset the timer), ignore it
+            // If the task was canceled internally by the debounce (a new RunAsync call reset the timer), ignore it.
+            // External cancellations (cancellationToken was cancelled by the caller) are propagated.
         }
     }
 
