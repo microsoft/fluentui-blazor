@@ -98,6 +98,18 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
         }
     }
 
+    /// <summary>
+    /// Completes the <see cref="Result"/> task when the message bar becomes visible,
+    /// if <see cref="MessageBarOptions.ResultTiming"/> is set to <see cref="MessageBarResultTiming.Visible"/>.
+    /// </summary>
+    internal void TryCompleteResultOnVisible()
+    {
+        if (Options.ResultTiming == MessageBarResultTiming.Visible)
+        {
+            ResultCompletion.TrySetResult(MessageBarResult.OfVisible());
+        }
+    }
+
     /// <inheritdoc cref="IDisposable.Dispose()"/>
     public void Dispose()
     {
