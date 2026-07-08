@@ -50,6 +50,13 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
         var propertyName = propertyInfo?.Name
                         ?? throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on the component '{typeof(TComponent)}'.", nameof(parameterSelector));
 
+        if (!propertyInfo.CanWrite)
+        {
+            throw new ArgumentException($"The property '{propertyName}' on component '{typeof(TComponent)}' is read-only and cannot be used for default values.", nameof(parameterSelector));
+        }
+
+        ValidateValueCompatibility(propertyInfo, value, propertyName);
+
         // Add the value to the dictionary, using the property name as the key.
         _values.AddOrUpdate(propertyName, AddFunction, UpdateFunction);
 
@@ -66,6 +73,28 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
             }
 
             return value;
+        }
+    }
+
+    private static void ValidateValueCompatibility(PropertyInfo propertyInfo, object? value, string propertyName)
+    {
+        var propertyType = propertyInfo.PropertyType;
+        var nullableUnderlyingType = Nullable.GetUnderlyingType(propertyType);
+        var targetType = nullableUnderlyingType ?? propertyType;
+
+        if (value is null)
+        {
+            if (propertyType.IsValueType && nullableUnderlyingType is null)
+            {
+                throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property type '{propertyType}' is non-nullable.", nameof(value));
+            }
+
+            return;
+        }
+
+        if (!targetType.IsInstanceOfType(value))
+        {
+            throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' must be assignable to '{targetType}', but was '{value.GetType()}'.", nameof(value));
         }
     }
 }

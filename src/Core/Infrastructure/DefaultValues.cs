@@ -105,16 +105,47 @@ public class DefaultValues
             return null;
         }
 
-        // Try exact type first
-        if (!_componentCache.TryGetValue(componentType, out var properties))
+        var inheritanceChain = new List<Type>();
+
+        for (var currentType = componentType; currentType is not null && currentType != typeof(object); currentType = currentType.BaseType)
         {
-            // Fallback: check open generic type definition
-            if (componentType.IsGenericType)
+            inheritanceChain.Add(currentType);
+
+            if (currentType == typeof(FluentComponentBase))
             {
-                _componentCache.TryGetValue(componentType.GetGenericTypeDefinition(), out properties);
+                break;
             }
         }
 
-        return properties;
+        var mergedProperties = new ConcurrentDictionary<string, object?>(StringComparer.Ordinal);
+
+        for (var i = inheritanceChain.Count - 1; i >= 0; i--)
+        {
+            if (TryGetRegisteredProperties(inheritanceChain[i], out var properties))
+            {
+                foreach (var property in properties)
+                {
+                    mergedProperties.AddOrUpdate(property.Key, property.Value, (_, _) => property.Value);
+                }
+            }
+        }
+
+        return !mergedProperties.IsEmpty ? mergedProperties : null;
+    }
+
+    private bool TryGetRegisteredProperties(Type componentType, [NotNullWhen(true)] out ConcurrentDictionary<string, object?>? properties)
+    {
+        if (_componentCache.TryGetValue(componentType, out properties))
+        {
+            return true;
+        }
+
+        if (componentType.IsGenericType)
+        {
+            return _componentCache.TryGetValue(componentType.GetGenericTypeDefinition(), out properties);
+        }
+
+        properties = null;
+        return false;
     }
 }
