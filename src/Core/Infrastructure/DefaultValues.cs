@@ -117,20 +117,21 @@ public class DefaultValues
             }
         }
 
-        var mergedProperties = new ConcurrentDictionary<string, object?>(StringComparer.Ordinal);
+        ConcurrentDictionary<string, object?>? mergedProperties = null;
 
         for (var i = inheritanceChain.Count - 1; i >= 0; i--)
         {
             if (TryGetRegisteredProperties(inheritanceChain[i], out var properties))
             {
+                mergedProperties ??= new ConcurrentDictionary<string, object?>(StringComparer.Ordinal);
                 foreach (var property in properties)
                 {
-                    mergedProperties.AddOrUpdate(property.Key, property.Value, (_, _) => property.Value);
+                    mergedProperties[property.Key] = property.Value;
                 }
             }
         }
 
-        return !mergedProperties.IsEmpty ? mergedProperties : null;
+        return mergedProperties;
     }
 
     private bool TryGetRegisteredProperties(Type componentType, [NotNullWhen(true)] out ConcurrentDictionary<string, object?>? properties)

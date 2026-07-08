@@ -89,6 +89,12 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
                 throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property type '{propertyType}' is non-nullable.", nameof(value));
             }
 
+            var nullabilityInfo = new NullabilityInfoContext().Create(propertyInfo);
+            if (nullabilityInfo.WriteState == NullabilityState.NotNull)
+            {
+                throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property is non-nullable.", nameof(value));
+            }
+
             return;
         }
 
