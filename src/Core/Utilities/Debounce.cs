@@ -45,9 +45,6 @@ public class Debounce : IDisposable
     /// Debounce the execution of asynchronous tasks.
     /// Ensures that a function is invoked only once within a specified interval, even if multiple invocations are requested.
     /// </summary>
-    /// <remarks>
-    /// This implementation will swallow any exceptions that is thrown by the invoked task.
-    /// </remarks>
     /// <param name="milliseconds">The interval in milliseconds to wait before invoking the action.</param>
     /// <param name="action">The function that returns a Task to be invoked asynchronously.</param>
     /// <param name="cancellationToken">An optional CancellationToken.</param>
@@ -64,9 +61,6 @@ public class Debounce : IDisposable
     /// Debounce the execution of asynchronous tasks.
     /// Ensures that a function is invoked only once within a specified interval, even if multiple invocations are requested.
     /// </summary>
-    /// <remarks>
-    /// This implementation will swallow any exceptions that is thrown by the invoked task.
-    /// </remarks>
     /// <param name="milliseconds">The interval in milliseconds to wait before invoking the action.</param>
     /// <param name="action">The function that returns a Task to be invoked asynchronously.</param>
     /// <param name="cancellationToken">An optional CancellationToken.</param>
@@ -85,17 +79,17 @@ public class Debounce : IDisposable
 
         // Create a new cancellation token source linked with provided token
         _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        cancellationToken = _cancellationTokenSource.Token;
+        var internalToken = _cancellationTokenSource.Token;
 
         try
         {
-            await Task.Delay(milliseconds, cancellationToken);
-            await action.Invoke(cancellationToken);
+            await Task.Delay(milliseconds, internalToken);
+            await action.Invoke(internalToken);
             _isCompleted = true;
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
-            // If the task was canceled, ignore it
+            // If the task was canceled internally by the debounce (a new RunAsync call reset the timer), ignore it
         }
     }
 
