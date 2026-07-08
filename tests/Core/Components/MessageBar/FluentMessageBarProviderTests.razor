@@ -172,7 +172,13 @@
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        var task = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Dismiss me");
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Intent = MessageBarIntent.Info;
+            o.Title = "Dismiss me";
+            o.ResultTiming = MessageBarResultTiming.Closed;
+        });
         cut.WaitForAssertion(() => Assert.Contains("Dismiss me", cut.Markup));
 
         // Act
@@ -197,6 +203,7 @@
             o.Section = TEST_SECTION;
             o.Id = "to-close";
             o.Title = "Close me";
+            o.ResultTiming = MessageBarResultTiming.Closed;
         });
         cut.WaitForAssertion(() => Assert.Contains("Close me", cut.Markup));
 
@@ -280,6 +287,7 @@
         {
             o.Section = TEST_SECTION;
             o.Title = "With result";
+            o.ResultTiming = MessageBarResultTiming.Closed;
             o.OnStatusChange = args =>
             {
                 if (args.Status == MessageBarLifecycleStatus.Visible)
@@ -378,12 +386,60 @@
             o.Section = TEST_SECTION;
             o.Title = "Auto";
             o.Lifetime = TimeSpan.FromMilliseconds(100);
+            o.ResultTiming = MessageBarResultTiming.Closed;
         });
 
         var result = await task;
 
         // Assert
         Assert.Equal(MessageBarCloseReason.TimedOut, result.Reason);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ResultTiming_Visible_CompletesBeforeClose()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act: default ResultTiming is Visible, so the task completes as soon as the message is shown.
+        var result = await NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Visible timing";
+        });
+
+        // Assert: result completed at visible time, and the message bar is still displayed.
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Null(result.Data);
+        cut.WaitForAssertion(() => Assert.Contains("Visible timing", cut.Markup));
+
+        // Cleanup
+        await NotificationService.CloseAllMessageBarsAsync();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ResultTiming_Closed_WaitsUntilClose()
+    {
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Closed timing";
+            o.ResultTiming = MessageBarResultTiming.Closed;
+        });
+        cut.WaitForAssertion(() => Assert.Contains("Closed timing", cut.Markup));
+
+        // Assert: the result is not completed while the message bar is visible.
+        Assert.False(task.IsCompleted);
+
+        // Act
+        cut.Find("fluent-button[slot='dismiss']").Click();
+        var result = await task;
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Dismissed, result.Reason);
     }
 
     [Fact(Timeout = TEST_TIMEOUT)]
