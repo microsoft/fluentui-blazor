@@ -1,5 +1,45 @@
 let grids = [];
 
+const focusableSelectors = "input, select, textarea, button, object, a[href], area[href], [tabindex]";
+
+function getFocusableElements(container) {
+    const queriedElements = Array.from(container.querySelectorAll("*")).filter(el => {
+        return el.matches(focusableSelectors) || el.tagName.toLowerCase().startsWith("fluent-");
+    });
+
+    const focusableElements = [];
+    queriedElements.forEach(el => {
+        if (el.tagName.toLowerCase().startsWith("fluent-") && el.tabIndex === -1 && !!el.shadowRoot) {
+            Array.from(el.shadowRoot.children).forEach(child => {
+                if (child.tabIndex !== -1 && child.checkVisibility()) {
+                    focusableElements.push(child);
+                }
+            });
+        } else {
+            focusableElements.push(el);
+        }
+    });
+
+    return focusableElements.filter(el => !!el && el.tabIndex !== -1 && el.checkVisibility());
+}
+
+function findAdjacentFocusableElement(currentElement, reverse = false) {
+    const focusableElements = getFocusableElements(document.body);
+    const currentIndex = focusableElements.indexOf(currentElement);
+    if (currentIndex === -1) {
+        return null;
+    }
+
+    return focusableElements[currentIndex + (reverse ? -1 : 1)] ?? null;
+}
+
+function closeColumnResizeAndFocus(gridElement, columnResizeElement, focusTarget) {
+    gridElement.dispatchEvent(new CustomEvent('closecolumnresize', { bubbles: true }));
+
+    const columnHeaderButton = columnResizeElement.closest('.column-header')?.querySelector('.col-sort-button');
+    (focusTarget ?? columnHeaderButton ?? gridElement).focus();
+}
+
 export function init(gridElement, autoFocus) {
     if (gridElement === undefined || gridElement === null) {
         return;
@@ -60,6 +100,22 @@ export function init(gridElement, autoFocus) {
         if (columnResizeElement && columnResizeElement.contains(event.target)) {
             if (event.key === "ArrowRight" || event.key === "ArrowLeft" || event.key === "ArrowDown" || event.key === "ArrowUp") {
                 event.stopPropagation();
+                return;
+            }
+
+            if (event.key === "Tab") {
+                const resizeFocusables = getFocusableElements(columnResizeElement);
+                const activeIndex = resizeFocusables.indexOf(document.activeElement);
+                const isFirstElement = activeIndex === 0;
+                const isLastElement = activeIndex === resizeFocusables.length - 1;
+
+                if ((event.shiftKey && isFirstElement) || (!event.shiftKey && isLastElement)) {
+                    const focusTarget = findAdjacentFocusableElement(document.activeElement, event.shiftKey);
+                    event.preventDefault();
+                    event.stopPropagation();
+                    closeColumnResizeAndFocus(gridElement, columnResizeElement, focusTarget);
+                }
+
                 return;
             }
         }

@@ -44,6 +44,50 @@ export function goToNextFocusableElement(forContainer, toOriginal, delay) {
 // ---------------------------------------------------------------------------
 
 const keyboardNavigationState = new Map();
+const focusableSelectors = "input, select, textarea, button, object, a[href], area[href], [tabindex]";
+
+function getAnchorFocusTarget(anchorElement) {
+    if (isFocusableElement(anchorElement)) {
+        return anchorElement;
+    }
+
+    return new FocusableElement(anchorElement).findNextFocusableElement() ?? anchorElement;
+}
+
+function getAnchorTraversalStart(anchorElement) {
+    const focusTarget = getAnchorFocusTarget(anchorElement);
+    return getFluentShadowFocusTarget(focusTarget) ?? focusTarget;
+}
+
+function getFluentShadowFocusTarget(element) {
+    if (!element?.tagName?.startsWith("FLUENT-")) {
+        return null;
+    }
+
+    return Array.from(element.shadowRoot?.children ?? [])
+        .find(child => child.tabIndex !== -1 && child.checkVisibility()) ?? null;
+}
+
+function findNextFocusableElementAfterAnchor(anchorElement, popupElement) {
+    const startFrom = getAnchorTraversalStart(anchorElement);
+    const focusableElements = new FocusableElement(anchorElement.getRootNode())
+        .getFocusableElements()
+        .filter(element => !popupElement.contains(element));
+    const currentIndex = focusableElements.indexOf(startFrom);
+
+    return currentIndex === -1 ? null : focusableElements[currentIndex + 1] ?? null;
+}
+
+function isFocusableElement(element) {
+    if (!element) {
+        return false;
+    }
+
+    const isFocusableCandidate = element.matches(focusableSelectors)
+        || element.tagName.toLowerCase().startsWith("fluent-");
+
+    return isFocusableCandidate && element.tabIndex !== -1 && element.checkVisibility();
+}
 
 /**
  * Attaches keyboard navigation listeners to an anchor+popup pair.
@@ -85,16 +129,10 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
             ev.stopPropagation();
             if (!ev.shiftKey) {
                 // Case 3: move to element after anchor in page
-                let startFrom;
-                if (anchorElement.tagName.startsWith("FLUENT-") && anchorElement.shadowRoot?.children.length > 0) {
-                    startFrom = anchorElement.shadowRoot.children[0];
-                } else {
-                    startFrom = anchorElement;
-                }
-                new FocusableElement(anchorElement.getRootNode()).findNextFocusableElement(startFrom)?.focus();
+                findNextFocusableElementAfterAnchor(anchorElement, popupElement)?.focus();
             } else {
                 // Case 2: Shift+Tab → focus anchor
-                anchorElement.focus();
+                getAnchorFocusTarget(anchorElement).focus();
             }
             dotNetHelper.invokeMethodAsync('CloseAsync');
         } else {
@@ -107,19 +145,13 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
                 // Case 3: Tab on last element → next page element after anchor, close
                 ev.preventDefault();
                 ev.stopPropagation();
-                let startFrom;
-                if (anchorElement.tagName.startsWith("FLUENT-") && anchorElement.shadowRoot?.children.length > 0) {
-                    startFrom = anchorElement.shadowRoot.children[0];
-                } else {
-                    startFrom = anchorElement;
-                }
-                new FocusableElement(anchorElement.getRootNode()).findNextFocusableElement(startFrom)?.focus();
+                findNextFocusableElementAfterAnchor(anchorElement, popupElement)?.focus();
                 dotNetHelper.invokeMethodAsync('CloseAsync');
             } else if (ev.shiftKey && (focusables.length === 0 || activeIndex === 0)) {
                 // Case 2: Shift+Tab on first element → focus anchor, close
                 ev.preventDefault();
                 ev.stopPropagation();
-                anchorElement.focus();
+                getAnchorFocusTarget(anchorElement).focus();
                 dotNetHelper.invokeMethodAsync('CloseAsync');
             }
             // Otherwise: middle element — let browser handle Tab/Shift+Tab naturally
@@ -174,7 +206,7 @@ export function disposeKeyboardNavigation(anchorId) {
  * Focusable Element
  */
 export class FocusableElement {
-    FOCUSABLE_SELECTORS = "input, select, textarea, button, object, a[href], area[href], [tabindex]";
+    FOCUSABLE_SELECTORS = focusableSelectors;
     _originalActiveElement;
     _container;
 
