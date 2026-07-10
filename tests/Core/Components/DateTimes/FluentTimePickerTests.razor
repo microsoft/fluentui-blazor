@@ -17,6 +17,11 @@
         Services.AddFluentUIComponents();
     }
 
+    private static bool IsTimePickerJsModule(object? argument)
+    {
+        return argument?.ToString()?.EndsWith("DateTime/FluentTimePicker.razor.js") == true;
+    }
+
     [Fact]
     public void FluentTimePicker_Default()
     {
@@ -238,6 +243,28 @@
         var textInputs = timePicker.FindAll("fluent-text-input");
         var timeInputs = textInputs.Where(ti => ti.GetAttribute("type") == "time");
         Assert.Empty(timeInputs);
+    }
+
+    [Fact]
+    public void FluentTimePicker_FluentUIStyle_InitializesDropdownScrollHook()
+    {
+        // Arrange
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(IsTimePickerJsModule));
+        module.SetupVoid("Microsoft.FluentUI.Blazor.TimePicker.Initialize", _ => true);
+        module.SetupVoid("Microsoft.FluentUI.Blazor.TimePicker.ScrollToSelectedValue", _ => true);
+        module.SetupVoid("Microsoft.FluentUI.Blazor.TimePicker.Dispose", _ => true);
+
+        // Act
+        var cut = Render(@<FluentTimePicker TValue="DateTime"
+                                  Culture="@InvariantCulture"
+                                  RenderStyle="DatePickerRenderStyle.FluentUI"
+                                  Value="@(new DateTime(2023, 1, 1, 17, 30, 0))" />);
+        cut.Dispose();
+
+        // Assert
+        Assert.Contains(module.Invocations, invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.TimePicker.Initialize");
+        Assert.Contains(module.Invocations, invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.TimePicker.ScrollToSelectedValue");
+        Assert.Contains(module.Invocations, invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.TimePicker.Dispose");
     }
 
     [Fact]

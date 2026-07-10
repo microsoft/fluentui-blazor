@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Logging;
 using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 using Microsoft.JSInterop;
 
@@ -14,9 +15,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
+    private const string JavaScriptFile = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentTimePicker.razor.js";
+
     private static readonly IEqualityComparer<DateTime?> TimeComparer = new TimeEqualityComparer();
     private DateTime DefaultTime => Culture.Calendar.MinSupportedDateTime;
     private FluentCombobox<DateTime?, DateTime?> _fluentCombobox = default!;
+    private string? _lastScrolledValue;
+    private bool _scrollModuleInitialized;
 
     /// <summary />
     public FluentTimePicker(LibraryConfiguration configuration) : base(configuration)
@@ -171,6 +176,54 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
                 Id,
                 "[part='control']",
                 "step", Increment);
+        }
+
+        if (IsFluentUIStyle)
+        {
+            try
+            {
+                if (!_scrollModuleInitialized)
+                {
+                    var module = await JSModule.ImportJavaScriptModuleAsync(JavaScriptFile);
+                    await module.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TimePicker.Initialize", Id);
+                    _scrollModuleInitialized = true;
+                }
+
+                var selectedValue = FormatValueAsString(SelectedValue);
+                if (firstRender || !string.Equals(selectedValue, _lastScrolledValue, StringComparison.Ordinal))
+                {
+                    var module = JSModule.ObjectReference;
+                    if (module is null)
+                    {
+                        throw new InvalidOperationException("The FluentTimePicker JavaScript module is not initialized.");
+                    }
+
+                    await module.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TimePicker.ScrollToSelectedValue", Id, selectedValue);
+                    _lastScrolledValue = selectedValue;
+                }
+            }
+            catch (JSException exception)
+            {
+                var loggerFactory = GetCachedServiceOrNull<ILoggerFactory>();
+                loggerFactory?.CreateLogger(GetType()).LogError(exception, "Unable to initialize FluentTimePicker auto-scroll.");
+            }
+        }
+    }
+
+    /// <summary />
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    {
+        if (_scrollModuleInitialized)
+        {
+            try
+            {
+                await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TimePicker.Dispose", Id);
+            }
+            catch (JSException exception)
+            {
+                var loggerFactory = GetCachedServiceOrNull<ILoggerFactory>();
+                loggerFactory?.CreateLogger(GetType()).LogError(exception, "Unable to dispose FluentTimePicker auto-scroll.");
+            }
         }
     }
 
