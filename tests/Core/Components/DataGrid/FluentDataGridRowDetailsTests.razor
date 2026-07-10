@@ -1,0 +1,143 @@
+@using Bunit.TestDoubles
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public FluentDataGridRowDetailsTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        // Register services
+        Services.AddFluentUIComponents();
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public void FluentDataGrid_RowDetails_Renders_Toggle_And_Starts_Collapsed()
+    {
+        // Arrange && Act
+        var cut = RenderGrid();
+
+        // Assert
+        Assert.Equal(3, cut.FindAll(".row-details-toggle-container").Count);
+        Assert.Empty(cut.FindAll("tr.row-details-row"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_RowDetails_Toggle_Expands_And_Collapses()
+    {
+        // Arrange
+        var cut = RenderGrid();
+
+        // Act: expand the first row
+        cut.FindAll(".hierarchical-expand-button")[0].Click();
+
+        // Assert
+        var detailsRow = cut.Find("tr.row-details-row");
+        Assert.Contains("details of Denis Voituron", detailsRow.TextContent);
+
+        // Act: collapse it again
+        cut.FindAll(".hierarchical-expand-button")[0].Click();
+
+        // Assert
+        Assert.Empty(cut.FindAll("tr.row-details-row"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RowDetails_ExpandAll_And_CollapseAllAsync()
+    {
+        // Arrange
+        var cut = RenderGrid();
+
+        // Act
+        await cut.InvokeAsync(() => cut.Instance.ExpandAllRowDetailsAsync());
+
+        // Assert
+        Assert.Equal(3, cut.FindAll("tr.row-details-row").Count);
+
+        // Act
+        await cut.InvokeAsync(() => cut.Instance.CollapseAllRowDetailsAsync());
+
+        // Assert
+        Assert.Empty(cut.FindAll("tr.row-details-row"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RowDetails_Expand_And_Collapse_Single_ItemAsync()
+    {
+        // Arrange
+        var cut = RenderGrid();
+        var item = GetCustomers().First();
+
+        // Act && Assert
+        await cut.InvokeAsync(() => cut.Instance.ExpandRowDetailsAsync(item));
+        Assert.True(cut.Instance.IsRowDetailsExpanded(item));
+
+        // Expanding twice is a no-op
+        await cut.InvokeAsync(() => cut.Instance.ExpandRowDetailsAsync(item));
+        Assert.True(cut.Instance.IsRowDetailsExpanded(item));
+
+        await cut.InvokeAsync(() => cut.Instance.CollapseRowDetailsAsync(item));
+        Assert.False(cut.Instance.IsRowDetailsExpanded(item));
+    }
+
+    [Fact]
+    public void FluentDataGrid_RowDetails_Toggle_Raises_OnRowDetailsToggle()
+    {
+        // Arrange
+        Customer? toggledItem = null;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" OnRowDetailsToggle="@((Customer c) => toggledItem = c)">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+
+        // Act
+        cut.FindAll(".hierarchical-expand-button")[1].Click();
+
+        // Assert
+        Assert.Equal("Vincent Baaij", toggledItem?.Name);
+    }
+
+    [Fact]
+    public void FluentDataGrid_RowDetails_With_Virtualize_Throws()
+    {
+        // Arrange && Act && Assert
+        Assert.Throws<InvalidOperationException>(() => Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" Virtualize="true" ItemSize="32">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>));
+    }
+
+    private IRenderedComponent<FluentDataGrid<Customer>> RenderGrid()
+    {
+        return Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+    }
+
+    // Sample data...
+    private IEnumerable<Customer> GetCustomers()
+    {
+        yield return new Customer(1, "Denis Voituron");
+        yield return new Customer(2, "Vincent Baaij");
+        yield return new Customer(3, "Bill Gates");
+    }
+
+    private record Customer(int Id, string Name);
+}

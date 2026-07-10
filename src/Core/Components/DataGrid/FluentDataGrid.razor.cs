@@ -39,6 +39,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
     internal const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
     internal const string ERROR_CONTENT_ROW_CLASS = "error-content-row";
+    internal const string ROW_DETAILS_ROW_CLASS = "row-details-row";
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -58,6 +59,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnResizing;
     private bool _checkColumnReordering;
     private bool _manualGrid;
+
+    // Keys (as returned by ItemKey) of the rows whose RowDetails content is currently expanded
+    private readonly HashSet<object> _expandedRowDetails = [];
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
     private readonly RenderFragment _renderEmptyContent;
@@ -348,6 +352,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback OnCollapseAll { get; set; }
 
     /// <summary>
+    /// Gets or sets the template that defines the detail content shown when a row is expanded (master/detail view).
+    ///
+    /// When set, each row displays an expand/collapse button in its first column. The expanded content is rendered
+    /// in an extra row spanning all columns, directly below the master row. The template's context is the row's
+    /// <typeparamref name="TGridItem"/>, so it can, for example, contain a child <see cref="FluentDataGrid{TGridItem}"/>
+    /// whose items are filtered by the master row.
+    ///
+    /// Cannot be used together with <see cref="Virtualize"/>.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TGridItem>? RowDetails { get; set; }
+
+    /// <summary>
+    /// Event callback for when a row's <see cref="RowDetails"/> content is expanded or collapsed.
+    /// </summary>
+    [Parameter]
+    public EventCallback<TGridItem> OnRowDetailsToggle { get; set; }
+
+    /// <summary>
     /// Event callback for when the grid's sort order changes.
     /// </summary>
     [Parameter]
@@ -516,6 +539,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (Virtualize && MultiLine)
         {
             throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
+        }
+
+        if (Virtualize && RowDetails is not null)
+        {
+            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(RowDetails)} at the same time.");
         }
 
         // Perform a re-query only if the data source or something else has changed
@@ -1919,4 +1947,76 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await RefreshDataAsync();
         }
     }
+
+    /// <summary>
+    /// Gets a value indicating whether the <see cref="RowDetails"/> content of the specified <paramref name="item"/> is currently expanded.
+    /// </summary>
+    /// <param name="item">The item that holds the row's values.</param>
+    public bool IsRowDetailsExpanded(TGridItem item) => _expandedRowDetails.Contains(ItemKey(item));
+
+    /// <summary>
+    /// Expands or collapses the <see cref="RowDetails"/> content of the specified <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item">The item that holds the row's values.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public async Task ToggleRowDetailsAsync(TGridItem item)
+    {
+        var key = ItemKey(item);
+        if (!_expandedRowDetails.Remove(key))
+        {
+            _expandedRowDetails.Add(key);
+        }
+
+        if (OnRowDetailsToggle.HasDelegate)
+        {
+            await OnRowDetailsToggle.InvokeAsync(item);
+        }
+
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// Expands the <see cref="RowDetails"/> content of the specified <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item">The item that holds the row's values.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task ExpandRowDetailsAsync(TGridItem item)
+        => IsRowDetailsExpanded(item) ? Task.CompletedTask : ToggleRowDetailsAsync(item);
+
+    /// <summary>
+    /// Collapses the <see cref="RowDetails"/> content of the specified <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item">The item that holds the row's values.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task CollapseRowDetailsAsync(TGridItem item)
+        => IsRowDetailsExpanded(item) ? ToggleRowDetailsAsync(item) : Task.CompletedTask;
+
+    /// <summary>
+    /// Expands the <see cref="RowDetails"/> content of all currently loaded rows.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task ExpandAllRowDetailsAsync()
+    {
+        foreach (var item in _internalGridContext.Items)
+        {
+            _expandedRowDetails.Add(ItemKey(item));
+        }
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Collapses the <see cref="RowDetails"/> content of all rows.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task CollapseAllRowDetailsAsync()
+    {
+        _expandedRowDetails.Clear();
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    // Distinct @key for the extra details row rendered below the master row
+    private object RowDetailsKey(TGridItem item) => (ItemKey(item), nameof(RowDetails));
 }

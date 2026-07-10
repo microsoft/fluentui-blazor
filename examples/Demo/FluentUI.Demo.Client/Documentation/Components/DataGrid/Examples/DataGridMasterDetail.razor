@@ -1,0 +1,58 @@
+<style>
+    .row-details-cell {
+        padding: 0.5rem 1rem 1rem 2.5rem;
+        background: var(--colorNeutralBackground2);
+    }
+</style>
+
+<FluentDataGrid Items="@customers" ShowHover="true">
+    <ChildContent>
+        <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
+        <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
+        <PropertyColumn Title="Orders" Property="@(c => OrdersOf(c.Id).Count())" Align="DataGridCellAlignment.End" />
+        <PropertyColumn Title="Total amount" Property="@(c => OrdersOf(c.Id).Sum(o => o.Amount))" Format="c" Align="DataGridCellAlignment.End" />
+    </ChildContent>
+    <RowDetails Context="customer">
+        <h5 style="margin: 0 0 0.5rem 0;">Orders of @customer.Name</h5>
+        <FluentDataGrid Items="@OrdersOf(customer.Id)" ShowHover="true">
+            <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
+            <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" IsDefaultSortColumn="true" />
+            <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" Sortable="true" />
+            <TemplateColumn Title="Status">
+                <FluentBadge Color="@(context.Status == "Delivered" ? BadgeColor.Success : BadgeColor.Subtle)">
+                    @context.Status
+                </FluentBadge>
+            </TemplateColumn>
+        </FluentDataGrid>
+    </RowDetails>
+</FluentDataGrid>
+
+@code {
+    private record Customer(int Id, string Name, string City);
+    private record Order(string OrderNumber, int CustomerId, DateTime OrderDate, decimal Amount, string Status);
+
+    private IQueryable<Customer> customers = new List<Customer>
+    {
+        new(1, "Contoso Ltd.", "Seattle"),
+        new(2, "Fabrikam, Inc.", "Paris"),
+        new(3, "Northwind Traders", "London"),
+        new(4, "Adventure Works", "Brussels"),
+    }.AsQueryable();
+
+    private List<Order> orders = new()
+    {
+        new("ORD-1001", 1, new DateTime(2026, 5, 12), 1250.00m, "Delivered"),
+        new("ORD-1002", 1, new DateTime(2026, 6, 3), 480.50m, "Shipped"),
+        new("ORD-1003", 1, new DateTime(2026, 6, 28), 90.00m, "Pending"),
+        new("ORD-1004", 2, new DateTime(2026, 4, 21), 3200.00m, "Delivered"),
+        new("ORD-1005", 2, new DateTime(2026, 6, 15), 150.75m, "Cancelled"),
+        new("ORD-1006", 3, new DateTime(2026, 5, 30), 780.25m, "Delivered"),
+        new("ORD-1007", 3, new DateTime(2026, 6, 10), 2100.00m, "Shipped"),
+        new("ORD-1008", 3, new DateTime(2026, 7, 1), 55.99m, "Pending"),
+        new("ORD-1009", 4, new DateTime(2026, 6, 22), 640.00m, "Shipped"),
+    };
+
+    // The child grid is filtered with the master row's item (the customer)
+    private IQueryable<Order> OrdersOf(int customerId)
+        => orders.Where(o => o.CustomerId == customerId).AsQueryable();
+}

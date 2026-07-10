@@ -108,6 +108,7 @@
     {
         var rowClass = RowClass?.Invoke(item) ?? null;
         var rowStyle = RowStyle?.Invoke(item) ?? null;
+        var rowDetailsExpanded = RowDetails is not null && IsRowDetailsExpanded(item);
 
         <FluentDataGridRow @key="@(ItemKey(item))" aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
             @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
@@ -140,10 +141,40 @@
                 }
             }
         </FluentDataGridRow>
+        @if (rowDetailsExpanded)
+        {
+            string? detailsStyle = null;
+            string? detailsColspan = null;
+            if (DisplayMode == DataGridDisplayMode.Grid)
+            {
+                detailsStyle = $"grid-column: 1 / {_columns.Count + 1}";
+            }
+            else
+            {
+                detailsColspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
+            }
+
+            <FluentDataGridRow @key="@RowDetailsKey(item)" Class="@ROW_DETAILS_ROW_CLASS" TGridItem="TGridItem" Item="@item">
+                <FluentDataGridCell CellType="@DataGridCellType.RowDetails" Class="row-details-cell" Style="@detailsStyle" colspan="@detailsColspan" TGridItem="TGridItem" Item="@item">
+                    @RowDetails!(item)
+                </FluentDataGridCell>
+            </FluentDataGridRow>
+        }
     }
 
     private void RenderCellInner(RenderTreeBuilder __builder, ColumnBase<TGridItem> col, TGridItem item)
     {
+        @if (RowDetails is not null && col.Index == 1)
+        {
+            var rowDetailsExpanded = IsRowDetailsExpanded(item);
+            <span class="hierarchical-toggle-container row-details-toggle-container">
+                <span @onclick:stopPropagation="true" class="hierarchical-expander @(rowDetailsExpanded ? "hierarchical-expanded" : "hierarchical-collapsed")">
+                    <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleRowDetails]" aria-expanded="@(rowDetailsExpanded ? "true" : "false")" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="hierarchical-expand-button" OnClick="@(() => ToggleRowDetailsAsync(item))">
+                        <FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
+                    </FluentButton>
+                </span>
+            </span>
+        }
         @if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
         {
             <span class="hierarchical-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">

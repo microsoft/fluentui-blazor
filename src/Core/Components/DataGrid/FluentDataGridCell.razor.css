@@ -171,3 +171,9 @@
   min-height: 20px;
   vertical-align: middle;
 }
+
+.fluent-data-grid td.row-details-cell {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
