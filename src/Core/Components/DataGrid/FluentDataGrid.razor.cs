@@ -1993,28 +1993,42 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Expands the <see cref="RowDetails"/> content of all currently loaded rows.
+    /// Raises <see cref="OnRowDetailsToggle"/> for each row that was not already expanded.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task ExpandAllRowDetailsAsync()
+    public async Task ExpandAllRowDetailsAsync()
     {
         foreach (var item in _internalGridContext.Items)
         {
-            _expandedRowDetails.Add(ItemKey(item));
+            if (_expandedRowDetails.Add(ItemKey(item)) && OnRowDetailsToggle.HasDelegate)
+            {
+                await OnRowDetailsToggle.InvokeAsync(item);
+            }
         }
 
         StateHasChanged();
-        return Task.CompletedTask;
     }
 
     /// <summary>
     /// Collapses the <see cref="RowDetails"/> content of all rows.
+    /// Raises <see cref="OnRowDetailsToggle"/> for each currently loaded row that was expanded.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task CollapseAllRowDetailsAsync()
+    public async Task CollapseAllRowDetailsAsync()
     {
+        if (OnRowDetailsToggle.HasDelegate)
+        {
+            foreach (var item in _internalGridContext.Items)
+            {
+                if (_expandedRowDetails.Contains(ItemKey(item)))
+                {
+                    await OnRowDetailsToggle.InvokeAsync(item);
+                }
+            }
+        }
+
         _expandedRowDetails.Clear();
         StateHasChanged();
-        return Task.CompletedTask;
     }
 
     // Distinct @key for the extra details row rendered below the master row

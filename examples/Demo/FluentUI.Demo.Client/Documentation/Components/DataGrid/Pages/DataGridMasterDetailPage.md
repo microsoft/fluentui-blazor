@@ -19,7 +19,9 @@ the child grid defines its own columns, sorting and content, and is simply filte
 
 Rows can also be expanded and collapsed programmatically with the `ToggleRowDetailsAsync`, `ExpandRowDetailsAsync`,
 `CollapseRowDetailsAsync`, `ExpandAllRowDetailsAsync` and `CollapseAllRowDetailsAsync` methods. The
-`OnRowDetailsToggle` event callback is raised each time a row is expanded or collapsed.
+`OnRowDetailsToggle` event callback is raised for every row whose expansion state actually changes — including once
+per affected row when using `ExpandAllRowDetailsAsync`/`CollapseAllRowDetailsAsync` — but not for rows that were
+already in the requested state.
 
 *Note: `RowDetails` cannot be combined with `Virtualize`.*
 

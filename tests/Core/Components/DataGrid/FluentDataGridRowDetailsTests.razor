@@ -104,6 +104,72 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_RowDetails_ExpandAll_Raises_OnRowDetailsToggle_For_Each_Changed_RowAsync()
+    {
+        // Arrange
+        var toggled = new List<Customer>();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" OnRowDetailsToggle="@((Customer c) => toggled.Add(c))">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+
+        // Act: expand one row manually first, then expand all
+        await cut.InvokeAsync(() => cut.Instance.ExpandRowDetailsAsync(GetCustomers().First()));
+        toggled.Clear();
+        await cut.InvokeAsync(() => cut.Instance.ExpandAllRowDetailsAsync());
+
+        // Assert: only the two rows that actually changed state raised the callback
+        Assert.Equal(2, toggled.Count);
+        Assert.DoesNotContain(toggled, c => c.Name == "Denis Voituron");
+
+        // Act: expanding all again is a no-op, nothing should be raised
+        toggled.Clear();
+        await cut.InvokeAsync(() => cut.Instance.ExpandAllRowDetailsAsync());
+        Assert.Empty(toggled);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RowDetails_CollapseAll_Raises_OnRowDetailsToggle_For_Each_Expanded_RowAsync()
+    {
+        // Arrange
+        var toggled = new List<Customer>();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" OnRowDetailsToggle="@((Customer c) => toggled.Add(c))">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+        await cut.InvokeAsync(() => cut.Instance.ExpandRowDetailsAsync(GetCustomers().First()));
+        toggled.Clear();
+
+        // Act
+        await cut.InvokeAsync(() => cut.Instance.CollapseAllRowDetailsAsync());
+
+        // Assert: only the one row that was actually expanded raised the callback
+        Assert.Single(toggled);
+        Assert.Equal("Denis Voituron", toggled[0].Name);
+    }
+
+    [Fact]
+    public void FluentDataGrid_RowDetails_Toggle_Has_Dedicated_AriaLabel()
+    {
+        // Arrange && Act
+        var cut = RenderGrid();
+
+        // Assert: the toggle button must not reuse the hierarchical-view's "Toggle nesting" label
+        var button = cut.FindAll(".row-details-toggle-container button, .row-details-toggle-container fluent-button")[0];
+        Assert.Equal("Toggle row details", button.GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentDataGrid_RowDetails_With_Virtualize_Throws()
     {
         // Arrange && Act && Assert
