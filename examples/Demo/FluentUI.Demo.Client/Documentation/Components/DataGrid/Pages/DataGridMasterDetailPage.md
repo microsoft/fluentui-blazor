@@ -27,6 +27,15 @@ already in the requested state.
 
 {{ DataGridMasterDetail Files=Code:DataGridMasterDetail.razor }}
 
+## Any content as detail
+
+The detail template is not limited to a child `FluentDataGrid`: it can host any content. Because the template's
+`context` is the master row's item, you can build a fully custom detail panel — cards, stacks, icons, links,
+progress bars, buttons or any other component — bound to that item. In this example, expanding a customer shows a
+contact card built from standard Fluent components instead of a nested grid.
+
+{{ DataGridMasterDetailCustom Files=Code:DataGridMasterDetailCustom.razor }}
+
 ## Two levels of detail
 
 Since the detail template can contain any content, a child `FluentDataGrid` can itself define a `RowDetails`
