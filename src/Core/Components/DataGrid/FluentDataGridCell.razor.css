@@ -177,3 +177,10 @@
   overflow: visible;
   text-overflow: unset;
 }
+
+/* Unlike the HierarchicalToggle container (which wraps the whole cell content),
+   this toggle is a standalone element placed before the cell's own content,
+   so it must stay inline instead of starting its own block. */
+.fluent-data-grid .row-details-toggle-container {
+  display: inline-flex;
+}
