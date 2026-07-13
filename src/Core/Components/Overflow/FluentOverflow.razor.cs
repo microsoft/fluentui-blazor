@@ -38,8 +38,8 @@ public partial class FluentOverflow : FluentComponentBase
 
     /// <summary>
     /// Gets or sets whether overflow items are visible immediately on load.
-    /// Set to <c>false</c> to hide items until the component is fully loaded,
-    /// preventing a flickering effect. Defaults to <c>true</c>.
+    /// Set to <see langword="false"/> to hide items until the component is fully loaded,
+    /// preventing a flickering effect. Defaults to <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool VisibleOnLoad { get; set; } = true;
