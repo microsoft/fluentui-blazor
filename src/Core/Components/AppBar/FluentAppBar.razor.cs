@@ -108,7 +108,7 @@ public partial class FluentAppBar : FluentComponentBase
     }
 
     /// <summary />
-    public async Task OverflowRaisedAsync(FluentOverflow.OverflowItem[] items)
+    public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
         foreach (var item in items)
         {

@@ -64,13 +64,6 @@ public partial class FluentOverflow : FluentComponentBase
     public string? Selector { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the CSS selectors of the items to include in the overflow.
-    /// Use <see cref="Selector"/> instead.
-    /// </summary>
-    [Parameter]
-    public string? Selectors { get; set; } = string.Empty;
-
-    /// <summary>
     /// Gets or sets whether overflow items are cached in JavaScript memory.
     /// </summary>
     [Parameter]
@@ -122,8 +115,6 @@ public partial class FluentOverflow : FluentComponentBase
         .AddStyle("visibility", "hidden", OverflowCount == 0)
         .AddStyle("anchor-name", $"--{IdMoreButton}")
         .Build();
-
-    private string? ItemSelector => string.IsNullOrWhiteSpace(Selector) ? Selectors : Selector;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -180,9 +171,8 @@ public partial class FluentOverflow : FluentComponentBase
 
     private async Task LoadOverflowItemsAsync()
     {
-        var items = await JSRuntime.InvokeAsync<OverflowItem[]>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowItems", [Id]);
-        var overflowCount = await JSRuntime.InvokeAsync<int>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowCount", [Id]);
-        SetOverflowItems(items, overflowCount);
+        var state = await JSRuntime.InvokeAsync<OverflowState>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowState", [Id]);
+        SetOverflowItems(state.OverflowItems, state.OverflowCount);
     }
 
     private void SetOverflowItems(IEnumerable<OverflowItem>? items, int overflowCount)
@@ -215,29 +205,8 @@ public partial class FluentOverflow : FluentComponentBase
                 Id = item.Id,
                 Overflow = item.Overflow,
                 Text = item.Text,
-                Fixed = item.Fixed,
-                Index = item.Index
+                Behavior = item.Behavior,
+                Index = item.Index,
             }));
-    }
-
-    /// <summary>
-    /// Represents an item that may be subject to overflow handling.
-    /// </summary>
-    public class OverflowItem
-    {
-        /// <summary />
-        public string? Id { get; set; }
-
-        /// <summary />
-        public bool Overflow { get; set; }
-
-        /// <summary />
-        public string? Text { get; set; }
-
-        /// <summary />
-        public string? Fixed { get; set; }
-
-        /// <summary />
-        public int Index { get; set; }
     }
 }

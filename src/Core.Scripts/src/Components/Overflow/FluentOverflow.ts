@@ -1,18 +1,34 @@
 import { StartedMode } from "../../d-ts/StartedMode";
 
+/**
+ * Fluent Overflow Component Implementation
+ * 
+ * Manages the overflow behavior of child elements in a container with constrained space.
+ * Automatically moves items to an overflow menu when there isn't enough space, with support for:
+ * - Horizontal and vertical layouts
+ * - Fixed and ellipsis item behaviors
+ * - CSS selector-based item filtering
+ * - Dynamic payload capping
+ * 
+ * The component dispatches an 'overflowchange' event when the overflow state changes,
+ * and exposes methods for retrieving the current overflow state via JSInterop.
+ */
 export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
+  /** Represents an item that may be subject to overflow handling. */
   interface OverflowItem {
     Id: string;
     Overflow: boolean;
     Text: string;
-    Fixed?: string | null;
+    Behavior?: string | null;
     Index?: number;
   }
 
+  /** Extended HTMLElement interface to track cached overflow size measurements. */
   interface OverflowElement extends HTMLElement {
     overflowSize?: number | null;
   }
 
+  /** Represents the current overflow state including items, counts, and ordering. */
   interface OverflowState {
     overflowItems: OverflowItem[];
     overflowCount: number;
@@ -20,11 +36,16 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     orderedItemIds: string[];
   }
 
+  /** Extended overflow state with change detection and orientation metadata. */
   interface RefreshResult extends OverflowState {
     overflowChanged: boolean;
     isHorizontal: boolean;
   }
 
+  /**
+   * Custom HTML element that manages overflow behavior for constrained containers.
+   * Observes size changes and DOM mutations to dynamically calculate which items should overflow.
+   */
   class FluentOverflow extends HTMLElement {
     private resizeObserver?: ResizeObserver;
     private mutationObserver?: MutationObserver;
@@ -42,6 +63,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       return ["orientation", "selector", "selectors", "threshold", "visible-on-load", "store-overflow-in-memory", "max-rendered-items"];
     }
 
+    /**
+     * Lifecycle hook called when the element is inserted into the DOM.
+     * Initializes observers, applies styles, and performs initial overflow calculation.
+     */
     connectedCallback() {
       const visibleOnLoad = this.getAttribute("visible-on-load") !== "false";
 
@@ -60,10 +85,18 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       }
     }
 
+    /**
+     * Lifecycle hook called when the element is removed from the DOM.
+     * Cleans up all observers to prevent memory leaks.
+     */
     disconnectedCallback() {
       this.cleanupObservers();
     }
 
+    /**
+     * Lifecycle hook called when an observed attribute changes.
+     * Re-calculates overflow state when relevant attributes are modified.
+     */
     attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
       if (oldValue === newValue) {
         return;
@@ -82,7 +115,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.refresh();
     }
 
+    /**
+     * Recalculates overflow state and dispatches change event if needed.
+     * Called on initial render, after DOM mutations, or when container size changes.
+     */
     refresh() {
+      // Calculate the new overflow state based on current layout and items
       const result = refreshContainer(
         this,
         this.getIsHorizontal(),
@@ -94,21 +132,25 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       );
       this.lastHandledState = result.isHorizontal;
 
+      // Detect if the overflow state has meaningfully changed
       const payloadChanged = result.overflowChanged
         || this.lastOverflowCount !== result.overflowCount
         || this.lastFirstOverflowIndex !== result.firstOverflowIndex
         || !areStringArraysEqual(this.lastOrderedItemIds, result.orderedItemIds)
         || !areOverflowItemsEqual(this.overflowItems, result.overflowItems);
 
+      // Update cached state values
       this.lastOverflowCount = result.overflowCount;
       this.lastFirstOverflowIndex = result.firstOverflowIndex;
       this.lastOrderedItemIds = result.orderedItemIds;
 
+      // Store in-memory if requested or if state changed
       const storeInMemory = this.getStoreOverflowInMemory();
       if (storeInMemory || payloadChanged) {
         this.overflowItems = result.overflowItems;
       }
 
+      // Notify listeners of state change via custom event
       if (payloadChanged) {
         this.dispatchEvent(new CustomEvent("overflowchange", {
           detail: {
@@ -123,48 +165,44 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       }
     }
 
-    getOverflowItems(): OverflowItem[] {
-      if (this.overflowItems.length > 0 || this.lastOverflowCount === 0) {
-        return [...this.overflowItems];
-      }
-
-      const state = getCurrentOverflowState(this, this.getQuerySelector(), this.getMaxRenderedItems());
-      this.lastOverflowCount = state.overflowCount;
-      this.lastFirstOverflowIndex = state.firstOverflowIndex;
-      this.overflowItems = state.overflowItems;
-      return [...state.overflowItems];
-    }
-
-    getOverflowCount(): number {
+    /**
+     * Retrieves the current overflow state.
+     * Returns cached state if available; otherwise calculates fresh state.
+     */
+    getOverflowState(): OverflowState {
       if (this.overflowItems.length > 0 || this.lastOverflowCount > 0) {
-        return this.lastOverflowCount;
+        return {
+          overflowItems: [...this.overflowItems],
+          overflowCount: this.lastOverflowCount,
+          firstOverflowIndex: this.lastFirstOverflowIndex,
+          orderedItemIds: this.lastOrderedItemIds
+        };
       }
 
       const state = getCurrentOverflowState(this, this.getQuerySelector(), this.getMaxRenderedItems());
       this.lastOverflowCount = state.overflowCount;
       this.lastFirstOverflowIndex = state.firstOverflowIndex;
       this.overflowItems = state.overflowItems;
-      return state.overflowCount;
+      return {
+        overflowItems: [...state.overflowItems],
+        overflowCount: state.overflowCount,
+        firstOverflowIndex: state.firstOverflowIndex,
+        orderedItemIds: state.orderedItemIds
+      };
     }
 
-    getFirstOverflowIndex(): number {
-      if (this.overflowItems.length > 0 || this.lastOverflowCount > 0) {
-        return this.lastFirstOverflowIndex;
-      }
-
-      const state = getCurrentOverflowState(this, this.getQuerySelector(), this.getMaxRenderedItems());
-      this.lastOverflowCount = state.overflowCount;
-      this.lastFirstOverflowIndex = state.firstOverflowIndex;
-      this.overflowItems = state.overflowItems;
-      return state.firstOverflowIndex;
-    }
-
+    /**
+     * Sets up ResizeObserver and MutationObserver to track layout changes.
+     * Triggers refresh with debouncing to optimize performance.
+     */
     private setupObservers() {
       this.cleanupObservers();
 
+      // Watch for container size changes and recalculate overflow accordingly
       if (typeof ResizeObserver !== "undefined") {
         this.resizeObserver = new ResizeObserver(() => {
           clearTimeout(this.resizeTimeout);
+          // Debounce resize events (16ms) to batch multiple rapid size changes
           this.resizeTimeout = window.setTimeout(() => {
             const isHorizontal = this.getIsHorizontal();
             const currentSize = isHorizontal ? this.offsetWidth : this.offsetHeight;
@@ -180,11 +218,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         this.resizeObserver.observe(this);
       }
 
+      // Watch for DOM mutations (child additions/removals, attribute changes)
       this.mutationObserver = new MutationObserver((mutations) => {
         let shouldRefresh = false;
 
         for (const mutation of mutations) {
           if (mutation.type === "childList") {
+            // Child elements added or removed; reset size cache
             shouldRefresh = true;
             this.lastContainerSize = 0;
             continue;
@@ -192,7 +232,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 
           if (mutation.type === "attributes") {
             const target = mutation.target as OverflowElement;
-            if (mutation.attributeName === "class" || mutation.attributeName === "style" || mutation.attributeName === "fixed" || mutation.attributeName === "hidden") {
+            // Invalidate size cache for elements whose visual properties changed
+            if (mutation.attributeName === "class" || mutation.attributeName === "style" || mutation.attributeName === "behavior" || mutation.attributeName === "hidden") {
               target.overflowSize = null;
             }
             shouldRefresh = true;
@@ -204,16 +245,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         }
 
         clearTimeout(this.mutationTimeout);
+        // Debounce mutation events (16ms) to batch rapid DOM changes
         this.mutationTimeout = window.setTimeout(() => this.refresh(), 16);
       });
       this.mutationObserver.observe(this, {
         childList: true,
         subtree: false,
         attributes: true,
-        attributeFilter: ["id", "fixed", "class", "style", "hidden"]
+        attributeFilter: ["id", "behavior", "class", "style", "hidden"]
       });
     }
 
+    /**
+     * Disconnects and cleans up all observers and timers to prevent memory leaks.
+     */
     private cleanupObservers() {
       this.resizeObserver?.disconnect();
       this.resizeObserver = undefined;
@@ -287,7 +332,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     }
 
     for (const element of allItems) {
-      const fixedMode = element.getAttribute("fixed");
+      const fixedMode = element.getAttribute("behavior");
       if (fixedMode === "ellipsis") {
         ellipsisItems.push(element);
         continue;
@@ -408,7 +453,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
   function getCurrentOverflowState(container: HTMLElement, querySelector: string | null, maxRenderedItems: number): OverflowState {
     const localQuerySelector = buildQuerySelector(querySelector);
     const managedItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector))
-      .filter(element => !element.hasAttribute("fixed"));
+      .filter(element => !element.hasAttribute("behavior"));
 
     const overflowStates = managedItems.map(element => element.hasAttribute("overflow"));
     let overflowCount = 0;
@@ -456,7 +501,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       Id: element.id,
       Overflow: true,
       Text: (element.textContent ?? "").trim(),
-      Fixed: element.getAttribute("fixed"),
+      Behavior: element.getAttribute("behavior"),
       Index: index
     };
   }
@@ -501,7 +546,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 
   function ensureMeasuredSize(element: OverflowElement, isHorizontal: boolean): number {
     if (element.overflowSize === null || element.overflowSize === undefined) {
-      const isEllipsisFixed = element.getAttribute("fixed") === "ellipsis";
+      const isEllipsisFixed = element.getAttribute("behavior") === "ellipsis";
       element.overflowSize = isHorizontal
         ? getElementWidth(element, isEllipsisFixed)
         : getElementHeight(element, isEllipsisFixed);
@@ -524,29 +569,44 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     return height + margin;
   }
 
+  /**
+   * Registers the FluentOverflow custom element with the browser's custom elements registry.
+   * Called during component initialization by the Blazor runtime.
+   * 
+   * @param blazor - The Blazor runtime instance
+   * @param mode - The component startup mode
+   */
   export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
     if (typeof customElements !== "undefined" && !customElements.get("fluent-overflow")) {
       customElements.define("fluent-overflow", FluentOverflow);
     }
   };
 
+  /**
+   * Triggers a refresh of the overflow state for the specified container element.
+   * Used by Blazor to manually recalculate overflow when needed.
+   * 
+   * @param id - The HTML id of the FluentOverflow container
+   */
   export function Refresh(id: string): void {
     const element = document.getElementById(id) as FluentOverflow | null;
     element?.refresh();
   }
 
-  export function GetOverflowItems(id: string): OverflowItem[] {
+  /**
+   * Retrieves the current overflow state for the specified container element.
+   * Exposed to Blazor via JSInterop for reading overflow items and counts.
+   * 
+   * @param id - The HTML id of the FluentOverflow container
+   * @returns The current OverflowState or default empty state if element not found
+   */
+  export function GetOverflowState(id: string): OverflowState {
     const element = document.getElementById(id) as FluentOverflow | null;
-    return element?.getOverflowItems() ?? [];
-  }
-
-  export function GetOverflowCount(id: string): number {
-    const element = document.getElementById(id) as FluentOverflow | null;
-    return element?.getOverflowCount() ?? 0;
-  }
-
-  export function GetFirstOverflowIndex(id: string): number {
-    const element = document.getElementById(id) as FluentOverflow | null;
-    return element?.getFirstOverflowIndex() ?? -1;
+    return element?.getOverflowState() ?? {
+      overflowItems: [],
+      overflowCount: 0,
+      firstOverflowIndex: -1,
+      orderedItemIds: []
+    };
   }
 }

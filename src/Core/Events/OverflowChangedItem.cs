@@ -25,9 +25,9 @@ public class OverflowChangedItem
     public string? Text { get; set; }
 
     /// <summary>
-    /// Gets or sets the fixed behavior.
+    /// Gets or sets the overflow behavior.
     /// </summary>
-    public string? Fixed { get; set; }
+    public OverflowBehavior? Behavior { get; set; }
 
     /// <summary>
     /// Gets or sets the item index.

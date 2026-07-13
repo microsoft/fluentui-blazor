@@ -33,7 +33,7 @@
 
     List<string> Items = new List<string>() { Catalog[0], Catalog[1] };
 
-    void OverflowHandler(IEnumerable<FluentOverflow.OverflowItem> items)
+    void OverflowHandler(IEnumerable<OverflowItem> items)
     {
         var text = String.Join("; ", items.Select(i => i.Text));
 

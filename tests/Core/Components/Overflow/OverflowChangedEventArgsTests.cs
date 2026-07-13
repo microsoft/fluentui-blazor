@@ -33,7 +33,7 @@ public class OverflowChangedEventArgsTests
                 Id = "item-1",
                 Overflow = true,
                 Text = "Item 1",
-                Fixed = "fixed",
+                Behavior = OverflowBehavior.Fixed,
                 Index = 3
             }
         ];
@@ -83,7 +83,7 @@ public class OverflowChangedItemTests
             Id = "item-2",
             Overflow = true,
             Text = "Item 2",
-            Fixed = "ellipsis",
+            Behavior = OverflowBehavior.Ellipsis,
             Index = 4
         };
 
@@ -91,7 +91,7 @@ public class OverflowChangedItemTests
         Assert.Equal("item-2", item.Id);
         Assert.True(item.Overflow);
         Assert.Equal("Item 2", item.Text);
-        Assert.Equal("ellipsis", item.Fixed);
+        Assert.Equal(OverflowBehavior.Ellipsis, item.Behavior);
         Assert.Equal(4, item.Index);
     }
 }

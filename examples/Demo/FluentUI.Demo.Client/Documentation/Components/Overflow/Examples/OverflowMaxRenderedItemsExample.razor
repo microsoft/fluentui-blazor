@@ -33,7 +33,7 @@
     private int _overflowCount;
     private int _renderedInPayloadCount;
 
-    private void OnOverflowRaised(IEnumerable<FluentOverflow.OverflowItem> items)
+    private void OnOverflowRaised(IEnumerable<OverflowItem> items)
     {
         _renderedInPayloadCount = items.Count();
         _overflowCount = _overflow?.OverflowCount ?? 0;

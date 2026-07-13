@@ -106,4 +106,3 @@
 .fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"] {
     display: block;
 }
-
