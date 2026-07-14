@@ -22,12 +22,9 @@
             }
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
-
-            <FluentInputLabel ForId="Input.Name">Passkey name</FluentInputLabel>
-            <FluentTextField Style="width: 100%;" @bind-Value="Input.Name" Id="Input.Name" Name="Input.Name" Required="true" Placeholder="My passkey" />
-            <ValidationMessage For="() => Input.Name" class="text-danger" />
+            <FluentTextInput Style="width: 100%;" Label="Passkey name" @bind-Value="Input.Name" Id="Input.Name" Name="Input.Name" Required="true" Placeholder="My passkey" />
             <p style="margin-top: 10px; text-align: end;">
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Continue</FluentButton>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Continue</FluentButton>
             </p>
         </EditForm>
     </FluentGridItem>
