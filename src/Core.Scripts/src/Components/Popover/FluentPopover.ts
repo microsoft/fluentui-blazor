@@ -155,6 +155,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       return val !== null ? Number(val) : 0;
     }
 
+    private get isRtl(): boolean {
+      if (!this.anchorEl) {
+        return document.documentElement.dir === 'rtl';
+      }
+
+      const computedDirection = getComputedStyle(this.anchorEl).direction;
+      return computedDirection === 'rtl' || document.documentElement.dir === 'rtl';
+    }
+
     private get nested(): boolean {
       const val = this.getAttribute('nested');
       return val !== null && val !== 'false';
@@ -173,7 +182,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       this.startAnchorPositionObserver();
       this.dialog.showPopover();
-      this.adjustDialogPosition();
+      requestAnimationFrame(() => {
+        this.adjustDialogPosition();
+      });
       setTimeout(() => this.addEventsAfterOpening(), 0);
 
       // Reflect opened property and attribute
@@ -313,27 +324,39 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       const spaceAbove = rect.top - viewportTop;
       const spaceBelow = viewportBottom - rect.bottom;
-      const spaceLeft = rect.right - viewportLeft;
-      const spaceRight = viewportRight - rect.left;
+      const spaceLeft = rect.left - viewportLeft;
+      const spaceRight = viewportRight - rect.right;
 
       // Position dialog above the target
       const positionDialogAbove = () => {
         this.dialog.style.top = `${rect.top - dialogHeight + viewportTop}px`;
+        this.dialog.style.bottom = 'auto';
       }
 
       // Position dialog below the target
       const positionDialogBelow = () => {
         this.dialog.style.top = `${rect.bottom + this.offsetVertical + viewportTop}px`;
+        this.dialog.style.bottom = 'auto';
       }
 
-      // Position dialog aligned left with the target
-      const positionDialogLeft = () => {
-        this.dialog.style.left = `${rect.left + this.offsetHorizontal + viewportLeft}px`;
+      // Position dialog aligned to the start edge of the target (left in LTR, right in RTL)
+      const positionDialogStart = () => {
+        const left = this.isRtl
+          ? rect.right - dialogWidth + this.offsetHorizontal + viewportLeft
+          : rect.left + this.offsetHorizontal + viewportLeft;
+
+        this.dialog.style.left = `${left}px`;
+        this.dialog.style.right = 'auto';
       }
 
-      // Position dialog aligned right with the target
-      const positionDialogRight = () => {
-        this.dialog.style.left = `${rect.left + rect.width - dialogWidth - this.offsetHorizontal + viewportLeft}px`;
+      // Position dialog aligned to the end edge of the target (right in LTR, left in RTL)
+      const positionDialogEnd = () => {
+        const left = this.isRtl
+          ? rect.left + this.offsetHorizontal + viewportLeft
+          : rect.right - dialogWidth + this.offsetHorizontal + viewportLeft;
+
+        this.dialog.style.left = `${left}px`;
+        this.dialog.style.right = 'auto';
       }
 
       if (spaceBelow >= dialogHeight) {
@@ -346,14 +369,27 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogBelow();
       }
 
-      if (spaceRight >= dialogWidth) {
-        positionDialogLeft();
-      }
-      else if (spaceLeft >= dialogWidth) {
-        positionDialogRight();
+      if (this.isRtl) {
+        if (spaceRight >= dialogWidth) {
+          positionDialogStart();
+        }
+        else if (spaceLeft >= dialogWidth) {
+          positionDialogEnd();
+        }
+        else {
+          positionDialogStart();
+        }
       }
       else {
-        positionDialogLeft();
+        if (spaceRight >= dialogWidth) {
+          positionDialogStart();
+        }
+        else if (spaceLeft >= dialogWidth) {
+          positionDialogEnd();
+        }
+        else {
+          positionDialogStart();
+        }
       }
     };
   }
