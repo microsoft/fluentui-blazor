@@ -25,10 +25,10 @@ public partial class FluentText : FluentComponentBase, ITooltipComponent
         .Build();
 
     /// <summary>
-    /// Gets or sets the tag to be rendered.
+    /// Gets or sets the tag to be rendered if this parameter value is not null.
     /// </summary>
     [Parameter]
-    public TextTag As { get; set; }
+    public TextTag? As { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the text.
