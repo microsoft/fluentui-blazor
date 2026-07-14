@@ -172,18 +172,18 @@ public partial class FluentOverflow : FluentComponentBase
     private async Task LoadOverflowItemsAsync()
     {
         var state = await JSRuntime.InvokeAsync<OverflowState>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowState", [Id]);
-        SetOverflowItems(state.OverflowItems, state.OverflowCount);
+        SetOverflowItems(state?.OverflowItems, state?.OverflowCount ?? 0);
     }
 
     private void SetOverflowItems(IEnumerable<OverflowItem>? items, int overflowCount)
     {
-        _items.Clear();
-        _overflowCount = Math.Max(overflowCount, 0);
-
         if (items is null)
         {
             return;
         }
+
+        _items.Clear();
+        _overflowCount = Math.Max(overflowCount, 0);
 
         _items.AddRange(items.Where(item => item.Overflow));
     }

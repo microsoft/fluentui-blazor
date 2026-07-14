@@ -70,7 +70,7 @@ public class OverflowChangedItemTests
         Assert.Null(item.Id);
         Assert.False(item.Overflow);
         Assert.Null(item.Text);
-        Assert.Null(item.Fixed);
+        Assert.Null(item.Behavior);
         Assert.Equal(0, item.Index);
     }
 
