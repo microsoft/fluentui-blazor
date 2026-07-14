@@ -16,9 +16,9 @@
              underline="@Underline"
              strikethrough="@Strikethrough"
              @attributes=AdditionalAttributes>
-    @if (As is not null)
+    @if (As is { } tag)
     {
-        <AddTag Name="@As.ToAttributeValue()">
+        <AddTag Name="@tag.ToAttributeValue()">
            @ChildContent
         </AddTag>
     }
