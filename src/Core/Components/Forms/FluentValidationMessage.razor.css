@@ -1,4 +1,9 @@
 .fluent-validation-message {
+  display: inline-block;
+  align-items: center;
+}
+
+.fluent-validation-message-part {
   display: flex;
   align-items: center;
 }

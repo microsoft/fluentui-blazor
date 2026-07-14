@@ -9,12 +9,10 @@
             Color="@Color.Error"
             @attributes="AdditionalAttributes">
     @foreach (var message in ValidationMessages)
-    {
-        @CreateIcon(Icon)
-        @message
-        @if (message != ValidationMessages.Last())
-        {
-            <br />
-        }
+    {   <div class="fluent-validation-message-part" >
+            @CreateIcon(Icon)
+            @message
+        </div>
+
     }
 </FluentText>
