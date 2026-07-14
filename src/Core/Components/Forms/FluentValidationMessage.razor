@@ -2,15 +2,19 @@
 @inherits FluentComponentBase
 @typeparam TValue
 
-@foreach (var message in ValidationMessages)
-{
-    <FluentText slot="@FluentSlot.FieldMessage"
-                Class="@ClassValue"
-                Style="@StyleValue"
-                Size="@TextSize.Size200"
-                Color="@Color.Error"
-                @attributes="AdditionalAttributes">
+<FluentText slot="@FluentSlot.FieldMessage"
+            Class="@ClassValue"
+            Style="@StyleValue"
+            Size="@TextSize.Size200"
+            Color="@Color.Error"
+            @attributes="AdditionalAttributes">
+    @foreach (var message in ValidationMessages)
+    {
         @CreateIcon(Icon)
         @message
-    </FluentText>
-}
+        @if (message != ValidationMessages.Last())
+        {
+            <br />
+        }
+    }
+</FluentText>

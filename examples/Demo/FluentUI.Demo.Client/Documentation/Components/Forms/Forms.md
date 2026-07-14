@@ -19,7 +19,7 @@ By default the Fluent UI components render validation feedback using the library
 builder.Services.AddFluentUIComponents(config =>
 {
     // Default is false. Set to true to enable the browser's native constraint validation UI.
-    config.UseNativeConstraintValidationUi = true;
+    config.UseNativeConstraintValidationUI = true;
 });
 ```
 

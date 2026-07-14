@@ -56,6 +56,7 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("display", "inline-block")
         .Build();
 
     private IEnumerable<string> ValidationMessages => _hasFieldIdentifier
