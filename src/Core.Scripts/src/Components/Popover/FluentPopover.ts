@@ -156,12 +156,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     }
 
     private get isRtl(): boolean {
-      if (!this.anchorEl) {
+      const anchorEl = this.anchorEl;
+      if (!anchorEl) {
         return document.documentElement.dir === 'rtl';
       }
-
-      const computedDirection = getComputedStyle(this.anchorEl).direction;
-      return computedDirection === 'rtl' || document.documentElement.dir === 'rtl';
+      return getComputedStyle(anchorEl).direction === 'rtl';
     }
 
     private get nested(): boolean {
@@ -342,7 +341,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       // Position dialog aligned to the start edge of the target (left in LTR, right in RTL)
       const positionDialogStart = () => {
         const left = this.isRtl
-          ? rect.right - dialogWidth + this.offsetHorizontal + viewportLeft
+          ? rect.right - this.dialog.offsetWidth + this.offsetHorizontal + viewportLeft
           : rect.left + this.offsetHorizontal + viewportLeft;
 
         this.dialog.style.left = `${left}px`;
@@ -353,7 +352,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       const positionDialogEnd = () => {
         const left = this.isRtl
           ? rect.left + this.offsetHorizontal + viewportLeft
-          : rect.right - dialogWidth + this.offsetHorizontal + viewportLeft;
+          : rect.right - this.dialog.offsetWidth + this.offsetHorizontal + viewportLeft;
 
         this.dialog.style.left = `${left}px`;
         this.dialog.style.right = 'auto';
@@ -370,10 +369,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       }
 
       if (this.isRtl) {
-        if (spaceRight >= dialogWidth) {
+        if (spaceLeft >= dialogWidth) {
           positionDialogStart();
         }
-        else if (spaceLeft >= dialogWidth) {
+        else if (spaceRight >= dialogWidth) {
           positionDialogEnd();
         }
         else {
@@ -381,10 +380,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         }
       }
       else {
-        if (spaceRight >= dialogWidth) {
+        if (spaceLeft >= dialogWidth) {
           positionDialogStart();
         }
-        else if (spaceLeft >= dialogWidth) {
+        else if (spaceRight >= dialogWidth) {
           positionDialogEnd();
         }
         else {
