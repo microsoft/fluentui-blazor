@@ -121,8 +121,8 @@
             .SetVoidResult();
         JSInterop.Setup<OverflowItem[]>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowItems", args => (string?)args.Arguments[0] == "overflow")
             .SetResult([
-                new OverflowItem { Id = "item1", Overflow = true, Text = "Item 1", Fixed = "fixed", Index = 0 },
-                new OverflowItem { Id = "item2", Overflow = false, Text = "Item 2", Fixed = null, Index = 1 }
+                new OverflowItem { Id = "item1", Overflow = true, Text = "Item 1", Behavior = OverflowBehavior.Fixed, Index = 0 },
+                new OverflowItem { Id = "item2", Overflow = false, Text = "Item 2", Behavior = null, Index = 1 }
             ]);
         JSInterop.Setup<int>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowCount", args => (string?)args.Arguments[0] == "overflow")
             .SetResult(3);
