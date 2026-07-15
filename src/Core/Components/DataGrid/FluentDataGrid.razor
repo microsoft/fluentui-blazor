@@ -52,7 +52,7 @@
                 {
                     @if (Virtualize)
                     {
-                        if (_internalGridContext.TotalItemCount == 0)
+                        if (_internalGridContext.TotalItemCount == 0 && _virtualizeComponent is not null)
                         {
                             @_renderEmptyContent
                         }
