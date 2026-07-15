@@ -9,7 +9,7 @@
             Color="@Color.Error"
             @attributes="AdditionalAttributes">
     @foreach (var message in ValidationMessages)
-    {   <div class="message" >
+    {   <div message >
             @CreateIcon(Icon)
             @message
         </div>
