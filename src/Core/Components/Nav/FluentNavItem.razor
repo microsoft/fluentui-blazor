@@ -2,7 +2,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentNavBase
 
-@if (!string.IsNullOrEmpty(Href))
+@if (!string.IsNullOrEmpty(Href) && !Disabled)
 {
     <NavLink fuib
              id="@Id"
