@@ -32,6 +32,7 @@ else
             title="@Tooltip"
             target="@Target.ToAttributeValue()"
             rel="@(Target is not null ? RelNoOpenerNoReferrer : string.Empty)"
+            disabled="@Disabled"
             @onclick="OnClickHandlerAsync"
             @attributes="@AdditionalAttributes">
         @RenderIcon
