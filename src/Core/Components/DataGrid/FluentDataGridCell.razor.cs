@@ -160,7 +160,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         CellType != DataGridCellType.Default
         || Grid.OnCellClick.HasDelegate
         || Grid.OnCellFocus.HasDelegate
-        || Column is SelectColumn<TGridItem>;
+        || Column?.RequiresCellComponent == true;
 
     /// <summary />
     internal async Task HandleOnCellClickAsync()
