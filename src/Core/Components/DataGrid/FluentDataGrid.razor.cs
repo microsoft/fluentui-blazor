@@ -1580,6 +1580,45 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         };
     }
 
+    /// <summary>
+    /// Returns whether the given column's cells need the <see cref="FluentDataGridCell{TGridItem}"/> component.
+    /// </summary>
+    private bool CellNeedsComponent(ColumnBase<TGridItem> column)
+        => column.RequiresCellComponent
+        || column.HierarchicalToggle
+        || OnCellClick.HasDelegate
+        || OnCellFocus.HasDelegate;
+
+    /// <summary>
+    /// Returns whether the grid renders its cells as <see cref="FluentDataGridCell{TGridItem}"/> components.
+    /// When no column needs the component, cells are rendered as plain <c>&lt;td&gt;</c> elements instead.
+    /// The decision is all-or-nothing so cells stay uniform within a grid.
+    /// </summary>
+    private bool UseComponentCells()
+    {
+        foreach (var column in _columns)
+        {
+            if (CellNeedsComponent(column))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Builds the class for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
+    /// </summary>
+    private string? PlainCellClass(ColumnBase<TGridItem> column, string? rowClass)
+        => FluentDataGridCell<TGridItem>.BuildClass(this, column, DataGridCellType.Default, ColumnJustifyClass(column), rowClass, marginClass: null, paddingClass: null);
+
+    /// <summary>
+    /// Builds the inline style for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
+    /// </summary>
+    private string? PlainCellStyle(ColumnBase<TGridItem> column, int gridColumn, string? rowStyle)
+        => FluentDataGridCell<TGridItem>.BuildStyle(this, column, _internalGridContext, DataGridCellType.Default, DataGridRowType.Default, gridColumn, column.Style, rowStyle, marginStyle: null, paddingStyle: null);
+
     private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)
