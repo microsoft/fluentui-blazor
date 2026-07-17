@@ -58,7 +58,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnResizing;
     private bool _checkColumnReordering;
     private bool _manualGrid;
-    private bool _useComponentCells;
     private readonly RenderFragment _renderColumnHeaders;
     private readonly RenderFragment _renderNonVirtualizedRows;
     private readonly RenderFragment _renderEmptyContent;
@@ -639,7 +638,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
-        _useComponentCells = UseComponentCells();
 
         if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Exists(x => x is not SelectColumn<TGridItem> && !string.IsNullOrWhiteSpace(x.Width)))
         {
@@ -1583,31 +1581,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Returns whether the given column's cells need the <see cref="FluentDataGridCell{TGridItem}"/> component.
+    /// Returns whether the given column's cells render as the <see cref="FluentDataGridCell{TGridItem}"/>
+    /// component. Columns that don't need it render as plain <c>&lt;td&gt;</c> elements, which avoids the
+    /// per-cell component overhead. Grid-level cell handlers make every column need the component; the
+    /// hierarchical toggle does not, since its content renders the same inside either variant.
     /// </summary>
     private bool CellNeedsComponent(ColumnBase<TGridItem> column)
-        => column.RequiresCellComponent
-        || column.HierarchicalToggle
-        || OnCellClick.HasDelegate
-        || OnCellFocus.HasDelegate;
-
-    /// <summary>
-    /// Returns whether the grid renders its cells as <see cref="FluentDataGridCell{TGridItem}"/> components.
-    /// When no column needs the component, cells are rendered as plain <c>&lt;td&gt;</c> elements instead.
-    /// The decision is all-or-nothing so cells stay uniform within a grid.
-    /// </summary>
-    private bool UseComponentCells()
-    {
-        foreach (var column in _columns)
-        {
-            if (CellNeedsComponent(column))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
+        => column.RequiresCellComponent || OnCellClick.HasDelegate || OnCellFocus.HasDelegate;
 
     /// <summary>
     /// Builds the class for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
