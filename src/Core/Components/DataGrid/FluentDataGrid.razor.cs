@@ -1580,6 +1580,27 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         };
     }
 
+    /// <summary>
+    /// Returns whether the given column's cells render as the <see cref="FluentDataGridCell{TGridItem}"/>
+    /// component. Columns that don't need it render as plain <c>&lt;td&gt;</c> elements, which avoids the
+    /// per-cell component overhead. Grid-level cell handlers make every column need the component; the
+    /// hierarchical toggle does not, since its content renders the same inside either variant.
+    /// </summary>
+    private bool CellNeedsComponent(ColumnBase<TGridItem> column)
+        => column.RequiresCellComponent || OnCellClick.HasDelegate || OnCellFocus.HasDelegate;
+
+    /// <summary>
+    /// Builds the class for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
+    /// </summary>
+    private string? PlainCellClass(ColumnBase<TGridItem> column, string? rowClass)
+        => FluentDataGridCell<TGridItem>.BuildClass(this, column, DataGridCellType.Default, ColumnJustifyClass(column), rowClass, marginClass: null, paddingClass: null);
+
+    /// <summary>
+    /// Builds the inline style for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
+    /// </summary>
+    private string? PlainCellStyle(ColumnBase<TGridItem> column, int gridColumn, string? rowStyle)
+        => FluentDataGridCell<TGridItem>.BuildStyle(this, column, _internalGridContext, DataGridCellType.Default, DataGridRowType.Default, gridColumn, column.Style, rowStyle, marginStyle: null, paddingStyle: null);
+
     private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(column.Class)

@@ -1,20 +1,40 @@
-﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TGridItem
 
 @if (CellType == DataGridCellType.Default)
 {
-    <td id="@Id"
-        col-index=@GridColumn
-        class="@ClassValue"
-        style="@StyleValue"
-        role="gridcell"
-        @onkeydown="@HandleOnCellKeyDownAsync"
-        @onclick="@HandleOnCellClickAsync"
-        @onfocus="@HandleOnCellFocusAsync"
-        @attributes="AdditionalAttributes">
-        @ChildContent
-    </td>
+    @if (WireCellEvents)
+    {
+        <td id="@Id"
+            col-index=@GridColumn
+            class="@ClassValue"
+            style="@StyleValue"
+            role="gridcell"
+            tabindex="@CellTabIndex"
+            title="@CellTitle"
+            aria-label="@CellTitle"
+            @onkeydown="@HandleOnCellKeyDownAsync"
+            @onclick="@HandleOnCellClickAsync"
+            @onfocus="@HandleOnCellFocusAsync"
+            @attributes="AdditionalAttributes">
+            @ChildContent
+        </td>
+    }
+    else
+    {
+        <td id="@Id"
+            col-index=@GridColumn
+            class="@ClassValue"
+            style="@StyleValue"
+            role="gridcell"
+            tabindex="@CellTabIndex"
+            title="@CellTitle"
+            aria-label="@CellTitle"
+            @attributes="AdditionalAttributes">
+            @ChildContent
+        </td>
+    }
 }
 else
 {

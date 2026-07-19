@@ -116,28 +116,52 @@
 
                 string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
-                <FluentDataGridCell GridColumn=@(colIndex + 1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" title="@tooltip" aria-label="@tooltip" tabindex="@(col.DisableCellFocus ? null : 0)">
-                    @if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
-                    {
-                        <span class="hierarchical-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
-                            <span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
-                                @if (hierarchicalItem.HasChildren)
-                                {
-                                    <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="hierarchical-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
-                                        <FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
-                                    </FluentButton>
-                                }
-                            </span>
-                            @((RenderFragment)(__builder => col.CellContent(__builder, item)))
-                        </span>
-                    }
-                    else
-                    {
-                        @((RenderFragment)(__builder => col.CellContent(__builder, item)))
-                    }
-                </FluentDataGridCell>
+                @if (CellNeedsComponent(col))
+                {
+                    <FluentDataGridCell GridColumn=@(colIndex + 1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" CellTitle="@tooltip">
+                        @((RenderFragment)(__builder => RenderCellInner(__builder, col, item)))
+                    </FluentDataGridCell>
+                }
+                else
+                {
+                    // Columns that don't need cell-level interaction render as a plain <td> instead of the
+                    // FluentDataGridCell component. Class/style come from the same shared builders the
+                    // component uses, so the emitted markup is identical.
+                    <td col-index="@(colIndex + 1)"
+                        @key="@col"
+                        class="@PlainCellClass(col, rowClass)"
+                        style="@PlainCellStyle(col, colIndex + 1, rowStyle)"
+                        role="gridcell"
+                        tabindex="@(col.DisableCellFocus ? null : "0")"
+                        title="@tooltip"
+                        aria-label="@tooltip">
+                        @((RenderFragment)(__builder => RenderCellInner(__builder, col, item)))
+                    </td>
+                }
             }
         </FluentDataGridRow>
+    }
+
+    private void RenderCellInner(RenderTreeBuilder __builder, ColumnBase<TGridItem> col, TGridItem item)
+    {
+        @if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
+        {
+            <span class="hierarchical-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
+                <span @onclick:stopPropagation="true" class="hierarchical-expander @(hierarchicalItem.IsCollapsed ? "hierarchical-collapsed" : "hierarchical-expanded")">
+                    @if (hierarchicalItem.HasChildren)
+                    {
+                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="hierarchical-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
+                            <FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
+                        </FluentButton>
+                    }
+                </span>
+                @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+            </span>
+        }
+        else
+        {
+            @((RenderFragment)(__builder => col.CellContent(__builder, item)))
+        }
     }
 
     [ExcludeFromCodeCoverage(Justification = "This method is used virtualized mode and cannot be tested with bUnit currently.")]
