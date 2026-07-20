@@ -2583,7 +2583,7 @@
             </FluentDataGrid>);
 
         // Act
-        var toggleButton = cut.WaitForElement(".hierarchical-expand-button");
+        var toggleButton = cut.WaitForElement(".row-expand-button");
         await cut.InvokeAsync(() => toggleButton.Click());
 
         // Assert

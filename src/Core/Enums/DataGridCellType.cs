@@ -27,4 +27,10 @@ public enum DataGridCellType
     /// </summary>
     [Description("rowheader")]
     RowHeader,
+
+    /// <summary>
+    /// A cell that spans all columns and holds the expanded <see cref="FluentDataGrid{TGridItem}.RowDetails"/> content of a row.
+    /// </summary>
+    [Description("rowdetails")]
+    RowDetails,
 }
