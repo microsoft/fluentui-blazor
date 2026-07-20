@@ -15,20 +15,20 @@
                     RowStyle="@rowStyle"
                     HeaderCellAsButtonWithMenu="true"
                     ColumnResizeLabels="@resizeLabels">
-        <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
+        <TemplateColumn Tooltip="true" TooltipText="@(c => "Flag of " + c.Name)" HeaderTooltip="Column options for rank" Title="Rank" SortBy="@rankSort" Align="Align.Center" InitialSortDirection="SortDirection.Ascending" IsDefaultSortColumn=true>
             <img class="flag" src="_content/FluentUI.Demo.Shared/flags/@(context.Code).svg" alt="Flag of @(context.Code)" />
         </TemplateColumn>
-        <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" Title="Name of the country">
+        <PropertyColumn Property="@(c => c.Name)" Sortable="true" Filtered="!string.IsNullOrWhiteSpace(nameFilter)" Tooltip="true" HeaderTooltip="Column options for country" Title="Name of the country">
             <ColumnOptions>
                 <div class="search-box">
                     <FluentSearch Autofocus=true @bind-Value=nameFilter @oninput="HandleCountryFilter" @onkeydown="HandleCloseFilterAsync" @bind-Value:after="HandleClear" Placeholder="Country name..." Style="width: 100%;" Label="Filter" />
                 </div>
             </ColumnOptions>
         </PropertyColumn>
-        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" />
-        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" />
-        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="false" Align="Align.End" />
-        <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="Align.End" Tooltip="true">
+        <PropertyColumn Property="@(c => c.Medals.Gold)" Sortable="true" Align="Align.Start" Tooltip="true" TooltipText="@(c => "That is " + c.Medals.Gold + " x GOLD!!")" HeaderTooltip="Column options for gold" />
+        <PropertyColumn Property="@(c => c.Medals.Silver)" Sortable="true" Align="Align.Center" Tooltip="true" HeaderTooltip="Column options for silver" />
+        <PropertyColumn Property="@(c => c.Medals.Bronze)" Sortable="false" Align="Align.End" HeaderTooltip="Adjust column width for bronze" />
+        <PropertyColumn Property="@(c => c.Medals.Total)" Sortable="true" Filtered="@(minMedals != 0 || maxMedals != 130)" Align="Align.End" Tooltip="true" HeaderTooltip="Column options for total">
             <ColumnOptions>
                 <div style="width: 100%; height: 150px;">
                     <FluentSlider Label="@($"Min ({minMedals})")" Min="0" Max="150" Step="1" Orientation="Orientation.Horizontal" @bind-Value=minMedals Immediate="true" Style="width: 100%;">
