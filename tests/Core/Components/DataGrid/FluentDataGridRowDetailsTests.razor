@@ -30,14 +30,14 @@
         var cut = RenderGrid();
 
         // Act: expand the first row
-        cut.FindAll(".hierarchical-expand-button")[0].Click();
+        cut.FindAll(".row-expand-button")[0].Click();
 
         // Assert
         var detailsRow = cut.Find("tr.row-details-row");
         Assert.Contains("details of Denis Voituron", detailsRow.TextContent);
 
         // Act: collapse it again
-        cut.FindAll(".hierarchical-expand-button")[0].Click();
+        cut.FindAll(".row-expand-button")[0].Click();
 
         // Assert
         Assert.Empty(cut.FindAll("tr.row-details-row"));
@@ -97,7 +97,7 @@
             </FluentDataGrid>);
 
         // Act
-        cut.FindAll(".hierarchical-expand-button")[1].Click();
+        cut.FindAll(".row-expand-button")[1].Click();
 
         // Assert
         Assert.Equal("Vincent Baaij", toggledItem?.Name);
