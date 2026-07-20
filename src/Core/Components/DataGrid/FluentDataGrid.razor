@@ -170,7 +170,7 @@
             <span class="row-toggle-container row-details-toggle-container">
                 <span @onclick:stopPropagation="true" class="row-expander @(rowDetailsExpanded ? "row-expanded" : "row-collapsed")">
                     <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleRowDetails]" aria-expanded="@(rowDetailsExpanded ? "true" : "false")" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="row-expand-button" OnClick="@(() => ToggleRowDetailsAsync(item))">
-                        <FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
+                        <FluentIcon Width="12px" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
                     </FluentButton>
                 </span>
             </span>
@@ -182,7 +182,7 @@
                     @if (hierarchicalItem.HasChildren)
                     {
                         <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="row-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
-                            <FluentIcon Width="12" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
+                            <FluentIcon Width="12px" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
                         </FluentButton>
                     }
                 </span>
