@@ -1022,7 +1022,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? AriaSortValue(ColumnBase<TGridItem> column)
          => _sortByColumn == column
              ? (_sortByAscending ? "ascending" : "descending")
-             : null;
+             : "none";
 
     private string? StyleValue => new StyleBuilder(Style)
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)

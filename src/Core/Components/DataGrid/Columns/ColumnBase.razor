@@ -25,18 +25,35 @@
         {
             @HeaderCellItemTemplate(this)
         }
-        else if (Grid.HeaderCellAsButtonWithMenu)
-        {
-            string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
+            else if (Grid.HeaderCellAsButtonWithMenu)
+            {
+                string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
-            <FluentKeyCode  Only="@(new[] { KeyCode.KeyR })"  OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
-
-                @if (AnyColumnActionEnabled)
+                // Ensure the accessible name (aria-label) is anchored to the visible Title
+                // and optionally append HeaderTooltip when it differs. Use HeaderTooltip
+                // as the mouse tooltip (Title attribute) when provided.
+                string? ariaLabel = null;
+                if (!string.IsNullOrEmpty(Title))
                 {
-                    <FluentButton Disabled="@(!AnyColumnActionEnabled)" Id="@_columnId" Appearance="Appearance.Stealth" Class="col-sort-button" Style="width: calc(100% - 10px);" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@(HeaderTooltip ?? tooltip)" Title="@Title" aria-haspopup="menu">
-                        <div class="col-title-text" title="@tooltip">
-                            @HeaderTitleContent
-                        </div>
+                    ariaLabel = Title;
+                    if (!string.IsNullOrEmpty(HeaderTooltip) && HeaderTooltip != Title)
+                    {
+                        ariaLabel = $"{HeaderTooltip} - {ariaLabel}";
+                    }
+                }
+                else
+                {
+                    ariaLabel = HeaderTooltip ?? tooltip;
+                }
+
+                <FluentKeyCode  Only="@(new[] { KeyCode.KeyR })"  OnKeyDown="HandleKeyDown" class="keycapture" style="width: 100%;" StopPropagation="true" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+
+                    @if (AnyColumnActionEnabled)
+                    {
+                    <FluentButton Disabled="@(!AnyColumnActionEnabled)" Id="@_columnId" Appearance="Appearance.Stealth" Class="col-sort-button" Style="width: calc(100% - 10px);" @onclick="@HandleColumnHeaderClickedAsync" aria-label="@ariaLabel" Title="@(HeaderTooltip ?? Title)" aria-haspopup="menu">
+                            <div class="col-title-text" title="@tooltip">
+                                @HeaderTitleContent
+                            </div>
 
                         @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
                         {
