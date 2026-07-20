@@ -1,0 +1,18 @@
+@page "/keycode/malformed-keyboard-event"
+
+<FluentKeyCode OnKeyDown="@HandleKeyDown">
+    <input data-testid="key-target" />
+</FluentKeyCode>
+
+<span data-testid="key-code">@LastKeyCode?.KeyCode</span>
+<span data-testid="key-location">@((int?)LastKeyCode?.Location)</span>
+
+@code
+{
+    private FluentKeyCodeEventArgs? LastKeyCode { get; set; }
+
+    private void HandleKeyDown(FluentKeyCodeEventArgs args)
+    {
+        LastKeyCode = args;
+    }
+}

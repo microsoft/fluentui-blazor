@@ -1,5 +1,14 @@
 export namespace Microsoft.FluentUI.Blazor.KeyCode {
 
+  function normalizeInteger(value: unknown): number {
+    const number = Number(value);
+    return Number.isInteger(number) ? number : 0;
+  }
+
+  function normalizeBoolean(value: unknown): boolean {
+    return typeof value === "boolean" ? value : false;
+  }
+
   /**
    * Registers a key code event handler for the specified element.
    * This function integrates with the FluentKeyCode Blazor component to handle key events such as KeyDown and KeyUp.
@@ -59,7 +68,7 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
 
       const handler = function (e: KeyboardEvent, netMethod: string) {
         const ev = e as any;
-        const keyCode = ev.which || ev.keyCode || ev.charCode;
+        const keyCode = normalizeInteger(ev.which || ev.keyCode || ev.charCode);
 
         if (stopRepeat && e.repeat) {
           return;
@@ -90,7 +99,17 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
             if (isStopPropagation) {
               e.stopPropagation();
             }
-            dotNetHelper.invokeMethodAsync(netMethod, keyCode, e.key, e.ctrlKey, e.shiftKey, e.altKey, e.metaKey, e.location, targetId, e.repeat);
+            dotNetHelper.invokeMethodAsync(
+              netMethod,
+              keyCode,
+              typeof e.key === "string" ? e.key : "",
+              normalizeBoolean(e.ctrlKey),
+              normalizeBoolean(e.shiftKey),
+              normalizeBoolean(e.altKey),
+              normalizeBoolean(e.metaKey),
+              normalizeInteger(e.location),
+              targetId,
+              normalizeBoolean(e.repeat));
             return;
           }
         }
