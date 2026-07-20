@@ -30,7 +30,7 @@
                 string? tooltip = Tooltip ? (HeaderTooltip ?? Title) : null;
 
                 // Ensure the accessible name (aria-label) is anchored to the visible Title
-                // and optionally append HeaderTooltip when it differs. Use HeaderTooltip
+                // and optionally prepend HeaderTooltip when it differs. Use HeaderTooltip
                 // as the mouse tooltip (Title attribute) when provided.
                 string? ariaLabel = null;
                 if (!string.IsNullOrEmpty(Title))
