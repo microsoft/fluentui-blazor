@@ -32,9 +32,26 @@
             string headerPopupLayerStyle = $"position: relative; z-index: {ZIndex.DataGridHeaderPopup};";
             string headerButtonStyle = $"width: calc(100% - 10px); {headerPopupLayerStyle}";
 
+            // Ensure the accessible name (aria-label) is anchored to the visible Title
+            // and optionally prepend HeaderTooltip when it differs. Use HeaderTooltip
+            // as the mouse tooltip (Title attribute) when provided.
+            string? ariaLabel = null;
+            if (!string.IsNullOrEmpty(Title))
+            {
+                ariaLabel = Title;
+                if (!string.IsNullOrEmpty(HeaderTooltip) && HeaderTooltip != Title)
+                {
+                    ariaLabel = $"{HeaderTooltip} - {ariaLabel}";
+                }
+            }
+            else
+            {
+                ariaLabel = HeaderTooltip ?? tooltip;
+            }
+
             @if (headerCapabilities.HasAnyAction)
             {
-                <FluentButton Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                <FluentButton Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@ariaLabel" Title="@(HeaderTooltip ?? Title)" aria-haspopup="menu" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" aria-controls="@HeaderMenuId">
                     <div class="col-title-text" title="@tooltip">
                         @HeaderTitleContent
                     </div>
