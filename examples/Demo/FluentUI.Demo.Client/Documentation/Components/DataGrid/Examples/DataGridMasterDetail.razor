@@ -3,6 +3,10 @@
         padding: 0.5rem 1rem 1rem 2.5rem;
         background: var(--colorNeutralBackground2);
     }
+
+    .detail-heading {
+        margin: 0 0 10px 20px;
+    }
 </style>
 
 <FluentDataGrid Items="@customers" ShowHover="true">
@@ -13,16 +17,21 @@
         <PropertyColumn Title="Total amount" Property="@(c => OrdersOf(c.Id).Sum(o => o.Amount))" Format="c" Align="DataGridCellAlignment.End" />
     </ChildContent>
     <RowDetails Context="customer">
-        <h5 style="margin: 0 0 0.5rem 0;">Orders of @customer.Name</h5>
+        <h5 class="detail-heading">Orders of @customer.Name</h5>
         <FluentDataGrid Items="@OrdersOf(customer.Id)" ShowHover="true">
-            <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
-            <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" IsDefaultSortColumn="true" />
-            <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" Sortable="true" />
-            <TemplateColumn Title="Status">
-                <FluentBadge Color="@(context.Status == "Delivered" ? BadgeColor.Success : BadgeColor.Subtle)">
-                    @context.Status
-                </FluentBadge>
-            </TemplateColumn>
+            <ChildContent>
+                <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
+                <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" IsDefaultSortColumn="true" />
+                <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" Sortable="true" />
+                <TemplateColumn Title="Status">
+                    <FluentBadge Color="@(context.Status == "Delivered" ? BadgeColor.Success : BadgeColor.Subtle)">
+                        @context.Status
+                    </FluentBadge>
+                </TemplateColumn>
+            </ChildContent>
+            <EmptyContent>
+                <p>No orders yet.</p>
+            </EmptyContent>
         </FluentDataGrid>
     </RowDetails>
 </FluentDataGrid>
@@ -31,10 +40,12 @@
     private record Customer(int Id, string Name, string City);
     private record Order(string OrderNumber, int CustomerId, DateTime OrderDate, decimal Amount, string Status);
 
+    // Tailspin Toys has no orders yet, to show what RowDetails looks like for a row without detail data
     private IQueryable<Customer> customers = new List<Customer>
     {
         new(1, "Contoso Ltd.", "Seattle"),
         new(2, "Fabrikam, Inc.", "Paris"),
+        new(5, "Tailspin Toys", "Chicago"),
         new(3, "Northwind Traders", "London"),
         new(4, "Adventure Works", "Brussels"),
     }.AsQueryable();

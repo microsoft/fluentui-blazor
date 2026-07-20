@@ -8,6 +8,10 @@
         .two-levels .row-details-cell .row-details-cell {
             background: var(--colorNeutralBackground3);
         }
+
+    .two-levels .detail-heading {
+        margin: 0 0 10px 20px;
+    }
 </style>
 
 <div class="two-levels">
@@ -18,7 +22,7 @@
             <PropertyColumn Title="Orders" Property="@(c => OrdersOf(c.Id).Count())" Align="DataGridCellAlignment.End" />
         </ChildContent>
         <RowDetails Context="customer">
-            <h5 style="margin: 0 0 0.5rem 0;">Orders of @customer.Name</h5>
+            <h5 class="detail-heading">Orders of @customer.Name</h5>
             <FluentDataGrid Items="@OrdersOf(customer.Id)" ShowHover="true">
                 <ChildContent>
                     <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
@@ -26,7 +30,7 @@
                     <PropertyColumn Title="Amount" Property="@(o => LinesOf(o.OrderNumber).Sum(l => l.Quantity * l.UnitPrice))" Format="c" Align="DataGridCellAlignment.End" />
                 </ChildContent>
                 <RowDetails Context="order">
-                    <h5 style="margin: 0 0 0.5rem 0;">Lines of order @order.OrderNumber</h5>
+                    <h5 class="detail-heading">Lines of order @order.OrderNumber</h5>
                     <FluentDataGrid Items="@LinesOf(order.OrderNumber)" ShowHover="true">
                         <PropertyColumn Title="Product" Property="@(l => l.Product)" />
                         <PropertyColumn Title="Quantity" Property="@(l => l.Quantity)" Align="DataGridCellAlignment.End" />

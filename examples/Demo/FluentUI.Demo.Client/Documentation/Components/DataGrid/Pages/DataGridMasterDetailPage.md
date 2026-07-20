@@ -11,7 +11,8 @@ spanning all columns, directly below the expanded row.
 
 The template's `context` is the master row's item, so you can place a child `FluentDataGrid` inside it and filter
 its items based on the master row. In this example, expanding a customer shows a child grid with that customer's
-orders.
+orders. Not every row needs to have detail data: Tailspin Toys has no orders yet, so expanding it shows the child
+grid's `EmptyContent` instead.
 
 Unlike the [hierarchical view](/DataGrid/Hierarchical) — where parent and child rows share the same item type and
 the same columns within a single grid — the master/detail view displays data of a completely different structure:
@@ -23,7 +24,7 @@ Rows can also be expanded and collapsed programmatically with the `ToggleRowDeta
 per affected row when using `ExpandAllRowDetailsAsync`/`CollapseAllRowDetailsAsync` — but not for rows that were
 already in the requested state.
 
-*Note: `RowDetails` cannot be combined with `Virtualize`.*
+>[!WARNING] The `RowDetails` parameter cannot be used when the `Virtualize` parameter is set to `true`.
 
 {{ DataGridMasterDetail Files=Code:DataGridMasterDetail.razor }}
 
