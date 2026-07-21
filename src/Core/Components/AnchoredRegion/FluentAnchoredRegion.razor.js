@@ -60,7 +60,7 @@ function getAnchorTraversalStart(anchorElement) {
 }
 
 function getFluentShadowFocusTarget(element) {
-    if (!element?.tagName?.startsWith("FLUENT-")) {
+    if (!element?.tagName?.startsWith("FLUENT-") || element.tabIndex !== -1) {
         return null;
     }
 
@@ -68,11 +68,26 @@ function getFluentShadowFocusTarget(element) {
         .find(child => child.tabIndex !== -1 && child.checkVisibility()) ?? null;
 }
 
+function isInComposedTree(element, ancestor) {
+    let current = element;
+
+    while (current) {
+        if (ancestor.contains(current)) {
+            return true;
+        }
+
+        const root = current.getRootNode();
+        current = root instanceof ShadowRoot ? root.host : null;
+    }
+
+    return false;
+}
+
 function findNextFocusableElementAfterAnchor(anchorElement, popupElement) {
     const startFrom = getAnchorTraversalStart(anchorElement);
     const focusableElements = new FocusableElement(anchorElement.getRootNode())
         .getFocusableElements()
-        .filter(element => !popupElement.contains(element));
+        .filter(element => !isInComposedTree(element, popupElement));
     const currentIndex = focusableElements.indexOf(startFrom);
 
     return currentIndex === -1 ? null : focusableElements[currentIndex + 1] ?? null;
@@ -117,7 +132,7 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
             // Case 4: close key → return focus to anchor, close
             ev.preventDefault();
             ev.stopPropagation();
-            anchorElement.focus();
+            getAnchorFocusTarget(anchorElement).focus();
             dotNetHelper.invokeMethodAsync('CloseAsync');
             return;
         }

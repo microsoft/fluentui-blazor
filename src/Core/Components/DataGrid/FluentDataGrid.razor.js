@@ -104,13 +104,14 @@ export function init(gridElement, autoFocus) {
             }
 
             if (event.key === "Tab") {
+                const activeElement = event.composedPath()[0];
                 const resizeFocusables = getFocusableElements(columnResizeElement);
-                const activeIndex = resizeFocusables.indexOf(document.activeElement);
+                const activeIndex = resizeFocusables.indexOf(activeElement);
                 const isFirstElement = activeIndex === 0;
                 const isLastElement = activeIndex === resizeFocusables.length - 1;
 
                 if ((event.shiftKey && isFirstElement) || (!event.shiftKey && isLastElement)) {
-                    const focusTarget = findAdjacentFocusableElement(document.activeElement, event.shiftKey);
+                    const focusTarget = findAdjacentFocusableElement(activeElement, event.shiftKey);
                     event.preventDefault();
                     event.stopPropagation();
                     closeColumnResizeAndFocus(gridElement, columnResizeElement, focusTarget);
