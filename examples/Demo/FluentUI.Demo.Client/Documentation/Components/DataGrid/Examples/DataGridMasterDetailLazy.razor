@@ -9,28 +9,30 @@
     }
 </style>
 
-<FluentDataGrid TGridItem="Customer" Items="@customers" ShowHover="true" OnRowDetailsToggle="@OnRowDetailsToggleAsync">
-    <ChildContent>
-        <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
-        <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
-    </ChildContent>
-    <RowDetails Context="customer">
-        @if (!ordersByCustomerId.TryGetValue(customer.Id, out var orders))
-        {
-            <FluentStack Class="detail-spinner" HorizontalAlignment="HorizontalAlignment.Center">
-                <FluentSpinner Size="SpinnerSize.Medium" />
-            </FluentStack>
-        }
-        else
-        {
-            <FluentDataGrid Items="@orders" ShowHover="true">
-                <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
-                <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" />
-                <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" />
-            </FluentDataGrid>
-        }
-    </RowDetails>
-</FluentDataGrid>
+<div class="lazy-loaded-detail">
+    <FluentDataGrid TGridItem="Customer" Items="@customers" ShowHover="true" OnRowDetailsToggle="@OnRowDetailsToggleAsync">
+        <ChildContent>
+            <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
+            <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
+        </ChildContent>
+        <RowDetails Context="customer">
+            @if (!ordersByCustomerId.TryGetValue(customer.Id, out var orders))
+            {
+                <FluentStack Class="detail-spinner" HorizontalAlignment="HorizontalAlignment.Center">
+                    <FluentSpinner Size="SpinnerSize.Medium" />
+                </FluentStack>
+            }
+            else
+            {
+                <FluentDataGrid Items="@orders" ShowHover="true">
+                    <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
+                    <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" />
+                    <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" />
+                </FluentDataGrid>
+            }
+        </RowDetails>
+    </FluentDataGrid>
+</div>
 
 @code {
     private record Customer(int Id, string Name, string City);
