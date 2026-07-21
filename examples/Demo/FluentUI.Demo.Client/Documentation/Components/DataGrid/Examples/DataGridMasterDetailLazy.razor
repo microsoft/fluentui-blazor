@@ -3,6 +3,10 @@
         padding: 1rem 1rem 1rem 2.5rem;
         background: var(--colorNeutralBackground2);
     }
+
+    .detail-spinner {
+        margin: 1rem 0;
+    }
 </style>
 
 <FluentDataGrid TGridItem="Customer" Items="@customers" ShowHover="true" OnRowDetailsToggle="@OnRowDetailsToggleAsync">
@@ -13,7 +17,7 @@
     <RowDetails Context="customer">
         @if (!ordersByCustomerId.TryGetValue(customer.Id, out var orders))
         {
-            <FluentStack HorizontalAlignment="HorizontalAlignment.Center">
+            <FluentStack Class="detail-spinner" HorizontalAlignment="HorizontalAlignment.Center">
                 <FluentSpinner Size="SpinnerSize.Medium" />
             </FluentStack>
         }
