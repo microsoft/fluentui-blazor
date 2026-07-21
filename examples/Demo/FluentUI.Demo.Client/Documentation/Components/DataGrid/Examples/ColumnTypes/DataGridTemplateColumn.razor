@@ -5,7 +5,7 @@
                 <strong>@context.LastName</strong>, @context.FirstName
     </TemplateColumn>
     <TemplateColumn Title="E-Mail">
-        <FluentTextInput @bind-Value="@context.Email" Width="100%" TextInputType="TextInputType.Email" />
+        <FluentTextInput Value="@context.Email" Width="100%" TextInputType="TextInputType.Email" />
     </TemplateColumn>
     <TemplateColumn Title="Bonus">
         <FluentButton Appearance="ButtonAppearance.Primary" @onclick="@(() => Bonus(context))">Regular</FluentButton>

@@ -149,11 +149,6 @@ public partial class People
         /// </summary>
         public int Age => DateTime.Today.Year - BirthDay.Year;
 
-        /// <summary>
-        /// Gets or sets the E-Mail address of the person.
-        /// </summary>
-        public string Email { get; set; } = Email;
-
         /// <summary />
         public override string ToString()
         {
