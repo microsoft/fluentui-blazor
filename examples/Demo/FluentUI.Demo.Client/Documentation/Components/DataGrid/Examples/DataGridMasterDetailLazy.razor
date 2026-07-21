@@ -1,0 +1,64 @@
+<style>
+    .row-details-cell {
+        padding: 1rem 1rem 1rem 2.5rem;
+        background: var(--colorNeutralBackground2);
+    }
+</style>
+
+<FluentDataGrid TGridItem="Customer" Items="@customers" ShowHover="true" OnRowDetailsToggle="@OnRowDetailsToggleAsync">
+    <ChildContent>
+        <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
+        <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
+    </ChildContent>
+    <RowDetails Context="customer">
+        @if (!ordersByCustomerId.TryGetValue(customer.Id, out var orders))
+        {
+            <FluentStack HorizontalAlignment="HorizontalAlignment.Center">
+                <FluentSpinner Size="SpinnerSize.Medium" />
+            </FluentStack>
+        }
+        else
+        {
+            <FluentDataGrid Items="@orders" ShowHover="true">
+                <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
+                <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" />
+                <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" />
+            </FluentDataGrid>
+        }
+    </RowDetails>
+</FluentDataGrid>
+
+@code {
+    private record Customer(int Id, string Name, string City);
+    private record Order(string OrderNumber, DateTime OrderDate, decimal Amount);
+
+    // A missing entry means "not loaded yet" for that customer, so the RowDetails template shows the spinner
+    private readonly Dictionary<int, IQueryable<Order>> ordersByCustomerId = [];
+
+    private IQueryable<Customer> customers = new List<Customer>
+    {
+        new(1, "Contoso Ltd.", "Seattle"),
+        new(2, "Fabrikam, Inc.", "Paris"),
+        new(3, "Northwind Traders", "London"),
+    }.AsQueryable();
+
+    // OnRowDetailsToggle fires as soon as the row expands, so the grid can already render the RowDetails
+    // template (showing the spinner) while this handler is still fetching data in the background.
+    private async Task OnRowDetailsToggleAsync(Customer customer)
+    {
+        if (ordersByCustomerId.ContainsKey(customer.Id))
+        {
+            return;
+        }
+
+        // Simulates a network call to fetch this customer's orders
+        await Task.Delay(1500);
+
+        ordersByCustomerId[customer.Id] = customer.Id switch
+        {
+            1 => new List<Order> { new("ORD-1001", new DateTime(2026, 5, 12), 1250.00m), new("ORD-1002", new DateTime(2026, 6, 3), 480.50m) }.AsQueryable(),
+            2 => new List<Order> { new("ORD-2001", new DateTime(2026, 4, 21), 3200.00m) }.AsQueryable(),
+            _ => new List<Order> { new("ORD-3001", new DateTime(2026, 6, 10), 2100.00m) }.AsQueryable(),
+        };
+    }
+}

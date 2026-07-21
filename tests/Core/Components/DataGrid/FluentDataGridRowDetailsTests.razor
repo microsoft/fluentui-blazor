@@ -170,6 +170,86 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_RowDetails_Row_Appears_Before_Async_OnRowDetailsToggle_CompletesAsync()
+    {
+        // Arrange: an OnRowDetailsToggle handler that suspends on an incomplete Task, simulating a lazy load
+        var tcs = new TaskCompletionSource();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" OnRowDetailsToggle="@((Customer c) => tcs.Task)">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+
+        // Act: click the toggle; the handler suspends immediately on the incomplete task
+        await cut.InvokeAsync(() => cut.Find(".row-expand-button").Click());
+
+        // Assert: the details row (and whatever placeholder RowDetails renders while data is loading)
+        // must already be visible while the handler is still pending, not only once it completes.
+        Assert.NotEmpty(cut.FindAll("tr.row-details-row"));
+
+        // Cleanup: let the pending handler complete
+        tcs.SetResult();
+        await cut.InvokeAsync(() => Task.CompletedTask);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RowDetails_Supports_Lazy_Loading_With_Spinner_PlaceholderAsync()
+    {
+        // Arrange: RowDetails shows a spinner until OnRowDetailsToggle populates the per-item cache,
+        // matching the lazy-loading pattern from the feature request.
+        var tcs = new TaskCompletionSource();
+        Dictionary<int, string?> loadedDetails = [];
+
+        async Task OnToggleAsync(Customer c)
+        {
+            if (!loadedDetails.ContainsKey(c.Id))
+            {
+                loadedDetails[c.Id] = null; // triggers the spinner branch on the next render
+                await tcs.Task;
+                loadedDetails[c.Id] = $"loaded details of {c.Name}";
+            }
+        }
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" OnRowDetailsToggle="@((Customer c) => OnToggleAsync(c))">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails Context="customer">
+                    @if (loadedDetails.TryGetValue(customer.Id, out var loaded) && loaded is not null)
+                    {
+                        <p class="loaded">@loaded</p>
+                    }
+                    else
+                    {
+                        <p class="spinner">loading...</p>
+                    }
+                </RowDetails>
+            </FluentDataGrid>);
+
+        // Act: expand the row; the handler suspends on the incomplete task
+        await cut.InvokeAsync(() => cut.Find(".row-expand-button").Click());
+
+        // Assert: the spinner placeholder shows first, before the async load completes
+        Assert.NotEmpty(cut.FindAll("p.spinner"));
+        Assert.Empty(cut.FindAll("p.loaded"));
+
+        // Act: complete the pending load
+        tcs.SetResult();
+
+        // Assert: the row now shows the loaded content instead of the spinner
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Empty(cut.FindAll("p.spinner"));
+            Assert.Contains("loaded details of Denis Voituron", cut.Find("p.loaded").TextContent);
+        });
+    }
+
+    [Fact]
     public void FluentDataGrid_RowDetails_With_Virtualize_Throws()
     {
         // Arrange && Act && Assert
