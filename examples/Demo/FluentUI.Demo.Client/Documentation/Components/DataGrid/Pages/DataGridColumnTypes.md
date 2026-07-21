@@ -1,12 +1,27 @@
 ---
-title: Multi select
-route: /DataGrid/MultiSelect
+title: Column Types
+route: /DataGrid/ColumnTypes
 ---
 
-# Multi select
+# Column Types
 
+`FluentDataGrid` supports a variety of column types for displaying data. Depending on your use case, one type may be more suitable than another.
 
-## Multi select
+## PropertyColumn
+
+A `PropertyColumn` is the simplest column type. Use it whenever you want to display the value of a property from your data item without any additional rendering logic or markup.
+
+{{ DataGridPropertyColumn }}
+
+## TemplateColumn
+
+Use this type of column whenever you need to display complex content or when the column requires additional markup or custom rendering logic. `TemplateColumn` uses arbitrary Razor fragments to supply contents for its cells. It can't infer the column's title or sort order automatically.
+
+>[!NOTE] The `RowSize` parameter should be set to either `DataGridRowSize.Medium` or `DataGridRowSize.Large` when you want to display other Fluent components like `FluentButton` or `FluentTextInput`.
+
+{{ DataGridTemplateColumn }}
+
+## SelectColumn
 
 The same example, adding a `SelectColumn`, to allow multi-select rows.
 
@@ -31,9 +46,7 @@ This method offers more flexibility but requires additional configuration, makin
 > }
 > ```
 
-{{ DataGridMultiSelect } }}
-
-
+{{ DataGridSelectColumn }}
 
 Using this `SelectColumn`, you can customize the checkboxes by using `ChildContent` to define the contents of the selection for each row of the grid;
 or `SelectAllTemplate` to customize the header of this column.
@@ -50,3 +63,15 @@ Example:
     @(context.Selected ? "✅" : " ")                @@* Using Property and OnSelect *@@
 </ChildContent>
 ```
+
+## API PropertyColumn
+
+{{ API Type=PropertyColumn<string,string> }}
+
+## API TemplateColumn
+
+{{ API Type=TemplateColumn<string> }}
+
+## API SelectColumn
+
+{{ API Type=SelectColumn<string> }}

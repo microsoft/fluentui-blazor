@@ -1,8 +1,11 @@
 ﻿@using static FluentUI.Demo.SampleData.People
 
-<FluentDataGrid Items="@Persons.Take(10).AsQueryable()" style="width: 600px;" RowSize="@DataGridRowSize.Medium">
+<FluentDataGrid Items="items" style="width: 700px;" RowSize="@DataGridRowSize.Medium">
     <TemplateColumn Title="Person" SortBy="@sortByName">
                 <strong>@context.LastName</strong>, @context.FirstName
+    </TemplateColumn>
+    <TemplateColumn Title="E-Mail">
+        <FluentTextInput @bind-Value="@context.Email" Width="100%" TextInputType="TextInputType.Email" />
     </TemplateColumn>
     <TemplateColumn Title="Bonus">
         <FluentButton Appearance="ButtonAppearance.Primary" @onclick="@(() => Bonus(context))">Regular</FluentButton>
@@ -15,6 +18,14 @@
 
 @code {
     string message = string.Empty;
+
+    IQueryable<Person> items = Enumerable.Empty<Person>().AsQueryable();
+
+    protected override Task OnInitializedAsync()
+    {
+        items = Persons.Take(10).AsQueryable();
+        return base.OnInitializedAsync();
+    }
 
     GridSort<Person> sortByName = GridSort<Person>
         .ByAscending(p => p.LastName)
