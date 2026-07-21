@@ -1685,9 +1685,9 @@
         // Arrange && Act
         FluentDataGrid<Customer>? grid = default!;
         var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
+            @<FluentDataGrid Id="testgrid" TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
                 <ChildContent>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true" />
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true"/>
                 </ChildContent>
                 <EmptyContent><p>empty content</p></EmptyContent>
             </FluentDataGrid>);
