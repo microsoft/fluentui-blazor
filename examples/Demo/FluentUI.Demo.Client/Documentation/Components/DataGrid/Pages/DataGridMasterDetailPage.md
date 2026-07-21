@@ -47,3 +47,15 @@ Each level filters its own child grid with its own row item (the `Context` of ea
 `customer`, then `order` — to avoid ambiguity between the nested templates).
 
 {{ DataGridMasterDetailTwoLevels Files=Code:DataGridMasterDetailTwoLevels.razor }}
+
+## Lazy-loaded detail
+
+The examples above keep every row's detail data in memory up front. For data that's expensive to fetch, use
+`OnRowDetailsToggle` to load it on demand instead: the grid renders the `RowDetails` template as soon as a row
+expands — showing a spinner while the item isn't loaded yet — and re-renders it once the callback populates the
+data, without blocking the row from expanding while the load is in progress.
+
+In this example, expanding a customer for the first time shows a spinner for 1.5 seconds (simulating a network
+call) before its orders appear. Expanding it again afterwards shows the cached orders immediately.
+
+{{ DataGridMasterDetailLazy Files=Code:DataGridMasterDetailLazy.razor }}
