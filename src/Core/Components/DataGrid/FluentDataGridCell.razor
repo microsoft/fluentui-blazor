@@ -2,7 +2,7 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 
-@if (CellType == DataGridCellType.Default)
+@if (CellType is DataGridCellType.Default or DataGridCellType.RowDetails)
 {
     @if (WireCellEvents)
     {
