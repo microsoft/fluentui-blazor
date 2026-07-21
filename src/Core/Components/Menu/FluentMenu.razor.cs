@@ -23,6 +23,7 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     private bool _contextMenu = false;
     private readonly Dictionary<string, FluentMenuItem> items = [];
     private IMenuService? _menuService = null;
+    private IMenuService? _registeredMenuService;
     private IJSObjectReference _jsModule = default!;
     private IJSObjectReference _anchoredRegionModule = default!;
     private bool _disposed;
@@ -200,14 +201,16 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
         }
 
         _menuService = ServiceProvider?.GetService<IMenuService>();
-        if (MenuService != null && DrawMenuWithService)
+        var menuService = MenuService;
+        if (menuService != null && DrawMenuWithService)
         {
-            if (string.IsNullOrEmpty(MenuService.ProviderId))
+            if (string.IsNullOrEmpty(menuService.ProviderId))
             {
                 throw new ArgumentNullException(nameof(UseMenuService), "<FluentMenuProvider /> needs to be added to the main layout of your application/site.");
             }
 
-            MenuService.Add(this);
+            menuService.Add(this);
+            _registeredMenuService = menuService;
         }
 
         base.OnInitialized();
@@ -398,6 +401,13 @@ public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
     /// </summary>
     public async ValueTask DisposeAsync()
     {
+        if (_registeredMenuService is not null)
+        {
+            var menuService = _registeredMenuService;
+            _registeredMenuService = null;
+            menuService.Remove(this);
+        }
+
         if (_disposed)
         {
             return;

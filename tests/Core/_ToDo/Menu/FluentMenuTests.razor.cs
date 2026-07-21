@@ -69,5 +69,96 @@ public partial class FluentMenuTests : TestContext
         var menuInProvider = menuProviderCut.FindComponent<FluentMenu>();
         Assert.Equal(className, menuInProvider.Instance.Class, StringComparer.Ordinal);
     }
-}
 
+    [Fact]
+    public async Task FluentMenu_DisposeAsync_UnregistersMenuAndNotifiesProvider()
+    {
+        // Arrange
+        var menuService = Services.GetRequiredService<IMenuService>();
+        var updateCount = 0;
+        menuService.ProviderId = "menu-provider";
+        menuService.OnMenuUpdated = () => updateCount++;
+        var menu = new TestFluentMenu
+        {
+            ServiceProvider = Services,
+            Anchor = "menu-anchor",
+            Anchored = true
+        };
+        menu.Initialize();
+
+        Assert.Same(menu, Assert.Single(menuService.Menus));
+
+        // Act
+        await menu.DisposeAsync();
+
+        // Assert
+        Assert.Empty(menuService.Menus);
+        Assert.Equal(1, updateCount);
+    }
+
+    [Fact]
+    public async Task FluentMenu_DisposeAsync_WhenAlreadyDisposed_DoesNotNotifyProviderAgain()
+    {
+        // Arrange
+        var menuService = Services.GetRequiredService<IMenuService>();
+        var updateCount = 0;
+        menuService.ProviderId = "menu-provider";
+        menuService.OnMenuUpdated = () => updateCount++;
+        var menu = new TestFluentMenu
+        {
+            ServiceProvider = Services,
+            Anchor = "menu-anchor",
+            Anchored = true
+        };
+        menu.Initialize();
+        await menu.DisposeAsync();
+
+        // Act
+        await menu.DisposeAsync();
+
+        // Assert
+        Assert.Empty(menuService.Menus);
+        Assert.Equal(1, updateCount);
+    }
+
+    [Fact]
+    public async Task FluentMenu_DisposeAsync_DoesNotUnregisterDifferentMenuWithSameId()
+    {
+        // Arrange
+        var menuService = Services.GetRequiredService<IMenuService>();
+        menuService.ProviderId = "menu-provider";
+        var registeredMenu = new TestFluentMenu
+        {
+            ServiceProvider = Services,
+            Id = "shared-menu-id",
+            Anchor = "registered-menu-anchor",
+            Anchored = true
+        };
+        var unregisteredMenu = new TestFluentMenu
+        {
+            ServiceProvider = Services,
+            Id = "shared-menu-id",
+            Anchor = "unregistered-menu-anchor",
+            Anchored = true,
+            UseMenuService = false
+        };
+        registeredMenu.Initialize();
+        unregisteredMenu.Initialize();
+
+        Assert.Same(registeredMenu, Assert.Single(menuService.Menus));
+
+        // Act
+        await unregisteredMenu.DisposeAsync();
+
+        // Assert
+        Assert.Same(registeredMenu, Assert.Single(menuService.Menus));
+    }
+
+    private sealed class TestFluentMenu : FluentMenu
+    {
+        public void Initialize()
+        {
+            base.OnInitialized();
+        }
+    }
+}
