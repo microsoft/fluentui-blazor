@@ -1,5 +1,6 @@
 ---
 title: Column Types
+order: 0020
 route: /DataGrid/ColumnTypes
 ---
 
