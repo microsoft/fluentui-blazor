@@ -250,6 +250,49 @@
     }
 
     [Fact]
+    public void FluentDataGrid_HasRowDetails_Hides_Toggle_Button_But_Keeps_Container()
+    {
+        // Arrange && Act: Vincent Baaij (index 1) is the only one without row details
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" HasRowDetails="@(c => c.Name != "Vincent Baaij")">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+
+        // Assert: every row still reserves the same toggle space (alignment stays consistent)...
+        Assert.Equal(3, cut.FindAll(".row-details-toggle-container").Count);
+        // ...but only two rows actually get a clickable button
+        Assert.Equal(2, cut.FindAll(".row-expand-button").Count);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_HasRowDetails_Does_Not_Block_Programmatic_ExpandAsync()
+    {
+        // Arrange
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ItemKey="@(c => c.Id)" HasRowDetails="@(c => c.Name != "Vincent Baaij")">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+        var vincent = GetCustomers().Single(c => c.Name == "Vincent Baaij");
+
+        // Act: HasRowDetails only hides the button, so the programmatic API still works
+        await cut.InvokeAsync(() => cut.Instance.ExpandRowDetailsAsync(vincent));
+
+        // Assert
+        Assert.True(cut.Instance.IsRowDetailsExpanded(vincent));
+        Assert.Contains("details of Vincent Baaij", cut.Find("tr.row-details-row").TextContent);
+    }
+
+    [Fact]
     public void FluentDataGrid_RowDetails_With_Virtualize_Throws()
     {
         // Arrange && Act && Assert
