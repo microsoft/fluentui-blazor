@@ -156,7 +156,13 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// Gets or sets a value indicating whether spellcheck should be used.
     /// </summary>
     [Parameter]
-    public bool? Spellcheck { get; set; }           // TODO: To verify if this is supported by the component
+    public bool? Spellcheck { get; set; } // TODO: To verify if this is supported by the component
+    
+    /// <summary>
+    /// Gets or sets a value indicating whether the Microsoft Edge password toggle should be hidden for password fields.
+    /// </summary>
+    [Parameter]
+    public bool HideEdgePasswordToggle { get; set; }
 
     /// <summary>
     /// Gets or sets the type of data that can be entered by the user when editing the element or its content.
@@ -222,6 +228,14 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
             }
+        }
+
+        if (TextInputType == Components.TextInputType.Password && HideEdgePasswordToggle)
+        {
+            await JSRuntime.InvokeVoidAsync(
+                "Microsoft.FluentUI.Blazor.Components.TextInput.setEdgePasswordRevealToggle",
+                Id, HideEdgePasswordToggle
+            );
         }
     }
 

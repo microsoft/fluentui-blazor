@@ -36,6 +36,29 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
     }
   };
 
+  export function setEdgePasswordRevealToggle(id: string, hide: boolean) {
+    const fieldElement = document.getElementById(id);
+    const shadowRoot = fieldElement?.shadowRoot;
+
+    if (!shadowRoot) {
+        return;
+    }
+
+    const styleElement = shadowRoot.querySelector("style[data-fluent-text-field-edge-password-toggle]");
+
+    if (hide) {
+        if (!styleElement) {
+            const newStyleElement = document.createElement("style");
+            newStyleElement.setAttribute("data-fluent-text-field-edge-password-toggle", "true");
+            newStyleElement.textContent = "#control::-ms-reveal { display: none !important; }";
+            shadowRoot.appendChild(newStyleElement);
+        }
+    }
+    else if (styleElement) {
+        styleElement.remove();
+    }
+  }
+
   /**
    * Type for elements that support delayed 'immediate' input events
    */

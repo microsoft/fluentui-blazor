@@ -87,6 +87,30 @@
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"{expectedAttribute}\" />");
     }
 
+    [Fact]
+    public void FluentInputText_HidePasswordReveal_DoesNotAffectMarkup()
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentTextInput TextInputType="@TextInputType.Password" HideEdgePasswordToggle="true" />);
+
+        // Assert
+        cut.Find("fluent-text-input")
+        .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"password\" />");
+    }
+
+    [Fact]
+    public void FluentInputText_HidePasswordReveal_OnNonPasswordField_DoesNotAffectMarkup()
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(i => "myId");
+        var cut = Render(@<FluentTextInput TextInputType="@TextInputType.Text" HideEdgePasswordToggle="true" />);
+
+        // Assert
+        cut.Find("fluent-text-input")
+        .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"text\" />");
+    }
+
     [Theory]
     [InlineData(TextInputSize.Small)]
     [InlineData(TextInputSize.Medium)]
