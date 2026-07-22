@@ -88,27 +88,41 @@
     }
 
     [Fact]
-    public void FluentInputText_HidePasswordReveal_DoesNotAffectMarkup()
+    public void FluentInputText_HideEdgePasswordToggle_DoesNotAffectMarkup()
     {
-        // Arrange && Act
+        // Arrange
         using var context = new IdentifierContext(i => "myId");
-        var cut = Render(@<FluentTextInput TextInputType="@TextInputType.Password" HideEdgePasswordToggle="true" />);
+        var invocation = JSInterop.SetupVoid(
+    "Microsoft.FluentUI.Blazor.Components.TextInput.setEdgePasswordRevealToggle",
+    _ => true);
 
-        // Assert
+        // Act
+        var cut = Render(@<FluentTextInput TextInputType="@TextInputType.Password" HideEdgePasswordToggle="true" />);
         cut.Find("fluent-text-input")
-        .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"password\" />");
+           .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"password\" />");
+
+        var call = Assert.Single(invocation.Invocations);
+        Assert.Equal("myId", call.Arguments[0]);
+        Assert.Equal(true, call.Arguments[1]);
     }
 
     [Fact]
-    public void FluentInputText_HidePasswordReveal_OnNonPasswordField_DoesNotAffectMarkup()
+    public void FluentInputText_HideEdgePasswordToggle_OnNonPasswordField_DoesNotAffectMarkup()
     {
-        // Arrange && Act
+        // Arrange
         using var context = new IdentifierContext(i => "myId");
+        var invocation = JSInterop.SetupVoid(
+    "Microsoft.FluentUI.Blazor.Components.TextInput.setEdgePasswordRevealToggle",
+    _ => true);
+
+         // Act
         var cut = Render(@<FluentTextInput TextInputType="@TextInputType.Text" HideEdgePasswordToggle="true" />);
 
         // Assert
         cut.Find("fluent-text-input")
-        .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"text\" />");
+            .MarkupMatches("<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" type=\"text\" />");
+        
+        Assert.Empty(invocation.Invocations);
     }
 
     [Theory]

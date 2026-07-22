@@ -36,27 +36,28 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
     }
   };
 
-  export function setEdgePasswordRevealToggle(id: string, hide: boolean) {
+  export function setEdgePasswordRevealToggle(id: string, hide: boolean): void {
     const fieldElement = document.getElementById(id);
     const shadowRoot = fieldElement?.shadowRoot;
 
     if (!shadowRoot) {
-        return;
+      return;
     }
 
     const styleElement = shadowRoot.querySelector("style[data-fluent-text-field-edge-password-toggle]");
 
     if (hide) {
-        if (!styleElement) {
-            const newStyleElement = document.createElement("style");
-            newStyleElement.setAttribute("data-fluent-text-field-edge-password-toggle", "true");
-            newStyleElement.textContent = "#control::-ms-reveal { display: none !important; }";
-            shadowRoot.appendChild(newStyleElement);
-        }
+      if (!styleElement) {
+        const newStyleElement = document.createElement("style");
+        newStyleElement.setAttribute("data-fluent-text-field-edge-password-toggle", "true");
+        newStyleElement.textContent = "#control::-ms-reveal { display: none !important; }";
+        shadowRoot.appendChild(newStyleElement);
+      }
+
+      return;
     }
-    else if (styleElement) {
-        styleElement.remove();
-    }
+    
+    styleElement?.remove();
   }
 
   /**
