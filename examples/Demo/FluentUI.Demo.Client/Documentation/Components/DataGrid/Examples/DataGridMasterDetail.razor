@@ -9,7 +9,9 @@
     }
 </style>
 
-<FluentDataGrid Items="@customers" ShowHover="true" HasRowDetails="@(c => OrdersOf(c.Id).Any())">
+<FluentSwitch @bind-Value="@showOnlyRowsWithDetails" Label="Show toggle only on rows with details" />
+
+<FluentDataGrid Items="@customers" ShowHover="true" HasRowDetails="@CurrentHasRowDetails">
     <ChildContent>
         <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
         <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
@@ -19,14 +21,19 @@
     <RowDetails Context="customer">
         <h5 class="detail-heading">Orders of @customer.Name</h5>
         <FluentDataGrid Items="@OrdersOf(customer.Id)" ShowHover="true">
-            <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
-            <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" IsDefaultSortColumn="true" />
-            <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" Sortable="true" />
-            <TemplateColumn Title="Status">
-                <FluentBadge Color="@(context.Status == "Delivered" ? BadgeColor.Success : BadgeColor.Subtle)">
-                    @context.Status
-                </FluentBadge>
-            </TemplateColumn>
+            <ChildContent>
+                <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
+                <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" IsDefaultSortColumn="true" />
+                <PropertyColumn Title="Amount" Property="@(o => o.Amount)" Format="c" Align="DataGridCellAlignment.End" Sortable="true" />
+                <TemplateColumn Title="Status">
+                    <FluentBadge Color="@(context.Status == "Delivered" ? BadgeColor.Success : BadgeColor.Subtle)">
+                        @context.Status
+                    </FluentBadge>
+                </TemplateColumn>
+            </ChildContent>
+            <EmptyContent>
+                <p>No orders yet.</p>
+            </EmptyContent>
         </FluentDataGrid>
     </RowDetails>
 </FluentDataGrid>
@@ -35,7 +42,11 @@
     private record Customer(int Id, string Name, string City);
     private record Order(string OrderNumber, int CustomerId, DateTime OrderDate, decimal Amount, string Status);
 
-    // Tailspin Toys has no orders yet, so HasRowDetails hides its toggle button entirely
+    private bool showOnlyRowsWithDetails = true;
+
+    private Func<Customer, bool>? CurrentHasRowDetails => showOnlyRowsWithDetails ? CustomerHasOrders : null;
+
+    // Tailspin Toys has no orders yet, so HasRowDetails can hide its toggle button when enabled
     private IQueryable<Customer> customers = new List<Customer>
     {
         new(1, "Contoso Ltd.", "Seattle"),
@@ -57,6 +68,9 @@
         new("ORD-1008", 3, new DateTime(2026, 7, 1), 55.99m, "Pending"),
         new("ORD-1009", 4, new DateTime(2026, 6, 22), 640.00m, "Shipped"),
     };
+
+    private bool CustomerHasOrders(Customer customer)
+        => OrdersOf(customer.Id).Any();
 
     // The child grid is filtered with the master row's item (the customer)
     private IQueryable<Order> OrdersOf(int customerId)
