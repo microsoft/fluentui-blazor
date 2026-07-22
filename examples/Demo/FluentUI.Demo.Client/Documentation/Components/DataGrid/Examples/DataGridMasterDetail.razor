@@ -9,7 +9,9 @@
     }
 </style>
 
-<FluentDataGrid Items="@customers" ShowHover="true">
+<FluentSwitch @bind-Value="@showOnlyRowsWithDetails" Label="Show toggle only on rows with details" />
+
+<FluentDataGrid Items="@customers" ShowHover="true" HasRowDetails="@CurrentHasRowDetails">
     <ChildContent>
         <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
         <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
@@ -40,7 +42,11 @@
     private record Customer(int Id, string Name, string City);
     private record Order(string OrderNumber, int CustomerId, DateTime OrderDate, decimal Amount, string Status);
 
-    // Tailspin Toys has no orders yet, to show what RowDetails looks like for a row without detail data
+    private bool showOnlyRowsWithDetails = true;
+
+    private Func<Customer, bool>? CurrentHasRowDetails => showOnlyRowsWithDetails ? CustomerHasOrders : null;
+
+    // Tailspin Toys has no orders yet, so HasRowDetails can hide its toggle button when enabled
     private IQueryable<Customer> customers = new List<Customer>
     {
         new(1, "Contoso Ltd.", "Seattle"),
@@ -62,6 +68,9 @@
         new("ORD-1008", 3, new DateTime(2026, 7, 1), 55.99m, "Pending"),
         new("ORD-1009", 4, new DateTime(2026, 6, 22), 640.00m, "Shipped"),
     };
+
+    private bool CustomerHasOrders(Customer customer)
+        => OrdersOf(customer.Id).Any();
 
     // The child grid is filtered with the master row's item (the customer)
     private IQueryable<Order> OrdersOf(int customerId)

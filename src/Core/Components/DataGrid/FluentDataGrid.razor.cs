@@ -365,6 +365,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public RenderFragment<TGridItem>? RowDetails { get; set; }
 
     /// <summary>
+    /// Optionally determines, per row, whether that row has <see cref="RowDetails"/> content to show.
+    /// When set, the expand/collapse toggle button is only rendered for rows where this returns
+    /// <see langword="true"/> — other rows keep the same indentation but show no button, so their
+    /// content can't be expanded via the UI. If not set, every row gets the toggle button.
+    ///
+    /// This only controls the toggle button; it doesn't affect <see cref="ToggleRowDetailsAsync"/> and the
+    /// other programmatic expand/collapse methods, which work regardless.
+    /// </summary>
+    [Parameter]
+    public Func<TGridItem, bool>? HasRowDetails { get; set; }
+
+    /// <summary>
     /// Event callback for when a row's <see cref="RowDetails"/> content is expanded or collapsed.
     /// </summary>
     [Parameter]

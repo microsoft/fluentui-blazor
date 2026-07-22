@@ -11,8 +11,16 @@ spanning all columns, directly below the expanded row.
 
 The template's `context` is the master row's item, so you can place a child `FluentDataGrid` inside it and filter
 its items based on the master row. In this example, expanding a customer shows a child grid with that customer's
-orders. Not every row needs to have detail data: Tailspin Toys has no orders yet, so expanding it shows the child
-grid's `EmptyContent` instead.
+orders.
+
+Not every row needs to have detail data. Set `HasRowDetails` to a function that returns whether a given row has
+anything to show — rows for which it returns `false` keep their indentation but get no toggle button at all, so
+they can't be expanded from the UI. `HasRowDetails` only affects the button: `ToggleRowDetailsAsync` and the other
+programmatic methods still work regardless.
+
+In this example, Tailspin Toys has no orders yet. Use the switch to compare both ways of handling that: with the
+switch on, `HasRowDetails` hides its toggle button entirely; with it off, `HasRowDetails` is `null` (the default),
+so every row gets a toggle button, and expanding Tailspin Toys shows the child grid's `EmptyContent` instead.
 
 Unlike the [hierarchical view](/DataGrid/Hierarchical) — where parent and child rows share the same item type and
 the same columns within a single grid — the master/detail view displays data of a completely different structure:
