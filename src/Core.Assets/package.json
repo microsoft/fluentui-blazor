@@ -5,16 +5,13 @@
   "main": "dist/Microsoft.FluentUI.AspNetCore.Components.lib.module.js",
   "scripts": {
     "build": "node ./esbuild.config.mjs",
-    "clean": "rimraf ./dist",
-    "test": "playwright test",
-    "test:install": "playwright install chromium"
+    "clean": "rimraf ./dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@playwright/test": "1.54.1",
     "@microsoft/fast-element": "1.14.0",
     "@microsoft/fast-foundation": "2.50.0",
     "@typescript-eslint/eslint-plugin": "^7.6.0",

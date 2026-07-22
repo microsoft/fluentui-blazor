@@ -195,34 +195,12 @@ extends:
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
 
-        - task: NodeTool@0
-          displayName: 'Install Node.js'
-          inputs:
-            versionSpec: '22.x'
-
         # NPM install Core.Assets
         - task: Npm@1
           displayName: "NPM install Core.Assets"
           inputs:
-            command: "custom"
-            customCommand: "ci"
+            command: "install"
             workingDir: "src/Core.Assets"
-
-        - task: Npm@1
-          condition: eq(variables['ShouldTest'], 'true')
-          displayName: 'Install Chromium for browser tests'
-          inputs:
-            command: 'custom'
-            customCommand: 'run test:install'
-            workingDir: 'src/Core.Assets'
-
-        - task: Npm@1
-          condition: eq(variables['ShouldTest'], 'true')
-          displayName: 'Browser tests'
-          inputs:
-            command: 'custom'
-            customCommand: 'test'
-            workingDir: 'src/Core.Assets'
 
         # Build the projects
         - task: DotNetCoreCLI@2

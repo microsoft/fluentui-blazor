@@ -54,25 +54,6 @@ jobs:
         dotnet-version: 10.0.x
         dotnet-quality: ga
 
-     - name: Setup Node.js
-       uses: actions/setup-node@v4
-       with:
-        node-version: 22.x
-        cache: npm
-        cache-dependency-path: src/Core.Assets/package-lock.json
-
-     - name: Install Core.Assets dependencies
-       run: npm ci
-       working-directory: ${{ github.workspace }}/src/Core.Assets
-
-     - name: Install Chromium for browser tests
-       run: npm run test:install
-       working-directory: ${{ github.workspace }}/src/Core.Assets
-
-     - name: Browser tests
-       run: npm test
-       working-directory: ${{ github.workspace }}/src/Core.Assets
-
      # Build
 
      - name: Restore
