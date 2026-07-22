@@ -208,6 +208,9 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         await base.RenderTooltipAsync(Tooltip);
     }
 
+    /// <summary />
+    private bool _isEdgePasswordToggleHidden;
+
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -230,11 +233,19 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
             }
         }
 
-        if (TextInputType == Components.TextInputType.Password && HideEdgePasswordToggle)
+        if (TextInputType == Components.TextInputType.Password)
         {
             await JSRuntime.InvokeVoidAsync(
                 "Microsoft.FluentUI.Blazor.Components.TextInput.setEdgePasswordRevealToggle",
                 Id, HideEdgePasswordToggle
+            );
+        }
+        else if (_isEdgePasswordToggleHidden)
+        {
+            _isEdgePasswordToggleHidden = false;
+            await JSRuntime.InvokeVoidAsync(
+                "Microsoft.FluentUI.Blazor.Components.TextInput.setEdgePasswordRevealToggle",
+                Id, false
             );
         }
     }
