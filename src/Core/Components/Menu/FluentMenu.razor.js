@@ -38,6 +38,10 @@ export async function initialize(anchorId, menuId, menuOpen, anchoredRegionModul
     // Dispose existing listeners if any
     dispose(anchorId);
 
+    if (anchorId && menuId) {
+        document.getElementById(anchorId)?.setAttribute("aria-expanded", menuOpen);
+    }
+
     if (!menuId || !menuOpen) {
         return;
     }
