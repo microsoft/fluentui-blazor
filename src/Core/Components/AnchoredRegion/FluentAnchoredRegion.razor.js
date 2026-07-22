@@ -59,7 +59,7 @@ function containsComposedElement(container, element) {
     let current = element;
 
     while (current) {
-        if (container.contains?.(current)) {
+        if (container?.contains?.(current)) {
             return true;
         }
 
