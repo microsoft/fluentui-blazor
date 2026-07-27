@@ -23,9 +23,25 @@ function getFocusableElements(container) {
     return focusableElements.filter(el => !!el && el.tabIndex !== -1 && el.checkVisibility());
 }
 
+function indexOfFocusableElement(focusableElements, element) {
+    // Fluent web components delegate focus into their shadow root, so the event origin is often a
+    // shadow descendant of the element that was collected. Walk up the composed tree to find it.
+    let node = element;
+    while (node) {
+        const index = focusableElements.indexOf(node);
+        if (index !== -1) {
+            return index;
+        }
+
+        node = node.parentNode ?? node.host;
+    }
+
+    return -1;
+}
+
 function findAdjacentFocusableElement(currentElement, reverse = false) {
     const focusableElements = getFocusableElements(document.body);
-    const currentIndex = focusableElements.indexOf(currentElement);
+    const currentIndex = indexOfFocusableElement(focusableElements, currentElement);
     if (currentIndex === -1) {
         return null;
     }
@@ -106,9 +122,9 @@ export function init(gridElement, autoFocus) {
             if (event.key === "Tab") {
                 const activeElement = event.composedPath()[0];
                 const resizeFocusables = getFocusableElements(columnResizeElement);
-                const activeIndex = resizeFocusables.indexOf(activeElement);
+                const activeIndex = indexOfFocusableElement(resizeFocusables, activeElement);
                 const isFirstElement = activeIndex === 0;
-                const isLastElement = activeIndex === resizeFocusables.length - 1;
+                const isLastElement = activeIndex !== -1 && activeIndex === resizeFocusables.length - 1;
 
                 if ((event.shiftKey && isFirstElement) || (!event.shiftKey && isLastElement)) {
                     const focusTarget = findAdjacentFocusableElement(activeElement, event.shiftKey);
