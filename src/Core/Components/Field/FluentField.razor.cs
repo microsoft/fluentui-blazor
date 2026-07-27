@@ -223,9 +223,25 @@ public partial class FluentField : FluentComponentBase, IFluentField
     }
 
     private bool HasLabel
-        => !string.IsNullOrWhiteSpace(Parameters.Label)
-        || Parameters.LabelTemplate is not null
-        || Parameters.HasLabelInfo;
+    {
+        get
+        {
+            var hasLabelContent = !string.IsNullOrWhiteSpace(Parameters.Label)
+                || Parameters.LabelTemplate is not null
+                || Parameters.HasLabelInfo;
+
+            // Only show label if the InputComponent is FluentCheckbox or FluentSwitch
+            if (InputComponent is not null)
+            {
+                return IsCheckboxOrSwitch() && hasLabelContent;
+            }
+
+            return hasLabelContent;
+        }
+    }
+
+    private bool IsCheckboxOrSwitch()
+        => InputComponent?.GetType() is { Name: "FluentCheckbox" or "FluentSwitch" };
 
     private bool HasMessage
         => !string.IsNullOrWhiteSpace(Parameters.Message)

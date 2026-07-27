@@ -28,5 +28,8 @@
                      @onchange="@ChangeHandlerAsync"
                      @ontextimmediate="@InputHandlerAsync"
                      @attributes="AdditionalAttributes">
+        <FluentLabel slot="@FluentSlot.FieldLabel">
+            @Label@LabelTemplate
+        </FluentLabel>
     </fluent-textarea>
 </FluentField>
