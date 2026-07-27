@@ -40,7 +40,7 @@
                                     <AntiforgeryToken />
                                     <div>
                                         <input type="hidden" name="CredentialId" value="@credentialId" />
-                                        <FluentButton Type="ButtonType.Submit" Name="Action" Value="rename" Appearance="Appearance.Accent" Title="Rename this passkey">Rename</FluentButton>
+                                        <FluentButton Type="ButtonType.Submit" Name="Action" Value="rename" Appearance="ButtonAppearance.Primary" Title="Rename this passkey">Rename</FluentButton>
                                     </div>
                                 </form>
                                 <form @formname="@($"update-passkey-delete-{credentialId}")" @onsubmit="UpdatePasskey" method="post">

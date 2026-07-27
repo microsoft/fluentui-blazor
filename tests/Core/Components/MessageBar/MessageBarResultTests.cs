@@ -76,4 +76,26 @@ public class MessageBarResultTests
         Assert.Equal(MessageBarCloseReason.TimedOut, result.Reason);
         Assert.Equal(42, result.Data);
     }
+
+    [Fact]
+    public void MessageBarResult_OfVisible_NoData_SetsReason()
+    {
+        // Act
+        var result = MessageBarResult.OfVisible();
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Null(result.Data);
+    }
+
+    [Fact]
+    public void MessageBarResult_OfVisible_WithData_SetsData()
+    {
+        // Act
+        var result = MessageBarResult.OfVisible("shown");
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Equal("shown", result.Data);
+    }
 }

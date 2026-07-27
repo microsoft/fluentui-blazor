@@ -27,6 +27,7 @@
             options.Intent = MessageBarIntent.Success;
             options.Title = "Hello from the NotificationService!";
             options.Lifetime = TimeSpan.FromSeconds(10);
+            options.ResultTiming = MessageBarResultTiming.Closed;
         });
 
         Console.WriteLine($"Message bar closed: {result.Reason}");
@@ -40,6 +41,7 @@
 
             options.Title = "Hello from the NotificationService!";
             options.Lifetime = TimeSpan.FromSeconds(5);
+            options.ResultTiming = MessageBarResultTiming.Closed;
         });
 
         Console.WriteLine($"Message bar closed: {result.Reason}");

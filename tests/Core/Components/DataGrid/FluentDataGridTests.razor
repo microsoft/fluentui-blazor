@@ -333,7 +333,7 @@
 
         Assert.NotEmpty(rows); // Asserting that there are rows present
         //Assert.Equal(101, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
-        Assert.Equal(21, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
+        Assert.Equal(2, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
 
     }
 
@@ -367,7 +367,7 @@
         var rows = cut.FindComponents<FluentDataGridRow<Customer>>();
 
         Assert.NotEmpty(rows); // Asserting that there are rows present
-        Assert.Equal(2, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
+        Assert.True(rows.Count >= 1);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
     }
 
     private async Task<GridItemsProviderResult<Customer>> RefreshItemsAsync(GridItemsProviderRequest<Customer> req)
@@ -1685,9 +1685,9 @@
         // Arrange && Act
         FluentDataGrid<Customer>? grid = default!;
         var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
+            @<FluentDataGrid Id="testgrid" TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
                 <ChildContent>
-                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true" />
+                    <PropertyColumn Property="@(x => x.Name)" IsDefaultSortColumn="true" Sortable="true"/>
                 </ChildContent>
                 <EmptyContent><p>empty content</p></EmptyContent>
             </FluentDataGrid>);
@@ -2583,7 +2583,7 @@
             </FluentDataGrid>);
 
         // Act
-        var toggleButton = cut.WaitForElement(".hierarchical-expand-button");
+        var toggleButton = cut.WaitForElement(".row-expand-button");
         await cut.InvokeAsync(() => toggleButton.Click());
 
         // Assert

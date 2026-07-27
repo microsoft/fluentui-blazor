@@ -839,4 +839,20 @@
 		Assert.NotNull(clickedItem);
 		Assert.Equal("sub-item", clickedItem.Id);
 	}
+
+    [Fact]
+	public void FluentNavItem_Disabled_Rendering()
+	{
+        // Act
+		var cut = Render(@<FluentNav>
+                <FluentNavItem Href="#">Test Item 1</FluentNavItem>
+				<FluentNavItem Href="#" Disabled="true">Test Item 2</FluentNavItem>
+                <FluentNavItem>Test Item 3</FluentNavItem>
+			</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+
+		cut.Verify();
+	}
 }
