@@ -84,6 +84,18 @@ function focusElementOrDescendant(element) {
     (focusTarget ?? element).focus();
 }
 
+function findNextPageElementAfterAnchor(anchorElement, popupElement) {
+    const focusable = new FocusableElement(anchorElement.getRootNode());
+
+    // The popup stays in the DOM until CloseAsync completes, so skip it when looking for the next page control.
+    const candidates = focusable.getFocusableElements()
+        .filter(element => !containsComposedElement(popupElement, element));
+
+    const anchorIndex = focusable.getFocusableElementIndex(anchorElement, candidates);
+
+    return anchorIndex === -1 ? null : candidates[anchorIndex + 1] ?? null;
+}
+
 /**
  * Attaches keyboard navigation listeners to an anchor+popup pair.
  * @param {string} anchorId - Id of the anchor element.
@@ -124,7 +136,7 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
             ev.stopPropagation();
             if (!ev.shiftKey) {
                 // Case 3: move to element after anchor in page
-                new FocusableElement(anchorElement.getRootNode()).findNextFocusableElement(anchorElement)?.focus();
+                findNextPageElementAfterAnchor(anchorElement, popupElement)?.focus();
             } else {
                 // Case 2: Shift+Tab → focus anchor
                 focusElementOrDescendant(anchorElement);
@@ -141,7 +153,7 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
                 // Case 3: Tab on last element → next page element after anchor, close
                 ev.preventDefault();
                 ev.stopPropagation();
-                new FocusableElement(anchorElement.getRootNode()).findNextFocusableElement(anchorElement)?.focus();
+                findNextPageElementAfterAnchor(anchorElement, popupElement)?.focus();
                 dotNetHelper.invokeMethodAsync('CloseAsync');
             } else if (ev.shiftKey && (focusables.length === 0 || activeIndex === 0)) {
                 // Case 2: Shift+Tab on first element → focus anchor, close
