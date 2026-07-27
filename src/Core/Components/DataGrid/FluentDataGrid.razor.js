@@ -10,7 +10,10 @@ function getFocusableElements(container) {
     const focusableElements = [];
     queriedElements.forEach(el => {
         if (el.tagName.toLowerCase().startsWith("fluent-") && el.tabIndex === -1 && !!el.shadowRoot) {
-            Array.from(el.shadowRoot.children).forEach(child => {
+            // The host itself is not focusable, so collect what it renders in its shadow root instead.
+            // Those elements are not always direct children of the shadow root (a text field renders
+            // its input inside a wrapper), so the whole shadow tree has to be queried.
+            el.shadowRoot.querySelectorAll(focusableSelectors).forEach(child => {
                 if (child.tabIndex !== -1 && child.checkVisibility()) {
                     focusableElements.push(child);
                 }
