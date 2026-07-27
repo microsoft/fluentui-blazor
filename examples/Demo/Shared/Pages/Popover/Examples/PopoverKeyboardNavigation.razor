@@ -1,0 +1,25 @@
+<div style="display: flex; align-items: center;">
+    <FluentButton id="myPopoverKeyboardButton" Appearance="Appearance.Accent" @onclick="() => _visible = !_visible">
+        Open Callout
+    </FluentButton>
+
+    @* Declared between its anchor and the next control so Tab has to skip the open callout. *@
+    <FluentPopover Style="width: 300px;" AnchorId="myPopoverKeyboardButton" @bind-Open="_visible">
+        <Header>Keyboard navigation</Header>
+        <Body>
+            <FluentTextField @bind-Value="_name" Label="Name" />
+        </Body>
+        <Footer>
+            <FluentButton Appearance="Appearance.Accent" @onclick="() => _visible = false">Save</FluentButton>
+        </Footer>
+    </FluentPopover>
+
+    <FluentSpacer />
+
+    <FluentButton id="myPopoverKeyboardNextButton">Next control</FluentButton>
+</div>
+
+@code {
+    private bool _visible;
+    private string? _name;
+}
