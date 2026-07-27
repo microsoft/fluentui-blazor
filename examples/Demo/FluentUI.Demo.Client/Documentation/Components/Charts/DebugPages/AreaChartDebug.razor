@@ -28,6 +28,7 @@
         </FluentSlider>
         <fluent-label slot="message">@height</fluent-label>
     </FluentField>
+    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
     <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
     <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
     <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
@@ -114,6 +115,7 @@
 
     private int width = 400;
     private int height = 400;
+    private bool gradient;
     private bool roundCorners;
     private bool hideLabels = true;
     private bool hideLegends;

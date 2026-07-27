@@ -134,6 +134,13 @@ export const styles: ElementStyles = css`
     opacity: 0.24;
   }
 
+  .y-axis-grid-line {
+    stroke: ${colorNeutralForeground1};
+    stroke-width: 1;
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
   .axis-text,
   .y-axis-text,
   .x-axis-title,
@@ -144,32 +151,35 @@ export const styles: ElementStyles = css`
     font-weight: 600;
   }
 
+  .area-line {
+    fill: none;
+    stroke-width: 3;
+  }
 
-.area-line {
-  fill: none;
-  stroke-width: 1;
-}
+  .area-line.multi-series {
+    opacity: 0.3;
+  }
 
-.area-line.hovered {
-  stroke-width: 3;
-}
+  .area-line.hovered {
+    stroke-width: 3;
+    opacity: 1;
+  }
 
-.area-path.inactive,
-.area-line.inactive {
-  opacity: 0.1;
-}
+  .area-path.inactive,
+  .area-line.inactive {
+    opacity: 0.1;
+  }
 
-.hover-line {
-  stroke: ${colorNeutralStroke1};
-  stroke-width: 1;
-  stroke-dasharray: 5 3;
-  pointer-events: none;
-}
+  .hover-line {
+    stroke: ${colorNeutralStroke1};
+    stroke-width: 1;
+    stroke-dasharray: 5 3;
+    pointer-events: none;
+  }
 
-.hover-dot {
-  pointer-events: none;
-}
-
+  .hover-dot {
+    pointer-events: none;
+  }
 
   ${tooltipBaseStyles}
 

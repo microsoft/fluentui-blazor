@@ -74,12 +74,6 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public bool RoundedCorners { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether a gradient fill is applied to the bars or arcs.
-    /// </summary>
-    [Parameter]
-    public bool EnableGradient { get; set; }
-
-    /// <summary>
     /// Gets or sets the width of the chart. Accepts any valid CSS size value (e.g. <c>"400px"</c>, <c>"100%"</c>).
     /// When <see langword="null"/>, the chart sizes itself automatically.
     /// </summary>

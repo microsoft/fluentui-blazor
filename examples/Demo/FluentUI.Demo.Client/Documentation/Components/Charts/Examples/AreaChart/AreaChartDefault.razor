@@ -1,12 +1,13 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentAreaChart ChartData="data"
-                  ChartTitle="Area chart basic example" />
+                 Width="700px"
+                 ChartTitle="Area chart basic example" />
 
 @code {
     private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
     {
-        
+
         new AreaChartSeries { Legend = "legend1",
             ChartData = new List<AreaChartDataPoint>
             {
@@ -78,4 +79,4 @@ x-axis-category-order="default"
 hide-tick-overlap
 mode="tonexty"
 secondary-y-axis-title
-*@                
+*@

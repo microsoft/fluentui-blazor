@@ -320,6 +320,38 @@ export type PrimaryYAxisRenderOptions = {
   tickLabelMaxWidth?: number;
 };
 
+export type HorizontalGridLinesRenderOptions = {
+  plotGroup: SVGGElement;
+  scale: AxisScaleLike<number>;
+  axis: Axis<number>;
+  innerWidth: number;
+  className?: string;
+};
+
+export const renderHorizontalGridLinesShared = ({
+  plotGroup,
+  scale,
+  axis,
+  innerWidth,
+  className = 'y-axis-grid-line',
+}: HorizontalGridLinesRenderOptions): void => {
+  const gridGroup = createSvgElement<SVGGElement>('g');
+  gridGroup.classList.add('y-axis-grid');
+
+  getAxisTickValues(axis, scale).forEach(value => {
+    const y = getAxisPosition(scale, value);
+    const line = createSvgElement<SVGLineElement>('line');
+    line.classList.add(className);
+    line.setAttribute('x1', '0');
+    line.setAttribute('x2', String(innerWidth));
+    line.setAttribute('y1', String(y));
+    line.setAttribute('y2', String(y));
+    gridGroup.appendChild(line);
+  });
+
+  plotGroup.appendChild(gridGroup);
+};
+
 const truncateTextToWidth = (text: SVGTextElement, sourceText: string, maxWidth: number): string => {
   if (!Number.isFinite(maxWidth) || maxWidth <= 0 || measureSvgTextWidth(text, sourceText) <= maxWidth) {
     text.textContent = sourceText;
@@ -388,6 +420,8 @@ export const renderPrimaryYAxisShared = ({
   group.setAttribute('transform', `translate(${groupX}, ${axisTop})`);
   // Attach the group before measuring text so SVG text metrics are available.
   svg.appendChild(group);
+  let maxTickLabelWidth = 0;
+  let hasNegativeTickLabel = false;
 
   const domain = createSvgElement<SVGLineElement>('line');
   domain.classList.add('axis-domain');
@@ -410,6 +444,7 @@ export const renderPrimaryYAxisShared = ({
     text.setAttribute('text-anchor', 'end');
     text.setAttribute('dominant-baseline', 'middle');
     const fullLabel = formatter(value);
+    hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
     const renderedLabel =
       tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
         ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
@@ -420,6 +455,7 @@ export const renderPrimaryYAxisShared = ({
       title.textContent = fullLabel;
       text.appendChild(title);
     }
+    maxTickLabelWidth = Math.max(maxTickLabelWidth, measureSvgTextWidth(text, renderedLabel));
     tick.appendChild(text);
 
     group.appendChild(tick);
@@ -430,8 +466,10 @@ export const renderPrimaryYAxisShared = ({
     title.classList.add(titleClassName);
     const rotation = isRTL ? 'rotate(90)' : 'rotate(-90)';
     const tx = isRTL ? String(innerHeight / 2) : String(-innerHeight / 2);
+    const extraGap = hasNegativeTickLabel ? 2 : 8;
+    const titleOffset = 6 + tickPadding + maxTickLabelWidth + extraGap;
     title.setAttribute('x', tx);
-    title.setAttribute('y', '-42');
+    title.setAttribute('y', String(-titleOffset));
     title.setAttribute('text-anchor', 'middle');
     title.setAttribute('transform', rotation);
     title.textContent = yAxisTitle;
@@ -478,6 +516,8 @@ export const renderSecondaryYAxisShared = ({
   group.classList.add(axisClassName);
   const groupX = isRTL ? axisStartX : axisStartX + innerWidth;
   group.setAttribute('transform', `translate(${groupX}, ${axisTop})`);
+  let maxTickLabelWidth = 0;
+  let hasNegativeTickLabel = false;
 
   const domain = createSvgElement<SVGLineElement>('line');
   domain.classList.add('axis-domain');
@@ -500,6 +540,7 @@ export const renderSecondaryYAxisShared = ({
     text.setAttribute('text-anchor', 'start');
     text.setAttribute('dominant-baseline', 'middle');
     const fullLabel = formatter(value);
+    hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
     const renderedLabel =
       tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
         ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
@@ -510,6 +551,7 @@ export const renderSecondaryYAxisShared = ({
       title.textContent = fullLabel;
       text.appendChild(title);
     }
+    maxTickLabelWidth = Math.max(maxTickLabelWidth, measureSvgTextWidth(text, renderedLabel));
     tick.appendChild(text);
 
     group.appendChild(tick);
@@ -518,7 +560,9 @@ export const renderSecondaryYAxisShared = ({
   if (yAxisTitle) {
     const title = createSvgElement<SVGTextElement>('text');
     title.classList.add(titleClassName);
-    const ty = isRTL ? '-42' : '42';
+    const extraGap = hasNegativeTickLabel ? 2 : 8;
+    const titleOffset = 6 + tickPadding + maxTickLabelWidth + extraGap;
+    const ty = isRTL ? String(-titleOffset) : String(titleOffset);
     title.setAttribute('x', String(-innerHeight / 2));
     title.setAttribute('y', ty);
     title.setAttribute('text-anchor', 'middle');

@@ -28,6 +28,12 @@ public partial class FluentAreaChart
     public IReadOnlyList<AreaChartSeries> ChartData { get; set; } = [];
 
     /// <summary>
+    /// Gets or sets a value indicating whether a gradient fill is applied to the bars, arcs or areas.
+    /// </summary>
+    [Parameter]
+    public bool EnableGradient { get; set; }
+
+    /// <summary>
     /// Gets or sets the mode of the area chart, which determines how the areas are stacked or displayed.
     /// </summary>
     [Parameter]
@@ -43,5 +49,5 @@ public partial class FluentAreaChart
     /// Gets or sets the maximum width for the tick labels on the secondary Y-axis.
     /// </summary>
     [Parameter]
-    public string SecondaryYAxisTickLabelMaxWidth { get; set; }
+    public string? SecondaryYAxisTickLabelMaxWidth { get; set; }
 }

@@ -21,5 +21,5 @@ public enum AreaChartMode
     /// Non-stacked — each area fills independently from y = 0 to its own line.
     /// </summary>
     [Description("tozeroy")]
-    Tozeroy
+    Tozeroy,
 }

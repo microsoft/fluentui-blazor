@@ -179,6 +179,12 @@ export class GanttChart extends CartesianChartBase {
   @attr({ attribute: 'bar-height' })
   public barHeight?: number | string;
 
+  @attr({ attribute: 'x-axis-tick-count' })
+  public xAxisTickCount?: number | string;
+
+  @attr({ attribute: 'y-axis-tick-count' })
+  public yAxisTickCount?: number | string;
+
   @attr({ attribute: 'y-axis-padding' })
   public yAxisPadding?: number | string;
 

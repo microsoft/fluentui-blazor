@@ -8,7 +8,7 @@ import type {
   TooltipProps,
   TooltipRenderer,
 } from './chart-options.js';
-import { getRTL } from './chart-helpers.js';
+import { escapeHtml, getRTL } from './chart-helpers.js';
 
 type TooltipVerticalPlacement = 'above' | 'below';
 type TooltipHorizontalAlign = 'start' | 'center' | 'end';
@@ -200,22 +200,11 @@ export abstract class ChartBase extends FASTElement {
   protected _buildDefaultTooltipHTML(_dataPoint: unknown): string {
     const p = this.tooltipProps;
     return [
-      `<div class="tooltip-inner" style="border-color: ${ChartBase._escapeHtml(p.color)};">`,
-      `<div class="tooltip-legend-text">${ChartBase._escapeHtml(p.legend)}</div>`,
-      `<div class="tooltip-content-y" style="color: ${ChartBase._escapeHtml(p.color)};">${ChartBase._escapeHtml(
-        p.yValue,
-      )}</div>`,
+      `<div class="tooltip-inner" style="border-color: ${escapeHtml(p.color)};">`,
+      `<div class="tooltip-legend-text">${escapeHtml(p.legend)}</div>`,
+      `<div class="tooltip-content-y" style="color: ${escapeHtml(p.color)};">${escapeHtml(p.yValue)}</div>`,
       `</div>`,
     ].join('');
-  }
-
-  private static _escapeHtml(str: string): string {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
   }
 
   // ── Public refs ──────────────────────────────────────────────────
