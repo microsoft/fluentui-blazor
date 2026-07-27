@@ -1,0 +1,196 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<AreaChartSeries> DefaultData =
+    [
+        new AreaChartSeries
+        {
+            Legend = "Series 1",
+            ChartData =
+            [
+                new AreaChartDataPoint { X = 1, Y = 10 },
+                new AreaChartDataPoint { X = 2, Y = 15 },
+            ],
+        },
+        new AreaChartSeries
+        {
+            Legend = "Series 2",
+            ChartData =
+            [
+                new AreaChartDataPoint { X = 1, Y = 6 },
+                new AreaChartDataPoint { X = 2, Y = 9 },
+            ],
+        },
+    ];
+
+    public FluentAreaChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAreaChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentAreaChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" ChartTitle="Trend over time" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-area-chart").GetAttribute("chart-title");
+        Assert.Equal("Trend over time", attribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-area-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Theory]
+    [InlineData(AreaChartMode.Tonexty, "tonexty")]
+    [InlineData(AreaChartMode.Tozeroy, "tozeroy")]
+    public void FluentAreaChart_Mode(AreaChartMode value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" Mode="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-area-chart").GetAttribute("mode");
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_SecondaryYAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" SecondaryYAxisTitle="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-area-chart").GetAttribute("secondary-y-axis-title");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_SecondaryYAxisTickLabelMaxWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" SecondaryYAxisTickLabelMaxWidth="120" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-area-chart").GetAttribute("secondary-y-axis-tick-label-max-width");
+        Assert.Equal("120", attribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<AreaChartSeries>
+        {
+            new AreaChartSeries
+            {
+                Legend = "Revenue",
+                Color = DataVizPalette.Color3,
+                ChartData =
+                [
+                    new AreaChartDataPoint { X = new DateTime(2024, 1, 1), Y = 10 },
+                    new AreaChartDataPoint { X = new DateTime(2024, 2, 1), Y = 12 },
+                ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentAreaChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-area-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("Revenue", dataAttribute);
+        Assert.Contains("color3", dataAttribute);
+        Assert.Contains("2024-01-01", dataAttribute);
+        Assert.Contains("10", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<AreaChartSeries>
+        {
+            new AreaChartSeries
+            {
+                Legend = "Custom",
+                Color = DataVizPalette.Custom,
+                CustomColor = "#E63946",
+                ChartData =
+                [
+                    new AreaChartDataPoint { X = 1, Y = 8 },
+                ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentAreaChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-area-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("#E63946", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" aria-label="Area chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-area-chart").GetAttribute("aria-label");
+        Assert.Equal("Area chart", attribute);
+    }
+
+    [Fact]
+    public void FluentAreaChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentAreaChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentAreaChart>
+        );
+
+        // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentAreaChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAreaChart ChartData="@(Array.Empty<AreaChartSeries>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-area-chart");
+        Assert.NotNull(element);
+    }
+}
