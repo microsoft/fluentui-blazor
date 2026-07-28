@@ -24,5 +24,9 @@
   },
   "dependencies": {
     "@fluentui/web-components": "2.6.1"
+  },
+  "overrides": {
+    "flat-cache": "^6.1.0",
+    "keyv": ">=5.5.3"
   }
 }
