@@ -1,0 +1,612 @@
+import { StartedMode } from "../../d-ts/StartedMode";
+
+/**
+ * Fluent Overflow Component Implementation
+ * 
+ * Manages the overflow behavior of child elements in a container with constrained space.
+ * Automatically moves items to an overflow menu when there isn't enough space, with support for:
+ * - Horizontal and vertical layouts
+ * - Fixed and ellipsis item behaviors
+ * - CSS selector-based item filtering
+ * - Dynamic payload capping
+ * 
+ * The component dispatches an 'overflowchange' event when the overflow state changes,
+ * and exposes methods for retrieving the current overflow state via JSInterop.
+ */
+export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
+  /** Represents an item that may be subject to overflow handling. */
+  interface OverflowItem {
+    Id: string;
+    Overflow: boolean;
+    Text: string;
+    Behavior?: string | null;
+    Index?: number;
+  }
+
+  /** Extended HTMLElement interface to track cached overflow size measurements. */
+  interface OverflowElement extends HTMLElement {
+    overflowSize?: number | null;
+  }
+
+  /** Represents the current overflow state including items, counts, and ordering. */
+  interface OverflowState {
+    overflowItems: OverflowItem[];
+    overflowCount: number;
+    firstOverflowIndex: number;
+    orderedItemIds: string[];
+  }
+
+  /** Extended overflow state with change detection and orientation metadata. */
+  interface RefreshResult extends OverflowState {
+    overflowChanged: boolean;
+    isHorizontal: boolean;
+  }
+
+  /**
+   * Custom HTML element that manages overflow behavior for constrained containers.
+   * Observes size changes and DOM mutations to dynamically calculate which items should overflow.
+   */
+  class FluentOverflow extends HTMLElement {
+    private resizeObserver?: ResizeObserver;
+    private mutationObserver?: MutationObserver;
+    private resizeTimeout?: number;
+    private mutationTimeout?: number;
+    private lastHandledState: boolean | null = null;
+    private lastContainerSize = 0;
+    private cachedContainerGap: number | null = null;
+    private lastOverflowCount = 0;
+    private lastFirstOverflowIndex = -1;
+    private lastOrderedItemIds: string[] = [];
+    private overflowItems: OverflowItem[] = [];
+
+    static get observedAttributes() {
+      return ["orientation", "selector", "selectors", "threshold", "visible-on-load", "store-overflow-in-memory", "max-rendered-items"];
+    }
+
+    /**
+     * Lifecycle hook called when the element is inserted into the DOM.
+     * Initializes observers, applies styles, and performs initial overflow calculation.
+     */
+    connectedCallback() {
+      const visibleOnLoad = this.getAttribute("visible-on-load") !== "false";
+
+      this.cachedContainerGap = null;
+      this.lastContainerSize = 0;
+      this.lastOverflowCount = 0;
+      this.lastFirstOverflowIndex = -1;
+      this.lastOrderedItemIds = [];
+      this.classList.add("fluent-overflow");
+      this.setupObservers();
+      this.refresh();
+
+      // Reveal after first measurement if the element was initially hidden on load.
+      if (!visibleOnLoad) {
+        this.style.visibility = "";
+      }
+    }
+
+    /**
+     * Lifecycle hook called when the element is removed from the DOM.
+     * Cleans up all observers to prevent memory leaks.
+     */
+    disconnectedCallback() {
+      this.cleanupObservers();
+    }
+
+    /**
+     * Lifecycle hook called when an observed attribute changes.
+     * Re-calculates overflow state when relevant attributes are modified.
+     */
+    attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+      if (oldValue === newValue) {
+        return;
+      }
+
+      if (name === "visible-on-load") {
+        this.style.visibility = newValue === "false" ? "hidden" : "";
+        return;
+      }
+
+      if (name === "orientation") {
+        this.lastContainerSize = 0;
+        this.cachedContainerGap = null;
+      }
+
+      this.refresh();
+    }
+
+    /**
+     * Recalculates overflow state and dispatches change event if needed.
+     * Called on initial render, after DOM mutations, or when container size changes.
+     */
+    refresh() {
+      // Calculate the new overflow state based on current layout and items
+      const result = refreshContainer(
+        this,
+        this.getIsHorizontal(),
+        this.getQuerySelector(),
+        this.getThreshold(),
+        this.lastHandledState,
+        this.getContainerGap(),
+        this.getMaxRenderedItems()
+      );
+      this.lastHandledState = result.isHorizontal;
+
+      // Detect if the overflow state has meaningfully changed
+      const payloadChanged = result.overflowChanged
+        || this.lastOverflowCount !== result.overflowCount
+        || this.lastFirstOverflowIndex !== result.firstOverflowIndex
+        || !areStringArraysEqual(this.lastOrderedItemIds, result.orderedItemIds)
+        || !areOverflowItemsEqual(this.overflowItems, result.overflowItems);
+
+      // Update cached state values
+      this.lastOverflowCount = result.overflowCount;
+      this.lastFirstOverflowIndex = result.firstOverflowIndex;
+      this.lastOrderedItemIds = result.orderedItemIds;
+
+      // Store in-memory if requested or if state changed
+      const storeInMemory = this.getStoreOverflowInMemory();
+      if (storeInMemory || payloadChanged) {
+        this.overflowItems = result.overflowItems;
+      }
+
+      // Notify listeners of state change via custom event
+      if (payloadChanged) {
+        this.dispatchEvent(new CustomEvent("overflowchange", {
+          detail: {
+            items: result.overflowItems,
+            overflowCount: result.overflowCount,
+            firstOverflowIndex: result.firstOverflowIndex,
+            orderedItemIds: result.orderedItemIds
+          },
+          bubbles: true,
+          composed: true
+        }));
+      }
+    }
+
+    /**
+     * Retrieves the current overflow state.
+     * Returns cached state if available; otherwise calculates fresh state.
+     */
+    getOverflowState(): OverflowState {
+      if (this.overflowItems.length > 0 || this.lastOverflowCount > 0) {
+        return {
+          overflowItems: [...this.overflowItems],
+          overflowCount: this.lastOverflowCount,
+          firstOverflowIndex: this.lastFirstOverflowIndex,
+          orderedItemIds: this.lastOrderedItemIds
+        };
+      }
+
+      const state = getCurrentOverflowState(this, this.getQuerySelector(), this.getMaxRenderedItems());
+      this.lastOverflowCount = state.overflowCount;
+      this.lastFirstOverflowIndex = state.firstOverflowIndex;
+      this.overflowItems = state.overflowItems;
+      return {
+        overflowItems: [...state.overflowItems],
+        overflowCount: state.overflowCount,
+        firstOverflowIndex: state.firstOverflowIndex,
+        orderedItemIds: state.orderedItemIds
+      };
+    }
+
+    /**
+     * Sets up ResizeObserver and MutationObserver to track layout changes.
+     * Triggers refresh with debouncing to optimize performance.
+     */
+    private setupObservers() {
+      this.cleanupObservers();
+
+      // Watch for container size changes and recalculate overflow accordingly
+      if (typeof ResizeObserver !== "undefined") {
+        this.resizeObserver = new ResizeObserver(() => {
+          clearTimeout(this.resizeTimeout);
+          // Debounce resize events (16ms) to batch multiple rapid size changes
+          this.resizeTimeout = window.setTimeout(() => {
+            const isHorizontal = this.getIsHorizontal();
+            const currentSize = isHorizontal ? this.offsetWidth : this.offsetHeight;
+            if (currentSize === this.lastContainerSize) {
+              return;
+            }
+
+            this.lastContainerSize = currentSize;
+            this.cachedContainerGap = null;
+            this.refresh();
+          }, 16);
+        });
+        this.resizeObserver.observe(this);
+      }
+
+      // Watch for DOM mutations (child additions/removals, attribute changes)
+      this.mutationObserver = new MutationObserver((mutations) => {
+        let shouldRefresh = false;
+
+        for (const mutation of mutations) {
+          if (mutation.type === "childList") {
+            // Child elements added or removed; reset size cache
+            shouldRefresh = true;
+            this.lastContainerSize = 0;
+            continue;
+          }
+
+          if (mutation.type === "attributes") {
+            const target = mutation.target as OverflowElement;
+            // Invalidate size cache for elements whose visual properties changed
+            if (mutation.attributeName === "class" || mutation.attributeName === "style" || mutation.attributeName === "behavior" || mutation.attributeName === "hidden") {
+              target.overflowSize = null;
+            }
+            shouldRefresh = true;
+          }
+        }
+
+        if (!shouldRefresh) {
+          return;
+        }
+
+        clearTimeout(this.mutationTimeout);
+        // Debounce mutation events (16ms) to batch rapid DOM changes
+        this.mutationTimeout = window.setTimeout(() => this.refresh(), 16);
+      });
+      this.mutationObserver.observe(this, {
+        childList: true,
+        subtree: false,
+        attributes: true,
+        attributeFilter: ["id", "behavior", "class", "style", "hidden"]
+      });
+    }
+
+    /**
+     * Disconnects and cleans up all observers and timers to prevent memory leaks.
+     */
+    private cleanupObservers() {
+      this.resizeObserver?.disconnect();
+      this.resizeObserver = undefined;
+      this.mutationObserver?.disconnect();
+      this.mutationObserver = undefined;
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = undefined;
+      clearTimeout(this.mutationTimeout);
+      this.mutationTimeout = undefined;
+    }
+
+    private getIsHorizontal(): boolean {
+      return this.getAttribute("orientation") !== "vertical";
+    }
+
+    private getThreshold(): number {
+      const value = Number.parseFloat(this.getAttribute("threshold") ?? "25");
+      return Number.isFinite(value) ? value : 25;
+    }
+
+    private getStoreOverflowInMemory(): boolean {
+      const value = this.getAttribute("store-overflow-in-memory");
+      return value === "true" || value === "";
+    }
+
+    private getMaxRenderedItems(): number {
+      const value = Number.parseInt(this.getAttribute("max-rendered-items") ?? "25", 10);
+      if (!Number.isFinite(value)) {
+        return 25;
+      }
+
+      return value;
+    }
+
+    private getQuerySelector(): string | null {
+      return this.getAttribute("selector") ?? this.getAttribute("selectors");
+    }
+
+    private getContainerGap(): number {
+      if (this.cachedContainerGap === null) {
+        const gap = Number.parseFloat(window.getComputedStyle(this).gap);
+        this.cachedContainerGap = Number.isFinite(gap) ? gap : 0;
+      }
+
+      return this.cachedContainerGap;
+    }
+  }
+
+  function refreshContainer(
+    container: HTMLElement,
+    isHorizontal: boolean,
+    querySelector: string | null,
+    threshold: number,
+    lastHandledState: boolean | null,
+    containerGap: number,
+    maxRenderedItems: number
+  ): RefreshResult {
+    const localQuerySelector = buildQuerySelector(querySelector);
+    const allItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector));
+    const directChildren = Array.from(container.children) as OverflowElement[];
+    const managedItemSet = new Set(allItems);
+    const managedItems: OverflowElement[] = [];
+    const fixedItems: OverflowElement[] = [];
+    const ellipsisItems: OverflowElement[] = [];
+    const unmanagedItems: OverflowElement[] = [];
+
+    for (const element of directChildren) {
+      if (!managedItemSet.has(element)) {
+        unmanagedItems.push(element);
+      }
+    }
+
+    for (const element of allItems) {
+      const fixedMode = element.getAttribute("behavior");
+      if (fixedMode === "ellipsis") {
+        ellipsisItems.push(element);
+        continue;
+      }
+
+      if (fixedMode !== null) {
+        fixedItems.push(element);
+        continue;
+      }
+
+      managedItems.push(element);
+    }
+
+    const orientationChanged = lastHandledState !== null && lastHandledState !== isHorizontal;
+    if (orientationChanged) {
+      for (const element of allItems) {
+        element.removeAttribute("overflow");
+        element.overflowSize = null;
+      }
+    }
+
+    let itemsTotalSize = threshold > 0 ? 10 : 0;
+    let containerMaxSize = isHorizontal ? container.offsetWidth : container.offsetHeight;
+    containerMaxSize -= threshold;
+
+    let unmanagedTotal = 0;
+    for (let index = 0; index < unmanagedItems.length; index++) {
+      const size = ensureMeasuredSize(unmanagedItems[index], isHorizontal);
+      unmanagedTotal += size + containerGap;
+      itemsTotalSize += size + containerGap;
+    }
+
+    let ellipsisTotal = 0;
+    for (let index = 0; index < ellipsisItems.length; index++) {
+      const element = ellipsisItems[index];
+      ellipsisTotal += ensureMeasuredSize(element, isHorizontal);
+      if (index > 0) {
+        ellipsisTotal += containerGap;
+      }
+    }
+
+    let fixedTotal = 0;
+    for (let index = 0; index < fixedItems.length; index++) {
+      const size = ensureMeasuredSize(fixedItems[index], isHorizontal);
+      fixedTotal += size + (index > 0 ? containerGap : 0);
+      itemsTotalSize += size + containerGap;
+    }
+
+    const availableSize = containerMaxSize - fixedTotal - unmanagedTotal;
+    const desiredFlexShrink = ellipsisTotal > availableSize ? "1" : "0";
+
+    // When ellipsis items keep their natural width, reserve that space before classifying managed items.
+    if (desiredFlexShrink !== "1") {
+      for (let index = 0; index < ellipsisItems.length; index++) {
+        const size = ensureMeasuredSize(ellipsisItems[index], isHorizontal);
+        itemsTotalSize += size + containerGap;
+      }
+    }
+
+    const desiredOverflowStates: boolean[] = [];
+    let overflowCount = 0;
+    let firstOverflowIndex = -1;
+    const forceManagedOverflow = itemsTotalSize > containerMaxSize;
+
+    for (let index = 0; index < managedItems.length; index++) {
+      const element = managedItems[index];
+      const size = ensureMeasuredSize(element, isHorizontal);
+      itemsTotalSize += size + containerGap;
+
+      // When fixed ellipsis items already need shrinking to fit, keep managed items in overflow.
+      let shouldOverflow = forceManagedOverflow || desiredFlexShrink === "1";
+      if (!shouldOverflow && containerMaxSize > 0) {
+        shouldOverflow = itemsTotalSize > containerMaxSize;
+      }
+
+      desiredOverflowStates.push(shouldOverflow);
+      if (shouldOverflow) {
+        overflowCount++;
+        if (firstOverflowIndex < 0) {
+          firstOverflowIndex = index;
+        }
+      }
+
+    }
+
+    let overflowChanged = false;
+
+    for (const element of ellipsisItems) {
+      if (element.style.flexShrink !== desiredFlexShrink) {
+        element.style.flexShrink = desiredFlexShrink;
+      }
+    }
+
+    for (let index = 0; index < managedItems.length; index++) {
+      const element = managedItems[index];
+      const shouldOverflow = desiredOverflowStates[index];
+      const isOverflow = element.hasAttribute("overflow");
+
+      if (shouldOverflow && !isOverflow) {
+        element.setAttribute("overflow", "");
+        overflowChanged = true;
+      } else if (!shouldOverflow && isOverflow) {
+        element.removeAttribute("overflow");
+        overflowChanged = true;
+      }
+    }
+
+    return {
+      overflowItems: buildOverflowItems(managedItems, desiredOverflowStates, maxRenderedItems),
+      overflowCount,
+      firstOverflowIndex,
+      orderedItemIds: managedItems.map(item => item.id ?? ""),
+      overflowChanged,
+      isHorizontal
+    };
+  }
+
+  function getCurrentOverflowState(container: HTMLElement, querySelector: string | null, maxRenderedItems: number): OverflowState {
+    const localQuerySelector = buildQuerySelector(querySelector);
+    const managedItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector))
+      .filter(element => !element.hasAttribute("behavior"));
+
+    const overflowStates = managedItems.map(element => element.hasAttribute("overflow"));
+    let overflowCount = 0;
+    let firstOverflowIndex = -1;
+
+    for (let index = 0; index < overflowStates.length; index++) {
+      if (!overflowStates[index]) {
+        continue;
+      }
+
+      overflowCount++;
+      if (firstOverflowIndex < 0) {
+        firstOverflowIndex = index;
+      }
+    }
+
+    return {
+      overflowItems: buildOverflowItems(managedItems, overflowStates, maxRenderedItems),
+      overflowCount,
+      firstOverflowIndex,
+      orderedItemIds: managedItems.map(item => item.id ?? "")
+    };
+  }
+
+  function buildOverflowItems(items: OverflowElement[], overflowStates: boolean[], maxRenderedItems: number): OverflowItem[] {
+    const overflowItems: OverflowItem[] = [];
+    const unlimited = maxRenderedItems <= 0;
+
+    for (let index = 0; index < items.length; index++) {
+      if (!overflowStates[index]) {
+        continue;
+      }
+
+      overflowItems.push(toOverflowItem(items[index], index));
+      if (!unlimited && overflowItems.length >= maxRenderedItems) {
+        break;
+      }
+    }
+
+    return overflowItems;
+  }
+
+  function toOverflowItem(element: OverflowElement, index: number): OverflowItem {
+    return {
+      Id: element.id,
+      Overflow: true,
+      Text: (element.textContent ?? "").trim(),
+      Behavior: element.getAttribute("behavior"),
+      Index: index
+    };
+  }
+
+  function areOverflowItemsEqual(left: OverflowItem[], right: OverflowItem[]): boolean {
+    if (left.length !== right.length) {
+      return false;
+    }
+
+    for (let index = 0; index < left.length; index++) {
+      const leftItem = left[index];
+      const rightItem = right[index];
+      if (leftItem.Id !== rightItem.Id || leftItem.Text !== rightItem.Text || leftItem.Index !== rightItem.Index) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function areStringArraysEqual(left: string[], right: string[]): boolean {
+    if (left.length !== right.length) {
+      return false;
+    }
+
+    for (let index = 0; index < left.length; index++) {
+      if (left[index] !== right[index]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function buildQuerySelector(querySelector: string | null): string {
+    if (!querySelector) {
+      return ":scope > :not(.fluent-overflow-more)";
+    }
+
+    return `:scope > ${querySelector}`;
+  }
+
+  function ensureMeasuredSize(element: OverflowElement, isHorizontal: boolean): number {
+    if (element.overflowSize === null || element.overflowSize === undefined) {
+      const isEllipsisFixed = element.getAttribute("behavior") === "ellipsis";
+      element.overflowSize = isHorizontal
+        ? getElementWidth(element, isEllipsisFixed)
+        : getElementHeight(element, isEllipsisFixed);
+    }
+
+    return element.overflowSize;
+  }
+
+  function getElementWidth(element: HTMLElement, useIntrinsicSize = false): number {
+    const style = window.getComputedStyle(element);
+    const width = useIntrinsicSize ? element.scrollWidth : element.offsetWidth;
+    const margin = Number.parseFloat(style.marginLeft) + Number.parseFloat(style.marginRight);
+    return width + margin;
+  }
+
+  function getElementHeight(element: HTMLElement, useIntrinsicSize = false): number {
+    const style = window.getComputedStyle(element);
+    const height = useIntrinsicSize ? element.scrollHeight : element.offsetHeight;
+    const margin = Number.parseFloat(style.marginTop) + Number.parseFloat(style.marginBottom);
+    return height + margin;
+  }
+
+  /**
+   * Registers the FluentOverflow custom element with the browser's custom elements registry.
+   * Called during component initialization by the Blazor runtime.
+   * 
+   * @param blazor - The Blazor runtime instance
+   * @param mode - The component startup mode
+   */
+  export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
+    if (typeof customElements !== "undefined" && !customElements.get("fluent-overflow")) {
+      customElements.define("fluent-overflow", FluentOverflow);
+    }
+  };
+
+  /**
+   * Triggers a refresh of the overflow state for the specified container element.
+   * Used by Blazor to manually recalculate overflow when needed.
+   * 
+   * @param id - The HTML id of the FluentOverflow container
+   */
+  export function Refresh(id: string): void {
+    const element = document.getElementById(id) as FluentOverflow | null;
+    element?.refresh();
+  }
+
+  /**
+   * Retrieves the current overflow state for the specified container element.
+   * Exposed to Blazor via JSInterop for reading overflow items and counts.
+   * 
+   * @param id - The HTML id of the FluentOverflow container
+   * @returns The current OverflowState or default empty state if element not found
+   */
+  export function GetOverflowState(id: string): OverflowState {
+    const element = document.getElementById(id) as FluentOverflow | null;
+    return element?.getOverflowState() ?? {
+      overflowItems: [],
+      overflowCount: 0,
+      firstOverflowIndex: -1,
+      orderedItemIds: []
+    };
+  }
+}
