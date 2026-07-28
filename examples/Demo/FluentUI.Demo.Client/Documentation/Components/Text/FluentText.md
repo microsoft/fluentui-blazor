@@ -10,10 +10,16 @@ The text component codifies Fluent's opinions on typography to make them easy to
 
 Use the text component for plain text. For hypertext, try a [FluentLink](/link) instead.
 
+>[!Note] The Text component does **not** enclose the `ChildContent` in any additional HTML elements by default.
+You can use the `As` parameter (of type `TextTag`) to produce semantic HTML elements or specify the tag directly
+in the `ChildContent` (e.g., `<p>Some text</p>`).
+
 ## Font families
+
 Use the `Font` parameter to choose a font family. Use the monospace font to represent code.
 
 ## Alignment
+
 The `Align` parameter allows you to change text alignment. In most cases, start aligned text is the easiest to read. Use other alignments sparingly.
 
 Avoid justified text in web pages. The consistent line length and inconsistent spacing might make scanning information more difficult.
@@ -21,7 +27,8 @@ Avoid justified text in web pages. The consistent line length and inconsistent s
 For more info, see our typography guidelines.
 
 ## Accessibility
-By default, text components result in span elements. Use the as prop to produce semantic HTML.
+
+By default, text components just render the `ChildContent`. Use the `As` parameter to produce semantic HTML.
 
 Avoid using the appearance of a font to convey meaning. Bold and italic text should be used only when necessary, as not all screen readers communicate when text is bold or italicized.
 
