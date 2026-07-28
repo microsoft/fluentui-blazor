@@ -45,6 +45,57 @@ export function goToNextFocusableElement(forContainer, toOriginal, delay) {
 
 const keyboardNavigationState = new Map();
 
+function getDeepActiveElement(root = document) {
+    let activeElement = root.activeElement;
+
+    while (activeElement?.shadowRoot?.activeElement) {
+        activeElement = activeElement.shadowRoot.activeElement;
+    }
+
+    return activeElement;
+}
+
+function containsComposedElement(container, element) {
+    let current = element;
+
+    while (current) {
+        if (container?.contains?.(current)) {
+            return true;
+        }
+
+        const root = current.getRootNode();
+        current = root instanceof ShadowRoot ? root.host : null;
+    }
+
+    return false;
+}
+
+function focusElementOrDescendant(element) {
+    if (element.tabIndex !== -1) {
+        element.focus();
+
+        const activeElement = getDeepActiveElement();
+        if (activeElement !== element && containsComposedElement(element, activeElement)) {
+            return;
+        }
+    }
+
+    const focusTarget = new FocusableElement(element).findNextFocusableElement();
+    (focusTarget ?? element).focus();
+}
+
+function findNextPageElementAfterAnchor(anchorElement, popupElement) {
+    const focusable = new FocusableElement(anchorElement.getRootNode());
+
+    // The popup stays in the DOM until CloseAsync completes, so skip it when looking for the next page control.
+    const candidates = focusable.getFocusableElements()
+        .filter(element => !containsComposedElement(popupElement, element));
+
+    const anchorIndex = focusable.getFocusableElementIndex(anchorElement, candidates);
+
+    return anchorIndex === -1 ? null : candidates[anchorIndex + 1] ?? null;
+}
+
 /**
  * Attaches keyboard navigation listeners to an anchor+popup pair.
  * @param {string} anchorId - Id of the anchor element.
@@ -73,7 +124,7 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
             // Case 4: close key → return focus to anchor, close
             ev.preventDefault();
             ev.stopPropagation();
-            anchorElement.focus();
+            focusElementOrDescendant(anchorElement);
             dotNetHelper.invokeMethodAsync('CloseAsync');
             return;
         }
@@ -85,41 +136,30 @@ export function initializeKeyboardNavigation(anchorId, popupId, dotNetHelper, cl
             ev.stopPropagation();
             if (!ev.shiftKey) {
                 // Case 3: move to element after anchor in page
-                let startFrom;
-                if (anchorElement.tagName.startsWith("FLUENT-") && anchorElement.shadowRoot?.children.length > 0) {
-                    startFrom = anchorElement.shadowRoot.children[0];
-                } else {
-                    startFrom = anchorElement;
-                }
-                new FocusableElement(anchorElement.getRootNode()).findNextFocusableElement(startFrom)?.focus();
+                findNextPageElementAfterAnchor(anchorElement, popupElement)?.focus();
             } else {
                 // Case 2: Shift+Tab → focus anchor
-                anchorElement.focus();
+                focusElementOrDescendant(anchorElement);
             }
             dotNetHelper.invokeMethodAsync('CloseAsync');
         } else {
             // Popover pattern: only intercept Tab at the first/last boundary;
             // let the browser handle Tab naturally for elements in between.
-            const focusables = new FocusableElement(popupElement).getFocusableElements();
-            const activeIndex = focusables.indexOf(document.activeElement);
+            const popupFocus = new FocusableElement(popupElement);
+            const focusables = popupFocus.getFocusableElements();
+            const activeIndex = popupFocus.getFocusableElementIndex(getDeepActiveElement(), focusables);
 
             if (!ev.shiftKey && (focusables.length === 0 || activeIndex === focusables.length - 1)) {
                 // Case 3: Tab on last element → next page element after anchor, close
                 ev.preventDefault();
                 ev.stopPropagation();
-                let startFrom;
-                if (anchorElement.tagName.startsWith("FLUENT-") && anchorElement.shadowRoot?.children.length > 0) {
-                    startFrom = anchorElement.shadowRoot.children[0];
-                } else {
-                    startFrom = anchorElement;
-                }
-                new FocusableElement(anchorElement.getRootNode()).findNextFocusableElement(startFrom)?.focus();
+                findNextPageElementAfterAnchor(anchorElement, popupElement)?.focus();
                 dotNetHelper.invokeMethodAsync('CloseAsync');
             } else if (ev.shiftKey && (focusables.length === 0 || activeIndex === 0)) {
                 // Case 2: Shift+Tab on first element → focus anchor, close
                 ev.preventDefault();
                 ev.stopPropagation();
-                anchorElement.focus();
+                focusElementOrDescendant(anchorElement);
                 dotNetHelper.invokeMethodAsync('CloseAsync');
             }
             // Otherwise: middle element — let browser handle Tab/Shift+Tab naturally
@@ -198,24 +238,62 @@ export class FocusableElement {
      * @returns {Element[]}
      */
     getFocusableElements() {
-        const queriedElements = Array.from(this._container.querySelectorAll("*")).filter(el => {
-            return el.matches(this.FOCUSABLE_SELECTORS) || el.tagName.toLowerCase().startsWith("fluent-");
-        });
-
         const focusableElements = [];
-        queriedElements.forEach(el => {
-            if (el.tagName.toLowerCase().startsWith("fluent-") && el.tabIndex === -1 && !!el.shadowRoot) {
-                Array.from(el.shadowRoot.children).forEach(child => {
-                    if (child.tabIndex !== -1 && child.checkVisibility()) {
-                        focusableElements.push(child);
-                    }
-                });
-            } else {
-                focusableElements.push(el);
-            }
-        });
 
-        return focusableElements.filter(el => !!el && el.tabIndex !== -1 && el.checkVisibility());
+        const collectFocusableElements = container => {
+            Array.from(container.children).forEach(element => {
+                const isFocusable = element.matches(this.FOCUSABLE_SELECTORS)
+                    && element.tabIndex !== -1
+                    && element.checkVisibility();
+
+                if (isFocusable) {
+                    focusableElements.push(element);
+                } else if (element.shadowRoot) {
+                    collectFocusableElements(element.shadowRoot);
+                }
+
+                collectFocusableElements(element);
+            });
+        };
+
+        if (this._container.shadowRoot) {
+            collectFocusableElements(this._container.shadowRoot);
+        }
+
+        collectFocusableElements(this._container);
+        return focusableElements;
+    }
+
+    /**
+     * Gets the position of an element or its shadow/composite representation in a focusable element list.
+     * @param currentElement
+     * @param focusableElements
+     * @param reverse - If true, use the first focusable descendant instead of the last.
+     * @returns
+     */
+    getFocusableElementIndex(currentElement, focusableElements = this.getFocusableElements(), reverse = false) {
+        let current = currentElement;
+
+        while (current) {
+            const currentIndex = focusableElements.indexOf(current);
+            if (currentIndex !== -1) {
+                return currentIndex;
+            }
+
+            const root = current.getRootNode();
+            current = root instanceof ShadowRoot ? root.host : null;
+        }
+
+        const descendantIndexes = focusableElements
+            .map((element, index) => ({ element, index }))
+            .filter(({ element }) => containsComposedElement(currentElement, element))
+            .map(({ index }) => index);
+
+        if (descendantIndexes.length === 0) {
+            return -1;
+        }
+
+        return reverse ? descendantIndexes[0] : descendantIndexes[descendantIndexes.length - 1];
     }
 
     /**
@@ -234,7 +312,11 @@ export class FocusableElement {
         // Find the index of the current element
         const current = currentElement ?? document.activeElement;
         if (current != null) {
-            const currentIndex = filteredElements.indexOf(current);
+            const currentIndex = this.getFocusableElementIndex(current, filteredElements, reverse);
+
+            if (currentIndex === -1) {
+                return currentElement === undefined && !reverse ? filteredElements[0] : null;
+            }
 
             // Calculate the index of the next (or previous) element
             const nextIndex = reverse
