@@ -1,0 +1,48 @@
+<FluentStack VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="4px" Height="100%">
+    @* Hamburger on Mobile *@
+    <FluentLayoutHamburger Style="margin: 2px 12px;" PanelHeader="Fluent UI Blazor" Display="HamburgerDisplay.DesktopMobile" />
+
+    @* Microsoft Logo *@
+    <MicrosoftLogo />
+
+    <FluentSpacer />
+
+    @* GitHub Logo *@
+    <FluentButton IconStart="@(new GitHubIcon().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                    OnClick="@(() => OpenUrlInNewTabAsync("https://github.com/microsoft/fluentui-blazor/tree/dev-v5"))"
+                    Appearance="ButtonAppearance.Transparent"
+                    Title="See the Fluent UI Blazor GitHub repository" />
+
+    @* DarkTheme *@
+    <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                    OnClick="@SwitchThemeAsync"
+                    Appearance="ButtonAppearance.Transparent"
+                    Title="Switch to Light/Dark theme" />
+
+    @* Direction *@
+    <FluentButton IconOnly="true"
+                    Title="Switch to LTR/RTL direction"
+                    OnClick="@SwitchDirAsync"
+                    Appearance="ButtonAppearance.Transparent">
+        <FluentIcon Class="hidden-if-ltr"
+                    Value="@(new Icons.Regular.Size20.TextDirectionHorizontalRtl().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
+        <FluentIcon Class="hidden-if-rtl"
+                    Value="@(new Icons.Regular.Size20.TextDirectionHorizontalLtr().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
+    </FluentButton>
+
+    @* Reboot *@
+    <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                    OnClick="@ReloadReboot"
+                    Appearance="ButtonAppearance.Subtle"
+                    BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                    Style="display: none;"
+                    Title="Use the Reboot.css styles" />
+
+    @* Open Console *@
+    @* <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                  OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
+                  Appearance="ButtonAppearance.Subtle"
+                  BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                  Title="Open or hide the console" /> *@
+
+</FluentStack>

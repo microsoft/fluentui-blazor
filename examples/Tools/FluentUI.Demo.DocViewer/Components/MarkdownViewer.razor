@@ -39,7 +39,7 @@
                     }
                     else if (section.NoCode)
                     {
-                        <DynamicComponent Type="@component" />
+                        <SampleContainer ComponentName="@section.Value" @rendermode="@SampleRenderMode" />
                     }
                     else if (section.ExtraFiles.Count > 0)
                     {
@@ -54,7 +54,7 @@
                             </fluent-tablist>
 
                             <div id="@($"{id}-example-panel")" role="tabpanel" class="demo-section-example">
-                                <DynamicComponent Type="@component" />
+                                <SampleContainer ComponentName="@section.Value" @rendermode="@SampleRenderMode" />
                             </div>
                             @foreach (var item in section.ExtraFiles)
                             {
@@ -78,7 +78,7 @@
                             </fluent-tablist>
 
                             <div id="@($"{id}-example-panel")" role="tabpanel" class="demo-section-example">
-                                <DynamicComponent Type="@component" />
+                                <SampleContainer ComponentName="@section.Value" @rendermode="@SampleRenderMode" />
                             </div>
                             <div id="@($"{id}-code-panel")" role="tabpanel">
                                 <pre><code id="@($"{section.Id}")" class="@GetLanguageClassName()" source>Loading...</code></pre>

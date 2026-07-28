@@ -1,0 +1,11 @@
+@using FluentUI.Demo.DocViewer.Services
+@using Microsoft.AspNetCore.Components
+
+@if (_componentType is not null)
+{
+    <DynamicComponent Type="@_componentType" />
+}
+else
+{
+    <div class="component-not-found">&#9888; The component "@ComponentName" was not found.</div>
+}

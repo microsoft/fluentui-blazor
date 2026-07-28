@@ -44,6 +44,12 @@ public partial class MarkdownViewer
     [Parameter]
     public required string Route { get; set; }
 
+    /// <summary>
+    /// Gets or sets the <see cref="IComponentRenderMode"/> to use for rendering the sample component.
+    /// </summary>
+    [Parameter]
+    public IComponentRenderMode? SampleRenderMode { get; set; }
+
     /// <summary />
     internal string PageTitle { get; private set; } = string.Empty;
 
