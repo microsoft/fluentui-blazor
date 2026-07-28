@@ -57,17 +57,16 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
         return handler(e, "OnKeyUpRaisedAsync");
       }
 
-      const handler = function (e: KeyboardEvent, netMethod: string) {
-        const ev = e as any;
-        const keyCode = ev.which || ev.keyCode || ev.charCode;
+      const handler = function (event: KeyboardEvent, netMethod: string) {
+        const e = new SafeKeyboardEvent(event);
+        const keyCode = e.keyCode;
 
         if (stopRepeat && e.repeat) {
           return;
         }
 
         if (!!dotNetHelper && !!dotNetHelper.invokeMethodAsync) {
-
-          const targetId = ev.currentTarget?.id ?? "";
+          const targetId = e.targetId;
           const isPreventDefault = preventDefault || (preventDefaultOnly.length > 0 && preventDefaultOnly.includes(keyCode));
           const isStopPropagation = stopPropagation;
 
@@ -129,6 +128,60 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
       }
 
       delete (document as any)._fluentKeyCodeEvents[eventId];
+    }
+  }
+
+  /**
+   * A safe, read-only snapshot of the fields needed from a keyboard event, guaranteed
+   * to have valid types even when the source event is missing properties (e.g. a
+   * synthetic or malformed event dispatched instead of a real KeyboardEvent).
+   */
+  class SafeKeyboardEvent {
+    private readonly source: KeyboardEvent;
+
+    constructor(event: KeyboardEvent) {
+      const ev = event as any;
+      this.source = event;
+      this.keyCode = SafeKeyboardEvent.toSafeInt(ev.which ?? ev.keyCode ?? ev.charCode);
+      this.key = SafeKeyboardEvent.toSafeString(ev.key);
+      this.ctrlKey = SafeKeyboardEvent.toSafeBool(ev.ctrlKey);
+      this.shiftKey = SafeKeyboardEvent.toSafeBool(ev.shiftKey);
+      this.altKey = SafeKeyboardEvent.toSafeBool(ev.altKey);
+      this.metaKey = SafeKeyboardEvent.toSafeBool(ev.metaKey);
+      this.location = SafeKeyboardEvent.toSafeInt(ev.location);
+      this.repeat = SafeKeyboardEvent.toSafeBool(ev.repeat);
+      this.targetId = SafeKeyboardEvent.toSafeString(ev.currentTarget?.id);
+    }
+
+    readonly keyCode: number;
+    readonly key: string;
+    readonly ctrlKey: boolean;
+    readonly shiftKey: boolean;
+    readonly altKey: boolean;
+    readonly metaKey: boolean;
+    readonly location: number;
+    readonly repeat: boolean;
+    readonly targetId: string;
+
+    preventDefault(): void {
+      this.source.preventDefault();
+    }
+
+    stopPropagation(): void {
+      this.source.stopPropagation();
+    }
+
+    private static toSafeString(value: unknown): string {
+      return typeof value === "string" ? value : "";
+    }
+
+    private static toSafeInt(value: unknown): number {
+      const result = Number(value);
+      return Number.isInteger(result) ? result : 0;
+    }
+
+    private static toSafeBool(value: unknown): boolean {
+      return typeof value === "boolean" ? value : false;
     }
   }
 }
