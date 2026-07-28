@@ -70,17 +70,17 @@ Enabling `RoundedCorners` applies a small border-radius to each segment arc, giv
 
 {{ DonutChartRoundedCorners }}
 
+### Value inside donut
+
+The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
+
+{{ DonutChartValueInsideDonut }}
+
 ### With custom sizing
 
 Use the sliders to adjust the chart's `Width`, `Height`, and `InnerRadius` at runtime, demonstrating how the donut ring scales with the available space.
 
 {{ DonutChartSizing }}
-
-### Outside labels
-
-Enabling `ShowOutsideLabels` moves each segment's label outside the ring, avoiding overlap for charts with many small segments.
-
-{{ DonutChartOutsideLabels }}
 
 ### Hide tooltip
 
@@ -105,12 +105,6 @@ Setting the `Culture` property to a specific locale (here `de-DE`) formats all n
 When `AllowMultipleLegendSelection` is enabled, clicking a legend item highlights only the corresponding segment; multiple legend items can be selected at the same time.
 
 {{ DonutChartMultipleLegendSelection }}
-
-### Value inside donut
-
-The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
-
-{{ DonutChartValueInsideDonut }}
 
 ### RTL
 

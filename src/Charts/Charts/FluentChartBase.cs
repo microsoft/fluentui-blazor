@@ -68,7 +68,7 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public string? LegendListLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether bars or arcs are rendered with rounded corners.
+    /// Gets or sets a value indicating whether bars, arcs or legend indicators are rendered with rounded corners.
     /// </summary>
     [Parameter]
     public bool RoundedCorners { get; set; }

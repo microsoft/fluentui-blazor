@@ -43,7 +43,7 @@ public partial class FluentAreaChart
     /// Gets or sets a value indicating whether to display the title for the secondary Y-axis.
     /// </summary>
     [Parameter]
-    public bool SecondaryYAxisTitle { get; set; }
+    public string? SecondaryYAxisTitle { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum width for the tick labels on the secondary Y-axis.

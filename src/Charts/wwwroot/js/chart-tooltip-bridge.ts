@@ -23,7 +23,10 @@ interface Bridge {
   shadowObserver: MutationObserver;
 }
 
-type TooltipRenderer = (dataPoint: unknown, defaultRender: (dataPoint: unknown) => string) => string;
+type TooltipRenderer = (
+  dataPoint: unknown,
+  defaultRender: (dataPoint: unknown) => string | Node,
+) => string | Node;
 
 const _bridges = new Map<string, Bridge>();
 
@@ -114,13 +117,16 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
    * @param defaultRender The chart's built-in default renderer.
    * @returns Default tooltip HTML (shown immediately).
    */
-  const renderer: TooltipRenderer = (dataPoint: any, defaultRender): string => {
-    // Extract common fields; fall back to empty strings for axis charts.
-    const legend: string = dataPoint?.legend ?? dataPoint?.stage ?? "";
+  const renderer: TooltipRenderer = (dataPoint: any, defaultRender) => {
+    const firstEntry = Array.isArray(dataPoint?.entries) ? dataPoint.entries[0] : null;
+
+    // Extract common fields; include AreaChart stacked overlay payload fallbacks.
+    const legend: string = dataPoint?.legend ?? dataPoint?.stage ?? firstEntry?.legend ?? "";
     const yValue: string =
       dataPoint?.yValue ??
       dataPoint?.value ??
       dataPoint?.yAxisCalloutData ??
+      firstEntry?.value ??
       (dataPoint?.data != null ? String(dataPoint.data) : null) ??
       String(dataPoint?.y ?? "");
 
@@ -130,13 +136,14 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
     const xValue: string =
       dataPoint?.xValue ??
       dataPoint?.xAxisCalloutData ??
+      dataPoint?.xLabel ??
       (xIsRange ? "" : String(rawX ?? ""));
 
     // XStart / XEnd: ISO date strings for GanttChart ranges; empty for all other charts.
     const xStart: string = xIsRange ? _toISODateString((rawX as { start: unknown }).start) : "";
     const xEnd: string = xIsRange ? _toISODateString((rawX as { end: unknown }).end) : "";
 
-    const color: string = dataPoint?.color ?? "";
+    const color: string = dataPoint?.color ?? firstEntry?.color ?? "";
     const rawJson: string = _safeStringify(dataPoint);
 
     // Fire-and-forget: tell Blazor about the new data point.
@@ -156,9 +163,8 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
         /* component disposed — ignore */
       });
 
-    // Return default content immediately so the tooltip is shown at once
-    // while Blazor re-renders the portal in the background.
-    return defaultRender(dataPoint);
+    const portalContent = portal?.firstElementChild;
+    return portalContent ? portalContent.cloneNode(true) : defaultRender(dataPoint);
   };
 
   // Assign the renderer to the element property.

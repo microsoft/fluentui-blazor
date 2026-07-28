@@ -1,0 +1,40 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="area-width" Min="200" Max="1000" Step="10" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="area-height" Min="200" Max="1000" Step="10" Style="width:300px;" />
+</FluentStack>
+
+<FluentAreaChart ChartData="@data"
+                 ChartTitle="Area chart sizing example"
+                 Width="@($"{_width}px")"
+                 Height="@($"{_height}px")" />
+
+@code {
+    private int _width = 700;
+    private int _height = 400;
+
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 7000 },
+                new AreaChartDataPoint { X = 25, Y = 9000 },
+                new AreaChartDataPoint { X = 30, Y = 13000 },
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 12000 },
+                new AreaChartDataPoint { X = 25, Y = 14000 },
+                new AreaChartDataPoint { X = 30, Y = 18000 },
+            }
+        }
+    };
+}

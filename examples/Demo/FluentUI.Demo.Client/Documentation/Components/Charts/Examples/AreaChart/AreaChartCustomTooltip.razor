@@ -1,0 +1,109 @@
+﻿@using System.Text.Json
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentAreaChart ChartData="data"
+                 ChartTitle="Area chart custom tooltip example"
+                 Width="700px">
+    <CartesianTooltipTemplate Context="ctx">
+        @{
+            var entries = GetTooltipEntries(ctx);
+        }
+
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 160px;">
+            <div style="font-size: 0.85em;">X: <strong>@ctx.XValue</strong></div>
+
+            @if (entries.Count > 0)
+            {
+                foreach (var entry in entries)
+                {
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background-color: @entry.Color; flex-shrink: 0;"></span>
+                            <strong>@entry.Legend</strong>
+                        </div>
+                        <span>@entry.Value</span>
+                    </div>
+                }
+            }
+            else
+            {
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background-color: @ctx.Color.ToDataVizPaletteHex(ctx.CustomColor); flex-shrink: 0;"></span>
+                    <strong>@ctx.Legend</strong>
+                </div>
+                <div style="font-size: 0.85em;">Value: <strong>@ctx.YValue</strong></div>
+            }
+        </div>
+    </CartesianTooltipTemplate>
+</FluentAreaChart>
+
+@code {
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 7000 },
+                new AreaChartDataPoint { X = 25, Y = 9000 },
+                new AreaChartDataPoint { X = 30, Y = 13000 },
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 12000 },
+                new AreaChartDataPoint { X = 25, Y = 14000 },
+                new AreaChartDataPoint { X = 30, Y = 18000 },
+            }
+        }
+    };
+
+    private static IReadOnlyList<TooltipEntry> GetTooltipEntries(CartesianTooltipContext context)
+    {
+        if (string.IsNullOrWhiteSpace(context.RawJson))
+        {
+            return [];
+        }
+
+        try
+        {
+            using var json = JsonDocument.Parse(context.RawJson);
+            if (!json.RootElement.TryGetProperty("entries", out var entriesElement) ||
+                entriesElement.ValueKind != JsonValueKind.Array)
+            {
+                return [];
+            }
+
+            var result = new List<TooltipEntry>();
+            foreach (var item in entriesElement.EnumerateArray())
+            {
+                var legend = item.TryGetProperty("legend", out var legendElement)
+                    ? legendElement.GetString()
+                    : null;
+                var value = item.TryGetProperty("value", out var valueElement)
+                    ? valueElement.GetString()
+                    : null;
+                var color = item.TryGetProperty("color", out var colorElement)
+                    ? colorElement.GetString()
+                    : null;
+
+                if (!string.IsNullOrWhiteSpace(legend) && !string.IsNullOrWhiteSpace(value))
+                {
+                    result.Add(new TooltipEntry(legend, value, color ?? string.Empty));
+                }
+            }
+
+            return result;
+        }
+        catch
+        {
+            return [];
+        }
+    }
+
+    private sealed record TooltipEntry(string Legend, string Value, string Color);
+}

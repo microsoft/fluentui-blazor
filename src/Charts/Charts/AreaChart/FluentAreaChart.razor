@@ -38,17 +38,22 @@
                    culture="@Culture?.Name"
                    tick-values="@TickValuesJson"
                    tick-format="@TickFormat"
+                   hide-tick-overlap="@(HideTickOverlap ? "true" : null)"
                    stroke-width="@StrokeWidth"
                    show-x-axis-labels-tooltip="@(ShowXAxisLabelsTooltip ? "true" : null)"
                    date-localize-options="@DateLocalizeOptionsJson"
                    mode="@Mode.ToAttributeValue()"
-                   secondary-y-axis-title="@(SecondaryYAxisTitle ? "true" : null)"
+                   secondary-y-axis-title="@SecondaryYAxisTitle"
                    secondary-y-axis-tick-label-max-width="@SecondaryYAxisTickLabelMaxWidth"
                    @attributes="@AdditionalAttributes">
 </fluent-area-chart>
 
 
-@if (TooltipTemplate is not null)
+@if (CartesianTooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@CartesianTooltipTemplate((CartesianTooltipContext)_tooltipContext)</div>
+}
+else if (TooltipTemplate is not null)
 {
     <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
 }

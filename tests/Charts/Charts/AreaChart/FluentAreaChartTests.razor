@@ -81,11 +81,11 @@
     public void FluentAreaChart_SecondaryYAxisTitle()
     {
         // Arrange && Act
-        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" SecondaryYAxisTitle="true" />);
+        var cut = Render(@<FluentAreaChart ChartData="@DefaultData" SecondaryYAxisTitle="Secondary scale" />);
 
         // Assert
         var attribute = cut.Find("fluent-area-chart").GetAttribute("secondary-y-axis-title");
-        Assert.Equal("true", attribute);
+        Assert.Equal("Secondary scale", attribute);
     }
 
     [Fact]
@@ -180,6 +180,22 @@
         );
 
         // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentAreaChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentAreaChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </CartesianTooltipTemplate>
+            </FluentAreaChart>
+        );
+
+        // Assert — portal div is present when CartesianTooltipTemplate is set
         Assert.NotNull(cut.Find("[style*='display:none']"));
     }
 

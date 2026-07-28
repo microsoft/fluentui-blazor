@@ -159,6 +159,13 @@ export class ChartLegend extends FASTElement {
   _measure() {
     // Vertical positions (start / end) always stack — no overflow needed.
     if (this.position === 'start' || this.position === 'end') {
+      this._visibleCount = Number.MAX_SAFE_INTEGER;
+      this._overflowCount = 0;
+      this._overflowItems = [];
+
+      this.shadowRoot
+        ?.querySelectorAll<HTMLElement>('.legend:not(.overflow-button)')
+        ?.forEach(btn => (btn.style.display = ''));
       return;
     }
 

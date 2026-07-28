@@ -11,13 +11,6 @@ export function areaChartTemplate<T extends AreaChart>(): ElementViewTemplate<T>
         label="${x => x.legendListLabel}"
         position="${x => x.legendPosition}"
         ?hidden="${x => x.hideLegends}"
-        are
-        there
-        other
-        cartesianchartbase
-        drived
-        charts
-        that
         :roundBoxes="${x => x.roundCorners}"
         @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
         @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
