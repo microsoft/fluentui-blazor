@@ -142,7 +142,7 @@ export namespace Microsoft.FluentUI.Blazor.KeyCode {
     constructor(event: KeyboardEvent) {
       const ev = event as any;
       this.source = event;
-      this.keyCode = SafeKeyboardEvent.toSafeInt(ev.which || ev.keyCode || ev.charCode);
+      this.keyCode = SafeKeyboardEvent.toSafeInt(ev.which ?? ev.keyCode ?? ev.charCode);
       this.key = SafeKeyboardEvent.toSafeString(ev.key);
       this.ctrlKey = SafeKeyboardEvent.toSafeBool(ev.ctrlKey);
       this.shiftKey = SafeKeyboardEvent.toSafeBool(ev.shiftKey);
