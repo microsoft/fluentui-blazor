@@ -39,6 +39,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [EventHandler("onclosecolumnheaderui", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontextimmediate", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onoverflowchange", typeof(OverflowChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

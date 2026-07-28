@@ -4,6 +4,7 @@
 
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
 	<nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()" hide-bar="@(HideActiveIndicator)">
+		<fluent-overflow id="@OverflowElementId" style="@OverflowStyleValue" orientation="@Orientation.ToAttributeValue()" threshold="0" selector=".fluent-appbar-item" @onoverflowchange="@OnOverflowChangedAsync">
 
 		@if (Items is null)
 		{
@@ -30,6 +31,7 @@
 				</FluentStack>
 			</div>
 		}
+		</fluent-overflow>
 
 		@if (AppsOverflow.Any())
 		{
@@ -49,6 +51,7 @@
 											 Immediate="true"
 											 Placeholder="Search for apps"
 											 Autofocus="true"
+                                             AutoComplete="off"
 											 tabindex="0">
 								<StartTemplate>
 									<FluentIcon Value="@(new CoreIcons.Regular.Size20.Search())" Color="Color.Primary" />
