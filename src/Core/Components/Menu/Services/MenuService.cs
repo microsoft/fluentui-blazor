@@ -60,18 +60,21 @@ public class MenuService : IMenuService, IDisposable
     /// </summary>
     public void Remove(FluentMenu menu)
     {
+        bool removed;
+
         MenuLock.EnterWriteLock();
         try
         {
-            var item = MenuList.FirstOrDefault(i => i.Id == menu.Id);
-            if (item != null)
-            {
-                MenuList.Remove(item);
-            }
+            removed = MenuList.Remove(menu);
         }
         finally
         {
             MenuLock.ExitWriteLock();
+        }
+
+        if (removed)
+        {
+            OnMenuUpdated.Invoke();
         }
     }
 
