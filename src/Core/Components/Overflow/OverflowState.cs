@@ -7,7 +7,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Represents the current overflow state.
 /// </summary>
-public record OverflowState
+internal record OverflowState
 {
     /// <summary>
     /// Gets the items that are currently in overflow.
