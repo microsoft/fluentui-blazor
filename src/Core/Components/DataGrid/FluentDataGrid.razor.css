@@ -21,7 +21,10 @@
       display: contents;
     }
 
-    .fluent-data-grid.grid tr {
+    /* Restricted to direct thead/tbody children so a nested FluentDataGrid (e.g. in RowDetails)
+       doesn't have its own rows absorbed into this grid's CSS Grid layout. */
+    .fluent-data-grid.grid > thead > tr,
+    .fluent-data-grid.grid > tbody > tr {
       display: contents;
     }
 

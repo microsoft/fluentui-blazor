@@ -1447,11 +1447,17 @@
         }
         else
         {
-            var item = cut.FindComponents<FluentDataGridCell<TGridItem>>()
-                          .Where(i => i.Instance.GridColumn == col + 1)
-                          .ElementAt(row + 1);
-            await item.Instance.HandleOnCellClickAsync();
-            cut.FindComponent<FluentDataGrid<TGridItem>>().Render();
+            // Only columns that need cell-level interaction render as FluentDataGridCell components;
+            // other columns are plain <td> elements with no click handler. Clicking one of those does
+            // nothing, which is the behavior these tests assert.
+            var cell = cut.FindComponents<FluentDataGridCell<TGridItem>>()
+                          .Where(i => i.Instance.CellType == DataGridCellType.Default && i.Instance.GridColumn == col + 1)
+                          .ElementAtOrDefault(row);
+            if (cell is not null)
+            {
+                await cell.Instance.HandleOnCellClickAsync();
+                cut.FindComponent<FluentDataGrid<TGridItem>>().Render();
+            }
         }
     }
 

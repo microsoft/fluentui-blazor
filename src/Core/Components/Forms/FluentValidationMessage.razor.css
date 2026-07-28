@@ -1,4 +1,5 @@
-.fluent-validation-message {
+.fluent-validation-message > div[message] {
   display: flex;
   align-items: center;
+  border: 1px dotted green;
 }

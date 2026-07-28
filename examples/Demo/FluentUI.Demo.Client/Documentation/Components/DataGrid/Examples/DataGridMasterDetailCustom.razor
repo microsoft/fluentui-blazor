@@ -1,0 +1,76 @@
+﻿<style>
+    .custom-detail .row-details-cell {
+        background: var(--colorNeutralBackground2);
+    }
+
+    .custom-detail .detail-card {
+        max-width: 32rem;
+        margin: 1rem 0 1rem 1.5rem;
+        padding: 1.25rem 1.5rem;
+    }
+
+    .custom-detail .detail-label {
+        color: var(--colorNeutralForeground3);
+        min-width: 5rem;
+    }
+
+    .custom-detail .detail-email {
+        color: var(--colorBrandForegroundLink);
+    }
+</style>
+
+<div class="custom-detail">
+    <FluentDataGrid Items="@customers" ShowHover="true">
+        <ChildContent>
+            <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
+            <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
+            <TemplateColumn Title="Status">
+                <FluentBadge Color="@(context.IsActive ? BadgeColor.Success : BadgeColor.Subtle)">
+                    @(context.IsActive ? "Active" : "Inactive")
+                </FluentBadge>
+            </TemplateColumn>
+        </ChildContent>
+        <RowDetails Context="customer">
+            <FluentCard Class="detail-card">
+                <FluentStack Orientation="Orientation.Vertical" VerticalGap="12">
+                    <h5 style="margin: 0;">@customer.Name</h5>
+
+                    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
+                        <FluentIcon Value="@(new Icons.Regular.Size20.Location())" Color="Color.Default" />
+                        <span class="detail-label">City</span>
+                        <span>@customer.City</span>
+                    </FluentStack>
+
+                    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
+                        <FluentIcon Value="@(new Icons.Regular.Size20.Mail())" Color="Color.Default" />
+                        <span class="detail-label">Email</span>
+                        <a class="detail-email" href="@($"mailto:{customer.Email}")">@customer.Email</a>
+                    </FluentStack>
+
+                    <FluentStack Orientation="Orientation.Horizontal" VerticalAlignment="VerticalAlignment.Center" HorizontalGap="8">
+                        <FluentIcon Value="@(new Icons.Regular.Size20.Phone())" Color="Color.Default" />
+                        <span class="detail-label">Phone</span>
+                        <span>@customer.Phone</span>
+                    </FluentStack>
+
+                    <FluentStack Orientation="Orientation.Vertical" VerticalGap="4">
+                        <span class="detail-label">Satisfaction</span>
+                        <FluentProgressBar Min="0" Max="100" Value="@customer.Satisfaction" Width="200px" />
+                    </FluentStack>
+                </FluentStack>
+            </FluentCard>
+        </RowDetails>
+    </FluentDataGrid>
+</div>
+
+@code {
+    private record Customer(int Id, string Name, string City, string Email, string Phone, int Satisfaction, bool IsActive);
+
+    private IQueryable<Customer> customers = new List<Customer>
+    {
+        new(1, "Contoso Ltd.", "Seattle", "contact@contoso.com", "+1 206 555 0100", 92, true),
+        new(2, "Fabrikam, Inc.", "Paris", "hello@fabrikam.com", "+33 1 55 00 12 00", 78, true),
+        new(3, "Northwind Traders", "London", "sales@northwind.com", "+44 20 7946 0000", 64, false),
+        new(4, "Adventure Works", "Brussels", "info@adventure-works.com", "+32 2 555 01 23", 85, true),
+    }.AsQueryable();
+}
