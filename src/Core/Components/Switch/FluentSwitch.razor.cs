@@ -22,6 +22,17 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
         LabelPosition ??= Components.LabelPosition.After;
     }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the width of the switch (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+    
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }
@@ -54,11 +65,13 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
         return Task.CompletedTask;
     }
 
-    private void OnSwitchChangedHandler(ChangeEventArgs e)
+    private async Task OnSwitchChangedHandlerAsync(ChangeEventArgs e)
     {
         ArgumentNullException.ThrowIfNull(e);
 
         CurrentValue = !CurrentValue;
+
+        await ReportValidityAsync();
     }
 
     /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />

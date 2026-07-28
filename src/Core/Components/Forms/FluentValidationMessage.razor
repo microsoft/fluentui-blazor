@@ -1,0 +1,18 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+@typeparam TValue
+
+<FluentText slot="@FluentSlot.FieldMessage"
+            Class="@ClassValue"
+            Style="@StyleValue"
+            Size="@TextSize.Size200"
+            Color="@Color.Error"
+            @attributes="AdditionalAttributes">
+    @foreach (var message in ValidationMessages)
+    {   <div message >
+            @CreateIcon(Icon)
+            @message
+        </div>
+
+    }
+</FluentText>

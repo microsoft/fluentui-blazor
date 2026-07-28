@@ -9,7 +9,7 @@ hidden: true
   `FluentWizard` and `FluentWizardStep` have been **re-introduced** in V5.
   The component preserves the same API and functionality from V4 with the following changes.
 
-- ### Breaking changes 💥
+- ### Breaking changes 
 
   | V4 | V5 |
   |----|-----|

@@ -18,6 +18,7 @@
     height: calc(var(--appbar-item-size) - var(--appbar-item-height-adjustment));
   }
 
+
     .fluent-appbar .fluent-appbar-item:hover {
       background-color: var(--colorNeutralBackground5Hover);
     }
@@ -105,5 +106,3 @@
 .fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"] {
     display: block;
 }
-
-

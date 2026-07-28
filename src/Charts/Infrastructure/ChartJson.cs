@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
@@ -9,8 +10,19 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Provides shared source-generated JSON serialization helpers for chart payloads.
 /// </summary>
+[ExcludeFromCodeCoverage(Justification = "Thin convenience wrapper around source-generated JSON contexts; behavior is covered by serializer context tests.")]
 public static class ChartJson
 {
+    /// <summary>
+    /// Serializes area chart data using the area chart serializer context.
+    /// </summary>
+    /// <param name="value">The area chart data payload.</param>
+    /// <returns>A JSON string suitable for the <c>fluent-area-chart</c> component.</returns>
+    public static string Serialize(IReadOnlyList<AreaChartSeries> value) =>
+        JsonSerializer.Serialize(
+            value,
+            AreaChartDataJsonSerializerContext.Default.IReadOnlyListAreaChartSeries);
+
     /// <summary>
     /// Serializes donut chart data using the donut chart serializer context.
     /// </summary>

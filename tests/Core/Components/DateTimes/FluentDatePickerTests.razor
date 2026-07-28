@@ -1,7 +1,6 @@
-﻿@using System.Globalization
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Globalization
 @using System.Reflection
-@using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@using System.Runtime.InteropServices
 @using Xunit
 @inherits FluentUITestContext
 
@@ -188,6 +187,105 @@
 
         // Assert
         Assert.Equal("14", picker.Find(".day[disabled]").InnerHtml);
+    }
+
+    [Fact]
+    public void FluentDatePicker_MinMaxDate_SetCorrectValues()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var minDate = new System.DateTime(2022, 02, 10);
+        var maxDate = new System.DateTime(2022, 02, 20);
+
+        // Act
+        var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" MinDate="@minDate" MaxDate="@maxDate" />);
+        var pickerInstance = picker.FindComponent<FluentDatePicker<DateTime?>>().Instance;
+
+        // Assert
+        Assert.Equal(minDate, pickerInstance.MinDate);
+        Assert.Equal(maxDate, pickerInstance.MaxDate);
+    }
+
+    [Fact]
+    public void FluentDatePicker_MinMaxDate_PassedToCalendar()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var minDate = new System.DateTime(2022, 02, 10);
+        var maxDate = new System.DateTime(2022, 02, 20);
+
+        // Act
+        var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+            MinDate="@minDate" MaxDate="@maxDate" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click to open the calendar
+        text.Click();
+
+        // Assert
+        var calendar = picker.FindComponent<FluentCalendar<DateTime?>>().Instance;
+        Assert.Equal(minDate, calendar.MinDate);
+        Assert.Equal(maxDate, calendar.MaxDate);
+    }
+
+    [Fact]
+    public void FluentDatePicker_MinDate_DisablesEarlierDays()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var minDate = new System.DateTime(2022, 02, 10);
+
+        // Act
+        var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+            MinDate="@minDate" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click to open the calendar
+        text.Click();
+
+        // Assert
+        Assert.True(picker.Find(".day[value='2022-02-09']").HasAttribute("disabled"));
+        Assert.False(picker.Find(".day[value='2022-02-10']").HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public void FluentDatePicker_MaxDate_DisablesLaterDays()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var maxDate = new System.DateTime(2022, 02, 20);
+
+        // Act
+        var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+            MaxDate="@maxDate" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click to open the calendar
+        text.Click();
+
+        // Assert
+        Assert.True(picker.Find(".day[value='2022-02-21']").HasAttribute("disabled"));
+        Assert.False(picker.Find(".day[value='2022-02-20']").HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public void FluentDatePicker_MinMaxDate_DayWithinRangeIsEnabled()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var minDate = new System.DateTime(2022, 02, 10);
+        var maxDate = new System.DateTime(2022, 02, 20);
+
+        // Act
+        var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
+            MinDate="@minDate" MaxDate="@maxDate" />);
+        var text = picker.Find("fluent-text-input");
+
+        // Click to open the calendar
+        text.Click();
+
+        // Assert
+        Assert.False(picker.Find(".day[value='2022-02-15']").HasAttribute("disabled"));
     }
 
     [Fact]
@@ -720,5 +818,46 @@
             Assert.NotNull(validationErrorMessage);
             Assert.Contains("must be a date", validationErrorMessage);
         }
+    }
+
+    [Fact]
+    public void FluentDatePicker_RendersFieldWithTextInput()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now); 
+
+        // Act
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Label="Date" Required="true" />);
+
+        // Assert
+        Assert.Single(cut.FindAll("fluent-field > fluent-text-input"));
+    }
+
+    [Fact]
+    public void FluentDatePicker_EditFormValidation_ShowsMessageInFieldSlot()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var model = new DatePickerValidationModel();
+        var cut = Render(
+            @<EditForm Model="@model">
+                <DataAnnotationsValidator />
+                <FluentDatePicker TValue="DateTime?" Label="Production Date" Name="production-date" @bind-Value="@model.ProductionDate" Required="true" />
+                <button type="submit">Submit</button>
+            </EditForm>);
+
+        // Act
+        cut.Find("button[type='submit']").Click();
+
+        // Assert
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Single(messages);
+        Assert.Contains("Production date is required", messages[0].TextContent);
+    }
+
+    private class DatePickerValidationModel
+    {
+        [Required(ErrorMessage = "Production date is required")]
+        public DateTime? ProductionDate { get; set; }
     }
 }

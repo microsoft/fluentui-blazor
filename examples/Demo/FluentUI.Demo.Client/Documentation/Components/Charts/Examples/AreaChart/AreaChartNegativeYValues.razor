@@ -1,0 +1,40 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+<FluentAreaChart Width="700"
+                 XAxisTitle="Number of days"
+                 YAxisTitle="Variation of stock market prices"
+                 HideTickOverlap
+                 Mode="AreaChartMode.Tonexty"
+                 ChartData="@data"
+                 ChartTitle="Area chart Negative y example">
+</FluentAreaChart>
+
+@code {
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 7000 },
+                new AreaChartDataPoint { X = 25, Y = -9000 },
+                new AreaChartDataPoint { X = 30, Y = 13000 },
+                new AreaChartDataPoint { X = 35, Y = -15000 },
+                new AreaChartDataPoint { X = 40, Y = 11000 },
+                new AreaChartDataPoint { X = 45, Y = -8760 },
+                new AreaChartDataPoint { X = 50, Y = 3500 },
+                new AreaChartDataPoint { X = 55, Y = -20000 },
+                new AreaChartDataPoint { X = 60, Y = 17000 },
+                new AreaChartDataPoint { X = 65, Y = -1000 },
+                new AreaChartDataPoint { X = 70, Y = 12000 },
+                new AreaChartDataPoint { X = 75, Y = -6876 },
+                new AreaChartDataPoint { X = 80, Y = 12000 },
+                new AreaChartDataPoint { X = 85, Y = -7000 },
+                new AreaChartDataPoint { X = 90, Y = 10000 },
+                new AreaChartDataPoint { X = 95, Y = 12000 },
+                new AreaChartDataPoint { X = 100, Y = 18000 },
+                new AreaChartDataPoint { X = 105, Y = 14000 },
+            }
+        }
+    };
+}

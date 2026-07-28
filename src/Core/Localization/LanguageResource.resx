@@ -363,6 +363,9 @@
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
   </data>
+  <data name="DataGrid_ToggleRowDetails" xml:space="preserve">
+    <value>Toggle row details</value>
+  </data>
   <data name="Paginator_SummaryItem" xml:space="preserve">
     <value>{0} item</value>
   </data>
@@ -383,5 +386,11 @@
   </data>
   <data name="Wizard_LabelButtonDone" xml:space="preserve">
     <value>Done</value>
+  </data>
+  <data name="LabelInfo_InfoActionText" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="LabelInfo_InfoText" xml:space="preserve">
+    <value>More information</value>
   </data>
 </root>

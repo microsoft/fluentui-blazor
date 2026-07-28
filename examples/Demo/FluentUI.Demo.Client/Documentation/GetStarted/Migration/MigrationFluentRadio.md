@@ -8,7 +8,7 @@ hidden: true
 - Using the `ChildContent` parameter to specify the contents/label of a Radio item is no longer supported. Use the `Label` or `LabelTemplate` parameters instead.
 - The `ReadOnly` parameter is not supported. Use the `Disabled` parameter instead.
 
-### FluentRadio removed properties💥
+### FluentRadio removed properties
 - `ChildContent` — use `Label` or `LabelTemplate`.
 - `ReadOnly` (`bool`)
 - `AriaLabel` (`string?`)
@@ -22,7 +22,7 @@ hidden: true
 ### FluentRadio new properties
 - `LabelWidth` (`string?`) — controls the width of the label area.
 
-### FluentRadioGroup removed properties💥
+### FluentRadioGroup removed properties
 - `ParsingErrorMessage` (`string`)
 
 ### FluentRadioGroup new properties

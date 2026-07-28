@@ -8,17 +8,34 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
    * @param triggerId The id of the trigger element that will open the menu when clicked.
    */
   export function Initialize(id: string, triggerId: string) {
-    const trigger = document.getElementById(triggerId) as HTMLElement;
+    const initWithRetry = (attempt: number = 0) => {
+      const trigger = document.getElementById(triggerId) as HTMLElement | null;
+      const menu = document.getElementById(id) as Menu | null;
+      if (!trigger || !menu) {
+        if (attempt < 10) {
+          requestAnimationFrame(() => initWithRetry(attempt + 1));
+        }
+        return;
+      }
 
-    if (trigger) {
       trigger.style["anchor-name" as any] = `--anchor-${triggerId}`;
 
-      const menu = document.getElementById(id) as Menu;
-      if (menu && menu.slottedMenuList.length) {
-        menu.slottedMenuList[0].style["position-anchor" as any] = `--anchor-${triggerId}`;
-        menu.slottedTriggersChanged(menu.slottedTriggers, [trigger]);
+      // Keep trigger wiring explicit for hosted surfaces (drawer/dialog/shadow-heavy layouts).
+      menu.setAttribute("trigger", triggerId);
+
+      const menuList = menu.slottedMenuList?.[0] as MenuList | undefined;
+      if (!menuList) {
+        if (attempt < 10) {
+          requestAnimationFrame(() => initWithRetry(attempt + 1));
+        }
+        return;
       }
-    }
+
+      menuList.style["position-anchor" as any] = `--anchor-${triggerId}`;
+      menu.slottedTriggersChanged(menu.slottedTriggers ?? [], [trigger]);
+    };
+
+    initWithRetry();
   }
 
   /**
@@ -26,7 +43,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
    * @param id 
    */
   export function CloseMenu(id: string) {
-    const menu = document.getElementById(id) as Menu;
+    const menu = document.getElementById(id) as Menu | null;
     if (menu) {
       menu.closeMenu();
     }

@@ -1,0 +1,37 @@
+﻿@inject INotificationService NotificationService
+
+<FluentMessageBarProvider Section="@MESSAGEBAR_SECTION"
+                          Margin="@Margin.Vertical2" />
+
+<FluentButton OnClick="@ShowMessageBar"
+              Appearance="ButtonAppearance.Primary">
+    Show (5 seconds)
+</FluentButton>
+
+@code
+{
+    const string MESSAGEBAR_SECTION = "MESSAGEBAR_SERVICE_OPTIONS";
+
+    async Task ShowMessageBar()
+    {
+        var result = await NotificationService.ShowMessageBarAsync(options =>
+        {
+            options.Section = MESSAGEBAR_SECTION;
+
+            options.Intent = MessageBarIntent.Success;
+            options.Layout = MessageBarLayout.Notification;
+            options.Title = "Delete operation";
+            options.Message = "Successfully deleted 'XYZ-blazor.pdf'";
+            options.AllowDismiss = true;
+            options.Lifetime = TimeSpan.FromSeconds(5);
+            options.ResultTiming = MessageBarResultTiming.Closed;
+
+            options.OnStatusChange = (args) =>
+            {
+                Console.WriteLine($"Message bar status changed: {args.Status}");
+            };
+        });
+
+        Console.WriteLine($"Message bar closed: {result.Reason}");
+    }
+}

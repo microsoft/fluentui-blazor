@@ -4,7 +4,7 @@ route: /Migration/GridItem
 hidden: true
 ---
 
-- ### Renamed properties 🔃
+- ### Renamed properties 
   These properties have been renamed to comply with the Blazor naming convention (Pascal case):
   - `xs`, `sm`, `md`, `lg`, `xl`, `xxl` properties have been renamed to
   - `Xs`, `Sm`, `Md`, `Lg`, `Xl`, `Xxl`.

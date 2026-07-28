@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Components;
@@ -163,6 +164,12 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     public string? TickFormat { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether to hide overlapping ticks on the chart.
+    /// </summary>
+    [Parameter]
+    public bool HideTickOverlap { get; set; }
+
+    /// <summary>
     /// Gets or sets the pixel width of the stroke (outline) drawn on each bar.
     /// When not set, no stroke is applied.
     /// </summary>
@@ -175,6 +182,45 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     /// </summary>
     [Parameter]
     public bool ShowXAxisLabelsTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the full Y-axis labels are shown.
+    /// When <see langword="false"/> (default), long labels are truncated.
+    /// </summary>
+    [Parameter]
+    public bool ShowYAxisLabels { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a tooltip is shown on Y-axis labels when they are truncated.
+    /// </summary>
+    [Parameter]
+    public bool ShowYAxisLabelsTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sort order applied to categorical Y-axis groups.
+    /// Defaults to <see cref="ChartCategoryOrder.Default"/>.
+    /// </summary>
+    [Parameter]
+    public ChartCategoryOrder YAxisCategoryOrder { get; set; } = ChartCategoryOrder.Default;
+
+    /// <summary>
+    /// Gets or sets the number of tick marks on the X axis.
+    /// </summary>
+    [Parameter]
+    public int? XAxisTickCount { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of tick marks on the Y axis (numeric axis only).
+    /// </summary>
+    [Parameter]
+    public int? YAxisTickCount { get; set; }
+
+    /// <summary>
+    /// Gets or sets the fractional padding (0–1) between bars on the categorical Y axis.
+    /// Defaults to 0.5.
+    /// </summary>
+    [Parameter]
+    public double? YAxisPadding { get; set; }
 
     /// <summary>
     /// Gets or sets the <c>Intl.DateTimeFormatOptions</c>-equivalent formatting options applied
@@ -209,6 +255,7 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
 [JsonSerializable(typeof(IDictionary<string, string>))]
 [JsonSerializable(typeof(Dictionary<string, string>))]
 [JsonSourceGenerationOptions(WriteIndented = false)]
+[ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
 #pragma warning disable MA0048 // File name must match type name
 internal partial class ChartJsonSerializerContext : JsonSerializerContext
 #pragma warning restore MA0048 // File name must match type name

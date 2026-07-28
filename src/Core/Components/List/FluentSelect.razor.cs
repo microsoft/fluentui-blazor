@@ -24,7 +24,6 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
 
     /// <summary />
     protected virtual string? DropdownStyle => new StyleBuilder()
-        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary />
@@ -57,7 +56,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
             // This method don't change the SelectedItems and Value properties.
             if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal))
             {
-                var defaultText = ""; // GetOptionText(Value);      TODO: implement GetOptionText ????
+                var defaultText = Value is TOption option ? base.GetOptionText(option) : "";
                 await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Select.SetComboBoxValue", Id, defaultText);
             }
         }
@@ -79,5 +78,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
         {
             await SelectedItemsChanged.InvokeAsync(SelectedItems);
         }
+
+        NotifyValidationFieldChanged();
     }
 }

@@ -44,12 +44,17 @@ parameters:
   - name: Projects  	    # List of projects to build
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
       **/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Templates.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
     default: |
       **/Components.Tests.csproj
-      **/Microsoft.FluentUI.AspNetCore.McpServer.Tests.csproj
+      **/Components.Charts.Tests.csproj
+      **/McpServer.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -204,7 +209,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"'
             publishTestResults: true
 
         # Coverage Generation
@@ -215,6 +220,7 @@ extends:
             reports: '**/*.cobertura.xml'
             targetdir: 'CoverageFolder'
             reporttypes: 'HtmlInline_AzurePipelines'
+            assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
 
         # Publish code coverage
         - task: PublishCodeCoverageResults@2

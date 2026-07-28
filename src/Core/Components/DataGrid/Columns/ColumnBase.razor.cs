@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -19,8 +18,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract partial class ColumnBase<TGridItem>
 {
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
-    private readonly string _columnId = Identifier.NewId();
     private FluentMenu? _menu;
+    private bool _suppressNextHeaderSyntheticClick;
+    private bool _openHeaderMenuAfterRender;
+
+    private string HeaderButtonId => $"{Grid.Id}-col-{Index}";
+
+    private string HeaderMenuId => $"{HeaderButtonId}-menu";
 
     /// <summary />
     [Inject]
@@ -296,6 +300,13 @@ public abstract partial class ColumnBase<TGridItem>
     }
 
     /// <summary>
+    /// Gets whether this column's cells need the <see cref="FluentDataGridCell{TGridItem}"/> component rather
+    /// than a plain cell. Columns with cell-level interaction (e.g. <see cref="SelectColumn{TGridItem}"/>)
+    /// override this to return <see langword="true"/>.
+    /// </summary>
+    protected internal virtual bool RequiresCellComponent => false;
+
+    /// <summary>
     /// Event callback for when the cell is clicked.
     /// </summary>
     /// <param name="cell"></param>
@@ -345,7 +356,29 @@ public abstract partial class ColumnBase<TGridItem>
 
     internal bool CanSortFromHeader() => Sortable ?? IsSortableByDefault();
 
-    private async Task HandleColumnHeaderClickedAsync()
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_openHeaderMenuAfterRender && _menu is not null)
+        {
+            _openHeaderMenuAfterRender = false;
+            await _menu.OpenMenuAsync();
+        }
+    }
+
+    private async Task HandleColumnHeaderClickedAsync(MouseEventArgs args)
+    {
+        if (_suppressNextHeaderSyntheticClick && args.Detail == 0)
+        {
+            _suppressNextHeaderSyntheticClick = false;
+            return;
+        }
+
+        _suppressNextHeaderSyntheticClick = false;
+        await HandleColumnHeaderActivatedAsync();
+    }
+
+    private async Task HandleColumnHeaderActivatedAsync()
     {
         var headerCapabilities = HeaderCapabilities;
         var hasSorting = headerCapabilities.CanSort;
@@ -362,8 +395,8 @@ public abstract partial class ColumnBase<TGridItem>
 
         if (hasMultiple)
         {
+            _openHeaderMenuAfterRender = true;
             return;
-            //StateHasChanged();
         }
 
         if (hasSorting)
@@ -381,6 +414,33 @@ public abstract partial class ColumnBase<TGridItem>
         else if (hasOptions)
         {
             await Grid.ShowColumnOptionsAsync(this);
+        }
+    }
+
+    private async Task HandleHeaderButtonKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (!string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (HeaderCapabilities.HasAnyAction && Grid.HeaderCellAsButtonWithMenu)
+        {
+            _suppressNextHeaderSyntheticClick = true;
+            _openHeaderMenuAfterRender = true;
+            return;
+        }
+
+        await HandleColumnHeaderActivatedAsync();
+    }
+
+    private async Task HandleOptionsButtonKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        {
+            await Grid.ShowAllHeaderUIAsync(this);
         }
     }
 

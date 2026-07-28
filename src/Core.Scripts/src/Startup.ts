@@ -4,6 +4,7 @@ import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
+import { Microsoft as FluentOverflowFile } from './Components/Overflow/FluentOverflow';
 import { Microsoft as FluentToastFile } from './Components/Toast/FluentToast';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
@@ -17,6 +18,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
   import FluentPopover = FluentPopoverFile.FluentUI.Blazor.Components.Popover;
   import FluentOverlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
+  import FluentOverflow = FluentOverflowFile.FluentUI.Blazor.Components.Overflow;
   import FluentToast = FluentToastFile.FluentUI.Blazor.Components.Toast;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
@@ -60,6 +62,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentPageScript.registerComponent(blazor, mode);
     FluentPopover.registerComponent(blazor, mode);
     FluentOverlay.registerComponent(blazor, mode);
+    FluentOverflow.registerComponent(blazor, mode);
     FluentToast.registerComponent(blazor, mode);
     // [^^ Add your other custom components before this line ^^]
 
@@ -72,7 +75,14 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     FluentUICustomEvents.RadioGroup(blazor);
     FluentUICustomEvents.TreeView(blazor);
     FluentUICustomEvents.TextInput(blazor);
+    FluentUICustomEvents.Overflow(blazor);
     // [^^^ Add your other custom events before this line ^^^]
+
+    if (blazor.addEventListener && typeof blazor.addEventListener === 'function') {
+      blazor.addEventListener('enhancedload', () => {
+        FluentUIStyles.reapplyStyles();
+      });
+    }
 
     // Finishing
     afterStartedCalled = true;

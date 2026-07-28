@@ -2,8 +2,9 @@
 	<head></head>
 	<body>
 		<fluent-field id="xxx" label-position="above" style="width: 160px;">
-			<fluent-text-input style="width: 160px;" appearance="outline" autocomplete="false" id="xxx" placeholder="Select a digit" slot="input" blazor:onfocusout="2" blazor:onchange="3" blazor:ontextimmediate="4" auto-complete="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
-				<div slot="start"><div style=""></div></div>
+			<fluent-text-input appearance="outline" autocomplete="off" id="xxx" placeholder="Select a digit" slot="input" blazor:onfocusout="2" blazor:onchange="3" blazor:ontextimmediate="4" auto-complete="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
+				<div slot="start">
+					<div style=""></div>
 				</div>
 				<div slot="end">
 					<svg style="width: 20px; fill: currentColor; cursor: pointer;" focusable="true" tabindex="0" role="button" viewBox="0 0 20 20" blazor:onkeydown="x" blazor:onclick="x" blazor:onclick:stoppropagation="" blazor:onfocus="9" blazor:elementreference="xxx">
@@ -11,7 +12,7 @@
 					</svg>
 				</div>
 			</fluent-text-input>
-			<fluent-text as="span" size="200" slot="message"></fluent-text>
+			<fluent-text size="200" slot="message"></fluent-text>
 		</fluent-field>
 		<fluent-popover-b id="xxx" anchor-id="my-list" opened="false" blazor:ondialogtoggle="1">
 			<div class="fluent-stack-vertical" style="justify-content: start; align-items: start; width: 100%;"></div>

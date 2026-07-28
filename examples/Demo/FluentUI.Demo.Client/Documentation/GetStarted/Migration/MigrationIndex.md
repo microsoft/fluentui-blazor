@@ -1,21 +1,25 @@
 ---
 title: Migration Guide V4 → V5
+order: 0020
 route: /Migration
+category: 10|Get Started
+icon: WrenchScrewdriver
 hidden: false
 ---
+
+# Migration Guide V4 → V5
 
 This guide helps you migrate from **Fluent UI Blazor V4** to **V5**.
 Each page below covers specific component changes, removed components, and new additions.
 
-- ### General
+### General
 
   Start here for cross-cutting changes that affect all components.
 
   - [General changes](/Migration/General) — Base class, CSS, JS interop, localization, `DefaultValues`
   - [Color changes](/Migration/Color) — Enum renames (`Neutral` → `Default`, `Accent` → `Primary`)
-  - [Copilot Instructions](/Migration/CopilotInstructions) — Use GitHub Copilot to assist migration
 
-- ### Component changes
+### Component changes
 
   Components that exist in both V4 and V5 but have breaking changes.
 
@@ -27,6 +31,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentButton | Medium | [Migration](/Migration/Button) |
   | FluentCard | Medium | [Migration](/Migration/Card) |
   | FluentCheckbox | Medium | [Migration](/Migration/Checkbox) |
+  | FluentCombobox | High | [Migration](/Migration/Combobox) |
   | FluentCounterBadge | High | [Migration](/Migration/CounterBadge) |
   | FluentDataGrid | Medium | [Migration](/Migration/DataGrid) |
   | FluentDatePicker / FluentTimePicker | High | [Migration](/Migration/DateTime) |
@@ -43,6 +48,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentMenuButton | High | [Migration](/Migration/MenuButton) |
   | FluentMessageBar | Medium | [Migration](/Migration/MessageBar) |
   | FluentOverlay | High | [Migration](/Migration/Overlay) |
+  | FluentOverflow | High | [Migration](/Migration/Overflow) |
   | FluentPopover | High | [Migration](/Migration/Popover) |
   | FluentPresenceBadge | Medium | [Migration](/Migration/PresenceBadge) |
   | FluentProgressBar (was FluentProgress) | Medium | [Migration](/Migration/ProgressBar) |
@@ -62,7 +68,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentTooltip | Medium | [Migration](/Migration/Tooltip) |
   | FluentTreeView | Medium | [Migration](/Migration/TreeView) |
 
-- ### Removed components 💥
+### Removed components
 
   Components that have been removed in V5. Each page explains the replacement strategy.
 
@@ -78,7 +84,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentWizard | *(no direct replacement)* | [Migration](/Migration/Wizard) |
   | Other minor components | — | [Migration](/Migration/RemovedComponents) |
 
-- ### New V5 components that replace V4 functionality
+### New components (which replace V4 functionality)
 
   | V5 Component | Replaces V4 | Migration details |
   |-------------|-------------|------|

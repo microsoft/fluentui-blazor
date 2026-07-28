@@ -9,7 +9,7 @@ hidden: true
 The text displayed in a badge is now set using the `Content` parameter. The `ChildContent`
 parameter is now used to specify the element the badge 'wraps' (i.e. the anchor element for positioning).
 
-### Removed parameters 💥
+### Removed parameters 
 
 - `Fill`
 - `Circular`; use `Shape` instead.
@@ -17,7 +17,7 @@ parameter is now used to specify the element the badge 'wraps' (i.e. the anchor 
 - `OnClick`; a `Badge` should not be used as a button.
 - `DismissIcon`, `DismissTitle` and `OnDismissClick`; there may be a more general dismissable component in the future.
 
-### Appearance 💥
+### Appearance 
 
 The `Appearance` parameter has been updated to use the `BadgeAppearance` enum
 instead of the `Appearance` enum.
@@ -28,7 +28,7 @@ instead of the `Appearance` enum.
 - `Outline`
 - `Tint`
 
-### Color 💥
+### Color 
 
 The `Color` parameter has been updated to use the `BadgeColor` enum
 instead of being of type `string?`.

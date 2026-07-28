@@ -3,6 +3,7 @@
 @typeparam TValue
 
 <FluentTextInput Id="@Id"
+                 ValidationFieldFor="@ValueExpression"
                  Class="@ClassValue"
                  Style="@StyleValue"
                  Label="@Label"
@@ -49,6 +50,8 @@
                         TValue="TValue"
                         Culture="@Culture"
                         View="@View"
+                        MinDate="@MinDate"
+                        MaxDate="@MaxDate"
                         DayFormat="@DayFormat"
                         DisabledDateFunc="@DisabledDateFunc"
                         DisabledCheckAllDaysOfMonthYear="@DisabledCheckAllDaysOfMonthYear"

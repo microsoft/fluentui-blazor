@@ -1,7 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
-@using Microsoft.FluentUI.AspNetCore.Components.Utilities
-@using System.ComponentModel.DataAnnotations
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -197,6 +194,7 @@
         var cut = Render(@<FluentTextArea Width="150px" Height="100px" />);
 
         // Assert
-        Assert.Equal("width: 150px; height: 100px;", cut.Find("fluent-textarea").GetAttribute("style"));
+        Assert.Equal("height: 100px;", cut.Find("fluent-textarea").GetAttribute("style"));
+        Assert.Equal("width: 150px;", cut.Find("fluent-field").GetAttribute("style"));
     }
 }

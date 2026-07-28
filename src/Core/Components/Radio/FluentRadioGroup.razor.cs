@@ -27,6 +27,17 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     /// <param name="configuration">The configuration settings used to initialize the radio group. This parameter cannot be null.</param>
     public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration) { }
 
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the width of the radio group (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
     public ElementReference Element { get; set; }

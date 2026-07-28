@@ -9,15 +9,28 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public enum ToastIntent
 {
-    /// <summary />
+    /// <summary>
+    /// Indicates that the toast is providing informational messages.
+    /// </summary>
     Info,
 
-    /// <summary />
+    /// <summary>
+    /// Indicates that the toast is providing success messages.
+    /// </summary>
     Success,
 
-    /// <summary />
+    /// <summary>
+    /// Indicates that the toast is providing warning messages.
+    /// </summary>
     Warning,
 
-    /// <summary />
+    /// <summary>
+    /// Indicates that the toast is providing error messages.
+    /// </summary>
     Error,
+
+    /// <summary>
+    /// Indicates that the toast is displaying progress information, typically used for long-running operations or tasks.
+    /// </summary>
+    Progress,
 }

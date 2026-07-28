@@ -4,7 +4,7 @@ route: /Migration/Icon
 hidden: true
 ---
 
-- ### Default color changed 💥
+- ### Default color changed 
 
   The default icon color has changed from `Color.Accent` to `currentColor` (inherits from the parent element's CSS color).
   If you relied on the accent color being applied automatically, you now need to set it explicitly.

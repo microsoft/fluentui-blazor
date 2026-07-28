@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -30,6 +31,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     {
         ValueExpression = () => CurrentValueOrDefault;
         configuration?.DefaultValues.ApplyDefaults(this);
+
+        // Apply the library configured default for using the native browser
+        // constraint validation UI. This value acts as the component default
+        // and can be overridden by setting the component parameter in markup.
+        if (configuration is not null)
+        {
+            UseNativeConstraintValidationUI = configuration.UseNativeConstraintValidationUI;
+        }
     }
 
     [Inject]
@@ -85,6 +94,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     #region IFluentField
 
+    /// <inheritdoc cref="IFluentField.ValueExpression" />
+    LambdaExpression? IFluentField.ValueExpression => ValueExpression;
+
     /// <inheritdoc cref="IFluentField.FocusLost" />
     public virtual bool FocusLost { get; protected set; }
 
@@ -131,6 +143,17 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <inheritdoc cref="IFluentField.MessageState" />
     [Parameter]
     public virtual MessageState? MessageState { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelInfo" />
+    [Parameter]
+    public virtual ILabelInfo? LabelInfo { get; set; }
+
+    /// <summary>
+    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers
+    /// to retrieve validation messages when the component value binding differs from the input text binding.
+    /// </summary>
+    [Parameter]
+    public virtual LambdaExpression? ValidationFieldFor { get; set; }
 
     #endregion
 
@@ -191,6 +214,12 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual bool ReadOnly { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the control will use the native browser constraint validation UI.
+    /// </summary>
+    [Parameter]
+    public bool UseNativeConstraintValidationUI { get; set; }
+
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
@@ -204,6 +233,38 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         else
         {
             // TODO
+        }
+
+        await ReportValidityAsync();
+    }
+
+    /// <summary>
+    /// Requests the browser to report the current element validity state.
+    /// </summary>
+    protected virtual async Task ReportValidityAsync()
+    {
+        // Only call the browser native constraint validation UI when enabled.
+        // This behavior is opt-in via UseNativeConstraintValidationUi (default is false).
+        if (!UseNativeConstraintValidationUI)
+        {
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Id))
+        {
+            return;
+        }
+
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity", Id);
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException ||
+                                   ex is InvalidOperationException)
+        {
+            // The JSRuntime side may routinely be unavailable during lifecycle transitions.
+            // This is not an error.
         }
     }
 

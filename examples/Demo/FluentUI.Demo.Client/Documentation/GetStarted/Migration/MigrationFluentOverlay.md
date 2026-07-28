@@ -4,7 +4,7 @@ route: /Migration/Overlay
 hidden: true
 ---
 
-- ### Web component migration 💥
+- ### Web component migration 
 
   `FluentOverlay` has been rewritten to use the `<fluent-overlay>` web component
   instead of a plain `<div>`. This is a major change.
@@ -26,7 +26,7 @@ hidden: true
   | `Opacity` (`double?`) | `Opacity` (`int`, default `40`) | Type changed: double → int (percentage) |
   | `BackgroundColor` (`string?`) | `BackgroundColor` (`string`, default `"var(--colorBackgroundOverlay)"`) | Now non-nullable with default using CSS variable |
 
-- ### Removed properties 💥
+- ### Removed properties 
 
   - `OnClose` (`EventCallback<MouseEventArgs>`) — use `VisibleChanged` callback instead.
   - `Transparent` (`bool`) — configure `Opacity = 0` instead.

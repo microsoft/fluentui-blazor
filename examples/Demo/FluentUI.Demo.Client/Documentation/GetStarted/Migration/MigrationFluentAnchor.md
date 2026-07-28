@@ -4,7 +4,7 @@ route: /Migration/Anchor
 hidden: true
 ---
 
-- ### Component removed 💥
+- ### Component removed 
 
   `FluentAnchor` has been **removed** in V5.
   Use `FluentLink` as the replacement for hyperlinks,

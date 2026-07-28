@@ -1,41 +1,54 @@
-﻿@inject IToastService ToastService
+﻿@inject INotificationService NotificationService
 
-<FluentStack HorizontalGap="16">
-    <FluentButton @ref="openToastButton" OnClick="@OpenToastAsync">
-        Make toast
+<FluentStack Wrap="true" HorizontalGap="12px">
+    <FluentButton OnClick="@StartProgressAsync"
+                  Disabled="@InProgress">
+        Start Progress
     </FluentButton>
-    <FluentButton OnClick="@FinishProcessAsync">
-        Finish process
+    <FluentButton OnClick="@FinishProgressAsync"
+                  Disabled="@(ProgressToast is null)">
+        Finish Progress
     </FluentButton>
 </FluentStack>
 
 @code {
-    int clickCount = 0;
-    FluentButton openToastButton = default!;
 
-    private async Task OpenToastAsync()
+    IToastInstance? ProgressToast;
+    bool InProgress = false;
+
+    // Show a Toast and keep a reference to the instance.
+    async Task StartProgressAsync()
     {
-        // Disable the button to prevent multiple toasts from being opened.
-        // In a real app, you would likely want to track the toast ID and only disable if that specific toast is open.
-        openToastButton.SetDisabled(true);
-        var result = await ToastService.ShowToastAsync(options =>
+        InProgress = true;
+
+        _ = NotificationService.ShowToastAsync(options =>
         {
-            options.Id = "indeterminate-toast";
-            options.Timeout = 0;
-            options.Type = ToastType.IndeterminateProgress;
-            options.Intent = ToastIntent.Success;
-            options.Title = $"Toast title {++clickCount}";
-            options.Body = "No idea when this will be finished...";
+            options.Id = "my-progress-toast";
+            options.Intent = ToastIntent.Progress;
+            options.Title = "Task in progress";
+            options.Lifetime = TimeSpan.Zero; // Keep the toast open until closed programmatically
+            options.Message = "No idea when this will be finished...";
+            options.AllowDismiss = false;
+            options.OnStatusChange = (e) =>
+            {
+                ProgressToast = e.Instance;
+            };
         });
-        Console.WriteLine($"Toast result: {result}");
+
+        // Another way to get the instance of the Toast
+        // ProgressToast = NotificationService.GetToastInstance("my-progress-toast");
     }
 
-    private async Task FinishProcessAsync()
+    // Close the Toast instance.
+    async Task FinishProgressAsync()
     {
-        // In a real app, you would likely keep track of the toast ID and update that specific toast.
-        await ToastService.DismissAsync("indeterminate-toast");
-        // Enable the button again so a new toast can be opened.
-        openToastButton.SetDisabled(false);
+        if (ProgressToast is not null)
+        {
+            await ProgressToast.CloseAsync();
+            ProgressToast = null;
+        }
+
+        InProgress = false;
     }
 }
 

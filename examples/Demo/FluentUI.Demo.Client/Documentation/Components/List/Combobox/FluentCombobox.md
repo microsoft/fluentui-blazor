@@ -69,4 +69,4 @@ See a similar example on the [FluentSelect](/List/Select#customize-the-items) pa
 
 ## Migrating to v5
 
-TODO
+{{ INCLUDE File=MigrationFluentCombobox }}

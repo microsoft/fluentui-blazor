@@ -19,7 +19,6 @@ public partial class FluentListbox<TOption, TValue> : FluentListBase<TOption, TV
 
     /// <summary />
     protected virtual string? ListStyle => new StyleBuilder()
-        .AddStyle("width", Width)
         .AddStyle("height", Height)
         .Build();
 

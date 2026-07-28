@@ -20,33 +20,7 @@ public class DialogEventArgs : EventArgs
     {
         Id = id ?? string.Empty;
         Instance = dialog.Instance;
-
-        if (string.Equals(eventType, "toggle", StringComparison.OrdinalIgnoreCase))
-        {
-            if (string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase))
-            {
-                State = DialogState.Open;
-            }
-            else if (string.Equals(newState, "closed", StringComparison.OrdinalIgnoreCase))
-            {
-                State = DialogState.Closed;
-            }
-        }
-        else if (string.Equals(eventType, "beforetoggle", StringComparison.OrdinalIgnoreCase))
-        {
-            if (string.Equals(oldState, "closed", StringComparison.OrdinalIgnoreCase))
-            {
-                State = DialogState.Opening;
-            }
-            else if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
-            {
-                State = DialogState.Closing;
-            }
-        }
-        else
-        {
-            State = DialogState.Closed;
-        }
+        State = GetDialogState(eventType, oldState, newState);
     }
 
     /// <summary />
@@ -71,4 +45,42 @@ public class DialogEventArgs : EventArgs
     /// Gets the instance used by the <see cref="DialogService" />.
     /// </summary>
     public IDialogInstance? Instance { get; }
+
+    /// <summary>
+    /// Determines the <see cref="DialogState"/> based on the provided event type and states.
+    /// </summary>
+    /// <param name="eventType"></param>
+    /// <param name="oldState"></param>
+    /// <param name="newState"></param>
+    /// <returns></returns>
+    internal static DialogState GetDialogState(string? eventType, string? oldState, string? newState)
+    {
+        if (string.Equals(eventType, "toggle", StringComparison.OrdinalIgnoreCase))
+        {
+            if (string.Equals(newState, "open", StringComparison.OrdinalIgnoreCase))
+            {
+                return DialogState.Open;
+            }
+
+            if (string.Equals(newState, "closed", StringComparison.OrdinalIgnoreCase))
+            {
+                return DialogState.Closed;
+            }
+        }
+
+        if (string.Equals(eventType, "beforetoggle", StringComparison.OrdinalIgnoreCase))
+        {
+            if (string.Equals(oldState, "closed", StringComparison.OrdinalIgnoreCase))
+            {
+                return DialogState.Opening;
+            }
+
+            if (string.Equals(oldState, "open", StringComparison.OrdinalIgnoreCase))
+            {
+                return DialogState.Closing;
+            }
+        }
+
+        return DialogState.Closed;
+    }
 }

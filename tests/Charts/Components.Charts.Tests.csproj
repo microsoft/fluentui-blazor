@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>$(ExampleNetVersion)</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Charts.Tests</AssemblyName>
+    <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Charts.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bunit" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.msbuild">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\..\src\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" />
+    <ProjectReference Include="..\Tools\Components.Tests.Tools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Dependent Test Result HTML files -->
+    <None Include="**\*.verified.html" />
+    <None Update="**\*.verified.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).cs</DependentUpon>
+    </None>
+
+    <None Include="**\*.received.html" />
+    <None Update="**\*.received.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).cs</DependentUpon>
+    </None>
+
+    <!-- Dependent Test Result RAZOR files -->
+    <None Include="**\*.verified.razor.html" />
+    <None Update="**\*.verified.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+
+    <None Include="**\*.received.razor.html" />
+    <None Update="**\*.received.razor.html">
+      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
+      <DependentUpon>%(ParentFile).razor</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\Resources\FluentLocalizer.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FluentLocalizer.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Localization\Resources\FluentLocalizer.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FluentLocalizer.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

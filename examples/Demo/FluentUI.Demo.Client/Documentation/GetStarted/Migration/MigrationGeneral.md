@@ -4,7 +4,7 @@ route: /Migration/General
 hidden: true
 ---
 
-- ### FluentComponentBase changes 💥
+## FluentComponentBase changes
 
   All components inherit from `FluentComponentBase`, which has significant changes in V5:
 
@@ -16,7 +16,7 @@ hidden: true
 
   > ⚠️ If you have custom components inheriting from `FluentComponentBase`, you must update them to pass `LibraryConfiguration` to the base constructor.
 
-- ### FluentProviders
+## FluentProviders
 
   V5 introduces a `FluentProviders` component that should be placed at the root of your application.
   It provides cascading values (like `LibraryConfiguration`) needed by all Fluent UI components.
@@ -28,7 +28,7 @@ hidden: true
   </FluentProviders>
   ```
 
-- ### FluentField — New input wrapping pattern
+## FluentField — New input wrapping pattern
 
   V5 introduces `FluentField` as the standard way to wrap input components with a label, validation message, and hint text.
   V4's `FluentValidationMessage<T>` component is **removed** — use `FluentField`'s `Message`, `MessageCondition`, and `MessageState` instead.
@@ -47,7 +47,7 @@ hidden: true
                    MessageState="MessageState.Error" />
   ```
 
-- ### Scoped Css Bundling
+## Scoped Css Bundling
 
   The csproj contains `<DisableScopedCssBundling>true</DisableScopedCssBundling>`
   and `<ScopedCssEnabled>false</ScopedCssEnabled>` to prevent the bundling of scoped css files.

@@ -29,6 +29,11 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         // Default conditions for the message
         MessageCondition = (field) =>
         {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
             field.MessageIcon = FluentStatus.ErrorIcon;
             field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
 
@@ -184,7 +189,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
             _popupOpenedByKeyboard = false;
         }
 
-        await OnSelectedDateHandlerAsync(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>()); 
+        await OnSelectedDateHandlerAsync(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>());
     }
 
     /// <summary />
@@ -237,7 +242,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         {
             CalendarViews.Years => "yyyy",
             CalendarViews.Months => Culture.DateTimeFormat.YearMonthPattern,
-            _ => Culture.DateTimeFormat.ShortDatePattern
+            _ => Culture.DateTimeFormat.ShortDatePattern,
         };
     }
 
@@ -252,14 +257,14 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         CalendarViews.Days => "date",
         CalendarViews.Months => "month",
         CalendarViews.Years => "number",
-        _ => null
+        _ => null,
     };
 
     /// <summary />
     internal TextInputMode? GetInputMode() => IsFluentUIStyle ? null : View switch
     {
         CalendarViews.Years => TextInputMode.Numeric,
-        _ => null
+        _ => null,
     };
 
     /// <summary />

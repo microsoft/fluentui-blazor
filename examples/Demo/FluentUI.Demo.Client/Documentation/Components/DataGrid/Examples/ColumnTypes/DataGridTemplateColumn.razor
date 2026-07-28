@@ -1,0 +1,37 @@
+﻿@using static FluentUI.Demo.SampleData.People
+
+<FluentDataGrid Items="items" style="width: 700px;" RowSize="@DataGridRowSize.Medium">
+    <TemplateColumn Title="Person" SortBy="@sortByName">
+                <strong>@context.LastName</strong>, @context.FirstName
+    </TemplateColumn>
+    <TemplateColumn Title="E-Mail">
+        <FluentTextInput Value="@context.Email" Width="100%" TextInputType="TextInputType.Email" />
+    </TemplateColumn>
+    <TemplateColumn Title="Bonus">
+        <FluentButton Appearance="ButtonAppearance.Primary" @onclick="@(() => Bonus(context))">Regular</FluentButton>
+        <FluentButton Appearance="ButtonAppearance.Primary" @onclick="@(() => DoubleBonus(context))">Double</FluentButton>
+    </TemplateColumn>
+</FluentDataGrid>
+
+
+<p><strong>@message</strong></p>
+
+@code {
+    string message = string.Empty;
+
+    IQueryable<Person> items = Enumerable.Empty<Person>().AsQueryable();
+
+    protected override Task OnInitializedAsync()
+    {
+        items = Persons.Take(10).AsQueryable();
+        return base.OnInitializedAsync();
+    }
+
+    GridSort<Person> sortByName = GridSort<Person>
+        .ByAscending(p => p.LastName)
+        .ThenAscending(p => p.FirstName);
+
+    void Bonus(Person p) => message = $"You want to give {p.FirstName} {p.LastName} a regular bonus";
+
+    void DoubleBonus(Person p) => message = $"You want to give {p.FirstName} {p.LastName} a double bonus";
+}

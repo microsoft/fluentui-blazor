@@ -15,6 +15,7 @@
   .fluent-listbox fluent-listbox {
     box-shadow: none;
     overflow-y: auto;
+    width: 100%;
   }
 
   .fluent-listbox[disabled],
