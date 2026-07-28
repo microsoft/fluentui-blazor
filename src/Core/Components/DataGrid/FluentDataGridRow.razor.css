@@ -4,7 +4,8 @@
 
 .fluent-data-grid .hover:not([row-type='header'],
 .fluent-data-grid [row-type='sticky-header'],
-.fluent-data-grid .loading-content-row):hover td:not(.empty-content-cell) {
+.fluent-data-grid .loading-content-row,
+.fluent-data-grid .row-details-row):hover td:not(.empty-content-cell) {
   cursor: pointer;
   background-color: var(--datagrid-hover-color, var(--colorNeutralStroke2));
 }

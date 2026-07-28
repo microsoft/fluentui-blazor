@@ -149,7 +149,8 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
         if (!string.IsNullOrWhiteSpace(row.Class) &&
             (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS, StringComparison.Ordinal) ||
-             row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS, StringComparison.Ordinal)))
+             row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS, StringComparison.Ordinal) ||
+             row.Class.Contains(FluentDataGrid<TGridItem>.ROW_DETAILS_ROW_CLASS, StringComparison.Ordinal)))
         {
             return;
         }
@@ -173,6 +174,11 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         var row = GetRow(rowId);
         if (row is null)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(row.Class) && row.Class.Contains(FluentDataGrid<TGridItem>.ROW_DETAILS_ROW_CLASS, StringComparison.Ordinal))
         {
             return;
         }

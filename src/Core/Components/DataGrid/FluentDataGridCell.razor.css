@@ -130,7 +130,7 @@
   text-align: end;
 }
 
-.fluent-data-grid .hierarchical-toggle-container {
+.fluent-data-grid .row-toggle-container {
   height: 24px;
   display: flex;
   vertical-align: middle;
@@ -140,34 +140,47 @@
   left: calc(var(--spacingHorizontalXS) * -1.5);
 }
 
-.fluent-data-grid .hierarchical-expander {
+.fluent-data-grid .row-expander {
   display: inline-block;
   width: 20px;
   position: relative;
   top: -1px;
 }
 
-  .fluent-data-grid .hierarchical-expander svg {
+  .fluent-data-grid .row-expander svg {
     transition: transform 0.1s linear;
     pointer-events: none;
   }
 
-.fluent-data-grid .hierarchical-collapsed svg {
+.fluent-data-grid .row-collapsed svg {
   transform: rotate(0deg);
 }
 
-[dir=rtl] .fluent-data-grid .hierarchical-collapsed svg {
+[dir=rtl] .fluent-data-grid .row-collapsed svg {
   transform: rotate(180deg);
 }
 
-.fluent-data-grid .hierarchical-expanded svg {
+.fluent-data-grid .row-expanded svg {
   transform: rotate(90deg);
 }
 
-.fluent-data-grid .hierarchical-expand-button {
+.fluent-data-grid .row-expand-button {
   width: 20px;
   min-width: 20px;
   height: 20px;
   min-height: 20px;
   vertical-align: middle;
+}
+
+.fluent-data-grid td.row-details-cell {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* Unlike the HierarchicalToggle container (which wraps the whole cell content),
+   this toggle is a standalone element placed before the cell's own content,
+   so it must stay inline instead of starting its own block. */
+.fluent-data-grid .row-details-toggle-container {
+  display: inline-flex;
 }
