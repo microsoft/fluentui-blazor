@@ -7,25 +7,19 @@ using System.ComponentModel;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Possibility for an element not to participate in the overflow logic and always remain displayed.
+/// Specifies the overflow behavior for an item.
 /// </summary>
-public enum OverflowItemFixed
+public enum OverflowBehavior
 {
     /// <summary>
-    /// If the item is out of the display, it disappears.
-    /// </summary>
-    [Description("none")]
-    None = 0,
-
-    /// <summary>
-    /// The element is always visible
+    /// The item is kept fixed in place and not subject to overflow.
     /// </summary>
     [Description("fixed")]
-    Fixed = 1,
+    Fixed,
 
     /// <summary>
-    /// The element is always visible, but its width can be reduced to display "...".
+    /// The item can be hidden with an ellipsis indicator when space is constrained.
     /// </summary>
     [Description("ellipsis")]
-    Ellipsis = 2,
+    Ellipsis,
 }

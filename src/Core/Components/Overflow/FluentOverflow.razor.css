@@ -2,19 +2,30 @@
     display: flex;
     flex-direction: row;
     overflow-x: hidden;
+    overflow-y: hidden;
     gap: 5px;
 }
 
 .fluent-overflow[orientation="vertical"] {
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
     overflow-y: hidden;
+}
+
+/* Prevent flex from shrinking items — sizes must be measured at natural width */
+.fluent-overflow > * {
+    flex-shrink: 0;
 }
 
 .fluent-overflow-more {
     min-width: 32px;
     max-width: 32px;
     flex-shrink: 0;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .fluent-overflow-more[style*="visibility: hidden"] {
@@ -29,10 +40,11 @@
     flex-shrink: 0;
 }
 
-.fluent-overflow .fluent-overflow-item[fixed='ellipsis'] {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
-  max-width: fit-content;
+.fluent-overflow > *[fixed='ellipsis'] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    max-width: fit-content;
+    flex-shrink: 1;
 }
