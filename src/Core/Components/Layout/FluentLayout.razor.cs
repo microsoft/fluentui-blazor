@@ -210,16 +210,13 @@ public partial class FluentLayout : FluentComponentBase
 
             @container layout-{Id} (max-width: {Convert.ToString(MobileBreakdownWidth, CultureInfo.InvariantCulture)}px) {{
                 .fluent-layout {{
-                    grid-template-areas:
-                        ""header""
-                        ""content""
-                        ""footer"";
+                    grid-template-areas: ""header"" ""content"" ""footer"";
                     grid-template-columns: 1fr;
                     grid-template-rows: auto 1fr auto;
                     overflow-x: auto;
                 }}
 
-                .fluent-layout .fluent-layout-item[area=""menu""],
+                .fluent-layout .fluent-layout-item[area=""nav""],
                 .fluent-layout .fluent-layout-item[area=""aside""] {{
                   display: none;
                 }}
