@@ -9,7 +9,7 @@
 ### Components
 
 - \[AnchoredRegion\] Fix focus across shadow DOM and inline popups ([#5041](https://github.com/microsoft/fluentui-blazor/pull/5041))
-- \[DataGrid\]Fix column width popup focus on tab navigation ([#5003](https://github.com/microsoft/fluentui-blazor/pull/5003))
+- \[DataGrid\] Fix column width popup focus on tab navigation ([#5003](https://github.com/microsoft/fluentui-blazor/pull/5003))
 - \[DataGrid\] Fix issue #5026 (from Aspire) ([#5028](https://github.com/microsoft/fluentui-blazor/pull/5028))
 - \[Dialog\] Add DynamicDependency to prevent trimming ([#5009](https://github.com/microsoft/fluentui-blazor/pull/5009))
 - \[Menu\] Unregister disposed menu instances ([#5035](https://github.com/microsoft/fluentui-blazor/pull/5035))
