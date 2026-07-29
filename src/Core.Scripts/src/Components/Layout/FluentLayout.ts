@@ -2,19 +2,26 @@ import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
+  function isMobile(element: HTMLElement): boolean {
+    const maxWidth = parseInt(element.getAttribute('breakdown-width') ?? '768', 10);
+    return element.offsetWidth <= maxWidth;
+  }
+
   /**
    * Add an attribute to the layout element if the width is less than the maximum mobile width
    * @param dotNetHelper DotNet helper to call back to the Blazor component
    * @param id Identifier of the layout element
    * @param maxMobileWidth Maximum width for mobile layout (pixels)
   */
-  export function Initialize(dotNetHelper: DotNet.DotNetObject | null, id: string, maxMobileWidth: number) {
+  export function Initialize(dotNetHelper: DotNet.DotNetObject | null, id: string) {
 
     const layoutElement = document.getElementById(id) as any;
 
+    console.log(`FluentLayout: Initialize called for id=${id}, layoutElement=${layoutElement}`);
+
     if (!layoutElement || layoutElement.fluentLayoutInitialized) {
       return;
-    }
+    }    
 
     layoutElement.fluentLayoutInitialized = true;
     
@@ -22,13 +29,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
       // Detect the layout size, and add a "mobile" attribute
       // if the width is less than the maximum mobile width
-      const resizeObserver = new ResizeObserver(entries => {
+      const resizeObserver = new ResizeObserver(_entries => {
         const hasMobileAttribute = layoutElement.hasAttribute('mobile');
-        const isMobileSize = entries.some(entry => {
-          return entry.borderBoxSize.length > 0
-            ? entry.borderBoxSize[0].inlineSize <= maxMobileWidth
-            : false;
-        });
+        const isMobileSize = isMobile(layoutElement);
+
+        console.log(`FluentLayout: ResizeObserver detected size change. hasMobileAttribute=${hasMobileAttribute}, isMobileSize=${isMobileSize}`);
 
         if (!hasMobileAttribute && isMobileSize) {
           layoutElement.setAttribute('mobile', '');
@@ -77,16 +82,16 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         const layoutNav = layoutContainer ? layoutContainer.querySelector('.fluent-layout-item[area="nav"]') : null;
         const isExpanded = element.getAttribute('aria-expanded') === 'true';
         const newValue = !isExpanded;
-        const isMobile = layoutContainer ? layoutContainer.hasAttribute('mobile') : true;
+        const isMobileSize = isMobile(layoutContainer ?? document.body);
 
         // Show or hide the nav area
-        if (layoutNav && !isMobile) {
+        if (layoutNav && !isMobileSize) {
           element.setAttribute('aria-expanded', newValue ? 'true' : 'false');
           layoutNav.toggleAttribute('hidden', newValue);
         }
 
         // Show or hide the fluent-drawer
-        else if (isMobile && dialog) {
+        else if (isMobileSize && dialog) {
 
           // Add a Toggle event
           if (!dialog.toggleRegistered) {
@@ -146,7 +151,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         return;
       }
 
-      Initialize(null, element.id, parseInt(element.getAttribute('breakdown-width') ?? '768', 10));
+      Initialize(null, element.id);
 
       element.querySelectorAll<HTMLElement>('.fluent-layout-hamburger').forEach(hamburger => {
         if (!hamburger.id || (hamburger as any).fluentHamburgerInitialized) {

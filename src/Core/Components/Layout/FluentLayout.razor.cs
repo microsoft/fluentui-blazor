@@ -104,7 +104,7 @@ public partial class FluentLayout : FluentComponentBase
         if (firstRender)
         {
             var dotNetHelper = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", dotNetHelper, Id, MobileBreakdownWidth);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", dotNetHelper, Id);
         }
     }
 
