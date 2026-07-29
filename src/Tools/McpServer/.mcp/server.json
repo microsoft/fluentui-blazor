@@ -12,7 +12,7 @@
   "packages": [
     {
       "registryType": "nuget",
-      "registryBaseUrl": "https://api.nuget.org",
+      "registryBaseUrl": "https://api.nuget.org/v3/index.json",
       "identifier": "Microsoft.FluentUI.AspNetCore.McpServer",
       "version": "0.0.1",
       "runtimeHint": "dnx",
