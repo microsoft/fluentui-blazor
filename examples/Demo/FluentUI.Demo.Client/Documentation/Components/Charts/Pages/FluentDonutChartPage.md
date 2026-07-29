@@ -52,6 +52,12 @@ Setting `ShowLabelsInPercent` displays each segment's label as a percentage of t
 
 {{ DonutChartShowLabelsInPercent }}
 
+### Value inside donut
+
+The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
+
+{{ DonutChartValueInsideDonut }}
+
 ### Hide labels
 
 Setting `HideLabels` suppresses the callout labels around the chart segments, leaving only the legend to identify each slice.
@@ -69,12 +75,6 @@ Setting `HideLegends` removes the legend list below the chart, useful when the s
 Enabling `RoundedCorners` applies a small border-radius to each segment arc, giving the chart a softer, more modern appearance.
 
 {{ DonutChartRoundedCorners }}
-
-### Value inside donut
-
-The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
-
-{{ DonutChartValueInsideDonut }}
 
 ### With custom sizing
 
