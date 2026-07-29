@@ -1,3 +1,25 @@
+## V4.14.4
+
+### General
+
+- Fix symbol-publish gate in build-all-lib.yml to use a branch allowlist ([#4960](https://github.com/microsoft/fluentui-blazor/pull/4960))
+- Bump js-yaml from 4.2.0 to 4.3.0 in /src/Core.Assets ([#5048](https://github.com/microsoft/fluentui-blazor/pull/5048))
+- Update devDependencies to latest versions ([#5050](https://github.com/microsoft/fluentui-blazor/pull/5050))
+
+### Components
+
+- \[AnchoredRegion\] Fix focus across shadow DOM and inline popups ([#5041](https://github.com/microsoft/fluentui-blazor/pull/5041))
+- \[DataGrid\]Fix column width popup focus on tab navigation ([#5003](https://github.com/microsoft/fluentui-blazor/pull/5003))
+- \[DataGrid\] Fix issue #5026 (from Aspire) ([#5028](https://github.com/microsoft/fluentui-blazor/pull/5028))
+- \[Dialog\] Add DynamicDependency to prevent trimming ([#5009](https://github.com/microsoft/fluentui-blazor/pull/5009))
+- \[Menu\] Unregister disposed menu instances ([#5035](https://github.com/microsoft/fluentui-blazor/pull/5035))
+
+### Icons and Emoji
+
+- Update to Fluent UI System Icons 1.1.334
+
+See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
+
 ## V4.14.3
 
 ### Components
