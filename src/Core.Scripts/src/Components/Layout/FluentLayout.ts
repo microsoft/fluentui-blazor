@@ -17,8 +17,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
     const layoutElement = document.getElementById(id) as any;
 
-    console.log(`FluentLayout: Initialize called for id=${id}, layoutElement=${layoutElement}`);
-
     if (!layoutElement || layoutElement.fluentLayoutInitialized) {
       return;
     }    
@@ -32,8 +30,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
       const resizeObserver = new ResizeObserver(_entries => {
         const hasMobileAttribute = layoutElement.hasAttribute('mobile');
         const isMobileSize = isMobile(layoutElement);
-
-        console.log(`FluentLayout: ResizeObserver detected size change. hasMobileAttribute=${hasMobileAttribute}, isMobileSize=${isMobileSize}`);
 
         if (!hasMobileAttribute && isMobileSize) {
           layoutElement.setAttribute('mobile', '');
