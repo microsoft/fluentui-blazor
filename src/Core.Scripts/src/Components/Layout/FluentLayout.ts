@@ -17,12 +17,21 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
     const layoutElement = document.getElementById(id) as any;
 
-    if (!layoutElement || layoutElement.fluentLayoutInitialized) {
+    if (!layoutElement) {
       return;
-    }    
+    }
+
+    // Allow upgrading a static (null) initialization to an interactive one.
+    if (layoutElement.fluentLayoutInitialized) {
+      if (dotNetHelper !== null) {
+        layoutElement._fluentDotNetHelper = dotNetHelper;
+      }
+      return;
+    }
 
     layoutElement.fluentLayoutInitialized = true;
-    
+    layoutElement._fluentDotNetHelper = dotNetHelper;
+
     if (layoutElement) {
 
       // Detect the layout size, and add a "mobile" attribute
@@ -34,7 +43,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         if (!hasMobileAttribute && isMobileSize) {
           layoutElement.setAttribute('mobile', '');
           try {
-            dotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'mobile');
+            layoutElement._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'mobile');
           }
           catch (error) {
           }
@@ -43,7 +52,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         else if (hasMobileAttribute && !isMobileSize) {
           layoutElement.removeAttribute('mobile');
           try {
-            dotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'desktop');
+            layoutElement._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'desktop');
           }
           catch (error) {
           }
@@ -62,11 +71,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
   export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject | null, id: string, containerId: string | null | undefined) {
     const element = document.getElementById(id) as any;
 
-    if (!element || element.fluentHamburgerInitialized) {
+    if (!element) {
+      return;
+    }
+
+    // Allow upgrading a static (null) initialization to an interactive one.
+    if (element.fluentHamburgerInitialized) {
+      if (dotNetHelper !== null) {
+        element._fluentHamburgerDotNetHelper = dotNetHelper;
+      }
       return;
     }
 
     element.fluentHamburgerInitialized = true;
+    element._fluentHamburgerDotNetHelper = dotNetHelper;
 
     const layoutContainer = containerId ? document.getElementById(containerId) : null;
     const dialog = document.getElementById(id + '-drawer') as any;
@@ -99,7 +117,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
               element.setAttribute('aria-expanded', newState ? 'true' : 'false');
               try {
-                dotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
+                element._fluentHamburgerDotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
               }
               catch (error) {
               }
