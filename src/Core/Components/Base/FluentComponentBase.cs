@@ -27,6 +27,16 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
         LibraryConfiguration = configuration;
     }
 
+    /// <summary>
+    /// Gets a value indicating whether the component is running under an interactive render mode.
+    /// </summary>
+    /// <remarks>The underlying <c>RendererInfo</c> API requires .NET 9 or later; always <see langword="true"/> on .NET 8.</remarks>
+#if NET9_0_OR_GREATER
+    protected bool IsInteractive => RendererInfo.IsInteractive;
+#else
+    protected bool IsInteractive => true;
+#endif
+
     /// <summary />
     [Inject]
     private IServiceProvider ServiceProvider { get; set; } = default!;

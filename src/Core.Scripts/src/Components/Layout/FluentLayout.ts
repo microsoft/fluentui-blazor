@@ -8,10 +8,16 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    * @param id Identifier of the layout element
    * @param maxMobileWidth Maximum width for mobile layout (pixels)
   */
-  export function Initialize(dotNetHelper: DotNet.DotNetObject, id: string, maxMobileWidth: number) {
+  export function Initialize(dotNetHelper: DotNet.DotNetObject | null, id: string, maxMobileWidth: number) {
 
-    const layoutElement = document.getElementById(id);
+    const layoutElement = document.getElementById(id) as any;
 
+    if (!layoutElement || layoutElement.fluentLayoutInitialized) {
+      return;
+    }
+
+    layoutElement.fluentLayoutInitialized = true;
+    
     if (layoutElement) {
 
       // Detect the layout size, and add a "mobile" attribute
@@ -27,7 +33,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         if (!hasMobileAttribute && isMobileSize) {
           layoutElement.setAttribute('mobile', '');
           try {
-            dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'mobile');
+            dotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'mobile');
           }
           catch (error) {
           }
@@ -36,7 +42,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         else if (hasMobileAttribute && !isMobileSize) {
           layoutElement.removeAttribute('mobile');
           try {
-            dotNetHelper.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'desktop');
+            dotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'desktop');
           }
           catch (error) {
           }
@@ -52,8 +58,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    * @param dotNetHelper DotNet helper to call back to the Blazor component
    * @param id Identifier of the hamburger menu
    */
-  export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject, id: string, containerId: string | null | undefined) {
-    const element = document.getElementById(id);
+  export function HamburgerInitialize(dotNetHelper: DotNet.DotNetObject | null, id: string, containerId: string | null | undefined) {
+    const element = document.getElementById(id) as any;
+
+    if (!element || element.fluentHamburgerInitialized) {
+      return;
+    }
+
+    element.fluentHamburgerInitialized = true;
+
     const layoutContainer = containerId ? document.getElementById(containerId) : null;
     const dialog = document.getElementById(id + '-drawer') as any;
     const closeButton = document.getElementById(id + '-drawer-close-button');
@@ -85,7 +98,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
               element.setAttribute('aria-expanded', newState ? 'true' : 'false');
               try {
-                dotNetHelper.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
+                dotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
               }
               catch (error) {
               }
@@ -120,4 +133,29 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     }
   }
 
+  /**
+   * Scans the document for layouts and hamburger menus that aren't wired up yet, and initializes them
+   * without a .NET reference. This lets the hamburger open/close the fluent-drawer even when
+   * rendered statically, since `HamburgerInitialize` is otherwise only called from
+   * `OnAfterRenderAsync`, which never runs without an interactive render mode.
+   */
+  export function LayoutAutoInitialize() {
+
+    document.querySelectorAll<HTMLElement>('.fluent-layout').forEach(element => {
+      if (!element.id || (element as any).fluentLayoutInitialized) {
+        return;
+      }
+
+      Initialize(null, element.id, parseInt(element.getAttribute('breakdown-width') ?? '768', 10));
+
+      element.querySelectorAll<HTMLElement>('.fluent-layout-hamburger').forEach(hamburger => {
+        if (!hamburger.id || (hamburger as any).fluentHamburgerInitialized) {
+          return;
+        }
+
+        HamburgerInitialize(null, hamburger.id, element.id);
+      });
+
+    });
+  }
 }

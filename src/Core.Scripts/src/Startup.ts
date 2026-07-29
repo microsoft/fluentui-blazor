@@ -8,6 +8,7 @@ import { Microsoft as FluentOverflowFile } from './Components/Overflow/FluentOve
 import { Microsoft as FluentToastFile } from './Components/Toast/FluentToast';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';
+import { Microsoft as FluentLayoutFile } from './Components/Layout/FluentLayout';
 import { StartedMode } from './d-ts/StartedMode';
 
 export namespace Microsoft.FluentUI.Blazor.Startup {
@@ -22,6 +23,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   import FluentToast = FluentToastFile.FluentUI.Blazor.Components.Toast;
   import FluentUIStyles = FluentUIStylesFile.FluentUI.Blazor.FluentUIStyles;
   import FluentUICustomEvents = FluentUICustomEventsFile.FluentUI.Blazor.FluentUICustomEvents;
+  import FluentLayout = FluentLayoutFile.FluentUI.Blazor.Components.Layout;
 
   var beforeStartCalled = false;
   var afterStartedCalled = false;
@@ -54,6 +56,9 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // Update the default FluentUI Blazor styles to the document
     FluentUIStyles.applyStyles();
 
+    // Wire up hamburger menus even when statically rendered (no interactive render mode)
+    FluentLayout.LayoutAutoInitialize();
+
     // Initialize Fluent UI theme
     blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
     ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
@@ -81,6 +86,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     if (blazor.addEventListener && typeof blazor.addEventListener === 'function') {
       blazor.addEventListener('enhancedload', () => {
         FluentUIStyles.reapplyStyles();
+        FluentLayout.LayoutAutoInitialize();
       });
     }
 
