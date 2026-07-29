@@ -1,11 +1,11 @@
 {
-  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "description": "MCP server for Fluent UI Blazor: 142+ components, parameters, events, methods, enums and examples.",
   "icons": [
     {
       "src": "https://www.fluentui-blazor.net/logo.svg",
       "sizes": [ "192x192" ],
-      "mimeType": "image/svg"
+      "mimeType": "image/svg+xml"
     }
   ],
   "name": "io.github.microsoft/fluentui-blazor-mcp",
