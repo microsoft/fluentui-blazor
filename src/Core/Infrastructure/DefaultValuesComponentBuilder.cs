@@ -23,7 +23,7 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
     /// Initializes a new instance of the <see cref="DefaultValuesComponentBuilder{TComponent}"/> class with the specified default
     /// values.
     /// </summary>
-    /// <param name="values">A thread-safe dictionary containing the default values to be used by the component.  Keys represent the names of
+    /// <param name="values">A thrad-safe dictionary containing the default values to be used by the component.  Keys represent the names of
     /// the values, and values represent their corresponding default values.  Cannot be <see langword="null"/>.</param>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="values"/> is <see langword="null"/>.</exception>
     internal DefaultValuesComponentBuilder(ConcurrentDictionary<string, object?> values)
