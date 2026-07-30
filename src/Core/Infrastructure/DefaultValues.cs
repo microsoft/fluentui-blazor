@@ -14,10 +14,17 @@ public class DefaultValues
     // List of components and their Property/Default values.
     private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>> _componentCache = new ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>>();
 
-    // Per-type cache of the properties merged across the inheritance chain, computed once and reused across every ApplyDefaults/SetInitialValues call.
-    private readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, object?>?> _mergedCache = new ConcurrentDictionary<Type, IReadOnlyDictionary<string, object?>?>();
+    // Per-type cache of the properties merged across the inheritance chain, with PropertyInfo resolved once and reused
+    // across every ApplyDefaults/SetInitialValues call, avoiding reflection lookups on every component instantiation.
+    private readonly ConcurrentDictionary<Type, CachedDefault[]?> _mergedCache = new ConcurrentDictionary<Type, CachedDefault[]?>();
 
     private bool _isInitialized;
+
+    /// <summary>
+    /// A default value with its <see cref="PropertyInfo"/> already resolved, so <see cref="ApplyDefaults{TComponent}(TComponent)"/>
+    /// never needs to perform a reflection lookup by name.
+    /// </summary>
+    private readonly record struct CachedDefault(PropertyInfo Property, object? Value);
 
     /// <summary>
     /// Registers default values for a specific component type.
@@ -65,11 +72,7 @@ public class DefaultValues
         {
             foreach (var property in properties)
             {
-                var propInfo = componentType.GetProperty(property.Key, BindingFlags.Public | BindingFlags.Instance);
-                if (propInfo != null && propInfo.CanWrite)
-                {
-                    propInfo.SetValue(component, property.Value);
-                }
+                property.Property.SetValue(component, property.Value);
             }
         }
     }
@@ -87,7 +90,7 @@ public class DefaultValues
         {
             foreach (var kvp in initialValues)
             {
-                if (!properties.ContainsKey(kvp.Name))
+                if (!ContainsProperty(properties, kvp.Name))
                 {
                     var propInfo = componentType.GetProperty(kvp.Name, BindingFlags.Public | BindingFlags.Instance);
                     if (propInfo != null && propInfo.CanWrite)
@@ -100,7 +103,7 @@ public class DefaultValues
     }
 
     /// <summary />
-    private IReadOnlyDictionary<string, object?>? GetCachedProperties(Type componentType)
+    private CachedDefault[]? GetCachedProperties(Type componentType)
     {
         if (!_isInitialized || componentType is null)
         {
@@ -112,42 +115,53 @@ public class DefaultValues
     }
 
     /// <summary>
-    /// Walks up the type hierarchy (exact type, then its open generic definition) until "root" object is reached,
-    /// merging defaults from base classes so that values registered on a more derived type take precedence.
-    /// The result is cached per exact component type by <see cref="GetCachedProperties"/>.
+    /// Walks up the type hierarchy, merging defaults from base classes so that values registered on a more derived type
+    /// take precedence, then resolves each property's <see cref="PropertyInfo"/> once. The result is cached per exact
+    /// component type by <see cref="GetCachedProperties"/> so no reflection lookup is repeated on later calls.
     /// </summary>
-    private IReadOnlyDictionary<string, object?>? BuildMergedProperties(Type componentType)
+    private CachedDefault[]? BuildMergedProperties(Type componentType)
     {
-        IReadOnlyDictionary<string, object?>? merged = null;
-        Dictionary<string, object?>? combined = null;
+        Dictionary<string, object?>? merged = null;
 
-        // Walk up the type hierarchy, merging defaults from base classes so that values registered on a more derived type take precedence.
         for (var currentType = componentType; currentType is not null && currentType != typeof(object); currentType = currentType.BaseType)
         {
-            // Check if the current type has registered properties in the cache
             if (!TryGetRegisteredProperties(currentType, out var properties))
             {
                 continue;
             }
 
-            // Common case: only one type in the chain has registrations, so reuse it without allocating.
             if (merged is null)
             {
-                merged = properties;
+                merged = new Dictionary<string, object?>(properties, StringComparer.Ordinal);
                 continue;
             }
 
-            // A base class also has defaults: copy once, then let more derived values (already in combined) win.
-            combined ??= new Dictionary<string, object?>(merged, StringComparer.Ordinal);
+            // A base class also has defaults: only add names not already set by a more derived type.
             foreach (var property in properties)
             {
-                combined.TryAdd(property.Key, property.Value);
+                merged.TryAdd(property.Key, property.Value);
             }
-
-            merged = combined;
         }
 
-        return merged;
+        if (merged is null)
+        {
+            return null;
+        }
+
+        // Resolve PropertyInfo for each property name once, so ApplyDefaults never needs to perform a reflection lookup by name.
+        var resolved = new CachedDefault[merged.Count];
+        var count = 0;
+
+        foreach (var (name, value) in merged)
+        {
+            var propInfo = componentType.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+            if (propInfo != null && propInfo.CanWrite)
+            {
+                resolved[count++] = new CachedDefault(propInfo, value);
+            }
+        }
+
+        return count == resolved.Length ? resolved : resolved[..count];
     }
 
     /// <summary>
@@ -166,6 +180,23 @@ public class DefaultValues
         }
 
         properties = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if the provided property name exists in the cached properties array.
+    /// Using a foreach loop instead of LINQ to avoid allocations and improve performance.
+    /// </summary>
+    private static bool ContainsProperty(CachedDefault[] properties, string name)
+    {
+        foreach (var property in properties)
+        {
+            if (string.Equals(property.Property.Name, name, StringComparison.Ordinal))
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 }
