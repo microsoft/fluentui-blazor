@@ -8,8 +8,15 @@ import {
   lightenColor,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
+import type { AxisCategoryOrder, Legend, TooltipProps, TooltipRenderer } from '../utils/chart-options.js';
+import {
+  renderContinuousBottomAxisShared,
+  renderHorizontalYAxisShared,
+  sortCategoryGroups,
+  toAxisNumber as toNumber,
+  toOptionalAxisNumber as toOptionalNumber,
+} from '../utils/cartesian-axis-shared.js';
 import type { HorizontalBarChartWithAxisDataPoint } from './horizontal-bar-chart-with-axis.options.js';
-import type { AxisCategoryOrder, Legend, TooltipProps, TooltipRenderer } from '../utils/chart.options.js';
 
 type HBCWATooltipProps = TooltipProps & {
   xLabel: string;
@@ -83,16 +90,6 @@ const createSvgElement = <T extends SVGElement>(tag: string): T => {
   return document.createElementNS(SVG_NAMESPACE_URI, tag) as T;
 };
 
-const toNumber = (value: number | string | undefined, fallback: number): number => {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-};
-
-const toOptionalNumber = (value: number | string | undefined): number | undefined => {
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : undefined;
-};
-
 const formatCompactNumber = (value: number, culture?: string) => {
   return createNumberFormat(culture || undefined, {
     maximumFractionDigits: Math.abs(value) >= 1000 ? 1 : 2,
@@ -107,15 +104,6 @@ const formatAxisNumber = (value: number, culture?: string) => {
 };
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
-
-const getMedian = (values: number[]) => {
-  if (values.length === 0) {
-    return 0;
-  }
-  const sorted = [...values].sort((left, right) => left - right);
-  const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
-};
 
 const truncateText = (text: string, maxLength: number) => {
   return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
@@ -591,57 +579,12 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   }
 
   private _sortCategoricalGroups(groups: GroupedSeries[]): GroupedSeries[] {
-    const order = this.yAxisCategoryOrder || 'default';
-    if (order === 'default' || order === 'data') {
-      const reversed = [...this.data].reverse();
-      const orderedKeys = new Set(reversed.map(point => String(point.y)));
-      return Array.from(orderedKeys)
-        .map(key => groups.find(group => group.key === key)!)
-        .filter(Boolean);
-    }
-
-    const aggregate = (group: GroupedSeries) => {
-      const values = group.points.map(point => point.x);
-      switch (order) {
-        case 'category ascending':
-        case 'category descending':
-          return 0;
-        case 'total ascending':
-        case 'total descending':
-        case 'sum ascending':
-        case 'sum descending':
-          return values.reduce((sum, value) => sum + value, 0);
-        case 'min ascending':
-        case 'min descending':
-          return Math.min(...values);
-        case 'max ascending':
-        case 'max descending':
-          return Math.max(...values);
-        case 'mean ascending':
-        case 'mean descending':
-          return values.reduce((sum, value) => sum + value, 0) / values.length;
-        case 'median ascending':
-        case 'median descending':
-          return getMedian(values);
-        default:
-          return 0;
-      }
-    };
-
-    const sorted = [...groups];
-    if (order.startsWith('category')) {
-      sorted.sort((left, right) => left.key.localeCompare(right.key));
-      if (order.endsWith('descending')) {
-        sorted.reverse();
-      }
-      return sorted;
-    }
-
-    sorted.sort((left, right) => aggregate(left) - aggregate(right));
-    if (order.endsWith('descending')) {
-      sorted.reverse();
-    }
-    return sorted;
+    return sortCategoryGroups(
+      groups,
+      this.yAxisCategoryOrder,
+      [...this.data].reverse().map(point => String(point.y)),
+      group => group.points.map(point => point.x),
+    ) as GroupedSeries[];
   }
 
   private _getChartHeight(groupCount: number, numericYAxis: boolean, yValues: number[]) {
@@ -874,86 +817,23 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     domain: [number, number],
     ticks: number[],
   ) {
-    const axisY = height - margins.bottom;
-    const min = domain[0];
-    const max = domain[1];
-    const rangeStart = this._isRTL ? width - margins.right : margins.left;
-    const rangeEnd = this._isRTL ? margins.left : width - margins.right;
-    const span = max - min || 1;
-    const toX = (value: number) => rangeStart + ((value - min) / span) * (rangeEnd - rangeStart);
-    const tickGap = toNumber(this.tickPadding, 6);
-
-    ticks.forEach(tick => {
-      const x = toX(tick);
-      const tickLine = createSvgElement<SVGLineElement>('line');
-      tickLine.setAttribute('class', 'axis-tick-line');
-      tickLine.setAttribute('x1', `${x}`);
-      tickLine.setAttribute('x2', `${x}`);
-      tickLine.setAttribute('y1', `${axisY}`);
-      tickLine.setAttribute('y2', `${20}`);
-      axisLayer.appendChild(tickLine);
-
-      const labelY = axisY + tickGap + 12;
-      const rawLabel = this.xAxisTickFormat
-        ? _applyFormat(tick, this.xAxisTickFormat)
-        : formatAxisNumber(tick, this.culture);
-
-      const MAX_LABEL_CHARS = 10;
-      const displayLabel =
-        this.showXAxisLabelsTooltip && rawLabel.length > MAX_LABEL_CHARS
-          ? truncateText(rawLabel, MAX_LABEL_CHARS)
-          : rawLabel;
-      const isLabelTruncated = displayLabel !== rawLabel;
-
-      const text = createSvgElement<SVGTextElement>('text');
-      text.setAttribute('class', 'axis-text');
-      text.setAttribute('x', `${x}`);
-      text.setAttribute('y', `${labelY}`);
-
-      if (this.rotateXAxisLabels) {
-        text.setAttribute('text-anchor', this._isRTL ? 'start' : 'end');
-        text.setAttribute('transform', `rotate(-45, ${x}, ${labelY})`);
-        text.textContent = displayLabel;
-      } else if (this.wrapXAxisLabels) {
-        text.setAttribute('text-anchor', 'middle');
-        const words = displayLabel.split(' ');
-        if (words.length > 1) {
-          words.forEach((word, i) => {
-            const tspan = createSvgElement<SVGTSpanElement>('tspan');
-            tspan.setAttribute('x', `${x}`);
-            tspan.setAttribute('dy', i === 0 ? '0' : '1.2em');
-            tspan.textContent = word;
-            text.appendChild(tspan);
-          });
-        } else {
-          text.textContent = displayLabel;
-        }
-      } else {
-        text.setAttribute('text-anchor', 'middle');
-        text.textContent = displayLabel;
-      }
-
-      // Prepend <title> after text content is set so it isn't wiped by textContent assignment.
-      if (isLabelTruncated) {
-        const title = createSvgElement<SVGTitleElement>('title');
-        title.textContent = rawLabel;
-        text.insertBefore(title, text.firstChild);
-      }
-
-      axisLayer.appendChild(text);
+    renderContinuousBottomAxisShared({
+      axisLayer,
+      width,
+      height,
+      margins,
+      domain,
+      ticks,
+      tickPadding: toNumber(this.tickPadding, 6),
+      isRTL: this._isRTL,
+      rotateXAxisLabels: this.rotateXAxisLabels,
+      wrapXAxisLabels: this.wrapXAxisLabels,
+      hideTickOverlap: this.hideTickOverlap,
+      showXAxisLabelsTooltip: this.showXAxisLabelsTooltip,
+      xAxisTitle: this.xAxisTitle,
+      formatTickLabel: tick =>
+        this.xAxisTickFormat ? _applyFormat(tick, this.xAxisTickFormat) : formatAxisNumber(tick, this.culture),
     });
-
-    if (this.xAxisTitle) {
-      const titleX = (rangeStart + rangeEnd) / 2;
-      const titleY = height - 4;
-      const titleText = createSvgElement<SVGTextElement>('text');
-      titleText.setAttribute('class', 'axis-title');
-      titleText.setAttribute('x', `${titleX}`);
-      titleText.setAttribute('y', `${titleY}`);
-      titleText.setAttribute('text-anchor', 'middle');
-      titleText.textContent = this.xAxisTitle;
-      axisLayer.appendChild(titleText);
-    }
   }
 
   private _renderYAxis(
@@ -967,65 +847,40 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     yValues: number[],
   ) {
     const axisX = this._isRTL ? width - margins.right : margins.left;
+    const tickEntries: { y: number; label: string; tooltipText?: string }[] = [];
     if (numericYAxis) {
       const [min, max] = this._getNumericYDomain(yValues);
       const yAxisScale = getNiceDomainAndTicks(min, max, toNumber(this.yAxisTickCount, DEFAULT_Y_TICK_COUNT));
+      const effectiveTicks = this.yAxisTickValues ?? yAxisScale.ticks;
       const safeSpan = yAxisScale.domain[1] - yAxisScale.domain[0] || 1;
-      yAxisScale.ticks.forEach(tick => {
+      effectiveTicks.forEach(tick => {
         const ratio = (tick - yAxisScale.domain[0]) / safeSpan;
         const y = height - margins.bottom - ratio * (height - margins.top - margins.bottom);
         const label = this.yAxisTickFormat
           ? _applyFormat(tick, this.yAxisTickFormat)
           : formatCompactNumber(tick, this.culture).toLowerCase();
-        this._appendYAxisTick(axisLayer, axisX, y, label);
+        tickEntries.push({ y, label });
       });
     } else {
       groups.forEach((group, index) => {
         const y = yPositionForGroup(group, index);
         const fullLabel = String(group.rawY);
         const label = this.showYAxisLabels ? fullLabel : truncateText(fullLabel, 18);
-        this._appendYAxisTick(axisLayer, axisX, y, label, this.showYAxisLabelsTooltip ? fullLabel : undefined);
+        tickEntries.push({ y, label, tooltipText: this.showYAxisLabelsTooltip ? fullLabel : undefined });
       });
     }
 
-    if (this.yAxisTitle) {
-      const midY = (margins.top + (height - margins.bottom)) / 2;
-      const titleX = this._isRTL ? width - margins.right + 12 : 12;
-      const titleText = createSvgElement<SVGTextElement>('text');
-      titleText.setAttribute('class', 'axis-title');
-      titleText.setAttribute('x', `${titleX}`);
-      titleText.setAttribute('y', `${midY}`);
-      titleText.setAttribute('text-anchor', 'middle');
-      titleText.setAttribute('transform', `rotate(-90, ${titleX}, ${midY})`);
-      titleText.textContent = this.yAxisTitle;
-      axisLayer.appendChild(titleText);
-    }
-  }
-
-  private _appendYAxisTick(axisLayer: SVGGElement, axisX: number, y: number, label: string, tooltipText?: string) {
-    const tickGap = toNumber(this.tickPadding, 6);
-    const tickLine = createSvgElement<SVGLineElement>('line');
-    tickLine.setAttribute('class', 'axis-tick-line');
-    tickLine.setAttribute('x1', `${axisX}`);
-    tickLine.setAttribute('x2', `${axisX + tickGap}`);
-    tickLine.setAttribute('y1', `${y}`);
-    tickLine.setAttribute('y2', `${y}`);
-    axisLayer.appendChild(tickLine);
-
-    const text = createSvgElement<SVGTextElement>('text');
-    text.setAttribute('class', 'y-axis-text');
-    text.setAttribute('x', `${axisX + (this._isRTL ? tickGap + 6 : -(tickGap + 6))}`);
-    text.setAttribute('y', `${y}`);
-    text.setAttribute('dominant-baseline', 'central');
-    text.setAttribute('text-anchor', this._isRTL ? 'start' : 'end');
-    text.textContent = label;
-
-    if (tooltipText) {
-      const title = createSvgElement<SVGTitleElement>('title');
-      title.textContent = tooltipText;
-      text.appendChild(title);
-    }
-    axisLayer.appendChild(text);
+    renderHorizontalYAxisShared({
+      axisLayer,
+      axisX,
+      isRTL: this._isRTL,
+      tickPadding: toNumber(this.tickPadding, 6),
+      ticks: tickEntries,
+      yAxisTitle: this.yAxisTitle,
+      width,
+      height,
+      margins,
+    });
   }
 
   private _renderOriginLine(
@@ -1065,9 +920,9 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
     const hostRect = this.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
-    const xReference = 'clientX' in event ? event.clientX : targetRect.left + targetRect.width / 2;
-    const xPos = this._isRTL ? hostRect.right - xReference : xReference - hostRect.left;
-    const yPos = ('clientY' in event ? event.clientY : targetRect.top) - hostRect.top - 44;
+    const anchorX =
+      'clientX' in event ? event.clientX - hostRect.left : targetRect.left + targetRect.width / 2 - hostRect.left;
+    const anchorY = 'clientY' in event ? event.clientY - hostRect.top : targetRect.top - hostRect.top;
     this._currentTooltipDataPoint = point;
     this.tooltipProps = {
       isVisible: true,
@@ -1077,9 +932,10 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       yLabel: Y_AXIS_LABEL,
       yValue: point.yAxisCalloutData || String(point.y),
       color,
-      xPos: Math.max(0, xPos),
-      yPos: Math.max(0, yPos),
+      xPos: Math.max(0, this._isRTL ? hostRect.width - anchorX : anchorX),
+      yPos: Math.max(0, anchorY),
     };
+    this._positionTooltipFromAnchor(anchorX, anchorY, { outputAnchorX: true, preferredVertical: 'above' });
   }
 
   protected override _clearTooltip(): void {
