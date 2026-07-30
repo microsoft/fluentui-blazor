@@ -9,6 +9,7 @@
 	{
 		JSInterop.Mode = JSRuntimeMode.Loose;
 		Services.AddFluentUIComponents();
+		SetRendererInfo(new RendererInfo("Server", true));
 	}
 
 	[Fact]
