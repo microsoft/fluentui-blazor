@@ -14,6 +14,9 @@ public class DefaultValues
     // List of components and their Property/Default values.
     private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>> _componentCache = new ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>>();
 
+    // Per-type cache of the properties merged across the inheritance chain, computed once and reused across every ApplyDefaults/SetInitialValues call.
+    private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>?> _mergedCache = new ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>?>();
+
     private bool _isInitialized;
 
     /// <summary>
@@ -104,22 +107,54 @@ public class DefaultValues
             return null;
         }
 
-        // Walk up the type hierarchy (exact type, then its open generic definition) until "root" object is reached.
+        // Get the merged properties for the component type, computing them if they haven't been cached yet.
+        return _mergedCache.GetOrAdd(componentType, BuildMergedProperties);
+    }
+
+    /// <summary>
+    /// Walks up the type hierarchy (exact type, then its open generic definition) until "root" object is reached,
+    /// merging defaults from base classes so that values registered on a more derived type take precedence.
+    /// The result is cached per exact component type by <see cref="GetCachedProperties"/>.
+    /// </summary>
+    private ConcurrentDictionary<string, object?>? BuildMergedProperties(Type componentType)
+    {
+        ConcurrentDictionary<string, object?>? merged = null;
+
         for (var currentType = componentType; currentType is not null && currentType != typeof(object); currentType = currentType.BaseType)
         {
-            // Try exact type first
-            if (_componentCache.TryGetValue(currentType, out var properties))
+            if (TryGetRegisteredProperties(currentType, out var properties))
             {
-                return properties;
-            }
-
-            // Fallback: check open generic type definition
-            if (currentType.IsGenericType && _componentCache.TryGetValue(currentType.GetGenericTypeDefinition(), out properties))
-            {
-                return properties;
+                merged ??= new ConcurrentDictionary<string, object?>(StringComparer.Ordinal);
+                foreach (var property in properties)
+                {
+                    // The more specific type's values take precedence, so only add if not already present in the merged dictionary.
+                    if (!merged.ContainsKey(property.Key))
+                    {
+                        merged[property.Key] = property.Value;
+                    }
+                }
             }
         }
 
-        return null;
+        return merged;
+    }
+
+    /// <summary>
+    /// Tries to retrieve the registered properties for a given component type, checking both the exact type and its open generic definition if applicable.
+    /// </summary>
+    private bool TryGetRegisteredProperties(Type componentType, [NotNullWhen(true)] out ConcurrentDictionary<string, object?>? properties)
+    {
+        if (_componentCache.TryGetValue(componentType, out properties))
+        {
+            return true;
+        }
+
+        if (componentType.IsGenericType)
+        {
+            return _componentCache.TryGetValue(componentType.GetGenericTypeDefinition(), out properties);
+        }
+
+        properties = null;
+        return false;
     }
 }

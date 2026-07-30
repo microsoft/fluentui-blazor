@@ -146,6 +146,35 @@ public class DefaultValuesTests
     }
 
     [Fact]
+    public void ApplyDefaults_RegisteredBaseClass_DifferentValues()
+    {
+        var defaultValues = new DefaultValues();
+        defaultValues.For<FluentComponentBase>().Set(x => x.Margin, "10px");
+        defaultValues.For<FluentDivider>().Set(x => x.Padding, "20px");
+        var component = CreateDivider();
+
+        defaultValues.ApplyDefaults(component);
+
+        Assert.Equal("10px", component.Margin);
+        Assert.Equal("20px", component.Padding);
+    }
+
+    [Fact]
+    public void ApplyDefaults_RegisteredBaseClass_OverridesBaseClassValues()
+    {
+        var defaultValues = new DefaultValues();
+        defaultValues.For<FluentComponentBase>().Set(x => x.Margin, "10px");
+        defaultValues.For<FluentDivider>().Set(x => x.Margin, "50px");
+        defaultValues.For<FluentDivider>().Set(x => x.Padding, "20px");
+        var component = CreateDivider();
+
+        defaultValues.ApplyDefaults(component);
+
+        Assert.Equal("50px", component.Margin);
+        Assert.Equal("20px", component.Padding);
+    }
+
+    [Fact]
     public void ApplyDefaults_ForAnyNonGenericComponent_RegistersUsingConcreteType()
     {
         var defaultValues = new DefaultValues();
