@@ -8,7 +8,6 @@
     <LangVersion>latest</LangVersion>
     <SignAssembly>False</SignAssembly>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <WarningsNotAsErrors>612,618</WarningsNotAsErrors>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.McpServer</RootNamespace>
 
     <PackageId>Microsoft.FluentUI.AspNetCore.McpServer</PackageId>

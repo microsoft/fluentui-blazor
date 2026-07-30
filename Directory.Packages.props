@@ -21,8 +21,8 @@
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.14.3" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.3" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
-    <!-- For MCP Apps -->
-    <PackageVersion Include="ModelContextProtocol" Version="1.3.0" />
+    <!-- MCP SDK (aligned with the MCP 2026-07-28 specification) -->
+    <PackageVersion Include="ModelContextProtocol" Version="2.0.0" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="2.7.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.5.1" />
