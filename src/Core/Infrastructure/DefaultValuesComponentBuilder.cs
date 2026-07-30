@@ -16,13 +16,14 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
 {
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
     private static readonly Type TComponentType = typeof(TComponent);
+    private static readonly NullabilityInfoContext NullabilityContext = new();
     private readonly ConcurrentDictionary<string, object?> _values;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DefaultValuesComponentBuilder{TComponent}"/> class with the specified default
     /// values.
     /// </summary>
-    /// <param name="values">A thrad-safe dictionary containing the default values to be used by the component.  Keys represent the names of
+    /// <param name="values">A thread-safe dictionary containing the default values to be used by the component.  Keys represent the names of
     /// the values, and values represent their corresponding default values.  Cannot be <see langword="null"/>.</param>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="values"/> is <see langword="null"/>.</exception>
     internal DefaultValuesComponentBuilder(ConcurrentDictionary<string, object?> values)
@@ -49,7 +50,7 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
         var propertyName = propertyInfo?.Name
                         ?? throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on component '{typeof(TComponent)}'.", nameof(parameterSelector));
 
-        if (!propertyInfo.CanWrite)
+        if (propertyInfo is null || !propertyInfo.CanWrite)
         {
             throw new ArgumentException($"The property '{propertyName}' on component '{typeof(TComponent)}' is read-only and cannot be used for default values.", nameof(parameterSelector));
         }
@@ -91,7 +92,7 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
                 throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property type '{propertyType}' is non-nullable.", nameof(value));
             }
 
-            var nullabilityInfo = new NullabilityInfoContext().Create(propertyInfo);
+            var nullabilityInfo = NullabilityContext.Create(propertyInfo);
             if (nullabilityInfo.WriteState == NullabilityState.NotNull)
             {
                 throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property is non-nullable.", nameof(value));
