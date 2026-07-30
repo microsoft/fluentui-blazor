@@ -12,7 +12,12 @@ export function donutChartTemplate<T extends DonutChart>(): ElementViewTemplate<
     <template>
       ${when(x => !!x.chartTitle, html<T>`<div class="chart-title">${x => x.chartTitle}</div>`)}
       <div class="chart-container" ${ref('chartContainer')}>
-        <svg class="chart" role="none" width="${x => x.width ?? 200}" height="${x => x.height ?? 200}">
+        <svg
+          class="chart"
+          role="none"
+          width="${x => x._toSvgLength(x.width, 200)}"
+          height="${x => x._toSvgLength(x.height, 200)}"
+        >
           <g ${ref('group')}></g>
         </svg>
       </div>
@@ -21,6 +26,7 @@ export function donutChartTemplate<T extends DonutChart>(): ElementViewTemplate<
         label="${x => x.legendListLabel}"
         position="${x => x.legendPosition}"
         ?hidden="${x => x.hideLegends}"
+        :roundBoxes="${x => x.roundCorners}"
         @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
         @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
         @legend-mouseout="${x => x.handleLegendMouseoutAndBlur()}"

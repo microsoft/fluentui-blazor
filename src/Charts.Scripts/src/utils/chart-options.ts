@@ -53,6 +53,16 @@ export type AxisCategoryOrder =
   | 'median descending';
 
 /**
+ * Accessibility data attached to an individual chart data point.
+ *
+ * @public
+ */
+export interface AccessibilityData {
+  /** Custom aria-label that overrides the auto-generated one. */
+  ariaLabel?: string;
+}
+
+/**
  * Shared base tooltip state used by all chart components.
  *
  * @public
