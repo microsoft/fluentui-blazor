@@ -105,16 +105,22 @@ public class DefaultValues
             return null;
         }
 
-        // Try exact type first
-        if (!_componentCache.TryGetValue(componentType, out var properties))
+        // Walk up the type hierarchy (exact type, then its open generic definition) until "root" object is reached.
+        for (var currentType = componentType; currentType is not null && currentType != typeof(object); currentType = currentType.BaseType)
         {
-            // Fallback: check open generic type definition
-            if (componentType.IsGenericType)
+            // Try exact type first
+            if (_componentCache.TryGetValue(currentType, out var properties))
             {
-                _componentCache.TryGetValue(componentType.GetGenericTypeDefinition(), out properties);
+                return properties;
+            }
+
+            // Fallback: check open generic type definition
+            if (currentType.IsGenericType && _componentCache.TryGetValue(currentType.GetGenericTypeDefinition(), out properties))
+            {
+                return properties;
             }
         }
 
-        return properties;
+        return null;
     }
 }

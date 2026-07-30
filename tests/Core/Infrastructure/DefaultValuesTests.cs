@@ -108,4 +108,16 @@ public class DefaultValuesTests
 
         Assert.Null(component.Inset);
     }
+
+    [Fact]
+    public void ApplyDefaults_RegisteredBaseClass()
+    {
+        var defaultValues = new DefaultValues();
+        defaultValues.For<FluentComponentBase>().Set(x => x.Margin, "10px");
+        var component = CreateDivider();
+
+        defaultValues.ApplyDefaults(component);
+
+        Assert.Equal("10px", component.Margin);
+    }
 }
