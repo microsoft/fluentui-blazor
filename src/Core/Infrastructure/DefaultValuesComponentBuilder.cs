@@ -79,7 +79,7 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
     /// <summary>
     /// Validates that the provided value is compatible with the specified property type. Throws an exception if the value is not compatible.
     /// </summary>
-    private static void ValidateValueCompatibility(PropertyInfo propertyInfo, object? value, string propertyName)
+    internal static void ValidateValueCompatibility(PropertyInfo propertyInfo, object? value, string propertyName)
     {
         var propertyType = propertyInfo.PropertyType;
         var nullableUnderlyingType = Nullable.GetUnderlyingType(propertyType);
