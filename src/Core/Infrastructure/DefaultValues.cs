@@ -15,7 +15,7 @@ public class DefaultValues
     private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>> _componentCache = new ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>>();
 
     // Per-type cache of the properties merged across the inheritance chain, computed once and reused across every ApplyDefaults/SetInitialValues call.
-    private readonly ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>?> _mergedCache = new ConcurrentDictionary<Type, ConcurrentDictionary<string, object?>?>();
+    private readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, object?>?> _mergedCache = new ConcurrentDictionary<Type, IReadOnlyDictionary<string, object?>?>();
 
     private bool _isInitialized;
 
@@ -100,7 +100,7 @@ public class DefaultValues
     }
 
     /// <summary />
-    private ConcurrentDictionary<string, object?>? GetCachedProperties(Type componentType)
+    private IReadOnlyDictionary<string, object?>? GetCachedProperties(Type componentType)
     {
         if (!_isInitialized || componentType is null)
         {
@@ -116,24 +116,35 @@ public class DefaultValues
     /// merging defaults from base classes so that values registered on a more derived type take precedence.
     /// The result is cached per exact component type by <see cref="GetCachedProperties"/>.
     /// </summary>
-    private ConcurrentDictionary<string, object?>? BuildMergedProperties(Type componentType)
+    private IReadOnlyDictionary<string, object?>? BuildMergedProperties(Type componentType)
     {
-        ConcurrentDictionary<string, object?>? merged = null;
+        IReadOnlyDictionary<string, object?>? merged = null;
+        Dictionary<string, object?>? combined = null;
 
+        // Walk up the type hierarchy, merging defaults from base classes so that values registered on a more derived type take precedence.
         for (var currentType = componentType; currentType is not null && currentType != typeof(object); currentType = currentType.BaseType)
         {
-            if (TryGetRegisteredProperties(currentType, out var properties))
+            // Check if the current type has registered properties in the cache
+            if (!TryGetRegisteredProperties(currentType, out var properties))
             {
-                merged ??= new ConcurrentDictionary<string, object?>(StringComparer.Ordinal);
-                foreach (var property in properties)
-                {
-                    // The more specific type's values take precedence, so only add if not already present in the merged dictionary.
-                    if (!merged.ContainsKey(property.Key))
-                    {
-                        merged[property.Key] = property.Value;
-                    }
-                }
+                continue;
             }
+
+            // Common case: only one type in the chain has registrations, so reuse it without allocating.
+            if (merged is null)
+            {
+                merged = properties;
+                continue;
+            }
+
+            // A base class also has defaults: copy once, then let more derived values (already in combined) win.
+            combined ??= new Dictionary<string, object?>(merged, StringComparer.Ordinal);
+            foreach (var property in properties)
+            {
+                combined.TryAdd(property.Key, property.Value);
+            }
+
+            merged = combined;
         }
 
         return merged;
