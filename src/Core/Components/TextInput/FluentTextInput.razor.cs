@@ -16,6 +16,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
 {
     /// <summary>
+    /// Tracks the last <see cref="ControlStyle"/> value applied to the internal input element, to avoid
+    /// unnecessary JS interop calls on every render.
+    /// </summary>
+    private string? _appliedControlStyle;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
     public FluentTextInput(LibraryConfiguration configuration) : base(configuration)
@@ -140,6 +146,16 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     public string? Width { get; set; }
 
     /// <summary>
+    /// Gets or sets custom CSS applied to the internal <c>input</c> element (the shadow DOM "control" part).
+    /// Unlike <see cref="FluentComponentBase.Style"/> (applied to the host element), this is injected into the
+    /// component's shadow root, so it can also target pseudo-elements that <c>::part(control)</c> can't reach
+    /// from outside (e.g. <c>ControlStyle="::-ms-reveal { display: none; }"</c> to hide the Edge password reveal icon).
+    /// Plain declarations without a selector (e.g. <c>ControlStyle="color: red;"</c>) are applied to the input itself.
+    /// </summary>
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
+    /// <summary>
     /// Gets or sets the text input type. See <see cref="Components.TextInputType"/>
     /// This relies on browser support for different input types and can therefore vary between browsers.
     /// </summary>
@@ -222,6 +238,12 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
             }
+        }
+
+        if (!string.Equals(ControlStyle, _appliedControlStyle, StringComparison.Ordinal))
+        {
+            _appliedControlStyle = ControlStyle;
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.applyControlStyle", Element, ControlStyle);
         }
     }
 

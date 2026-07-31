@@ -37,6 +37,42 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
   };
 
   /**
+   * Applies custom CSS to the internal input element (shadow DOM "control" part) by injecting a
+   * scoped <style> element into the component's shadow root. Unlike '::part(control)' from outside,
+   * this can also target pseudo-elements such as '::-ms-reveal' since the style lives in the same
+   * shadow tree as the input.
+   * @param {HTMLElement} element - The host <fluent-text-input>/<fluent-text-area> element
+   * @param {string | null} style - CSS text. Plain declarations without a selector (e.g. 'color: red;')
+   * are applied to the input itself; text containing a selector (e.g. '::-ms-reveal { display: none; }')
+   * is injected as-is.
+   */
+  export function applyControlStyle(element: HTMLElement, style: string | null): void {
+    const shadowRoot = element.shadowRoot;
+    if (!shadowRoot) {
+      return;
+    }
+
+    const styleElement = shadowRoot.querySelector<HTMLStyleElement>('style[data-fluent-control-style]');
+
+    if (!style) {
+      styleElement?.remove();
+      return;
+    }
+
+    const cssText = style.includes('{') ? style : `.control { ${style} }`;
+
+    if (styleElement) {
+      styleElement.textContent = cssText;
+      return;
+    }
+
+    const newStyleElement = document.createElement('style');
+    newStyleElement.setAttribute('data-fluent-control-style', '');
+    newStyleElement.textContent = cssText;
+    shadowRoot.appendChild(newStyleElement);
+  };
+
+  /**
    * Type for elements that support delayed 'immediate' input events
    */
   type InputImmediateElement = (FluentUIComponents.TextInput | FluentUIComponents.TextArea) & {
