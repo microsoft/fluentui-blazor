@@ -16,6 +16,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle
 {
     /// <summary>
+    /// Gets the CSS rules to hide browser-provided password reveal and credentials AutoFill buttons.
+    /// </summary>
+    public const string HidePasswordToggle = "::-ms-reveal { display: none !important; } ::-webkit-credentials-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
+    /// <summary>
+    /// Gets the CSS rule to hide the contacts AutoFill button in WebKit-based browsers.
+    /// </summary>
+    public const string HideContactsToggle = "::-webkit-contacts-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
     public FluentTextInput(LibraryConfiguration configuration) : base(configuration)
