@@ -1,20 +1,28 @@
-﻿<form>
+﻿@using System.ComponentModel.DataAnnotations
+
+<EditForm Model="@Input">
+    <DataAnnotationsValidator />
+
     <FluentRadioGroup Name="options"
                       Items="@Fruits"
                       Label="Choose a fruit"
                       Required="true"
-                      @bind-Value="@Value"
-                      Message="Please select a fruit." />
+                      @bind-Value="@Input.Value" />
 
     <FluentDivider Margin="@Margin.Vertical3" />
 
     <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
     <FluentButton Type="ButtonType.Reset">Reset</FluentButton>
-</form>
-
+</EditForm>
 
 @code {
+    private static readonly string[] Fruits = ["Apple", "Banana", "Orange"];
 
-    private static readonly string[] Fruits = new[] { "Apple", "Banana", "Orange" };
-    private string? Value;
+    private RadioGroupRequiredInput Input { get; } = new();
+
+    private sealed class RadioGroupRequiredInput
+    {
+        [Required(ErrorMessage = "Please select a fruit.")]
+        public string? Value { get; set; }
+    }
 }
