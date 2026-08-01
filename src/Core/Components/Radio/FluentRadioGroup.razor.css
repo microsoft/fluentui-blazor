@@ -1,11 +1,6 @@
-fluent-radio-group > .my-3-o {
+fluent-radio-group:not([orientation="vertical"]) > .my-3-o {
   margin: unset;
 }
-
-fluent-radio-group > fluent-field.my-3-o {
-  margin: unset;
-}
-
 
 fluent-radio-group > fluent-field:has(fluent-radio:focus-visible) {
   outline: -webkit-focus-ring-color auto 1px;
