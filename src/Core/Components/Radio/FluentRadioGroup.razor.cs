@@ -123,7 +123,6 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
 
                 EditContext?.NotifyFieldChanged(FieldIdentifier);
             }
-
         }
     }
 
