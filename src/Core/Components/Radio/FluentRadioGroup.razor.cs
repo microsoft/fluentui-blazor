@@ -120,6 +120,8 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
                 {
                     await ValueChanged.InvokeAsync(newValue);
                 }
+
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
             }
         }
     }
