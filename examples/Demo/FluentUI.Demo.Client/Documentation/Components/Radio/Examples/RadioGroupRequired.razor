@@ -1,8 +1,7 @@
 ﻿@using System.ComponentModel.DataAnnotations
 
-<EditForm Model="@Input">
+<EditForm Model="@Input" OnValidSubmit="@(() => { })" OnInvalidSubmit="@(() => { })" novalidate="true">
     <DataAnnotationsValidator />
-
     <FluentRadioGroup Name="options"
                       Items="@Fruits"
                       Label="Choose a fruit"
