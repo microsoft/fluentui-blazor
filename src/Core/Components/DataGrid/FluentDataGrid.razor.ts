@@ -379,7 +379,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
   }
 
-  export function EnableColumnResizing(gridElement: HTMLElement, resizeColumnOnAllRows: boolean = true, signal?: AbortSignal) {
+  export function EnableColumnResizing(gridElement: HTMLElement | null | undefined, resizeColumnOnAllRows: boolean = true, signal?: AbortSignal) {
+    if (gridElement === undefined || gridElement === null) {
+      return;
+    }
+
     const columns: Column[] = [];
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -635,7 +639,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.focus();
   }
 
-  export function EnableColumnReordering(gridElement: HTMLElement, dotNetHelper: any) {
+  export function EnableColumnReordering(gridElement: HTMLElement | null | undefined, dotNetHelper: any) {
+    if (gridElement === undefined || gridElement === null) {
+      return;
+    }
+
     const id = gridElement.id;
     let grid = grids.find((g: Grid) => g.id === id);
 
