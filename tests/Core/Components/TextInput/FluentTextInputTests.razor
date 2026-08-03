@@ -217,13 +217,15 @@
     }
 
     [Theory]
-    [InlineData(false, "Name")]
-    [InlineData(true, "Name, Required")]
-    public void FluentInputText_Label_CopiesAccessibleNameToInternalControl(bool required, string expectedAriaLabel)
+    [InlineData(false, null, "Name")]
+    [InlineData(true, null, "Name, Required")]
+    [InlineData(false, "Custom name", "Custom name")]
+    [InlineData(true, "Custom name", "Custom name, Required")]
+    public void FluentInputText_Label_CopiesAccessibleNameToInternalControl(bool required, string? ariaLabel, string expectedAriaLabel)
     {
         // Arrange && Act
         using var context = new IdentifierContext(_ => "myId");
-        Render(@<FluentTextInput Label="Name" Required="@required" />);
+        Render(@<FluentTextInput Label="Name" AriaLabel="@ariaLabel" Required="@required" />);
 
         // Assert
         var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");

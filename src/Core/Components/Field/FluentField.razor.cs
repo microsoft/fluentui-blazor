@@ -205,7 +205,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         if (firstRender)
         {
             // Only for FluentTextInput, FluentTextArea and FluentNumberInput
-            if (InputComponent is IFluentControlStyle)
+            if (InputComponent is IFluentControlAriaLabel)
             {
                 // The <label> rendered above targets the wrapped component's host element (e.g. <fluent-text-input>),
                 // but the real focusable control lives inside that host's shadow DOM and has no accessible name of its
@@ -232,13 +232,14 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// </summary>
     private string? GetControlAriaLabel()
     {
-        if (string.IsNullOrWhiteSpace(Parameters.Label))
+        var label = (InputComponent as IFluentControlAriaLabel)?.AriaLabel ?? Parameters.Label;
+
+        if (string.IsNullOrWhiteSpace(label))
         {
             return null;
         }
 
-        return Parameters.Label +
-               (Parameters.Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
+        return label + (Parameters.Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
     }
 
     internal string? GetId(string slot)

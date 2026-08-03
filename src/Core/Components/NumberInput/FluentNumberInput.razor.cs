@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
-public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent, IFluentControlStyle
+public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent, IFluentControlStyle, IFluentControlAriaLabel
 {
     private static readonly Dictionary<Type, (object Zero, object Min, object Max, object Step)> TypeDefaults = new()
     {
