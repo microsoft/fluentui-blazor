@@ -7,6 +7,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -21,6 +22,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
     private bool _hasFieldIdentifier;
+    private string? _appliedControlAriaLabel;
 
     /// <summary />
     public FluentField(LibraryConfiguration configuration) : base(configuration)
@@ -195,6 +197,60 @@ public partial class FluentField : FluentComponentBase, IFluentField
         DetachValidationStateChangedListener();
         GC.SuppressFinalize(this);
         return base.DisposeAsync();
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        // The <label> rendered above targets the wrapped component's host element (e.g. <fluent-text-input>),
+        // but the real focusable control lives inside that host's shadow DOM and has no accessible name of its
+        // own: light-DOM `for`/`aria-labelledby` cannot cross the shadow boundary. Rather than relying on each
+        // component's internal (and inconsistent) shadow-DOM label, push a plain-text `aria-label` directly onto
+        // the shadow ".control" element, the same way for every wrapped component.
+        var ariaLabel = GetControlAriaLabel();
+
+        if (string.Equals(_appliedControlAriaLabel, ariaLabel, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _appliedControlAriaLabel = ariaLabel;
+
+        var targetId = GetId("input");
+        if (string.IsNullOrEmpty(targetId) || string.IsNullOrEmpty(ariaLabel))
+        {
+            return;
+        }
+
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", targetId, ".control", "aria-label", ariaLabel);
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException ||
+                                   ex is InvalidOperationException)
+        {
+            // The JSRuntime side may routinely be unavailable during lifecycle transitions.
+            // This is not an error.
+        }
+    }
+
+    /// <summary>
+    /// Computes the plain-text accessible name to apply to the wrapped control, from <see cref="IFluentField.Label"/>
+    /// (⚠️ <see cref="IFluentField.LabelTemplate"/> and <see cref="IFluentField.LabelInfo"/> are not plain text and
+    /// are not reflected here), suffixed with the localized "required" indicator when applicable.
+    /// </summary>
+    private string? GetControlAriaLabel()
+    {
+        if (string.IsNullOrWhiteSpace(Parameters.Label))
+        {
+            return null;
+        }
+
+        return Parameters.Label +
+               (Parameters.Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
     }
 
     internal string? GetId(string slot)
