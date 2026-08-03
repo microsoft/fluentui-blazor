@@ -700,11 +700,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         ValidateAndComputePinnedColumns();
         UpdateGridTemplateColumns();
 
-        if (ResizableColumns)
-        {
-            _checkColumnResizing = true;
-        }
-
+        _checkColumnResizing = ResizableColumns;
         _checkColumnReordering = ReorderableColumns;
     }
 
