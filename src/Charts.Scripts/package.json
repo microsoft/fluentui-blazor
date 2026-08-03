@@ -33,7 +33,7 @@
     "rimraf": "6.1.3"
   },
   "dependencies": {
-    "@fluentui/web-components": "^3.0.0",
+    "@fluentui/web-components": "^3.0.2",
     "@microsoft/fast-element": "^3.0.1",
     "@microsoft/fast-web-utilities": "^6.0.0",
     "d3-format": "^3.0.0",
