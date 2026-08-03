@@ -204,9 +204,8 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
         if (firstRender)
         {
-            if (this.InputComponent is FluentTextInput ||
-                this.InputComponent is FluentTextArea ||
-                this.InputComponent is FluentNumberInput<object>)
+            // Only for FluentTextInput, FluentTextArea and FluentNumberInput
+            if (InputComponent is IFluentControlStyle)
             {
                 // The <label> rendered above targets the wrapped component's host element (e.g. <fluent-text-input>),
                 // but the real focusable control lives inside that host's shadow DOM and has no accessible name of its
