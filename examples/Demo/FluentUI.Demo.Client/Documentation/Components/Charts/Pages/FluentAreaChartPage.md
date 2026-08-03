@@ -60,12 +60,6 @@ The default example renders an area chart with 3 data series and a legend showin
 
 {{ AreaChartDefault }}
 
-### Multiple legend selection
-
-When `AllowMultipleLegendSelection` is enabled, multiple legend items can be selected at the same time.
-
-{{ AreaChartMultipleLegendSelection }}
-
 ### Enable gradient
 
 Setting `EnableGradient` applies a gradient fill to the area series.
@@ -102,17 +96,17 @@ Use `UseSecondaryYScale` on a series and configure the secondary axis visibility
 
 {{ AreaChartSecondaryAxis }}
 
-### Hide legend
+### Axis titles
+
+The `XAxisTitle` and `YAxisTitle` properties label the chart axes.
+
+{{ AreaChartAxisTitles }}
+
+### Without legends
 
 This example removes the legend list below the chart.
 
 {{ AreaChartHideLegends }}
-
-### Culture
-
-This example uses a specific culture to format the axis labels and tooltips.
-
-{{ AreaChartCulture }}
 
 ### Rounded corners
 
@@ -138,23 +132,29 @@ The `LegendListLabel` property sets the accessible heading for the legend list.
 
 {{ AreaChartLegendListLabel }}
 
-### Custom tooltip
+### Culture
 
-Use `CartesianTooltipTemplate` (or `TooltipTemplate`) to replace the default hover callout with custom Blazor markup.
+This example uses a specific culture to format the axis labels and tooltips.
 
-{{ AreaChartCustomTooltip }}
+{{ AreaChartCulture }}
 
-### Axis titles
+### Multiple legend selection
 
-The `XAxisTitle` and `YAxisTitle` properties label the chart axes.
+When `AllowMultipleLegendSelection` is enabled, multiple legend items can be selected at the same time.
 
-{{ AreaChartAxisTitles }}
+{{ AreaChartMultipleLegendSelection }}
 
 ### RTL
 
 This example demonstrates the chart inside a right-to-left container.
 
 {{ AreaChartDefaultRTL }}
+
+### Custom tooltip
+
+Use `CartesianTooltipTemplate` (or `TooltipTemplate`) to replace the default hover callout with custom Blazor markup.
+
+{{ AreaChartCustomTooltip }}
 
 ## API Fluent Area Chart
 

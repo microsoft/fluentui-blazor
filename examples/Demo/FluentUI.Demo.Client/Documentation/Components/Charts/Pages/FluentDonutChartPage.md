@@ -52,6 +52,12 @@ Setting `ShowLabelsInPercent` displays each segment's label as a percentage of t
 
 {{ DonutChartShowLabelsInPercent }}
 
+### Value inside donut
+
+The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
+
+{{ DonutChartValueInsideDonut }}
+
 ### Hide labels
 
 Setting `HideLabels` suppresses the callout labels around the chart segments, leaving only the legend to identify each slice.
@@ -70,30 +76,12 @@ Enabling `RoundedCorners` applies a small border-radius to each segment arc, giv
 
 {{ DonutChartRoundedCorners }}
 
-<<<<<<< HEAD
-=======
-### Value inside donut
-
-The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
-
-{{ DonutChartValueInsideDonut }}
-
->>>>>>> users/vnbaaij/dev-v5/add-areachart
 ### With custom sizing
 
 Use the sliders to adjust the chart's `Width`, `Height`, and `InnerRadius` at runtime, demonstrating how the donut ring scales with the available space.
 
 {{ DonutChartSizing }}
 
-<<<<<<< HEAD
-### Outside labels
-
-Enabling `ShowOutsideLabels` moves each segment's label outside the ring, avoiding overlap for charts with many small segments.
-
-{{ DonutChartOutsideLabels }}
-
-=======
->>>>>>> users/vnbaaij/dev-v5/add-areachart
 ### Hide tooltip
 
 Setting `HideTooltip` disables the hover callout so that mousing over a segment no longer shows a data tooltip.
@@ -118,15 +106,6 @@ When `AllowMultipleLegendSelection` is enabled, clicking a legend item highlight
 
 {{ DonutChartMultipleLegendSelection }}
 
-<<<<<<< HEAD
-### Value inside donut
-
-The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
-
-{{ DonutChartValueInsideDonut }}
-
-=======
->>>>>>> users/vnbaaij/dev-v5/add-areachart
 ### RTL
 
 Demonstrates the right-to-left layout mode, where segment labels and the legend are mirrored for RTL language support.

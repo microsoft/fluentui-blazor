@@ -124,6 +124,24 @@ You can set the `TextInputType` property to define the type of the text input. T
 
 {{ TextInputTypes }}
 
+## Styling the internal control
+
+Use the `ControlStyle` parameter to apply CSS declarations directly to the internal input control in the component's shadow DOM.
+For example, the following text input displays its entered text in red:
+
+```razor
+<FluentTextInput ControlStyle="color: red !important;" />
+```
+
+For password inputs, use the predefined `FluentTextInput.HidePasswordToggle` style to hide the browser-provided password reveal and credentials autofill buttons:
+
+```razor
+<FluentTextInput TextInputType="TextInputType.Password"
+                 ControlStyle="@FluentTextInput.HidePasswordToggle" />
+```
+
+The style is applied when the component is first rendered and cannot be changed dynamically afterward.
+
 ## Placeholders and autofill
 
 The `Placeholder` parameter is used to set the placeholder text for the input field. This is a short hint that describes the expected value of the input field.

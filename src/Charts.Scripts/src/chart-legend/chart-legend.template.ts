@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-import { type ElementViewTemplate, html, repeat } from '@microsoft/fast-element';
-import type { ChartLegend } from './chart-legend.js';
-import type { Legend } from '../utils/chart.options.js';
-=======
 import { type ElementViewTemplate, html, repeat, when } from '@microsoft/fast-element';
 // NOTE: Item visibility is managed imperatively in ChartLegend._measure() — not
 // through FAST style bindings — because repeat() does not propagate parent
 // observable changes into inner bindings reactively.
 import type { ChartLegend } from './chart-legend.js';
 import type { Legend } from '../utils/chart-options.js';
->>>>>>> users/vnbaaij/dev-v5/add-areachart
 import { getColorFromToken } from '../utils/chart-helpers.js';
 
 /**
@@ -42,11 +36,7 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
             @keydown="${(x, c) => c.parent._handleLegendKeydown(c.event as KeyboardEvent)}"
           >
             <div
-<<<<<<< HEAD
-              class="legend-rect"
-=======
               class="${(x, c) => `legend-rect${c.parent.roundBoxes ? ' rounded' : ''}`}"
->>>>>>> users/vnbaaij/dev-v5/add-areachart
               style="background-color: ${x => getColorFromToken(x.color)}; border-color: ${x =>
                 getColorFromToken(x.color)};"
             ></div>
@@ -54,8 +44,6 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
           </button>
         `,
       )}
-<<<<<<< HEAD
-=======
       ${when(
         x => x._overflowCount > 0,
         html<T>`
@@ -96,7 +84,6 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
           </fluent-menu>
         `,
       )}
->>>>>>> users/vnbaaij/dev-v5/add-areachart
     </template>
   `;
 }

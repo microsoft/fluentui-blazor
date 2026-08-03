@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
-public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
+public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent, IFluentControlStyle
 {
     private static readonly Dictionary<Type, (object Zero, object Min, object Max, object Step)> TypeDefaults = new()
     {
@@ -163,6 +163,10 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     /// </summary>
     public bool IsDecimal => UnderlyingType == typeof(float) || UnderlyingType == typeof(double) || UnderlyingType == typeof(decimal);
 
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -181,6 +185,11 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
             // Apply the number mask to the input element
             await ApplyNumberMaskAsync();
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ".control", ControlStyle);
+            }
         }
     }
 

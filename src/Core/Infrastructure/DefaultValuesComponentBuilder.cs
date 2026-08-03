@@ -12,11 +12,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Provides functionality to configure default values for component parameters of type <typeparamref name="TComponent" />.
 /// </summary>
-[ExcludeFromCodeCoverage(Justification = "Test will be added later")]
 public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TComponent>
 {
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
     private static readonly Type TComponentType = typeof(TComponent);
+    private static readonly NullabilityInfoContext NullabilityContext = new();
     private readonly ConcurrentDictionary<string, object?> _values;
 
     /// <summary>
@@ -39,7 +39,7 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
 
         if (parameterSelector.Body is not MemberExpression { Member: PropertyInfo propInfoCandidate })
         {
-            throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on the component '{typeof(TComponent)}'.", nameof(parameterSelector));
+            throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on component '{typeof(TComponent)}'.", nameof(parameterSelector));
         }
 
         // Property name
@@ -48,7 +48,15 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
                          : propInfoCandidate;
 
         var propertyName = propertyInfo?.Name
-                        ?? throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on the component '{typeof(TComponent)}'.", nameof(parameterSelector));
+                        ?? throw new ArgumentException($"The parameter selector '{parameterSelector}' does not resolve to a public property on component '{typeof(TComponent)}'.", nameof(parameterSelector));
+
+        if (propertyInfo is null || !propertyInfo.CanWrite)
+        {
+            throw new ArgumentException($"The property '{propertyName}' on component '{typeof(TComponent)}' is read-only and cannot be used for default values.", nameof(parameterSelector));
+        }
+
+        // Validate that the provided value is compatible with the property type
+        ValidateValueCompatibility(propertyInfo, value, propertyName);
 
         // Add the value to the dictionary, using the property name as the key.
         _values.AddOrUpdate(propertyName, AddFunction, UpdateFunction);
@@ -66,6 +74,37 @@ public class DefaultValuesComponentBuilder<[DynamicallyAccessedMembers(Dynamical
             }
 
             return value;
+        }
+    }
+
+    /// <summary>
+    /// Validates that the provided value is compatible with the specified property type. Throws an exception if the value is not compatible.
+    /// </summary>
+    internal static void ValidateValueCompatibility(PropertyInfo propertyInfo, object? value, string propertyName)
+    {
+        var propertyType = propertyInfo.PropertyType;
+        var nullableUnderlyingType = Nullable.GetUnderlyingType(propertyType);
+
+        if (value is null)
+        {
+            if (propertyType.IsValueType && nullableUnderlyingType is null)
+            {
+                throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property type '{propertyType}' is non-nullable.", nameof(value));
+            }
+
+            var nullabilityInfo = NullabilityContext.Create(propertyInfo);
+            if (nullabilityInfo.WriteState == NullabilityState.NotNull)
+            {
+                throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' cannot be null because the property is non-nullable.", nameof(value));
+            }
+
+            return;
+        }
+
+        var targetType = nullableUnderlyingType ?? propertyType;
+        if (!targetType.IsInstanceOfType(value))
+        {
+            throw new ArgumentException($"Default value for '{propertyName}' on component '{typeof(TComponent)}' must be assignable to '{targetType}', but was '{value.GetType()}'.", nameof(value));
         }
     }
 }

@@ -13,8 +13,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle
 {
+    /// <summary>
+    /// Gets the CSS rules to hide browser-provided password reveal and credentials AutoFill buttons.
+    /// </summary>
+    public const string HidePasswordToggle = "::-ms-reveal { display: none !important; } ::-webkit-credentials-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
+    /// <summary>
+    /// Gets the CSS rule to hide the contacts AutoFill button in WebKit-based browsers.
+    /// </summary>
+    public const string HideContactsToggle = "::-webkit-contacts-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
@@ -139,6 +149,10 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public string? Width { get; set; }
 
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <summary>
     /// Gets or sets the text input type. See <see cref="Components.TextInputType"/>
     /// This relies on browser support for different input types and can therefore vary between browsers.
@@ -221,6 +235,11 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
                 var placeholder = MaskPlaceholder.Length > 0 ? MaskPlaceholder[0] : '_';
 
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
+            }
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ".control", ControlStyle);
             }
         }
     }

@@ -27,7 +27,7 @@ export function funnelChartTemplate<T extends FunnelChart>(): ElementViewTemplat
         label="${x => x.legendListLabel}"
         position="${x => x.legendPosition}"
         ?hidden="${x => x.hideLegends}"
-        :round-boxes="${x => x.roundCorners}"
+        :roundBoxes="${x => x.roundCorners}"
         @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
         @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
         @legend-mouseout="${x => x.handleLegendMouseoutAndBlur()}"

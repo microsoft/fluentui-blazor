@@ -217,6 +217,20 @@
     }
 
     [Fact]
+    public void FluentInputText_ControlStyle_AppliesStyleToInternalControl()
+    {
+        // Arrange && Act
+        Render(@<FluentTextInput ControlStyle="color: red;" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle");
+        Assert.Equal(3, invocation.Arguments.Count);
+        Assert.IsType<ElementReference>(invocation.Arguments[0]);
+        Assert.Equal(".control", invocation.Arguments[1]);
+        Assert.Equal("color: red;", invocation.Arguments[2]);
+    }
+
+    [Fact]
     public void FluentInputText_MaskPattern()
     {
         // Arrange && Act

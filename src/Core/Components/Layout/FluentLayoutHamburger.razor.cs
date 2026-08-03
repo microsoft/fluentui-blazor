@@ -190,7 +190,7 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// <summary />
     private bool RenderDrawer()
     {
-        if (LayoutContainer == null || Visible == true)
+        if (LayoutContainer == null || Visible == true || !IsInteractive)
         {
             return true;
         }

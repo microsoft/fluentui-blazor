@@ -100,6 +100,51 @@
     }
 
     [Fact]
+    public void FluentDataGrid_ReorderableColumns_False_DoesNotInvokeEnableColumnReordering()
+    {
+        // Arrange
+        JSInterop.Mode = JSRuntimeMode.Strict;
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Act
+        _ = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ResizableColumns="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                    <PropertyColumn Property="@(x => x.CreatedDate)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering");
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_SetColumnOrderAsync_ReorderableColumns_False_DoesNotInvokeEnableColumnReordering()
+    {
+        // Arrange
+        JSInterop.Mode = JSRuntimeMode.Strict;
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        FluentDataGrid<Customer>? grid = default!;
+
+        // Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" @ref="@grid">
+                <ChildContent>
+                    <PropertyColumn ColumnId="name" Property="@(x => x.Name)" />
+                    <PropertyColumn ColumnId="created" Property="@(x => x.CreatedDate)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => grid!.SetColumnOrderAsync(["created", "name"]));
+
+        // Assert
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering");
+    }
+
+    [Fact]
     public void FluentDataGrid_HeaderCellAsButtonWithMenu_RendersSeparateColumnMenuItems()
     {
         var cut = Render<FluentDataGrid<Customer>>(

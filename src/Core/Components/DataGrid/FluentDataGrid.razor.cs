@@ -700,12 +700,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         ValidateAndComputePinnedColumns();
         UpdateGridTemplateColumns();
 
-        if (ResizableColumns)
-        {
-            _checkColumnResizing = true;
-        }
-
-        _checkColumnReordering = true;
+        _checkColumnResizing = ResizableColumns;
+        _checkColumnReordering = ReorderableColumns;
     }
 
     private void AssignColumnKeys()
@@ -965,7 +961,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         ValidateAndComputePinnedColumns();
         UpdateGridTemplateColumns();
         _checkColumnResizing = ResizableColumns;
-        _checkColumnReordering = true;
+        _checkColumnReordering = ReorderableColumns;
         _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
     }
@@ -1067,7 +1063,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         _checkColumnHeaderUiPosition = _activeHeaderUiColumn is not null;
         _checkColumnResizing = ResizableColumns;
-        _checkColumnReordering = true;
+        _checkColumnReordering = ReorderableColumns;
         await InvokeAsync(StateHasChanged);
     }
 

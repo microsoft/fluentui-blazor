@@ -15,6 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentLayout : FluentComponentBase
 {
+    private const int DEFAULT_MOBILE_BREAKDOWN_WIDTH = 768;
     private const string DEFAULT_HEADER_HEIGHT = "44px";
     private const string DEFAULT_FOOTER_HEIGHT = "36px";
     private const string DEFAULT_CONTENT_HEIGHT = "calc(var(--layout-height) - var(--layout-header-height) - var(--layout-footer-height))";
@@ -74,9 +75,10 @@ public partial class FluentLayout : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the width, in pixels, at which the container switches to a mobile layout.
+    /// Default is 768px.
     /// </summary>
     [Parameter]
-    public int MobileBreakdownWidth { get; set; } = 768;
+    public int MobileBreakdownWidth { get; set; } = DEFAULT_MOBILE_BREAKDOWN_WIDTH;
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -104,7 +106,7 @@ public partial class FluentLayout : FluentComponentBase
         if (firstRender)
         {
             var dotNetHelper = DotNetObjectReference.Create(this);
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", dotNetHelper, Id, MobileBreakdownWidth);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Layout.Initialize", dotNetHelper, Id);
         }
     }
 
@@ -210,16 +212,13 @@ public partial class FluentLayout : FluentComponentBase
 
             @container layout-{Id} (max-width: {Convert.ToString(MobileBreakdownWidth, CultureInfo.InvariantCulture)}px) {{
                 .fluent-layout {{
-                    grid-template-areas:
-                        ""header""
-                        ""content""
-                        ""footer"";
+                    grid-template-areas: ""header"" ""content"" ""footer"";
                     grid-template-columns: 1fr;
                     grid-template-rows: auto 1fr auto;
                     overflow-x: auto;
                 }}
 
-                .fluent-layout .fluent-layout-item[area=""menu""],
+                .fluent-layout .fluent-layout-item[area=""nav""],
                 .fluent-layout .fluent-layout-item[area=""aside""] {{
                   display: none;
                 }}
