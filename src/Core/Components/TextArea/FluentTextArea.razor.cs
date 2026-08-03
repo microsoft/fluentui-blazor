@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A textarea component that allows users to enter and edit multiple lines of text.
 /// </summary>
-public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
+public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle
 {
 
     /// <summary>
@@ -123,6 +123,10 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     [Parameter]
     public bool? Spellcheck { get; set; }
 
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
@@ -172,6 +176,11 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
 
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ".control", ControlStyle);
+            }
         }
     }
 

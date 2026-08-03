@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html lang="en">
 @{
-    //var DemoRenderMode = new InteractiveWebAssemblyRenderMode(false);
-    var DemoRenderMode = new InteractiveServerRenderMode(false);
+    //IComponentRenderMode? DemoRenderMode = new InteractiveWebAssemblyRenderMode(false);
+    IComponentRenderMode? DemoRenderMode = new InteractiveServerRenderMode(false);
 }
 <head>
     <meta charset="utf-8" />

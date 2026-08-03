@@ -380,6 +380,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   export function EnableColumnResizing(gridElement: HTMLElement, resizeColumnOnAllRows: boolean = true, signal?: AbortSignal) {
+    if (gridElement === undefined || gridElement === null) {
+      return;
+    }
+
     const columns: Column[] = [];
     const headers = gridElement.querySelectorAll('.column-header.resizable');
 
@@ -636,6 +640,10 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   export function EnableColumnReordering(gridElement: HTMLElement, dotNetHelper: any) {
+    if (gridElement === undefined || gridElement === null) {
+      return;
+    }
+
     const id = gridElement.id;
     let grid = grids.find((g: Grid) => g.id === id);
 
