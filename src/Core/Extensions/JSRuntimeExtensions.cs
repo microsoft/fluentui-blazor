@@ -41,7 +41,7 @@ internal static class JSRuntimeExtensions
     /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public static async ValueTask<T> InvokeFluentAsync<[DynamicallyAccessedMembers(
+    public static async ValueTask<T?> InvokeFluentAsync<[DynamicallyAccessedMembers(
         DynamicallyAccessedMemberTypes.PublicConstructors |
         DynamicallyAccessedMemberTypes.PublicFields |
         DynamicallyAccessedMemberTypes.PublicProperties)] T>(this IJSRuntime jsRuntime, string identifier, params object?[] args)
@@ -55,7 +55,7 @@ internal static class JSRuntimeExtensions
                                    ex is InvalidOperationException)
         {
             // Ignore exceptions that occur when the JS runtime is disconnected or the operation is canceled.
-            return default!;
+            return default;
         }
     }
 }
