@@ -63,15 +63,11 @@
 
 
 
-.fluent-data-grid .resize-options {
+.fluent-data-grid [resize-options] {
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
-}
-
-.fluent-data-grid .reorder-options {
-  width: 100%;
 }
 
 .fluent-data-grid th[reorderable='true'] {
@@ -108,12 +104,6 @@
 [dir=rtl] .fluent-data-grid [resize-handle] {
   right: unset;
   left: 0;
-}
-
-
-.fluent-data-grid .header {
-  padding: 0;
-  z-index: 3;
 }
 
 .fluent-data-grid tr[row-type='sticky-header'] > th {

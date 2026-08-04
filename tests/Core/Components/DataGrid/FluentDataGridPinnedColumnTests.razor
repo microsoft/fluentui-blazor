@@ -107,7 +107,7 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+        var titles = cut.FindAll("th [col-title-text]").Select(x => x.TextContent.Trim()).ToArray();
 
         Assert.Equal(["Id", "City", "Name", "Action"], titles);
     }

@@ -227,7 +227,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
       if (event.key === "Tab" && !event.shiftKey) {
         const activeElement = getDeepActiveElement();
-        if (activeElement && !activeElement.matches('.col-sort-button, .col-options-button')) {
+        if (activeElement && !activeElement.matches('[col-sort-button], [col-options-button]')) {
           const focusableElements = Array.from(
             document.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])')
           ).filter(element => element.tabIndex >= 0 && !element.hasAttribute('disabled') && element.getClientRects().length > 0);
@@ -243,7 +243,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
       }
 
-      if (event.key === "Tab" && targetElement && (targetElement.matches('.col-sort-button') || targetElement.matches('.col-options-button'))) {
+      if (event.key === "Tab" && targetElement && (targetElement.matches('[col-sort-button]') || targetElement.matches('[col-options-button]'))) {
         if (moveHeaderFocus(targetElement, event.shiftKey)) {
           event.preventDefault();
           event.stopPropagation();
@@ -430,7 +430,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       });
 
       // remove any previously created divs
-      const resizedivs = header.querySelectorAll('.actual-resize-handle');
+      const resizedivs = header.querySelectorAll('[actual-resize-handle]');
       resizedivs.forEach(div => div.remove());
 
       // get the top of the first resize handle
@@ -573,7 +573,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     function createDiv(height: number, top: number) {
       const div = document.createElement('div');
-      div.className = 'actual-resize-handle';
+      div.setAttribute('actual-resize-handle', '');
       div.style.top = top + 'px';
       div.style.position = 'absolute';
       div.style.cursor = 'col-resize';

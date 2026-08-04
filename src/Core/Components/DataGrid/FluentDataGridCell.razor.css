@@ -61,32 +61,32 @@
   z-index: 6;
 }
 
-.fluent-data-grid .col-sort-button {
+.fluent-data-grid [col-sort-button] {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   min-width: 75px;
 }
 
-.fluent-data-grid .col-sort-button {
+.fluent-data-grid [col-sort-button] {
   overflow: hidden;
 }
 
-.fluent-data-grid [col-justify='start'] .col-sort-button {
+.fluent-data-grid [col-justify='start'] [col-sort-button] {
   justify-content: start;
   overflow: hidden;
   opacity: 1;
   min-width: 75px;
 }
 
-.fluent-data-grid [col-justify='center'] .col-sort-button {
+.fluent-data-grid [col-justify='center'] [col-sort-button] {
   justify-content: center;
   overflow: hidden;
   opacity: 1;
   min-width: 75px;
 }
 
-.fluent-data-grid [col-justify='end'] .col-sort-button  {
+.fluent-data-grid [col-justify='end'] [col-sort-button]  {
   justify-content: end;
   overflow: hidden;
   opacity: 1;
@@ -95,22 +95,22 @@
 }
 
 
-.fluent-data-grid [col-justify='end'] .col-sort-button::part(start) {
+.fluent-data-grid [col-justify='end'] [col-sort-button]::part(start) {
   margin-inline-end: 2px;
 }
 
-.fluent-data-grid [col-justify='start'] .col-sort-button::part(end),
-.fluent-data-grid [col-justify='center'] .col-sort-button::part(end) {
+.fluent-data-grid [col-justify='start'] [col-sort-button]::part(end),
+.fluent-data-grid [col-justify='center'] [col-sort-button]::part(end) {
   margin-inline-start: 2px;
 }
 
-.fluent-data-grid .col-title {
+.fluent-data-grid [col-title] {
   padding: 6px 12px;
   user-select: none;
   text-align: start;
 }
 
-.fluent-data-grid .col-title-text {
+.fluent-data-grid [col-title-text] {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -122,15 +122,15 @@
   text-align: center;
 }
 
-.fluent-data-grid [col-justify='center'] .col-title {
+.fluent-data-grid [col-justify='center'] [col-title] {
   text-align: center;
 }
 
-.fluent-data-grid [col-justify='end'] .col-title {
+.fluent-data-grid [col-justify='end'] [col-title] {
   text-align: end;
 }
 
-.fluent-data-grid .row-toggle-container {
+.fluent-data-grid [row-toggle-container] {
   height: 24px;
   display: flex;
   vertical-align: middle;
@@ -140,14 +140,14 @@
   left: calc(var(--spacingHorizontalXS) * -1.5);
 }
 
-.fluent-data-grid .row-expander {
+.fluent-data-grid [row-expander] {
   display: inline-block;
   width: 20px;
   position: relative;
   top: -1px;
 }
 
-  .fluent-data-grid .row-expander svg {
+  .fluent-data-grid [row-expander] svg {
     transition: transform 0.1s linear;
     pointer-events: none;
   }
@@ -164,7 +164,7 @@
   transform: rotate(90deg);
 }
 
-.fluent-data-grid .row-expand-button {
+.fluent-data-grid [row-expand-button] {
   width: 20px;
   min-width: 20px;
   height: 20px;
@@ -181,6 +181,6 @@
 /* Unlike the HierarchicalToggle container (which wraps the whole cell content),
    this toggle is a standalone element placed before the cell's own content,
    so it must stay inline instead of starting its own block. */
-.fluent-data-grid .row-details-toggle-container {
+.fluent-data-grid [row-details-toggle-container] {
   display: inline-flex;
 }

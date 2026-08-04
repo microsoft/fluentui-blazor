@@ -179,11 +179,11 @@
         {
             var rowDetailsExpanded = IsRowDetailsExpanded(item);
             var hasRowDetails = HasRowDetails is null || HasRowDetails(item);
-            <span class="row-toggle-container row-details-toggle-container">
-                <span @onclick:stopPropagation="true" class="row-expander" row-expanded="@(rowDetailsExpanded ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(!rowDetailsExpanded ? bool.TrueString.ToLowerInvariant() : null)">
+            <span row-toggle-container row-details-toggle-container>
+                <span @onclick:stopPropagation="true" row-expander row-expanded="@(rowDetailsExpanded ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(!rowDetailsExpanded ? bool.TrueString.ToLowerInvariant() : null)">
                     @if (hasRowDetails)
                     {
-                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleRowDetails]" aria-expanded="@(rowDetailsExpanded ? "true" : "false")" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="row-expand-button" OnClick="@(() => ToggleRowDetailsAsync(item))">
+                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleRowDetails]" aria-expanded="@(rowDetailsExpanded ? "true" : "false")" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" row-expand-button OnClick="@(() => ToggleRowDetailsAsync(item))">
                             <FluentIcon Width="12px" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
                         </FluentButton>
                     }
@@ -192,11 +192,11 @@
         }
         @if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
         {
-            <span class="row-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
-                <span @onclick:stopPropagation="true" class="row-expander" row-expanded="@(!hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)">
+            <span row-toggle-container style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
+                <span @onclick:stopPropagation="true" row-expander row-expanded="@(!hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)">
                     @if (hierarchicalItem.HasChildren)
                     {
-                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="row-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
+                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" row-expand-button OnClick="@(() => ToggleExpandedAsync(item))">
                             <FluentIcon Width="12px" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
                         </FluentButton>
                     }

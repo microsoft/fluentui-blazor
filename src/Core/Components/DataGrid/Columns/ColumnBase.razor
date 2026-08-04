@@ -51,8 +51,8 @@
 
             @if (headerCapabilities.HasAnyAction)
             {
-                <FluentButton Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" Class="col-sort-button" Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@ariaLabel" Title="@(HeaderTooltip ?? Title)" aria-haspopup="menu" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" aria-controls="@HeaderMenuId">
-                    <div class="col-title-text" title="@tooltip">
+                <FluentButton Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" col-sort-button Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@ariaLabel" Title="@(HeaderTooltip ?? Title)" aria-haspopup="menu" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" aria-controls="@HeaderMenuId">
+                    <div col-title-text title="@tooltip">
                         @HeaderTitleContent
                     </div>
 
@@ -75,8 +75,8 @@
             }
             else
             {
-                <div class="col-title">
-                    <div class="col-title-text" title="@tooltip">
+                <div col-title>
+                    <div col-title-text title="@tooltip">
                         @HeaderTitleContent
                     </div>
                 </div>
@@ -140,8 +140,8 @@
 
                 @if (headerCapabilities.CanSort)
                 {
-                    <FluentButton Appearance="ButtonAppearance.Subtle" Class="col-sort-button" @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
-                        <div class="col-title-text" title="@tooltip">
+                    <FluentButton Appearance="ButtonAppearance.Subtle" col-sort-button @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                        <div col-title-text title="@tooltip">
                             @HeaderTitleContent
                         </div>
 
@@ -165,8 +165,8 @@
                 }
                 else
                 {
-                    <div class="col-title">
-                        <div class="col-title-text" title="@tooltip">
+                    <div col-title>
+                        <div col-title-text title="@tooltip">
                             @HeaderTitleContent
                             @if (headerCapabilities.HasOptions && Filtered.GetValueOrDefault() && headerCapabilities.HasHeaderPopupContent)
                             {
@@ -204,7 +204,7 @@
     private RenderFragment OptionsButton()
     {
         return
-            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" class="col-options-button" @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" @onkeydown="@HandleOptionsButtonKeyDownAsync" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" col-options-button @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" @onkeydown="@HandleOptionsButtonKeyDownAsync" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Default" Width="20px" Style="opacity: var(--fluent-data-grid-header-opacity);" />
             </FluentButton>;
     }
