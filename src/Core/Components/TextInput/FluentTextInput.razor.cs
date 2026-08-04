@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle, IFluentControlAriaLabel
 {
     /// <summary>
     /// Gets the CSS rules to hide browser-provided password reveal and credentials AutoFill buttons.
