@@ -27,6 +27,34 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
     if (element.getAttribute('type') === 'combobox' && element.tagName === 'FLUENT-DROPDOWN' && element._control) {
       element._control.value = defaultValue;
     }
+
+    // Accessibility: Set the aria-label and aria-expanded attributes for the button element if they are not already set.
+    const controlButton = element.querySelector('button[slot=control]');
+    if (controlButton) {
+      if (!controlButton.hasAttribute('aria-label')) {
+        controlButton.setAttribute('aria-label', getAccessibleLabel(element));
+      }
+      if (!controlButton.hasAttribute('aria-expanded')) {
+        controlButton.setAttribute('aria-expanded', 'false');
+      }
+    }
+  }
+
+  /**
+   * Resolves the accessible label: the label of the parent fluent-field, then the placeholder, then a default text.
+   */
+  function getAccessibleLabel(element: HTMLElement): string {
+    const label = element.closest('fluent-field')?.querySelector('label');
+    if (label?.textContent?.trim()) {
+      return label.textContent.trim();
+    }
+
+    const placeholder = element.getAttribute('placeholder');
+    if (placeholder?.trim()) {
+      return placeholder.trim();
+    }
+
+    return 'Select an option';
   }
 
   interface FluentDropdownControl extends FluentUIComponents.Dropdown {
