@@ -48,11 +48,8 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
         {
             // By default, the combobox text is not bound to the Value property.
             // This method don't change the SelectedItems and Value properties.
-            if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal))
-            {
-                var defaultText = Value is TOption option ? base.GetOptionText(option) : "";
-                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.SetComboBoxValue", Id, defaultText);
-            }
+            var defaultText = Value is TOption option ? base.GetOptionText(option) : "";
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.Initialize", Id, defaultText);
         }
 
         await base.OnAfterRenderAsync(firstRender);
