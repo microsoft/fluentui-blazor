@@ -1,4 +1,8 @@
-export namespace Microsoft.FluentUI.Blazor.Select {
+import * as FluentUIComponents from '@fluentui/web-components'
+
+export namespace Microsoft.FluentUI.Blazor.Components.Select {
+  export function initialize(id: string) {
+  }
 
   /**
    * Clear the value of the select component with the specified ID.
