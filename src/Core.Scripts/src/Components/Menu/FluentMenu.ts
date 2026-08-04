@@ -20,6 +20,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
 
       trigger.style["anchor-name" as any] = `--anchor-${triggerId}`;
 
+      if (trigger.getAttribute("role") === null) {
+        trigger.setAttribute("role", "button");
+      }
+
       // Keep trigger wiring explicit for hosted surfaces (drawer/dialog/shadow-heavy layouts).
       menu.setAttribute("trigger", triggerId);
 
