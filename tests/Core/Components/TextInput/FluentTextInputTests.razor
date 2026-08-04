@@ -216,6 +216,22 @@
         Assert.Equal("width: 100px;", cut.Find("fluent-field").GetAttribute("style"));
     }
 
+    [Theory]
+    [InlineData(false, null, "Name")]
+    [InlineData(true, null, "Name, Required")]
+    [InlineData(false, "Custom name", "Custom name")]
+    [InlineData(true, "Custom name", "Custom name, Required")]
+    public void FluentInputText_Label_CopiesAccessibleNameToInternalControl(bool required, string? ariaLabel, string expectedAriaLabel)
+    {
+        // Arrange && Act
+        using var context = new IdentifierContext(_ => "myId");
+        Render(@<FluentTextInput Label="Name" AriaLabel="@ariaLabel" Required="@required" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+        Assert.Equal(["myId", ".control", "aria-label", expectedAriaLabel], invocation.Arguments);
+    }
+
     [Fact]
     public void FluentInputText_ControlStyle_AppliesStyleToInternalControl()
     {
