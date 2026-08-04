@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -52,7 +51,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
             if (string.Equals(DropdownType, "combobox", StringComparison.Ordinal))
             {
                 var defaultText = Value is TOption option ? base.GetOptionText(option) : "";
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.SetComboBoxValue", Id, defaultText);
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.SetComboBoxValue", Id, defaultText);
             }
         }
 
@@ -64,7 +63,7 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
     /// </summary>
     public async Task ClearAsync()
     {
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.ClearValue", Id);
+        await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.ClearValue", Id);
 
         CurrentValueAsString = null;
 
