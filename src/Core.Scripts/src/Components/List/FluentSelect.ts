@@ -29,13 +29,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
     }
 
     // Accessibility: Set the aria-label and aria-expanded attributes for the button element if they are not already set.
-    const controlButton = element.querySelector('button[slot=control]');
-    if (controlButton) {
-      if (!controlButton.hasAttribute('aria-label')) {
-        controlButton.setAttribute('aria-label', getAccessibleLabel(element));
+    const controlElement = element.querySelector('button[slot=control], input[slot=control]') as HTMLButtonElement | HTMLInputElement | null;
+    if (controlElement) {
+      if (!controlElement.hasAttribute('aria-label')) {
+        controlElement.setAttribute('aria-label', getAccessibleLabel(element));
       }
-      if (!controlButton.hasAttribute('aria-expanded')) {
-        controlButton.setAttribute('aria-expanded', 'false');
+      if (!controlElement.hasAttribute('aria-expanded')) {
+        controlElement.setAttribute('aria-expanded', 'false');
       }
     }
   }
