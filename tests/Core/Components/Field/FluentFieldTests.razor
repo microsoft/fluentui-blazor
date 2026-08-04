@@ -21,6 +21,18 @@
     }
 
     [Fact]
+    public void FluentField_NumberInput_CopiesAccessibleNameToInternalControl()
+    {
+        // Arrange & Act
+        using var context = new IdentifierContext(_ => "myId");
+        Render(@<FluentNumberInput TValue="int" Label="Number" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+        Assert.Equal(["myId", ".control", "aria-label", "Number"], invocation.Arguments);
+    }
+
+    [Fact]
     public void FluentField_DefaultTemplate()
     {
         // Arrange & Act

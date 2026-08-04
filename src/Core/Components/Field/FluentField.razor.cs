@@ -197,6 +197,51 @@ public partial class FluentField : FluentComponentBase, IFluentField
         return base.DisposeAsync();
     }
 
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // Only for FluentTextInput, FluentTextArea and FluentNumberInput
+            if (InputComponent is IFluentControlAriaLabel)
+            {
+                // The <label> rendered above targets the wrapped component's host element (e.g. <fluent-text-input>),
+                // but the real focusable control lives inside that host's shadow DOM and has no accessible name of its
+                // own: light-DOM `for`/`aria-labelledby` cannot cross the shadow boundary. Rather than relying on each
+                // component's internal (and inconsistent) shadow-DOM label, push a plain-text `aria-label` directly onto
+                // the shadow ".control" element, the same way for every wrapped component.
+                var ariaLabel = GetControlAriaLabel();
+                var targetId = GetId("input");
+
+                if (string.IsNullOrEmpty(targetId) || string.IsNullOrEmpty(ariaLabel))
+                {
+                    return;
+                }
+
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", targetId, ".control", "aria-label", ariaLabel);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Computes the plain-text accessible name to apply to the wrapped control, from <see cref="IFluentField.Label"/>
+    /// (⚠️ <see cref="IFluentField.LabelTemplate"/> and <see cref="IFluentField.LabelInfo"/> are not plain text and
+    /// are not reflected here), suffixed with the localized "required" indicator when applicable.
+    /// </summary>
+    private string? GetControlAriaLabel()
+    {
+        var label = (InputComponent as IFluentControlAriaLabel)?.AriaLabel ?? Parameters.Label;
+
+        if (string.IsNullOrWhiteSpace(label))
+        {
+            return null;
+        }
+
+        return label + (Parameters.Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
+    }
+
     internal string? GetId(string slot)
     {
         // Wrapper of an FieldInput component

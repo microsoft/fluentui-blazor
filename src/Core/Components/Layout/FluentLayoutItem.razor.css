@@ -82,3 +82,29 @@
 .fluent-header-hover:hover {
   background-color: var(--colorBrandBackgroundHover);
 }
+
+/* Printing support */
+@media print {
+  .fluent-layout-item[area="nav"],
+  .fluent-layout-item[area="header"],
+  .fluent-layout-item[area="footer"],
+  .fluent-layout-item[area="aside"] {
+    display: none !important;
+  }
+
+  .fluent-layout,
+  .fluent-layout-item,
+  .fluent-layout-item[area="content"] {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+    .fluent-layout-item[area="content"] {
+      grid-area: unset !important;
+    }
+}
