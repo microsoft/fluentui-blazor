@@ -1,5 +1,6 @@
 ﻿@using Bunit.TestDoubles
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
 @using System.ComponentModel.DataAnnotations
 @using Xunit
@@ -771,7 +772,7 @@
 
         // Assert
         Assert.Equal("Hello!", cut.Find(".options").TextContent);
-        Assert.NotNull(cut.Find(".col-header-ui"));
+        Assert.NotNull(cut.Find("[col-header-ui]"));
         Assert.NotNull(cut.FindComponent<ColumnResizeOptions<Customer>>());
         Assert.NotNull(cut.FindComponent<ColumnReorderOptions<Customer>>());
         Assert.Equal(2, cut.FindAll("fluent-divider").Count);
@@ -1804,7 +1805,7 @@
         // Assert
         Assert.NotEmpty(items);
         Assert.Equal(3, items.Count);
-        Assert.Empty(cut.FindAll(".col-header-ui"));
+        Assert.Empty(cut.FindAll("[col-header-ui]"));
     }
 
     [Fact]
@@ -1946,7 +1947,7 @@
 
         row.Find(".col-sort-button").Click();
 
-        var popup = cut.Find(".col-header-ui");
+        var popup = cut.Find("[col-header-ui]");
 
         Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_ReorderMenu), popup.TextContent);
     }
@@ -2501,7 +2502,7 @@
                     // Assert
         await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
-        var cell = cut.Find($".{FluentDataGrid<Customer>.ERROR_CONTENT_ROW_CLASS} .empty-content-cell");
+        var cell = cut.Find($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}'] td");
         Assert.Contains("An error occurred while retrieving data.", cell.TextContent);
     }
 
@@ -2523,8 +2524,8 @@
                     // Assert
         await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
-        var row = cut.Find($".{FluentDataGrid<Customer>.ERROR_CONTENT_ROW_CLASS}");
-        var cell = row.QuerySelector("td.empty-content-cell");
+        var row = cut.Find($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}']");
+        var cell = row.QuerySelector("td");
         Assert.NotNull(cell);
         Assert.Equal("2", cell.GetAttribute("colspan"));
     }

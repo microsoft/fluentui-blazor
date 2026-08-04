@@ -1,10 +1,10 @@
 <html>
 	<head></head>
 	<body>
-		<table id="xxx" class="fluent-data-grid grid" style="grid-template-columns: 1fr;" aria-rowcount="4" blazor:onclosecolumnheaderui="1" blazor:elementreference="xxx">
+		<table id="xxx" class="fluent-data-grid" style="grid-template-columns: 1fr;" aria-rowcount="4" display-mode="grid" blazor:onclosecolumnheaderui="1" blazor:elementreference="xxx">
 			<thead>
 				<tr class="fluent-data-grid-row" data-row-index="0" role="row" row-type="header" blazor:onkeydown="x" blazor:onclick="x" blazor:ondblclick="4" blazor:onfocus="5">
-					<th col-index="1" class="column-header col-justify-start col-sort-asc" style="grid-column: 1; min-width: 100px; height: 32px; min-height: 40px;" blazor:oncontextmenu:preventdefault="" blazor:onkeydown="x" blazor:onclick="x" blazor:onfocus="24" scope="col" aria-sort="ascending">
+					<th col-index="1" style="grid-column: 1; min-width: 100px; height: 32px; min-height: 40px;" blazor:oncontextmenu:preventdefault="" blazor:onkeydown="x" blazor:onclick="x" blazor:onfocus="24" cell-type="columnheader" col-justify="start" col-sort="asc" scope="col" aria-sort="ascending">
 						<fluent-button class="col-sort-button" style="width: calc(100% - 10px); position: relative; z-index: 5;" id="xxx" title="Name" appearance="subtle" blazor:onclick="x" blazor:onclick:stoppropagation="" blazor:onkeydown="x" aria-label="Name" aria-haspopup="menu" blazor:oncontextmenu="27" aria-controls="testgrid-col-1-menu">
 							<div class="col-title-text">Name</div>
 							<svg slot="end" style="width: 20px; fill: currentColor; opacity: var(--fluent-data-grid-header-opacity);" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
@@ -25,13 +25,13 @@
 			</thead>
 			<tbody>
 				<tr class="fluent-data-grid-row" data-row-index="2" role="row" blazor:onkeydown="x" blazor:onclick="x" blazor:ondblclick="12" blazor:onfocus="13" aria-rowindex="2">
-					<td col-index="1" class="col-justify-start" style="grid-column: 1; height: 32px;" role="gridcell" tabindex="0">Bill Gates</td>
+					<td col-index="1" style="grid-column: 1; height: 32px;" role="gridcell" tabindex="0" col-justify="start">Bill Gates</td>
 				</tr>
 				<tr class="fluent-data-grid-row" data-row-index="3" role="row" blazor:onkeydown="x" blazor:onclick="x" blazor:ondblclick="16" blazor:onfocus="17" aria-rowindex="3">
-					<td col-index="1" class="col-justify-start" style="grid-column: 1; height: 32px;" role="gridcell" tabindex="0">Denis Voituron</td>
+					<td col-index="1" style="grid-column: 1; height: 32px;" role="gridcell" tabindex="0" col-justify="start">Denis Voituron</td>
 				</tr>
 				<tr class="fluent-data-grid-row" data-row-index="4" role="row" blazor:onkeydown="x" blazor:onclick="x" blazor:ondblclick="20" blazor:onfocus="21" aria-rowindex="4">
-					<td col-index="1" class="col-justify-start" style="grid-column: 1; height: 32px;" role="gridcell" tabindex="0">Vincent Baaij</td>
+					<td col-index="1" style="grid-column: 1; height: 32px;" role="gridcell" tabindex="0" col-justify="start">Vincent Baaij</td>
 				</tr>
 			</tbody>
 		</table>

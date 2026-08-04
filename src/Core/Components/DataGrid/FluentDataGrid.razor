@@ -24,6 +24,9 @@
                style="@StyleValue"
                aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                striped="@StripedRows"
+               display-mode="@(DisplayMode == DataGridDisplayMode.Grid ? "grid" : "table")"
+               auto-fit="@(AutoFit ? bool.TrueString.ToLowerInvariant() : null)"
+               loading="@(_pendingDataLoadCancellationTokenSource is not null ? bool.TrueString.ToLowerInvariant() : null)"
                @onclosecolumnheaderui="CloseColumnHeaderUIAsync"
                @attributes="AdditionalAttributes">
             @if (GenerateHeader != DataGridGeneratedHeaderType.None)
@@ -119,7 +122,14 @@
 
                 @if (CellNeedsComponent(col))
                 {
-                    <FluentDataGridCell GridColumn=@(colIndex + 1) Class="@ColumnJustifyClass(col)" Style="@col.Style" @key="@col" TGridItem="TGridItem" Item="@item" CellTitle="@tooltip">
+                    <FluentDataGridCell GridColumn=@(colIndex + 1)
+                                        Class="@ColumnClass(col)"
+                                        Style="@col.Style"
+                                        AdditionalAttributes="@PlainCellAttributes(col)"
+                                        @key="@col"
+                                        TGridItem="TGridItem"
+                                        Item="@item"
+                                        CellTitle="@tooltip">
                         @((RenderFragment)(__builder => RenderCellInner(__builder, col, item)))
                     </FluentDataGridCell>
                 }
@@ -135,7 +145,8 @@
                         role="gridcell"
                         tabindex="@(col.DisableCellFocus ? null : "0")"
                         title="@tooltip"
-                        aria-label="@tooltip">
+                        aria-label="@tooltip"
+                        @attributes="PlainCellAttributes(col)">
                         @((RenderFragment)(__builder => RenderCellInner(__builder, col, item)))
                     </td>
                 }
@@ -154,8 +165,8 @@
                 detailsColspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
             }
 
-            <FluentDataGridRow @key="@RowDetailsKey(item)" Class="@ROW_DETAILS_ROW_CLASS" TGridItem="TGridItem" Item="@item">
-                <FluentDataGridCell CellType="@DataGridCellType.RowDetails" Class="row-details-cell" Style="@detailsStyle" colspan="@detailsColspan" TGridItem="TGridItem" Item="@item">
+            <FluentDataGridRow @key="@RowDetailsKey(item)" RowState="@DataGridRowState.RowDetails" TGridItem="TGridItem" Item="@item">
+                <FluentDataGridCell CellType="@DataGridCellType.RowDetails" Style="@detailsStyle" colspan="@detailsColspan" TGridItem="TGridItem" Item="@item">
                     @RowDetails!(item)
                 </FluentDataGridCell>
             </FluentDataGridRow>
@@ -169,7 +180,7 @@
             var rowDetailsExpanded = IsRowDetailsExpanded(item);
             var hasRowDetails = HasRowDetails is null || HasRowDetails(item);
             <span class="row-toggle-container row-details-toggle-container">
-                <span @onclick:stopPropagation="true" class="row-expander @(rowDetailsExpanded ? "row-expanded" : "row-collapsed")">
+                <span @onclick:stopPropagation="true" class="row-expander" row-expanded="@(rowDetailsExpanded ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(!rowDetailsExpanded ? bool.TrueString.ToLowerInvariant() : null)">
                     @if (hasRowDetails)
                     {
                         <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleRowDetails]" aria-expanded="@(rowDetailsExpanded ? "true" : "false")" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="row-expand-button" OnClick="@(() => ToggleRowDetailsAsync(item))">
@@ -182,7 +193,7 @@
         @if (col.HierarchicalToggle && item is IHierarchicalGridItem hierarchicalItem)
         {
             <span class="row-toggle-container" style="margin-inline-start: calc(var(--spacingHorizontalL) * @hierarchicalItem.Depth);">
-                <span @onclick:stopPropagation="true" class="row-expander @(hierarchicalItem.IsCollapsed ? "row-collapsed" : "row-expanded")">
+                <span @onclick:stopPropagation="true" class="row-expander" row-expanded="@(!hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)">
                     @if (hierarchicalItem.HasChildren)
                     {
                         <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" Class="row-expand-button" OnClick="@(() => ToggleExpandedAsync(item))">
@@ -209,7 +220,12 @@
             {
                 var col = _columns[i];
 
-                <FluentDataGridCell Class="@("grid-cell-placeholder " + @ColumnJustifyClass(col))" Style="@col.Style" @key="@col" GridColumn=@col.Index TGridItem="TGridItem">
+                <FluentDataGridCell Class="@ColumnClass(col)"
+                                    Style="@col.Style"
+                                    AdditionalAttributes="@PlaceholderCellAttributes(col)"
+                                    @key="@col"
+                                    GridColumn=@col.Index
+                                    TGridItem="TGridItem">
                     @((RenderFragment)(__builder => col.RenderPlaceholderContent(__builder, placeholderContext)))
                 </FluentDataGridCell>
             }
@@ -251,12 +267,12 @@
                                 TGridItem="TGridItem"
                                 GridColumn="@col.Index"
                                 CellType="@DataGridCellType.ColumnHeader"
-                                Class="@(@ColumnHeaderClass(col, headerCapabilities) + (ResizableColumns ? " resizable" : ""))"
+                                Class="@ColumnHeaderClass(col)"
                                 AdditionalAttributes="@columnHeaderAttributes">
                 @col.HeaderContent
                 @if (ShouldRenderColumnHeaderUi(col, headerCapabilities))
                 {
-                    <div class="col-header-ui">
+                    <div col-header-ui>
                         @if (ShouldRenderColumnOptions(col, headerCapabilities))
                         {
                             @col.ColumnOptions
@@ -284,7 +300,7 @@
                 @if (ResizableColumns)
                 {
                     var top = DisplayMode == DataGridDisplayMode.Table ? "top: 4px;" : "top: 2px;";
-                    <div class="resize-handle" style="@top"></div>
+                    <div resize-handle style="@top"></div>
                 }
             </FluentDataGridCell>
         }
@@ -308,8 +324,8 @@
             colspan = _columns.Count.ToString();
         }
 
-        <FluentDataGridRow Class="@EMPTY_CONTENT_ROW_CLASS" TGridItem="TGridItem">
-            <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
+        <FluentDataGridRow RowState="@DataGridRowState.EmptyContent" TGridItem="TGridItem">
+            <FluentDataGridCell Style="@style" colspan="@colspan">
                 @if (EmptyContent is null)
                 {
                     @Localizer[Localization.LanguageResource.DataGrid_EmptyContent]
@@ -336,8 +352,8 @@
             colspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
         }
 
-        <FluentDataGridRow Class="@LOADING_CONTENT_ROW_CLASS" TGridItem="TGridItem">
-            <FluentDataGridCell Class="loading-content-cell" Style="@style" colspan="@colspan">
+        <FluentDataGridRow RowState="@DataGridRowState.LoadingContent" TGridItem="TGridItem">
+            <FluentDataGridCell Style="@style" colspan="@colspan">
                 @if (LoadingContent is null)
                 {
                     <FluentStack HorizontalGap="3" HorizontalAlignment="@HorizontalAlignment.Center">
@@ -370,8 +386,8 @@
             colspan = _columns.Count.ToString();
         }
 
-        <FluentDataGridRow Class="@ERROR_CONTENT_ROW_CLASS" TGridItem="TGridItem">
-            <FluentDataGridCell Class="empty-content-cell" Style="@style" colspan="@colspan">
+        <FluentDataGridRow RowState="@DataGridRowState.ErrorContent" TGridItem="TGridItem">
+            <FluentDataGridCell Style="@style" colspan="@colspan">
                 @RenderActualError
             </FluentDataGridCell>
         </FluentDataGridRow>

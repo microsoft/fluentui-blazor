@@ -36,11 +36,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
 
-    internal const string EMPTY_CONTENT_ROW_CLASS = "empty-content-row";
-    internal const string LOADING_CONTENT_ROW_CLASS = "loading-content-row";
-    internal const string ERROR_CONTENT_ROW_CLASS = "error-content-row";
-    internal const string ROW_DETAILS_ROW_CLASS = "row-details-row";
-
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
     private IAsyncQueryExecutor? _asyncQueryExecutor;
@@ -1586,34 +1581,39 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private string? GridClass => DefaultClassBuilder
             .AddClass("fluent-data-grid")
-            .AddClass("grid", DisplayMode == DataGridDisplayMode.Grid)
-            .AddClass("auto-fit", AutoFit)
-            .AddClass("loading", _pendingDataLoadCancellationTokenSource is not null)
             .Build();
 
-    private string? ColumnHeaderClass(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+    private string? ColumnHeaderClass(ColumnBase<TGridItem> column)
     {
         return new CssBuilder(Class)
-           .AddClass(ColumnJustifyClass(column))
-           .AddClass("col-sort-asc", _sortByAscending && column.IsActiveSortColumn)
-           .AddClass("col-sort-desc", !_sortByAscending && column.IsActiveSortColumn)
-           .AddClass("col-reorderable", headerCapabilities.CanReorder)
-           .Build();
+            .AddClass(ColumnClass(column))
+            .Build();
     }
 
-    private static Dictionary<string, object?> GetColumnHeaderAttributes(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+    private Dictionary<string, object?> GetColumnHeaderAttributes(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
     {
-        if (!headerCapabilities.CanReorder)
+        var attributes = FluentDataGridCell<TGridItem>.BuildAttributes(this, column, DataGridCellType.ColumnHeader);
+
+        if (column.IsActiveSortColumn)
         {
-            return new Dictionary<string, object?>(StringComparer.Ordinal);
+            attributes["col-sort"] = _sortByAscending ? "asc" : "desc";
         }
 
-        return new Dictionary<string, object?>(StringComparer.Ordinal)
+        if (ResizableColumns)
         {
-            ["data-column-key"] = column.ColumnKey,
-            ["data-column-reorderable"] = bool.TrueString.ToLowerInvariant(),
-            ["draggable"] = bool.TrueString.ToLowerInvariant(),
-        };
+            attributes["resizable"] = bool.TrueString.ToLowerInvariant();
+        }
+
+        if (!headerCapabilities.CanReorder)
+        {
+            return attributes;
+        }
+
+        attributes["data-column-key"] = column.ColumnKey;
+        attributes["reorderable"] = bool.TrueString.ToLowerInvariant();
+        attributes["draggable"] = bool.TrueString.ToLowerInvariant();
+
+        return attributes;
     }
 
     /// <summary>
@@ -1628,8 +1628,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Builds the class for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
     /// </summary>
-    private string? PlainCellClass(ColumnBase<TGridItem> column, string? rowClass)
-        => FluentDataGridCell<TGridItem>.BuildClass(this, column, DataGridCellType.Default, ColumnJustifyClass(column), rowClass, marginClass: null, paddingClass: null);
+    private static string? PlainCellClass(ColumnBase<TGridItem> column, string? rowClass)
+        => FluentDataGridCell<TGridItem>.BuildClass(ColumnClass(column), rowClass, marginClass: null, paddingClass: null);
+
+    /// <summary>
+    /// Builds the attributes for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
+    /// </summary>
+    private Dictionary<string, object?> PlainCellAttributes(ColumnBase<TGridItem> column)
+        => FluentDataGridCell<TGridItem>.BuildAttributes(this, column, DataGridCellType.Default);
 
     /// <summary>
     /// Builds the inline style for a plain <c>&lt;td&gt;</c> cell, using the same builder as <see cref="FluentDataGridCell{TGridItem}"/>.
@@ -1637,15 +1643,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? PlainCellStyle(ColumnBase<TGridItem> column, int gridColumn, string? rowStyle)
         => FluentDataGridCell<TGridItem>.BuildStyle(this, column, _internalGridContext, DataGridCellType.Default, DataGridRowType.Default, gridColumn, column.Style, rowStyle, marginStyle: null, paddingStyle: null);
 
-    private static string? ColumnJustifyClass(ColumnBase<TGridItem> column)
+    private Dictionary<string, object?> PlaceholderCellAttributes(ColumnBase<TGridItem> column)
     {
-        return new CssBuilder(column.Class)
-            .AddClass("col-justify-start", column.Align == DataGridCellAlignment.Start)
-            .AddClass("col-justify-center", column.Align == DataGridCellAlignment.Center)
-            .AddClass("col-justify-end", column.Align == DataGridCellAlignment.End)
-            .AddClass("col-select", column.GetType() == typeof(SelectColumn<TGridItem>))
-            .Build();
+        var attributes = new Dictionary<string, object?>(PlainCellAttributes(column), StringComparer.OrdinalIgnoreCase)
+        {
+            ["grid-cell-placeholder"] = bool.TrueString.ToLowerInvariant(),
+        };
+
+        return attributes;
     }
+
+    private static string? ColumnClass(ColumnBase<TGridItem> column)
+        => column.Class;
 
     /// <inheritdoc/>
     [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]

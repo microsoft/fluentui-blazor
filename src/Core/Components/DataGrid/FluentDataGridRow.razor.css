@@ -1,11 +1,8 @@
-.fluent-data-grid .sticky-header {
+.fluent-data-grid [row-type='sticky-header'] {
   z-index: 3;
 }
 
-.fluent-data-grid .hover:not([row-type='header'],
-.fluent-data-grid [row-type='sticky-header'],
-.fluent-data-grid .loading-content-row,
-.fluent-data-grid .row-details-row):hover td:not(.empty-content-cell) {
+.fluent-data-grid tr[hover]:not([row-type='header'], [row-type='sticky-header'], [row-state='loading-content'], [row-state='detail-content'], [row-state='empty-content'], [row-state='error-content']):hover td {
   cursor: pointer;
   background-color: var(--datagrid-hover-color, var(--colorNeutralStroke2));
 }

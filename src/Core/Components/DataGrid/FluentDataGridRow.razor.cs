@@ -31,8 +31,10 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-data-grid-row")
-        .AddClass("hover", when: Grid.ShowHover)
         .Build();
+
+    /// <summary />
+    protected bool ShowHoverAttribute => Grid.ShowHover;
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
@@ -62,6 +64,12 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// </summary>
     [Parameter]
     public DataGridRowType RowType { get; set; } = DataGridRowType.Default;
+
+    /// <summary>
+    /// Gets or sets the semantic row state used for styling and behavior.
+    /// </summary>
+    [Parameter]
+    public DataGridRowState? RowState { get; set; }
 
     /// <summary>
     /// Gets or sets the vertical alignment of a row
@@ -147,10 +155,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             return;
         }
 
-        if (!string.IsNullOrWhiteSpace(row.Class) &&
-            (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS, StringComparison.Ordinal) ||
-             row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS, StringComparison.Ordinal) ||
-             row.Class.Contains(FluentDataGrid<TGridItem>.ROW_DETAILS_ROW_CLASS, StringComparison.Ordinal)))
+        if (row.RowState is DataGridRowState.EmptyContent
+            or DataGridRowState.LoadingContent
+            or DataGridRowState.RowDetails)
         {
             return;
         }
@@ -178,7 +185,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             return;
         }
 
-        if (!string.IsNullOrWhiteSpace(row.Class) && row.Class.Contains(FluentDataGrid<TGridItem>.ROW_DETAILS_ROW_CLASS, StringComparison.Ordinal))
+        if (row.RowState == DataGridRowState.RowDetails)
         {
             return;
         }

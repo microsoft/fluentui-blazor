@@ -1,4 +1,4 @@
-@using Bunit.TestDoubles
+﻿@using Bunit.TestDoubles
 @using Xunit
 @inherits FluentUITestContext
 
@@ -20,7 +20,7 @@
 
         // Assert
         Assert.Equal(3, cut.FindAll(".row-details-toggle-container").Count);
-        Assert.Empty(cut.FindAll("tr.row-details-row"));
+        Assert.Empty(cut.FindAll("tr[row-state='detail-content']"));
     }
 
     [Fact]
@@ -33,14 +33,14 @@
         cut.FindAll(".row-expand-button")[0].Click();
 
         // Assert
-        var detailsRow = cut.Find("tr.row-details-row");
+        var detailsRow = cut.Find("tr[row-state='detail-content']");
         Assert.Contains("details of Denis Voituron", detailsRow.TextContent);
 
         // Act: collapse it again
         cut.FindAll(".row-expand-button")[0].Click();
 
         // Assert
-        Assert.Empty(cut.FindAll("tr.row-details-row"));
+        Assert.Empty(cut.FindAll("tr[row-state='detail-content']"));
     }
 
     [Fact]
@@ -53,13 +53,13 @@
         await cut.InvokeAsync(() => cut.Instance.ExpandAllRowDetailsAsync());
 
         // Assert
-        Assert.Equal(3, cut.FindAll("tr.row-details-row").Count);
+        Assert.Equal(3, cut.FindAll("tr[row-state='detail-content']").Count);
 
         // Act
         await cut.InvokeAsync(() => cut.Instance.CollapseAllRowDetailsAsync());
 
         // Assert
-        Assert.Empty(cut.FindAll("tr.row-details-row"));
+        Assert.Empty(cut.FindAll("tr[row-state='detail-content']"));
     }
 
     [Fact]
@@ -189,7 +189,7 @@
 
         // Assert: the details row (and whatever placeholder RowDetails renders while data is loading)
         // must already be visible while the handler is still pending, not only once it completes.
-        Assert.NotEmpty(cut.FindAll("tr.row-details-row"));
+        Assert.NotEmpty(cut.FindAll("tr[row-state='detail-content']"));
 
         // Cleanup: let the pending handler complete
         tcs.SetResult();
@@ -289,7 +289,7 @@
 
         // Assert
         Assert.True(cut.Instance.IsRowDetailsExpanded(vincent));
-        Assert.Contains("details of Vincent Baaij", cut.Find("tr.row-details-row").TextContent);
+        Assert.Contains("details of Vincent Baaij", cut.Find("tr[row-state='detail-content']").TextContent);
     }
 
     [Fact]
