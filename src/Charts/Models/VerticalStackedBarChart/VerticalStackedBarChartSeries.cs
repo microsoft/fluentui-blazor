@@ -21,7 +21,7 @@ public sealed record VerticalStackedBarChartSeries
     /// Gets the collection of data points rendered within the series.
     /// </summary>
     [JsonPropertyName("chartData")]
-    public IReadOnlyList<VerticalBarChartDataPoint> ChartData { get; init; } = [];
+    public IReadOnlyList<VerticalStackedBarChartDataPoint> ChartData { get; init; } = [];
 
     /// <summary>
     /// Gets the optional benchmark value used to render the benchmark indicator.

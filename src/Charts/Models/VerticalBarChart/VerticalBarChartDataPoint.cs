@@ -8,7 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
-/// Represents a single data point in a horizontal bar chart series.
+/// Represents a single data point in a vertical bar chart series.
 /// </summary>
 public sealed record VerticalBarChartDataPoint
 {

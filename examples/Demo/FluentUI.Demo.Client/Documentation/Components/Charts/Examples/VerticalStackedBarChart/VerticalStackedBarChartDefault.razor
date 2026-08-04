@@ -1,14 +1,10 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentDonutChart ChartData="data"
-                  ChartTitle="Donut chart basic example"
-                  ValueInsideDonut="39000"
-                  InnerRadius="55" />
 
 @code {
-    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
+    private readonly IReadOnlyList<VerticalStackedBarChartDataPoint> data = new List<VerticalStackedBarChartDataPoint>
     {
-        new DonutDataPoint { Legend = "first", Data = 20000 },
-        new DonutDataPoint { Legend = "second", Data = 39000 }
+        new VerticalStackedBarChartDataPoint { Legend = "first", Data = 20000 },
+        new VerticalStackedBarChartDataPoint { Legend = "second", Data = 39000 }
     };
 }

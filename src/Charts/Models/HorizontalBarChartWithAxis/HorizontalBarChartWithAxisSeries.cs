@@ -21,7 +21,7 @@ public sealed record HorizontalBarChartWithAxisSeries
     /// Gets the collection of data points rendered within the series.
     /// </summary>
     [JsonPropertyName("chartData")]
-    public IReadOnlyList<HorizontalBarChartDataPoint> ChartData { get; init; } = [];
+    public IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData { get; init; } = [];
 
     /// <summary>
     /// Gets the optional benchmark value used to render the benchmark indicator.
