@@ -17,6 +17,7 @@
                       size="@Size.ToAttributeValue()"
                       icon-only="@(IconOnly || EmptyContent)"
                       name="@Name"
+                      role="@(string.IsNullOrEmpty(Title) ? null : "link")"
                       aria-label="@Title"
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
