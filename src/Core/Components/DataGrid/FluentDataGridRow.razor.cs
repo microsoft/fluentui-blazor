@@ -155,9 +155,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
             return;
         }
 
-        if (row.RowState is DataGridRowState.EmptyContent
-            or DataGridRowState.LoadingContent
-            or DataGridRowState.RowDetails)
+        if (row.RowState is not null)
         {
             return;
         }
