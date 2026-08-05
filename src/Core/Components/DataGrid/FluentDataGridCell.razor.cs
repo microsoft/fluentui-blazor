@@ -111,11 +111,14 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         IReadOnlyDictionary<string, object?> first,
         IReadOnlyDictionary<string, object>? second)
     {
-        var attributes = new Dictionary<string, object?>(first, StringComparer.OrdinalIgnoreCase);
-
         if (second is null)
         {
-            return attributes;
+            return first;
+        }
+
+        if (first is not Dictionary<string, object?> attributes)
+        {
+            attributes = new Dictionary<string, object?>(first, StringComparer.OrdinalIgnoreCase);
         }
 
         foreach (var entry in second)
