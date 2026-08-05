@@ -19,11 +19,21 @@
 
 import { Microsoft as StartupFile } from './Startup';
 import Startup = StartupFile.FluentUI.Blazor.Startup;
+import { StartedMode } from './d-ts/StartedMode';
+
 
 // Re-export the beforeStart and afterStarted methods
+export function beforeStart(options: WebStartOptions, mode: StartedMode) {
+  Startup.beforeStart(options, mode);
+}
+
 export const beforeWebStart = Startup.beforeWebStart;
 export const beforeServerStart = Startup.beforeServerStart;
 export const beforeWebAssemblyStart = Startup.beforeWebAssemblyStart;
+
+export function afterStarted(blazor: Blazor, mode: StartedMode) {
+  Startup.afterStarted(blazor, mode);
+}
 
 export const afterWebStarted = Startup.afterWebStarted;
 export const afterServerStarted = Startup.afterServerStarted;
