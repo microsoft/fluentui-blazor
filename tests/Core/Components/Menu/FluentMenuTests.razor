@@ -116,6 +116,28 @@
         Assert.True((bool)invocation.Arguments[2]!);
     }
 
+    [Fact]
+    public async Task FluentMenu_OpenedChanged_NotifiesWhenMenuOpensAndCloses()
+    {
+        // Arrange
+        var states = new List<bool>();
+        var cut = Render<FluentMenu>(parameters => parameters
+            .Add(component => component.Trigger, "trigger")
+            .Add(component => component.OpenedChanged, states.Add)
+            .AddChildContent("Menu item"));
+
+        var initialization = Assert.Single(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Menu.Initialize");
+        Assert.NotNull(initialization.Arguments[3]);
+
+        // Act
+        await cut.Instance.OnOpenedChangedAsync(true);
+        await cut.Instance.OnOpenedChangedAsync(false);
+
+        // Assert
+        Assert.Equal([true, false], states);
+    }
+
 
     [Fact]
     public void FluentMenu_OpenMenu()
