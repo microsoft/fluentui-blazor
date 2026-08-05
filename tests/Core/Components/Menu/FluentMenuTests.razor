@@ -90,6 +90,32 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentMenu_RenderWhen_RendersAndOpensWhenConditionBecomesTrue()
+    {
+        // Arrange
+        var renderMenu = false;
+        var cut = Render<FluentMenu>(parameters => parameters
+            .Add(component => component.Trigger, "trigger")
+            .Add(component => component.RenderWhen, () => renderMenu)
+            .AddChildContent("Menu item"));
+
+        Assert.Empty(cut.FindAll("fluent-menu"));
+        Assert.DoesNotContain(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Menu.Initialize");
+
+        // Act
+        renderMenu = true;
+        cut.Render(parameters => parameters
+            .Add(component => component.RenderWhen, () => renderMenu));
+
+        // Assert
+        Assert.Single(cut.FindAll("fluent-menu"));
+        var invocation = Assert.Single(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Menu.Initialize");
+        Assert.True((bool)invocation.Arguments[2]!);
+    }
+
 
     [Fact]
     public void FluentMenu_OpenMenu()

@@ -1,0 +1,16 @@
+<FluentButton Id="btnMenu"
+              OnClick="@(() => RenderMenu = true)">
+    Actions
+</FluentButton>
+
+<FluentMenu Trigger="btnMenu"
+            RenderWhen="@(() => RenderMenu)">
+    <FluentMenuList>
+        <FluentMenuItem>Action 1</FluentMenuItem>
+        <FluentMenuItem>Action 2</FluentMenuItem>
+    </FluentMenuList>
+</FluentMenu>
+
+@code {
+    bool RenderMenu;
+}

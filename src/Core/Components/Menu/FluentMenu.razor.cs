@@ -13,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenu : FluentComponentBase, ITooltipComponent
 {
+    private bool _wasRendered;
+
     /// <summary>
     /// Constructs a new instance of <see cref="FluentMenu"/>.
     /// Sets the Id to a new random value
@@ -91,6 +93,12 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <summary>
+    /// Gets or sets the condition that determines whether the menu is rendered.
+    /// </summary>
+    [Parameter]
+    public Func<bool>? RenderWhen { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -100,13 +108,14 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        var renderMenu = RenderWhen?.Invoke() ?? true;
+
+        if (Trigger != null && renderMenu && (firstRender || !_wasRendered))
         {
-            if (Trigger != null)
-            {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.Initialize", Id, Trigger);
-            }
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.Initialize", Id, Trigger, RenderWhen is not null);
         }
+
+        _wasRendered = renderMenu;
     }
 
     /// <summary>
