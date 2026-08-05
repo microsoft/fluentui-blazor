@@ -95,22 +95,30 @@
     {
         // Arrange
         var renderMenu = false;
+        var renderWhenInvocationCount = 0;
+        Func<bool> renderWhen = () =>
+        {
+            renderWhenInvocationCount++;
+            return renderMenu;
+        };
         var cut = Render<FluentMenu>(parameters => parameters
             .Add(component => component.Trigger, "trigger")
-            .Add(component => component.RenderWhen, () => renderMenu)
+            .Add(component => component.RenderWhen, renderWhen)
             .AddChildContent("Menu item"));
 
         Assert.Empty(cut.FindAll("fluent-menu"));
+        Assert.Equal(1, renderWhenInvocationCount);
         Assert.DoesNotContain(JSInterop.Invocations, invocation =>
             invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Menu.Initialize");
 
         // Act
         renderMenu = true;
         cut.Render(parameters => parameters
-            .Add(component => component.RenderWhen, () => renderMenu));
+            .Add(component => component.RenderWhen, renderWhen));
 
         // Assert
         Assert.Single(cut.FindAll("fluent-menu"));
+        Assert.Equal(2, renderWhenInvocationCount);
         var invocation = Assert.Single(JSInterop.Invocations, invocation =>
             invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Menu.Initialize");
         Assert.True((bool)invocation.Arguments[2]!);

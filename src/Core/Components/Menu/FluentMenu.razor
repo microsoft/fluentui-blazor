@@ -1,7 +1,7 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-@if (RenderWhen?.Invoke() ?? true)
+@if (_renderMenu)
 {
     <CascadingValue Value="this" IsFixed="true">
         <fluent-menu id="@Id"

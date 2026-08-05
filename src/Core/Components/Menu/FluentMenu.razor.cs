@@ -15,6 +15,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
 {
     private DotNetObjectReference<FluentMenu>? _dotNetHelper;
     private bool _openedChangedSubscribed;
+    private bool _renderMenu = true;
     private bool _wasRendered;
 
     /// <summary>
@@ -117,12 +118,17 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     }
 
     /// <summary />
+    protected override void OnParametersSet()
+    {
+        _renderMenu = RenderWhen?.Invoke() ?? true;
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var renderMenu = RenderWhen?.Invoke() ?? true;
         var subscribeToOpenedChanged = OpenedChanged.HasDelegate;
 
-        if (Trigger != null && renderMenu && (firstRender || !_wasRendered || (subscribeToOpenedChanged && !_openedChangedSubscribed)))
+        if (Trigger != null && _renderMenu && (firstRender || !_wasRendered || (subscribeToOpenedChanged && !_openedChangedSubscribed)))
         {
             if (subscribeToOpenedChanged)
             {
@@ -138,7 +144,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
         }
 
         _openedChangedSubscribed = subscribeToOpenedChanged;
-        _wasRendered = renderMenu;
+        _wasRendered = _renderMenu;
     }
 
     /// <summary>
