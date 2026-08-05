@@ -6,6 +6,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -28,7 +29,13 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     }
 
     /// <summary />
-    protected string? ClassValue => BuildClass(Grid, Column, CellType, Class, Owner.Class, Margin.ConvertSpacing().Class, Padding.ConvertSpacing().Class);
+    protected string? ClassValue => BuildClass(Class, Owner.Class, Margin.ConvertSpacing().Class, Padding.ConvertSpacing().Class);
+
+    /// <summary />
+    protected IReadOnlyDictionary<string, object?> AttributeValues => BuildAttributes(Grid, Column, CellType);
+
+    /// <summary />
+    protected IReadOnlyDictionary<string, object?> CombinedAttributes => MergeAttributes(AttributeValues, AdditionalAttributes);
 
     /// <summary />
     protected string? StyleValue => BuildStyle(Grid, Column, InternalGridContext, CellType, Owner.RowType, GridColumn, Style, Owner.Style, Margin.ConvertSpacing().Style, Padding.ConvertSpacing().Style);
@@ -38,9 +45,6 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// renders cells as plain <c>&lt;td&gt;</c> elements (which pass a null margin/padding).
     /// </summary>
     internal static string? BuildClass(
-        FluentDataGrid<TGridItem> grid,
-        ColumnBase<TGridItem>? column,
-        DataGridCellType cellType,
         string? baseClass,
         string? ownerClass,
         string? marginClass,
@@ -48,13 +52,82 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
         => new CssBuilder(baseClass)
             .AddClass(marginClass)
             .AddClass(paddingClass)
-            .AddClass("column-header", when: cellType == DataGridCellType.ColumnHeader)
-            .AddClass("select-all", when: cellType == DataGridCellType.ColumnHeader && column is SelectColumn<TGridItem>)
-            .AddClass("multiline-text", when: grid.MultiLine && (grid.Items is not null || grid.ItemsProvider is not null) && cellType != DataGridCellType.ColumnHeader)
-            .AddClass("col-pinned-start", column?.Pin == DataGridColumnPin.Start)
-            .AddClass("col-pinned-end", column?.Pin == DataGridColumnPin.End)
             .AddClass(ownerClass)
             .Build();
+
+    internal static Dictionary<string, object?> BuildAttributes(
+        FluentDataGrid<TGridItem> grid,
+        ColumnBase<TGridItem>? column,
+        DataGridCellType cellType)
+    {
+        var attributes = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase);
+
+        if (cellType != DataGridCellType.Default)
+        {
+            attributes["cell-type"] = cellType.ToAttributeValue();
+        }
+
+        if (column is not null)
+        {
+            attributes["col-justify"] = GetColumnAlignmentValue(column.Align);
+
+            if (column is SelectColumn<TGridItem>)
+            {
+                attributes["col-select"] = bool.TrueString.ToLowerInvariant();
+            }
+
+            if (column.Pin == DataGridColumnPin.Start)
+            {
+                attributes["col-pinned"] = "start";
+            }
+            else if (column.Pin == DataGridColumnPin.End)
+            {
+                attributes["col-pinned"] = "end";
+            }
+        }
+
+        if (cellType == DataGridCellType.ColumnHeader && column is SelectColumn<TGridItem>)
+        {
+            attributes["select-all"] = bool.TrueString.ToLowerInvariant();
+        }
+
+        if (grid.MultiLine && (grid.Items is not null || grid.ItemsProvider is not null) && cellType != DataGridCellType.ColumnHeader)
+        {
+            attributes["multiline"] = bool.TrueString.ToLowerInvariant();
+        }
+
+        return attributes;
+    }
+
+    private static string GetColumnAlignmentValue(DataGridCellAlignment align)
+        => align switch
+        {
+            DataGridCellAlignment.Center => "center",
+            DataGridCellAlignment.End => "end",
+            _ => "start",
+        };
+
+    private static IReadOnlyDictionary<string, object?> MergeAttributes(
+        IReadOnlyDictionary<string, object?> first,
+        IReadOnlyDictionary<string, object>? second)
+    {
+        if (second is null)
+        {
+            return first;
+        }
+
+        if (first is not Dictionary<string, object?> attributes)
+        {
+            attributes = new Dictionary<string, object?>(first, StringComparer.OrdinalIgnoreCase);
+        }
+
+        foreach (var entry in second)
+        {
+            attributes[entry.Key] = entry.Value;
+        }
+
+        return attributes;
+    }
 
     /// <summary>
     /// Builds the inline style for a grid cell. Also used by <see cref="FluentDataGrid{TGridItem}"/> when it

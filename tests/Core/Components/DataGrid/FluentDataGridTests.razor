@@ -1,5 +1,6 @@
-﻿@using Bunit.TestDoubles
+@using Bunit.TestDoubles
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
 @using System.ComponentModel.DataAnnotations
 @using Xunit
@@ -771,7 +772,7 @@
 
         // Assert
         Assert.Equal("Hello!", cut.Find(".options").TextContent);
-        Assert.NotNull(cut.Find(".col-header-ui"));
+        Assert.NotNull(cut.Find("[col-header-ui]"));
         Assert.NotNull(cut.FindComponent<ColumnResizeOptions<Customer>>());
         Assert.NotNull(cut.FindComponent<ColumnReorderOptions<Customer>>());
         Assert.Equal(2, cut.FindAll("fluent-divider").Count);
@@ -934,7 +935,7 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-options-button").Click();
+        row.Find("[col-options-button]").Click();
 
         await grid.ShowColumnResizeAsync("Name");
 
@@ -963,7 +964,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
 
-        row.Find(".col-options-button").Click();
+        row.Find("[col-options-button]").Click();
 
         var resizeOptions = cut.Find("fluent-label").TextContent;
         await grid.ShowColumnResizeAsync("Name");
@@ -997,7 +998,7 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-options-button").Click();
+        row.Find("[col-options-button]").Click();
 
         await grid.ShowColumnResizeAsync("Name");
 
@@ -1026,7 +1027,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
 
-        row.Find(".col-options-button").Click();
+        row.Find("[col-options-button]").Click();
 
         await grid.ShowColumnResizeAsync("Name");
         var resizeOptions = cut.Find("label").TextContent;
@@ -1063,7 +1064,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
 
-        row.Find(".col-options-button").Click();
+        row.Find("[col-options-button]").Click();
 
         await grid.ShowColumnResizeAsync("Name");
         var resizeOptions = cut.Find("label").TextContent;
@@ -1118,7 +1119,7 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-options-button").Click();
+        row.Find("[col-options-button]").Click();
 
         await grid.ShowColumnResizeAsync(0);
 
@@ -1453,7 +1454,7 @@
 
         // Assert
         Assert.Equal(expectedOrder, grid.GetColumnOrder());
-        Assert.Equal(expectedOrder, cut.FindAll("th .col-title-text")
+        Assert.Equal(expectedOrder, cut.FindAll("th [col-title-text]")
             .Select(x => x.TextContent.Trim().ToLowerInvariant())
             .ToArray());
     }
@@ -1522,7 +1523,7 @@
         cut.WaitForAssertion(() =>
         {
             Assert.Equal(expectedOrder, grid.GetColumnOrder());
-            Assert.Equal(expectedOrder, cut.FindAll("th .col-title-text")
+            Assert.Equal(expectedOrder, cut.FindAll("th [col-title-text]")
                 .Select(x => x.TextContent.Trim().ToLowerInvariant())
                 .ToArray());
         });
@@ -1767,7 +1768,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1797,14 +1798,14 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-sort-button").KeyDown(new KeyboardEventArgs() { Code = "Enter", Key = "Enter" });
+        row.Find("[col-sort-button]").KeyDown(new KeyboardEventArgs() { Code = "Enter", Key = "Enter" });
 
         var items = cut.FindAll("fluent-menu-item");
 
         // Assert
         Assert.NotEmpty(items);
         Assert.Equal(3, items.Count);
-        Assert.Empty(cut.FindAll(".col-header-ui"));
+        Assert.Empty(cut.FindAll("[col-header-ui]"));
     }
 
     [Fact]
@@ -1822,7 +1823,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1845,7 +1846,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1872,7 +1873,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1896,7 +1897,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1923,7 +1924,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1944,9 +1945,9 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
-        var popup = cut.Find(".col-header-ui");
+        var popup = cut.Find("[col-header-ui]");
 
         Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_ReorderMenu), popup.TextContent);
     }
@@ -1963,7 +1964,7 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-sort-button").Click();
+        row.Find("[col-sort-button]").Click();
 
         var items = cut.FindAll("fluent-menu-item");
 
@@ -1982,7 +1983,7 @@
                 <PropertyColumn ColumnId="status" Title="Status" Property="@(x => x.Status)" />
             </FluentDataGrid>);
 
-        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+        var titles = cut.FindAll("th [col-title-text]").Select(x => x.TextContent.Trim()).ToArray();
 
         Assert.Equal(["Status", "Name", "Created"], titles);
         Assert.Equal(["status", "name", "created"], cut.Instance.GetColumnOrder());
@@ -2007,7 +2008,7 @@
 
         await cut.InvokeAsync(() => grid!.MoveColumnToEndAsync(grid._columns[0]));
 
-        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+        var titles = cut.FindAll("th [col-title-text]").Select(x => x.TextContent.Trim()).ToArray();
 
         Assert.Equal(["Created", "Status", "Name"], titles);
         Assert.Equal(["created", "status", "name"], latestOrder);
@@ -2031,7 +2032,7 @@
         await cut.InvokeAsync(() => grid!.MoveColumnLeftAsync(grid._columns.Single(x => x.ColumnId == "created")));
 
         Assert.Equal(["created", "name", "status"], grid.GetColumnOrder());
-        Assert.Equal(["created", "name", "status"], cut.FindAll("th .col-title-text")
+        Assert.Equal(["created", "name", "status"], cut.FindAll("th [col-title-text]")
             .Select(x => x.TextContent.Trim().ToLowerInvariant())
             .ToArray());
 
@@ -2059,7 +2060,7 @@
         await cut.InvokeAsync(() => grid!.MoveColumnRightAsync(grid._columns.Single(x => x.ColumnId == "name")));
 
         Assert.Equal(["id", "status", "name", "created"], grid.GetColumnOrder());
-        Assert.Equal(["id", "status", "name", "created"], cut.FindAll("th .col-title-text")
+        Assert.Equal(["id", "status", "name", "created"], cut.FindAll("th [col-title-text]")
             .Select(x => x.TextContent.Trim().ToLowerInvariant())
             .ToArray());
 
@@ -2088,7 +2089,7 @@
         await cut.InvokeAsync(() => grid!.ReorderColumnFromDragAsync(sourceColumnKey, targetColumnKey, insertAfter));
 
         Assert.Equal(expectedOrder, grid.GetColumnOrder());
-        Assert.Equal(expectedOrder, cut.FindAll("th .col-title-text")
+        Assert.Equal(expectedOrder, cut.FindAll("th [col-title-text]")
             .Select(x => x.TextContent.Trim().ToLowerInvariant())
             .ToArray());
     }
@@ -2132,7 +2133,7 @@
         await cut.InvokeAsync(() => grid!.SetColumnOrderAsync(["status", "", "status", " ", "name"]));
 
         Assert.Equal(["status", "name", "created"], grid.GetColumnOrder());
-        Assert.Equal(["status", "name", "created"], cut.FindAll("th .col-title-text")
+        Assert.Equal(["status", "name", "created"], cut.FindAll("th [col-title-text]")
             .Select(x => x.TextContent.Trim().ToLowerInvariant())
             .ToArray());
     }
@@ -2162,7 +2163,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Assert
-        Assert.Equal("Name", row.Find(".col-title-text").TextContent); // Only one item in the menu
+        Assert.Equal("Name", row.Find("[col-title-text]").TextContent); // Only one item in the menu
     }
 
     [Fact]
@@ -2179,15 +2180,15 @@
 
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
-        row.Find(".col-sort-button").Click(); // Sort ascending by default
-        row.Find(".col-sort-button").Click(); // Sort descending
+        row.Find("[col-sort-button]").Click(); // Sort ascending by default
+        row.Find("[col-sort-button]").Click(); // Sort descending
 
         var button = cut.FindComponent<FluentButton>();
         cut.InvokeAsync(button.Instance.OnClick.InvokeAsync);
 
 
         // Assert
-        Assert.Equal("Name", row.Find(".col-title-text").TextContent); // Only one item in the menu
+        Assert.Equal("Name", row.Find("[col-title-text]").TextContent); // Only one item in the menu
     }
 
     [Fact]
@@ -2234,7 +2235,7 @@
         var row = cut.FindComponent<FluentDataGridRow<Customer>>();
 
         // Simulate a click on the header cell button
-        var cell = row.Find(".col-title-text");
+        var cell = row.Find("[col-title-text]");
 
         // Assert
         Assert.NotNull(cell); // Asserting that there are menu items present
@@ -2501,7 +2502,7 @@
                     // Assert
         await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
-        var cell = cut.Find($".{FluentDataGrid<Customer>.ERROR_CONTENT_ROW_CLASS} .empty-content-cell");
+        var cell = cut.Find($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}'] td");
         Assert.Contains("An error occurred while retrieving data.", cell.TextContent);
     }
 
@@ -2523,8 +2524,8 @@
                     // Assert
         await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
-        var row = cut.Find($".{FluentDataGrid<Customer>.ERROR_CONTENT_ROW_CLASS}");
-        var cell = row.QuerySelector("td.empty-content-cell");
+        var row = cut.Find($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}']");
+        var cell = row.QuerySelector("td");
         Assert.NotNull(cell);
         Assert.Equal("2", cell.GetAttribute("colspan"));
     }
@@ -2628,7 +2629,7 @@
             </FluentDataGrid>);
 
         // Act
-        var toggleButton = cut.WaitForElement(".row-expand-button");
+        var toggleButton = cut.WaitForElement("[row-expand-button]");
         await cut.InvokeAsync(() => toggleButton.Click());
 
         // Assert
@@ -2992,3 +2993,4 @@
         cut.Verify();
     }
 }
+
