@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TGridItem
 
@@ -17,7 +17,7 @@
             @onkeydown="@HandleOnCellKeyDownAsync"
             @onclick="@HandleOnCellClickAsync"
             @onfocus="@HandleOnCellFocusAsync"
-            @attributes="AdditionalAttributes">
+            @attributes="CombinedAttributes">
             @ChildContent
         </td>
     }
@@ -31,7 +31,7 @@
             tabindex="@CellTabIndex"
             title="@CellTitle"
             aria-label="@CellTitle"
-            @attributes="AdditionalAttributes">
+            @attributes="CombinedAttributes">
             @ChildContent
         </td>
     }
@@ -46,7 +46,7 @@ else
         @onkeydown="@HandleOnCellKeyDownAsync"
         @onclick="@HandleOnCellClickAsync"
         @onfocus="@HandleOnCellFocusAsync"
-        @attributes="AdditionalAttributes">
+        @attributes="CombinedAttributes">
         @ChildContent
     </th>
 }

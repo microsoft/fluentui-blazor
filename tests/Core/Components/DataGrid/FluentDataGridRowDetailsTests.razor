@@ -1,4 +1,4 @@
-@using Bunit.TestDoubles
+﻿@using Bunit.TestDoubles
 @using Xunit
 @inherits FluentUITestContext
 
@@ -19,8 +19,8 @@
         var cut = RenderGrid();
 
         // Assert
-        Assert.Equal(3, cut.FindAll(".row-details-toggle-container").Count);
-        Assert.Empty(cut.FindAll("tr.row-details-row"));
+        Assert.Equal(3, cut.FindAll("[row-details-toggle-container]").Count);
+        Assert.Empty(cut.FindAll("tr[row-state='detail-content']"));
     }
 
     [Fact]
@@ -30,17 +30,17 @@
         var cut = RenderGrid();
 
         // Act: expand the first row
-        cut.FindAll(".row-expand-button")[0].Click();
+        cut.FindAll("[row-expand-button]")[0].Click();
 
         // Assert
-        var detailsRow = cut.Find("tr.row-details-row");
+        var detailsRow = cut.Find("tr[row-state='detail-content']");
         Assert.Contains("details of Denis Voituron", detailsRow.TextContent);
 
         // Act: collapse it again
-        cut.FindAll(".row-expand-button")[0].Click();
+        cut.FindAll("[row-expand-button]")[0].Click();
 
         // Assert
-        Assert.Empty(cut.FindAll("tr.row-details-row"));
+        Assert.Empty(cut.FindAll("tr[row-state='detail-content']"));
     }
 
     [Fact]
@@ -53,13 +53,13 @@
         await cut.InvokeAsync(() => cut.Instance.ExpandAllRowDetailsAsync());
 
         // Assert
-        Assert.Equal(3, cut.FindAll("tr.row-details-row").Count);
+        Assert.Equal(3, cut.FindAll("tr[row-state='detail-content']").Count);
 
         // Act
         await cut.InvokeAsync(() => cut.Instance.CollapseAllRowDetailsAsync());
 
         // Assert
-        Assert.Empty(cut.FindAll("tr.row-details-row"));
+        Assert.Empty(cut.FindAll("tr[row-state='detail-content']"));
     }
 
     [Fact]
@@ -97,7 +97,7 @@
             </FluentDataGrid>);
 
         // Act
-        cut.FindAll(".row-expand-button")[1].Click();
+        cut.FindAll("[row-expand-button]")[1].Click();
 
         // Assert
         Assert.Equal("Vincent Baaij", toggledItem?.Name);
@@ -165,7 +165,7 @@
         var cut = RenderGrid();
 
         // Assert: the toggle button must not reuse the hierarchical-view's "Toggle nesting" label
-        var button = cut.FindAll(".row-details-toggle-container button, .row-details-toggle-container fluent-button")[0];
+        var button = cut.FindAll("[row-details-toggle-container] button, [row-details-toggle-container] fluent-button")[0];
         Assert.Equal("Toggle row details", button.GetAttribute("aria-label"));
     }
 
@@ -185,11 +185,11 @@
             </FluentDataGrid>);
 
         // Act: click the toggle; the handler suspends immediately on the incomplete task
-        var clickTask = cut.InvokeAsync(() => cut.Find(".row-expand-button").Click());
+        var clickTask = cut.InvokeAsync(() => cut.Find("[row-expand-button]").Click());
 
         // Assert: the details row (and whatever placeholder RowDetails renders while data is loading)
         // must already be visible while the handler is still pending, not only once it completes.
-        Assert.NotEmpty(cut.FindAll("tr.row-details-row"));
+        Assert.NotEmpty(cut.FindAll("tr[row-state='detail-content']"));
 
         // Cleanup: let the pending handler complete
         tcs.SetResult();
@@ -232,7 +232,7 @@
             </FluentDataGrid>);
 
         // Act: expand the row; the handler suspends on the incomplete task
-        await cut.InvokeAsync(() => cut.Find(".row-expand-button").Click());
+        await cut.InvokeAsync(() => cut.Find("[row-expand-button]").Click());
 
         // Assert: the spinner placeholder shows first, before the async load completes
         Assert.NotEmpty(cut.FindAll("p.spinner"));
@@ -264,9 +264,9 @@
             </FluentDataGrid>);
 
         // Assert: every row still reserves the same toggle space (alignment stays consistent)...
-        Assert.Equal(3, cut.FindAll(".row-details-toggle-container").Count);
+        Assert.Equal(3, cut.FindAll("[row-details-toggle-container]").Count);
         // ...but only two rows actually get a clickable button
-        Assert.Equal(2, cut.FindAll(".row-expand-button").Count);
+        Assert.Equal(2, cut.FindAll("[row-expand-button]").Count);
     }
 
     [Fact]
@@ -289,7 +289,7 @@
 
         // Assert
         Assert.True(cut.Instance.IsRowDetailsExpanded(vincent));
-        Assert.Contains("details of Vincent Baaij", cut.Find("tr.row-details-row").TextContent);
+        Assert.Contains("details of Vincent Baaij", cut.Find("tr[row-state='detail-content']").TextContent);
     }
 
     [Fact]
