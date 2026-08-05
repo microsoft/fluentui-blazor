@@ -1,7 +1,8 @@
-<FluentStack HorizontalGap="24px">
+<FluentStack>
     <!-- Differ the menu rendering and keep the menu in the DOM -->
     <FluentButton Id="btnMenu1"
-                  OnClick="@(() => RenderMenu1 = true)">
+                  OnClick="@(() => RenderMenu1 = true)"
+                  Margin="@Margin.All2">
         Open Menu 1
     </FluentButton>
 
@@ -15,7 +16,8 @@
 
     <!-- Differ the menu rendering and remove the menu from the DOM when closed -->
     <FluentButton Id="btnMenu2"
-                  OnClick="@(() => RenderMenu2 = true)">
+                  OnClick="@(() => RenderMenu2 = true)"
+                  Margin="@Margin.All2">
         Open Menu 2
     </FluentButton>
 
@@ -28,6 +30,7 @@
         </FluentMenuList>
     </FluentMenu>
 </FluentStack>
+
 @code {
     bool RenderMenu1;
     bool RenderMenu2;
