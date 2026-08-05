@@ -23,7 +23,7 @@ import { StartedMode } from './d-ts/StartedMode';
 
 
 // Re-export the beforeStart and afterStarted methods
-export function beforeStart(options: WebStartOptions, mode: StartedMode) {
+export function beforeStart(options: WebStartOptions, mode: StartedMode = StartedMode.Web) {
   Startup.beforeStart(options, mode);
 }
 
@@ -31,7 +31,7 @@ export const beforeWebStart = Startup.beforeWebStart;
 export const beforeServerStart = Startup.beforeServerStart;
 export const beforeWebAssemblyStart = Startup.beforeWebAssemblyStart;
 
-export function afterStarted(blazor: Blazor, mode: StartedMode) {
+export function afterStarted(blazor: Blazor, mode: StartedMode = StartedMode.Web) {
   Startup.afterStarted(blazor, mode);
 }
 
