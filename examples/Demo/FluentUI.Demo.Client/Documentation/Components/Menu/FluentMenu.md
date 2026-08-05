@@ -88,6 +88,15 @@ This is useful for menus whose content is expensive to create, depends on data t
 be present in the DOM until the user requests it. The parameter is optional; when it is not set, the menu is always
 rendered and behaves as usual.
 
+The example below demonstrates two ways to use `RenderWhen`:
+
+1. **Defer rendering and keep the menu in the DOM.** The first menu sets its rendering condition to `true` when the
+	button is clicked. After its first opening, the condition remains `true`, so the menu stays in the DOM and can be
+	reopened without being rendered again.
+2. **Defer rendering and remove the menu from the DOM when it closes.** The second menu uses `OpenedChanged` to update
+	its rendering condition. When the menu closes, the callback receives `false`, causing the menu and its content to be
+	removed from the DOM. The menu is rendered again the next time its button is clicked.
+
 {{ MenuRenderWhen }}
 
 ## Menu item slots

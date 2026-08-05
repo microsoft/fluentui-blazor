@@ -1,4 +1,5 @@
 import { Menu, MenuList } from "@fluentui/web-components";
+import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Menu {
   const menuAbortControllers = new Map<string, AbortController>();
