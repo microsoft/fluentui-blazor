@@ -2,43 +2,53 @@
 /// <reference path="./d-ts/Blazor.d.ts" />
 
 export namespace Microsoft.FluentUI.Override {
+    interface NavigationElement extends HTMLElement {
+        href: string;
+        internalProxyAnchor: { click(): void };
+        handleNavigation(newTab: boolean): void;
+    }
+
     /**
      * Override the default behavior of the Fluent UI Web Components to use Blazor's features.
     */
     export function overrideComponents() {
-
-        /**
-         * fluent-anchor-button
-         */
         waitForCustomElements().then(async registry => {
-            const anchorButton = await registry.whenDefined('fluent-anchor-button');
-            const proto = anchorButton.prototype;
 
-            /* 
-                Original code: https://github.com/microsoft/fluentui/blob/master/packages/web-components/src/anchor-button/anchor-button.base.ts
-
-                private handleNavigation(newTab: boolean): void {
-                    newTab ? window.open(this.href, '_blank') : this.internalProxyAnchor.click();
-                }
+            /**
+             * fluent-anchor-button
             */
-            proto.handleNavigation = function (newTab: boolean): void {
-                if (newTab) {
-                    window.open(this.href, '_blank');
-                    return;
-                }
+            const anchorButton = await registry.whenDefined('fluent-anchor-button');
+            anchorButton.prototype.handleNavigation = handleNavigation;
 
-                const url = new URL(this.href, document.baseURI);
-                if (url.origin === location.origin) {
-                    const forceLoad = this.getAttribute('force-load') === 'true';
-                    console.log(`fluent-anchor-button handleNavigation: navigating to ${url.pathname + url.search + url.hash} using Blazor.navigateTo with forceLoad=${forceLoad}`);
-                    Blazor.navigateTo(url.pathname + url.search + url.hash, forceLoad);
-                }
-                else {                    
-                    console.log(`fluent-anchor-button handleNavigation: navigating to ${this.href} using internalProxyAnchor.click()`);
-                    this.internalProxyAnchor.click();
-                }
-            };
+            /**
+             * fluent-link
+             */
+            const link = await registry.whenDefined('fluent-link');
+            link.prototype.handleNavigation = handleNavigation;
         });
+    }
+
+    /* 
+        Original code: https://github.com/microsoft/fluentui/blob/master/packages/web-components/src/anchor-button/anchor-button.base.ts
+
+        private handleNavigation(newTab: boolean): void {
+            newTab ? window.open(this.href, '_blank') : this.internalProxyAnchor.click();
+        }
+    */
+    function handleNavigation(this: NavigationElement, newTab: boolean): void {
+        if (newTab) {
+            window.open(this.href, '_blank');
+            return;
+        }
+
+        const url = new URL(this.href, document.baseURI);
+        if (url.origin === location.origin) {
+            const forceLoad = this.getAttribute('force-load') === 'true';
+            Blazor.navigateTo(url.pathname + url.search + url.hash, forceLoad);
+        }
+        else {
+            this.internalProxyAnchor.click();
+        }
     }
 
     /**
