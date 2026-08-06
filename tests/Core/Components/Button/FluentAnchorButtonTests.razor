@@ -34,6 +34,19 @@
     }
 
     [Theory]
+    [InlineData(false, null)]
+    [InlineData(true, "true")]
+    public void FluentAnchorButton_ForceLoadAttribute(bool forceLoad, string? expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton ForceLoad="@forceLoad">fluent-anchor-button</FluentAnchorButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-anchor-button").GetAttribute("force-load");
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
     [InlineData(LinkTarget.Blank, "_blank")]
     [InlineData(LinkTarget.Parent, "_parent")]
     [InlineData(LinkTarget.Self, "_self")]
