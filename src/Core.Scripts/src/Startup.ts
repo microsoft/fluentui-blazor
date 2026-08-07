@@ -1,6 +1,7 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
 import { Microsoft as ThemeFile } from './Utilities/Theme';
 import { Microsoft as FluentUIComponentsFile } from './FluentUIWebComponents';
+import { Microsoft as FluentUIWebComponentsOverrideFile } from './FluentUIWebComponentsOverride';
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
@@ -16,6 +17,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
   // Alias
   import Logger = LoggerFile.FluentUI.Blazor.Utilities.Logger;
   import FluentUIComponents = FluentUIComponentsFile.FluentUI.Blazor.FluentUIWebComponents;
+  import FluentUIOverride = FluentUIWebComponentsOverrideFile.FluentUI.Override;
   import FluentPageScript = FluentPageScriptFile.FluentUI.Blazor.Components.PageScript;
   import FluentPopover = FluentPopoverFile.FluentUI.Blazor.Components.Popover;
   import FluentOverlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
@@ -41,6 +43,9 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     // Define Fluent UI components
     FluentUIComponents.defineComponents();
+
+    // Override Fluent UI components to use Blazor's features
+    FluentUIOverride.overrideComponents();
 
     // Finishing
     beforeStartCalled = true;

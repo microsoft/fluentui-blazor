@@ -12,6 +12,8 @@ interface ThemeSettings {
 interface Blazor {
   addEventListener?: (name: string, callback: (event: any) => void) => void;
 
+  navigateTo: (uri: string, options: NavigationOptions | boolean) => void;
+
   registerCustomEventType(eventName: string, options: EventTypeOptions): void;
 
   theme: {
@@ -41,3 +43,5 @@ interface Blazor {
     switchDirection(): void,
   }
 }
+
+declare const Blazor: Blazor;
