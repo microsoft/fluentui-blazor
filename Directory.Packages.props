@@ -2,14 +2,14 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <RuntimeVersion8>8.0.0</RuntimeVersion8>
-    <AspNetCoreVersion8>8.0.28</AspNetCoreVersion8>
-    <EfCoreVersion8>8.0.28</EfCoreVersion8>
-    <RuntimeVersion9>9.0.17</RuntimeVersion9>
-    <AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
-    <EfCoreVersion9>9.0.17</EfCoreVersion9>
-    <RuntimeVersion10>10.0.9</RuntimeVersion10>
-    <AspNetCoreVersion10>10.0.9</AspNetCoreVersion10>
-    <EfCoreVersion10>10.0.9</EfCoreVersion10>
+    <AspNetCoreVersion8>8.0.29</AspNetCoreVersion8>
+    <EfCoreVersion8>8.0.29</EfCoreVersion8>
+    <RuntimeVersion9>9.0.18</RuntimeVersion9>
+    <AspNetCoreVersion9>9.0.18</AspNetCoreVersion9>
+    <EfCoreVersion9>9.0.18</EfCoreVersion9>
+    <RuntimeVersion10>10.0.10</RuntimeVersion10>
+    <AspNetCoreVersion10>10.0.10</AspNetCoreVersion10>
+    <EfCoreVersion10>10.0.10</EfCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <!-- For Sample Apps -->
@@ -17,14 +17,15 @@
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.14.2" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.2" />
     <!-- Test dependencies -->
-    <PackageVersion Include="bunit" Version="1.38.5" />
+    <PackageVersion Include="bunit" Version="1.40.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="coverlet.msbuild" Version="10.0.0" />
-    <PackageVersion Include="coverlet.collector" Version="10.0.0" />
+    <PackageVersion Include="coverlet.msbuild" Version="10.0.1" />
+    <PackageVersion Include="coverlet.collector" Version="10.0.1" />
+    <PackageVersion Include="AngleSharp.CSS" Version="1.0.0-beta.157" />
     <!-- Shared dependencies -->
-    <PackageVersion Include="Markdig.Signed" Version="1.2.0" />
+    <PackageVersion Include="Markdig.Signed" Version="1.3.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
     <PackageVersion Include="Microsoft.OData.Client" Version="8.4.3" />
@@ -32,9 +33,9 @@
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion8)" />
-    <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion10)" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion10)" />
+    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion10)" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
     <!-- Build dependencies -->
@@ -86,6 +87,6 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion10)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion10)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion10)" />
-    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
+    <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion10)" />
   </ItemGroup>
 </Project>

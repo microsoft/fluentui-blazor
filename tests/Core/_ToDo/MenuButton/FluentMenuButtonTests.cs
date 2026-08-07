@@ -80,13 +80,12 @@ public class FluentMenuButtonTests : TestBase
         cut.Verify();
     }
 
-
     [Fact]
     public void FluentMenuButton_Renders_ButtonContent()
     {
         // Arrange
         var cut = TestContext.RenderComponent<FluentMenuButton>(parameters => parameters
-            .Add<RenderFragment>(p => p.ButtonContent, builder =>
+            .Add<RenderFragment>(p => p.ButtonContent!, builder =>
             {
                 builder.OpenComponent<FluentLabel>(0);
                 builder.AddAttribute(1, "Typo", Typography.H4);
