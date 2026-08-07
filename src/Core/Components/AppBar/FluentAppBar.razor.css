@@ -95,7 +95,6 @@
 .fluent-appbar-item[overflow],
 .fluent-appbar-more-item:hover svg[part="icon-rest"],
 .fluent-appbar-more-item:not(:hover):not(.active) svg[part="icon-active"],
-
 .fluent-appbar-more-item[overflow] {
   display: none;
 }
@@ -105,11 +104,11 @@
     display: block;
 }
 
-.fluent-appbar-item[inpopover]:not(:hover) a.active svg[part="icon-active"],
+.fluent-appbar-item[inpopover]:not(:hover) a.active svg[part="icon-active"]
     display: none;
 }
 
-.fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"],
+.fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"]
 {
     display: block;
 }
