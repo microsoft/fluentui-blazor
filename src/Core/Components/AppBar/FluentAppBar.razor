@@ -20,7 +20,7 @@
 		@if (AppsOverflow.Any())
 		{
 			<FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: var(--appbar-item-size);" tabindex="0" fixed title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
+			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-more-item" style="min-width: var(--appbar-item-size);" tabindex="0" fixed="fixed" title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
 				<FluentStack Orientation="Orientation.Vertical"
 							 HorizontalAlignment="HorizontalAlignment.Center"
 							 VerticalAlignment="VerticalAlignment.Center"
@@ -39,7 +39,7 @@
 			<FluentPopover @bind-Opened="_showMoreItems"
 						   AnchorId="@($"appbar-more-{Id}")"
 						   OffsetVertical="-48"
-						   OffsetHorizontal="68">
+						   OffsetHorizontal="320">
 				<ChildContent>
 					<div class="fluent-appbar-popover">
 						@if (PopoverShowSearch)
