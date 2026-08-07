@@ -23,7 +23,7 @@
     "typescript": "^5.4.4"
   },
   "dependencies": {
-    "@fluentui/web-components": "2.6.1"
+    "@fluentui/web-components": "3.0.2"
   },
   "overrides": {
     "flat-cache": "^6.1.0",
