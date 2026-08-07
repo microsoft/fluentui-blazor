@@ -104,7 +104,7 @@
     display: block;
 }
 
-.fluent-appbar-item[inpopover]:not(:hover) a.active svg[part="icon-active"]
+.fluent-appbar-item[inpopover]:not(:hover) a.active svg[part="icon-active"] {
     display: none;
 }
 
