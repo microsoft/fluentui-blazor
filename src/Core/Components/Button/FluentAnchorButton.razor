@@ -19,6 +19,7 @@
                       name="@Name"
                       role="@(string.IsNullOrEmpty(Title) ? null : "link")"
                       aria-label="@Title"
+                      force-load="@(ForceLoad ? "true" : null)"
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)
     {

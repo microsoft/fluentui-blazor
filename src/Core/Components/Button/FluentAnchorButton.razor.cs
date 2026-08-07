@@ -148,6 +148,13 @@ public partial class FluentAnchorButton : FluentComponentBase, ITooltipComponent
     [Parameter]
     public string? Tooltip { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the navigation should force a full page load instead of using Blazor's built-in navigation.
+    /// Default is <see langword="false" />, which uses Blazor's navigation.
+    /// </summary>
+    [Parameter]
+    public bool ForceLoad { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
