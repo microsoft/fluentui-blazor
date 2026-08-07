@@ -45,6 +45,19 @@
 		cut.Verify();
 	}
 
+	[Theory]
+	[InlineData(false, null)]
+	[InlineData(true, "true")]
+	public void FluentLink_ForceLoadAttribute(bool forceLoad, string? expectedValue)
+	{
+		// Arrange && Act
+		var cut = Render(@<FluentLink ForceLoad="@forceLoad">fluent-link</FluentLink>);
+
+		// Assert
+		var attribute = cut.Find("fluent-link").GetAttribute("force-load");
+		Assert.Equal(expectedValue, attribute);
+	}
+
 	[Fact]
 	public void FluentLink_hreflang()
 	{
