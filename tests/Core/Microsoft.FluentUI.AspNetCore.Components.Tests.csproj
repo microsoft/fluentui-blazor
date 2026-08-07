@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="bunit" />
+    <PackageReference Include="AngleSharp" />
+    <PackageReference Include="AngleSharp.CSS" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio">
