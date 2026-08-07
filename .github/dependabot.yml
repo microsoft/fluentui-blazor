@@ -4,8 +4,35 @@
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
+
 updates:
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  # NuGet - dev
+  - package-ecosystem: "nuget"
+    directory: "/"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+
+  # NuGet - dev-v5
+  - package-ecosystem: "nuget"
+    directory: "/"
+    target-branch: "dev-v5"
+    schedule:
+      interval: "weekly"
+
+  # npm - dev
+  - package-ecosystem: "npm"
+    directories:
+      - "/src/Core.Assets"
+    target-branch: "dev"
+    schedule:
+      interval: "weekly"
+
+  # npm - dev-v5
+  - package-ecosystem: "npm"
+    directories:
+      - "/src/Core.Scripts"
+      - "/src/Charts.Scripts"
+    target-branch: "dev-v5"
     schedule:
       interval: "weekly"
