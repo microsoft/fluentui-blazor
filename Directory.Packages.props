@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion8>8.0.0</RuntimeVersion8>
+    <RuntimeVersion8>10.0.10</RuntimeVersion8>
     <AspNetCoreVersion8>8.0.28</AspNetCoreVersion8>
     <EfCoreVersion8>8.0.28</EfCoreVersion8>
     <RuntimeVersion9>9.0.17</RuntimeVersion9>
@@ -34,7 +34,7 @@
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.6" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.10" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net8.0'">
     <!-- Build dependencies -->
