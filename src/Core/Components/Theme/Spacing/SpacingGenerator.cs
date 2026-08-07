@@ -272,7 +272,7 @@ internal class SpacingGenerator
         {
             var cssName = cssLine.Substring(cssLine.IndexOf('.') + 1, cssLine.IndexOf(' ') - cssLine.IndexOf('.') - 1);
 
-            if (code.ToString().Contains($"\"{cssName} \"", StringComparison.OrdinalIgnoreCase)) // Already exists
+            if (code.ToString().Contains($"\"{cssName} \"", StringComparison.Ordinal)) // Already exists
             {
                 continue;
             }
