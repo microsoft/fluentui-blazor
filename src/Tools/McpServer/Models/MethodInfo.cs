@@ -65,12 +65,12 @@ public record MethodInfo
     public override int GetHashCode()
     {
         var hashCode = new HashCode();
-        hashCode.Add(Name);
-        hashCode.Add(ReturnType);
-        hashCode.Add(Description);
+        hashCode.Add(Name, StringComparer.Ordinal);
+        hashCode.Add(ReturnType, StringComparer.Ordinal);
+        hashCode.Add(Description, StringComparer.Ordinal);
         foreach (var param in Parameters)
         {
-            hashCode.Add(param);
+            hashCode.Add(param, StringComparer.Ordinal);
         }
 
         hashCode.Add(IsInherited);

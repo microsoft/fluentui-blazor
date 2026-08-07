@@ -67,7 +67,7 @@ public class PropertyInfoTests
         Assert.False(propertyInfo.IsInherited);
         Assert.Equal("Appearance.Neutral", propertyInfo.DefaultValue);
         Assert.Equal(5, propertyInfo.EnumValues.Length);
-        Assert.Contains("Accent", propertyInfo.EnumValues);
+        Assert.Contains("Accent", propertyInfo.EnumValues, StringComparer.Ordinal);
     }
 
     [Fact]
