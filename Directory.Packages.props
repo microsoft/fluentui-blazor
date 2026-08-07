@@ -17,7 +17,7 @@
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" version="4.14.2" />
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.2" />
     <!-- Test dependencies -->
-    <PackageVersion Include="bunit" Version="1.38.5" />
+    <PackageVersion Include="bunit" Version="1.40.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
