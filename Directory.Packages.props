@@ -23,7 +23,7 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="coverlet.msbuild" Version="10.0.1" />
     <PackageVersion Include="coverlet.collector" Version="10.0.1" />
-    <PackageVersion Include="AngleSharp.CSS" Version="1.0.0-beta.157" />
+    <PackageVersion Include="AngleSharp.CSS" Version="1.0.1" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="1.3.2" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
