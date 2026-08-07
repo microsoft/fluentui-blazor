@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <RuntimeVersion8>8.0.0</RuntimeVersion8>
+    <RuntimeVersion8>10.0.10</RuntimeVersion8>
     <AspNetCoreVersion8>8.0.28</AspNetCoreVersion8>
     <EfCoreVersion8>8.0.28</EfCoreVersion8>
     <RuntimeVersion9>9.0.17</RuntimeVersion9>
