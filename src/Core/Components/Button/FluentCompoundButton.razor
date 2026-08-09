@@ -11,6 +11,7 @@
                         shape="@Shape.ToAttributeValue()"
                         size="@Size.ToAttributeValue()"
                         name="@Name"
+                        role="@(string.IsNullOrEmpty(Title) ? null : "button")"
                         aria-label="@Title"
                         disabled="@Disabled"
                         disabled-focusable="@DisabledFocusable"

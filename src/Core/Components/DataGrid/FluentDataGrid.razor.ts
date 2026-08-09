@@ -1,6 +1,6 @@
 export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
-  const headerUiSelector = '.col-header-ui';
+  const headerUiSelector = '[col-header-ui]';
 
   const closeHeaderUi = (gridElement: HTMLElement) => {
     gridElement.dispatchEvent(new CustomEvent('closecolumnheaderui', { bubbles: true }));
@@ -125,7 +125,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       if (sibling !== null) {
         // th elements are not focusable; transfer focus to the inner header button instead.
         if (sibling.matches('th')) {
-          const headerButton = sibling.querySelector<HTMLElement>('.col-sort-button, .col-options-button');
+          const headerButton = sibling.querySelector<HTMLElement>('[col-sort-button], [col-options-button]');
           if (headerButton) {
             sibling = headerButton;
           }
@@ -154,7 +154,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
     const getHeaderButtons = () => {
       return Array.from(
-        gridElement.querySelectorAll<HTMLElement>('.column-header .col-sort-button, .column-header .col-options-button')
+        gridElement.querySelectorAll<HTMLElement>("th[cell-type='columnheader'] [col-sort-button], th[cell-type='columnheader'] [col-options-button]")
       ).filter(button => button.tabIndex >= 0 && !button.hasAttribute('disabled'));
     };
     const moveHeaderFocus = (current: HTMLElement, shiftKey: boolean) => {
@@ -227,7 +227,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
       if (event.key === "Tab" && !event.shiftKey) {
         const activeElement = getDeepActiveElement();
-        if (activeElement && !activeElement.matches('.col-sort-button, .col-options-button')) {
+        if (activeElement && !activeElement.matches('[col-sort-button], [col-options-button]')) {
           const focusableElements = Array.from(
             document.querySelectorAll<HTMLElement>('button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])')
           ).filter(element => element.tabIndex >= 0 && !element.hasAttribute('disabled') && element.getClientRects().length > 0);
@@ -243,7 +243,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
       }
 
-      if (event.key === "Tab" && targetElement && (targetElement.matches('.col-sort-button') || targetElement.matches('.col-options-button'))) {
+      if (event.key === "Tab" && targetElement && (targetElement.matches('[col-sort-button]') || targetElement.matches('[col-options-button]'))) {
         if (moveHeaderFocus(targetElement, event.shiftKey)) {
           event.preventDefault();
           event.stopPropagation();
@@ -385,7 +385,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
 
     const columns: Column[] = [];
-    const headers = gridElement.querySelectorAll('.column-header.resizable');
+    const headers = gridElement.querySelectorAll("th[cell-type='columnheader'][resizable='true']");
 
     if (headers.length === 0) {
       return;
@@ -401,7 +401,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     const localController = new AbortController();
     const effectiveSignal = signal ?? localController.signal;
 
-    const isGrid = gridElement.classList.contains('grid');
+    const isGrid = gridElement.getAttribute('display-mode') === 'grid';
 
     let tableHeight = gridElement.offsetHeight;
     // rows have not been loaded yet, so we need to calculate the height
@@ -430,16 +430,16 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       });
 
       // remove any previously created divs
-      const resizedivs = header.querySelectorAll('.actual-resize-handle');
+      const resizedivs = header.querySelectorAll('[actual-resize-handle]');
       resizedivs.forEach(div => div.remove());
 
-      // get the top of the first resize-handle
-      const resizeTop = (header.querySelector('.resize-handle') as HTMLElement)?.offsetTop ?? 2;
+      // get the top of the first resize handle
+      const resizeTop = (header.querySelector('[resize-handle]') as HTMLElement)?.offsetTop ?? 2;
 
       // add a new resize div
       const div = createDiv(resizeHandleHeight, resizeTop);
       header.appendChild(div);
-      if (header.nextElementSibling && (header.nextElementSibling as HTMLElement).classList.contains('col-pinned-end')) {
+      if (header.nextElementSibling && (header.nextElementSibling as HTMLElement).getAttribute('col-pinned') === 'end') {
         div.style.insetInlineEnd = '-1px';
       }
       setListeners(div, effectiveSignal);
@@ -544,7 +544,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           grid.isResizing = true;
         }
 
-        const isGrid = gridElement.classList.contains('grid');
+        const isGrid = gridElement.getAttribute('display-mode') === 'grid';
         const padding = isGrid ? 0 : paddingDiff(curCol);
 
         curColWidth = curCol.offsetWidth - padding;
@@ -573,7 +573,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     function createDiv(height: number, top: number) {
       const div = document.createElement('div');
-      div.className = 'actual-resize-handle';
+      div.setAttribute('actual-resize-handle', '');
       div.style.top = top + 'px';
       div.style.position = 'absolute';
       div.style.cursor = 'col-resize';
@@ -608,7 +608,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   export function ResetColumnWidths(gridElement: HTMLElement) {
-    const isGrid = gridElement.classList.contains('grid');
+    const isGrid = gridElement.getAttribute('display-mode') === 'grid';
     const grid = grids.find(grid => grid.id === gridElement.id);
     if (!grid) {
       return;
@@ -666,7 +666,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     grid.reorderController = controller;
 
     const headers = Array.from(
-      gridElement.querySelectorAll('th.column-header[data-column-reorderable="true"]')
+      gridElement.querySelectorAll("th[cell-type='columnheader'][reorderable='true']")
     ) as HTMLElement[];
 
     headers.forEach(header => header.setAttribute('draggable', 'true'));
@@ -674,28 +674,32 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     let sourceColumnKey: string | null = null;
     let sourceColumnIndex: string | null = null;
 
-    const setColumnClass = (columnIndex: string | null, className: string, enabled: boolean = true) => {
+    const setColumnAttribute = (columnIndex: string | null, attributeName: string, enabled: boolean = true) => {
       if (!columnIndex) {
         return;
       }
 
       const columnCells = gridElement.querySelectorAll(`[col-index="${columnIndex}"]`);
       columnCells.forEach(cell => {
-        (cell as HTMLElement).classList.toggle(className, enabled);
+        if (enabled) {
+          (cell as HTMLElement).setAttribute(attributeName, 'true');
+        } else {
+          (cell as HTMLElement).removeAttribute(attributeName);
+        }
       });
     };
 
-    const clearColumnClass = (className: string) => {
-      const cells = gridElement.querySelectorAll(`.${className}`);
+    const clearColumnAttribute = (attributeName: string) => {
+      const cells = gridElement.querySelectorAll(`[${attributeName}]`);
       cells.forEach(cell => {
-        (cell as HTMLElement).classList.remove(className);
+        (cell as HTMLElement).removeAttribute(attributeName);
       });
     };
 
     const clearDragState = () => {
-      clearColumnClass('col-reorder-dragging');
-      clearColumnClass('col-reorder-drop-target');
-      gridElement.classList.remove('col-reorder-active');
+      clearColumnAttribute('col-reorder-dragging');
+      clearColumnAttribute('col-reorder-drop-target');
+      gridElement.removeAttribute('col-reorder-active');
       sourceColumnKey = null;
       sourceColumnIndex = null;
     };
@@ -715,8 +719,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           return;
         }
 
-        gridElement.classList.add('col-reorder-active');
-        setColumnClass(sourceColumnIndex, 'col-reorder-dragging');
+        gridElement.setAttribute('col-reorder-active', 'true');
+        setColumnAttribute(sourceColumnIndex, 'col-reorder-dragging');
         event.dataTransfer?.setData('text/plain', sourceColumnKey);
         if (event.dataTransfer) {
           event.dataTransfer.effectAllowed = 'move';
@@ -739,13 +743,13 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
 
         event.preventDefault();
-        clearColumnClass('col-reorder-drop-target');
-        setColumnClass(targetColumnIndex, 'col-reorder-drop-target');
+        clearColumnAttribute('col-reorder-drop-target');
+        setColumnAttribute(targetColumnIndex, 'col-reorder-drop-target');
       }, { signal });
 
       header.addEventListener('drop', event => {
         if (!sourceColumnKey || !sourceColumnIndex) {
-          clearColumnClass('col-reorder-drop-target');
+          clearColumnAttribute('col-reorder-drop-target');
           return;
         }
 
@@ -753,7 +757,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         const targetColumnKey = header.dataset.columnKey ?? null;
         const targetColumnIndex = header.getAttribute('col-index');
 
-        clearColumnClass('col-reorder-drop-target');
+        clearColumnAttribute('col-reorder-drop-target');
 
         if (!targetColumnKey || !targetColumnIndex || targetColumnIndex === sourceColumnIndex) {
           return;
@@ -768,19 +772,19 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   export function ResizeColumnDiscrete(gridElement: HTMLElement, column: string | undefined, change: number) {
-    const isGrid = gridElement.classList.contains('grid');
+    const isGrid = gridElement.getAttribute('display-mode') === 'grid';
     const columns: any[] = [];
     let headerBeingResized: HTMLElement | null | undefined;
 
     if (!column) {
       const targetElement = (document.activeElement as HTMLElement)?.parentElement;
-      if (!(targetElement && targetElement.classList.contains('column-header') && targetElement.classList.contains('resizable'))) {
+      if (!(targetElement && targetElement.getAttribute('cell-type') === 'columnheader' && targetElement.getAttribute('resizable') === 'true')) {
         return;
       }
       headerBeingResized = targetElement;
     }
     else {
-      headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]') as HTMLElement | null;
+      headerBeingResized = gridElement.querySelector("th[cell-type='columnheader'][col-index='" + column + "']") as HTMLElement | null;
     }
     grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
@@ -811,9 +815,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   }
 
   export function ResizeColumnExact(gridElement: HTMLElement, column: string, width: number) {
-    const isGrid = gridElement.classList.contains('grid');
+    const isGrid = gridElement.getAttribute('display-mode') === 'grid';
     const columns: any[] = [];
-    let headerBeingResized = gridElement.querySelector('.column-header[col-index="' + column + '"]') as HTMLElement | null;
+    let headerBeingResized = gridElement.querySelector("th[cell-type='columnheader'][col-index='" + column + "']") as HTMLElement | null;
 
     if (!headerBeingResized) {
       return;
@@ -856,7 +860,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
 
     gridElement.style.gridTemplateColumns = gridTemplateColumns;
-    gridElement.classList.remove('auto-fit');
+    gridElement.removeAttribute('auto-fit');
 
     const grid = grids.find(grid => grid.id === gridElement.id);
     if (grid) {
@@ -922,7 +926,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
    * logic measures columns throughout this file.
    */
   export function UpdatePinnedColumnOffsets(gridElement: HTMLElement) {
-    const isGrid = gridElement.classList.contains('grid');
+    const isGrid = gridElement.getAttribute('display-mode') === 'grid';
 
     /**
      * Returns the rendered pixel width of a header cell in a way that is consistent with
@@ -950,7 +954,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     // Start-pinned columns: process in DOM order.
     const startPinnedHeaders = Array.from(
-      gridElement.querySelectorAll('th.col-pinned-start')
+      gridElement.querySelectorAll("th[col-pinned='start']")
     ) as HTMLElement[];
 
     let startOffset = 0;
@@ -960,7 +964,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     // End-pinned columns: process in reverse DOM order.
     const endPinnedHeaders = Array.from(
-      gridElement.querySelectorAll('th.col-pinned-end')
+      gridElement.querySelectorAll("th[col-pinned='end']")
     ) as HTMLElement[];
 
     let endOffset = 0;

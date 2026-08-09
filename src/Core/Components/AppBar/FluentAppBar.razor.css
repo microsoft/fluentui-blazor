@@ -11,7 +11,7 @@
     background-color: var(--colorNeutralBackground2);
   }
 
-  .fluent-appbar .fluent-appbar-item {
+  .fluent-appbar .fluent-appbar-item, .fluent-appbar .fluent-appbar-more-item {
     --appbar-active-indicator-width: 2px;
     cursor: pointer;
     width: var(--appbar-item-size);
@@ -19,7 +19,8 @@
   }
 
 
-    .fluent-appbar .fluent-appbar-item:hover {
+    .fluent-appbar .fluent-appbar-item:hover,
+    .fluent-appbar .fluent-appbar-more-item:hover {
       background-color: var(--colorNeutralBackground5Hover);
     }
 
@@ -91,11 +92,15 @@
 .fluent-appbar-item:hover svg[part="icon-rest"],
 .fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
 .fluent-appbar-item:not(:hover) a.active svg[part="icon-rest"],
-.fluent-appbar-item[overflow] {
-    display: none;
+.fluent-appbar-item[overflow],
+.fluent-appbar-more-item:hover svg[part="icon-rest"],
+.fluent-appbar-more-item:not(:hover):not(.active) svg[part="icon-active"],
+.fluent-appbar-more-item[overflow] {
+  display: none;
 }
 
-.fluent-appbar-item:not(:hover) .active svg[part="icon-active"] {
+.fluent-appbar-item:not(:hover) .active svg[part="icon-active"],
+.fluent-appbar-more-item:not(:hover) .active svg[part="icon-active"] {
     display: block;
 }
 
@@ -103,6 +108,7 @@
     display: none;
 }
 
-.fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"] {
+.fluent-appbar-item[inpopover=true]:not(:hover) a.active svg[part="icon-rest"]
+{
     display: block;
 }

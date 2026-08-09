@@ -1,15 +1,18 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
-<CascadingValue Value="this" IsFixed="true">
-    <fluent-menu id="@Id"
-                 class="@ClassValue"
-                 style="@StyleValue"
-                 open-on-hover="@OpenOnHover"
-                 open-on-context="@OpenOnContext"
-                 close-on-scroll="@CloseOnScroll"
-                 persist-on-item-click="@PersistOnItemClick"
-                 @attributes="AdditionalAttributes">
-        @ChildContent
-    </fluent-menu>
-</CascadingValue>
+
+@if (_renderMenu)
+{
+    <CascadingValue Value="this" IsFixed="true">
+        <fluent-menu id="@Id"
+                     class="@ClassValue"
+                     style="@StyleValue"
+                     open-on-hover="@OpenOnHover"
+                     open-on-context="@OpenOnContext"
+                     close-on-scroll="@CloseOnScroll"
+                     persist-on-item-click="@PersistOnItemClick"
+                     @attributes="AdditionalAttributes">
+            @ChildContent
+        </fluent-menu>
+    </CascadingValue>
+}

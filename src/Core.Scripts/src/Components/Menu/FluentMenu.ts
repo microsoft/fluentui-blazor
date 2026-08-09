@@ -1,13 +1,17 @@
 import { Menu, MenuList } from "@fluentui/web-components";
+import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Menu {
+  const menuAbortControllers = new Map<string, AbortController>();
 
   /**
    * Initializes the menu by associating it with a trigger element and setting up the necessary styles for positioning.
    * @param id The id of the fluent-menu element to initialize.
    * @param triggerId The id of the trigger element that will open the menu when clicked.
+   * @param openMenu Whether to open the menu after initialization.
+   * @param dotNetHelper The .NET component notified when the menu's open state changes.
    */
-  export function Initialize(id: string, triggerId: string) {
+  export function Initialize(id: string, triggerId: string, openMenu: boolean, dotNetHelper?: DotNet.DotNetObject) {
     const initWithRetry = (attempt: number = 0) => {
       const trigger = document.getElementById(triggerId) as HTMLElement | null;
       const menu = document.getElementById(id) as Menu | null;
@@ -19,6 +23,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
       }
 
       trigger.style["anchor-name" as any] = `--anchor-${triggerId}`;
+
+      if (trigger.getAttribute("role") === null) {
+        trigger.setAttribute("role", "button");
+      }
 
       // Keep trigger wiring explicit for hosted surfaces (drawer/dialog/shadow-heavy layouts).
       menu.setAttribute("trigger", triggerId);
@@ -33,9 +41,31 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
 
       menuList.style["position-anchor" as any] = `--anchor-${triggerId}`;
       menu.slottedTriggersChanged(menu.slottedTriggers ?? [], [trigger]);
+
+      menuAbortControllers.get(id)?.abort();
+      if (dotNetHelper) {
+        const abortController = new AbortController();
+        menuAbortControllers.set(id, abortController);
+        menuList.addEventListener("toggle", (event: ToggleEvent) => {
+          void dotNetHelper.invokeMethodAsync("FluentMenu.OpenedChangedAsync", event.newState === "open");
+        }, { signal: abortController.signal });
+      }
+
+      if (openMenu) {
+        menu.openMenu();
+      }
     };
 
     initWithRetry();
+  }
+
+  /**
+   * Removes event listeners associated with the specified menu.
+   * @param id The id of the fluent-menu element to dispose.
+   */
+  export function Dispose(id: string) {
+    menuAbortControllers.get(id)?.abort();
+    menuAbortControllers.delete(id);
   }
 
   /**
