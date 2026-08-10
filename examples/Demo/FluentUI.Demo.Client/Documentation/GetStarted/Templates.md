@@ -2,11 +2,11 @@
 title: Templates
 order: 0015
 category: 10|Get Started
-route: /templates
+route: /Templates
 icon: Classification
 ---
 
-To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the [Microsoft.FluentUI.AspNetCore.Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/) template package. The package contains 4 Blazor templates for creating the following type of applications:
+To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the [Microsoft.FluentUI.AspNetCore.Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/) template package. The package contains 4 Blazor templates for creating the following types of applications:
 
 - Fluent Blazor Web App
 - Fluent Blazor WebAssembly Standalone App
