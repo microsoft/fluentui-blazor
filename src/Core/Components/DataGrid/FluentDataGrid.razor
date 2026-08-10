@@ -356,8 +356,9 @@
             <FluentDataGridCell Style="@style" colspan="@colspan">
                 @if (LoadingContent is null)
                 {
-                    <FluentStack HorizontalGap="3" HorizontalAlignment="@HorizontalAlignment.Center">
-                        <FluentSpinner Size="SpinnerSize.Medium" /> <div>Loading...</div>
+                    <FluentStack HorizontalGap="6" VerticalAlignment="@VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Center" Orientation="Orientation.Horizontal" >
+                        <FluentSpinner Size="SpinnerSize.Medium" />
+                        <div>Loading...</div>
                     </FluentStack>
                 }
                 else
