@@ -7,7 +7,7 @@
     <RuntimeVersion9>9.0.18</RuntimeVersion9>
     <AspNetCoreVersion9>9.0.18</AspNetCoreVersion9>
     <EfCoreVersion9>9.0.18</EfCoreVersion9>
-    <RuntimeVersion10>10.0.10</RuntimeVersion10>
+    <RuntimeVersion10>10.0.11</RuntimeVersion10>
     <AspNetCoreVersion10>10.0.10</AspNetCoreVersion10>
     <EfCoreVersion10>10.0.10</EfCoreVersion10>
   </PropertyGroup>
