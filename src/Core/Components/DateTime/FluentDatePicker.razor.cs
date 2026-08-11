@@ -193,7 +193,6 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
 
         await OnSelectedDateHandlerAsync(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>());
 
-
         if (!DateTime.TryParse(_input.CurrentValueOrDefault, Culture, DateTimeStyles.None, out _))
         {
             var formattedValue = FormatValueAsString(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>());
