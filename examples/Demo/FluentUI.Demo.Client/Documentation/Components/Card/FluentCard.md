@@ -53,14 +53,24 @@ Cards can be composed with other components to build rich elements for a page.
 
 Cards can be made selectable by toggling a local state on click and reflecting it visually, for example with a border and a checkmark indicator.
 
+To position the checkbox in the card's top-right corner, the `FluentCard` must have `position: relative;` so that it establishes the containing block 
+for the checkbox. The `FluentCheckbox` can then use `Style="position: absolute; top: 8px; right: 8px;"` to position itself 8 pixels 
+from the card's top and right edges.
+
 {{ CardExampleSelectable }}
 
-### With Action
+### Card with click event
 
-When giving a card a top-level click handler, it's important to ensure the same action can be done by a button or link within the card.
-This keeps the action accessible to screen reader, touch screen reader, keyboard, and voice control users.
+This card has a root click event that performs the `Open` action.
 
 {{ CardExampleWithAction }}
+
+### Linked Card
+
+When a card doesn't have a separate button within its contents, it usually makes the most sense for the card to become 
+the additional interactive element (a link in this example).
+
+{{ CardExampleWithLink }}
 
 ## API FluentCard
 

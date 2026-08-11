@@ -1,4 +1,4 @@
-@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
 
 <!-- Card with click event -->
 <FluentCard Padding="0" 
@@ -29,21 +29,6 @@
                 </FluentText>
             </FluentStack>
         </FluentStack>
-        
-        <FluentText Margin="@Margin.All2">
-            Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw.
-            Marshmallow pastry jujubes toffee sugar plum.
-        </FluentText>
-
-        <FluentStack HorizontalGap="8px"
-                     Width="unset"
-                     Margin="@Margin.All2">
-            <FluentButton IconStart="@(new Icons.Regular.Size20.Open())"
-                          inert
-                          Appearance="ButtonAppearance.Primary">
-                Open
-            </FluentButton>
-        </FluentStack>
 
     </FluentStack>
 </FluentCard>
@@ -63,6 +48,6 @@
 
     private void Open()
     {
-        DialogService.ShowInfoAsync("Opened Classroom Collaboration app", "Confirmation");
+        NavigationManager.NavigateTo("https://www.microsoft.com/");
     }
 }
