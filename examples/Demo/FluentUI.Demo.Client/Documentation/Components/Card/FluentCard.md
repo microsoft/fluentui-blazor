@@ -37,30 +37,30 @@ Adding a `OnClick` handler to a card will make it clickable, which is useful for
 
 A card is composed of regular components, such as avatars, text and buttons, laid out inside a `FluentCard`.
 
-{{ CardDefault }}
+{{ CardExampleDefault }}
 
 ### Composition
 
 Cards can be composed with other components to build rich elements for a page.
 
-{{ CardTemplatePowerpoint }}
+{{ CardExampleTemplatePowerpoint }}
 
 ### Filled appearance
 
-{{ CardFilledAppearance }}
+{{ CardExampleFilledAppearance }}
 
 ### Selectable
 
 Cards can be made selectable by toggling a local state on click and reflecting it visually, for example with a border and a checkmark indicator.
 
-{{ CardSelectable }}
+{{ CardExampleSelectable }}
 
 ### With Action
 
 When giving a card a top-level click handler, it's important to ensure the same action can be done by a button or link within the card.
 This keeps the action accessible to screen reader, touch screen reader, keyboard, and voice control users.
 
-{{ CardWithAction }}
+{{ CardExampleWithAction }}
 
 ## API FluentCard
 
