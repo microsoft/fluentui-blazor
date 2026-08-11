@@ -356,7 +356,7 @@
             <FluentDataGridCell Style="@style" colspan="@colspan">
                 @if (LoadingContent is null)
                 {
-                    <FluentStack HorizontalGap="6" VerticalAlignment="@VerticalAlignment.Center" HorizontalAlignment="HorizontalAlignment.Center" Orientation="Orientation.Horizontal" >
+                    <FluentStack HorizontalGap="6" VerticalAlignment="@VerticalAlignment.Center" HorizontalAlignment="@HorizontalAlignment.Center" Orientation="@Orientation.Horizontal">
                         <FluentSpinner Size="SpinnerSize.Medium" />
                         <div>@Localizer[Localization.LanguageResource.DataGrid_LoadingContent]</div>
                     </FluentStack>
