@@ -1,4 +1,4 @@
-@using Bunit.TestDoubles
+﻿@using Bunit.TestDoubles
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
@@ -166,6 +166,21 @@
         Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_SortMenu), cut.Markup);
         Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_ResizeMenu), cut.Markup);
         Assert.Contains(IFluentLocalizer.GetDefault(global::Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource.DataGrid_OptionsMenu), cut.Markup);
+    }
+
+    [Fact]
+    public void FluentDataGrid_DefaultLoadingContent()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@(Array.Empty<Customer>().AsQueryable())" Loading="true">
+                <ChildContent>
+                    <PropertyColumn Property="@(i => i.Name)" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        // Assert
+        cut.Verify();
     }
 
     [Fact]
