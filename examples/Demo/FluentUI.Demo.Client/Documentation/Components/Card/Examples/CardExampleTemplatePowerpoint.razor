@@ -1,19 +1,28 @@
 ﻿<FluentCard Width="300px">
     <FluentStack VerticalAlignment="VerticalAlignment.Center">
         <FluentImage Source="@PowerPointLogo" />
-        <FluentStack Orientation="Orientation.Vertical" Margin="@Margin.Horizontal2">
+        <FluentStack Orientation="Orientation.Vertical"
+                     Margin="@Margin.Horizontal2">
             <FluentText Weight="TextWeight.Semibold">
                 Team Offsite 2025
             </FluentText>
-            <FluentText Size="TextSize.Size200" Color="@Color.Custom" CustomColor="@SystemColors.Neutral.Foreground3">
+            <FluentText Size="TextSize.Size200"
+                        Color="@Color.Custom"
+                        CustomColor="@SystemColors.Neutral.Foreground3">
                 OneDrive > Presentations
             </FluentText>
         </FluentStack>
         <FluentSpacer />
-        <FluentButton Appearance="ButtonAppearance.Subtle"
+        <FluentButton Id="buttonTemplate"
+                      Appearance="ButtonAppearance.Subtle"
                       IconOnly="true"
-                      IconStart="@(new Icons.Regular.Size20.LineHorizontal1Dot())"
-                      OnClick="@(e => Console.WriteLine("Button clicked"))" />
+                      IconStart="@(new Icons.Regular.Size20.MoreHorizontal())" />
+        <FluentMenu Trigger="buttonTemplate">
+            <FluentMenuList>
+                <FluentMenuItem>Menu item 1</FluentMenuItem>
+                <FluentMenuItem>Menu item 2</FluentMenuItem>
+            </FluentMenuList>
+        </FluentMenu>
     </FluentStack>
 </FluentCard>
 
