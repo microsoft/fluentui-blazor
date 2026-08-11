@@ -16,7 +16,7 @@
   "devDependencies": {
     "@types/sortablejs": "^1.15.9",
     "@typescript-eslint/eslint-plugin": "8.65.0",
-    "@typescript-eslint/parser": "8.65.0",
+    "@typescript-eslint/parser": "8.66.0",
     "esbuild": "0.28.1",
     "esbuild-plugin-inline-css": "0.0.1",
     "eslint": "10.8.0",
