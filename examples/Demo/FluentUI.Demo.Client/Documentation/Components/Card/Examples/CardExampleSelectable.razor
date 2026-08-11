@@ -1,55 +1,66 @@
-<FluentStack HorizontalGap="12px" Wrap="true">
+<FluentStack HorizontalGap="12px"
+             Wrap="true">
 
-    @foreach (var item in _items)
+    @foreach (var item in Items)
     {
-        <div style="position: relative; width: 220px;">
-            <FluentCard Appearance="@(item.Selected ? CardAppearance.Outline : CardAppearance.Filled)"
-                        Style="@(item.Selected ? "outline: 2px solid var(--colorBrandStroke1);" : null)"
-                        OnClick="@(() => Toggle(item))">
-                <FluentStack Orientation="Orientation.Vertical" VerticalGap="8px">
-                    <FluentIcon Value="@(new Icons.Filled.Size48.Image())"
-                                Color="Color.Custom"
-                                CustomColor="@SystemColors.Neutral.Foreground3" />
-                    <FluentStack HorizontalGap="8px" VerticalAlignment="VerticalAlignment.Center">
-                        <FluentIcon Value="@(new Icons.Filled.Size24.AppGeneric())" Color="Color.Primary" />
-                        <FluentStack Orientation="Orientation.Vertical" VerticalGap="0px">
-                            <FluentText Weight="TextWeight.Semibold">@item.Title</FluentText>
-                            <FluentText Size="TextSize.Size200" Color="@Color.Custom" CustomColor="@SystemColors.Neutral.Foreground3">
-                                @item.Subtitle
-                            </FluentText>
-                        </FluentStack>
-                    </FluentStack>
-                </FluentStack>
-            </FluentCard>
+        <FluentCard Width="300px"
+                    Appearance="@(item.Selected ? CardAppearance.Filled : CardAppearance.Outline)"
+                    OnClick="@(() => Toggle(item))"
+                    Style="@("position: relative;" + (item.Selected ? CardStyleSelected : null))">
+            
+            <FluentCheckbox Value="@item.Selected"
+                            ReadOnly="true"
+                            Style="position: absolute; top: 8px; right: 8px; pointer-events: none;" />
 
-            @if (item.Selected)
-            {
-                <FluentIcon Value="@(new Icons.Filled.Size16.CheckmarkCircle())"
-                            Color="Color.Primary"
-                            Style="position: absolute; top: 8px; right: 8px; background: white; border-radius: 50%;" />
-            }
-        </div>
+            <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                <FluentImage Source="@item.ImageSource" 
+                             Width="32px" />
+                <FluentStack Orientation="Orientation.Vertical"
+                             Margin="@Margin.Horizontal2">
+                    <FluentText Weight="TextWeight.Semibold">
+                        @item.Title
+                    </FluentText>
+                    <FluentText Size="TextSize.Size200"
+                                Color="@Color.Custom"
+                                CustomColor="@SystemColors.Neutral.Foreground3">
+                        @item.Subtitle
+                    </FluentText>
+                </FluentStack>
+            </FluentStack>
+        </FluentCard>
     }
 
 </FluentStack>
 
 @code
 {
-    private readonly List<CardItem> _items =
+    // Use a Logo URL or a Base64 string for the image source.
+    // The base64 string is used here to avoid external dependencies.
+    // const string PowerPointLogoUrl = "https://static2.sharepointonline.com/files/fabric/assets/brand-icons/product/svg/powerpoint_48x1.svg";
+    // const string WordLogoUrl = "https://static2.sharepointonline.com/files/fabric/assets/brand-icons/product/svg/word_48x1.svg";
+    const string PowerPointLogo = "data:image/png;base64,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";
+    const string WordLogo = "data:image/png;base64,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";
+
+    // Style for selected card
+    // const string CardStyleSelected = ""; 
+    const string CardStyleSelected = "outline: var(--strokeWidthThick) solid var(--colorBrandStroke1);";
+
+    readonly List<CardItem> Items =
     [
-        new() { Title = "iOS App Prototype", Subtitle = "You created 53m ago" },
-        new() { Title = "Android App Prototype", Subtitle = "You created 1h ago" },
+        new() { Title = "Secret Project Briefing", Subtitle = "OneDrive > Documents", ImageSource = WordLogo },
+        new() { Title = "Team Budget", Subtitle = "OneDrive > Presentations", ImageSource = PowerPointLogo },
     ];
 
-    private void Toggle(CardItem item)
+    void Toggle(CardItem item)
     {
         item.Selected = !item.Selected;
     }
 
-    private class CardItem
+    class CardItem
     {
         public string Title { get; set; } = string.Empty;
         public string Subtitle { get; set; } = string.Empty;
+        public string ImageSource { get; set; } = PowerPointLogo;
         public bool Selected { get; set; }
     }
 }
