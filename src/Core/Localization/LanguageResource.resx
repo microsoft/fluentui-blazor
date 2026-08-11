@@ -393,4 +393,7 @@
   <data name="LabelInfo_InfoText" xml:space="preserve">
     <value>More information</value>
   </data>
+  <data name="DataGrid_LoadingContent" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
 </root>
