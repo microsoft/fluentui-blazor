@@ -855,6 +855,42 @@
         Assert.Contains("Production date is required", messages[0].TextContent);
     }
 
+    [Fact]
+    public void FluentDatePicker_SelectValidDate_ClearsValidationMessage()
+    {
+        // Arrange – fix "now" so the calendar renders a known month
+        var today = new System.DateTime(2024, 3, 1);
+        using var context = new DateTimeProviderContext(today);
+
+        var model = new DatePickerValidationModel();
+        var cut = Render(
+            @<EditForm Model="@model">
+                <DataAnnotationsValidator />
+                <FluentDatePicker TValue="DateTime?"
+                                  Label="Production Date"
+                                  Name="production-date"
+                                  Culture="@InvariantCulture"
+                                  @bind-Value="@model.ProductionDate" />
+            </EditForm>);
+
+        // Act – (2) enter an invalid date string to produce a validation message
+        var input = cut.Find("fluent-text-input");
+        input.Change("not-a-date");
+
+        // Validation message should now be present
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.NotEmpty(messages);
+
+        // Act – (3) open the calendar and select a valid date (15th of the current month)
+        input.Click();
+        var day = cut.Find(".day[value='2024-03-15']");
+        day.Click();
+
+        // Assert – (4) the validation message is cleared
+        var messagesAfter = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Empty(messagesAfter);
+    }
+
     private class DatePickerValidationModel
     {
         [Required(ErrorMessage = "Production date is required")]
