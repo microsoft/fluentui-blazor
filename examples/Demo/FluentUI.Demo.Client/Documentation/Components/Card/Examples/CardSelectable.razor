@@ -1,0 +1,55 @@
+<FluentStack HorizontalGap="12px" Wrap="true">
+
+    @foreach (var item in _items)
+    {
+        <div style="position: relative; width: 220px;">
+            <FluentCard Appearance="@(item.Selected ? CardAppearance.Outline : CardAppearance.Filled)"
+                        Style="@(item.Selected ? "outline: 2px solid var(--colorBrandStroke1);" : null)"
+                        OnClick="@(() => Toggle(item))">
+                <FluentStack Orientation="Orientation.Vertical" VerticalGap="8px">
+                    <FluentIcon Value="@(new Icons.Filled.Size48.Image())"
+                                Color="Color.Custom"
+                                CustomColor="@SystemColors.Neutral.Foreground3" />
+                    <FluentStack HorizontalGap="8px" VerticalAlignment="VerticalAlignment.Center">
+                        <FluentIcon Value="@(new Icons.Filled.Size24.AppGeneric())" Color="Color.Primary" />
+                        <FluentStack Orientation="Orientation.Vertical" VerticalGap="0px">
+                            <FluentText Weight="TextWeight.Semibold">@item.Title</FluentText>
+                            <FluentText Size="TextSize.Size200" Color="@Color.Custom" CustomColor="@SystemColors.Neutral.Foreground3">
+                                @item.Subtitle
+                            </FluentText>
+                        </FluentStack>
+                    </FluentStack>
+                </FluentStack>
+            </FluentCard>
+
+            @if (item.Selected)
+            {
+                <FluentIcon Value="@(new Icons.Filled.Size16.CheckmarkCircle())"
+                            Color="Color.Primary"
+                            Style="position: absolute; top: 8px; right: 8px; background: white; border-radius: 50%;" />
+            }
+        </div>
+    }
+
+</FluentStack>
+
+@code
+{
+    private readonly List<CardItem> _items =
+    [
+        new() { Title = "iOS App Prototype", Subtitle = "You created 53m ago" },
+        new() { Title = "Android App Prototype", Subtitle = "You created 1h ago" },
+    ];
+
+    private void Toggle(CardItem item)
+    {
+        item.Selected = !item.Selected;
+    }
+
+    private class CardItem
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Subtitle { get; set; } = string.Empty;
+        public bool Selected { get; set; }
+    }
+}
