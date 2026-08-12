@@ -168,7 +168,7 @@ NuGet packages:
      that reference them stay aligned for each target framework.
   3. Restore and build the solution:
        dotnet restore ./Microsoft.FluentUI-v5.slnx
-       dotnet build ./Microsoft.FluentUI-v5.slnx
+       dotnet build ./Microsoft.FluentUI-v5.slnx --configuration Release
 
 npm packages:
   1. Update the versions listed above in src/Core.Scripts/package.json and src/Charts.Scripts/package.json.
