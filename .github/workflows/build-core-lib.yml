@@ -40,7 +40,7 @@ jobs:
 
     steps:
      - name: Checkout source
-       uses: actions/checkout@v4
+       uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
      # - name: Setup .NET 9.0
      #   uses: actions/setup-dotnet@v4
@@ -49,7 +49,7 @@ jobs:
      #    dotnet-quality: ga
 
      - name: Setup .NET 10.0
-       uses: actions/setup-dotnet@v4
+       uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
        with:
         dotnet-version: 10.0.x
         dotnet-quality: ga
@@ -72,7 +72,7 @@ jobs:
      - name: Publish Unit Tests
        if: success() || failure()
        continue-on-error: true
-       uses: dorny/test-reporter@v1
+       uses: dorny/test-reporter@d61b558e8df85cb60d09ca3e5b09653b4477cea7 # v1
        with:
          name: Core Tests
          path: '**/*.trx'
@@ -119,14 +119,14 @@ jobs:
      - name: Publish unit tests summary
        if: success() || failure()
        continue-on-error: true
-       uses: marocchino/sticky-pull-request-comment@v2
+       uses: marocchino/sticky-pull-request-comment@773744901bac0e8cbb5a0dc842800d45e9b2b405 # v2.9.4
        with:
          header: Test Results
          path: ./TestResults/ExtractedTests.md
 
      # Test Coverage
      - name: Report Generator
-       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
+       uses: danielpalme/ReportGenerator-GitHub-Action@3e39bd1b454c2bac14560547e4394f9317672705 # 5.2.4
        with:
          reports: '**/coverage.cobertura.xml;**/coverage.*.cobertura.xml'
          targetdir: 'CoverageReports'
@@ -135,13 +135,13 @@ jobs:
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
-       uses: actions/upload-artifact@v4
+       uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
        with:
          name: CoverageReports
          path: CoverageReports
 
      - name: Publish coverage summary
-       uses: marocchino/sticky-pull-request-comment@v2
+       uses: marocchino/sticky-pull-request-comment@773744901bac0e8cbb5a0dc842800d45e9b2b405 # v2.9.4
        continue-on-error: true
        with:
          path: CoverageReports/SummaryGithub.md
