@@ -73,3 +73,7 @@ When using the up/down buttons or arrow keys, the value is always updated immedi
 ## API FluentNumberInput
 
 {{ API Type=FluentNumberInput<int> }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentNumberField }}
