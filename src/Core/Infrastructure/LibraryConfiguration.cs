@@ -77,7 +77,7 @@ public class LibraryConfiguration
     /// <summary>
     /// Static backing store for <see cref="ValidateClassNames"/>: shared process-wide, not per <see cref="LibraryConfiguration"/> instance.
     /// </summary>
-    private static bool s_validateClassNames = true;
+    private static volatile bool s_validateClassNames = true;
 
     /// <summary>
     /// Gets or sets the value indicating whether the library should validate CSS class names.
