@@ -74,19 +74,33 @@ public class LibraryConfiguration
     /// </summary>
     public bool UseGlobalOverlay { get; set; } = true;
 
-    /* TODO: Implement these properties
-     
+    /// <summary>
+    /// Static backing store for <see cref="ValidateClassNames"/>: shared process-wide, not per <see cref="LibraryConfiguration"/> instance.
+    /// </summary>
+    private static bool s_validateClassNames = true;
+
     /// <summary>
     /// Gets or sets the value indicating whether the library should validate CSS class names.
     /// respecting the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
     /// Default is true.
     /// </summary>
+    /// <remarks>
+    /// This setting is stored statically, so changing it applies to the whole application (all DI scopes/instances),
+    /// not just the current <see cref="LibraryConfiguration"/> instance.
+    /// </remarks>
     public bool ValidateClassNames
     {
-        get => Utilities.CssBuilder.ValidateClassNames;
-        set => Utilities.CssBuilder.ValidateClassNames = value;
+        get => s_validateClassNames;
+        set => s_validateClassNames = value;
     }
-    
+
+    /// <summary>
+    /// Gets the current, process-wide <see cref="ValidateClassNames"/> value for use by <see cref="Utilities.CssBuilder"/>.
+    /// </summary>
+    internal static bool ShouldValidateClassNames => s_validateClassNames;
+
+    /* TODO: Implement these properties
+
     /// <summary>
     /// Gets or sets the function that formats the URL of the collocated JavaScript file,
     /// adding the return value as a query string parameter.
