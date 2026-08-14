@@ -318,6 +318,20 @@
         Assert.Equal(expected, attribute);
     }
 
+    [Fact]
+    public void FluentSelect_ControlStyle_AppliesStyleToInternalControl()
+    {
+        // Arrange and Act
+        Render(@<FluentSelect ControlStyle="color: red;" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle");
+        Assert.Equal(3, invocation.Arguments.Count);
+        Assert.IsType<ElementReference>(invocation.Arguments[0]);
+        Assert.Equal(":host .control", invocation.Arguments[1]);
+        Assert.Equal("color: red;", invocation.Arguments[2]);
+    }
+
     [Theory]
     [InlineData("1", 1, null)]
     [InlineData("abc", 0, "The 'Unknown Bound Field' field is not valid.")]
