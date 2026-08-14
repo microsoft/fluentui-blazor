@@ -239,7 +239,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
             if (!string.IsNullOrEmpty(ControlStyle))
             {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ".control", ControlStyle);
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
             }
         }
     }
