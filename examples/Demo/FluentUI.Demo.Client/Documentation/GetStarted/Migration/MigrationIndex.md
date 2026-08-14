@@ -78,7 +78,8 @@ Each page below covers specific component changes, removed components, and new a
   | FluentBreadcrumb | *(no direct replacement)* | [Migration](/Migration/Breadcrumb) |
   | FluentDesignTheme / FluentDesignSystemProvider | CSS theming system | [Migration](/Migration/DesignTheme) |
   | FluentNavMenu / FluentNavMenuTree | `FluentNav` | [Migration](/Migration/NavMenu) |
-  | FluentTextField / FluentNumberField / FluentSearch | `FluentTextInput` | [Migration](/Migration/TextField) |
+  | FluentTextField / FluentSearch | `FluentTextInput` | [Migration](/Migration/TextField) |
+  | FluentNumberField | `FluentNumberInput` | [Migration](/Migration/NumberField) |
   | FluentToast / FluentToastProvider | `FluentMessageBar` | [Migration](/Migration/Toast) |
   | FluentToolbar | `FluentStack` | [Migration](/Migration/Toolbar) |
   | FluentWizard | *(no direct replacement)* | [Migration](/Migration/Wizard) |
@@ -94,5 +95,6 @@ Each page below covers specific component changes, removed components, and new a
   | FluentNav | `FluentNavMenu` / `FluentNavMenuTree` | [Migration](/Migration/NavMenu) |
   | FluentRatingDisplay | `FluentRating` | [Migration](/Migration/RatingDisplay) |
   | FluentText | `FluentLabel` (typography) | [Migration](/Migration/Text) |
-  | FluentTextInput | `FluentTextField` / `FluentNumberField` / `FluentSearch` | [Migration](/Migration/TextField) |
+  | FluentTextInput | `FluentTextField` / `FluentSearch` | [Migration](/Migration/TextField) |
+  | FluentNumberInput | `FluentNumberField` | [Migration](/Migration/NumberField) |
   | FluentTheme (CSS system) | `FluentDesignTheme` / `FluentDesignSystemProvider` | [Migration](/Migration/DesignTheme) |
