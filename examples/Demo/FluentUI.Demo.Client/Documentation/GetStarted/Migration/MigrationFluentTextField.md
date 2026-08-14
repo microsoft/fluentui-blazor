@@ -1,11 +1,10 @@
 ---
-title: Migration FluentTextField, FluentNumberField, FluentSearch
+title: Migration FluentTextField, FluentSearch
 route: /Migration/TextField
 hidden: true
 ---
 
 ### Two components merged into one 
-
 `FluentTextField` and `FluentSearch` have been **removed** in V5. They are all replaced by `FluentTextInput`.
 
 ### Component mapping

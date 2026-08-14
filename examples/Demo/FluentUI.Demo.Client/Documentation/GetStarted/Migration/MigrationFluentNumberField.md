@@ -16,9 +16,9 @@ hidden: true
 | `Appearance` (`FluentInputAppearance`) | `Appearance` (`TextInputAppearance`) | Enum renamed |
 | `Disabled` | `Disabled`  | Type changed from `bool` to `bool?` |
 | `Size` (`int?`) | `Size` (`TextInputSize?`) | Changed from pixel count to enum | 
-| `Min` (`string?`) | `Min` (`TValue?`) | Changed from `string?` to generic type | 
-| `Max` (`string?`) | `Max` (`TValue?`) | Changed from `string?` to generic type | 
-| `Step` (`string`) | `Step` (`TValue?`) | Changed from `string` to generic type | 
+| `Min` (`string?`) | `Min` (`TValue`) | Changed from `string?` to generic type | 
+| `Max` (`string?`) | `Max` (`TValue`) | Changed from `string?` to generic type | 
+| `Step` (`string`) | `Step` (`TValue`) | Changed from `string` to generic type | 
 
 
 ### Removed properties
