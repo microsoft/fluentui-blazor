@@ -1,5 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Components.TextInput
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
@@ -173,6 +174,93 @@
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-text-input")
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
+    }
+
+    [Fact]
+    public async Task FluentInputText_OnImmediate_OutOfOrderCompletion_LastValueWins()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<SlowFluentTextInput @bind-Value="@value" Immediate="true" ImmediateDelay="0" ProcessingDelayMs="30" />);
+        var element = cut.Find("fluent-text-input");
+
+        // Act: the older "first" keystroke starts processing (artificially slow)...
+        var firstTask = element.TriggerEventAsync("ontextimmediate", new ChangeEventArgs() { Value = "first" });
+
+        // ...while the newer "second" keystroke arrives and queues up right behind it.
+        var secondTask = element.TriggerEventAsync("ontextimmediate", new ChangeEventArgs() { Value = "second" });
+
+        await firstTask;
+        await secondTask;
+
+        // Assert: even though "first" only finishes processing after "second" was already
+        // queued, the newer value must win over the older, now-superseded one.
+        Assert.Equal("second", value);
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_WhileFocused_ValueAttributeStaysFrozen()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="true" ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: simulate the user typing while the field still has focus
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+
+        // Assert: the confirmed value updates, but the rendered native `value` stays frozen
+        // at what was displayed when focus started - it must never reset mid-typing.
+        Assert.Equal("typed", value);
+        Assert.Equal("init", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_OnFocusOut_UnfreezesAndResyncsValueAttribute()
+    {
+        // Arrange: focus and type while focused, so the rendered value freezes at "init"
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="true" ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+
+        // Act: the field loses focus
+        element.TriggerEvent("onfocusout", new FocusEventArgs());
+
+        // Assert: the rendered value resyncs to the confirmed text now that typing has stopped
+        Assert.Equal("typed", value);
+        Assert.Equal("typed", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_OnFocusIn_InvokesCallback()
+    {
+        // Arrange
+        FocusEventArgs? received = null;
+        var cut = Render(@<FluentTextInput OnFocusIn="@(e => received = e)" />);
+
+        // Act
+        cut.Find("fluent-text-input").TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Assert
+        Assert.NotNull(received);
+    }
+
+    [Fact]
+    public void FluentInputText_OnFocusOut_InvokesCallback_AndSetsFocusLost()
+    {
+        // Arrange
+        FocusEventArgs? received = null;
+        var cut = Render(@<FluentTextInput OnFocusOut="@(e => received = e)" />);
+
+        // Act
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        // Assert
+        Assert.NotNull(received);
+        Assert.True(cut.FindComponent<FluentTextInput>().Instance.FocusLost);
     }
 
     [Theory]
