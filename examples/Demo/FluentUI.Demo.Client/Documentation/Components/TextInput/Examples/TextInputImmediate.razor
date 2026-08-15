@@ -4,10 +4,11 @@
                      @bind-Value="@Value"
                      @bind-Value:after="@(() => Console.WriteLine($"TextInput updated to '{Value}'.") )"
                      Immediate="true"
-                     ImmediateDelay="10" />
+                     ImmediateDelay="400" />
 
     <FluentLabel>Value = @Value</FluentLabel>
 </FluentStack>
+
 
 @code
 {
