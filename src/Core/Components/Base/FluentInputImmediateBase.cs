@@ -83,6 +83,22 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     public int ImmediateDelay { get; set; } = 200;
 
     /// <summary>
+    /// Raised when the field gains focus. Since the native `onfocusin` DOM event is owned internally
+    /// by <see cref="FocusInHandlerAsync"/> (an <c>@onfocusin</c> passed via unmatched attributes would
+    /// silently replace it instead of merging), use this callback to observe focus-in from a consumer.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FocusEventArgs> OnFocusIn { get; set; }
+
+    /// <summary>
+    /// Raised when the field loses focus. Since the native `onfocusout` DOM event is owned internally
+    /// by <see cref="FocusOutHandlerAsync"/> (an <c>@onfocusout</c> passed via unmatched attributes would
+    /// silently replace it instead of merging), use this callback to observe focus-out from a consumer.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
+
+    /// <summary>
     /// Gets the string to render as the native element's `value`. While the field has focus, the value is
     /// frozen (never updated) since the server can never know about keystrokes the browser hasn't transmitted
     /// yet - re-rendering it mid-typing (e.g. under network/server latency) would reset the field to a stale,
@@ -153,27 +169,37 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     protected override bool ShouldRender() => _pendingImmediateText is null;
 
     /// <summary>
-    /// Marks the field as focused so <see cref="ImmediateValueAsString"/> freezes until it loses focus.
+    /// Marks the field as focused so <see cref="ImmediateValueAsString"/> freezes until it loses focus,
+    /// then forwards the event to <see cref="OnFocusIn"/> if a consumer is observing it.
     /// </summary>
     /// <param name="e"></param>
-    protected virtual Task FocusInHandlerAsync(FocusEventArgs e)
+    protected virtual async Task FocusInHandlerAsync(FocusEventArgs e)
     {
         _hasFocus = true;
-        return Task.CompletedTask;
+
+        if (OnFocusIn.HasDelegate)
+        {
+            await OnFocusIn.InvokeAsync(e);
+        }
     }
 
     /// <summary>
     /// Marks the field as touched (<see cref="IFluentField.FocusLost"/>) and unfreezes
-    /// <see cref="ImmediateValueAsString"/> so the next render resyncs it to the confirmed value.
+    /// <see cref="ImmediateValueAsString"/> so the next render resyncs it to the confirmed value,
+    /// then forwards the event to <see cref="OnFocusOut"/> if a consumer is observing it.
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    protected virtual async Task FocusOutHandlerAsync(FocusEventArgs e)
     {
         FocusLost = true;
         _hasFocus = false;
         _frozenValueAsString = null;
-        return Task.CompletedTask;
+
+        if (OnFocusOut.HasDelegate)
+        {
+            await OnFocusOut.InvokeAsync(e);
+        }
     }
 
     /// <summary>
