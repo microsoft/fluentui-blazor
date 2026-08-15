@@ -99,16 +99,22 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
 
     /// <summary>
-    /// Gets the string to render as the native element's `value`. While the field has focus, the value is
-    /// frozen (never updated) since the server can never know about keystrokes the browser hasn't transmitted
-    /// yet - re-rendering it mid-typing (e.g. under network/server latency) would reset the field to a stale,
-    /// already-superseded value and scramble what the user is typing. It resyncs to the latest known text
+    /// Gets the string to render as the native element's `value`. Only applies the freeze/pending
+    /// logic below when <see cref="Immediate"/> is enabled - otherwise there's no per-keystroke round
+    /// trip to protect against, so this just returns <see cref="InputBase{TValue}.CurrentValueAsString"/>
+    /// directly (never blocking a legitimate external value update while the field has focus).
+    /// While the field has focus in Immediate mode, the value is frozen (never updated) since the
+    /// server can never know about keystrokes the browser hasn't transmitted yet - re-rendering it
+    /// mid-typing (e.g. under network/server latency) would reset the field to a stale, already-
+    /// superseded value and scramble what the user is typing. It resyncs to the latest known text
     /// (the pending, not-yet-confirmed keystroke if any, else <see cref="InputBase{TValue}.CurrentValueAsString"/>)
     /// as soon as the field loses focus.
     /// </summary>
-    protected string? ImmediateValueAsString => _hasFocus
-        ? _frozenValueAsString ??= _pendingImmediateText ?? CurrentValueAsString
-        : _pendingImmediateText ?? CurrentValueAsString;
+    protected string? ImmediateValueAsString => !Immediate
+        ? CurrentValueAsString
+        : _hasFocus
+            ? _frozenValueAsString ??= _pendingImmediateText ?? CurrentValueAsString
+            : _pendingImmediateText ?? CurrentValueAsString;
 
     /// <summary>
     /// Handler for the OnInput event. The client already debounces by <see cref="ImmediateDelay"/> before
