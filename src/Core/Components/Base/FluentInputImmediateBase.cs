@@ -17,7 +17,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
 {
-    private int _immediateHandlersInProgress;
     private long _immediateSequence;
     private readonly SemaphoreSlim _immediateGate = new(1, 1);
     private string? _pendingImmediateText;
@@ -73,35 +72,26 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
         // from overwriting a value applied by a newer one.
         var sequence = Interlocked.Increment(ref _immediateSequence);
 
+        await _immediateGate.WaitAsync();
         try
         {
-            Interlocked.Increment(ref _immediateHandlersInProgress);
-
-            await _immediateGate.WaitAsync();
-            try
+            // A newer keystroke was already queued while this call waited: let it win instead.
+            if (Volatile.Read(ref _immediateSequence) != sequence)
             {
-                // A newer keystroke was already queued while this call waited: let it win instead.
-                if (Volatile.Read(ref _immediateSequence) != sequence)
-                {
-                    return;
-                }
-
-                await ChangeHandlerAsync(e);
-
-                // Nothing newer arrived meanwhile: the confirmed value now matches, drop the override.
-                if (Volatile.Read(ref _immediateSequence) == sequence)
-                {
-                    _pendingImmediateText = null;
-                }
+                return;
             }
-            finally
+
+            await ChangeHandlerAsync(e);
+
+            // Nothing newer arrived meanwhile: the confirmed value now matches, drop the override.
+            if (Volatile.Read(ref _immediateSequence) == sequence)
             {
-                _immediateGate.Release();
+                _pendingImmediateText = null;
             }
         }
         finally
         {
-            Interlocked.Decrement(ref _immediateHandlersInProgress);
+            _immediateGate.Release();
         }
     }
 
@@ -109,7 +99,7 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
     /// Renders only when the last immediate input event has been processed,
     /// to avoid sending intermediate values back to the browser while the user is still typing.
     /// </summary>
-    protected override bool ShouldRender() => Volatile.Read(ref _immediateHandlersInProgress) == 0;
+    protected override bool ShouldRender() => _pendingImmediateText is null;
 
     /// <summary>
     /// Marks the field as focused so <see cref="ImmediateValueAsString"/> freezes until it loses focus.

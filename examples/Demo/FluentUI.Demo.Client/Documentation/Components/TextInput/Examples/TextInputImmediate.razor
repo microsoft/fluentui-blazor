@@ -1,15 +1,13 @@
-﻿@page "/textinput-immediate"
-
-<FluentStack Orientation="Orientation.Vertical">
+﻿<FluentStack Orientation="Orientation.Vertical">
     <FluentTextInput Appearance="@TextInputAppearance.Outline"
                      Placeholder="Updated after 400ms"
                      @bind-Value="@Value"
+                     @bind-Value:after="@(() => Console.WriteLine($"TextInput updated to '{Value}'.") )"
                      Immediate="true"
                      ImmediateDelay="10" />
 
     <FluentLabel>Value = @Value</FluentLabel>
 </FluentStack>
-
 
 @code
 {

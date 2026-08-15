@@ -1,0 +1,30 @@
+@page "/textinput/debug/immediate-fast"
+<FluentStack>
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentTextInput Appearance="@TextInputAppearance.Outline"
+                         Placeholder="Updated after 10ms"
+                         @bind-Value="@Value1"
+                         @bind-Value:after="@(() => Console.WriteLine($"TextInput updated to '{Value1}'."))"
+                         Immediate="true"
+                         ImmediateDelay="10" />
+
+        <FluentLabel>Value = @Value1</FluentLabel>
+    </FluentStack>
+
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentTextInput Appearance="@TextInputAppearance.Outline"
+                         Placeholder="Updated after 400ms"
+                         @bind-Value="@Value2"
+                         @bind-Value:after="@(() => Console.WriteLine($"TextInput updated to '{Value2}'."))"
+                         Immediate="true"
+                         ImmediateDelay="400" />
+
+        <FluentLabel>Value = @Value2</FluentLabel>
+    </FluentStack>
+</FluentStack>
+
+@code
+{
+    string Value1 = "";
+    string Value2 = "";
+}
