@@ -203,10 +203,10 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+    protected override Task FocusOutHandlerAsync(FocusEventArgs e)
     {
         FocusLost = true;
-        return Task.CompletedTask;
+        return base.FocusOutHandlerAsync(e);
     }
 
     private string? DisplayShadow
