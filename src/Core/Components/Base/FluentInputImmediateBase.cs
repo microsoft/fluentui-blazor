@@ -9,13 +9,56 @@ using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/*
+    Technical notes: how "Immediate" mode avoids data loss under network/server latency
+    -------------------------------------------------------------------------------------
+
+    1. Client side (TextInput.ts, attachImmediateEvent)
+       - Every native 'input' event resets a short timer (ImmediateDelay, default 200ms).
+       - Once typing pauses for that long, a custom 'immediate' DOM event is dispatched,
+         carrying the element's CURRENT value read at dispatch time (not at keystroke time).
+       - This collapses a burst of fast keystrokes into a single event, reducing round trips.
+
+    2. Server side: keeping the confirmed value correct (InputHandlerAsync)
+       - Each 'immediate' event (@ontextimmediate) is a round trip (e.g. a SignalR message for
+         Blazor Server). Under latency, several of these can be in flight/queued at once, and
+         are NOT guaranteed to finish in the order they started.
+       - Every call is tagged with a monotonically increasing sequence number
+         (_immediateSequence) and serialized through a SemaphoreSlim (_immediateGate) so only
+         one ChangeHandlerAsync ever runs at a time.
+       - After acquiring the gate, a call re-checks whether it is still the latest sequence; if
+         a newer keystroke was already queued behind it, it is skipped (the newer call will
+         supersede it with a fresher value read from the DOM). This guarantees CurrentValue
+         always converges to the text of the LAST keystroke, never an older, superseded one.
+
+    3. Browser side: protecting what the user sees while typing (ImmediateValueAsString)
+       - Step 2 alone only protects the CONFIRMED value; it cannot protect the live DOM, because
+         the server can never know about a keystroke the browser hasn't transmitted yet (still
+         waiting out its own client-side debounce, or still in network transit).
+       - If Blazor re-renders and pushes any value back into the native element while the user is
+         still typing, it can reset the field to a stale, shorter string mid-keystroke, scrambling
+         what the user typed - confirmed via manual and scripted repro on a throttled/high-latency
+         connection.
+       - Fix: the rendered value is FROZEN while the field has focus (_hasFocus /
+         _frozenValueAsString) - Blazor never touches the native `value` while the user might
+         still be typing, and resyncs to the confirmed value only once the field loses focus
+         (FocusOutHandlerAsync). This is a hard guarantee, not a timing heuristic: a fixed-duration
+         "wait a bit before rendering" timer was considered and rejected, since it can always be
+         defeated by high-enough or variable network latency.
+
+    4. Render suppression (ShouldRender)
+       - Re-renders are also skipped, more generally, while a keystroke is known but not yet
+         confirmed (_pendingImmediateText is not null), avoiding flicker/unnecessary work in other
+         parts of the UI that read the bound Value while typing is still in progress.
+*/
+
 /// <summary>
 /// A base class for Fluent UI form input components, including an immediate validation mode (using the `OnInput` event).
 /// This base class automatically integrates with an <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>,
 /// which must be supplied as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
+public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
 {
     private long _immediateSequence;
     private readonly SemaphoreSlim _immediateGate = new(1, 1);
@@ -52,7 +95,8 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
         : _pendingImmediateText ?? CurrentValueAsString;
 
     /// <summary>
-    /// Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="InputBase{TValue}.ValueChanged"/> event too often.
+    /// Handler for the OnInput event. The client already debounces by <see cref="ImmediateDelay"/> before
+    /// dispatching it, so no additional delay is applied here.
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
@@ -112,7 +156,8 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
     }
 
     /// <summary>
-    /// Unfreezes <see cref="ImmediateValueAsString"/> so the next render resyncs it to the confirmed value.
+    /// Marks the field as touched (<see cref="IFluentField.FocusLost"/>) and unfreezes
+    /// <see cref="ImmediateValueAsString"/> so the next render resyncs it to the confirmed value.
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
