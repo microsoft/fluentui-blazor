@@ -55,8 +55,13 @@
                 {
                     @if (Virtualize)
                     {
-                        if (_internalGridContext.TotalItemCount == 0 && _virtualizeComponent is not null)
+                        if (_internalGridContext.TotalItemCount == 0 && _virtualizeItemsProvided)
                         {
+                            @* The provider has reported zero items, so this render replaces the Virtualize
+                               component with the empty content, disposing the instance captured by the @ref.
+                               Clear the reference so refreshes don't delegate to the dead instance;
+                               RefreshDataCoreAsync re-mounts Virtualize by resetting the flag (#5151). *@
+                            _virtualizeComponent = null;
                             @_renderEmptyContent
                         }
                         else

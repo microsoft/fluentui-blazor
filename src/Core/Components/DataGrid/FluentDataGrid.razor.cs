@@ -70,6 +70,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
     private bool _isFirstVirtualizeProviderCall = true;
+
+    // True once ProvideVirtualizedItemsAsync has applied a provider result. Gates the virtualized
+    // empty content: "zero items" only means "no data" after the provider has actually answered,
+    // not during the initial load window between the Virtualize mount and its first query (#5151).
+    private bool _virtualizeItemsProvided;
     private Exception? _lastError;
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
@@ -1353,9 +1358,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 _pendingDataLoadCancellationTokenSource = null;
                 return;
             }
-            // If Virtualize is true but we don't have a reference to the component yet,
-            // it means we're still in the first render. The Virtualize component will call us when it's ready,
-            // so we can just wait for that instead of trying to load data now.
+            // If Virtualize is true but we don't have a reference to the component, either we're still in
+            // the first render, or the empty content replaced (and disposed) the component after the
+            // provider reported zero items. Clear the flag so the re-render below re-mounts Virtualize;
+            // it will call us when it's ready, so we can just wait for that instead of trying to load
+            // data now (#5151).
+            _virtualizeItemsProvided = false;
             _pendingDataLoadCancellationTokenSource = null;
             thisLoadCts.Dispose();
             Loading = false;
@@ -1457,15 +1465,23 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // the current viewport. In the case where you're also paginating then it means what's conceptually on the current page.
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might
             //       be better if we let the last page only be as big as its number of actual rows.
+            var isFirstProviderResult = !_virtualizeItemsProvided;
+            var totalItemCountChanged = _internalGridContext.TotalItemCount != providerResult.TotalItemCount;
+
             _internalGridContext.TotalItemCount = providerResult.TotalItemCount;
             _internalGridContext.TotalViewItemCount = Pagination?.ItemsPerPage ?? providerResult.TotalItemCount;
+            _virtualizeItemsProvided = true;
 
             if (RefreshItems is null)
             {
                 Pagination?.SetTotalItemCountAsync(_internalGridContext.TotalItemCount);
             }
 
-            if ((_internalGridContext.TotalItemCount > 0 && Loading != false) || _lastError != null)
+            // The grid (not Virtualize) renders the empty content and the table's aria-rowcount, so it
+            // must re-render whenever the provider's answer changes what the grid shows: the first result
+            // (which may be "no data") and any change in the total count. Loads that keep the same total
+            // (scrolling) are rendered by Virtualize itself and skip this, as before (#5151).
+            if (isFirstProviderResult || totalItemCountChanged || Loading != false || _lastError != null)
             {
                 Loading = false;
                 _ = InvokeAsync(StateHasChanged);
