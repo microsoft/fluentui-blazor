@@ -25,7 +25,7 @@
                        control-size="@Size.ToAttributeValue()"
                        type="@TextInputType.ToAttributeValue()"
                        value="@ImmediateValueAsString"
-                       @onfocusin="@FocusInHandler"
+                       @onfocusin="@FocusInHandlerAsync"
                        @onfocusout="@FocusOutHandlerAsync"
                        @onchange="@ChangeHandlerAsync"
                        @ontextimmediate="@InputHandlerAsync"

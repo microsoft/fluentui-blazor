@@ -21,7 +21,7 @@
                        spellcheck="false"
                        control-size="@Size.ToAttributeValue()"
                        value="@ImmediateValueAsString"
-                       @onfocusin="@FocusInHandler"
+                       @onfocusin="@FocusInHandlerAsync"
                        @onfocusout="@FocusOutHandlerAsync"
                        @onchange="@ChangeHandlerAsync"
                        @ontextimmediate="@InputHandlerAsync"

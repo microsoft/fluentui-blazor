@@ -4,7 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -256,16 +255,5 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         result = value;
         validationErrorMessage = null;
         return true;
-    }
-
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected override Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return base.FocusOutHandlerAsync(e);
     }
 }

@@ -53,12 +53,6 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
         : _pendingImmediateText ?? CurrentValueAsString;
 
     /// <summary>
-    /// Marks the field as focused so <see cref="ImmediateValueAsString"/> freezes until it loses focus.
-    /// </summary>
-    /// <param name="e"></param>
-    protected virtual void FocusInHandler(FocusEventArgs e) => _hasFocus = true;
-
-    /// <summary>
     /// Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="InputBase{TValue}.ValueChanged"/> event too often.
     /// </summary>
     /// <param name="e"></param>
@@ -118,12 +112,23 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
     protected override bool ShouldRender() => Volatile.Read(ref _immediateHandlersInProgress) == 0;
 
     /// <summary>
+    /// Marks the field as focused so <see cref="ImmediateValueAsString"/> freezes until it loses focus.
+    /// </summary>
+    /// <param name="e"></param>
+    protected virtual Task FocusInHandlerAsync(FocusEventArgs e)
+    {
+        _hasFocus = true;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// Unfreezes <see cref="ImmediateValueAsString"/> so the next render resyncs it to the confirmed value.
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
     protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
     {
+        FocusLost = true;
         _hasFocus = false;
         _frozenValueAsString = null;
         return Task.CompletedTask;
