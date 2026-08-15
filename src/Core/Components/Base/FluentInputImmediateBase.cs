@@ -125,12 +125,19 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
                 return;
             }
 
-            await ChangeHandlerAsync(e);
-
-            // Nothing newer arrived meanwhile: the confirmed value now matches, drop the override.
-            if (Volatile.Read(ref _immediateSequence) == sequence)
+            try
             {
-                _pendingImmediateText = null;
+                await ChangeHandlerAsync(e);
+            }
+            finally
+            {
+                // Always clear (success, exception, or component teardown mid-flight) so a failure
+                // here can't leave ShouldRender() stuck returning false forever; the exception, if
+                // any, still propagates normally after this.
+                if (Volatile.Read(ref _immediateSequence) == sequence)
+                {
+                    _pendingImmediateText = null;
+                }
             }
         }
         finally
