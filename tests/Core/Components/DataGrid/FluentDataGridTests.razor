@@ -488,18 +488,20 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_Virtualize_NoEmptyContentBeforeFirstProviderResult()
+    public void FluentDataGrid_Virtualize_NoEmptyContentBeforeFirstProviderResult()
     {
         // Companion regression test for #5151: a re-render that happens after the Virtualize
         // component is mounted but before its first provider call completes must NOT latch the
         // empty content (doing so disposes Virtualize before it ever loads, killing the grid).
 
-        // Arrange
+        // Arrange: the provider is held open deterministically (no wall-clock timing) so the
+        // whole test runs inside the "first provider call has not completed yet" window.
         var items = GetRandomCustomers(10).ToList();
+        var providerHold = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 
         GridItemsProvider<Customer> itemsProvider = async req =>
         {
-            await Task.Delay(100); // Simulate async delay
+            await providerHold.Task;
             return GridItemsProviderResult.From<Customer>(
                 items: items.Skip(req.StartIndex).Take(req.Count ?? items.Count).ToArray(),
                 totalItemCount: items.Count);
@@ -518,12 +520,14 @@
 
         // Act: re-render during the initial load window (the provider has not answered yet)
         cut.Render();
-        await Task.Delay(50, Xunit.TestContext.Current.CancellationToken);
         cut.Render();
 
         // Assert: no empty content shown; the Virtualize spacer rows are still there
         Assert.Empty(cut.FindAll("tr[row-state=empty-content]"));
         Assert.NotEmpty(cut.FindAll("tbody tr[aria-hidden=true]"));
+
+        // Release the provider so any pending call completes before the renderer is disposed
+        providerHold.SetResult();
     }
 
     private async Task<GridItemsProviderResult<Customer>> RefreshItemsAsync(GridItemsProviderRequest<Customer> req)
