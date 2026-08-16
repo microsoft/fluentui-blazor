@@ -132,7 +132,15 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
 
         const focusSibling = () => {
+          // preventScroll keeps the focus event from scrolling ancestors on its own (the reason it
+          // was introduced for grids hosted in Drawers/Dialogs), but it also suppressed the scroll
+          // that keeps the focused cell visible: arrow navigation walked out of the viewport and,
+          // with Virtualize, never triggered loading the next rows, so navigation died at the edge
+          // of the rendered window. Scroll the cell into view explicitly with 'nearest' (minimal
+          // scrolling, no-op when already visible) to restore the pre-rc.5 behavior without
+          // re-introducing the dialog jumps.
           sibling?.focus({ preventScroll: true });
+          sibling?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
           start = sibling;
         };
 
