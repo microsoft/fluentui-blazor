@@ -121,11 +121,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
       }
     };
-    const keyboardNavigation = (sibling: HTMLElement | null) => {
-      // A truthy check also filters out undefined: the adjacent-cell lookups return undefined when
-      // navigating past the first/last row, and the strict null comparison let that through,
-      // throwing "Cannot read properties of undefined (reading 'matches')" on every extra key
-      // press at the dataset boundary.
+    // The adjacent-cell lookups return undefined when navigating past the first/last row, so the
+    // signature reflects it and the truthy guard below filters it out; the previous strict null
+    // comparison let undefined through, throwing "Cannot read properties of undefined (reading
+    // 'matches')" on every extra key press at the dataset boundary.
+    const keyboardNavigation = (sibling: HTMLElement | null | undefined) => {
       if (sibling) {
         // th elements are not focusable; transfer focus to the inner header button instead.
         if (sibling.matches('th')) {
@@ -134,6 +134,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
             sibling = headerButton;
           }
         }
+
+        // Resolved once per navigation step (not per focus retry) to keep the per-key work low.
+        const stickyHeader = gridElement.querySelector<HTMLElement>("tr[row-type='sticky-header']");
 
         const focusSibling = () => {
           // preventScroll keeps the focus event from scrolling ancestors on its own (the reason it
@@ -145,14 +148,20 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           // re-introducing the dialog jumps.
           // A sticky header row overlays the top edge of the scrollport, so a cell brought to the
           // very top by 'nearest' would land behind it: scroll-margin keeps the cell clear of the
-          // overlay (no-op for grids without a sticky header).
-          const stickyHeader = gridElement.querySelector<HTMLElement>("tr[row-type='sticky-header']");
-          if (sibling && stickyHeader && !stickyHeader.contains(sibling)) {
-            sibling.style.setProperty('scroll-margin-block-start', `${stickyHeader.offsetHeight}px`);
+          // overlay. The margin is re-derived from the current header height on every step and
+          // cleared when it does not apply, so no stale per-cell inline style survives header
+          // size changes or sticky toggling.
+          if (sibling) {
+            if (stickyHeader && !stickyHeader.contains(sibling)) {
+              sibling.style.setProperty('scroll-margin-block-start', `${stickyHeader.offsetHeight}px`);
+            }
+            else {
+              sibling.style.removeProperty('scroll-margin-block-start');
+            }
           }
           sibling?.focus({ preventScroll: true });
           sibling?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-          start = sibling;
+          start = sibling ?? null;
         };
 
         // Defer focusing until after the current key event completes so focus traps
