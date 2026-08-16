@@ -122,7 +122,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }
     };
     const keyboardNavigation = (sibling: HTMLElement | null) => {
-      if (sibling !== null) {
+      // A truthy check also filters out undefined: the adjacent-cell lookups return undefined when
+      // navigating past the first/last row, and the strict null comparison let that through,
+      // throwing "Cannot read properties of undefined (reading 'matches')" on every extra key
+      // press at the dataset boundary.
+      if (sibling) {
         // th elements are not focusable; transfer focus to the inner header button instead.
         if (sibling.matches('th')) {
           const headerButton = sibling.querySelector<HTMLElement>('[col-sort-button], [col-options-button]');
