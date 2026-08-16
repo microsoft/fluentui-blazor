@@ -1588,7 +1588,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private string? StyleValue => DefaultStyleBuilder
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
         .AddStyle("grid-template-rows", "auto 1fr", (_internalGridContext.Items.Count == 0 || Items is null || EffectiveLoadingValue) && DisplayMode == DataGridDisplayMode.Grid)
-        .AddStyle("height", "100%", _internalGridContext.TotalItemCount == 0 || EffectiveLoadingValue)
+        // The 100% stretch vertically centers the empty/loading content rows. It must NOT apply
+        // while a virtualized grid is still waiting for its first provider result: the only rows
+        // are the two zero-height Virtualize spacers, and stretching the table inflates them,
+        // defeating Virtualize's startup guard for the after spacer (spacerAfter.offsetHeight > 0).
+        // The stale "after spacer visible" observation is then applied once the real count arrives,
+        // so the grid jumped to the tail of the data set and back — a visible double flash and two
+        // wasted provider round-trips on every first load.
+        .AddStyle("height", "100%", (_internalGridContext.TotalItemCount == 0 && (!Virtualize || _virtualizeItemsProvided)) || EffectiveLoadingValue)
         .AddStyle("border-collapse", "separate", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("border-spacing", "0", GenerateHeader == DataGridGeneratedHeaderType.Sticky)
         .AddStyle("width", "100%", DisplayMode == DataGridDisplayMode.Table)

@@ -530,6 +530,52 @@
         providerHold.SetResult();
     }
 
+    [Fact]
+    public void FluentDataGrid_Virtualize_NoTableStretchBeforeFirstProviderResult()
+    {
+        // The 100% table stretch that centers the empty/loading content must not apply while a
+        // virtualized grid awaits its first provider result: the only rows are the zero-height
+        // Virtualize spacers, and stretching the table inflates them, defeating Virtualize's
+        // startup guard for the after spacer (spacerAfter.offsetHeight > 0) — the grid visibly
+        // jumps to the tail of the data set and back on every first load.
+
+        // Arrange: the provider is held open so the assertions run inside the initial load window
+        var providerHold = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        GridItemsProvider<Customer> itemsProvider = async req =>
+        {
+            await providerHold.Task;
+            return GridItemsProviderResult.From<Customer>(
+                items: Array.Empty<Customer>(), totalItemCount: 0);
+        };
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
+                @* Loading="false" (controlled): with uncontrolled loading the loading-content row
+                   replaces Virtualize and the stretch is legitimate — the poisoned window exists
+                   once Virtualize is mounted (spacers only) while TotalItemCount is still 0. *@
+                <FluentDataGrid TGridItem="Customer" ItemsProvider="itemsProvider" ItemSize=32 Virtualize="true" Loading="false" DisplayMode="DataGridDisplayMode.Table">
+                    <ChildContent>
+                        <PropertyColumn Property="@(x => x.Name)" />
+                    </ChildContent>
+                    <EmptyContent><p>empty content</p></EmptyContent>
+                </FluentDataGrid>
+            </div>
+        );
+
+        // Assert: no stretch during the initial load window (the provider has not answered yet)
+        Assert.DoesNotContain("height: 100%", cut.Find("table").GetAttribute("style"));
+
+        // Act: the provider reports the genuinely empty set
+        providerHold.SetResult();
+
+        // Assert: the empty content row is rendered and vertically centered again (stretch is back)
+        cut.WaitForAssertion(() =>
+        {
+            Assert.NotEmpty(cut.FindAll("tr[row-state=empty-content]"));
+            Assert.Contains("height: 100%", cut.Find("table").GetAttribute("style"));
+        });
+    }
+
     private async Task<GridItemsProviderResult<Customer>> RefreshItemsAsync(GridItemsProviderRequest<Customer> req)
     {
         await Task.Delay(100); // Simulate async delay
