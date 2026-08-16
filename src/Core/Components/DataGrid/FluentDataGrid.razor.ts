@@ -139,6 +139,13 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           // of the rendered window. Scroll the cell into view explicitly with 'nearest' (minimal
           // scrolling, no-op when already visible) to restore the pre-rc.5 behavior without
           // re-introducing the dialog jumps.
+          // A sticky header row overlays the top edge of the scrollport, so a cell brought to the
+          // very top by 'nearest' would land behind it: scroll-margin keeps the cell clear of the
+          // overlay (no-op for grids without a sticky header).
+          const stickyHeader = gridElement.querySelector<HTMLElement>("tr[row-type='sticky-header']");
+          if (sibling && stickyHeader && !stickyHeader.contains(sibling)) {
+            sibling.style.setProperty('scroll-margin-block-start', `${stickyHeader.offsetHeight}px`);
+          }
           sibling?.focus({ preventScroll: true });
           sibling?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
           start = sibling;
