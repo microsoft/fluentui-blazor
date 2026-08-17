@@ -3,12 +3,14 @@
 // ------------------------------------------------------------------------
 
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Specifies the overflow behavior for an item.
 /// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<OverflowBehavior>))]
 public enum OverflowBehavior
 {
     /// <summary>

@@ -5,6 +5,7 @@
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emojis.TravelPlaces</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis.TravelPlaces</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>

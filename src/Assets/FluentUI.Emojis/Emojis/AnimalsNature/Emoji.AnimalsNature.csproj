@@ -5,6 +5,7 @@
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emojis.AnimalsNature</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis.AnimalsNature</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>

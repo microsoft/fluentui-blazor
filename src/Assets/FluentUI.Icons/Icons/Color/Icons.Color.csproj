@@ -5,6 +5,7 @@
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons.Color</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons.Color</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
