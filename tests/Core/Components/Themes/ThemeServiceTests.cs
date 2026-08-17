@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Xunit;
@@ -427,10 +426,9 @@ public class ThemeServiceTests
     }
     private static T? GetPropertyValue<T>(object obj, string propertyName)
     {
-        var payload = Assert.IsType<ThemeSettingsDto>(obj);
-        var property = payload.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-        Assert.NotNull(property);
-        return (T?)property.GetValue(payload);
+        var payload = Assert.IsAssignableFrom<IReadOnlyDictionary<string, object?>>(obj);
+        Assert.True(payload.TryGetValue(propertyName, out var value));
+        return (T?)value;
     }
 
     private sealed class FakeJSRuntime : IJSRuntime

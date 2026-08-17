@@ -124,14 +124,16 @@ public sealed class ThemeService : IThemeService
     public Task SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference element, Theme theme)
         => InvokeVoidAsync("Blazor.theme.setBrandThemeToElementFromTheme", element, theme.ToDictionary());
 
-    private static ThemeSettingsDto CreateSettingsPayload(ThemeSettings settings, bool includeSystemMode = false)
+    private static Dictionary<string, object?> CreateSettingsPayload(ThemeSettings settings, bool includeSystemMode = false)
     {
-        return new ThemeSettingsDto(
-            settings.Color,
-            settings.HueTorsion,
-            settings.Vibrancy,
-            includeSystemMode || settings.Mode != ThemeMode.System ? settings.Mode.ToAttributeValue() : null,
-            settings.IsExact);
+        return new Dictionary<string, object?>(StringComparer.Ordinal)
+        {
+            ["color"] = settings.Color,
+            ["hueTorsion"] = settings.HueTorsion,
+            ["vibrancy"] = settings.Vibrancy,
+            ["mode"] = includeSystemMode || settings.Mode != ThemeMode.System ? settings.Mode.ToAttributeValue() : null,
+            ["isExact"] = settings.IsExact,
+        };
     }
 
     private Task InvokeVoidAsync(string identifier, params object?[] args)

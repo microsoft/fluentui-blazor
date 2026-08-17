@@ -5,6 +5,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
+#pragma warning disable FLUENTUI0001
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
@@ -102,3 +104,5 @@ public partial class Theme
     /// <returns></returns>
     public Theme FromJson(string json) => ThemeExtensions.FromJson(this, json);
 }
+
+#pragma warning restore FLUENTUI0001
