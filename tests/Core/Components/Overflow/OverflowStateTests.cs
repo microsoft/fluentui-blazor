@@ -13,7 +13,7 @@ public class OverflowStateTests
     public void OverflowState_DeserializesBrowserPayload()
     {
         // Arrange
-        const string Json = """
+        const string json = """
             {
               "overflowItems": [
                 { "id": "item-1", "overflow": true, "text": "Item 1", "behavior": "fixed", "index": 2 },
@@ -27,12 +27,13 @@ public class OverflowStateTests
             """;
 
         // Act
-        var state = JsonSerializer.Deserialize<OverflowState>(Json, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+        var state = JsonSerializer.Deserialize<OverflowState>(json, new JsonSerializerOptions(JsonSerializerDefaults.Web));
 
         // Assert
         Assert.NotNull(state);
+        Assert.NotNull(state.OverflowItems);
         Assert.Collection(
-            state.OverflowItems!,
+            state.OverflowItems,
             item => Assert.Equal(OverflowBehavior.Fixed, item.Behavior),
             item => Assert.Equal(OverflowBehavior.Ellipsis, item.Behavior),
             item => Assert.Null(item.Behavior));
