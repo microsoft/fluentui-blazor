@@ -1,4 +1,5 @@
 ﻿@using Bunit.TestDoubles
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
@@ -443,7 +444,7 @@
         // A later RefreshDataAsync, issued after the provider has data, must re-mount Virtualize
         // and leave the empty state instead of delegating to the disposed instance forever.
         // (bUnit cannot measure the viewport, so recovery is asserted through the empty content
-        // disappearing and the Virtualize spacer rows re-appearing, not through visible data rows.)
+        // disappearing and the Virtualize component re-appearing, not through visible data rows.)
 
         // Arrange
         FluentDataGrid<Customer>? grid = default!;
@@ -474,11 +475,13 @@
         items.AddRange(GetRandomCustomers(10));
         await cut.InvokeAsync(() => grid!.RefreshDataAsync());
 
-        // Assert: the empty content is gone and Virtualize is mounted again (its spacer rows are back)
+        // Assert: the empty content is gone and Virtualize is mounted again. Queried as a
+        // component (not through the spacer markup): the spacer rows only carry aria-hidden on
+        // net10, so a DOM selector is not TFM-agnostic.
         cut.WaitForAssertion(() =>
         {
             Assert.Empty(cut.FindAll("tr[row-state=empty-content]"));
-            Assert.NotEmpty(cut.FindAll("tbody tr[aria-hidden=true]"));
+            Assert.NotEmpty(cut.FindComponents<Virtualize<(int, Customer)>>());
         });
 
         // And a subsequent refresh reaches the provider again: the grid reflects the new total count
@@ -522,9 +525,11 @@
         cut.Render();
         cut.Render();
 
-        // Assert: no empty content shown; the Virtualize spacer rows are still there
+        // Assert: no empty content shown and Virtualize still mounted. Queried as a component
+        // (not through the spacer markup): the spacer rows only carry aria-hidden on net10, so a
+        // DOM selector is not TFM-agnostic.
         Assert.Empty(cut.FindAll("tr[row-state=empty-content]"));
-        Assert.NotEmpty(cut.FindAll("tbody tr[aria-hidden=true]"));
+        Assert.NotEmpty(cut.FindComponents<Virtualize<(int, Customer)>>());
 
         // Release the provider so any pending call completes before the renderer is disposed
         providerHold.SetResult();
