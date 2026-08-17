@@ -289,8 +289,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     private static FieldIdentifier CreateFieldIdentifier(LambdaExpression accessor)
     {
         var accessorBody = accessor.Body;
-        if (accessorBody is UnaryExpression { NodeType: ExpressionType.Convert, Type: not null } unaryExpression
-            && unaryExpression.Type == typeof(object))
+        while (accessorBody is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } unaryExpression)
         {
             accessorBody = unaryExpression.Operand;
         }
