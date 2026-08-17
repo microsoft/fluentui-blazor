@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFrameworks>$(AssetsNetVersion)</TargetFrameworks>
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
 		<IsTrimmable>true</IsTrimmable>
