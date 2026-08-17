@@ -48,7 +48,7 @@ public static class ThemeExtensions
     {
         var dico = theme.ToCompactDictionary();
         var data = System.Linq.Enumerable.ToDictionary(dico, x => x.Key, x => x.Value!, StringComparer.Ordinal);
-        return JsonSerializer.Serialize(data, ThemeJsonSerializerContext.Default.DictionaryStringObject);
+        return JsonSerializer.Serialize(data, FluentUIJsonSerializerContext.Default.DictionaryStringObject);
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public static class ThemeExtensions
     /// <returns></returns>
     public static Theme FromJson(this Theme Theme, string json)
     {
-        var data = JsonSerializer.Deserialize(json, ThemeJsonSerializerContext.Default.DictionaryStringObject);
+        var data = JsonSerializer.Deserialize(json, FluentUIJsonSerializerContext.Default.DictionaryStringObject);
         if (data is not null)
         {
             Theme.FromDictionary(data.ToDictionary(x => x.Key, x => (object?)x.Value, StringComparer.Ordinal));

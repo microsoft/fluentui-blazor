@@ -27,14 +27,7 @@ public sealed class ThemeService : IThemeService
     {
         var dict = await _jsRuntime.InvokeAsync<Dictionary<string, object?>?>(
                 "Blazor.theme.createBrandTheme",
-                new
-                {
-                    color = settings.Color,
-                    hueTorsion = settings.HueTorsion,
-                    vibrancy = settings.Vibrancy,
-                    mode = settings.Mode.ToAttributeValue(),
-                    isExact = settings.IsExact,
-                });
+                CreateSettingsPayload(settings, includeSystemMode: true));
 
         if (dict is null)
         {
@@ -84,14 +77,7 @@ public sealed class ThemeService : IThemeService
     public Task SetThemeAsync(ThemeSettings settings)
         => InvokeVoidAsync(
             "Blazor.theme.setBrandThemeFromSettings",
-            new
-            {
-                color = settings.Color,
-                hueTorsion = settings.HueTorsion,
-                vibrancy = settings.Vibrancy,
-                mode = settings.Mode == ThemeMode.System ? null : settings.Mode.ToAttributeValue(),
-                isExact = settings.IsExact,
-            });
+            CreateSettingsPayload(settings));
 
     /// <inheritdoc cref="IThemeService.SwitchDirectionAsync"/>
     public Task SwitchDirectionAsync()
@@ -117,14 +103,7 @@ public sealed class ThemeService : IThemeService
     public Task<IReadOnlyDictionary<string, string>?> GetColorRampFromSettingsAsync(ThemeSettings settings)
         => _jsRuntime.InvokeAsync<IReadOnlyDictionary<string, string>?>(
             "Blazor.theme.getColorRampFromSettings",
-            new
-            {
-                color = settings.Color,
-                hueTorsion = settings.HueTorsion,
-                vibrancy = settings.Vibrancy,
-                mode = settings.Mode == ThemeMode.System ? null : settings.Mode.ToAttributeValue(),
-                isExact = settings.IsExact,
-            }).AsTask();
+            CreateSettingsPayload(settings)).AsTask();
 
     /// <inheritdoc cref="IThemeService.GetBrandColorAsync"/>
     public Task<string> GetBrandColorAsync()
@@ -139,18 +118,21 @@ public sealed class ThemeService : IThemeService
         => InvokeVoidAsync(
             "Blazor.theme.setBrandThemeToElementFromSettings",
             element,
-            new
-            {
-                color = settings.Color,
-                hueTorsion = settings.HueTorsion,
-                vibrancy = settings.Vibrancy,
-                mode = settings.Mode == ThemeMode.System ? null : settings.Mode.ToAttributeValue(),
-                isExact = settings.IsExact,
-            });
+            CreateSettingsPayload(settings));
 
     /// <inheritdoc cref="IThemeService.SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference, Theme)"/>
     public Task SetThemeToElementAsync(Microsoft.AspNetCore.Components.ElementReference element, Theme theme)
         => InvokeVoidAsync("Blazor.theme.setBrandThemeToElementFromTheme", element, theme.ToDictionary());
+
+    private static ThemeSettingsDto CreateSettingsPayload(ThemeSettings settings, bool includeSystemMode = false)
+    {
+        return new ThemeSettingsDto(
+            settings.Color,
+            settings.HueTorsion,
+            settings.Vibrancy,
+            includeSystemMode || settings.Mode != ThemeMode.System ? settings.Mode.ToAttributeValue() : null,
+            settings.IsExact);
+    }
 
     private Task InvokeVoidAsync(string identifier, params object?[] args)
         => _jsRuntime.InvokeVoidAsync(identifier, args).AsTask();

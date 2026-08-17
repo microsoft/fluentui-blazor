@@ -427,9 +427,10 @@ public class ThemeServiceTests
     }
     private static T? GetPropertyValue<T>(object obj, string propertyName)
     {
-        var prop = obj.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance);
-        Assert.NotNull(prop);
-        return (T?)prop!.GetValue(obj);
+        var payload = Assert.IsType<ThemeSettingsDto>(obj);
+        var property = payload.GetType().GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+        Assert.NotNull(property);
+        return (T?)property.GetValue(payload);
     }
 
     private sealed class FakeJSRuntime : IJSRuntime
