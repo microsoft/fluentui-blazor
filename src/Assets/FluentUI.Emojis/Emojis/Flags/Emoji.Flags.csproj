@@ -5,6 +5,7 @@
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Emojis.Flags</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Emojis.Flags</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>

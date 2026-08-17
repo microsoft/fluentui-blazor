@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -289,8 +288,23 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     private static FieldIdentifier CreateFieldIdentifier(LambdaExpression accessor)
     {
-        var method = typeof(FieldIdentifier).GetMethod(nameof(FieldIdentifier.Create), BindingFlags.Public | BindingFlags.Static)!;
-        return (FieldIdentifier)method.MakeGenericMethod(accessor.ReturnType).Invoke(null, [accessor])!;
+        var accessorBody = accessor.Body;
+        if (accessorBody is UnaryExpression { NodeType: ExpressionType.Convert, Type: not null } unaryExpression
+            && unaryExpression.Type == typeof(object))
+        {
+            accessorBody = unaryExpression.Operand;
+        }
+
+        if (accessorBody is not MemberExpression { Expression: not null } memberExpression)
+        {
+            throw new ArgumentException($"The provided expression contains a {accessorBody.NodeType} which is not supported. Field identifiers only support simple member accessors.", nameof(accessor));
+        }
+
+        var model = Expression.Lambda<Func<object?>>(Expression.Convert(memberExpression.Expression, typeof(object)))
+            .Compile(preferInterpretation: true)()
+            ?? throw new ArgumentException("The provided expression must evaluate to a non-null value.", nameof(accessor));
+
+        return new FieldIdentifier(model, memberExpression.Member.Name);
     }
 
     private void DetachValidationStateChangedListener()

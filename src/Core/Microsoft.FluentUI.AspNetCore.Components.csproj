@@ -34,6 +34,7 @@
 
   <PropertyGroup>
     <IsTrimmable>true</IsTrimmable>
+    <IsAotCompatible>true</IsAotCompatible>
     <TrimMode>link</TrimMode>
     <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
   </PropertyGroup>

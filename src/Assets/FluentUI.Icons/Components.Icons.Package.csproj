@@ -5,6 +5,7 @@
 		<PackageId>Microsoft.FluentUI.AspNetCore.Components.Icons</PackageId>
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons</AssemblyName>
 		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<SignAssembly>false</SignAssembly>
 

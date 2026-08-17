@@ -97,7 +97,7 @@ public static partial class IconsExtensions
     {
         var allIcons = new List<IconInfo>();
 
-        foreach (var variant in Enum.GetValues(typeof(IconVariant)).Cast<IconVariant>())
+        foreach (var variant in Enum.GetValues<IconVariant>())
         {
             var assemblyName = string.Format(System.Globalization.CultureInfo.InvariantCulture, LibraryName, variant);
             var assembly = GetAssembly(assemblyName);
@@ -130,7 +130,7 @@ public static partial class IconsExtensions
         {
             return AppDomain.CurrentDomain
                             .GetAssemblies()
-                            .FirstOrDefault(i => string.Equals(i.ManifestModule.Name, assemblyName + ".dll", StringComparison.OrdinalIgnoreCase))
+                            .FirstOrDefault(i => string.Equals(i.GetName().Name, assemblyName, StringComparison.OrdinalIgnoreCase))
                 ?? Assembly.Load(assemblyName);
 
         }
