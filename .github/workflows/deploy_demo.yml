@@ -35,7 +35,7 @@ jobs:
       SKIP_DEPLOY_ON_MISSING_SECRETS: true
     steps:
       - name: Checkout source
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # - name: Setup .NET 9.0
       #   uses: actions/setup-dotnet@v4
@@ -44,13 +44,13 @@ jobs:
       #     dotnet-quality: ga
 
       - name: Setup .NET 10.0
-        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: 10.0.x
           dotnet-quality: ga
 
       - name: NPM Install
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           cache: 'npm'
           cache-dependency-path: src/Core.Assets/package-lock.json
@@ -65,7 +65,7 @@ jobs:
 
       - name: Deploy demo site to Azure Static Web App
         id: builddeploy
-        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
+        uses: Azure/static-web-apps-deploy@1a947af9992250f3bc2e68ad0754c0b0c11566c9 # v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_DESERT_0286DCF03 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -84,7 +84,7 @@ jobs:
     steps:
       - name: Close Pull Request on Azure Static Web App
         id: closepullrequest
-        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
+        uses: Azure/static-web-apps-deploy@1a947af9992250f3bc2e68ad0754c0b0c11566c9 # v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_BLUE_DESERT_0286DCF03 }}
           action: "close"
