@@ -149,7 +149,7 @@ public partial class FluentLayout : FluentComponentBase
         // Update the navigation items
         async Task RefreshNavigationItemsAsync()
         {
-            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Navigation))
+            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Navigation).ToList())
             {
                 await item.RefreshAsync();
             }
@@ -158,7 +158,7 @@ public partial class FluentLayout : FluentComponentBase
         // Update the hamburgers
         async Task RefreshHamburgersAsync()
         {
-            foreach (var item in Hamburgers)
+            foreach (var item in Hamburgers.ToList())
             {
                 await item.RefreshAsync();
             }
