@@ -121,8 +121,12 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
       }
     };
-    const keyboardNavigation = (sibling: HTMLElement | null) => {
-      if (sibling !== null) {
+    // The adjacent-cell lookups return undefined when navigating past the first/last row, so the
+    // signature reflects it and the truthy guard below filters it out; the previous strict null
+    // comparison let undefined through, throwing "Cannot read properties of undefined (reading
+    // 'matches')" on every extra key press at the dataset boundary.
+    const keyboardNavigation = (sibling: HTMLElement | null | undefined) => {
+      if (sibling) {
         // th elements are not focusable; transfer focus to the inner header button instead.
         if (sibling.matches('th')) {
           const headerButton = sibling.querySelector<HTMLElement>('[col-sort-button], [col-options-button]');
@@ -131,9 +135,33 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
           }
         }
 
+        // Resolved once per navigation step (not per focus retry) to keep the per-key work low.
+        const stickyHeader = gridElement.querySelector<HTMLElement>("tr[row-type='sticky-header']");
+
         const focusSibling = () => {
+          // preventScroll keeps the focus event from scrolling ancestors on its own (the reason it
+          // was introduced for grids hosted in Drawers/Dialogs), but it also suppressed the scroll
+          // that keeps the focused cell visible: arrow navigation walked out of the viewport and,
+          // with Virtualize, never triggered loading the next rows, so navigation died at the edge
+          // of the rendered window. Scroll the cell into view explicitly with 'nearest' (minimal
+          // scrolling, no-op when already visible) to restore the pre-rc.5 behavior without
+          // re-introducing the dialog jumps.
+          // A sticky header row overlays the top edge of the scrollport, so a cell brought to the
+          // very top by 'nearest' would land behind it: scroll-margin keeps the cell clear of the
+          // overlay. The margin is re-derived from the current header height on every step and
+          // cleared when it does not apply, so no stale per-cell inline style survives header
+          // size changes or sticky toggling.
+          if (sibling) {
+            if (stickyHeader && !stickyHeader.contains(sibling)) {
+              sibling.style.setProperty('scroll-margin-block-start', `${stickyHeader.offsetHeight}px`);
+            }
+            else {
+              sibling.style.removeProperty('scroll-margin-block-start');
+            }
+          }
           sibling?.focus({ preventScroll: true });
-          start = sibling;
+          sibling?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+          start = sibling ?? null;
         };
 
         // Defer focusing until after the current key event completes so focus traps
