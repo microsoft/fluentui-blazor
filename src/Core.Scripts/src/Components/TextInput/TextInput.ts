@@ -3,6 +3,28 @@ import * as FluentUIComponents from '@fluentui/web-components'
 export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
 
   /**
+   * Attach a datalist element to a text input element.
+   * To remove when the Bug https://github.com/microsoft/fluentui/issues/36585 is fixed in FluentUI Web Components.
+   * @param elementOrId - The text input element or its ID
+   * @param dataListId - The ID of the datalist element
+   */
+  export function attachDataList(elementOrId: HTMLElement | string, dataListId: string): void {
+    const list = document.getElementById(dataListId);
+    const textInput = typeof elementOrId === 'string' 
+                    ? document.getElementById(elementOrId) as FluentUIComponents.TextInput | null 
+                    : elementOrId as FluentUIComponents.TextInput | null;
+    const input = textInput?.shadowRoot?.querySelector("input");
+
+    if (!list || !input || !textInput) {
+      return;
+    }
+
+    textInput.shadowRoot?.getElementById(dataListId)?.remove();
+    textInput.shadowRoot?.append(list.cloneNode(true));
+    input.setAttribute("list", dataListId);
+  }
+
+  /**
   * Attach 'immediate' event handling to the input element.
   * @param {string} id - The element ID
   * @param {number} delay - The delay in milliseconds before raising 'immediate' event
