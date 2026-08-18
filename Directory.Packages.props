@@ -41,7 +41,7 @@
     <PackageVersion Include="Microsoft.OData.Client" Version="8.4.4" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23" />
     <PackageVersion Include="Microsoft.VisualStudioEng.MicroBuild.Core" Version="1.0.0" />
-    <PackageVersion Include="Microsoft.TypeScript.MSBuild" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.TypeScript.MSBuild" Version="7.0.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis.ResxSourceGenerator" Version="5.0.0-1.25277.114" />
     <!-- For templates generation -->
     <PackageVersion Include="System.CommandLine" Version="2.0.5" />
