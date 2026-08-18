@@ -1,4 +1,5 @@
 ﻿@using Bunit.TestDoubles
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
@@ -394,7 +395,11 @@
 
         Assert.NotEmpty(rows); // Asserting that there are rows present
         //Assert.Equal(101, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
-        Assert.Equal(2, rows.Count);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
+        // 21 = header row + the 20 items of the current page. This was the expected value before #4972;
+        // it regressed to 2 because the empty content could dispose the Virtualize component during
+        // initialization, and is restored by the #5151 fix (the empty content now only renders after
+        // the provider has reported a result).
+        Assert.Equal(21, rows.Count);
 
     }
 
@@ -429,6 +434,151 @@
 
         Assert.NotEmpty(rows); // Asserting that there are rows present
         Assert.True(rows.Count >= 1);  //In bUnit the actual height of the grid can't be determined, so we just check that at least one row is rendered.
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_Virtualize_RefreshDataAsync_RecoversFromEmpty()
+    {
+        // Regression test for #5151: with Virtualize="true", once the ItemsProvider reports
+        // TotalItemCount = 0 the empty content replaces (and disposes) the Virtualize component.
+        // A later RefreshDataAsync, issued after the provider has data, must re-mount Virtualize
+        // and leave the empty state instead of delegating to the disposed instance forever.
+        // (bUnit cannot measure the viewport, so recovery is asserted through the empty content
+        // disappearing and the Virtualize component re-appearing, not through visible data rows.)
+
+        // Arrange
+        FluentDataGrid<Customer>? grid = default!;
+        var items = new List<Customer>(); // empty at first — data not loaded yet
+
+        GridItemsProvider<Customer> itemsProvider = req =>
+            ValueTask.FromResult(GridItemsProviderResult.From<Customer>(
+                items: items.Skip(req.StartIndex).Take(req.Count ?? items.Count).ToArray(),
+                totalItemCount: items.Count));
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
+                <FluentDataGrid @ref="grid" TGridItem="Customer" ItemsProvider="itemsProvider" ItemSize=32 Virtualize="true" DisplayMode="DataGridDisplayMode.Table">
+                    <ChildContent>
+                        <PropertyColumn Property="@(x => x.Name)" />
+                    </ChildContent>
+                    <EmptyContent><p>empty content</p></EmptyContent>
+                </FluentDataGrid>
+            </div>
+        );
+
+        // Make the (still mounted) Virtualize query the provider: it reports zero items,
+        // so the grid must show the empty content
+        await cut.InvokeAsync(() => grid!.RefreshDataAsync());
+        cut.WaitForAssertion(() => Assert.NotEmpty(cut.FindAll("tr[row-state=empty-content]")));
+
+        // Act: data becomes available and the host refreshes the grid
+        items.AddRange(GetRandomCustomers(10));
+        await cut.InvokeAsync(() => grid!.RefreshDataAsync());
+
+        // Assert: the empty content is gone and Virtualize is mounted again. Queried as a
+        // component (not through the spacer markup): the spacer rows only carry aria-hidden on
+        // net10, so a DOM selector is not TFM-agnostic.
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Empty(cut.FindAll("tr[row-state=empty-content]"));
+            Assert.NotEmpty(cut.FindComponents<Virtualize<(int, Customer)>>());
+        });
+
+        // And a subsequent refresh reaches the provider again: the grid reflects the new total count
+        await cut.InvokeAsync(() => grid!.RefreshDataAsync());
+        cut.Render();
+        cut.WaitForAssertion(() => Assert.Equal("11", cut.Find("table").GetAttribute("aria-rowcount")));
+    }
+
+    [Fact]
+    public void FluentDataGrid_Virtualize_NoEmptyContentBeforeFirstProviderResult()
+    {
+        // Companion regression test for #5151: a re-render that happens after the Virtualize
+        // component is mounted but before its first provider call completes must NOT latch the
+        // empty content (doing so disposes Virtualize before it ever loads, killing the grid).
+
+        // Arrange: the provider is held open deterministically (no wall-clock timing) so the
+        // whole test runs inside the "first provider call has not completed yet" window.
+        var items = GetRandomCustomers(10).ToList();
+        var providerHold = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        GridItemsProvider<Customer> itemsProvider = async req =>
+        {
+            await providerHold.Task;
+            return GridItemsProviderResult.From<Customer>(
+                items: items.Skip(req.StartIndex).Take(req.Count ?? items.Count).ToArray(),
+                totalItemCount: items.Count);
+        };
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
+                <FluentDataGrid TGridItem="Customer" ItemsProvider="itemsProvider" ItemSize=32 Virtualize="true" DisplayMode="DataGridDisplayMode.Table">
+                    <ChildContent>
+                        <PropertyColumn Property="@(x => x.Name)" />
+                    </ChildContent>
+                    <EmptyContent><p>empty content</p></EmptyContent>
+                </FluentDataGrid>
+            </div>
+        );
+
+        // Act: re-render during the initial load window (the provider has not answered yet)
+        cut.Render();
+        cut.Render();
+
+        // Assert: no empty content shown and Virtualize still mounted. Queried as a component
+        // (not through the spacer markup): the spacer rows only carry aria-hidden on net10, so a
+        // DOM selector is not TFM-agnostic.
+        Assert.Empty(cut.FindAll("tr[row-state=empty-content]"));
+        Assert.NotEmpty(cut.FindComponents<Virtualize<(int, Customer)>>());
+
+        // Release the provider so any pending call completes before the renderer is disposed
+        providerHold.SetResult();
+    }
+
+    [Fact]
+    public void FluentDataGrid_Virtualize_NoTableStretchBeforeFirstProviderResult()
+    {
+        // The 100% table stretch that centers the empty/loading content must not apply while a
+        // virtualized grid awaits its first provider result: the only rows are the zero-height
+        // Virtualize spacers, and stretching the table inflates them, defeating Virtualize's
+        // startup guard for the after spacer (spacerAfter.offsetHeight > 0) — the grid visibly
+        // jumps to the tail of the data set and back on every first load.
+
+        // Arrange: the provider is held open so the assertions run inside the initial load window
+        var providerHold = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        GridItemsProvider<Customer> itemsProvider = async req =>
+        {
+            await providerHold.Task;
+            return GridItemsProviderResult.From<Customer>(
+                items: Array.Empty<Customer>(), totalItemCount: 0);
+        };
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
+                @* Loading="false" (controlled): with uncontrolled loading the loading-content row
+                   replaces Virtualize and the stretch is legitimate — the poisoned window exists
+                   once Virtualize is mounted (spacers only) while TotalItemCount is still 0. *@
+                <FluentDataGrid TGridItem="Customer" ItemsProvider="itemsProvider" ItemSize=32 Virtualize="true" Loading="false" DisplayMode="DataGridDisplayMode.Table">
+                    <ChildContent>
+                        <PropertyColumn Property="@(x => x.Name)" />
+                    </ChildContent>
+                    <EmptyContent><p>empty content</p></EmptyContent>
+                </FluentDataGrid>
+            </div>
+        );
+
+        // Assert: no stretch during the initial load window (the provider has not answered yet)
+        Assert.DoesNotContain("height: 100%", cut.Find("table").GetAttribute("style"));
+
+        // Act: the provider reports the genuinely empty set
+        providerHold.SetResult();
+
+        // Assert: the empty content row is rendered and vertically centered again (stretch is back)
+        cut.WaitForAssertion(() =>
+        {
+            Assert.NotEmpty(cut.FindAll("tr[row-state=empty-content]"));
+            Assert.Contains("height: 100%", cut.Find("table").GetAttribute("style"));
+        });
     }
 
     private async Task<GridItemsProviderResult<Customer>> RefreshItemsAsync(GridItemsProviderRequest<Customer> req)
