@@ -357,6 +357,19 @@ expectedAriaLabel)
     }
 
     [Fact]
+    public void FluentInputText_DataList_AttachesDataListToInternalControl()
+    {
+        // Arrange && Act
+        Render(@<FluentTextInput DataList="def" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList");
+        Assert.Equal(2, invocation.Arguments.Count);
+        Assert.IsType<ElementReference>(invocation.Arguments[0]);
+        Assert.Equal("def", invocation.Arguments[1]);
+    }
+
+    [Fact]
     public void FluentInputText_MaskPattern()
     {
         // Arrange && Act
