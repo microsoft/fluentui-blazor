@@ -131,12 +131,34 @@ public partial class FluentLayout : FluentComponentBase
         // Update the layout (Menu and Hamburger)
         if (NavigationDeferredLoading)
         {
-            foreach (var item in Hamburgers)
+            // Refresh the component currently rendering the navigation content first,
+            // so its SectionOutlet instances are disposed before the same content is
+            // rendered by the other component, avoiding duplicate subscriptions.
+            if (IsMobile)
+            {
+                await RefreshNavigationItemsAsync();
+                await RefreshHamburgersAsync();
+            }
+            else
+            {
+                await RefreshHamburgersAsync();
+                await RefreshNavigationItemsAsync();
+            }
+        }
+
+        // Update the navigation items
+        async Task RefreshNavigationItemsAsync()
+        {
+            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Navigation).ToList())
             {
                 await item.RefreshAsync();
             }
+        }
 
-            foreach (var item in Areas.Where(i => i.Area == LayoutArea.Navigation))
+        // Update the hamburgers
+        async Task RefreshHamburgersAsync()
+        {
+            foreach (var item in Hamburgers.ToList())
             {
                 await item.RefreshAsync();
             }
