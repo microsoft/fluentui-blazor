@@ -240,6 +240,11 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
             {
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
             }
+
+            if (!string.IsNullOrEmpty(DataList))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList", Element, DataList);
+            }
         }
     }
 
