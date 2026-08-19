@@ -27,7 +27,7 @@
     "@types/d3-time-format": "^4.0.3",
     "@types/d3-axis": "^3.0.6",
     "@types/d3-array": "^3.2.2",
-    "esbuild": "0.28.1",
+    "esbuild": "0.28.2",
     "esbuild-plugin-inline-css": "0.0.1",
     "glob": "^13.0.6",
     "rimraf": "6.1.3"
