@@ -35,7 +35,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.15" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="1.3.2" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.141" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.147" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
     <PackageVersion Include="Microsoft.OData.Client" Version="8.4.4" />
