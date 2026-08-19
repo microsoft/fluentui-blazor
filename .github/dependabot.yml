@@ -10,6 +10,9 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/"
     target-branch: "dev"
+    groups:
+      all-nuget-dependencies:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
 
@@ -17,6 +20,9 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/"
     target-branch: "dev-v5"
+    groups:
+      all-nuget-dependencies:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
 
@@ -25,6 +31,9 @@ updates:
     directories:
       - "/src/Core.Assets"
     target-branch: "dev"
+    groups:
+      all-npm-dependencies:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
 
@@ -34,6 +43,9 @@ updates:
       - "/src/Core.Scripts"
       - "/src/Charts.Scripts"
     target-branch: "dev-v5"
+    groups:
+      all-npm-dependencies:
+        patterns: ["*"]
     schedule:
       interval: "weekly"
   - package-ecosystem: "github-actions"
