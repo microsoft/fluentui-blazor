@@ -23,7 +23,9 @@
                              style="@DropdownStyle"
                              type="@DropdownType"
                              @ondropdownchange="@OnDropdownChangeHandlerAsync"
+                             @onfocusin="@(e => IsImmediate ? FocusInHandlerAsync(e) : Task.CompletedTask)"
                              @onfocusout="@FocusOutHandlerAsync"
+                             @ontextimmediate="@(e => IsImmediate ? InputHandlerAsync(e) : Task.CompletedTask)"
                              @attributes="@AdditionalAttributes">
                 <fluent-listbox style="@ListStyle" no-wrap="@OptionNoWrapMaxWidth">
                     @RenderOptions()

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -10,12 +11,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A FluentCombobox allows one option to be selected from multiple items.
 /// </summary>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TValue>
+public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TValue>, IFluentInputImmediate
 {
+    private readonly FluentInputImmediateManager _immediateManager;
     private TValue? _lastSelectedValue;
 
     /// <summary />
-    public FluentCombobox(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentCombobox(LibraryConfiguration configuration) : base(configuration)
+    {
+        _immediateManager = new FluentInputImmediateManager(this);
+    }
 
     /// <summary />
     protected override string DropdownType => "combobox";
@@ -34,6 +39,50 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     /// </summary>
     [Parameter]
     public Icon? Indicator { get; set; }
+
+    /// <summary>
+    /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
+    /// </summary>
+    [Parameter]
+    public bool Immediate { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, before to raise the event.
+    /// Default is 200 milliseconds.
+    /// </summary>
+    [Parameter]
+    public int ImmediateDelay { get; set; } = 200;
+
+    /// <summary>
+    /// Gets or sets the text to display in the input field when the user is typing (based on 'OnInput' HTML event).
+    /// This text is not bound to the `Value` property.
+    /// This property is only used when the <see cref="Immediate"/> property is set to `true` and <see cref="ImmediateDelay"/> is greater than 0.
+    /// </summary>
+    [Parameter]
+    public string? ImmediateText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback to invoke when the <see cref="ImmediateText"/> property changes.
+    /// This event is only raised when the <see cref="Immediate"/> property is set to `true` and <see cref="ImmediateDelay"/> is greater than 0.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> ImmediateTextChanged { get; set; }
+
+    /// <summary>
+    /// Raised when the field gains focus. Since the native `onfocusin` DOM event is owned internally
+    /// by <see cref="FocusInHandlerAsync"/> (an <c>@onfocusin</c> passed via unmatched attributes would
+    /// silently replace it instead of merging), use this callback to observe focus-in from a consumer.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FocusEventArgs> OnFocusIn { get; set; }
+
+    /// <summary>
+    /// Raised when the field loses focus. Since the native `onfocusout` DOM event is owned internally
+    /// by <see cref="FocusOutHandlerAsync"/> (an <c>@onfocusout</c> passed via unmatched attributes would
+    /// silently replace it instead of merging), use this callback to observe focus-out from a consumer.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
 
     /// <summary />
     protected override RenderFragment? RenderFreeFormOption()
@@ -59,6 +108,12 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+
+        if (!IsImmediate)
+        {
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
+        }
 
         if (Multiple)
         {
@@ -88,4 +143,26 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
             ? SelectedItems.FirstOrDefault()
             : default(TOption);
     }
+
+    /// <see cref="FluentInputImmediateManager.GetImmediateValueAsString(string?)" />
+    protected string? ImmediateValueAsString => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
+
+    /// <see cref="FluentInputImmediateManager.InputHandlerAsync(ChangeEventArgs, Func{ChangeEventArgs, Task})" />
+    protected override Task InputHandlerAsync(ChangeEventArgs e) => _immediateManager.InputHandlerAsync(e, ChangeHandlerAsync);
+
+    /// <see cref="FluentInputImmediateManager.ShouldRender" />
+    protected override bool ShouldRender() => _immediateManager.ShouldRender();
+
+    /// <see cref="FluentInputImmediateManager.FocusInHandlerAsync(FocusEventArgs)" />
+    protected override Task FocusInHandlerAsync(FocusEventArgs e) => _immediateManager.FocusInHandlerAsync(e);
+
+    /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Action?)" />
+    protected override async Task FocusOutHandlerAsync(FocusEventArgs e)
+    {
+        await base.FocusOutHandlerAsync(e);
+        await _immediateManager.FocusOutHandlerAsync(e, () => FocusLost = true);
+    }
+
+    /// <see cref="FluentInputImmediateManager.InitializeImmediateAsync(JSInterop.IJSRuntime, string?)" />
+    protected virtual Task InitializeImmediateAsync() => _immediateManager.InitializeImmediateAsync(JSRuntime, Id);
 }

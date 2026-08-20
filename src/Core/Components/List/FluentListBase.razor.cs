@@ -326,6 +326,22 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Handler for the OnFocusIn event.
+    /// Only used when the component implements <see cref="IFluentInputImmediate"/>.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusInHandlerAsync(FocusEventArgs e) => Task.CompletedTask;
+
+    /// <summary>
+    /// Handler for the OnInput event.
+    /// Only used when the component implements <see cref="IFluentInputImmediate"/>.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task InputHandlerAsync(ChangeEventArgs e) => Task.CompletedTask;
+
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
         // List of IDs received from the web component.

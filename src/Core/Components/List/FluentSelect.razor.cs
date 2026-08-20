@@ -20,6 +20,9 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
     protected virtual string DropdownType => "dropdown";
 
     /// <summary />
+    protected virtual bool IsImmediate => this is IFluentInputImmediate;
+
+    /// <summary />
     protected virtual string? DropdownStyle => new StyleBuilder()
         .Build();
 

@@ -1,0 +1,25 @@
+﻿<div>
+    Selected: @Value
+</div>
+
+<div>
+    FilterText: @FilterText
+</div>
+
+<FluentCombobox Label="Country"
+                Placeholder="Select your country"
+                Items="@FilteredCountries"
+                Multiple="false"
+                Immediate="true"
+                @bind-ImmediateText="@FilterText"
+                @bind-Value="@Value">
+</FluentCombobox>
+
+@code {
+    static string[] Countries = SampleData.Olympics2024.Countries.Select(i => i.Name).ToArray();
+
+    string? Value;
+    
+    string[] FilteredCountries = Countries;
+    string? FilterText;
+}
