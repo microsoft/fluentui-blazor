@@ -64,8 +64,8 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     /// <see cref="FluentInputImmediateManager.FocusInHandlerAsync(FocusEventArgs)" />
     protected virtual Task FocusInHandlerAsync(FocusEventArgs e) => _immediateManager.FocusInHandlerAsync(e);
 
-    /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Action?)" />
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e) => _immediateManager.FocusOutHandlerAsync(e, () => FocusLost = true);
+    /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Func{Task}?)" />
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e) => _immediateManager.FocusOutHandlerAsync(e, async () => FocusLost = true);
 
     /// <see cref="FluentInputImmediateManager.InitializeImmediateAsync(JSInterop.IJSRuntime, string?)" />
     protected virtual Task InitializeImmediateAsync() => _immediateManager.InitializeImmediateAsync(JSRuntime, Id);

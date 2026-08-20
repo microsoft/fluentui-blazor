@@ -54,16 +54,15 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     public int ImmediateDelay { get; set; } = 200;
 
     /// <summary>
-    /// Gets or sets the text to display in the input field when the user is typing (based on 'OnInput' HTML event).
-    /// This text is not bound to the `Value` property.
-    /// This property is only used when the <see cref="Immediate"/> property is set to `true` and <see cref="ImmediateDelay"/> is greater than 0.
+    /// Gets or sets the text displayed in the input field.
+    /// It is synchronized with the selected option text written to <c>input.value</c> when <c>Value</c> changes.
+    /// In immediate mode, user input changes are reported through <see cref="ImmediateTextChanged"/>.
     /// </summary>
     [Parameter]
     public string? ImmediateText { get; set; }
 
     /// <summary>
     /// Gets or sets the callback to invoke when the <see cref="ImmediateText"/> property changes.
-    /// This event is only raised when the <see cref="Immediate"/> property is set to `true` and <see cref="ImmediateDelay"/> is greater than 0.
     /// </summary>
     [Parameter]
     public EventCallback<string?> ImmediateTextChanged { get; set; }
@@ -125,7 +124,9 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
 
         if (!EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
         {
-            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, GetOptionText(selectedOption));
+            var selectedText = GetOptionText(selectedOption);
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, selectedText);
+            await UpdateImmediateTextAsync(selectedText);
         }
 
         _lastSelectedValue = selectedValue;
@@ -158,14 +159,35 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     /// <see cref="FluentInputImmediateManager.FocusInHandlerAsync(FocusEventArgs)" />
     protected override Task FocusInHandlerAsync(FocusEventArgs e) => _immediateManager.FocusInHandlerAsync(e);
 
-    /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Action?)" />
+    /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Func{Task}?)" />
     protected override async Task FocusOutHandlerAsync(FocusEventArgs e)
     {
         // Call the base FocusOutHandlerAsync to handle the focus out event and set FocusLost to true
         await base.FocusOutHandlerAsync(e);
-        await _immediateManager.FocusOutHandlerAsync(e, () => FocusLost = true);
+        await _immediateManager.FocusOutHandlerAsync(e, async () =>
+        {
+            FocusLost = true;
+
+            // Update the ImmediateText property with the selected option text when the combobox loses focus
+            var value = GetOptionText(GetSelectedSingleOption());
+            await UpdateImmediateTextAsync(value);
+        });
     }
 
     /// <see cref="FluentInputImmediateManager.InitializeImmediateAsync(JSInterop.IJSRuntime, string?)" />
     protected virtual Task InitializeImmediateAsync() => _immediateManager.InitializeImmediateAsync(JSRuntime, Id);
+
+    /// <summary />
+    private async Task UpdateImmediateTextAsync(string? value)
+    {
+        if (!string.Equals(ImmediateText, value, StringComparison.Ordinal))
+        {
+            ImmediateText = value;
+
+            if (ImmediateTextChanged.HasDelegate)
+            {
+                await ImmediateTextChanged.InvokeAsync(value);
+            }
+        }
+    }
 }

@@ -151,6 +151,26 @@
     }
 
     [Fact]
+    public void FluentCombobox_Binding_Updated_SynchronizesImmediateText()
+    {
+        string? value = "Two";
+        string? immediateText = null;
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          @bind-Value="@value"
+                                          @bind-ImmediateText="@immediateText" />);
+        var combobox = cut.FindComponent<FluentCombobox<string, string>>();
+
+        // Act
+        combobox.Render(parameters => parameters.Add(p => p.Value, "One"));
+
+        // Assert
+        Assert.Equal("One", combobox.Instance.ImmediateText);
+        Assert.Equal("One", immediateText);
+    }
+
+    [Fact]
     public void FluentCombobox_ImmediateTextChanged_RaisedOnImmediateInput()
     {
         string? value = "Two";
@@ -268,25 +288,33 @@
     }
 
     [Fact]
-    public async Task FluentCombobox_Option_Clicked()
+    public void FluentCombobox_Option_Clicked()
     {
         string? value = "One";
+        string? immediateText = null;
 
         // Arrange
-        var cut = Render(@<FluentCombobox Items="@Digits" @bind-Value="@value" />);
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          OptionText="@(item => item?.ToUpperInvariant())"
+                                          @bind-Value="@value"
+                                          @bind-ImmediateText="@immediateText" />);
+        var combobox = cut.FindComponent<FluentCombobox<string?, string?>>();
         var ids = cut.FindAll("fluent-option")
                      .Where(i => i.GetAttribute("value") == "Two")
                      .Select(i => i.GetAttribute("id"));
 
         // Act
-        await cut.FindComponent<FluentCombobox<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange", new DropdownEventArgs
         {
             SelectedOptions = string.Join(';', ids),
         });
+        combobox.Render(parameters => parameters.Add(p => p.Value, value));
 
         // Assert
         Assert.True(ids.Count() == 1, "List of IDs must be contain 1 items");
         Assert.Equal("Two", value);
+        Assert.Equal("TWO", immediateText);
+        Assert.Equal("TWO", combobox.Instance.ImmediateText);
     }
 
     [Theory]

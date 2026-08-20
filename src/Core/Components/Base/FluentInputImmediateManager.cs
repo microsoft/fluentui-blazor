@@ -227,12 +227,15 @@ internal sealed class FluentInputImmediateManager
     /// <summary>
     /// Marks the field as unfocused and invokes the focus-out callback.
     /// </summary>
-    internal async Task FocusOutHandlerAsync(FocusEventArgs e, Action? action = null)
+    internal async Task FocusOutHandlerAsync(FocusEventArgs e, Func<Task>? action = null)
     {
         _hasFocus = false;
         _frozenValueAsString = null;
 
-        action?.Invoke();
+        if (action is not null)
+        {
+            await action();
+        }
 
         if (_input.OnFocusOut.HasDelegate)
         {
