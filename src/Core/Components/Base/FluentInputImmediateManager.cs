@@ -9,6 +9,51 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /*
+    Use this Manager class to coordinate delayed input events and protect the rendered value while the user is typing.
+    Example usage in a component:
+
+    public class MyComponent : IFluentInputImmediate
+    {
+        private readonly FluentInputImmediateManager _immediateManager;
+
+        protected MyComponent()
+        {
+            _immediateManager = new FluentInputImmediateManager(this);
+        }
+
+        [Parameter]
+        public bool Immediate { get; set; } = false;
+
+        [Parameter]
+        public int ImmediateDelay { get; set; } = 200;
+
+        [Parameter]
+        public EventCallback<FocusEventArgs> OnFocusIn { get; set; }
+
+        [Parameter]
+        public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
+
+        protected string? ImmediateValueAsString
+            => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
+
+        protected virtual Task InputHandlerAsync(ChangeEventArgs e)
+            => _immediateManager.InputHandlerAsync(e, ChangeHandlerAsync);
+
+        protected override bool ShouldRender()
+            => _immediateManager.ShouldRender();
+
+        protected virtual Task FocusInHandlerAsync(FocusEventArgs e)
+            => _immediateManager.FocusInHandlerAsync(e);
+
+        protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
+            => _immediateManager.FocusOutHandlerAsync(e, () => FocusLost = true);
+
+        protected virtual Task InitializeImmediateAsync()
+            => _immediateManager.InitializeImmediateAsync(JSRuntime, Id);
+    }    
+*/
+
+/*
     Technical notes: how "Immediate" mode avoids data loss under network/server latency
     -------------------------------------------------------------------------------------
 
