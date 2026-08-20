@@ -6,10 +6,6 @@
                 OptionText="@(i => i?.Name)"
                 Items="@Countries"
                 @bind-Value="@Value">
-    <FreeOption>
-        Search for '
-        <FreeOptionOutput />'
-    </FreeOption>
 </FluentCombobox>
 
 <div>
@@ -36,10 +32,6 @@
                 OptionText="@(i => i?.Name)"
                 Items="@Countries"
                 @bind-SelectedItems="@SelectedItems">
-    <FreeOption>
-        Search for '
-        <FreeOptionOutput />'
-    </FreeOption>
 </FluentCombobox>
 
 <div>
