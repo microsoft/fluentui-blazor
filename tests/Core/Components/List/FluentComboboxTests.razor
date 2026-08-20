@@ -139,6 +139,7 @@
 
         // Arrange
         var cut = Render(@<FluentCombobox Items="@Digits" @bind-Value="@value" />);
+        var initialInvocationCount = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"].Count;
 
         // Act and re-render
         cut.FindComponent<FluentCombobox<string, string>>().Render(parameters => parameters.Add(p => p.Value, "One"));
@@ -146,8 +147,9 @@
 
         // Assert
         Assert.True(one.HasAttribute("selected"));
-        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue");
-        Assert.Equal("One", invocation.Arguments[1]);
+        var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"];
+        Assert.Equal(initialInvocationCount + 1, invocations.Count);
+        Assert.Equal("One", invocations[^1].Arguments[1]);
     }
 
     [Fact]
@@ -213,6 +215,7 @@
 
         // Arrange
         var cut = Render(@<FluentCombobox TOption="string" TValue="string" Items="@Digits" @bind-SelectedItems="@selectedItems" />);
+        var initialInvocationCount = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"].Count;
 
         // Act
         cut.FindComponent<FluentCombobox<string, string>>().Render(parameters => parameters.Add(p => p.SelectedItems, ["One"]));
@@ -220,8 +223,9 @@
 
         // Assert
         Assert.True(one.HasAttribute("selected"));
-        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue");
-        Assert.Equal("One", invocation.Arguments[1]);
+        var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"];
+        Assert.Equal(initialInvocationCount + 1, invocations.Count);
+        Assert.Equal("One", invocations[^1].Arguments[1]);
     }
 
     [Fact]
