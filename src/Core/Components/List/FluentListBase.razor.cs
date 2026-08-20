@@ -236,6 +236,12 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         }
 
         // Single item
+        if (CurrentValue is null && SelectedItems is not null && SelectedItems.FirstOrDefault() is { } selectedItem)
+        {
+            return OptionSelectedComparer?.Equals(item, selectedItem)
+                ?? EqualityComparer<TOption>.Default.Equals(item, selectedItem);
+        }
+
         if (OptionSelectedComparer != null && CurrentValue is TOption currentAsOption)
         {
             return OptionSelectedComparer.Equals(item, currentAsOption);

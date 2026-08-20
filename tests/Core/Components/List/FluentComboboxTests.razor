@@ -151,6 +151,24 @@
     }
 
     [Fact]
+    public void FluentCombobox_SelectedItemsBinding_Updated()
+    {
+        IEnumerable<string?> selectedItems = ["Two"];
+
+        // Arrange
+        var cut = Render(@<FluentCombobox TOption="string" TValue="string" Items="@Digits" @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        cut.FindComponent<FluentCombobox<string, string>>().Render(parameters => parameters.Add(p => p.SelectedItems, ["One"]));
+        var one = cut.Find("fluent-option[value='One']");
+
+        // Assert
+        Assert.True(one.HasAttribute("selected"));
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue");
+        Assert.Equal("One", invocation.Arguments[1]);
+    }
+
+    [Fact]
     public async Task FluentCombobox_Multiple()
     {
         string value = "One";

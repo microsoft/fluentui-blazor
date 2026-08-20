@@ -60,12 +60,20 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender && !Multiple && !EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, Value))
+        if (Multiple)
         {
-            var selectedOption = GetSelectedOption();
-            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, GetOptionText(selectedOption));
-            _lastSelectedValue = GetOptionValue(selectedOption);
+            return;
         }
+
+        var selectedOption = GetSelectedOption();
+        var selectedValue = GetOptionValue(selectedOption);
+
+        if (!firstRender && !EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
+        {
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, GetOptionText(selectedOption));
+        }
+
+        _lastSelectedValue = selectedValue;
     }
 
     /// <summary />
