@@ -65,10 +65,10 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
             return;
         }
 
-        var selectedOption = GetSelectedOption();
+        var selectedOption = GetSelectedSingleOption();
         var selectedValue = GetOptionValue(selectedOption);
 
-        if (!firstRender && !EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
+        if (!EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
         {
             await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, GetOptionText(selectedOption));
         }
@@ -77,13 +77,15 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     }
 
     /// <summary />
-    private TOption? GetSelectedOption()
+    private TOption? GetSelectedSingleOption()
     {
-        if (Value is not null && Value is TOption selectedValue)
+        if (Value is not null and TOption selectedValue)
         {
             return selectedValue;
         }
 
-        return SelectedItems is not null ? SelectedItems.FirstOrDefault() : default(TOption);
+        return SelectedItemsChanged.HasDelegate && SelectedItems is not null
+            ? SelectedItems.FirstOrDefault()
+            : default(TOption);
     }
 }
