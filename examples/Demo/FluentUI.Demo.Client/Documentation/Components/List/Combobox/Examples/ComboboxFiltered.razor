@@ -16,11 +16,6 @@
                 @bind-Value="@Value">
 </FluentCombobox>
 
-<FluentStack HorizontalGap="12px">
-    <FluentButton OnClick="@(() => ImmediateText = null)">Clear ImmediateText</FluentButton>
-    <FluentButton OnClick="@(() => ImmediateText = "Bel")">Write "Bel"</FluentButton>
-</FluentStack>
-
 @code {
     static string[] Countries = SampleData.Olympics2024.Countries.Select(i => i.Name).ToArray();
 

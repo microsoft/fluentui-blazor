@@ -30,9 +30,14 @@ For a better experience when displaying and selecting multiple items, use **Flue
 
 ## Single selection
 
+Set `Multiple="false"` to allow a single selection and display the selected item in the input.
+
 {{ ComboboxSingleSelect }}
 
 ## Immediate and Filtered
+
+Set `Immediate="true"` to update `ImmediateText` as the user types. 
+You can bind to `ImmediateText` and use its value to filter the list items.
 
 {{ ComboboxFiltered }}
 
