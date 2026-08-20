@@ -12,7 +12,7 @@
     Selected: @Value?.Code
 </div>
 
-<FluentStack>
+<FluentStack HorizontalGap="12px">
     <FluentButton OnClick="@(() => Value = null)">Clear selection</FluentButton>
     <FluentButton OnClick="@(() => Value = Countries.First(i => i.Code == "be"))">Select Belgium</FluentButton>
 </FluentStack>
@@ -20,29 +20,4 @@
 @code {
     static IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
     SampleData.Olympics2024.Country? Value = Countries.ElementAt(2);
-}
-
-<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
-
-<FluentCombobox Label="Country"
-                TOption="SampleData.Olympics2024.Country"
-                TValue="SampleData.Olympics2024.Country"
-                Placeholder="Select your country"
-                Multiple="false"
-                OptionText="@(i => i?.Name)"
-                Items="@Countries"
-                @bind-SelectedItems="@SelectedItems">
-</FluentCombobox>
-
-<div>
-    Selected: @SelectedItems.FirstOrDefault()?.Code
-</div>
-
-<FluentStack>
-    <FluentButton OnClick="@(() => SelectedItems = Enumerable.Empty<SampleData.Olympics2024.Country>())">Clear selection</FluentButton>
-    <FluentButton OnClick="@(() => SelectedItems = new List<SampleData.Olympics2024.Country> { Countries.First(i => i.Code == "be") })">Select Belgium</FluentButton>
-</FluentStack>
-
-@code {
-    IEnumerable<SampleData.Olympics2024.Country> SelectedItems = new List<SampleData.Olympics2024.Country> { Countries.ElementAt(2) };
 }
