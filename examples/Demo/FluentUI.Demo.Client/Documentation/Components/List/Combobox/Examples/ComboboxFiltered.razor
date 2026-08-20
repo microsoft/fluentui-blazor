@@ -1,0 +1,33 @@
+﻿<div>
+    Selected: @Value
+</div>
+
+<div>
+    ImmediateText: @ImmediateText
+</div>
+
+<FluentCombobox Label="Country"
+                Placeholder="Select your country"
+                Items="@FilteredCountries"
+                Multiple="true"
+                Immediate="true"
+                @bind-ImmediateText="@ImmediateText"
+                @bind-ImmediateText:after="@FilterCountries"
+                @bind-Value="@Value">
+</FluentCombobox>
+
+@code {
+    static string[] Countries = SampleData.Olympics2024.Countries.Select(i => i.Name).ToArray();
+
+    string? Value;
+
+    string[] FilteredCountries = Countries;
+    string? ImmediateText;
+
+    private void FilterCountries()
+    {
+        FilteredCountries = string.IsNullOrEmpty(ImmediateText)
+            ? Countries
+            : Countries.Where(i => i.Contains(ImmediateText, StringComparison.OrdinalIgnoreCase)).ToArray();
+    }
+}
