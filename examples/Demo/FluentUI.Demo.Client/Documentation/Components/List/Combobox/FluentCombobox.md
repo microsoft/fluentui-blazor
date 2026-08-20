@@ -44,7 +44,7 @@ to display the user text.
 
 You can change the appearance of the **FluentSelect** component by using the **appearance** or **Size** parameters.
 
-See a similar example on the [FluentSelect](/List/Select#appearance) page.
+See a similar example on the [FluentSelect](/Lists/Select#appearance) page.
 
 ## Customize the items
 
@@ -55,7 +55,7 @@ The following example shows how to customize the items:
 - `OptionValueToString`: This function is used to customize the HTML value of the option. <br />
 - `OptionDisabled`: This function is used to define the disabled options. <br />
 
-See a similar example on the [FluentSelect](/List/Select#customize-the-items) page.
+See a similar example on the [FluentSelect](/Lists/Select#customize-the-items) page.
 
 ## API FluentCombobox
 
