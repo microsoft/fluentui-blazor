@@ -39,6 +39,8 @@ Set `Multiple="false"` to allow a single selection and display the selected item
 Set `Immediate="true"` to update `ImmediateText` as the user types. 
 You can bind to `ImmediateText` and use its value to filter the list items.
 
+> [!WARNING] Immediate mode is only supported for single selection. Setting both `Immediate="true"` and `Multiple="true"` throws an `InvalidOperationException`.
+
 {{ ComboboxFiltered }}
 
 ## FreeOption

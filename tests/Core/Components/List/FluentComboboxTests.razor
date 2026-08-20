@@ -374,6 +374,21 @@
         Assert.Equal(new[] { "One", "Two" }, selectedItems);
     }
 
+    [Fact]
+    public void FluentCombobox_ImmediateWithMultiple_ThrowsInvalidOperationException()
+    {
+        // Arrange and Act
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            Render(@<FluentCombobox Multiple="true"
+                                     Immediate="true"
+                                     Items="@Digits"
+                                     TOption="string"
+                                     TValue="string" />));
+
+        // Assert
+        Assert.Equal("Immediate mode is not supported when Multiple selection is enabled.", exception.Message);
+    }
+
     [Theory]
     [InlineData("")]
     [InlineData(null)]

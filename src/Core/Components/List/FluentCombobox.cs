@@ -42,6 +42,8 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
 
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
+    /// This mode is not supported when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is enabled
+    /// and an <see cref="InvalidOperationException"/> is thrown when both parameters are set to <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool Immediate { get; set; } = false;
@@ -108,15 +110,20 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (Multiple && Immediate)
         {
-            // Initialize the 'immediate' custom event for the immediate mode
-            await InitializeImmediateAsync();
+            throw new InvalidOperationException("Immediate mode is not supported when Multiple selection is enabled.");
         }
 
         if (Multiple)
         {
             return;
+        }
+
+        if (firstRender)
+        {
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
         }
 
         var selectedOption = GetSelectedSingleOption();
