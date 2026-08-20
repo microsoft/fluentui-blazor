@@ -5,52 +5,8 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-
-/*
-    Technical notes: how "Immediate" mode avoids data loss under network/server latency
-    -------------------------------------------------------------------------------------
-
-    1. Client side (TextInput.ts, attachImmediateEvent)
-       - Every native 'input' event resets a short timer (ImmediateDelay, default 200ms).
-       - Once typing pauses for that long, a custom 'immediate' DOM event is dispatched,
-         carrying the element's CURRENT value read at dispatch time (not at keystroke time).
-       - This collapses a burst of fast keystrokes into a single event, reducing round trips.
-
-    2. Server side: keeping the confirmed value correct (InputHandlerAsync)
-       - Each 'immediate' event (@ontextimmediate) is a round trip (e.g. a SignalR message for
-         Blazor Server). Under latency, several of these can be in flight/queued at once, and
-         are NOT guaranteed to finish in the order they started.
-       - Every call is tagged with a monotonically increasing sequence number
-         (_immediateSequence) and serialized through a SemaphoreSlim (_immediateGate) so only
-         one ChangeHandlerAsync ever runs at a time.
-       - After acquiring the gate, a call re-checks whether it is still the latest sequence; if
-         a newer keystroke was already queued behind it, it is skipped (the newer call will
-         supersede it with a fresher value read from the DOM). This guarantees CurrentValue
-         always converges to the text of the LAST keystroke, never an older, superseded one.
-
-    3. Browser side: protecting what the user sees while typing (ImmediateValueAsString)
-       - Step 2 alone only protects the CONFIRMED value; it cannot protect the live DOM, because
-         the server can never know about a keystroke the browser hasn't transmitted yet (still
-         waiting out its own client-side debounce, or still in network transit).
-       - If Blazor re-renders and pushes any value back into the native element while the user is
-         still typing, it can reset the field to a stale, shorter string mid-keystroke, scrambling
-         what the user typed - confirmed via manual and scripted repro on a throttled/high-latency
-         connection.
-       - Fix: the rendered value is FROZEN while the field has focus (_hasFocus /
-         _frozenValueAsString) - Blazor never touches the native `value` while the user might
-         still be typing, and resyncs to the confirmed value only once the field loses focus
-         (FocusOutHandlerAsync). This is a hard guarantee, not a timing heuristic: a fixed-duration
-         "wait a bit before rendering" timer was considered and rejected, since it can always be
-         defeated by high-enough or variable network latency.
-
-    4. Render suppression (ShouldRender)
-       - Re-renders are also skipped, more generally, while a keystroke is known but not yet
-         confirmed (_pendingImmediateText is not null), avoiding flicker/unnecessary work in other
-         parts of the UI that read the bound Value while typing is still in progress.
-*/
 
 /// <summary>
 /// A base class for Fluent UI form input components, including an immediate validation mode (using the `OnInput` event).
@@ -58,16 +14,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// which must be supplied as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
+public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>, IFluentInputImmediate
 {
-    private long _immediateSequence;
-    private readonly SemaphoreSlim _immediateGate = new(1, 1);
-    private string? _pendingImmediateText;
-    private bool _hasFocus;
-    private string? _frozenValueAsString;
+    private readonly FluentInputImmediateManager _immediateManager;
 
     /// <summary />
-    protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration) { }
+    protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration)
+    {
+        _immediateManager = new FluentInputImmediateManager(this);
+    }
 
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
@@ -110,11 +65,7 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     /// (the pending, not-yet-confirmed keystroke if any, else <see cref="InputBase{TValue}.CurrentValueAsString"/>)
     /// as soon as the field loses focus.
     /// </summary>
-    protected string? ImmediateValueAsString => !Immediate
-        ? CurrentValueAsString
-        : _hasFocus
-            ? _frozenValueAsString ??= _pendingImmediateText ?? CurrentValueAsString
-            : _pendingImmediateText ?? CurrentValueAsString;
+    protected string? ImmediateValueAsString => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
 
     /// <summary>
     /// Handler for the OnInput event. The client already debounces by <see cref="ImmediateDelay"/> before
@@ -122,72 +73,20 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
-    protected virtual async Task InputHandlerAsync(ChangeEventArgs e)
-    {
-        if (!Immediate)
-        {
-            return;
-        }
-
-        // Cache what the browser currently shows before any await, so a render triggered while this
-        // call is still in flight reflects the latest typed text instead of an older confirmed value.
-        _pendingImmediateText = e.Value?.ToString();
-
-        // Order of arrival isn't guaranteed under network/server latency (e.g. a slow connection),
-        // so tag this call and serialize execution below to prevent an older, still in-flight call
-        // from overwriting a value applied by a newer one.
-        var sequence = Interlocked.Increment(ref _immediateSequence);
-
-        await _immediateGate.WaitAsync();
-        try
-        {
-            // A newer keystroke was already queued while this call waited: let it win instead.
-            if (Volatile.Read(ref _immediateSequence) != sequence)
-            {
-                return;
-            }
-
-            try
-            {
-                await ChangeHandlerAsync(e);
-            }
-            finally
-            {
-                // Always clear (success, exception, or component teardown mid-flight) so a failure
-                // here can't leave ShouldRender() stuck returning false forever; the exception, if
-                // any, still propagates normally after this.
-                if (Volatile.Read(ref _immediateSequence) == sequence)
-                {
-                    _pendingImmediateText = null;
-                }
-            }
-        }
-        finally
-        {
-            _immediateGate.Release();
-        }
-    }
+    protected virtual Task InputHandlerAsync(ChangeEventArgs e) => _immediateManager.InputHandlerAsync(e, ChangeHandlerAsync);
 
     /// <summary>
     /// Renders only when the last immediate input event has been processed,
     /// to avoid sending intermediate values back to the browser while the user is still typing.
     /// </summary>
-    protected override bool ShouldRender() => _pendingImmediateText is null;
+    protected override bool ShouldRender() => _immediateManager.ShouldRender();
 
     /// <summary>
     /// Marks the field as focused so <see cref="ImmediateValueAsString"/> freezes until it loses focus,
     /// then forwards the event to <see cref="OnFocusIn"/> if a consumer is observing it.
     /// </summary>
     /// <param name="e"></param>
-    protected virtual async Task FocusInHandlerAsync(FocusEventArgs e)
-    {
-        _hasFocus = true;
-
-        if (OnFocusIn.HasDelegate)
-        {
-            await OnFocusIn.InvokeAsync(e);
-        }
-    }
+    protected virtual Task FocusInHandlerAsync(FocusEventArgs e) => _immediateManager.FocusInHandlerAsync(e);
 
     /// <summary>
     /// Marks the field as touched (<see cref="IFluentField.FocusLost"/>) and unfreezes
@@ -196,27 +95,10 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     /// </summary>
     /// <param name="e"></param>
     /// <returns></returns>
-    protected virtual async Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        _hasFocus = false;
-        _frozenValueAsString = null;
-
-        if (OnFocusOut.HasDelegate)
-        {
-            await OnFocusOut.InvokeAsync(e);
-        }
-    }
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e) => _immediateManager.FocusOutHandlerAsync(e, () => FocusLost = true);
 
     /// <summary>
     /// Initializes the immediate event if the immediate mode is enabled.
     /// </summary>
-    protected virtual async Task InitializeImmediateAsync()
-    {
-        // Initialize the 'immediate' custom event for the immediate mode
-        if (Immediate)
-        {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent", Id, ImmediateDelay);
-        }
-    }
+    protected virtual Task InitializeImmediateAsync() => _immediateManager.InitializeImmediateAsync(JSRuntime, Id);
 }
