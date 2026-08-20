@@ -151,6 +151,42 @@
     }
 
     [Fact]
+    public void FluentCombobox_ImmediateTextChanged_RaisedOnImmediateInput()
+    {
+        string? value = "Two";
+        string? immediateText = null;
+
+        // Arrange
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          Value="@value"
+                                          Immediate="true"
+                                          ImmediateDelay="0"
+                                          ImmediateTextChanged="@(text => immediateText = text)" />);
+
+        // Act
+        cut.Find("fluent-dropdown").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "Th" });
+
+        // Assert
+        Assert.Equal("Th", immediateText);
+        Assert.Equal("Two", value);
+    }
+
+    [Fact]
+    public void FluentCombobox_Immediate_InitializesImmediateEvent()
+    {
+        // Arrange and Act
+        Render(@<FluentCombobox Items="@Digits"
+                                Immediate="true"
+                                ImmediateDelay="300"
+                                TOption="string"
+                                TValue="string" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent");
+        Assert.Equal(300, invocation.Arguments[1]);
+    }
+
+    [Fact]
     public void FluentCombobox_SelectedItemsBinding_Updated()
     {
         IEnumerable<string?> selectedItems = ["Two"];

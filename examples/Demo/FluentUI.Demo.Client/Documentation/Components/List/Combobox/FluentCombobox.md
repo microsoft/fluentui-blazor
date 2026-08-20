@@ -32,6 +32,10 @@ For a better experience when displaying and selecting multiple items, use **Flue
 
 {{ ComboboxSingleSelect }}
 
+## Immediate and Filtered
+
+{{ ComboboxFiltered }}
+
 ## FreeOption
 
 Comboboxes allow people to filter the list of options as they type.

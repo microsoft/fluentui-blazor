@@ -109,7 +109,7 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!IsImmediate)
+        if (firstRender)
         {
             // Initialize the 'immediate' custom event for the immediate mode
             await InitializeImmediateAsync();
@@ -148,7 +148,9 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     protected string? ImmediateValueAsString => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
 
     /// <see cref="FluentInputImmediateManager.InputHandlerAsync(ChangeEventArgs, Func{ChangeEventArgs, Task})" />
-    protected override Task InputHandlerAsync(ChangeEventArgs e) => _immediateManager.InputHandlerAsync(e, ChangeHandlerAsync);
+    protected override Task InputHandlerAsync(ChangeEventArgs e) => _immediateManager.InputHandlerAsync(e, ImmediateTextChangeHandlerAsync);
+
+    private Task ImmediateTextChangeHandlerAsync(ChangeEventArgs e) => ImmediateTextChanged.InvokeAsync(e.Value?.ToString());
 
     /// <see cref="FluentInputImmediateManager.ShouldRender" />
     protected override bool ShouldRender() => _immediateManager.ShouldRender();
@@ -159,6 +161,7 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Action?)" />
     protected override async Task FocusOutHandlerAsync(FocusEventArgs e)
     {
+        // Call the base FocusOutHandlerAsync to handle the focus out event and set FocusLost to true
         await base.FocusOutHandlerAsync(e);
         await _immediateManager.FocusOutHandlerAsync(e, () => FocusLost = true);
     }

@@ -3,7 +3,7 @@
 </div>
 
 <div>
-    FilterText: @FilterText
+    ImmediateText: @ImmediateText
 </div>
 
 <FluentCombobox Label="Country"
@@ -11,15 +11,28 @@
                 Items="@FilteredCountries"
                 Multiple="false"
                 Immediate="true"
-                @bind-ImmediateText="@FilterText"
+                @bind-ImmediateText="@ImmediateText"
+                @bind-ImmediateText:after="@FilterCountries"
                 @bind-Value="@Value">
 </FluentCombobox>
+
+<FluentStack HorizontalGap="12px">
+    <FluentButton OnClick="@(() => ImmediateText = null)">Clear ImmediateText</FluentButton>
+    <FluentButton OnClick="@(() => ImmediateText = "Bel")">Write "Bel"</FluentButton>
+</FluentStack>
 
 @code {
     static string[] Countries = SampleData.Olympics2024.Countries.Select(i => i.Name).ToArray();
 
     string? Value;
-    
+
     string[] FilteredCountries = Countries;
-    string? FilterText;
+    string? ImmediateText;
+
+    private void FilterCountries()
+    {
+        FilteredCountries = string.IsNullOrEmpty(ImmediateText)
+            ? Countries
+            : Countries.Where(i => i.Contains(ImmediateText, StringComparison.OrdinalIgnoreCase)).ToArray();
+    }
 }
