@@ -132,7 +132,7 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
         if (!EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
         {
             var selectedText = GetOptionText(selectedOption);
-            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, selectedText);
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, selectedText ?? string.Empty);
             await UpdateImmediateTextAsync(selectedText);
         }
 

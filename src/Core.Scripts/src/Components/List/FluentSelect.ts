@@ -47,7 +47,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
    */
   export function UpdateValue(id: string, value: string) {
     const element = document.getElementById(id) as FluentDropdownControl;
-    if (element &&element._control) {
+    if (element && element._control) {
       element._control.value = value;
     }
   }
