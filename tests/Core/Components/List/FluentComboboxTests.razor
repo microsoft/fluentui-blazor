@@ -107,6 +107,23 @@
     }
 
     [Fact]
+    public void FluentCombobox_Indicator_RendersIndicatorFragment()
+    {
+        // Arrange
+        var indicator = new Icons.Samples.Info();
+
+        // Act
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          TOption="string"
+                                          TValue="string"
+                                          Indicator="@indicator" />);
+
+        // Assert
+        var element = cut.Find("fluent-dropdown [slot='indicator']");
+        Assert.Equal("button", element.GetAttribute("role"));
+    }
+
+    [Fact]
     public void FluentCombobox_Default_InitialSelection()
     {
         string? value = "Two";
@@ -172,8 +189,10 @@
         Assert.Equal("One", immediateText);
     }
 
-    [Fact]
-    public void FluentCombobox_ImmediateTextChanged_RaisedOnImmediateInput()
+    [Theory]
+    [InlineData("Th")]
+    [InlineData(null)]
+    public void FluentCombobox_ImmediateTextChanged_RaisedOnImmediateInput(string? input)
     {
         string? value = "Two";
         string? immediateText = null;
@@ -186,10 +205,10 @@
                                           ImmediateTextChanged="@(text => immediateText = text)" />);
 
         // Act
-        cut.Find("fluent-dropdown").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "Th" });
+        cut.Find("fluent-dropdown").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = input });
 
         // Assert
-        Assert.Equal("Th", immediateText);
+        Assert.Equal(input, immediateText);
         Assert.Equal("Two", value);
     }
 
@@ -206,6 +225,94 @@
         // Assert
         var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent");
         Assert.Equal(300, invocation.Arguments[1]);
+    }
+
+    [Fact]
+    public void FluentCombobox_ImmediateParameters_DefaultValues()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox Items="@Digits" TOption="string" TValue="string" />);
+        var combobox = cut.FindComponent<FluentCombobox<string, string>>().Instance;
+
+        // Assert
+        Assert.IsAssignableFrom<IFluentInputImmediate>(combobox);
+        Assert.False(combobox.Immediate);
+        Assert.Equal(200, combobox.ImmediateDelay);
+        Assert.Null(combobox.ImmediateText);
+        Assert.False(combobox.ImmediateTextChanged.HasDelegate);
+        Assert.False(combobox.OnFocusIn.HasDelegate);
+        Assert.False(combobox.OnFocusOut.HasDelegate);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FluentCombobox_ImmediateValueAsString_ReturnsCurrentValue(bool immediate)
+    {
+        // Arrange
+        var combobox = new TestFluentCombobox<string, string>(LibraryConfiguration.Empty);
+        combobox.SetParameters(immediate, "Two");
+
+        // Act
+        var value = combobox.GetImmediateValueAsString();
+
+        // Assert
+        Assert.Equal("Two", value);
+    }
+
+    [Fact]
+    public void FluentCombobox_OnFocusIn_InvokesCallback()
+    {
+        // Arrange
+        FocusEventArgs? received = null;
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          TOption="string"
+                                          TValue="string"
+                                          OnFocusIn="@(e => received = e)" />);
+
+        // Act
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Assert
+        Assert.NotNull(received);
+    }
+
+    [Fact]
+    public void FluentCombobox_OnFocusOut_InvokesCallback_AndSetsFocusLost()
+    {
+        // Arrange
+        FocusEventArgs? received = null;
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          TOption="string"
+                                          TValue="string"
+                                          OnFocusOut="@(e => received = e)" />);
+
+        // Act
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        // Assert
+        Assert.NotNull(received);
+        Assert.True(cut.FindComponent<FluentCombobox<string, string>>().Instance.FocusLost);
+    }
+
+    [Fact]
+    public void FluentCombobox_OnFocusOut_ResynchronizesImmediateTextWithSelectedOption()
+    {
+        // Arrange
+        string? value = "Two";
+        string? immediateText = null;
+        var cut = Render(@<FluentCombobox Items="@Digits"
+                                          Value="@value"
+                                          @bind-ImmediateText="@immediateText" />);
+        var combobox = cut.FindComponent<FluentCombobox<string, string>>();
+        combobox.Render(parameters => parameters.Add(p => p.ImmediateText, "typed"));
+
+        // Act
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        // Assert
+        Assert.Equal("Two", combobox.Instance.ImmediateText);
+        Assert.Equal("Two", immediateText);
     }
 
     [Fact]
@@ -226,6 +333,21 @@
         var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"];
         Assert.Equal(initialInvocationCount + 1, invocations.Count);
         Assert.Equal("One", invocations[^1].Arguments[1]);
+    }
+
+    [Fact]
+    public void FluentCombobox_SelectedItemsBinding_Null_DoesNotSelectAnOption()
+    {
+        IEnumerable<string?>? selectedItems = null;
+
+        // Arrange and Act
+        var cut = Render(@<FluentCombobox TOption="string"
+                                          TValue="string"
+                                          Items="@Digits"
+                                          @bind-SelectedItems="@selectedItems" />);
+
+        // Assert
+        Assert.DoesNotContain(cut.FindAll("fluent-option"), option => option.HasAttribute("selected"));
     }
 
     [Fact]
@@ -368,5 +490,21 @@
         // Assert
         Assert.Equal(expectedParsedValue, parsedValue);
         Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
+    }
+
+    private sealed class TestFluentCombobox<TOption, TValue> : FluentCombobox<TOption, TValue>
+    {
+        public TestFluentCombobox(LibraryConfiguration configuration)
+            : base(configuration)
+        {
+        }
+
+        public void SetParameters(bool immediate, TValue? value)
+        {
+            Immediate = immediate;
+            Value = value;
+        }
+
+        public string? GetImmediateValueAsString() => ImmediateValueAsString;
     }
 }
