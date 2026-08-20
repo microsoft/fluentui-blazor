@@ -12,6 +12,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TValue))]
 public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TValue>
 {
+    private TValue? _lastRenderedValue;
+
     /// <summary />
     public FluentCombobox(LibraryConfiguration configuration) : base(configuration) { }
 
@@ -54,14 +56,27 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
     }
 
     /// <summary />
-    internal override async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnDropdownChangeHandlerAsync(e);
+        await base.OnAfterRenderAsync(firstRender);
 
-        if (!Multiple)
+        if (!firstRender && !Multiple && !EqualityComparer<TValue>.Default.Equals(_lastRenderedValue, Value))
         {
-            var valueToDisplay = SelectedItems.Any() ? GetOptionText(SelectedItems.FirstOrDefault()) : string.Empty;
+            var valueToDisplay = string.Empty;
+
+            if (Items is not null)
+            {
+                var selectedItem = Items.FirstOrDefault(GetOptionSelected);
+                valueToDisplay = GetOptionText(selectedItem) ?? string.Empty;
+            }
+            else if (Value is TOption selectedValue)
+            {
+                valueToDisplay = GetOptionText(selectedValue) ?? string.Empty;
+            }
+
             await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, valueToDisplay);
         }
+
+        _lastRenderedValue = Value;
     }
 }

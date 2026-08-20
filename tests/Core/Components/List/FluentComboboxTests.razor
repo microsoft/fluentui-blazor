@@ -146,6 +146,8 @@
 
         // Assert
         Assert.True(one.HasAttribute("selected"));
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue");
+        Assert.Equal("One", invocation.Arguments[1]);
     }
 
     [Fact]
