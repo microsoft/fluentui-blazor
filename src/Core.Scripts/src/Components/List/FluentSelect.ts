@@ -41,6 +41,18 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
   }
 
   /**
+   * Sets the value of the select component with the specified ID.
+   * @param id The ID of the select component.
+   * @param value The value to set.
+   */
+  export function UpdateValue(id: string, value: string) {
+    const element = document.getElementById(id) as FluentDropdownControl;
+    if (element &&element._control) {
+      element._control.value = value;
+    }
+  }
+
+  /**
    * Resolves the accessible label: the label of the parent fluent-field, then the placeholder, then a default text.
    */
   function getAccessibleLabel(element: HTMLElement): string {

@@ -1,0 +1,27 @@
+﻿<FluentCombobox Label="Country"
+                TOption="SampleData.Olympics2024.Country"
+                TValue="SampleData.Olympics2024.Country"
+                Placeholder="Select your country"
+                Multiple="false"
+                OptionText="@(i => i?.Name)"
+                Items="@Countries"
+                @bind-Value="@Value">
+    <FreeOption>
+        Search for '
+        <FreeOptionOutput />'
+    </FreeOption>
+</FluentCombobox>
+
+<div>
+    Selected: @Value?.Code
+</div>
+
+<FluentStack>
+    <FluentButton OnClick="@(() => Value = null)">Clear selection</FluentButton>
+    <FluentButton OnClick="@(() => Value = Countries.First(i => i.Code == "be"))">Select Belgium</FluentButton>
+</FluentStack>
+
+@code {
+    static IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+    SampleData.Olympics2024.Country? Value = Countries.ElementAt(2);
+}

@@ -1,10 +1,11 @@
 ﻿<FluentCombobox Label="Countries"
-                Placeholder="Select your countries"
+                Placeholder="@PlaceHolder"
                 Multiple="true"
                 OptionText="@(i => i?.Name)"
                 OptionValue="@(i => i?.Code)"
                 Items="@Countries"
-                @bind-SelectedItems="@SelectedCountries">
+                @bind-SelectedItems="@SelectedCountries"
+                @bind-SelectedItems:after="@DisplayPlaceholder">
                 <FreeOption>
                     Search for '<FreeOptionOutput />'
                 </FreeOption>
@@ -15,6 +16,16 @@
 </div>
 
 @code {
-    IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+    string PlaceHolder = "Select your countries";
+
+    static IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+
     IEnumerable<SampleData.Olympics2024.Country> SelectedCountries = [];
+
+    void DisplayPlaceholder()
+    {
+        PlaceHolder = SelectedCountries.Any() 
+                    ? $"{SelectedCountries.Count()} countries selected"
+                    : "Select your countries";
+    }
 }

@@ -22,10 +22,15 @@ The list of options won’t close until it is dismissed it, either by clicking o
 Set the `Multiple="true"` parameter to enable multiple selections.
 
 Because combobox inputs always allow people to enter information, the selections will not replace
-the placeholder text by default. For best usability, build in other ways to show people the selections they’ve made
-without opening the menu, like showing their choices as tags in the input (NOT YET IMPLEMENTED).
+the placeholder text by default.
+
+For a better experience when displaying and selecting multiple items, use **FluentAutocomplete**.
 
 {{ ComboboxDefault }}
+
+## Single selection
+
+{{ ComboboxSingleSelect }}
 
 ## FreeOption
 

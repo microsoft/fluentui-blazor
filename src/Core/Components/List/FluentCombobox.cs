@@ -52,4 +52,16 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
 
         return null;
     }
+
+    /// <summary />
+    internal override async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
+    {
+        await base.OnDropdownChangeHandlerAsync(e);
+
+        if (!Multiple)
+        {
+            var valueToDisplay = SelectedItems.Any() ? GetOptionText(SelectedItems.FirstOrDefault()) : string.Empty;
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, valueToDisplay);
+        }
+    }
 }

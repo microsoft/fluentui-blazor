@@ -1,0 +1,37 @@
+@page "/List/Combobox/Debug/immediate"
+
+<div>
+    Search text: @_filterText
+</div>
+<div>
+    Selected value: @_selectedValue
+</div>
+<div>
+    Options: @string.Join(", ", _filteredOptions)
+</div>
+
+<FluentCombobox Items="@_filteredOptions"
+                @bind-Value="@_selectedValue"
+                @bind-Text="@_filterText"
+                @bind-Text:after="@FilterOptions"
+                Immediate="true"
+                ImmediateDelay="200" />
+
+@code {
+    private readonly string[] _allOptions = ["Application started", "Request finished", "Response received"];
+    private string[] _filteredOptions = [];
+    private string? _filterText;
+    private string? _selectedValue;
+
+    protected override void OnInitialized()
+    {
+        _filteredOptions = _allOptions;
+    }
+
+    private void FilterOptions()
+    {
+        _filteredOptions = string.IsNullOrEmpty(_filterText)
+            ? _allOptions
+            : _allOptions.Where(option => option.Contains(_filterText, StringComparison.OrdinalIgnoreCase)).ToArray();
+    }
+}
