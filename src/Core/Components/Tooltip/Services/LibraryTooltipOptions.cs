@@ -29,7 +29,7 @@ public class LibraryTooltipOptions
 
     /// <summary>
     /// Gets or sets number of milliseconds to delay the tooltip from showing/hiding on hover.
-    /// Default is 250ms.
+    /// The default value is `null`. Internally the component uses 250ms when no value is provided.
     /// </summary>
     public int? Delay { get; set; }
 }
