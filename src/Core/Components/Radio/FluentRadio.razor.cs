@@ -99,7 +99,7 @@ public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
     /// <summary />
     internal string? GetLabel()
     {
-        if (LabelTemplate is not null)
+        if (LabelTemplate is not null || ChildContent is not null)
         {
             return null; // LabelTemplate will be rendered separately
         }

@@ -114,6 +114,25 @@
     }
 
     [Fact]
+    public void FluentRadio_Label_LabelTemplateAndChildContent()
+    {
+        // Arrange
+        var cut = Render(
+            @<FluentRadioGroup TValue="string">
+                <FluentRadio Id="MyOption" TValue="string">
+                    <LabelTemplate>LabelTemplate</LabelTemplate>
+                    <ChildContent>Content</ChildContent>
+                </FluentRadio>
+            </FluentRadioGroup>);
+
+        // Act
+        var label = cut.Find("label").TextContent.Replace("\n", "").Replace("\r", "").Replace(" ", "");
+
+        // Assert
+        Assert.Equal("LabelTemplateContent", label);
+    }
+
+    [Fact]
     public void FluentRadio_Name()
     {
         // Arrange & Act
