@@ -21,4 +21,15 @@ public class LibraryTooltipOptions
     /// If set to true, add the FluentTooltipProvider component at end of the MainLayout.razor page.
     /// </summary>
     public bool UseServiceProvider { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the default tooltip positioning.
+    /// </summary>
+    public Positioning? Positioning { get; set; }
+
+    /// <summary>
+    /// Gets or sets number of milliseconds to delay the tooltip from showing/hiding on hover.
+    /// Default is 250ms.
+    /// </summary>
+    public int? Delay { get; set; }
 }

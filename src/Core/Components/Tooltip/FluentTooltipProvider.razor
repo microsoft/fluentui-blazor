@@ -7,7 +7,8 @@
     {
         @foreach (var tooltip in TooltipService.Items.Values)
         {
-            <FluentTooltip UseTooltipService="false"
+            <FluentTooltip @key="tooltip.Id"
+                           UseTooltipService="false"
                            Id="@tooltip.Id"
                            Class="@tooltip.ClassValue"
                            Style="@tooltip.StyleValue"
