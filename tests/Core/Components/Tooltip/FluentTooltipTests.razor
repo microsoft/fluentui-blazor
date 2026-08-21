@@ -56,6 +56,24 @@
         Assert.Equal("500", att);
     }
 
+    [Fact]
+    public void FluentTooltip_ConfigurationDelay_AppliesDefaultDelay()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Tooltip.Delay = 500;
+
+        var cut = Render(@<div>
+            <FluentTooltipProvider />
+            <FluentTooltip Anchor="MyButton">My content</FluentTooltip>
+        </div>);
+
+        // Act
+        var att = cut.Find("fluent-tooltip").GetAttribute("delay");
+
+        // Assert
+        Assert.Equal("500", att);
+    }
+
     [Theory]
     [InlineData(Positioning.AboveEnd)]
     [InlineData(Positioning.AboveStart)]
@@ -85,6 +103,24 @@
 
         // Assert
         Assert.Equal(positioning.ToAttributeValue(), att);
+    }
+
+    [Fact]
+    public void FluentTooltip_ConfigurationPositioning_AppliesDefaultPositioning()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Tooltip.Positioning = Positioning.After;
+
+        var cut = Render(@<div>
+            <FluentTooltipProvider />
+            <FluentTooltip Anchor="MyButton">My content</FluentTooltip>
+        </div>);
+
+        // Act
+        var att = cut.Find("fluent-tooltip").GetAttribute("positioning");
+
+        // Assert
+        Assert.Equal("after", att);
     }
 
     [Fact]
@@ -235,6 +271,32 @@
         // Assert
         tooltips = Services.GetRequiredService<ITooltipService>().Items;
         Assert.Empty(tooltips);
+    }
+
+    [Fact]
+    public void FluentTooltip_Provider_AnchorChange_RecreatesTooltip()
+    {
+        var buttonId = "FirstButton";
+        var tooltipText = "First tooltip";
+
+        var cut = Render(@<FluentStack>
+            <FluentTooltipProvider />
+            <FluentButton @key="buttonId" Id="@buttonId" Tooltip="@tooltipText" />
+        </FluentStack>);
+
+        var firstTooltip = cut.FindComponent<FluentTooltip>().Instance;
+
+        buttonId = "SecondButton";
+        tooltipText = "Second tooltip";
+        cut.FindComponent<FluentStack>().Render();
+
+        cut.WaitForAssertion(() =>
+        {
+            var secondTooltip = cut.FindComponent<FluentTooltip>().Instance;
+
+            Assert.NotSame(firstTooltip, secondTooltip);
+            Assert.Equal("SecondButton", secondTooltip.Anchor);
+        });
     }
 
 #pragma warning disable CS0618 // Type or member is obsolete
