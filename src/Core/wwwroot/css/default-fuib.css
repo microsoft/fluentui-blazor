@@ -160,3 +160,12 @@ table[data-selectable] {
       min-width: calc(var(--selectedCheckWidth) - var(--spacingHorizontalS));
       padding: 0 var(--spacingHorizontalS) 0 0;
     }
+
+fluent-text[weight] > * {
+  font-weight: inherit;
+}
+
+fluent-text[size] > * {
+  font-size: inherit;
+  line-height: inherit;
+}
