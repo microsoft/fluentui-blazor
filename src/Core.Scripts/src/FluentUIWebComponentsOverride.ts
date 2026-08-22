@@ -34,7 +34,16 @@ export namespace Microsoft.FluentUI.Override {
              * fluent-tooltip
              */
             const tooltip = await registry.whenDefined('fluent-tooltip');
-            tooltip.prototype.showPopover = showTooltipPopover;
+            const showTooltipPopover = tooltip.prototype.showPopover;
+            tooltip.prototype.showPopover = function (this: TooltipElement): void {
+                // A tooltip's delayed show callback can run after its dialog removes it from the DOM.
+                // Chromium throws when showPopover is called in that state, so discard the stale callback.
+                if (!this.isConnected) {
+                    return;
+                }
+
+                showTooltipPopover.call(this);
+            };
         });
     }
 
@@ -59,16 +68,6 @@ export namespace Microsoft.FluentUI.Override {
         else {
             this.internalProxyAnchor.click();
         }
-    }
-
-    function showTooltipPopover(this: TooltipElement): void {
-        // A tooltip's delayed show callback can run after its dialog removes it from the DOM.
-        // Chromium throws when showPopover is called in that state, so discard the stale callback.
-        if (!this.isConnected) {
-            return;
-        }
-
-        HTMLElement.prototype.showPopover.call(this);
     }
 
     /**
