@@ -65,6 +65,20 @@
     }
 
     [Fact]
+    public void FluentKeyCode_IgnoreModifier_MaterializesIgnoredKeys()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentKeyCode Anchor="myZone" Ignore="@(new[] { KeyCode.KeyA, KeyCode.Shift })" />);
+
+        // Assert
+        var invocation = Assert.Single(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.KeyCode.RegisterKeyCode");
+        var ignoredKeys = Assert.IsType<KeyCode[]>(invocation.Arguments[5]);
+
+        Assert.Equal([KeyCode.KeyA, KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta], ignoredKeys);
+    }
+
+    [Fact]
     public async Task FluentKeyCode_CtrlShiftAltMeta()
     {
         FluentKeyCodeEventArgs pressed = new();
