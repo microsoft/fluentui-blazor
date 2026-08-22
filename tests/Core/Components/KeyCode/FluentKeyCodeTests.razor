@@ -68,8 +68,7 @@
     public void FluentKeyCode_IgnoreModifier_MaterializesIgnoredKeys()
     {
         // Arrange & Act
-        var cut = Render(@<FluentKeyCode Anchor="myZone" Ignore="@(new[] { KeyCode.KeyA, KeyCode.Shift })" />);
-
+        _ = Render(@<FluentKeyCode Anchor="myZone" IgnoreModifier="true" Ignore="@(new[] { KeyCode.KeyA, KeyCode.Shift })" />);
         // Assert
         var invocation = Assert.Single(JSInterop.Invocations, invocation =>
             invocation.Identifier == "Microsoft.FluentUI.Blazor.KeyCode.RegisterKeyCode");
