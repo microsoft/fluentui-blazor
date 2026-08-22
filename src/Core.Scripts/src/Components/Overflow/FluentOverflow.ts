@@ -152,7 +152,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 
       // Notify listeners of state change via custom event
       if (payloadChanged) {
-        this.dispatchEvent(new CustomEvent("overflowchange", {
+        const eventInit = {
           detail: {
             items: result.overflowItems,
             overflowCount: result.overflowCount,
@@ -161,7 +161,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
           },
           bubbles: true,
           composed: true
-        }));
+        };
+
+        // Preserve overflowchange for JavaScript consumers and emit a distinct internal
+        // event for Blazor because .NET 11 rejects identical custom and browser event names.
+        this.dispatchEvent(new CustomEvent("overflowchange", eventInit));
+        this.dispatchEvent(new CustomEvent("fluentoverflowchange", eventInit));
       }
     }
 

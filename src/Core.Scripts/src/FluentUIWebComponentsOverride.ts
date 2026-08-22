@@ -8,6 +8,10 @@ export namespace Microsoft.FluentUI.Override {
         handleNavigation(newTab: boolean): void;
     }
 
+    interface TooltipElement extends HTMLElement {
+        showPopover(): void;
+    }
+
     /**
      * Override the default behavior of the Fluent UI Web Components to use Blazor's features.
     */
@@ -25,6 +29,12 @@ export namespace Microsoft.FluentUI.Override {
              */
             const link = await registry.whenDefined('fluent-link');
             link.prototype.handleNavigation = handleNavigation;
+
+            /**
+             * fluent-tooltip
+             */
+            const tooltip = await registry.whenDefined('fluent-tooltip');
+            tooltip.prototype.showPopover = showTooltipPopover;
         });
     }
 
@@ -49,6 +59,16 @@ export namespace Microsoft.FluentUI.Override {
         else {
             this.internalProxyAnchor.click();
         }
+    }
+
+    function showTooltipPopover(this: TooltipElement): void {
+        // A tooltip's delayed show callback can run after its dialog removes it from the DOM.
+        // Chromium throws when showPopover is called in that state, so discard the stale callback.
+        if (!this.isConnected) {
+            return;
+        }
+
+        HTMLElement.prototype.showPopover.call(this);
     }
 
     /**
