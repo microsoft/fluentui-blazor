@@ -22,7 +22,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
     private dialog: HTMLDialogElement | null = null;
     private resizeObserver: ResizeObserver | null = null;
     private clickHandler: ((ev: MouseEvent) => any) | null = null;
+    private showFrame: number | null = null;
 
+    // Records the requested visibility before the internal dialog exists and while opening is deferred.
     private _opened: boolean = false;
 
     /************************
@@ -66,6 +68,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
       const contentSlot = document.createElement('slot');
       this.dialog.appendChild(contentSlot);
       shadow.appendChild(this.dialog);
+
+      if (this._opened) {
+        this.show();
+      }
     }
 
     /*************** 
@@ -205,49 +211,70 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
 
     // Public method to open the dialog
     public show() {
-      if (this.dialog && !this.dialog.open) {
+      this._opened = true;
 
-        this.dialog.setAttribute('style', this.dialogStyle);
-        this.dialog.setAttribute('class', this.dialogClass);
+      if (this.dialog && !this.dialog.open && this.showFrame === null) {
+        // Defer opening for two frames so an immediate close can cancel it before the dialog is painted.
+        this.showFrame = requestAnimationFrame(() => {
+          this.showFrame = requestAnimationFrame(() => {
+            this.showFrame = null;
 
-        // Prevent to use ESC key to close the dialog
-        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy#browser_compatibility
-        if (this.closeMode === 'manual') {
-          this.dialog.setAttribute('closedBy', 'none');
-        }
+            if (!this._opened || !this.dialog || this.dialog.open) {
+              return;
+            }
 
-        if (this.fullscreen === false) {
-          this.ensureParentPositioning();
-          this.createResizeObserver();
-          this.positionDialogInContainer();
-        }
-        else {
-          this.positionDialogClear();
-        }
+            this.dialog.setAttribute('style', this.dialogStyle);
+            this.dialog.setAttribute('class', this.dialogClass);
 
-        if (this.background) {
-          this.style.setProperty('--overlayBackground', this.background);
-        }
+            // Prevent to use ESC key to close the dialog
+            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy#browser_compatibility
+            if (this.closeMode === 'manual') {
+              this.dialog.setAttribute('closedBy', 'none');
+            }
 
-        if (this.interactive || !this.fullscreen) {
-          this.dialog.show();
-        } else {
-          this.dialog.showModal();
-        }
+            if (this.fullscreen === false) {
+              this.ensureParentPositioning();
+              this.createResizeObserver();
+              this.positionDialogInContainer();
+            }
+            else {
+              this.positionDialogClear();
+            }
 
-        if (!this.clickHandler) {
-          this.clickHandler = (e) => this.onClick(e);
+            if (this.background) {
+              this.style.setProperty('--overlayBackground', this.background);
+            }
 
-          // Use capture phase and delay listener registration to avoid capturing the current click
-          setTimeout(() => {
-            document.addEventListener('click', this.clickHandler!);
-          }, 0);
-        }
+            if (this.interactive || !this.fullscreen) {
+              this.dialog.show();
+            } else {
+              this.dialog.showModal();
+            }
+
+            if (!this.clickHandler) {
+              this.clickHandler = (e) => this.onClick(e);
+
+              // Use capture phase and delay listener registration to avoid capturing the current click
+              setTimeout(() => {
+                if (this.clickHandler) {
+                  document.addEventListener('click', this.clickHandler);
+                }
+              }, 0);
+            }
+          });
+        });
       }
     }
 
     // Public method to close the dialog
     public close() {
+      this._opened = false;
+
+      if (this.showFrame !== null) {
+        cancelAnimationFrame(this.showFrame);
+        this.showFrame = null;
+      }
+
       if (this.dialog && this.dialog.open) {
         this.dialog.close();
 
@@ -356,6 +383,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
     // Cleanup when element is removed from DOM
     disconnectedCallback() {
       this.cleanResizeObserver();
+
+      if (this.showFrame !== null) {
+        cancelAnimationFrame(this.showFrame);
+        this.showFrame = null;
+      }
 
       // Remove the click event listener if it exists
       if (this.clickHandler) {
