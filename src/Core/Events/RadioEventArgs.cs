@@ -7,7 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Event arguments for the FluentTabs ActiveId changed event.
 /// </summary>
-internal class RadioEventArgs : EventArgs
+// This type is public because it is included in the public FluentUIJsonSerializerContext.
+// It can be made internal again if the serializer context can be made internal in the future.
+public class RadioEventArgs : EventArgs
 {
     /// <summary>
     /// Gets or sets the ID of the dialog.

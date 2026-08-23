@@ -7,7 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Event arguments for the FluentTabs ActiveId changed event.
 /// </summary>
-internal class TreeItemChangedEventArgs : EventArgs
+// This type is public because it is included in the public FluentUIJsonSerializerContext.
+// It can be made internal again if the serializer context can be made internal in the future.
+public class TreeItemChangedEventArgs : EventArgs
 {
     /// <summary>
     /// Gets or sets the ID of the tree item.

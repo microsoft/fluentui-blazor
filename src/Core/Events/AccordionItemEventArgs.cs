@@ -17,6 +17,7 @@ public class AccordionItemEventArgs : EventArgs
     /// <summary>
     /// Gets the item that was changed.
     /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
     public FluentAccordionItem? Item { get; internal set; }
 
     /// <summary>
