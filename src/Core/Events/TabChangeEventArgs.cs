@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class TabChangeEventArgs : EventArgs
 {
     /// <summary>
-    /// Gets or sets the ID of the dialog.
+    /// Gets or sets the ID of the tab list.
     /// </summary>
     public string? Id { get; set; }
 
