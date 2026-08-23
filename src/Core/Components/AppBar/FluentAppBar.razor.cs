@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -20,6 +21,8 @@ public partial class FluentAppBar : FluentComponentBase
     private IEnumerable<IAppBarItem> _searchResults = [];
 
     /// <summary />
+    [DynamicDependency(nameof(OnOverflowChangedAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowChangedEventArgs))]
     public FluentAppBar(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
