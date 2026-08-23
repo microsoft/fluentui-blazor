@@ -17,6 +17,7 @@ public class MenuItemEventArgs : EventArgs
     /// <summary>
     /// Gets the item that was changed.
     /// </summary>
+    [System.Text.Json.Serialization.JsonIgnore]
     public FluentMenuItem? Item { get; internal set; }
 
     /// <summary>
