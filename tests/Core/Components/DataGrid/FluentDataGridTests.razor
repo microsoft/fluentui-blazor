@@ -369,6 +369,152 @@
         builder.AddContent(0, text);
     };
 
+#if NET9_0_OR_GREATER
+    [Fact]
+    public void FluentDataGrid_Virtualize_SetsMaxItemCount()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" Virtualize="true" MaxItemCount="42">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+
+        // Assert
+        var virtualize = cut.FindComponent<Virtualize<(int, Customer)>>();
+        Assert.Equal(42, virtualize.Instance.MaxItemCount);
+    }
+#endif
+
+#if NET11_0_OR_GREATER
+    [Fact]
+    public void FluentDataGrid_Virtualize_SetsNet11VirtualizationParameters()
+    {
+        // Arrange
+        var customers = GetCustomers().ToArray();
+        var itemComparer = EqualityComparer<Customer>.Create(
+            (first, second) => first?.Id == second?.Id,
+            customer => customer.Id);
+        GridItemsProvider<Customer> itemsProvider = request =>
+            ValueTask.FromResult(GridItemsProviderResult.From(
+                customers
+                    .Skip(request.StartIndex)
+                    .Take(request.Count ?? customers.Length)
+                    .Select(customer => customer with { })
+                    .ToArray(),
+                customers.Length));
+
+        // Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             ItemsProvider="@itemsProvider"
+                             Virtualize="true"
+                             InitialItemIndex="2"
+                             AnchorMode="VirtualizeAnchorMode.End"
+                             ItemComparer="@itemComparer">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+
+        // Assert
+        var virtualize = cut.FindComponent<Virtualize<(int, Customer)>>().Instance;
+        var firstCustomer = customers[0];
+        var equivalentCustomer = firstCustomer with { };
+        var differentCustomer = customers[1];
+
+        Assert.Equal(2, virtualize.InitialItemIndex);
+        Assert.Equal(VirtualizeAnchorMode.End, virtualize.AnchorMode);
+        Assert.True(virtualize.ItemComparer.Equals((1, firstCustomer), (99, equivalentCustomer)));
+        Assert.False(virtualize.ItemComparer.Equals((1, firstCustomer), (1, differentCustomer)));
+    }
+
+    [Fact]
+    public void FluentDataGrid_ScrollToItemAsync_VirtualizationDisabled_ThrowsInvalidOperationException()
+    {
+        // Arrange
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+
+        // Act
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+        {
+            _ = cut.Instance.ScrollToItemAsync(1, Xunit.TestContext.Current.CancellationToken);
+        });
+
+        // Assert
+        Assert.Contains(nameof(FluentDataGrid<Customer>.Virtualize), exception.Message);
+    }
+
+    [Fact]
+    public void FluentDataGrid_ScrollToItemAsync_VirtualizerNotRendered_ThrowsInvalidOperationException()
+    {
+        // Arrange
+        GridItemsProvider<Customer> itemsProvider = request =>
+            ValueTask.FromResult(GridItemsProviderResult.From(Array.Empty<Customer>(), 0));
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             ItemsProvider="@itemsProvider"
+                             Virtualize="true"
+                             Loading="true">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+
+        // Act
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+        {
+            _ = cut.Instance.ScrollToItemAsync(1, Xunit.TestContext.Current.CancellationToken);
+        });
+
+        // Assert
+        Assert.Contains("grid has been rendered", exception.Message);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ScrollToItemAsync_CanceledToken_ThrowsOperationCanceledException()
+    {
+        // Arrange
+        FluentDataGrid<Customer>? grid = null;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid @ref="grid" TGridItem="Customer" Items="@GetRandomCustomers(100)" Virtualize="true">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+        using var cancellationSource = CancellationTokenSource.CreateLinkedTokenSource(Xunit.TestContext.Current.CancellationToken);
+        await cancellationSource.CancelAsync();
+
+        // Act && Assert
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(async () =>
+            await cut.InvokeAsync(() => grid!.ScrollToItemAsync(10, cancellationSource.Token)));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ScrollToItemAsync_RepeatedCalls_BothCallsCompleteSuccessfully()
+    {
+        // Arrange
+        FluentDataGrid<Customer>? grid = null;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid @ref="grid" TGridItem="Customer" Items="@GetRandomCustomers(1000)" Virtualize="true">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+        Task? firstCall = null;
+        Task? secondCall = null;
+
+        // Act
+        await cut.InvokeAsync(() =>
+        {
+            firstCall = grid!.ScrollToItemAsync(500, Xunit.TestContext.Current.CancellationToken);
+            secondCall = grid.ScrollToItemAsync(750, Xunit.TestContext.Current.CancellationToken);
+        });
+
+        await firstCall!.WaitAsync(TimeSpan.FromSeconds(5), Xunit.TestContext.Current.CancellationToken);
+        await secondCall!.WaitAsync(TimeSpan.FromSeconds(5), Xunit.TestContext.Current.CancellationToken);
+
+        // Assert
+        Assert.True(firstCall.IsCompletedSuccessfully);
+        Assert.True(secondCall.IsCompletedSuccessfully);
+    }
+#endif
+
     [Fact]
     public async Task FluentDataGrid_Virtualize()
     {

@@ -5,7 +5,7 @@
 
 .DESCRIPTION
     Temporarily switches the <NetVersion> property in Directory.Build.props to each of
-    net8.0, net9.0 and net10.0, runs `dotnet outdated` for the solution, and
+    net8.0, net9.0, net10.0 and net11.0, runs `dotnet outdated` for the solution, and
     aggregates the results into a single de-duplicated summary list.
     Also lists outdated npm packages (via npm-check-updates) for the Core.Scripts and
     Charts.Scripts projects, without changing any package.json or lock file.
@@ -24,7 +24,7 @@ $ErrorActionPreference = 'Stop'
 $repoRoot = $PSScriptRoot
 $propsPath = Join-Path $repoRoot 'Directory.Build.props'
 $slnPath = Join-Path $repoRoot 'Microsoft.FluentUI-v5.slnx'
-$netVersions = @('net8.0', 'net9.0', 'net10.0')
+$netVersions = @('net8.0', 'net9.0', 'net10.0', 'net11.0')
 $netVersionPattern = '<NetVersion>net\d+\.\d+</NetVersion>'
 $exampleVersionPattern = '<ExampleNetVersion>net\d+\.\d+</ExampleNetVersion>'
 # Demo/Samples/Tests projects require net9.0+ (see ExampleNetVersion comment in Directory.Build.props).
