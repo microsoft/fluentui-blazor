@@ -22,8 +22,6 @@ public partial class FluentTreeView : FluentComponentBase
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTreeView"/> class.
     /// </summary>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemChangedEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemToggleEventArgs))]
     public FluentTreeView(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
