@@ -280,12 +280,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
             this.resizeTimeout = undefined;
             const isHorizontal = this.getIsHorizontal();
             const currentSize = isHorizontal ? this.offsetWidth : this.offsetHeight;
+            this.cachedContainerGap = null;
             if (currentSize === this.lastContainerSize) {
               return;
             }
 
             this.lastContainerSize = currentSize;
-            this.cachedContainerGap = null;
             this.scheduleRefresh();
           }, 16);
         });
@@ -330,12 +330,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
           return;
         }
 
+        clearTimeout(this.mutationTimeout);
+        this.mutationTimeout = undefined;
         if (this.refreshAnimationFrame !== undefined) {
           // Cache invalidation above is synchronous; the pending frame will consume it.
           return;
         }
 
-        clearTimeout(this.mutationTimeout);
         // Debounce mutation events (16ms) to batch rapid DOM changes
         this.mutationTimeout = window.setTimeout(() => {
           this.mutationTimeout = undefined;
