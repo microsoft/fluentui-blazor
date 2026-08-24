@@ -40,6 +40,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
   interface RefreshResult extends OverflowState {
     overflowChanged: boolean;
     isHorizontal: boolean;
+    // Reuse the layout read performed during measurement so the initial ResizeObserver
+    // notification can be recognized without reading layout a second time.
+    containerSize: number;
   }
 
   /**
@@ -51,6 +54,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     private mutationObserver?: MutationObserver;
     private resizeTimeout?: number;
     private mutationTimeout?: number;
+    // Automatic refresh sources share one frame to avoid interleaved layout reads and writes.
+    private refreshAnimationFrame?: number;
+    // visible-on-load="false" must remain hidden until the first useful measurement completes.
+    private revealAfterRefresh = false;
     private lastHandledState: boolean | null = null;
     private lastContainerSize = 0;
     private cachedContainerGap: number | null = null;
@@ -77,12 +84,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.lastOrderedItemIds = [];
       this.classList.add("fluent-overflow");
       this.setupObservers();
-      this.refresh();
-
-      // Reveal after first measurement if the element was initially hidden on load.
-      if (!visibleOnLoad) {
-        this.style.visibility = "";
-      }
+      this.revealAfterRefresh = !visibleOnLoad;
+      this.scheduleRefresh();
     }
 
     /**
@@ -112,14 +115,57 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         this.cachedContainerGap = null;
       }
 
-      this.refresh();
+      this.scheduleRefresh();
     }
 
     /**
      * Recalculates overflow state and dispatches change event if needed.
-     * Called on initial render, after DOM mutations, or when container size changes.
+     * Flushes pending automatic work so imperative callers observe current state.
      */
     refresh() {
+      this.flushScheduledRefresh();
+    }
+
+    private scheduleRefresh() {
+      // Attribute, connection, and observer callbacks can all run in one DOM update.
+      // The pending frame is the per-element coalescing boundary for that burst.
+      if (!this.isConnected || this.refreshAnimationFrame !== undefined) {
+        return;
+      }
+
+      this.refreshAnimationFrame = requestAnimationFrame(() => {
+        this.refreshAnimationFrame = undefined;
+        if (!this.isConnected) {
+          return;
+        }
+
+        this.refreshNow();
+        this.revealAfterRefreshIfNeeded();
+      });
+    }
+
+    private flushScheduledRefresh() {
+      // Imperative Refresh followed by GetOverflowState must observe current layout, so
+      // discard every deferred automatic path before measuring synchronously.
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = undefined;
+      clearTimeout(this.mutationTimeout);
+      this.mutationTimeout = undefined;
+
+      if (this.refreshAnimationFrame !== undefined) {
+        cancelAnimationFrame(this.refreshAnimationFrame);
+        this.refreshAnimationFrame = undefined;
+      }
+
+      if (!this.isConnected) {
+        return;
+      }
+
+      this.refreshNow();
+      this.revealAfterRefreshIfNeeded();
+    }
+
+    private refreshNow() {
       // Calculate the new overflow state based on current layout and items
       const result = refreshContainer(
         this,
@@ -131,6 +177,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         this.getMaxRenderedItems()
       );
       this.lastHandledState = result.isHorizontal;
+      // ResizeObserver reports the initial observed size after connection. Recording the
+      // measured size here prevents that notification from scheduling a duplicate refresh.
+      this.lastContainerSize = result.containerSize;
 
       // Detect if the overflow state has meaningfully changed
       const payloadChanged = result.overflowChanged
@@ -170,11 +219,25 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       }
     }
 
+    private revealAfterRefreshIfNeeded() {
+      if (!this.revealAfterRefresh) {
+        return;
+      }
+
+      this.revealAfterRefresh = false;
+      this.style.visibility = "";
+    }
+
     /**
      * Retrieves the current overflow state.
      * Returns cached state if available; otherwise calculates fresh state.
      */
     getOverflowState(): OverflowState {
+      // Preserve the cached fast path, but never return state older than queued DOM work.
+      if (this.refreshAnimationFrame !== undefined || this.resizeTimeout !== undefined || this.mutationTimeout !== undefined) {
+        this.flushScheduledRefresh();
+      }
+
       if (this.overflowItems.length > 0 || this.lastOverflowCount > 0) {
         return {
           overflowItems: [...this.overflowItems],
@@ -206,18 +269,24 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       // Watch for container size changes and recalculate overflow accordingly
       if (typeof ResizeObserver !== "undefined") {
         this.resizeObserver = new ResizeObserver(() => {
+          // A pending frame will measure the latest size, regardless of what requested it.
+          if (this.refreshAnimationFrame !== undefined) {
+            return;
+          }
+
           clearTimeout(this.resizeTimeout);
           // Debounce resize events (16ms) to batch multiple rapid size changes
           this.resizeTimeout = window.setTimeout(() => {
+            this.resizeTimeout = undefined;
             const isHorizontal = this.getIsHorizontal();
             const currentSize = isHorizontal ? this.offsetWidth : this.offsetHeight;
+            this.cachedContainerGap = null;
             if (currentSize === this.lastContainerSize) {
               return;
             }
 
             this.lastContainerSize = currentSize;
-            this.cachedContainerGap = null;
-            this.refresh();
+            this.scheduleRefresh();
           }, 16);
         });
         this.resizeObserver.observe(this);
@@ -229,6 +298,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 
         for (const mutation of mutations) {
           if (mutation.type === "childList") {
+            // subtree is enabled for direct-child attributes; nested child-list changes do
+            // not alter the set of overflow-managed elements.
+            if (mutation.target !== this) {
+              continue;
+            }
+
             // Child elements added or removed; reset size cache
             shouldRefresh = true;
             this.lastContainerSize = 0;
@@ -237,6 +312,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 
           if (mutation.type === "attributes") {
             const target = mutation.target as OverflowElement;
+            // Overflow selectors only manage direct children, so descendant attributes
+            // cannot invalidate a managed item's cached dimensions.
+            if (target.parentElement !== this) {
+              continue;
+            }
+
             // Invalidate size cache for elements whose visual properties changed
             if (mutation.attributeName === "class" || mutation.attributeName === "style" || mutation.attributeName === "behavior" || mutation.attributeName === "hidden") {
               target.overflowSize = null;
@@ -250,12 +331,21 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         }
 
         clearTimeout(this.mutationTimeout);
+        this.mutationTimeout = undefined;
+        if (this.refreshAnimationFrame !== undefined) {
+          // Cache invalidation above is synchronous; the pending frame will consume it.
+          return;
+        }
+
         // Debounce mutation events (16ms) to batch rapid DOM changes
-        this.mutationTimeout = window.setTimeout(() => this.refresh(), 16);
+        this.mutationTimeout = window.setTimeout(() => {
+          this.mutationTimeout = undefined;
+          this.scheduleRefresh();
+        }, 16);
       });
       this.mutationObserver.observe(this, {
         childList: true,
-        subtree: false,
+        subtree: true,
         attributes: true,
         attributeFilter: ["id", "behavior", "class", "style", "hidden"]
       });
@@ -273,6 +363,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.resizeTimeout = undefined;
       clearTimeout(this.mutationTimeout);
       this.mutationTimeout = undefined;
+      if (this.refreshAnimationFrame !== undefined) {
+        cancelAnimationFrame(this.refreshAnimationFrame);
+        this.refreshAnimationFrame = undefined;
+      }
+      this.revealAfterRefresh = false;
     }
 
     private getIsHorizontal(): boolean {
@@ -360,8 +455,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     }
 
     let itemsTotalSize = threshold > 0 ? 10 : 0;
-    let containerMaxSize = isHorizontal ? container.offsetWidth : container.offsetHeight;
-    containerMaxSize -= threshold;
+    const containerSize = isHorizontal ? container.offsetWidth : container.offsetHeight;
+    const containerMaxSize = containerSize - threshold;
 
     let unmanagedTotal = 0;
     for (let index = 0; index < unmanagedItems.length; index++) {
@@ -451,7 +546,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       firstOverflowIndex,
       orderedItemIds: managedItems.map(item => item.id ?? ""),
       overflowChanged,
-      isHorizontal
+      isHorizontal,
+      containerSize
     };
   }
 
