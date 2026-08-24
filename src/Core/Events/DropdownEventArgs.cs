@@ -7,7 +7,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Event arguments for the FluentListBase event.
 /// </summary>
-internal class DropdownEventArgs : EventArgs
+// This type is public because it is included in the public FluentUIJsonSerializerContext.
+// It can be made internal again if the serializer context can be made internal in the future.
+public class DropdownEventArgs : EventArgs
 {
     /// <summary>
     /// Gets or sets the ID of the list.

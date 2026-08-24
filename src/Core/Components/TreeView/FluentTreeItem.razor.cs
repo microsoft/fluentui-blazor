@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -19,6 +20,10 @@ public partial class FluentTreeItem : FluentComponentBase
     private static readonly MarkupStringSanitized DefaultIcon_Collapsed = new($"<svg collapsed {DefaultIcon_CommonSvgAttributes}>{DefaultIcon_CommonSvgPath}</svg>", isSanitized: true);
 
     /// <summary/>
+    [DynamicDependency(nameof(OnTreeChangedAsync))]
+    [DynamicDependency(nameof(OnTreeToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemChangedEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemToggleEventArgs))]
     public FluentTreeItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();

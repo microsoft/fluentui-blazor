@@ -148,7 +148,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
                 Anchor,
                 ChildContent is null ? null : Element,
                 Only,
-                IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore,
+                IgnoreModifier ? Ignore.Union(_Modifiers).ToArray() : Ignore,
                 StopPropagation,
                 PreventDefault,
                 PreventDefaultOnly,
