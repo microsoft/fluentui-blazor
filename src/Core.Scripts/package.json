@@ -7,7 +7,8 @@
   "cssBundle": "dist/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css",
   "scripts": {
     "build": "node ./esbuild.config.mjs",
-    "clean": "rimraf ./dist"
+    "clean": "rimraf ./dist",
+    "test": "vitest run --environment happy-dom"
   },
   "keywords": [],
   "author": "",
@@ -21,10 +22,12 @@
     "esbuild-plugin-inline-css": "0.0.1",
     "eslint": "10.8.1",
     "glob": "^13.0.6",
+    "happy-dom": "^20.11.6",
     "imask": "^7.6.1",
     "rimraf": "6.1.3",
     "tabbable": "6.5.0",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "^4.1.11"
   },
   "dependencies": {
     "@fluentui/web-components": "^3.0.3"
