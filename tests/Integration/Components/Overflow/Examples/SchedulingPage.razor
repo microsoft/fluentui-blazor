@@ -1,0 +1,36 @@
+@page "/overflow/scheduling"
+
+<style>
+    #overflow-test-host {
+        width: 720px;
+    }
+
+    fluent-overflow.test-overflow {
+        display: flex;
+        width: 480px;
+        height: 32px;
+        gap: 4px;
+        overflow: hidden;
+    }
+
+    fluent-overflow.test-overflow.narrow {
+        width: 104px;
+    }
+
+    .managed-item,
+    .fixed-item {
+        flex: none;
+        padding: 2px 7px;
+        white-space: nowrap;
+    }
+
+    .managed-item[overflow] {
+        display: none;
+    }
+
+    .fixed-item {
+        margin-left: auto;
+    }
+</style>
+
+<div id="overflow-test-host"></div>
