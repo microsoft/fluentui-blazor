@@ -238,6 +238,65 @@ expectedDelayedValue)
     }
 
     [Fact]
+    public void FluentInputText_Immediate_WhileFocused_ValueAttributeReflectsExternalUpdates()
+    {
+        // Arrange: focused, in Immediate mode, and the user has NOT typed anything
+        var cut = Render(@<FluentTextInput Value="init" Immediate="true" ImmediateDelay="0" />);
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: the consumer assigns the value from the outside while the field still has focus -
+        // e.g. the row picked in a lookup dialog, with focus returned to the field on close.
+        textInput.Render(parameters => parameters.Add(p => p.Value, "external"));
+
+        // Assert: the freeze protects the user's typing, not arbitrary assignments. An external
+        // value is newer than anything typed, so it must reach the browser now - not stay invisible
+        // until the field loses focus (and never, if the consumer keeps focus here).
+        Assert.Equal("external", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_ExternalUpdateAfterTyping_WhileStillFocused_Reflected()
+    {
+        // Arrange: focused, and the user typed - so the rendered value is frozen at "init"
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value"                 Immediate="true"                 ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+        Assert.Equal("init", cut.Find("fluent-text-input").GetAttribute("value"));
+
+        // Act: NOW the consumer overwrites the value from the outside (a validation rule rewriting
+        // the field, a lookup selection...), still without losing focus
+        cut.FindComponent<FluentTextInput>()
+            .Render(parameters => parameters.Add(p => p.Value, "external"));
+
+        // Assert: the assignment wins over the frozen typing snapshot
+        Assert.Equal("external", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_RepeatedTyping_KeepsValueAttributeFrozen()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value"                 Immediate="true"                 ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: several confirmed keystrokes in a row, still focused
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "ty" });
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typ" });
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+
+        // Assert: each confirmed keystroke re-baselines the freeze instead of reading as an external
+        // assignment, so the rendered value never moves and the browser is left alone throughout.
+        Assert.Equal("typed", value);
+        Assert.Equal("init", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
     public void FluentInputText_NotImmediate_WhileFocused_ValueAttributeReflectsExternalUpdates()
     {
         // Arrange
