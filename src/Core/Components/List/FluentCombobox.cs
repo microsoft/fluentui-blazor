@@ -152,6 +152,13 @@ public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TVa
             : default(TOption);
     }
 
+    /// <inheritdoc />
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        _immediateManager.CheckAndSetExternalValue(parameters, Value, FormatValueAsString);
+        return base.SetParametersAsync(parameters);
+    }
+
     /// <see cref="FluentInputImmediateManager.GetImmediateValueAsString(string?)" />
     protected string? ImmediateValueAsString => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
 
