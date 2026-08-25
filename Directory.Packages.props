@@ -122,10 +122,8 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfCoreVersion11)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfCoreVersion11)" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion11)" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion11)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion11)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimeVersion11)" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion11)" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion11)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion11)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion11)" />

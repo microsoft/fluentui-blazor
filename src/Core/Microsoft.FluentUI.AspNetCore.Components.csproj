@@ -89,8 +89,6 @@
   <!-- Dependencies -->
   <ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Microsoft.TypeScript.MSBuild" Condition="'$(TargetFramework)'=='$(NetVersion)'">
       <PrivateAssets>all</PrivateAssets>

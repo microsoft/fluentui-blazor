@@ -132,7 +132,11 @@
 
     void ValidateForm()
     {
+#if NET11_OR_GREATER
+        _ = form.EditContext?.ValidateAsync();
+#else
         form.EditContext?.Validate();
+#endif
     }
 
     void SetFormToValid()

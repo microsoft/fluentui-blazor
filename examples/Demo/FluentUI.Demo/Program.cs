@@ -39,7 +39,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+#if !NET11_0_OR_GREATER
     app.UseWebAssemblyDebugging();
+#endif
 }
 else
 {
