@@ -33,6 +33,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
         [Parameter]
         public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
 
+        public override Task SetParametersAsync(ParameterView parameters)
+        {
+            _immediateManager.CheckAndSetExternalValue(parameters, Value, FormatValueAsString);
+            return base.SetParametersAsync(parameters);
+        }
+
         protected string? ImmediateValueAsString
             => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
 
@@ -138,6 +144,26 @@ internal sealed class FluentInputImmediateManager
         : _hasFocus
             ? _frozenValueAsString ??= _pendingImmediateText ?? currentValueAsString
             : _pendingImmediateText ?? currentValueAsString;
+
+    /// <summary>
+    /// Detects a new value supplied by the parent while the input is focused and updates the
+    /// frozen rendered value so the external change is displayed immediately.
+    /// </summary>
+    /// <typeparam name="TValue">The input value type.</typeparam>
+    /// <param name="parameters">The parameters supplied by the parent component.</param>
+    /// <param name="value">The current input value before applying the parameters.</param>
+    /// <param name="formatValueAsString">The function used to format the new value for rendering.</param>
+    internal void CheckAndSetExternalValue<TValue>(ParameterView parameters, TValue? value, Func<TValue?, string?> formatValueAsString)
+    {
+        if (_input.Immediate && _hasFocus)
+        {
+            if (parameters.TryGetValue<TValue?>(nameof(FluentInputBase<>.Value), out var newValue) &&
+                !EqualityComparer<TValue?>.Default.Equals(newValue, value))
+            {
+                _frozenValueAsString = formatValueAsString(newValue);
+            }
+        }
+    }
 
     /// <summary>
     /// Handler for the OnInput event. The client already debounces by ImmediateDelay before
