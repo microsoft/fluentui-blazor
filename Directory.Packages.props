@@ -83,7 +83,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(RuntimeVersion9)" />
-        <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion9)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion9)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion9)" />
