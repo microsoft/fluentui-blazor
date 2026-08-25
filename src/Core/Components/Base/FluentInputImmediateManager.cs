@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
@@ -158,7 +157,7 @@ internal sealed class FluentInputImmediateManager
     {
         if (_input.Immediate && _hasFocus)
         {
-            if (parameters.TryGetValue<TValue?>(nameof(InputBase<>.Value), out var newValue) &&
+            if (parameters.TryGetValue<TValue?>(nameof(FluentInputBase<>.Value), out var newValue) &&
                 !EqualityComparer<TValue?>.Default.Equals(newValue, value))
             {
                 _frozenValueAsString = formatValueAsString(newValue);
