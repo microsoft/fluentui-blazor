@@ -88,7 +88,7 @@ jobs:
        run: |
          TESTS="${{ env.TESTS }}"
          for test in $TESTS; do
-           dotnet test "$test" --framework net10.0 --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"
+           dotnet test "$test" --framework net9.0 --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"
          done
        working-directory: ${{ github.workspace }}
 
