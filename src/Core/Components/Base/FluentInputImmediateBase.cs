@@ -52,6 +52,13 @@ public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
     [Parameter]
     public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
 
+    /// <inheritdoc />
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        _immediateManager.CheckAndSetExternalValue(parameters, Value, FormatValueAsString);
+        return base.SetParametersAsync(parameters);
+    }
+
     /// <see cref="FluentInputImmediateManager.GetImmediateValueAsString(string?)" />
     protected string? ImmediateValueAsString => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
 

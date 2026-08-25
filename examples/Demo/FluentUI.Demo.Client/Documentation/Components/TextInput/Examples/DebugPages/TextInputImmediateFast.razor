@@ -21,10 +21,34 @@
 
         <FluentLabel>Value = @Value2</FluentLabel>
     </FluentStack>
+
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentTextInput Value="@Value3"
+                         Immediate="true"
+                         ImmediateDelay="0" />
+        <FluentLabel>Value = @Value3</FluentLabel>
+    </FluentStack>
 </FluentStack>
 
 @code
 {
     string Value1 = "";
     string Value2 = "";
+    string Value3 = "init";
+
+    protected override void OnInitialized()
+    {
+        _ = UpdateValue3Async();
+    }
+
+    private async Task UpdateValue3Async()
+    {
+        using PeriodicTimer timer = new(TimeSpan.FromSeconds(5));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            Value3 = $"{DateTime.Now:HH:mm:ss}";
+            await InvokeAsync(StateHasChanged);
+        }
+    }
 }
