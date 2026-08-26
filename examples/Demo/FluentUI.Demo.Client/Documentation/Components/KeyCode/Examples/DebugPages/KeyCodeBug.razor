@@ -1,0 +1,92 @@
+@page "/KeyCode/Debug/Bug"
+@layout FluentUI.Demo.Client.Layout.EmptyLayout
+
+<PageTitle>KeyCode issue 5200</PageTitle>
+
+<FluentLayout Height="100dvh"
+			  Width="100%"
+			  MobileBreakdownWidth="768"
+			  OnBreakpointEnter="HandleBreakpointChanged">
+	<FluentLayoutItem Area="LayoutArea.Content" Padding="Padding.All4">
+		<FluentStack Orientation="Orientation.Vertical" VerticalGap="16">
+			<FluentText Typography="Typography.PaneHeader">
+				FluentKeyCode disposal - issue #5200
+			</FluentText>
+
+			<FluentText Typography="Typography.Subject">
+				Deterministic reproduction
+			</FluentText>
+
+			<FluentText>
+				Open the browser console, click once to register against an intentionally missing anchor,
+				then click again to dispose the registration.
+			</FluentText>
+
+			<FluentButton Appearance="ButtonAppearance.Primary" OnClick="ToggleMissingAnchorKeyCode">
+				@(_renderMissingAnchorKeyCode ? "2. Dispose missing registration" : "1. Register with missing anchor")
+			</FluentButton>
+
+			@if (_renderMissingAnchorKeyCode)
+			{
+				<FluentKeyCode Anchor="missing-key-code-anchor" />
+			}
+
+			<FluentDivider />
+
+			<FluentText Typography="Typography.Subject">
+				Responsive AppBar reproduction
+			</FluentText>
+
+			<FluentText>
+				Open the browser console and rapidly resize the window across 768px.
+				The current branch is <strong>@(_isDesktop ? "desktop" : "mobile")</strong>
+				and has changed @_branchChangeCount times.
+			</FluentText>
+
+			<FluentButton Appearance="ButtonAppearance.Outline" OnClick="ToggleBranch">
+				Toggle branch
+			</FluentButton>
+
+			@if (_isDesktop)
+			{
+				<div style="width: 100px; overflow: hidden;">
+					<FluentAppBar PopoverShowSearch="false">
+						<FluentAppBarItem IconRest="@(new Icons.Regular.Size24.AppFolder())" Text="One" />
+						<FluentAppBarItem IconRest="@(new Icons.Regular.Size24.SlideText())" Text="Two" />
+						<FluentAppBarItem IconRest="@(new Icons.Regular.Size24.ChartMultiple())" Text="Three" />
+					</FluentAppBar>
+				</div>
+			}
+			else
+			{
+				<FluentMenu>
+					<FluentMenuItem>One</FluentMenuItem>
+				</FluentMenu>
+			}
+		</FluentStack>
+	</FluentLayoutItem>
+</FluentLayout>
+
+@code
+{
+	private bool _isDesktop = true;
+	private bool _renderMissingAnchorKeyCode;
+	private int _branchChangeCount;
+
+	private void ToggleMissingAnchorKeyCode()
+	{
+		_renderMissingAnchorKeyCode = !_renderMissingAnchorKeyCode;
+	}
+
+	private void HandleBreakpointChanged(bool isMobile)
+	{
+		_isDesktop = !isMobile;
+		_branchChangeCount++;
+	}
+
+	private void ToggleBranch()
+	{
+		_isDesktop = !_isDesktop;
+		_branchChangeCount++;
+	}
+}
