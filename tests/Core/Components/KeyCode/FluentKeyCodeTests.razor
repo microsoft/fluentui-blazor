@@ -78,6 +78,24 @@
     }
 
     [Fact]
+    public async Task DisposeAsync_RegisteredEvent_InvokesUnregisterKeyCode()
+    {
+        // Arrange
+        const string eventId = "key-code-event-id";
+        JSInterop.Setup<string>("Microsoft.FluentUI.Blazor.Components.KeyCode.RegisterKeyCode", _ => true)
+            .SetResult(eventId);
+        _ = Render(@<FluentKeyCode Anchor="myZone" />);
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.KeyCode.RegisterKeyCode");
+
+        // Act
+        await DisposeComponentsAsync();
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.KeyCode.UnregisterKeyCode");
+        Assert.Equal(eventId, invocation.Arguments[0]);
+    }
+
+    [Fact]
     public async Task FluentKeyCode_CtrlShiftAltMeta()
     {
         FluentKeyCodeEventArgs pressed = new();

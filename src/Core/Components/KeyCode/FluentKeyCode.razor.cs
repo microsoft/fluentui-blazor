@@ -13,6 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElementBase
 {
+    private DotNetObjectReference<FluentKeyCode>? _dotNetHelper;
     private string _javaScriptEventId = string.Empty;
     private readonly KeyCode[] _Modifiers = [KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta];
 
@@ -130,7 +131,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
                 throw new ArgumentNullException(Anchor, $"The {nameof(Anchor)} parameter must be set to the ID of an element. Or the {nameof(ChildContent)} must be set to apply the KeyCode engine to this content.");
             }
 
-            var dotNetHelper = DotNetObjectReference.Create(this);
+            _dotNetHelper = DotNetObjectReference.Create(this);
             var eventNames = string.Join(';', new[]
             {
                 OnKeyDown.HasDelegate ? "KeyDown" : string.Empty,
@@ -147,7 +148,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
                 StopPropagation,
                 PreventDefault,
                 PreventDefaultOnly,
-                dotNetHelper,
+                _dotNetHelper,
                 PreventMultipleKeyDown,
                 StopRepeat);
         }
@@ -210,6 +211,8 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
         }
         finally
         {
+            _dotNetHelper?.Dispose();
+            _dotNetHelper = null;
             await base.DisposeAsync();
         }
     }
