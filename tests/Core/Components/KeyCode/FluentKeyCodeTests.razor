@@ -71,7 +71,7 @@
         _ = Render(@<FluentKeyCode Anchor="myZone" IgnoreModifier="true" Ignore="@(new[] { KeyCode.KeyA, KeyCode.Shift })" />);
         // Assert
         var invocation = Assert.Single(JSInterop.Invocations, invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.KeyCode.RegisterKeyCode");
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.KeyCode.RegisterKeyCode");
         var ignoredKeys = Assert.IsType<KeyCode[]>(invocation.Arguments[5]);
 
         Assert.Equal([KeyCode.KeyA, KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta], ignoredKeys);

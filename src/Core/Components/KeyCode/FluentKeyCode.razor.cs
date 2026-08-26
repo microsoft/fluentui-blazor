@@ -13,7 +13,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "KeyCode/FluentKeyCode.razor.js";
     private string _javaScriptEventId = string.Empty;
     private readonly KeyCode[] _Modifiers = [KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta];
 
@@ -138,11 +137,7 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
                 OnKeyUp.HasDelegate ? "KeyUp" : string.Empty,
             });
 
-            // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            // Call a function from the JavaScript module
-            _javaScriptEventId = await jsModule.InvokeAsync<string>("Microsoft.FluentUI.Blazor.KeyCode.RegisterKeyCode",
+            _javaScriptEventId = await JSRuntime.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Components.KeyCode.RegisterKeyCode",
                 GlobalDocument,
                 eventNames.Length > 1 ? eventNames : "KeyDown",
                 Anchor,
@@ -203,9 +198,12 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     }
 
     /// <inheritdoc />
-    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    public override async ValueTask DisposeAsync()
     {
-        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.KeyCode.UnregisterKeyCode", _javaScriptEventId);
+        if (!string.IsNullOrEmpty(_javaScriptEventId))
+        {
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.KeyCode.UnregisterKeyCode", _javaScriptEventId);
+        }
     }
 }
 

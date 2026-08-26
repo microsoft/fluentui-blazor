@@ -1,9 +1,9 @@
-export namespace Microsoft.FluentUI.Blazor.KeyCode {
+export namespace Microsoft.FluentUI.Blazor.Components.KeyCode {
 
   /**
    * Registers a key code event handler for the specified element.
    * This function integrates with the FluentKeyCode Blazor component to handle key events such as KeyDown and KeyUp.
-   * 
+   *
    * @param globalDocument - Indicates whether the event handler should be applied globally to the document or to a specific element.
    * @param eventNames - A semicolon-separated list of event names to listen for (e.g., "KeyDown;KeyUp").
    * @param id - The ID of the target element. Ignored if `elementRef` is provided.
