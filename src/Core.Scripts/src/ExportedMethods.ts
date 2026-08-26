@@ -14,6 +14,7 @@ import { Microsoft as FluentAutocompleteFile } from './Components/List/FluentAut
 import { Microsoft as FluentSelectFile } from './Components/List/FluentSelect';
 import { Microsoft as FluentMenuFile } from './Components/Menu/FluentMenu';
 import { Microsoft as FluentColorPickerFile } from './Components/ColorPicker/FluentColorPicker';
+import { Microsoft as FluentKeyCodeFile } from './Components/KeyCode/FluentKeyCode';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
 
@@ -48,6 +49,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components.Select = FluentSelectFile.FluentUI.Blazor.Components.Select;
     (window as any).Microsoft.FluentUI.Blazor.Components.Menu = FluentMenuFile.FluentUI.Blazor.Components.Menu;
     (window as any).Microsoft.FluentUI.Blazor.Components.ColorPicker = FluentColorPickerFile.FluentUI.Blazor.Components.ColorPicker;
+    (window as any).Microsoft.FluentUI.Blazor.Components.KeyCode = FluentKeyCodeFile.FluentUI.Blazor.Components.KeyCode;
 
     // [^^^ Add your other exported methods before this line ^^^]
   }
