@@ -200,9 +200,17 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     /// <inheritdoc />
     public override async ValueTask DisposeAsync()
     {
-        if (!string.IsNullOrEmpty(_javaScriptEventId))
+        try
         {
-            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.KeyCode.UnregisterKeyCode", _javaScriptEventId);
+            if (!string.IsNullOrEmpty(_javaScriptEventId))
+            {
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.KeyCode.UnregisterKeyCode", _javaScriptEventId);
+                _javaScriptEventId = string.Empty;
+            }
+        }
+        finally
+        {
+            await base.DisposeAsync();
         }
     }
 }

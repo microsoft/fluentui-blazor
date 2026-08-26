@@ -113,23 +113,26 @@ export namespace Microsoft.FluentUI.Blazor.Components.KeyCode {
    * Unregisters a key code event handler for the specified event ID.
    * @param eventId
    */
-  export function UnregisterKeyCode(eventId: string) {
+    export function UnregisterKeyCode(eventId: string) {
+      const events = (document as any)._fluentKeyCodeEvents;
+      const keyEvent = events?.[eventId];
 
-    if ((document as any)._fluentKeyCodeEvents != null) {
-      const keyEvent = (document as any)._fluentKeyCodeEvents[eventId];
+      if (!keyEvent) {
+          return;
+      }
+
       const element = keyEvent.source;
 
-      if (!!keyEvent.handlerKeydown) {
-        element.removeEventListener("keydown", keyEvent.handlerKeydown);
+      if (element && keyEvent.handlerKeydown) {
+          element.removeEventListener("keydown", keyEvent.handlerKeydown);
       }
 
-      if (!!keyEvent.handlerKeyup) {
-        element.removeEventListener("keyup", keyEvent.handlerKeyup);
+      if (element && keyEvent.handlerKeyup) {
+          element.removeEventListener("keyup", keyEvent.handlerKeyup);
       }
 
-      delete (document as any)._fluentKeyCodeEvents[eventId];
+      delete events[eventId];
     }
-  }
 
   /**
    * A safe, read-only snapshot of the fields needed from a keyboard event, guaranteed
