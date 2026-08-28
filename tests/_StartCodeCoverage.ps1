@@ -133,13 +133,13 @@ else {
         Write-Host
         Write-Host '=== Running Core component tests with coverage ==='
 
-        & dotnet test .\Core\Components.Tests.csproj `
+        & dotnet test (Join-Path $scriptDir 'Core\Components.Tests.csproj') `
             --results-directory $coreResults `
-	    --configuration Release `
-	    --coverage `
-	    --coverage-output-format cobertura `
-	    --coverage-output Components.Tests.cobertura.xml `
-	    --coverage-settings .\Core\coverage.runsettings
+            --configuration Release `
+            --coverage `
+            --coverage-output-format cobertura `
+            --coverage-output Components.Tests.cobertura.xml `
+            --coverage-settings (Join-Path $scriptDir 'Core\coverage.runsettings')
 
         if ($LASTEXITCODE -eq 0) {
             New-Item -ItemType File -Path $coreStamp -Force | Out-Null
@@ -155,13 +155,13 @@ else {
         Write-Host 
         Write-Host '=== Running Charts component tests with coverage ==='
 
-        & dotnet test .\Charts\Components.Charts.Tests.csproj `
+        & dotnet test (Join-Path $scriptDir 'Charts\Components.Charts.Tests.csproj') `
             --results-directory $chartsResults `
             --configuration Release `
-	    --coverage `
-	    --coverage-output-format cobertura `
-	    --coverage-output Components.Charts.Tests.cobertura.xml `
-	    --coverage-settings .\Charts\coverage.runsettings
+            --coverage `
+            --coverage-output-format cobertura `
+            --coverage-output Components.Charts.Tests.cobertura.xml `
+            --coverage-settings (Join-Path $scriptDir 'Charts\coverage.runsettings')
 
         if ($LASTEXITCODE -eq 0) {
             New-Item -ItemType File -Path $chartsStamp -Force | Out-Null

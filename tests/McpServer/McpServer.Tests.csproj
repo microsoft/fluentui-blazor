@@ -40,7 +40,7 @@
   -->
   <Target Name="EnsureMcpDocumentationJson" BeforeTargets="BeforeBuild" Condition="!Exists('$(McpDocumentationJsonPath)')">
     <Message Text="MCP documentation JSON missing; generating via McpServer project..." Importance="high" />
-    <MSBuild Projects="..\..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj" Targets="GenerateMcpDocumentation" Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
+    <MSBuild Projects="..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj" Targets="GenerateMcpDocumentation" Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
   </Target>
 
   <!-- Copy the JSON documentation file for testing -->

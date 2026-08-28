@@ -83,7 +83,12 @@ jobs:
        run: |
          TESTS="${{ env.TESTS }}"
          for test in $TESTS; do
-           dotnet test "$test" --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings coverage.runsettings
+           runsettings="$(dirname "$test")/coverage.runsettings"
+           if [ -f "$runsettings" ]; then
+             dotnet test "$test" --results-directory ./TestResults --configuration Release --logger trx --coverage --coverage-output-format cobertura --coverage-settings "$runsettings"
+           else
+             dotnet test "$test" --results-directory ./TestResults --configuration Release --logger trx --coverage --coverage-output-format cobertura
+           fi
          done
        working-directory: ${{ github.workspace }}
 

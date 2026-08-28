@@ -43,52 +43,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
 
         _xmlDocumentation = new FileInfo(_xmlPath);
 
-        //// Load the FluentUI assembly dynamically
-        //var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
-
-        //if (!File.Exists(fluentUIAssemblyPath))
-        //{
-        //    // Try alternative path (Release build)
-        //    fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
-
-        //    if (!File.Exists(fluentUIAssemblyPath))
-        //    {
-        //        throw new FileNotFoundException($"FluentUI assembly not found. Please build the Core project first. Looked for: {fluentUIAssemblyPath}");
-        //    }
-        //}
-        //// get file identity
-        //var fileIdentity = System.Reflection.AssemblyName.GetAssemblyName(fluentUIAssemblyPath).FullName;
-        //Console.WriteLine($"Attempting to load file: {fluentUIAssemblyPath}");
-        //Console.WriteLine($"File manifest identity: {fileIdentity}");
-
-        //// optional: register resolver (use AssemblyLoadContext in .NET Core)
-        //System.Runtime.Loader.AssemblyLoadContext.Default.Resolving += (ctx, name) =>
-        //{
-        //    var candidate = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, name.Name + ".dll");
-        //    if (File.Exists(candidate))
-        //    {
-        //        Console.WriteLine($"Resolving {name.FullName} from {candidate}");
-        //        return ctx.LoadFromAssemblyPath(candidate);
-        //    }
-        //    return null;
-        //};
-
-        //try
-        //{
-        //    _fluentUIAssembly = System.Reflection.Assembly.LoadFrom(fluentUIAssemblyPath);
-        //}
-        //catch (System.IO.FileLoadException ex)
-        //{
-        //    var onDisk = System.Reflection.AssemblyName.GetAssemblyName(fluentUIAssemblyPath).FullName;
-        //    Console.WriteLine($"Load failed. Disk assembly identity: {onDisk}");
-
-        //    Console.WriteLine($"Exception: {ex.Message}");
-
-        //    throw;
-        //}
-
-        ////_fluentUIAssembly = Assembly.LoadFrom(fluentUIAssemblyPath);
-        _fluentUIAssembly = Assembly.Load("Microsoft.FluentUI.AspNetCore.Components");
+        _fluentUIAssembly = typeof(Microsoft.FluentUI.AspNetCore.Components.FluentButton).Assembly;
     }
 
     /// <summary>
