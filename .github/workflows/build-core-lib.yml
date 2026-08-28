@@ -83,7 +83,7 @@ jobs:
        run: |
          TESTS="${{ env.TESTS }}"
          for test in $TESTS; do
-           dotnet test "$test" --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"
+           dotnet test "$test" --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings coverage.runsettings
          done
        working-directory: ${{ github.workspace }}
 

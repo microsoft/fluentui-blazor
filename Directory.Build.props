@@ -14,6 +14,7 @@
          - examples\Tools\FluentUI.Demo.DocApiGen.IntegrationTests\FluentUIComponentsIntegrationTests.cs
          - tests\Integration\WebServer\StartServerFixture.cs
     -->
+
     <ExampleNetVersion>net9.0</ExampleNetVersion>
 
     <!-- .NET Framework Version used with the Assets (Icons and Emojis) projects -->

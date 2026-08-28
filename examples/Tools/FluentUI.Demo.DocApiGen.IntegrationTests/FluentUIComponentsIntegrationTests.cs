@@ -2,13 +2,11 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using FluentUI.Demo.DocApiGen;
+using System.Reflection;
+using System.Text.Json;
 using FluentUI.Demo.DocApiGen.Abstractions;
 using FluentUI.Demo.DocApiGen.Formatters;
 using FluentUI.Demo.DocApiGen.Generators;
-using System.Reflection;
-using System.Text.Json;
-using Xunit;
 
 namespace FluentUI.Demo.DocApiGen.IntegrationTests;
 
@@ -45,21 +43,52 @@ public class FluentUIComponentsIntegrationTests : IDisposable
 
         _xmlDocumentation = new FileInfo(_xmlPath);
 
-        // Load the FluentUI assembly dynamically
-        var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
+        //// Load the FluentUI assembly dynamically
+        //var fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
 
-        if (!File.Exists(fluentUIAssemblyPath))
-        {
-            // Try alternative path (Release build)
-            fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
+        //if (!File.Exists(fluentUIAssemblyPath))
+        //{
+        //    // Try alternative path (Release build)
+        //    fluentUIAssemblyPath = Path.Combine(projectRoot, "src", "Core", "bin", "Release", NET_VERSION, "Microsoft.FluentUI.AspNetCore.Components.dll");
 
-            if (!File.Exists(fluentUIAssemblyPath))
-            {
-                throw new FileNotFoundException($"FluentUI assembly not found. Please build the Core project first. Looked for: {fluentUIAssemblyPath}");
-            }
-        }
+        //    if (!File.Exists(fluentUIAssemblyPath))
+        //    {
+        //        throw new FileNotFoundException($"FluentUI assembly not found. Please build the Core project first. Looked for: {fluentUIAssemblyPath}");
+        //    }
+        //}
+        //// get file identity
+        //var fileIdentity = System.Reflection.AssemblyName.GetAssemblyName(fluentUIAssemblyPath).FullName;
+        //Console.WriteLine($"Attempting to load file: {fluentUIAssemblyPath}");
+        //Console.WriteLine($"File manifest identity: {fileIdentity}");
 
-        _fluentUIAssembly = Assembly.LoadFrom(fluentUIAssemblyPath);
+        //// optional: register resolver (use AssemblyLoadContext in .NET Core)
+        //System.Runtime.Loader.AssemblyLoadContext.Default.Resolving += (ctx, name) =>
+        //{
+        //    var candidate = Path.Combine(projectRoot, "src", "Core", "bin", "Debug", NET_VERSION, name.Name + ".dll");
+        //    if (File.Exists(candidate))
+        //    {
+        //        Console.WriteLine($"Resolving {name.FullName} from {candidate}");
+        //        return ctx.LoadFromAssemblyPath(candidate);
+        //    }
+        //    return null;
+        //};
+
+        //try
+        //{
+        //    _fluentUIAssembly = System.Reflection.Assembly.LoadFrom(fluentUIAssemblyPath);
+        //}
+        //catch (System.IO.FileLoadException ex)
+        //{
+        //    var onDisk = System.Reflection.AssemblyName.GetAssemblyName(fluentUIAssemblyPath).FullName;
+        //    Console.WriteLine($"Load failed. Disk assembly identity: {onDisk}");
+
+        //    Console.WriteLine($"Exception: {ex.Message}");
+
+        //    throw;
+        //}
+
+        ////_fluentUIAssembly = Assembly.LoadFrom(fluentUIAssemblyPath);
+        _fluentUIAssembly = Assembly.Load("Microsoft.FluentUI.AspNetCore.Components");
     }
 
     /// <summary>
@@ -72,7 +101,7 @@ public class FluentUIComponentsIntegrationTests : IDisposable
         // Look for solution file
         while (directory != null)
         {
-            var solutionFiles = directory.GetFiles("*.sln");
+            var solutionFiles = directory.GetFiles("*.slnx");
             if (solutionFiles.Length > 0)
             {
                 return directory.FullName;
