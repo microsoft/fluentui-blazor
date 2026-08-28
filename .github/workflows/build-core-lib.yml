@@ -155,7 +155,7 @@ jobs:
          reports: '**/*.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
-         assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
+         assemblyfilters: '-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools;-McpServer.Tests'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          filefilters: '-*RegexGenerator.g.cs'
          customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }};riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
