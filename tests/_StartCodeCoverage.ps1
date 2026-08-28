@@ -134,9 +134,12 @@ else {
         Write-Host '=== Running Core component tests with coverage ==='
 
         & dotnet test (Join-Path $scriptDir 'Core\Components.Tests.csproj') `
-            '--collect:XPlat Code Coverage' `
-            '--results-directory' $coreResults `
-            '--' 'DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include=[Microsoft.FluentUI.AspNetCore.Components]*' 'DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Exclude=[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*'
+            --results-directory $coreResults `
+            --configuration Release `
+            --coverage `
+            --coverage-output-format cobertura `
+            --coverage-output Components.Tests.cobertura.xml `
+            --coverage-settings (Join-Path $scriptDir 'Core\coverage.runsettings')
 
         if ($LASTEXITCODE -eq 0) {
             New-Item -ItemType File -Path $coreStamp -Force | Out-Null
@@ -153,9 +156,12 @@ else {
         Write-Host '=== Running Charts component tests with coverage ==='
 
         & dotnet test (Join-Path $scriptDir 'Charts\Components.Charts.Tests.csproj') `
-            '--collect:XPlat Code Coverage' `
-            '--results-directory' $chartsResults `
-            '--' 'DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Include=[Microsoft.FluentUI.AspNetCore.Components.Charts]*'
+            --results-directory $chartsResults `
+            --configuration Release `
+            --coverage `
+            --coverage-output-format cobertura `
+            --coverage-output Components.Charts.Tests.cobertura.xml `
+            --coverage-settings (Join-Path $scriptDir 'Charts\coverage.runsettings')
 
         if ($LASTEXITCODE -eq 0) {
             New-Item -ItemType File -Path $chartsStamp -Force | Out-Null
@@ -167,10 +173,10 @@ Write-Host
 Write-Host '=== Merging coverage reports ==='
 
 & reportgenerator `
-    "-reports:$resultsDir\**\coverage.cobertura.xml" `
+    "-reports:$resultsDir\**\*.cobertura.xml" `
     "-targetdir:$resultsDir\Report" `
     '-reporttypes:HtmlInline_AzurePipelines' `
-    '-assemblyfilters:+Microsoft.FluentUI.AspNetCore.Components;+Microsoft.FluentUI.AspNetCore.Components.Charts;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools' `
+    '-assemblyfilters:-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools' `
     '-classfilters:-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*' `
     '-filefilters:-*RegexGenerator.g.cs' `
     'riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30' `

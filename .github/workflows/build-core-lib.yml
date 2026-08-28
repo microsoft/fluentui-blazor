@@ -83,14 +83,19 @@ jobs:
        run: |
          TESTS="${{ env.TESTS }}"
          for test in $TESTS; do
-           dotnet test "$test" --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"
+           runsettings="$(dirname "$test")/coverage.runsettings"
+           if [ -f "$runsettings" ]; then
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings "$runsettings"
+           else
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura
+           fi
          done
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
        if: success() || failure()
        continue-on-error: true
-       uses: dorny/test-reporter@v1
+       uses: dorny/test-reporter@v3
        with:
          name: Core Tests
          path: '**/*.trx'
@@ -137,7 +142,7 @@ jobs:
      - name: Publish unit tests summary
        if: success() || failure()
        continue-on-error: true
-       uses: marocchino/sticky-pull-request-comment@v2
+       uses: marocchino/sticky-pull-request-comment@v3.0.5
        with:
          header: Test Results
          path: ./TestResults/ExtractedTests.md
@@ -145,12 +150,12 @@ jobs:
      # Test Coverage
 
      - name: Report Generator
-       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
+       uses: danielpalme/ReportGenerator-GitHub-Action@5.5.11
        with:
-         reports: '**/coverage.cobertura.xml;**/coverage.net10.0.cobertura.xml'
+         reports: '**/*.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
-         assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
+         assemblyfilters: '-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools;-McpServer.Tests'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
          filefilters: '-*RegexGenerator.g.cs'
          customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }};riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
@@ -163,7 +168,7 @@ jobs:
          path: CoverageReports
 
      - name: Publish coverage summary
-       uses: marocchino/sticky-pull-request-comment@v2
+       uses: marocchino/sticky-pull-request-comment@v3.0.5
        continue-on-error: true
        with:
          path: CoverageReports/SummaryGithub.md
