@@ -1,8 +1,35 @@
-import { Menu, MenuList } from "@fluentui/web-components";
+import { Menu, MenuItem, MenuList } from "@fluentui/web-components";
 import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Menu {
   const menuAbortControllers = new Map<string, AbortController>();
+  const menuListsWithMouseOutWorkaround = new WeakSet<MenuList>();
+
+  // Closes an open submenu when the pointer leaves, even if its parent menu item retains focus.
+  function handleMenuListMouseOut(event: MouseEvent) {
+    const relatedTarget = event.relatedTarget;
+
+    for (const target of event.composedPath()) {
+      if (!(target instanceof MenuItem)) {
+        continue;
+      }
+
+      const submenu = target.submenu;
+      if (!submenu?.matches(":popover-open")) {
+        continue;
+      }
+
+      if (relatedTarget instanceof Node && target.contains(relatedTarget)) {
+        continue;
+      }
+
+      if (submenu.contains(document.activeElement)) {
+        continue;
+      }
+
+      submenu.togglePopover(false);
+    }
+  }
 
   /**
    * Initializes the menu by associating it with a trigger element and setting up the necessary styles for positioning.
@@ -41,6 +68,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
 
       menuList.style["position-anchor" as any] = `--anchor-${triggerId}`;
       menu.slottedTriggersChanged(menu.slottedTriggers ?? [], [trigger]);
+
+      if (!menuListsWithMouseOutWorkaround.has(menuList)) {
+        menuList.addEventListener("mouseout", handleMenuListMouseOut);
+        menuListsWithMouseOutWorkaround.add(menuList);
+      }
 
       menuAbortControllers.get(id)?.abort();
       if (dotNetHelper) {
