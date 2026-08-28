@@ -35,6 +35,7 @@
     <PackageVersion Include="Microsoft.Playwright" Version="1.62.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.15" />
     <PackageVersion Include="Microsoft.Testing.Platform" Version="2.3.3" />
+    <PackageVersion Include="Microsoft.Testing.Extension.TrxReport" Version="2.3.3" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="1.3.2" />
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.147" />
