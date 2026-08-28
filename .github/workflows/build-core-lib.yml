@@ -85,9 +85,9 @@ jobs:
          for test in $TESTS; do
            runsettings="$(dirname "$test")/coverage.runsettings"
            if [ -f "$runsettings" ]; then
-             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --logger trx --coverage --coverage-output-format cobertura --coverage-settings "$runsettings"
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings "$runsettings"
            else
-             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --logger trx --coverage --coverage-output-format cobertura
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura
            fi
          done
        working-directory: ${{ github.workspace }}
