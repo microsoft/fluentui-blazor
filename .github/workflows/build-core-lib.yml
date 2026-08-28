@@ -98,7 +98,7 @@ jobs:
        working-directory: ${{ github.workspace }}
 
      - name: Tests .NET 11.0
-       run: dotnet test ./tests/Core/Components.Tests.csproj --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:ExampleNetVersion=net11.0
+       run: dotnet test ./tests/Core/Components.Tests.csproj --report-trx --results-directory ./TestResults --verbosity normal --configuration Release /p:ExampleNetVersion=net11.0
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
