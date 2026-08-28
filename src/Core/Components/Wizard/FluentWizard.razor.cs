@@ -208,8 +208,6 @@ public partial class FluentWizard : FluentComponentBase
             {
                 await ValueChanged.InvokeAsync(Value);
             }
-
-            StateHasChanged();
         }
     }
 
@@ -235,8 +233,6 @@ public partial class FluentWizard : FluentComponentBase
             {
                 await ValueChanged.InvokeAsync(Value);
             }
-
-            StateHasChanged();
         }
     }
 
