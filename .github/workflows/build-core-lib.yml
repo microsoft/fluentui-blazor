@@ -95,7 +95,7 @@ jobs:
      - name: Publish Unit Tests
        if: success() || failure()
        continue-on-error: true
-       uses: dorny/test-reporter@v1
+       uses: dorny/test-reporter@v3
        with:
          name: Core Tests
          path: '**/*.trx'
@@ -142,7 +142,7 @@ jobs:
      - name: Publish unit tests summary
        if: success() || failure()
        continue-on-error: true
-       uses: marocchino/sticky-pull-request-comment@v2
+       uses: marocchino/sticky-pull-request-comment@v3.0.5
        with:
          header: Test Results
          path: ./TestResults/ExtractedTests.md
@@ -150,9 +150,9 @@ jobs:
      # Test Coverage
 
      - name: Report Generator
-       uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
+       uses: danielpalme/ReportGenerator-GitHub-Action@5.5.11
        with:
-         reports: '**/coverage.cobertura.xml;**/coverage.net10.0.cobertura.xml'
+         reports: '**/*.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
          assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
@@ -168,7 +168,7 @@ jobs:
          path: CoverageReports
 
      - name: Publish coverage summary
-       uses: marocchino/sticky-pull-request-comment@v2
+       uses: marocchino/sticky-pull-request-comment@v3.0.5
        continue-on-error: true
        with:
          path: CoverageReports/SummaryGithub.md
