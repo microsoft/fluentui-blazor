@@ -152,7 +152,7 @@ else {
             Remove-Item -Path $chartsResults -Recurse -Force
         }
 
-        Write-Host 
+        Write-Host
         Write-Host '=== Running Charts component tests with coverage ==='
 
         & dotnet test (Join-Path $scriptDir 'Charts\Components.Charts.Tests.csproj') `
