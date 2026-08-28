@@ -34,10 +34,35 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         Resize,
     }
 
+#if NET11_0_OR_GREATER
+    // Adapts ItemComparer to the virtualizer's (row index, item) shape while comparing item identity only.
+    // Reading from the owner on each call ensures parameter updates take effect.
+    private sealed class VirtualizeItemComparer(FluentDataGrid<TGridItem> owner) : IEqualityComparer<(int, TGridItem)>
+    {
+        private readonly FluentDataGrid<TGridItem> _owner = owner;
+
+        private IEqualityComparer<TGridItem> ItemComparer => _owner._itemComparer ?? EqualityComparer<TGridItem>.Default;
+
+        public bool Equals((int, TGridItem) first, (int, TGridItem) second)
+        {
+            return ItemComparer.Equals(first.Item2, second.Item2);
+        }
+
+        public int GetHashCode((int, TGridItem) item)
+        {
+            return item.Item2 is null ? 0 : ItemComparer.GetHashCode(item.Item2);
+        }
+    }
+#endif
+
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
+#if NET11_0_OR_GREATER
+    private IEqualityComparer<TGridItem>? _itemComparer;
+    private readonly IEqualityComparer<(int, TGridItem)> _virtualizeItemComparer;
+#endif
     private IAsyncQueryExecutor? _asyncQueryExecutor;
     private AsyncServiceScope? _scope;
     private bool _asyncQueryExecuted;
@@ -94,6 +119,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
+    #if NET11_0_OR_GREATER
+        _virtualizeItemComparer = new VirtualizeItemComparer(this);
+    #endif
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -169,6 +197,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [Parameter]
     public int OverscanCount { get; set; } = 3;
 
+#if NET9_0_OR_GREATER
+    /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. It defines the maximum number of items
+    /// that can be rendered, even when the viewport would otherwise require more items.
+    /// </summary>
+    [Parameter]
+    public int MaxItemCount { get; set; } = 100;
+#endif
+
     /// <summary>
     /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
     /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
@@ -176,6 +213,39 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     [Parameter]
     public float ItemSize { get; set; } = 32;
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. Gets or sets the zero-based index of the
+    /// row to scroll to on first interactive render. Applied once when the grid first knows its item count and
+    /// ignored on subsequent re-renders; to scroll programmatically at any later point, call
+    /// <see cref="ScrollToItemAsync(int, CancellationToken)"/>. Out-of-range values are clamped. The default value,
+    /// <c>0</c>, means no initial scroll.
+    /// </summary>
+    [Parameter]
+    public int InitialItemIndex { get; set; }
+
+    /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. Gets or sets the anchor mode that controls
+    /// how the viewport behaves at the edges of the list
+    /// when new items arrive during virtualization. The default is <see cref="VirtualizeAnchorMode.Start"/>.
+    /// </summary>
+    [Parameter]
+    public VirtualizeAnchorMode AnchorMode { get; set; } = VirtualizeAnchorMode.Start;
+
+    /// <summary>
+    /// This is applicable only when using <see cref="Virtualize"/>. Gets or sets a comparer used during
+    /// virtualization to detect whether items were prepended or appended between data loads.
+    /// Provide a comparer that compares items by a stable unique identifier.
+    /// Defaults to <see cref="EqualityComparer{T}.Default"/>.
+    /// </summary>
+    [Parameter]
+    public IEqualityComparer<TGridItem>? ItemComparer
+    {
+        get => _itemComparer;
+        set => _itemComparer = value;
+    }
+#endif
 
     /// <summary>
     /// If true, renders draggable handles around the column headers and adds a button to invoke a resize UI.
@@ -1335,6 +1405,30 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _forceRefreshData = force;
         await RefreshDataCoreAsync();
     }
+
+#if NET11_0_OR_GREATER
+    /// <summary>
+    /// Scrolls the virtualized grid so the row at <paramref name="itemIndex"/> is aligned to the top of the scrollable area.
+    /// </summary>
+    /// <remarks>
+    /// Each call cancels any previously-running <see cref="ScrollToItemAsync(int, CancellationToken)"/> operation.
+    /// Must be called on the renderer's synchronization context; background-thread callers should wrap with
+    /// <see cref="ComponentBase.InvokeAsync(Func{Task})"/>.
+    /// </remarks>
+    /// <param name="itemIndex">The zero-based index of the row to scroll to.</param>
+    /// <param name="cancellationToken">A token that lets the caller request cancellation.</param>
+    /// <returns>A <see cref="Task"/> that completes when the target is aligned or superseded by another call.</returns>
+    public Task ScrollToItemAsync(int itemIndex, CancellationToken cancellationToken = default)
+    {
+        if (!Virtualize || _virtualizeComponent is null)
+        {
+            throw new InvalidOperationException(
+                $"{nameof(ScrollToItemAsync)} can only be used when {nameof(Virtualize)} is enabled and the grid has been rendered.");
+        }
+
+        return _virtualizeComponent.ScrollToItemAsync(itemIndex, cancellationToken);
+    }
+#endif
 
     // Same as RefreshDataAsync, except without forcing a re-render. We use this from OnParametersSetAsync
     // because in that case there's going to be a re-render anyway.

@@ -165,6 +165,12 @@ extends:
             version: 10.0.x
             includePreviewVersions: true
 
+        - task: UseDotNet@2
+          displayName: 'Install .NET 11.0'
+          inputs:
+            version: 11.0.100-preview.7.26381.103
+            includePreviewVersions: true
+
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
@@ -209,7 +215,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"'
+            arguments: '--configuration Release --report-trx --coverage --coverage-output-format cobertura --coverage-settings coverage.runsettings /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"'
             publishTestResults: true
 
         # Coverage Generation

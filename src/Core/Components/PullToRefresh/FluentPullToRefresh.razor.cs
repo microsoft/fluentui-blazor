@@ -300,6 +300,7 @@ public partial class FluentPullToRefresh : FluentComponentBase
             if (!hasMoreData)
             {
                 SetPullStatus(PullStatus.NoData);
+                StateHasChanged();
                 await Task.Delay(StatusUpdateMessageTimeout);
             }
             else

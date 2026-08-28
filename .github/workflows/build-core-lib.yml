@@ -64,6 +64,11 @@ jobs:
         dotnet-version: 10.0.x
         dotnet-quality: preview
 
+     - name: Setup .NET 11.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 11.0.100-preview.7.26381.103
+
      # Build
 
      - name: Restore
@@ -90,6 +95,10 @@ jobs:
              dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura
            fi
          done
+       working-directory: ${{ github.workspace }}
+
+     - name: Tests .NET 11.0
+       run: dotnet test ./tests/Core/Components.Tests.csproj --report-trx --results-directory ./TestResults --verbosity normal --configuration Release /p:ExampleNetVersion=net11.0
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
@@ -228,6 +237,11 @@ jobs:
       with:
         dotnet-version: 10.0.x
         dotnet-quality: preview
+
+    - name: Setup .NET 11.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 11.0.100-preview.7.26381.103
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3

@@ -66,14 +66,7 @@
                         }
                         else
                         {
-                            <Virtualize @ref="@_virtualizeComponent"
-                                        TItem="(int RowIndex, TGridItem Data)"
-                                        ItemSize="@ItemSize"
-                                        OverscanCount="@OverscanCount"
-                                        ItemsProvider="@ProvideVirtualizedItemsAsync"
-                                        ItemContent="@(item => builder => RenderRow(builder, item.RowIndex, item.Data))"
-                                        Placeholder="@(placeholderContext => builder => RenderPlaceholderRow(builder, placeholderContext))"
-                                        SpacerElement="tr" />
+                            @((RenderFragment)RenderVirtualize)
                         }
                     }
                     else
@@ -91,6 +84,29 @@
 </CascadingValue>
 
 @code {
+    // RenderTreeBuilder is required while Virtualize parameters are target-framework conditional.
+    // Replace this with Razor markup when older targets no longer require these #if directives.
+    private void RenderVirtualize(RenderTreeBuilder builder)
+    {
+        builder.OpenComponent<Virtualize<(int RowIndex, TGridItem Data)>>(0);
+        builder.AddAttribute(1, nameof(Virtualize<(int, TGridItem)>.ItemSize), ItemSize);
+        builder.AddAttribute(2, nameof(Virtualize<(int, TGridItem)>.OverscanCount), OverscanCount);
+#if NET9_0_OR_GREATER
+        builder.AddAttribute(3, nameof(Virtualize<(int, TGridItem)>.MaxItemCount), MaxItemCount);
+#endif
+#if NET11_0_OR_GREATER
+        builder.AddAttribute(4, nameof(Virtualize<(int, TGridItem)>.InitialItemIndex), InitialItemIndex);
+        builder.AddAttribute(5, nameof(Virtualize<(int, TGridItem)>.AnchorMode), AnchorMode);
+        builder.AddAttribute(6, nameof(Virtualize<(int, TGridItem)>.ItemComparer), _virtualizeItemComparer);
+#endif
+        builder.AddAttribute(7, nameof(Virtualize<(int, TGridItem)>.ItemsProvider), (ItemsProviderDelegate<(int, TGridItem)>)ProvideVirtualizedItemsAsync);
+        builder.AddAttribute(8, nameof(Virtualize<(int, TGridItem)>.ItemContent), (RenderFragment<(int RowIndex, TGridItem Data)>)(item => contentBuilder => RenderRow(contentBuilder, item.RowIndex, item.Data)));
+        builder.AddAttribute(9, nameof(Virtualize<(int, TGridItem)>.Placeholder), (RenderFragment<PlaceholderContext>)(placeholderContext => contentBuilder => RenderPlaceholderRow(contentBuilder, placeholderContext)));
+        builder.AddAttribute(10, nameof(Virtualize<(int, TGridItem)>.SpacerElement), "tr");
+        builder.AddComponentReferenceCapture(11, value => _virtualizeComponent = (Virtualize<(int, TGridItem)>)value);
+        builder.CloseComponent();
+    }
+
     private void RenderNonVirtualizedRows(RenderTreeBuilder __builder)
     {
         var initialRowIndex = (GenerateHeader != DataGridGeneratedHeaderType.None) ? 2 : 1; // aria-rowindex is 1-based, plus 1 if there is a header
