@@ -200,7 +200,7 @@ extends:
           condition: eq(variables['ShouldTest'], 'true')
           displayName: Generate reports
           inputs:
-            reports: '**/*.cobertura.xml'
+            reports: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             targetdir: 'CoverageFolder'
             reporttypes: 'HtmlInline_AzurePipelines'
             assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
@@ -211,7 +211,7 @@ extends:
           displayName: 'Publish code coverage'
           inputs:
             codeCoverageTool: Cobertura
-            summaryFileLocation: '**/*.cobertura.xml'
+            summaryFileLocation: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             reportDirectory: CoverageFolder
 
         # Index sources and publish symbols
