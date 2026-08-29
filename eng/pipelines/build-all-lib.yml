@@ -192,7 +192,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"'
+            arguments: '--configuration Release --coverage --coverage-output-format cobertura /p:DebugType=Full'
             publishTestResults: true
 
         # Coverage Generation
