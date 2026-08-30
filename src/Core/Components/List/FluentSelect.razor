@@ -7,7 +7,8 @@
 <CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TValue>" IsFixed="true">
     <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
         <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
-            <fluent-dropdown id="@Id"
+            <fluent-dropdown @ref="@Element"
+                             id="@Id"
                              appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
                              placeholder="@Placeholder"
                              slot="@FluentSlot.FieldInput"
@@ -22,7 +23,9 @@
                              style="@DropdownStyle"
                              type="@DropdownType"
                              @ondropdownchange="@OnDropdownChangeHandlerAsync"
+                             @onfocusin="@(e => IsImmediate ? FocusInHandlerAsync(e) : Task.CompletedTask)"
                              @onfocusout="@FocusOutHandlerAsync"
+                             @ontextimmediate="@(e => IsImmediate ? InputHandlerAsync(e) : Task.CompletedTask)"
                              @attributes="@AdditionalAttributes">
                 <fluent-listbox style="@ListStyle" no-wrap="@OptionNoWrapMaxWidth">
                     @RenderOptions()

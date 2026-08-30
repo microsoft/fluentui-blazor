@@ -11,13 +11,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A FluentSelect allows for selecting one or more options from a list of options.
 /// </summary>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TValue>
+public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TValue>, IFluentControlStyle, IFluentComponentElementBase
 {
     /// <summary />
     public FluentSelect(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
     protected virtual string DropdownType => "dropdown";
+
+    /// <summary />
+    protected virtual bool IsImmediate => this is IFluentInputImmediate;
 
     /// <summary />
     protected virtual string? DropdownStyle => new StyleBuilder()
@@ -41,6 +44,14 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
     [Parameter]
     public ListSize? Size { get; set; }
 
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -48,8 +59,16 @@ public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TVa
         {
             // By default, the combobox text is not bound to the Value property.
             // This method don't change the SelectedItems and Value properties.
-            var defaultText = Value is TOption option ? base.GetOptionText(option) : "";
+            var selectedOption = Value is TOption option
+                ? option
+                : SelectedItems is not null ? SelectedItems.FirstOrDefault() : default;
+            var defaultText = selectedOption is not null ? base.GetOptionText(selectedOption) : "";
             await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.Initialize", Id, defaultText);
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
         }
 
         await base.OnAfterRenderAsync(firstRender);

@@ -168,3 +168,7 @@ If you still want to use these placeholder values, then you need to disable auto
 ## API FluentTextInput
 
 {{ API Type=FluentTextInput }}
+
+## Migrating to v5
+
+{{ INCLUDE File=MigrationFluentTextField }}

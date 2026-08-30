@@ -25,6 +25,8 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     /// Initializes a new instance of the <see cref="FluentRadioGroup{TRadioValue}"/> class.
     /// </summary>
     /// <param name="configuration">The configuration settings used to initialize the radio group. This parameter cannot be null.</param>
+    [DynamicDependency(nameof(RadioChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(RadioEventArgs))]
     public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <inheritdoc />

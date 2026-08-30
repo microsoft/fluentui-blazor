@@ -236,6 +236,12 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         }
 
         // Single item
+        if (CurrentValue is null && SelectedItems is not null && SelectedItems.FirstOrDefault() is { } selectedItem)
+        {
+            return OptionSelectedComparer?.Equals(item, selectedItem)
+                ?? EqualityComparer<TOption>.Default.Equals(item, selectedItem);
+        }
+
         if (OptionSelectedComparer != null && CurrentValue is TOption currentAsOption)
         {
             return OptionSelectedComparer.Equals(item, currentAsOption);
@@ -319,6 +325,22 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         FocusLost = true;
         return Task.CompletedTask;
     }
+
+    /// <summary>
+    /// Handler for the OnFocusIn event.
+    /// Only used when the component implements <see cref="IFluentInputImmediate"/>.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusInHandlerAsync(FocusEventArgs e) => Task.CompletedTask;
+
+    /// <summary>
+    /// Handler for the OnInput event.
+    /// Only used when the component implements <see cref="IFluentInputImmediate"/>.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task InputHandlerAsync(ChangeEventArgs e) => Task.CompletedTask;
 
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {

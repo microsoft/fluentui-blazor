@@ -7,6 +7,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Event arguments for the TreeItem Expanded event.
 /// </summary>
-internal class TreeItemToggleEventArgs : DialogToggleEventArgs
+// This type is public because it is included in the public FluentUIJsonSerializerContext.
+// It can be made internal again if the serializer context can be made internal in the future.
+public class TreeItemToggleEventArgs : DialogToggleEventArgs
 {
 }

@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -25,6 +26,8 @@ public partial class FluentOverflow : FluentComponentBase
         .Build();
 
     /// <summary />
+    [DynamicDependency(nameof(OnOverflowChangedAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowChangedEventArgs))]
     public FluentOverflow(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();

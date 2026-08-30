@@ -4,7 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -239,7 +238,12 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
             if (!string.IsNullOrEmpty(ControlStyle))
             {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ".control", ControlStyle);
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
+
+            if (!string.IsNullOrEmpty(DataList))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList", Element, DataList);
             }
         }
     }
@@ -256,16 +260,5 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         result = value;
         validationErrorMessage = null;
         return true;
-    }
-
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return Task.CompletedTask;
     }
 }

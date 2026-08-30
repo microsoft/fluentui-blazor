@@ -1,0 +1,43 @@
+<FluentCard Appearance="CardAppearance.Filled"
+            Width="300px">
+    <FluentStack Orientation="Orientation.Vertical"
+                 VerticalGap="8px">
+
+        <FluentStack HorizontalGap="8px"
+                     VerticalAlignment="VerticalAlignment.Center">
+            <FluentIcon Value="@(new Icons.Filled.Size32.Image())"
+                        Style="min-width: 32px; min-height: 32px;"
+                        Color="Color.Primary" />
+
+            <FluentStack Orientation="Orientation.Vertical"
+                         VerticalGap="0px">
+                <FluentText Weight="TextWeight.Semibold">App Name</FluentText>
+                <FluentText Size="TextSize.Size200"
+                            Color="@Color.Custom"
+                            CustomColor="@SystemColors.Neutral.Foreground3">
+                    Developer
+                </FluentText>
+            </FluentStack>
+
+            <FluentSpacer />
+
+            <FluentButton Id="buttonFilledAppearance"
+                          Appearance="ButtonAppearance.Subtle"
+                          IconOnly="true"
+                          Title="More options"
+                          IconStart="@(new Icons.Regular.Size20.MoreHorizontal())" />
+            <FluentMenu Trigger="buttonFilledAppearance">
+                <FluentMenuList>
+                    <FluentMenuItem>Menu item 1</FluentMenuItem>
+                    <FluentMenuItem>Menu item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentMenu>
+        </FluentStack>
+
+        <FluentText>
+            Donut chocolate bar oat cake. Dragée tiramisu lollipop bear claw.
+            Marshmallow pastry jujubes toffee sugar plum.
+        </FluentText>
+
+    </FluentStack>
+</FluentCard>

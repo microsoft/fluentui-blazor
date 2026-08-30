@@ -1,5 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.Linq.Expressions
 @using Xunit;
 @inherits FluentUITestContext
 @code
@@ -100,6 +101,37 @@
 
         // Assert
         Assert.Contains("Name is invalid", cut.Markup);
+        Assert.Contains("slot=\"message\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentField_Renders_Validation_Messages_ForConvertedExpression()
+    {
+        // Arrange
+        var model = new FluentFieldValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        Expression<Func<object>> valueExpression = Expression.Lambda<Func<object>>(
+            Expression.Convert(
+                Expression.ConvertChecked(
+                    Expression.Property(Expression.Constant(model), nameof(FluentFieldValidationModel.Number)),
+                    typeof(long)),
+                typeof(object)));
+
+        var cut = Render(
+            @<CascadingValue Value="@editContext">
+                <FluentField ValueExpression="@valueExpression">Field content</FluentField>
+            </CascadingValue>);
+
+        // Act
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(FluentFieldValidationModel.Number)), "Number is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        // Assert
+        Assert.Contains("Number is invalid", cut.Markup);
         Assert.Contains("slot=\"message\"", cut.Markup);
     }
 
@@ -336,5 +368,7 @@
     private sealed class FluentFieldValidationModel
     {
         public string Name { get; set; } = string.Empty;
+
+        public int Number { get; set; }
     }
 }

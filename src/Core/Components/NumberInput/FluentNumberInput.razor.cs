@@ -5,7 +5,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -188,7 +187,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
             if (!string.IsNullOrEmpty(ControlStyle))
             {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ".control", ControlStyle);
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
             }
         }
     }
@@ -264,17 +263,6 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     protected override string? FormatValueAsString(TValue? value)
     {
         return string.Format(Culture, IsDecimal ? "{0:N}" : "{0:N0}", value);
-    }
-
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return Task.CompletedTask;
     }
 
     /// <summary>

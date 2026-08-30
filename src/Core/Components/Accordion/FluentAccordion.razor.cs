@@ -21,6 +21,7 @@ public partial class FluentAccordion : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary />
+    [DynamicDependency(nameof(HandleOnAccordionChangedAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionItemEventArgs))]
     public FluentAccordion(LibraryConfiguration configuration) : base(configuration)
     {

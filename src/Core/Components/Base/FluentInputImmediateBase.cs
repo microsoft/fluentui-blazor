@@ -3,8 +3,7 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -14,10 +13,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// which must be supplied as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>
+public abstract class FluentInputImmediateBase<TValue> : FluentInputBase<TValue>, IFluentInputImmediate
 {
+    private readonly FluentInputImmediateManager _immediateManager;
+
     /// <summary />
-    protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration) { }
+    protected FluentInputImmediateBase(LibraryConfiguration configuration) : base(configuration)
+    {
+        _immediateManager = new FluentInputImmediateManager(this);
+    }
 
     /// <summary>
     /// Change the content of this input field when the user write text (based on 'OnInput' HTML event).
@@ -33,29 +37,43 @@ public abstract partial class FluentInputImmediateBase<TValue> : FluentInputBase
     public int ImmediateDelay { get; set; } = 200;
 
     /// <summary>
-    /// Handler for the OnInput event, with an optional delay to avoid to raise the <see cref="InputBase{TValue}.ValueChanged"/> event too often.
+    /// Raised when the field gains focus. Since the native `onfocusin` DOM event is owned internally
+    /// by <see cref="FocusInHandlerAsync"/> (an <c>@onfocusin</c> passed via unmatched attributes would
+    /// silently replace it instead of merging), use this callback to observe focus-in from a consumer.
     /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual async Task InputHandlerAsync(ChangeEventArgs e)
-    {
-        if (!Immediate)
-        {
-            return;
-        }
-
-        await ChangeHandlerAsync(e);
-    }
+    [Parameter]
+    public EventCallback<FocusEventArgs> OnFocusIn { get; set; }
 
     /// <summary>
-    /// Initializes the immediate event if the immediate mode is enabled.
+    /// Raised when the field loses focus. Since the native `onfocusout` DOM event is owned internally
+    /// by <see cref="FocusOutHandlerAsync"/> (an <c>@onfocusout</c> passed via unmatched attributes would
+    /// silently replace it instead of merging), use this callback to observe focus-out from a consumer.
     /// </summary>
-    protected virtual async Task InitializeImmediateAsync()
+    [Parameter]
+    public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
+
+    /// <inheritdoc />
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        // Initialize the 'immediate' custom event for the immediate mode
-        if (Immediate)
-        {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachImmediateEvent", Id, ImmediateDelay);
-        }
+        _immediateManager.CheckAndSetExternalValue(parameters, Value, FormatValueAsString);
+        return base.SetParametersAsync(parameters);
     }
+
+    /// <see cref="FluentInputImmediateManager.GetImmediateValueAsString(string?)" />
+    protected string? ImmediateValueAsString => _immediateManager.GetImmediateValueAsString(CurrentValueAsString);
+
+    /// <see cref="FluentInputImmediateManager.InputHandlerAsync(ChangeEventArgs, Func{ChangeEventArgs, Task})" />
+    protected virtual Task InputHandlerAsync(ChangeEventArgs e) => _immediateManager.InputHandlerAsync(e, ChangeHandlerAsync);
+
+    /// <see cref="FluentInputImmediateManager.ShouldRender" />
+    protected override bool ShouldRender() => _immediateManager.ShouldRender();
+
+    /// <see cref="FluentInputImmediateManager.FocusInHandlerAsync(FocusEventArgs)" />
+    protected virtual Task FocusInHandlerAsync(FocusEventArgs e) => _immediateManager.FocusInHandlerAsync(e);
+
+    /// <see cref="FluentInputImmediateManager.FocusOutHandlerAsync(FocusEventArgs, Func{Task}?)" />
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e) => _immediateManager.FocusOutHandlerAsync(e, async () => FocusLost = true);
+
+    /// <see cref="FluentInputImmediateManager.InitializeImmediateAsync(JSInterop.IJSRuntime, string?)" />
+    protected virtual Task InitializeImmediateAsync() => _immediateManager.InitializeImmediateAsync(JSRuntime, Id);
 }

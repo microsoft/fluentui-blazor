@@ -1,5 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Microsoft.AspNetCore.Components.Sections
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -242,5 +243,32 @@
 
         // Assert
         Assert.Equal(expectedMobileView, isMobileView);
+    }
+
+    [Fact]
+    public async Task FluentLayout_MediaChangedAsync_SectionOutlet_RendersSingleSubscriber()
+    {
+        // Arrange
+        var cut = Render(@<FluentLayout NavigationDeferredLoading="true">
+            <FluentLayoutItem Area="LayoutArea.Header">
+                <FluentLayoutHamburger />
+            </FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Navigation">
+                <SectionOutlet SectionName="sidebar" />
+            </FluentLayoutItem>
+        </FluentLayout>);
+        var layout = cut.FindComponent<FluentLayout>();
+        Assert.Single(cut.FindComponents<SectionOutlet>());
+
+        // Act
+        await layout.Instance.FluentLayout_MediaChangedAsync("mobile");
+        cut.Render();
+        Assert.Single(cut.FindComponents<SectionOutlet>());
+
+        await layout.Instance.FluentLayout_MediaChangedAsync("desktop");
+        cut.Render();
+
+        // Assert
+        Assert.Single(cut.FindComponents<SectionOutlet>());
     }
 }

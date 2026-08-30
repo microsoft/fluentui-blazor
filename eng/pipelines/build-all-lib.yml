@@ -142,6 +142,12 @@ extends:
             version: 10.0.x
             includePreviewVersions: true
 
+        - task: UseDotNet@2
+          displayName: 'Install .NET 11.0'
+          inputs:
+            version: 11.0.100-preview.7.26381.103
+            includePreviewVersions: true
+
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
@@ -186,7 +192,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full /p:Exclude="[Microsoft.FluentUI.AspNetCore.Components.Tests.Tools]*"'
+            arguments: '--configuration Release --coverage --coverage-output-format cobertura /p:DebugType=Full'
             publishTestResults: true
 
         # Coverage Generation
@@ -194,7 +200,7 @@ extends:
           condition: eq(variables['ShouldTest'], 'true')
           displayName: Generate reports
           inputs:
-            reports: '**/*.cobertura.xml'
+            reports: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             targetdir: 'CoverageFolder'
             reporttypes: 'HtmlInline_AzurePipelines'
             assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
@@ -205,7 +211,7 @@ extends:
           displayName: 'Publish code coverage'
           inputs:
             codeCoverageTool: Cobertura
-            summaryFileLocation: '**/*.cobertura.xml'
+            summaryFileLocation: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             reportDirectory: CoverageFolder
 
         # Index sources and publish symbols

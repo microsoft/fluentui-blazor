@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElementBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "KeyCode/FluentKeyCode.razor.js";
+    private DotNetObjectReference<FluentKeyCode>? _dotNetHelper;
     private string _javaScriptEventId = string.Empty;
     private readonly KeyCode[] _Modifiers = [KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta];
 
@@ -131,28 +131,24 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
                 throw new ArgumentNullException(Anchor, $"The {nameof(Anchor)} parameter must be set to the ID of an element. Or the {nameof(ChildContent)} must be set to apply the KeyCode engine to this content.");
             }
 
-            var dotNetHelper = DotNetObjectReference.Create(this);
+            _dotNetHelper = DotNetObjectReference.Create(this);
             var eventNames = string.Join(';', new[]
             {
                 OnKeyDown.HasDelegate ? "KeyDown" : string.Empty,
                 OnKeyUp.HasDelegate ? "KeyUp" : string.Empty,
             });
 
-            // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            // Call a function from the JavaScript module
-            _javaScriptEventId = await jsModule.InvokeAsync<string>("Microsoft.FluentUI.Blazor.KeyCode.RegisterKeyCode",
+            _javaScriptEventId = await JSRuntime.InvokeAsync<string>("Microsoft.FluentUI.Blazor.Components.KeyCode.RegisterKeyCode",
                 GlobalDocument,
                 eventNames.Length > 1 ? eventNames : "KeyDown",
                 Anchor,
                 ChildContent is null ? null : Element,
                 Only,
-                IgnoreModifier ? Ignore.Union(_Modifiers) : Ignore,
+                IgnoreModifier ? Ignore.Union(_Modifiers).ToArray() : Ignore,
                 StopPropagation,
                 PreventDefault,
                 PreventDefaultOnly,
-                dotNetHelper,
+                _dotNetHelper,
                 PreventMultipleKeyDown,
                 StopRepeat);
         }
@@ -203,9 +199,22 @@ public partial class FluentKeyCode : FluentComponentBase, IFluentComponentElemen
     }
 
     /// <inheritdoc />
-    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    public override async ValueTask DisposeAsync()
     {
-        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.KeyCode.UnregisterKeyCode", _javaScriptEventId);
+        try
+        {
+            if (!string.IsNullOrEmpty(_javaScriptEventId))
+            {
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.KeyCode.UnregisterKeyCode", _javaScriptEventId);
+                _javaScriptEventId = string.Empty;
+            }
+        }
+        finally
+        {
+            _dotNetHelper?.Dispose();
+            _dotNetHelper = null;
+            await base.DisposeAsync();
+        }
     }
 }
 

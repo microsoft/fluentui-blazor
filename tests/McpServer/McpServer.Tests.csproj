@@ -1,20 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>$(ExampleNetVersion)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit" />
-    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,13 +39,9 @@
     Because this test project targets $(ExampleNetVersion), the ProjectReference resolves to a
     different inner build and may not trigger generation. Ensure the file exists before the copy.
   -->
-  <Target Name="EnsureMcpDocumentationJson"
-          BeforeTargets="BeforeBuild"
-          Condition="!Exists('$(McpDocumentationJsonPath)')">
+  <Target Name="EnsureMcpDocumentationJson" BeforeTargets="BeforeBuild" Condition="!Exists('$(McpDocumentationJsonPath)')">
     <Message Text="MCP documentation JSON missing; generating via McpServer project..." Importance="high" />
-    <MSBuild Projects="..\..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj"
-             Targets="GenerateMcpDocumentation"
-             Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
+    <MSBuild Projects="..\..\src\Tools\McpServer\Microsoft.FluentUI.AspNetCore.McpServer.csproj" Targets="GenerateMcpDocumentation" Properties="TargetFramework=$(NetVersion);Configuration=$(Configuration)" />
   </Target>
 
   <!-- Copy the JSON documentation file for testing -->

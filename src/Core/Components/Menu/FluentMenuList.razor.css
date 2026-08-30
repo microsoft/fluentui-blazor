@@ -2,3 +2,11 @@
 fluent-menu fluent-menu-list:not([popover]) {
     display: none;
 }
+
+/* Fix #5207 */
+fluent-menu-item>fluent-menu-list[slot="submenu"] {
+    position-try-fallbacks:
+        flip-inline,
+        flip-block,
+        flip-block flip-inline;
+}

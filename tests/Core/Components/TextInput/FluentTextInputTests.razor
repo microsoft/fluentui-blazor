@@ -1,5 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Components.TextInput
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
@@ -19,12 +20,12 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentTextInput Appearance="@TextInputAppearance.Outline"
-                 Autofocus="true"
-                 AriaLabel="My aria label"
-                 Label="My Label"
-                 Name="MyName"
-                 Placeholder="My help"
-                 Value="My Value" />
+                                   Autofocus="true"
+                                   AriaLabel="My aria label"
+                                   Label="My Label"
+                                   Name="MyName"
+                                   Placeholder="My help"
+                                   Value="My Value" />
     );
 
         // Assert
@@ -73,9 +74,9 @@
     [InlineData(TextInputType.Password, "password")]
     [InlineData(TextInputType.Telephone, "tel")]
     [InlineData(TextInputType.Url, "url")]
-	[InlineData(TextInputType.Color, "color")]
-	[InlineData(TextInputType.Search, "search")]
-	[InlineData(TextInputType.Number, "number")]
+    [InlineData(TextInputType.Color, "color")]
+    [InlineData(TextInputType.Search, "search")]
+    [InlineData(TextInputType.Number, "number")]
     public void FluentInputText_TextInputType(TextInputType type, string expectedAttribute)
     {
         // Arrange && Act
@@ -109,7 +110,9 @@
         // Arrange && Act
         var cut = Render(
     @<FluentTextInput>
-        <LabelTemplate><div style="font-weight: bold;">My label</div></LabelTemplate>
+        <LabelTemplate>
+            <div style="font-weight: bold;">My label</div>
+        </LabelTemplate>
     </FluentTextInput>
     );
 
@@ -150,19 +153,20 @@
     }
 
     [Theory]
-    [InlineData(false, 0, "init", "init")]              // No Immediate
-    [InlineData(true, 0, "new value", "new value")]     // With Immediate and Delay = 0 ms
-    public async Task FluentInputText_OnImmediate(bool immediate, int immediateDelay, string expectedImmediateValue, string expectedDelayedValue)
+    [InlineData(false, 0, "init", "init")] // No Immediate
+    [InlineData(true, 0, "new value", "new value")] // With Immediate and Delay = 0 ms
+    public async Task FluentInputText_OnImmediate(bool immediate, int immediateDelay, string expectedImmediateValue, string
+expectedDelayedValue)
     {
         await Task.CompletedTask;
-        
+
         // Arrange
         using var context = new IdentifierContext(i => "myId");
         var value = "init";
-        var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="@immediate" ImmediateDelay="@immediateDelay" />);
+        var cut = Render(@<FluentTextInput @bind-Value="@value"                 Immediate="@immediate"                 ImmediateDelay="@immediateDelay" />);
 
         // Act
-        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "new value"});
+        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "new value" });
 
         // Assert: Immediate
         Assert.Equal(expectedImmediateValue, value);
@@ -173,6 +177,169 @@
         Assert.Equal(expectedDelayedValue, value);
         cut.Find("fluent-text-input")
            .MarkupMatches($"<fluent-text-input id=\"myId\" slot=\"input\" appearance=\"outline\" value=\"{expectedDelayedValue}\" />");
+    }
+
+    [Fact]
+    public async Task FluentInputText_OnImmediate_OutOfOrderCompletion_LastValueWins()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<SlowFluentTextInput @bind-Value="@value"                     Immediate="true"                     ImmediateDelay="0"                     ProcessingDelayMs="30" />);
+        var element = cut.Find("fluent-text-input");
+
+        // Act: the older "first" keystroke starts processing (artificially slow)...
+        var firstTask = element.TriggerEventAsync("ontextimmediate", new ChangeEventArgs() { Value = "first" });
+
+        // ...while the newer "second" keystroke arrives and queues up right behind it.
+        var secondTask = element.TriggerEventAsync("ontextimmediate", new ChangeEventArgs() { Value = "second" });
+
+        await firstTask;
+        await secondTask;
+
+        // Assert: even though "first" only finishes processing after "second" was already
+        // queued, the newer value must win over the older, now-superseded one.
+        Assert.Equal("second", value);
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_WhileFocused_ValueAttributeStaysFrozen()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value"                 Immediate="true"                 ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: simulate the user typing while the field still has focus
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+
+        // Assert: the confirmed value updates, but the rendered native `value` stays frozen
+        // at what was displayed when focus started - it must never reset mid-typing.
+        Assert.Equal("typed", value);
+        Assert.Equal("init", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_OnFocusOut_UnfreezesAndResyncsValueAttribute()
+    {
+        // Arrange: focus and type while focused, so the rendered value freezes at "init"
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value"                 Immediate="true"                 ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+
+        // Act: the field loses focus
+        element.TriggerEvent("onfocusout", new FocusEventArgs());
+
+        // Assert: the rendered value resyncs to the confirmed text now that typing has stopped
+        Assert.Equal("typed", value);
+        Assert.Equal("typed", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_NotImmediate_WhileFocused_ValueAttributeReflectsExternalUpdates()
+    {
+        // Arrange
+        var cut = Render(@<FluentTextInput Value="init" />);
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: a legitimate external/programmatic update to Value happens while still focused
+        textInput.Render(parameters => parameters.Add(p => p.Value, "external"));
+
+        // Assert: outside Immediate mode there's no per-keystroke round trip to protect against,
+        // so the freeze must not apply - the DOM reflects the update right away, not after blur.
+        Assert.Equal("external", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_OnFocusIn_InvokesCallback()
+    {
+        // Arrange
+        FocusEventArgs? received = null;
+        var cut = Render(@<FluentTextInput OnFocusIn="@(e => received = e)" />);
+
+        // Act
+        cut.Find("fluent-text-input").TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Assert
+        Assert.NotNull(received);
+    }
+
+    [Fact]
+    public void FluentInputText_OnFocusOut_InvokesCallback_AndSetsFocusLost()
+    {
+        // Arrange
+        FocusEventArgs? received = null;
+        var cut = Render(@<FluentTextInput OnFocusOut="@(e => received = e)" />);
+
+        // Act
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        // Assert
+        Assert.NotNull(received);
+        Assert.True(cut.FindComponent<FluentTextInput>().Instance.FocusLost);
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_WhileFocused_ValueAttributeReflectsExternalUpdates()
+    {
+        // Arrange: focused, in Immediate mode, and the user has NOT typed anything
+        var cut = Render(@<FluentTextInput Value="init" Immediate="true" ImmediateDelay="0" />);
+        var textInput = cut.FindComponent<FluentTextInput>();
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: the consumer assigns the value from the outside while the field still has focus -
+        // e.g. the row picked in a lookup dialog, with focus returned to the field on close.
+        textInput.Render(parameters => parameters.Add(p => p.Value, "external"));
+
+        // Assert: the freeze protects the user's typing, not arbitrary assignments. An external
+        // value is newer than anything typed, so it must reach the browser now - not stay invisible
+        // until the field loses focus (and never, if the consumer keeps focus here).
+        Assert.Equal("external", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_ExternalUpdateAfterTyping_WhileStillFocused_Reflected()
+    {
+        // Arrange: focused, and the user typed - so the rendered value is frozen at "init"
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="true" ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+        Assert.Equal("init", cut.Find("fluent-text-input").GetAttribute("value"));
+
+        // Act: NOW the consumer overwrites the value from the outside (a validation rule rewriting
+        // the field, a lookup selection...), still without losing focus
+        cut.FindComponent<FluentTextInput>()
+            .Render(parameters => parameters.Add(p => p.Value, "external"));
+
+        // Assert: the assignment wins over the frozen typing snapshot
+        Assert.Equal("external", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentInputText_Immediate_RepeatedTyping_KeepsValueAttributeFrozen()
+    {
+        // Arrange
+        var value = "init";
+        var cut = Render(@<FluentTextInput @bind-Value="@value" Immediate="true" ImmediateDelay="0" />);
+        var element = cut.Find("fluent-text-input");
+        element.TriggerEvent("onfocusin", new FocusEventArgs());
+
+        // Act: several confirmed keystrokes in a row, still focused
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "ty" });
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typ" });
+        element.TriggerEvent("ontextimmediate", new ChangeEventArgs() { Value = "typed" });
+
+        // Assert: each confirmed keystroke re-baselines the freeze instead of reading as an external
+        // assignment, so the rendered value never moves and the browser is left alone throughout.
+        Assert.Equal("typed", value);
+        Assert.Equal("init", cut.Find("fluent-text-input").GetAttribute("value"));
     }
 
     [Theory]
@@ -194,12 +361,13 @@
 
         // Arrange && Act
         var cut = Render(@<FluentTextInput @bind-Value="@value"
-                ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
-                OnChangeAfterKeyPress="@(e => lastEventArgs = e)" />
+                                   ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])"
+                                   OnChangeAfterKeyPress="@(e => lastEventArgs = e)" />
         );
 
         // Act
-        await cut.FindComponent<FluentTextInput>().Instance.ChangeAfterKeyPressHandlerAsync("MyValue", KeyPress.For(KeyCode.Enter));
+        await cut.FindComponent<FluentTextInput>().Instance.ChangeAfterKeyPressHandlerAsync("MyValue",
+KeyPress.For(KeyCode.Enter));
 
         // Assert
         Assert.Equal(KeyCode.Enter, lastEventArgs.KeyPress.Key);
@@ -221,11 +389,12 @@
     [InlineData(true, null, "Name, Required")]
     [InlineData(false, "Custom name", "Custom name")]
     [InlineData(true, "Custom name", "Custom name, Required")]
-    public void FluentInputText_Label_CopiesAccessibleNameToInternalControl(bool required, string? ariaLabel, string expectedAriaLabel)
+    public void FluentInputText_Label_CopiesAccessibleNameToInternalControl(bool required, string? ariaLabel, string
+expectedAriaLabel)
     {
         // Arrange && Act
         using var context = new IdentifierContext(_ => "myId");
-        Render(@<FluentTextInput Label="Name" AriaLabel="@ariaLabel" Required="@required" />);
+        Render(@<FluentTextInput Label="Name"                 AriaLabel="@ariaLabel"                 Required="@required" />);
 
         // Assert
         var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
@@ -242,15 +411,28 @@
         var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle");
         Assert.Equal(3, invocation.Arguments.Count);
         Assert.IsType<ElementReference>(invocation.Arguments[0]);
-        Assert.Equal(".control", invocation.Arguments[1]);
+        Assert.Equal(":host .control", invocation.Arguments[1]);
         Assert.Equal("color: red;", invocation.Arguments[2]);
+    }
+
+    [Fact]
+    public void FluentInputText_DataList_AttachesDataListToInternalControl()
+    {
+        // Arrange && Act
+        Render(@<FluentTextInput DataList="def" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList");
+        Assert.Equal(2, invocation.Arguments.Count);
+        Assert.IsType<ElementReference>(invocation.Arguments[0]);
+        Assert.Equal("def", invocation.Arguments[1]);
     }
 
     [Fact]
     public void FluentInputText_MaskPattern()
     {
         // Arrange && Act
-        var cut = Render(@<FluentTextInput MaskPattern="000.000" Value="123.456" />);
+        var cut = Render(@<FluentTextInput MaskPattern="000.000"                 Value="123.456" />);
 
         // Assert
         // Check only the value attribute, because the mask is applied via JS
@@ -261,7 +443,7 @@
     public void FluentInputText_EmptyMaskPlaceholder()
     {
         // Arrange && Act
-        var cut = Render(@<FluentTextInput MaskPattern="000.000" MaskLazy="true" MaskPlaceholder="" Value="123.456" />);
+        var cut = Render(@<FluentTextInput MaskPattern="000.000"                 MaskLazy="true"                 MaskPlaceholder=""                 Value="123.456" />);
 
         // Assert
         // Check only the value attribute, because the mask is applied via JS
@@ -276,8 +458,8 @@
         var messageStore = new ValidationMessageStore(editContext);
 
         var cut = Render(@<CascadingValue Value="@editContext">
-                             <FluentTextInput @bind-Value="@model.Name" />
-                         </CascadingValue>);
+            <FluentTextInput @bind-Value="@model.Name" />
+        </CascadingValue>);
 
         await cut.InvokeAsync(() =>
         {
@@ -297,9 +479,9 @@
         var messageStore = new ValidationMessageStore(editContext);
 
         var cut = Render(@<CascadingValue Value="@editContext">
-                             <FluentTextInput @bind-Value="@model.Name"
-                                              ValidationFieldFor="@(() => model.Alias)" />
-                         </CascadingValue>);
+            <FluentTextInput @bind-Value="@model.Name"
+                             ValidationFieldFor="@(() => model.Alias)" />
+        </CascadingValue>);
 
         await cut.InvokeAsync(() =>
         {
@@ -320,8 +502,8 @@
         var messageStore = new ValidationMessageStore(editContext);
 
         var cut = Render(@<CascadingValue Value="@editContext">
-                             <FluentTextInput @bind-Value="@model.Name" />
-                         </CascadingValue>);
+            <FluentTextInput @bind-Value="@model.Name" />
+        </CascadingValue>);
 
         await cut.InvokeAsync(() =>
         {
