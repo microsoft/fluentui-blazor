@@ -8,6 +8,7 @@
     public FluentMessageBoxTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
+        JSInterop.Setup<bool>("Microsoft.FluentUI.Blazor.Components.Dialog.ShouldHandleShortcut", _ => true).SetResult(true);
         Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
 
         DialogService = Services.GetRequiredService<IDialogService>();
@@ -152,6 +153,22 @@
 
         // Assert
         DialogProvider.Verify();
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("Y", false)]
+    [InlineData("N", true)]
+    public async Task ShowConfirmationAsync_ShortcutPressed_ReturnsExpectedResult(string shortcut, bool expectedCancelled)
+    {
+        // Arrange
+        var dialogTask = DialogService.ShowConfirmationAsync("My message");
+
+        // Act
+        DialogProvider.Find("fluent-dialog").KeyDown(shortcut);
+        var result = await dialogTask;
+
+        // Assert
+        Assert.Equal(expectedCancelled, result.Cancelled);
     }
 
     [Fact(Timeout = TEST_TIMEOUT)]
