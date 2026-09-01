@@ -20,6 +20,10 @@
     overflow: hidden;
   }
 
+  .fluent-tabs-overflow-header > fluent-menu {
+    flex: 0 0 auto;
+  }
+
   .fluent-tabs-overflow-header:has(> fluent-tablist[orientation="vertical"]) {
     flex: 0 1 auto;
     flex-direction: column;
