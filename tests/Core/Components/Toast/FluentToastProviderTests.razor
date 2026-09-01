@@ -88,11 +88,11 @@
             Title = "Direct options",
             Intent = ToastIntent.Success,
         });
-        await Task.CompletedTask;
+        await Task.CompletedTask.WaitAsync(Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         cut.WaitForAssertion(() => Assert.Contains("Direct options", cut.Markup));
-    }  
+    }
 
     [Fact]
     public void FluentToastProvider_Dispose_DoesNotThrow()
