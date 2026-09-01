@@ -15,6 +15,7 @@ import { Microsoft as FluentSelectFile } from './Components/List/FluentSelect';
 import { Microsoft as FluentMenuFile } from './Components/Menu/FluentMenu';
 import { Microsoft as FluentColorPickerFile } from './Components/ColorPicker/FluentColorPicker';
 import { Microsoft as FluentKeyCodeFile } from './Components/KeyCode/FluentKeyCode';
+import { Microsoft as FluentOverflowFile } from './Components/Overflow/FluentOverflow';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
 
@@ -50,6 +51,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components.Menu = FluentMenuFile.FluentUI.Blazor.Components.Menu;
     (window as any).Microsoft.FluentUI.Blazor.Components.ColorPicker = FluentColorPickerFile.FluentUI.Blazor.Components.ColorPicker;
     (window as any).Microsoft.FluentUI.Blazor.Components.KeyCode = FluentKeyCodeFile.FluentUI.Blazor.Components.KeyCode;
+    (window as any).Microsoft.FluentUI.Blazor.Components.Overflow = FluentOverflowFile.FluentUI.Blazor.Components.Overflow;
 
     // [^^^ Add your other exported methods before this line ^^^]
   }

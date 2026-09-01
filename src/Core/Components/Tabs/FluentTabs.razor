@@ -6,15 +6,68 @@
     <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
 
         @* List of tab headers *@
-        <fluent-tablist id="@TabListId"
-                        appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
-                        disabled="@Disabled"
-                        size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
-                        orientation="@Orientation.ToAttributeValue()"
-                        activeid="@(ActiveTabId ?? ActiveTab?.Id)"
-                        ontabchange="@TabChangeHandlerAsync">
-            @ChildContent
-        </fluent-tablist>
+        @if (Overflow)
+        {
+            <div class="fluent-tabs-overflow-header">
+                <fluent-tablist id="@TabListId"
+                                appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
+                                disabled="@Disabled"
+                                size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
+                                orientation="@Orientation.ToAttributeValue()"
+                                activeid="@(ActiveTabId ?? ActiveTab?.Id)"
+                                ontabchange="@TabChangeHandlerAsync"
+                                @onoverflowchange="@OverflowChangedHandler">
+                    @ChildContent
+                </fluent-tablist>
+                <FluentButton Id="@IdMoreButton"
+                              Style="@MoreButtonStyleValue"
+                              Appearance="ButtonAppearance.Transparent"
+                              Disabled="@Disabled"
+                              IconOnly="@(MoreTemplate is null)"
+                              IconStart="@(MoreTemplate is null ? new CoreIcons.Regular.Size20.MoreHorizontal() : null)"
+                              Title="@MoreButtonLabel"
+                              aria-haspopup="menu"
+                              aria-controls="@OverflowMenuId">
+                    @if (MoreTemplate is not null)
+                    {
+                        @MoreTemplate(this)
+                    }
+                </FluentButton>
+            </div>
+
+            @if (OverflowTemplate is not null)
+            {
+                @OverflowTemplate(this)
+            }
+            else
+            {
+                <FluentMenu Id="@OverflowMenuId" Trigger="@IdMoreButton">
+                    <FluentMenuList>
+                        @foreach (var tab in OverflowTabs)
+                        {
+                            <FluentMenuItem Disabled="@(Disabled || tab.Disabled)"
+                                            IconStart="@tab.IconStart"
+                                            OnClick="@(_ => SelectTabAsync(tab.Id!))">
+                                @tab.Header
+                                @tab.HeaderTemplate
+                            </FluentMenuItem>
+                        }
+                    </FluentMenuList>
+                </FluentMenu>
+            }
+        }
+        else
+        {
+            <fluent-tablist id="@TabListId"
+                            appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
+                            disabled="@Disabled"
+                            size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
+                            orientation="@Orientation.ToAttributeValue()"
+                            activeid="@(ActiveTabId ?? ActiveTab?.Id)"
+                            ontabchange="@TabChangeHandlerAsync">
+                @ChildContent
+            </fluent-tablist>
+        }
 
         @* List of tab contents (need to be added outside of the fluent-tablist *@
         @foreach (var tab in Tabs.OrderBy(i => i.Index))

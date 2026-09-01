@@ -1,4 +1,5 @@
 export namespace Microsoft.FluentUI.Blazor.Components.Tabs {
+  const observers = new Map<string, MutationObserver>();
 
   /**
    * Initiates the list of tabs when a tab is added or removed
@@ -11,6 +12,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Tabs {
     if (!tabsContainer || !tabsList) {
       return;
     }
+
+    Dispose(id);
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -31,5 +34,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Tabs {
     });
 
     observer.observe(tabsContainer, { childList: true });
+    observers.set(id, observer);
+  }
+
+  /** Stops observing tab-panel additions and removals for a FluentTabs instance. */
+  export function Dispose(id: string): void {
+    observers.get(id)?.disconnect();
+    observers.delete(id);
   }
 }

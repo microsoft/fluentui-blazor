@@ -14,9 +14,6 @@ and require less scrolling.
 For navigation beyond closely related categories, use a [FluentLink](/link) instead.
 To initiate an action, use a [FluentButton](/button) instead.
 
-> [!NOTE] For the moment, there are no 'scrolling' functions when the number of tabs is too large
-> in relation to the size of the container or screen.
-
 ## Default
 
 To know which tab is selected, you can bind the `ActiveTabId` or `ActiveTab` parameter to a variable.
@@ -51,6 +48,16 @@ In the following example, the `Deferred` parameter is set to `true` for Tab two.
 This tab will be loaded after 2 seconds of processing (to simulate a long running process).
 
 {{ TabsDeferred }}
+
+## Overflow
+
+Set the `Overflow` parameter to `true` to move tabs that do not fit in the available space into a menu.
+The active tab remains visible as the container is resized.
+Resize the container from its lower-right corner to see tabs move into and out of the overflow menu.
+
+A tab can be disabled by setting the `Disabled` parameter to `true`.
+
+{{ TabsOverflow }}
 
 ## Dynamic
 
