@@ -10,7 +10,7 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Tests</AssemblyName>
     <RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Tests</RootNamespace>
-    <NoWarn>xUnit1069;BL0016</NoWarn>
+    <NoWarn>BL0016</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

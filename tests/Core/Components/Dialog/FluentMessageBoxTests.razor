@@ -32,7 +32,7 @@
         var dialogTask = DialogService.ShowSuccessAsync("My message");
 
         // Don't wait for the dialog to be closed
-        await Task.CompletedTask;
+        await Task.CompletedTask.WaitAsync(Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         DialogProvider.Verify();
@@ -41,6 +41,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_SuccessCustomized()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowSuccessAsync("My message", "My title", "OK");
 
@@ -54,6 +56,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_Info()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowInfoAsync("My message");
 
@@ -67,6 +71,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_InfoCustomized()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowInfoAsync("My message", "My title", "OK");
 
@@ -80,6 +86,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_Warning()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowWarningAsync("My message");
 
@@ -93,6 +101,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_WarningCustomized()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowWarningAsync("My message", "My title", "OK");
 
@@ -106,6 +116,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_Error()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowErrorAsync("My message");
 
@@ -119,6 +131,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_ErrorCustomized()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowErrorAsync("My message", "My title", "OK");
 
@@ -132,6 +146,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_Confirmation()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowConfirmationAsync("My message");
 
@@ -145,6 +161,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_ConfirmationCustomized()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowConfirmationAsync("My message", "My title", "Yes", "No");
 
@@ -160,6 +178,8 @@
     [InlineData("N", true)]
     public async Task ShowConfirmationAsync_ShortcutPressed_ReturnsExpectedResult(string shortcut, bool expectedCancelled)
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var dialogTask = DialogService.ShowConfirmationAsync("My message");
 
@@ -174,6 +194,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBox_EmptyOptions()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Act
         var dialogTask = DialogService.ShowMessageBoxAsync(new());
 
