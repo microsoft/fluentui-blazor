@@ -2,39 +2,45 @@
   width: 100%;
 }
 
-  .fluent-tabs:has(fluent-tablist[orientation="vertical"]) {
-    display: flex;
-    flex-direction: row;
-  }
+.fluent-tabs:has(fluent-tablist[orientation="vertical"]) {
+  display: flex;
+  flex-direction: row;
+}
 
-.fluent-tabs-overflow-header {
+.fluent-tabs>div[slot="overflow-header"] {
   align-items: stretch;
   display: flex;
   min-width: 0;
   width: 100%;
+  align-items: center;
 }
 
-  .fluent-tabs-overflow-header > fluent-tablist {
-    flex: 1 1 auto;
-    min-width: 0;
-    overflow: hidden;
-  }
+.fluent-tabs>div[slot="overflow-header"]>fluent-tablist {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
 
-  .fluent-tabs-overflow-header > fluent-menu {
-    flex: 0 0 auto;
-  }
+.fluent-tabs>div[slot="overflow-header"]>fluent-menu>fluent-menu-button {
+  min-width: 32px;
+  padding: 0;
+}
 
-  .fluent-tabs-overflow-header:has(> fluent-tablist[orientation="vertical"]) {
-    flex: 0 1 auto;
-    flex-direction: column;
-    height: 100%;
-    min-height: 0;
-    width: auto;
-  }
+.fluent-tabs>div[slot="overflow-header"]>fluent-menu {
+  flex: 0 0 auto;
+}
 
-    .fluent-tabs-overflow-header > fluent-tablist[orientation="vertical"] {
-      min-height: 0;
-    }
+.fluent-tabs>div[slot="overflow-header"]:has(> fluent-tablist[orientation="vertical"]) {
+  flex: 0 1 auto;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  width: auto;
+}
+
+.fluent-tabs>div[slot="overflow-header"]>fluent-tablist[orientation="vertical"] {
+  min-height: 0;
+}
 
 .fluent-tab-panel {
   padding: var(--spacingVerticalS) var(--spacingHorizontalS);

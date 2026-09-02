@@ -2,23 +2,20 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<CascadingValue Value="this" IsFixed="true">
-    <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
+<CascadingValue Value="this"
+                IsFixed="true">
+    <div id="@Id"
+         class="@ClassValue"
+         style="@StyleValue"
+         @attributes="@AdditionalAttributes">
 
         @* List of tab headers *@
         @if (Overflow)
         {
-            <div class="fluent-tabs-overflow-header">
-                <fluent-tablist id="@TabListId"
-                                appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
-                                disabled="@Disabled"
-                                size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
-                                orientation="@Orientation.ToAttributeValue()"
-                                activeid="@(ActiveTabId ?? ActiveTab?.Id)"
-                                ontabchange="@TabChangeHandlerAsync"
-                                @onoverflowchange="@OverflowChangedHandler">
-                    @ChildContent
-                </fluent-tablist>
+            <div slot="overflow-header">
+
+                @RenderFluentDatalist()
+
                 <FluentMenu Id="@OverflowMenuId">
                     <FluentMenuButton Id="@IdMoreButton"
                                       Style="@MoreButtonStyleValue"
@@ -28,6 +25,7 @@
                                       IconStart="@(MoreTemplate is null ? new CoreIcons.Regular.Size20.MoreHorizontal() : null)"
                                       Title="@MoreButtonLabel"
                                       aria-controls="@OverflowMenuId">
+                        <span slot="@FluentSlot.End" hidden></span>
                         @if (MoreTemplate is not null)
                         {
                             @MoreTemplate(this)
@@ -57,15 +55,7 @@
         }
         else
         {
-            <fluent-tablist id="@TabListId"
-                            appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
-                            disabled="@Disabled"
-                            size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
-                            orientation="@Orientation.ToAttributeValue()"
-                            activeid="@(ActiveTabId ?? ActiveTab?.Id)"
-                            ontabchange="@TabChangeHandlerAsync">
-                @ChildContent
-            </fluent-tablist>
+            @RenderFluentDatalist()
         }
 
         @* List of tab contents (need to be added outside of the fluent-tablist *@
@@ -73,7 +63,12 @@
         {
             @if (tab.Visible)
             {
-                <div id="@tab.TabPanelId" index="@tab.Index" style="@tab.StyleValue" class="@tab.ClassValue" @attributes="@tab.AdditionalAttributes" role="tabpanel">
+                <div id="@tab.TabPanelId"
+                     index="@tab.Index"
+                     style="@tab.StyleValue"
+                     class="@tab.ClassValue"
+                     @attributes="@tab.AdditionalAttributes"
+                     role="tabpanel">
                     @if (tab.DeferredLoading && ActiveTabId != tab.Id)
                     {
                         if (tab.LoadingTemplate is null)
@@ -94,3 +89,20 @@
         }
     </div>
 </CascadingValue>
+
+@code
+{
+    private RenderFragment RenderFluentDatalist()
+    {
+        return @<fluent-tablist id="@TabListId"
+                                appearance="@Appearance.ToAttributeValue(isNull: TabsAppearance.Transparent, returnEmptyAsNull: true)"
+                                disabled="@Disabled"
+                                size="@Size.ToAttributeValue(isNull: TabsSize.Medium, returnEmptyAsNull: true)"
+                                orientation="@Orientation.ToAttributeValue()"
+                                activeid="@(ActiveTabId ?? ActiveTab?.Id)"
+                                ontabchange="@TabChangeHandlerAsync"
+                                @onoverflowchange="@OverflowChangedHandler">
+            @ChildContent
+        </fluent-tablist>;
+    }
+}

@@ -45,8 +45,6 @@ public partial class FluentTabs : FluentComponentBase
 
     /// <summary />
     protected string? MoreButtonStyleValue => new StyleBuilder()
-        .AddStyle("flex", "0 0 auto")
-        .AddStyle("padding", "0")
         .AddStyle("visibility", "hidden", when: OverflowCount == 0)
         .Build();
 
@@ -368,6 +366,11 @@ public partial class FluentTabs : FluentComponentBase
 
     private void OverflowChangedHandler(OverflowChangedEventArgs args)
     {
+        if (Overflow is false)
+        {
+            return;
+        }
+
         if (!string.Equals(args.Id, TabListId, StringComparison.Ordinal))
         {
             return;
