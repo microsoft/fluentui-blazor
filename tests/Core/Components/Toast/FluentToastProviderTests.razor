@@ -56,6 +56,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_ShowInfo_RendersToast()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -75,6 +77,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_ShowToast_RendersTitle()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -84,11 +88,11 @@
             Title = "Direct options",
             Intent = ToastIntent.Success,
         });
-        await Task.CompletedTask;
+        await Task.CompletedTask.WaitAsync(Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         cut.WaitForAssertion(() => Assert.Contains("Direct options", cut.Markup));
-    }  
+    }
 
     [Fact]
     public void FluentToastProvider_Dispose_DoesNotThrow()
@@ -108,6 +112,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_NotInverted_RendersLinkWithoutInvertedColor()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -130,6 +136,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_InvertedFromOptions_RendersLinkWithInvertedColor()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -153,6 +161,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_InvertedFromConfiguration_RendersLinkWithInvertedColor()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Services.GetRequiredService<LibraryConfiguration>().Toast.Inverted = true;
         var cut = Render(@<FluentToastProvider />);
@@ -176,6 +186,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_PrimaryAndSecondaryActions_RendersBothLinks()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -200,6 +212,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_PrimaryActionOnly_RendersPrimaryLink()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -223,6 +237,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_SecondaryActionOnly_RendersSecondaryLink()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -246,6 +262,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_NoActions_RendersNoFooter()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentToastProvider />);
 
@@ -267,6 +285,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_FooterContent_QuickActionClicked_InvokesOnClickAsync()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var invoked = false;
         var cut = Render(@<FluentToastProvider />);
@@ -311,6 +331,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_SynchronizeToastQueue_PromotesQueuedToastsUpToMaxCount()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Services.GetRequiredService<LibraryConfiguration>().Toast.MaxToastCount = 2;
         var cut = Render(@<FluentToastProvider />);
@@ -335,6 +357,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentToastProvider_SynchronizeToastQueue_PromotesAllQueuedToasts_WhenUnderMaxCount()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Services.GetRequiredService<LibraryConfiguration>().Toast.MaxToastCount = 5;
         var cut = Render(@<FluentToastProvider />);
