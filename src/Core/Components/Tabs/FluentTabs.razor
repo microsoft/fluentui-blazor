@@ -16,23 +16,24 @@
 
                 @RenderFluentDatalist()
 
-                <FluentMenu Id="@OverflowMenuId">
-                    <FluentMenuButton Id="@IdMoreButton"
-                                      Style="@MoreButtonStyleValue"
-                                      Appearance="ButtonAppearance.Transparent"
-                                      Disabled="@Disabled"
-                                      IconOnly="@(MoreTemplate is null)"
-                                      IconStart="@(MoreTemplate is null ? new CoreIcons.Regular.Size20.MoreHorizontal() : null)"
-                                      Title="@MoreButtonLabel"
-                                      aria-controls="@OverflowMenuId">
-                        <span slot="@FluentSlot.End" hidden></span>
-                        @if (MoreTemplate is not null)
-                        {
-                            @MoreTemplate(this)
-                        }
-                    </FluentMenuButton>
-                    @if (OverflowTemplate is null)
-                    {
+                @if (OverflowTemplate is null)
+                {
+                    <FluentMenu Id="@OverflowMenuId">
+                        <FluentMenuButton Id="@IdMoreButton"
+                                          Style="@MoreButtonStyleValue"
+                                          Appearance="ButtonAppearance.Transparent"
+                                          Disabled="@Disabled"
+                                          IconOnly="@(MoreTemplate is null)"
+                                          IconStart="@(MoreTemplate is null ? new CoreIcons.Regular.Size20.MoreHorizontal() : null)"
+                                          Title="@MoreButtonLabel"
+                                          aria-controls="@OverflowMenuId">
+                            <span slot="@FluentSlot.End"
+                                  hidden></span>
+                            @if (MoreTemplate is not null)
+                            {
+                                @MoreTemplate(this)
+                            }
+                        </FluentMenuButton>
                         <FluentMenuList>
                             @foreach (var tab in OverflowTabs)
                             {
@@ -44,14 +45,13 @@
                                 </FluentMenuItem>
                             }
                         </FluentMenuList>
-                    }
-                </FluentMenu>
+                    </FluentMenu>
+                }
+                else
+                {
+                    @OverflowTemplate(this)
+                }
             </div>
-
-            @if (OverflowTemplate is not null)
-            {
-                @OverflowTemplate(this)
-            }
         }
         else
         {
