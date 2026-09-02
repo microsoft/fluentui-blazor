@@ -75,6 +75,56 @@
         Assert.Equal(expectedActiveId, activeTabId);
     }
 
+    [Fact]
+    public async Task FluentTabs_UserSelection_DoesNotRewriteActiveId()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabList = cut.Find("fluent-tablist");
+
+        // Act
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+
+        // Assert
+        Assert.Equal("tab2", activeTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_ParameterSelection_RewritesActiveIdAfterUserSelection()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+            <FluentTab Id="tab3" Header="Settings" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+
+        // Act
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab3"));
+
+        // Assert
+        Assert.Equal("tab3", tabList.GetAttribute("activeid"));
+    }
+
     [Theory]
     [InlineData("MyTabsId", "tab2", "tab2")]          // Normal case
     [InlineData("INVALID_TABS_ID", "tab2", null)]     // Main TabsID is unknown => no change (stay on tab1)

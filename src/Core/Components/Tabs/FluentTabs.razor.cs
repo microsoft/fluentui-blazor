@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTabs : FluentComponentBase
 {
+    private string? _clientActiveTabId;
     private bool _overflowInitialized;
     private bool? _previousOverflowValue;
     private bool _refreshOverflowAfterRender;
@@ -36,6 +37,9 @@ public partial class FluentTabs : FluentComponentBase
 
     /// <summary />
     internal string IdMoreButton => $"{Id}-more";
+
+    /// <summary />
+    private string? ActiveTabIdAttribute { get; set; }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -156,6 +160,19 @@ public partial class FluentTabs : FluentComponentBase
     public int OverflowCount => OverflowTabs.Count;
 
     /// <summary />
+    protected override void OnParametersSet()
+    {
+        var activeTabId = ActiveTabId ?? ActiveTab?.Id;
+        if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        ActiveTabIdAttribute = activeTabId;
+        _clientActiveTabId = null;
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         // Check if the overflow mode has changed since the last render
@@ -245,6 +262,8 @@ public partial class FluentTabs : FluentComponentBase
                 {
                     ActiveTab = firstTab;
                     ActiveTabId = firstTabId;
+                    ActiveTabIdAttribute = firstTabId;
+                    _clientActiveTabId = null;
 
                     if (ActiveTabChanged.HasDelegate)
                     {
@@ -277,7 +296,7 @@ public partial class FluentTabs : FluentComponentBase
 
         // Search for the tab
         var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
-        await SetActiveTabAsync(tab);
+        await SetActiveTabAsync(tab, updateActiveIdAttribute: false);
     }
 
     /// <summary>
@@ -329,7 +348,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Sets the specified tab as the active tab.
     /// </summary>
-    private async Task<bool> SetActiveTabAsync(FluentTab? tab)
+    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool updateActiveIdAttribute = true)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
         {
@@ -346,6 +365,16 @@ public partial class FluentTabs : FluentComponentBase
         ActiveTabId = tab.Id;
         ActiveTab = tab;
         _refreshOverflowAfterRender = Overflow;
+
+        if (updateActiveIdAttribute)
+        {
+            ActiveTabIdAttribute = tab.Id;
+            _clientActiveTabId = null;
+        }
+        else
+        {
+            _clientActiveTabId = tab.Id;
+        }
 
         if (activeTabIdChanged && ActiveTabIdChanged.HasDelegate)
         {
