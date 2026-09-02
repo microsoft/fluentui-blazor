@@ -58,6 +58,7 @@ export class AttachedOverflowController {
   private hiddenByController = new Set<OverflowElement>();
   private expectedHiddenMutations = new WeakMap<OverflowElement, boolean>();
 
+  /** Creates a controller that applies overflow behavior directly to an existing host. */
   constructor(
     private readonly refreshContainer: RefreshContainer,
     private readonly host: OverflowHostElement,
@@ -70,11 +71,13 @@ export class AttachedOverflowController {
   ) {
   }
 
+  /** Starts observing the host and schedules its initial overflow measurement. */
   connect() {
     this.setupObservers();
     this.scheduleRefresh();
   }
 
+  /** Updates runtime options and invalidates measurements affected by those options. */
   update(
     querySelector: string,
     threshold: number,
@@ -94,6 +97,7 @@ export class AttachedOverflowController {
     this.scheduleRefresh();
   }
 
+  /** Stops observation and restores items whose visibility was managed by this controller. */
   disconnect() {
     this.cleanupObservers();
 
@@ -115,11 +119,14 @@ export class AttachedOverflowController {
     }
   }
 
+  /** Immediately recalculates overflow after canceling any scheduled refresh work. */
   refresh() {
     this.flushScheduledRefresh();
   }
 
+  /** Returns a defensive snapshot of the latest overflow state. */
   getOverflowState(): OverflowState {
+    // Imperative reads must include any DOM changes already queued for measurement.
     if (this.refreshAnimationFrame !== undefined || this.resizeTimeout !== undefined || this.mutationTimeout !== undefined) {
       this.flushScheduledRefresh();
     }
@@ -132,7 +139,10 @@ export class AttachedOverflowController {
     };
   }
 
+  /** Coalesces automatic refresh requests into one measurement per animation frame. */
   private scheduleRefresh() {
+    // Observer callbacks often arrive in the same DOM update; one pending frame is enough
+    // to measure the final layout produced by the entire burst.
     if (!this.host.isConnected || this.refreshAnimationFrame !== undefined) {
       return;
     }
@@ -145,6 +155,7 @@ export class AttachedOverflowController {
     });
   }
 
+  /** Cancels deferred refresh paths and synchronously measures the connected host. */
   private flushScheduledRefresh() {
     clearTimeout(this.resizeTimeout);
     this.resizeTimeout = undefined;
@@ -161,6 +172,7 @@ export class AttachedOverflowController {
     }
   }
 
+  /** Measures overflow, synchronizes item visibility, and publishes meaningful changes. */
   private refreshNow() {
     const isHorizontal = this.host.getAttribute("orientation") !== "vertical";
     const result = this.refreshContainer(
@@ -174,6 +186,8 @@ export class AttachedOverflowController {
       this.getPinnedItemId()
     );
     this.lastHandledState = result.isHorizontal;
+    // Keep the size read performed by the algorithm so ResizeObserver's follow-up
+    // notification does not trigger an identical second measurement.
     this.lastContainerSize = result.containerSize;
 
     const visibilityChanged = this.synchronizeManagedVisibility();
@@ -201,14 +215,18 @@ export class AttachedOverflowController {
         composed: true
       };
 
+      // Keep the browser-facing event while providing a distinct name for Blazor's
+      // custom-event bridge, which cannot share a native event name in .NET 11.
       this.host.dispatchEvent(new CustomEvent("overflowchange", eventInit));
       this.host.dispatchEvent(new CustomEvent("fluentoverflowchange", eventInit));
     }
   }
 
+  /** Observes size and relevant DOM changes that can invalidate overflow calculations. */
   private setupObservers() {
     if (typeof ResizeObserver !== "undefined") {
       this.resizeObserver = new ResizeObserver(() => {
+        // A pending frame will consume the latest dimensions regardless of its trigger.
         if (this.refreshAnimationFrame !== undefined) {
           return;
         }
@@ -259,6 +277,7 @@ export class AttachedOverflowController {
         if (mutation.attributeName === "hidden") {
           const expectedHidden = this.expectedHiddenMutations.get(target);
           if (expectedHidden === target.hidden) {
+            // Ignore the observer echo produced by synchronizeManagedVisibility.
             this.expectedHiddenMutations.delete(target);
             continue;
           }
@@ -296,6 +315,7 @@ export class AttachedOverflowController {
     });
   }
 
+  /** Disconnects observers and cancels all pending refresh work. */
   private cleanupObservers() {
     this.resizeObserver?.disconnect();
     this.resizeObserver = undefined;
@@ -311,6 +331,7 @@ export class AttachedOverflowController {
     }
   }
 
+  /** Mirrors overflow attributes to hidden state and reports whether visibility changed. */
   private synchronizeManagedVisibility(): boolean {
     if (!this.synchronizeHidden) {
       return false;
@@ -335,6 +356,7 @@ export class AttachedOverflowController {
       }
     }
 
+    // Detached or no-longer-managed items must not remain owned by this controller.
     for (const item of this.hiddenByController) {
       if (!managedItemSet.has(item)) {
         this.hiddenByController.delete(item);
@@ -344,16 +366,19 @@ export class AttachedOverflowController {
     return changed;
   }
 
+  /** Finds direct children selected for overflow management. */
   private getManagedItems(): OverflowElement[] {
     return Array.from(this.host.querySelectorAll<OverflowElement>(buildQuerySelector(this.querySelector)));
   }
 
+  /** Resolves the pinned item identifier from the configured host attribute. */
   private getPinnedItemId(): string | null {
     return this.pinnedItemIdAttribute
       ? this.host.getAttribute(this.pinnedItemIdAttribute)
       : null;
   }
 
+  /** Reads and caches the host gap used by the overflow measurement algorithm. */
   private getContainerGap(): number {
     if (this.cachedContainerGap === null) {
       const gap = Number.parseFloat(window.getComputedStyle(this.host).gap);
@@ -364,6 +389,7 @@ export class AttachedOverflowController {
   }
 }
 
+/** Creates the initial state used before the first host measurement. */
 function emptyOverflowState(): OverflowState {
   return {
     overflowItems: [],
@@ -373,6 +399,7 @@ function emptyOverflowState(): OverflowState {
   };
 }
 
+/** Compares the item fields included in overflow change payloads. */
 function areOverflowItemsEqual(left: OverflowItem[], right: OverflowItem[]): boolean {
   if (left.length !== right.length) {
     return false;
@@ -389,6 +416,7 @@ function areOverflowItemsEqual(left: OverflowItem[], right: OverflowItem[]): boo
   return true;
 }
 
+/** Compares two ordered identifier collections without allocating intermediate arrays. */
 function areStringArraysEqual(left: string[], right: string[]): boolean {
   if (left.length !== right.length) {
     return false;
@@ -403,6 +431,7 @@ function areStringArraysEqual(left: string[], right: string[]): boolean {
   return true;
 }
 
+/** Restricts the configured selector to direct children of the attached host. */
 function buildQuerySelector(querySelector: string | null): string {
   if (!querySelector) {
     return ":scope > :not(.fluent-overflow-more)";

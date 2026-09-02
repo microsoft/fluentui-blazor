@@ -35,7 +35,7 @@ public partial class FluentTabs : FluentComponentBase
     internal string TabListId => $"{Id}-tablist";
 
     /// <summary />
-    internal string IdMoreButton => $"{Id}-more-button";
+    internal string IdMoreButton => $"{Id}-more";
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
