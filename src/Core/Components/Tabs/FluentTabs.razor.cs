@@ -153,7 +153,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Gets the number of tabs that are currently displayed in the overflow menu.
     /// </summary>
-    public int OverflowCount { get; private set; }
+    public int OverflowCount => OverflowTabs.Count;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -165,7 +165,6 @@ public partial class FluentTabs : FluentComponentBase
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose", TabListId);
             _overflowInitialized = false;
             OverflowTabs = [];
-            OverflowCount = 0;
         }
 
         if (firstRender || overflowModeChanged)
@@ -383,12 +382,11 @@ public partial class FluentTabs : FluentComponentBase
             .Where(tab => tab.Id is not null && overflowTabIds.Contains(tab.Id))
             .ToArray();
 
-        if (OverflowCount == args.OverflowCount && OverflowTabs.SequenceEqual(overflowTabs))
+        if (OverflowTabs.SequenceEqual(overflowTabs))
         {
             return;
         }
 
-        OverflowCount = args.OverflowCount;
         OverflowTabs = overflowTabs;
     }
 }
