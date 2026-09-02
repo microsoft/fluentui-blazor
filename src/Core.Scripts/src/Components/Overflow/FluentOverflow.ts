@@ -1,4 +1,5 @@
 import { StartedMode } from "../../d-ts/StartedMode";
+import { AttachedOverflowController } from "./AttachedOverflowController";
 
 /**
  * Fluent Overflow Component Implementation
@@ -414,7 +415,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     threshold: number,
     lastHandledState: boolean | null,
     containerGap: number,
-    maxRenderedItems: number
+    maxRenderedItems: number,
+    pinnedItemId: string | null = null
   ): RefreshResult {
     const localQuerySelector = buildQuerySelector(querySelector);
     const allItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector));
@@ -438,7 +440,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         continue;
       }
 
-      if (fixedMode !== null) {
+      if (fixedMode !== null || element.id === pinnedItemId) {
         fixedItems.push(element);
         continue;
       }
@@ -520,6 +522,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 
     let overflowChanged = false;
 
+    for (const element of fixedItems) {
+      if (element.hasAttribute("overflow")) {
+        element.removeAttribute("overflow");
+        overflowChanged = true;
+      }
+    }
+
     for (const element of ellipsisItems) {
       if (element.style.flexShrink !== desiredFlexShrink) {
         element.style.flexShrink = desiredFlexShrink;
@@ -551,10 +560,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     };
   }
 
-  function getCurrentOverflowState(container: HTMLElement, querySelector: string | null, maxRenderedItems: number): OverflowState {
+  function getCurrentOverflowState(
+    container: HTMLElement,
+    querySelector: string | null,
+    maxRenderedItems: number,
+    pinnedItemId: string | null = null
+  ): OverflowState {
     const localQuerySelector = buildQuerySelector(querySelector);
     const managedItems = Array.from(container.querySelectorAll<OverflowElement>(localQuerySelector))
-      .filter(element => !element.hasAttribute("behavior"));
+      .filter(element => !element.hasAttribute("behavior") && element.id !== pinnedItemId);
 
     const overflowStates = managedItems.map(element => element.hasAttribute("overflow"));
     let overflowCount = 0;
@@ -670,6 +684,15 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     return height + margin;
   }
 
+  function emptyOverflowState(): OverflowState {
+    return {
+      overflowItems: [],
+      overflowCount: 0,
+      firstOverflowIndex: -1,
+      orderedItemIds: []
+    };
+  }
+
   /**
    * Registers the FluentOverflow custom element with the browser's custom elements registry.
    * Called during component initialization by the Blazor runtime.
@@ -683,6 +706,63 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     }
   };
 
+  interface AttachedOverflowRegistration {
+    element: HTMLElement;
+    controller: AttachedOverflowController;
+  }
+
+  const attachedControllers = new Map<string, AttachedOverflowRegistration>();
+
+  /** Attaches overflow behavior to an existing element. */
+  export function Initialize(
+    id: string,
+    querySelector: string,
+    threshold: number,
+    maxRenderedItems: number,
+    pinnedItemIdAttribute: string | null,
+    synchronizeHidden: boolean,
+    notifyHostItemsChanged: boolean
+  ): void {
+    const element = document.getElementById(id);
+    if (!element || element instanceof FluentOverflow) {
+      return;
+    }
+
+    const existingRegistration = attachedControllers.get(id);
+    if (existingRegistration?.element === element) {
+      existingRegistration.controller.update(
+        querySelector,
+        threshold,
+        maxRenderedItems,
+        pinnedItemIdAttribute,
+        synchronizeHidden,
+        notifyHostItemsChanged
+      );
+      return;
+    }
+
+    existingRegistration?.controller.disconnect();
+
+    const controller = new AttachedOverflowController(
+      refreshContainer,
+      element,
+      querySelector,
+      threshold,
+      maxRenderedItems,
+      pinnedItemIdAttribute,
+      synchronizeHidden,
+      notifyHostItemsChanged
+    );
+    attachedControllers.set(id, { element, controller });
+    controller.connect();
+  }
+
+  /** Removes overflow behavior attached with Initialize. */
+  export function Dispose(id: string): void {
+    attachedControllers.get(id)?.controller.disconnect();
+    attachedControllers.delete(id);
+  }
+
   /**
    * Triggers a refresh of the overflow state for the specified container element.
    * Used by Blazor to manually recalculate overflow when needed.
@@ -690,8 +770,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
    * @param id - The HTML id of the FluentOverflow container
    */
   export function Refresh(id: string): void {
-    const element = document.getElementById(id) as FluentOverflow | null;
-    element?.refresh();
+    const element = document.getElementById(id);
+    if (element instanceof FluentOverflow) {
+      element.refresh();
+      return;
+    }
+
+    attachedControllers.get(id)?.controller.refresh();
   }
 
   /**
@@ -702,12 +787,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
    * @returns The current OverflowState or default empty state if element not found
    */
   export function GetOverflowState(id: string): OverflowState {
-    const element = document.getElementById(id) as FluentOverflow | null;
-    return element?.getOverflowState() ?? {
-      overflowItems: [],
-      overflowCount: 0,
-      firstOverflowIndex: -1,
-      orderedItemIds: []
-    };
+    const element = document.getElementById(id);
+    if (element instanceof FluentOverflow) {
+      return element.getOverflowState();
+    }
+
+    return attachedControllers.get(id)?.controller.getOverflowState() ?? emptyOverflowState();
   }
 }
