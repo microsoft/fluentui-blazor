@@ -17,7 +17,8 @@
 .fluent-tabs>div[slot="overflow-header"]>fluent-tablist {
   flex: 1 1 auto;
   min-width: 0;
-  overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: 3px;
 }
 
 .fluent-tabs>div[slot="overflow-header"]>fluent-menu>fluent-menu-button {
