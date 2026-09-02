@@ -376,7 +376,7 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
 
             if (IsOptionTypeCompatibleWithValue())
             {
-                SelectedItems = selectedValues.Select(value => (TOption)(object)value!).ToList();
+                SelectedItems = selectedValues.Cast<TOption>().ToList();
 
                 if (SelectedItemsChanged.HasDelegate)
                 {
