@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTabs : FluentComponentBase
 {
     private bool _overflowInitialized;
-    private bool? _observedOverflow;
+    private bool? _previousOverflowValue;
     private bool _refreshOverflowAfterRender;
     private bool _tabsObserverInitialized;
 
@@ -158,8 +158,10 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var overflowModeChanged = _observedOverflow != Overflow;
+        // Check if the overflow mode has changed since the last render
+        var overflowModeChanged = _previousOverflowValue != Overflow;
 
+        // Dispose the overflow observer if the Overflow property is false and it was previously initialized
         if (!Overflow && _overflowInitialized)
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose", TabListId);
@@ -167,33 +169,28 @@ public partial class FluentTabs : FluentComponentBase
             OverflowTabs = [];
         }
 
+        // Observe the tabs for changes
         if (firstRender || overflowModeChanged)
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.ObserveTabsChanged", Id);
             _tabsObserverInitialized = true;
         }
 
+        // Initialize the overflow observer
         if (Overflow && !_overflowInitialized)
         {
-            await JSRuntime.InvokeVoidAsync(
-                "Microsoft.FluentUI.Blazor.Components.Overflow.Initialize",
-                TabListId,
-                "fluent-tab",
-                0,
-                0,
-                "activeid",
-                true,
-                true);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Initialize", TabListId, "fluent-tab", 0, 0, "activeid", true, true);
             _overflowInitialized = true;
         }
 
+        // Refresh the overflow after render if needed
         if (_overflowInitialized && _refreshOverflowAfterRender)
         {
             _refreshOverflowAfterRender = false;
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh", TabListId);
         }
 
-        _observedOverflow = Overflow;
+        _previousOverflowValue = Overflow;
     }
 
     /// <summary />
@@ -329,6 +326,9 @@ public partial class FluentTabs : FluentComponentBase
         await base.DisposeAsync();
     }
 
+    /// <summary>
+    /// Sets the specified tab as the active tab.
+    /// </summary>
     private async Task<bool> SetActiveTabAsync(FluentTab? tab)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
@@ -360,6 +360,10 @@ public partial class FluentTabs : FluentComponentBase
         return true;
     }
 
+    /// <summary>
+    /// Handles the event when the overflow state of the tabs changes.
+    /// </summary>
+    /// <param name="args"></param>
     private void OverflowChangedHandler(OverflowChangedEventArgs args)
     {
         if (Overflow is false)
