@@ -16,7 +16,6 @@ public partial class FluentTabs : FluentComponentBase
 {
     private bool _overflowInitialized;
     private bool? _observedOverflow;
-    private IReadOnlyList<FluentTab> _overflowTabs = [];
     private bool _refreshOverflowAfterRender;
     private bool _tabsObserverInitialized;
 
@@ -31,6 +30,12 @@ public partial class FluentTabs : FluentComponentBase
     {
         Id = Identifier.NewId();
     }
+
+    /// <summary />
+    internal string TabListId => $"{Id}-tablist";
+
+    /// <summary />
+    internal string IdMoreButton => $"{Id}-more-button";
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -143,17 +148,12 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Gets the tabs that are currently displayed in the overflow menu.
     /// </summary>
-    public IReadOnlyList<FluentTab> OverflowTabs => _overflowTabs;
+    public IReadOnlyList<FluentTab> OverflowTabs { get; private set; } = [];
 
     /// <summary>
     /// Gets the number of tabs that are currently displayed in the overflow menu.
     /// </summary>
     public int OverflowCount { get; private set; }
-
-    /// <summary>
-    /// Gets the identifier of the overflow menu trigger.
-    /// </summary>
-    public string IdMoreButton => $"{Id}-more-button";
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -164,7 +164,7 @@ public partial class FluentTabs : FluentComponentBase
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose", TabListId);
             _overflowInitialized = false;
-            _overflowTabs = [];
+            OverflowTabs = [];
             OverflowCount = 0;
         }
 
@@ -330,9 +330,6 @@ public partial class FluentTabs : FluentComponentBase
         await base.DisposeAsync();
     }
 
-    /// <summary />
-    internal string TabListId => $"{Id}-tablist";
-
     private async Task<bool> SetActiveTabAsync(FluentTab? tab)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
@@ -379,18 +376,19 @@ public partial class FluentTabs : FluentComponentBase
         var overflowTabIds = args.Items?
             .Where(item => item.Overflow && !string.IsNullOrEmpty(item.Id))
             .Select(item => item.Id!)
-            .ToHashSet(StringComparer.Ordinal) ?? [];
+            .ToHashSet(StringComparer.Ordinal) ?? new HashSet<string>(StringComparer.Ordinal);
+
         var overflowTabs = Tabs
             .OrderBy(tab => tab.Index)
             .Where(tab => tab.Id is not null && overflowTabIds.Contains(tab.Id))
             .ToArray();
 
-        if (OverflowCount == args.OverflowCount && _overflowTabs.SequenceEqual(overflowTabs))
+        if (OverflowCount == args.OverflowCount && OverflowTabs.SequenceEqual(overflowTabs))
         {
             return;
         }
 
         OverflowCount = args.OverflowCount;
-        _overflowTabs = overflowTabs;
+        OverflowTabs = overflowTabs;
     }
 }
