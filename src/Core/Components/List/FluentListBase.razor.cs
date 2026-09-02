@@ -370,13 +370,23 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         // Manual FluentOptions
         if (InternalValues.Count > 0)
         {
-            var SelectedValue = selectedIds.Length > 0
-                              ? InternalValues.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).FirstOrDefault()
-                              : default;
+            var selectedValues = selectedIds.Length > 0
+                               ? InternalValues.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
+                               : [];
+
+            if (IsOptionTypeCompatibleWithValue())
+            {
+                SelectedItems = selectedValues.Select(value => (TOption)(object)value!).ToList();
+
+                if (SelectedItemsChanged.HasDelegate)
+                {
+                    await SelectedItemsChanged.InvokeAsync(SelectedItems);
+                }
+            }
 
             if (ValueChanged.HasDelegate)
             {
-                await ValueChanged.InvokeAsync(SelectedValue);
+                await ValueChanged.InvokeAsync(selectedValues.FirstOrDefault());
             }
 
             NotifyValidationFieldChanged();
