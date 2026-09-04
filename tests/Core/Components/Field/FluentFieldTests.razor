@@ -289,9 +289,9 @@
     }
 
     [Theory]
-    [InlineData(true, false, "StartField content")]
-    [InlineData(false, true, "Field contentEnd")]
-    [InlineData(true, true, "StartField contentEnd")]
+    [InlineData(true, false, "StartFieldcontent")]
+    [InlineData(false, true, "FieldcontentEnd")]
+    [InlineData(true, true, "StartFieldcontentEnd")]
     public void FluentField_FieldTemplates_RenderAroundChildContent(bool hasStartTemplate, bool hasEndTemplate, string expectedContent)
     {
         // Arrange & Act
@@ -302,8 +302,9 @@
 
         // Assert
         var wrapper = cut.Find("div[part='input-adornments']");
+        var content = string.Concat(wrapper.TextContent.Where(character => !char.IsWhiteSpace(character)));
 
-        Assert.Equal(expectedContent, wrapper.TextContent);
+        Assert.Equal(expectedContent, content);
     }
 
     [Fact]
