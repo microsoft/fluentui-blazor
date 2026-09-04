@@ -39,6 +39,11 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# Configuration: Release or Debug
+$configuration = 'Debug'
+# Target .NET versions for test projects. Separate multiple versions with a semicolon.
+$targetNetVersionsArgument = "-p:TargetNetVersions=`"net8.0;net9.0;net10.0`""
+
 foreach ($arg in $RemainingArgs) {
     switch ($arg.ToLowerInvariant()) {
         '/force' { $Force = $true }
@@ -135,7 +140,8 @@ else {
 
         & dotnet test (Join-Path $scriptDir 'Core\Components.Tests.csproj') `
             --results-directory $coreResults `
-            --configuration Release `
+            --configuration $configuration `
+            $targetNetVersionsArgument `
             --coverage `
             --coverage-output-format cobertura `
             --coverage-output Components.Tests.cobertura.xml `
@@ -157,7 +163,8 @@ else {
 
         & dotnet test (Join-Path $scriptDir 'Charts\Components.Charts.Tests.csproj') `
             --results-directory $chartsResults `
-            --configuration Release `
+            --configuration $configuration `
+            $targetNetVersionsArgument `
             --coverage `
             --coverage-output-format cobertura `
             --coverage-output Components.Charts.Tests.cobertura.xml `
