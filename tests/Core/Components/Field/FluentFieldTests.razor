@@ -288,6 +288,24 @@
         Assert.Equal(withInputSlot, hasSlot);
     }
 
+    [Theory]
+    [InlineData(true, false, "StartField content")]
+    [InlineData(false, true, "Field contentEnd")]
+    [InlineData(true, true, "StartField contentEnd")]
+    public void FluentField_FieldTemplates_RenderAroundChildContent(bool hasStartTemplate, bool hasEndTemplate, string expectedContent)
+    {
+        // Arrange & Act
+        var cut = Render<FluentField>(parameters => parameters
+            .Add(p => p.FieldStartTemplate, hasStartTemplate ? CreateContent("Start") : null)
+            .Add(p => p.ChildContent, CreateContent("Field content"))
+            .Add(p => p.FieldEndTemplate, hasEndTemplate ? CreateContent("End") : null));
+
+        // Assert
+        var wrapper = cut.Find("div[part='input-adornments']");
+
+        Assert.Equal(expectedContent, wrapper.TextContent);
+    }
+
     [Fact]
     public void FluentField_FieldTemplate_StandaloneWrapperOwnsInputId()
     {
@@ -424,4 +442,7 @@
 
         public int Number { get; set; }
     }
+
+    private static RenderFragment CreateContent(string content)
+        => builder => builder.AddContent(0, content);
 }
