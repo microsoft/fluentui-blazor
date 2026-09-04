@@ -1,0 +1,140 @@
+@page "/Field/Debug/StartTemplate"
+
+<FluentSelect Label="Width"
+			  Items="@WidthOptions"
+			  Width="200px"
+			  @bind-Value="@_width" />
+
+<FluentDivider Margin="@Margin.Vertical4" />
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="24px">
+	<FluentAutocomplete TOption="string"
+						TValue="string"
+						Label="FluentAutocomplete"
+						Items="@Options"
+						Width="@_width"
+						FieldStartTemplate="@StartTemplate"
+						FieldEndTemplate="@EndTemplate"
+						@bind-Value="@_selectedOption" />
+
+	<FluentCalendar TValue="DateTime?"
+					Label="FluentCalendar"
+					Style="@($"width: {_width};")"
+					FieldStartTemplate="@StartTemplate"
+					FieldEndTemplate="@EndTemplate"
+					@bind-Value="@_date" />
+
+	<FluentCheckbox Label="FluentCheckbox"
+					Width="@_width"
+					FieldStartTemplate="@StartTemplate"
+					FieldEndTemplate="@EndTemplate"
+					@bind-Value="@_isChecked" />
+
+	<FluentColorPickerInput Label="FluentColorPickerInput"
+							Width="@_width"
+							FieldStartTemplate="@StartTemplate"
+							FieldEndTemplate="@EndTemplate"
+							@bind-Value="@_color" />
+
+	<FluentCombobox TOption="string"
+					TValue="string"
+					Label="FluentCombobox"
+					Items="@Options"
+					Width="@_width"
+					FieldStartTemplate="@StartTemplate"
+					FieldEndTemplate="@EndTemplate"
+					@bind-Value="@_selectedOption" />
+
+	<FluentDatePicker TValue="DateTime?"
+					  Label="FluentDatePicker"
+					  Width="@_width"
+					  FieldStartTemplate="@StartTemplate"
+					  FieldEndTemplate="@EndTemplate"
+					  @bind-Value="@_date" />
+
+	<FluentListbox TOption="string"
+				   TValue="string"
+				   Label="FluentListbox"
+				   Items="@Options"
+				   Width="@_width"
+				   FieldStartTemplate="@StartTemplate"
+				   FieldEndTemplate="@EndTemplate"
+				   @bind-Value="@_selectedOption" />
+
+	<FluentNumberInput TValue="int"
+					   Label="FluentNumberInput"
+					   Width="@_width"
+					   FieldStartTemplate="@StartTemplate"
+					   FieldEndTemplate="@EndTemplate"
+					   @bind-Value="@_number" />
+
+	<FluentRadioGroup TValue="string"
+					  Label="FluentRadioGroup"
+					  Items="@Options"
+					  Width="@_width"
+					  FieldStartTemplate="@StartTemplate"
+					  FieldEndTemplate="@EndTemplate"
+					  @bind-Value="@_selectedOption" />
+
+	<FluentSelect TOption="string"
+				  TValue="string"
+				  Label="FluentSelect"
+				  Items="@Options"
+				  Width="@_width"
+				  FieldStartTemplate="@StartTemplate"
+				  FieldEndTemplate="@EndTemplate"
+				  @bind-Value="@_selectedOption" />
+
+	<FluentSlider TValue="int"
+				  Label="FluentSlider"
+				  Width="@_width"
+				  FieldStartTemplate="@StartTemplate"
+				  FieldEndTemplate="@EndTemplate"
+				  @bind-Value="@_number" />
+
+	<FluentSwitch Label="FluentSwitch"
+				  Width="@_width"
+				  FieldStartTemplate="@StartTemplate"
+				  FieldEndTemplate="@EndTemplate"
+				  @bind-Value="@_isChecked" />
+
+	<FluentTextArea Label="FluentTextArea"
+					Width="@_width"
+					FieldStartTemplate="@StartTemplate"
+					FieldEndTemplate="@EndTemplate"
+					@bind-Value="@_text" />
+
+	<FluentTextInput Label="FluentTextInput"
+					 Width="@_width"
+					 FieldStartTemplate="@StartTemplate"
+					 FieldEndTemplate="@EndTemplate"
+					 @bind-Value="@_text" />
+
+	<FluentTimePicker TValue="DateTime?"
+					  Label="FluentTimePicker"
+					  Width="@_width"
+					  FieldStartTemplate="@StartTemplate"
+					  FieldEndTemplate="@EndTemplate"
+					  @bind-Value="@_date" />
+</FluentStack>
+
+@code
+{
+	private static readonly string[] Options = ["One", "Two", "Three"];
+	private static readonly string[] WidthOptions = ["200px", "320px", "100%"];
+
+	private bool _isChecked;
+	private DateTime? _date = DateTime.Today;
+	private int _number = 25;
+	private string? _color = "#0078D4";
+	private string? _selectedOption = Options[0];
+	private string? _text;
+	private string? _width = WidthOptions[1];
+
+	private RenderFragment StartTemplate =>
+		@<FluentButton IconStart="@(new Icons.Regular.Size20.ChevronLeft())" IconOnly="true" />;
+
+	private RenderFragment EndTemplate =>
+		@<FluentButton IconStart="@(new Icons.Regular.Size20.ChevronRight())" IconOnly="true" />;
+}
+
