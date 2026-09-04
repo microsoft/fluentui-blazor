@@ -3,6 +3,11 @@
 .SYNOPSIS
     Lists all outdated NuGet and npm packages for the solution, across every supported .NET target version.
 
+    running: 
+      ncu --packageFile ./src/Core.Scripts/package.json
+      ncu --packageFile ./src/Charts.Scripts/package.json
+      dotnet outdated ./Microsoft.FluentUI-v5.slnx --version-lock Major --pre-release Never
+
 .DESCRIPTION
     Temporarily switches the <NetVersion> property in Directory.Build.props to each of
     net8.0, net9.0, net10.0 and net11.0, runs `dotnet outdated` for the solution, and
