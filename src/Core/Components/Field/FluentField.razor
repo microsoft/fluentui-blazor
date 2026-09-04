@@ -47,7 +47,15 @@ else
 
             @if (ChildContent is not null)
             {
-                @if (Parameters.HasInputComponent || !IncludeInputSlot)
+                @if (Parameters.FieldStartTemplate is not null || Parameters.FieldEndTemplate is not null)
+                {
+                    <div part="input-adornments" slot="@FluentSlot.FieldInput">
+                        @Parameters.FieldStartTemplate
+                        @ChildContent
+                        @Parameters.FieldEndTemplate
+                    </div>
+                }
+                else if (Parameters.HasInputComponent || !IncludeInputSlot)
                 {
                     @ChildContent
                 }

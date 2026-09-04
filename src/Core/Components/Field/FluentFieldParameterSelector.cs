@@ -55,6 +55,20 @@ internal class FluentFieldParameterSelector : IFluentField
     }
 
     /// <summary />
+    public RenderFragment? FieldStartTemplate
+    {
+        get => _component.FieldStartTemplate ?? _component.InputComponent?.FieldStartTemplate;
+        set => throw new NotSupportedException();
+    }
+
+    /// <summary />
+    public RenderFragment? FieldEndTemplate
+    {
+        get => _component.FieldEndTemplate ?? _component.InputComponent?.FieldEndTemplate;
+        set => throw new NotSupportedException();
+    }
+
+    /// <summary />
     public LabelPosition? LabelPosition
     {
         get => _component.LabelPosition ?? _component.InputComponent?.LabelPosition ?? Components.LabelPosition.Above;

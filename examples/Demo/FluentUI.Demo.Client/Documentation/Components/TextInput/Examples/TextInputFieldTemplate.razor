@@ -1,0 +1,27 @@
+﻿<FluentStack HorizontalGap="20px">
+
+    <FluentTextInput Label="First name"
+                     Placeholder="First name">
+        <FieldStartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size24.Accessibility())" />
+        </FieldStartTemplate>
+        <FieldEndTemplate>
+            <FluentButton Appearance="ButtonAppearance.Primary"
+                          Label="Search" />
+        </FieldEndTemplate>
+    </FluentTextInput>
+
+    <FluentTextInput Label="Last name"
+                     Size="@TextInputSize.Large"
+                     Placeholder="Last name">
+        <FieldStartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size24.Accessibility())" />
+        </FieldStartTemplate>
+        <FieldEndTemplate>
+            <FluentButton Appearance="ButtonAppearance.Primary"
+                          Label="Search"
+                          Size="@ButtonSize.Large" />
+        </FieldEndTemplate>
+    </FluentTextInput>
+
+</FluentStack>
