@@ -1,5 +1,6 @@
 ﻿<FluentStack HorizontalGap="20px">
 
+    <!-- FieldStartTemplate and FieldEndTemplate -->
     <FluentTextInput Label="First name"
                      Placeholder="First name">
         <FieldStartTemplate>
@@ -7,10 +8,12 @@
         </FieldStartTemplate>
         <FieldEndTemplate>
             <FluentButton Appearance="ButtonAppearance.Primary"
+                          Margin="@Margin.Left2"
                           Label="Search" />
         </FieldEndTemplate>
     </FluentTextInput>
 
+    <!-- Size=Large -->
     <FluentTextInput Label="Last name"
                      Size="@TextInputSize.Large"
                      Placeholder="Last name">
@@ -19,6 +22,7 @@
         </FieldStartTemplate>
         <FieldEndTemplate>
             <FluentButton Appearance="ButtonAppearance.Primary"
+                          Margin="@Margin.Left2"
                           Label="Search"
                           Size="@ButtonSize.Large" />
         </FieldEndTemplate>
