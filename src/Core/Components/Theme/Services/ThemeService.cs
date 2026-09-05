@@ -100,8 +100,8 @@ public sealed class ThemeService : IThemeService
         => _jsRuntime.InvokeAsync<bool>("Blazor.theme.isExactBrandColor").AsTask();
 
     /// <inheritdoc cref="IThemeService.GetThemeSettingsAsync"/>
-    public Task<ThemeSettings> GetThemeSettingsAsync()
-        => _jsRuntime.InvokeAsync<ThemeSettings>("Blazor.theme.getThemeSettings").AsTask();
+    public Task<ThemeSettings?> GetThemeSettingsAsync()
+        => _jsRuntime.InvokeAsync<ThemeSettings?>("Blazor.theme.getThemeSettings").AsTask();
 
     /// <inheritdoc cref="IThemeService.GetColorRampAsync"/>
     public Task<IReadOnlyDictionary<string, string>?> GetColorRampAsync()
