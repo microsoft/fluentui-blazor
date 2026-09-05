@@ -34,3 +34,9 @@ fluent-field label[disabled] {
 fluent-field.invalid div::part('root') {
   border-color: var(--colorPaletteRedBorder2);
 }
+
+fluent-field div[part="input-adornments"] {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}

@@ -1,0 +1,48 @@
+﻿<FluentStack HorizontalGap="20px">
+
+    <!-- FieldStartTemplate and FieldEndTemplate -->
+    <FluentTextInput Label="First name"
+                     Placeholder="First name">
+        <FieldStartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size24.Accessibility())" />
+        </FieldStartTemplate>
+        <FieldEndTemplate>
+            <FluentButton Appearance="ButtonAppearance.Primary"
+                          Margin="@Margin.Left2"
+                          Label="Search" />
+        </FieldEndTemplate>
+    </FluentTextInput>
+
+    <!-- Size=Large -->
+    <FluentTextInput Label="Last name"
+                     Size="@TextInputSize.Large"
+                     Placeholder="Last name">
+        <FieldStartTemplate>
+            <FluentIcon Value="@(new Icons.Regular.Size24.Accessibility())" />
+        </FieldStartTemplate>
+        <FieldEndTemplate>
+            <FluentButton Appearance="ButtonAppearance.Primary"
+                          Margin="@Margin.Left2"
+                          Label="Search"
+                          Size="@ButtonSize.Large" />
+        </FieldEndTemplate>
+    </FluentTextInput>
+
+</FluentStack>
+
+<hr />
+
+<!-- Width: 1000px -->
+<FluentTextInput Label="First name"
+                 Width="1000px"
+                 Style="border: 1px solid red;"
+                 Placeholder="First name">
+    <FieldStartTemplate>
+        <FluentButton Margin="@Margin.Right2">Default</FluentButton>
+    </FieldStartTemplate>
+    <FieldEndTemplate>
+        <FluentButton Appearance="ButtonAppearance.Primary"
+                      Margin="@Margin.Left2"
+                      Label="Search" />
+    </FieldEndTemplate>
+</FluentTextInput>

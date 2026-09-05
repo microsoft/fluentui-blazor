@@ -112,6 +112,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public virtual RenderFragment? LabelTemplate { get; set; }
 
+    /// <inheritdoc cref="IFluentField.FieldStartTemplate" />
+    [Parameter]
+    public virtual RenderFragment? FieldStartTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldEndTemplate" />
+    [Parameter]
+    public virtual RenderFragment? FieldEndTemplate { get; set; }
+
     /// <inheritdoc cref="IFluentField.LabelPosition" />
     [Parameter]
     public virtual LabelPosition? LabelPosition { get; set; }

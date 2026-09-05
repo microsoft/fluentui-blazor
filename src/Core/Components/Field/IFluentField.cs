@@ -36,6 +36,16 @@ public interface IFluentField
     RenderFragment? LabelTemplate { get; set; }
 
     /// <summary>
+    /// Gets or sets the content to display before the input component.
+    /// </summary>
+    RenderFragment? FieldStartTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to display after the input component.
+    /// </summary>
+    RenderFragment? FieldEndTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the position of the label relative to the input.
     /// </summary>
     LabelPosition? LabelPosition { get; set; }

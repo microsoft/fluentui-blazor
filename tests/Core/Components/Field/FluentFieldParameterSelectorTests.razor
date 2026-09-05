@@ -17,6 +17,8 @@
         // Predefined values
         yield return new object?[] { "Label", "my-label", "my-label", null };
         yield return new object?[] { "LabelTemplate", TemplateWithDiv, TemplateWithDiv, null };
+        yield return new object?[] { "FieldStartTemplate", TemplateWithDiv, TemplateWithDiv, null };
+        yield return new object?[] { "FieldEndTemplate", TemplateWithDiv, TemplateWithDiv, null };
         yield return new object?[] { "LabelPosition", LabelPosition.Before, LabelPosition.Before, null };
         yield return new object?[] { "LabelWidth", "10px", "10px", null };
         yield return new object?[] { "Required", true, true, null };
@@ -30,6 +32,8 @@
         // Default values
         yield return new object?[] { "Label", null, null, null };
         yield return new object?[] { "LabelTemplate", null, null, null };
+        yield return new object?[] { "FieldStartTemplate", null, null, null };
+        yield return new object?[] { "FieldEndTemplate", null, null, null };
         yield return new object?[] { "LabelPosition", null, LabelPosition.Above, null };
         yield return new object?[] { "LabelWidth", null, null, null };
         yield return new object?[] { "Required", null, false, null };
@@ -167,6 +171,8 @@
         public bool FocusLost { get; }
         public string? Label { get; set; }
         public RenderFragment? LabelTemplate { get; set; }
+        public RenderFragment? FieldStartTemplate { get; set; }
+        public RenderFragment? FieldEndTemplate { get; set; }
         public LabelPosition? LabelPosition { get; set; }
         public string? LabelWidth { get; set; }
         public bool? Required { get; set; }
