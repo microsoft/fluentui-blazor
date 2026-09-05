@@ -83,6 +83,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     public int ImmediateDelay { get; set; } = 400;
 
     /// <summary>
+    /// Gets or sets the size of the input. See <see cref="Components.TextInputSize"/>
+    /// </summary>
+    [Parameter]
+    public TextInputSize? Size { get; set; }
+
+    /// <summary>
     /// Filter the list of options (items) using the text written by the user.
     /// </summary>
     [Parameter]
