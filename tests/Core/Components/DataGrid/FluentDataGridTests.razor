@@ -370,7 +370,13 @@
     };
 
 #if NET9_0_OR_GREATER
+    // If this test fails, rebuild the Core project for .NET 9 (`dotnet build src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj -f net9.0`).
+    // The Core library targets .NET 8 by default, while the unit tests target .NET 9.
+#if DEBUG
+    [Fact(Skip = "Only runs in Release builds with the Core library built for .NET 9.")]
+#else
     [Fact]
+#endif
     public void FluentDataGrid_Virtualize_SetsMaxItemCount()
     {
         // Arrange && Act

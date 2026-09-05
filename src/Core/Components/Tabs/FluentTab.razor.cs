@@ -117,6 +117,11 @@ public partial class FluentTab : FluentComponentBase, ITooltipComponent
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
+        if (string.IsNullOrEmpty(Id))
+        {
+            throw new InvalidOperationException($"{nameof(Id)} must be set for {nameof(FluentTab)}.");
+        }
+
         await base.RenderTooltipAsync(Tooltip);
 
         if (Owner is not null)

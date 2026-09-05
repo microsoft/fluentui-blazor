@@ -396,4 +396,7 @@
   <data name="DataGrid_LoadingContent" xml:space="preserve">
     <value>Loading...</value>
   </data>
+  <data name="Tabs_MoreItems" xml:space="preserve">
+    <value>View {0} more tabs</value>
+  </data>
 </root>

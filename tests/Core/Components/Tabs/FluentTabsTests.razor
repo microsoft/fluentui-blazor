@@ -75,6 +75,195 @@
         Assert.Equal(expectedActiveId, activeTabId);
     }
 
+    [Fact]
+    public async Task FluentTabs_UserSelection_DoesNotRewriteActiveId()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabList = cut.Find("fluent-tablist");
+
+        // Act
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+
+        // Assert
+        Assert.Equal("tab2", activeTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_ParameterSelection_RewritesActiveIdAfterUserSelection()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+            <FluentTab Id="tab3" Header="Settings" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+
+        // Act
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab3"));
+
+        // Assert
+        Assert.Equal("tab3", tabList.GetAttribute("activeid"));
+    }
+
+    [Theory]
+    [InlineData(true, false, true)]
+    [InlineData(false, true, true)]
+    [InlineData(false, false, false)]
+    public async Task FluentTabs_TabChange_InvalidTarget_DoesNotChangeSelection(
+        bool tabsDisabled,
+        bool tabDisabled,
+        bool tabVisible)
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" ActiveTabId="tab1" Disabled="@tabsDisabled">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" Disabled="@tabDisabled" Visible="@tabVisible" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        // Act
+        await tabs.TabChangeHandlerAsync(new()
+        {
+            Id = "MyTabs-tablist",
+            ActiveId = "tab2",
+        });
+
+        // Assert
+        Assert.Equal("tab1", tabs.ActiveTabId);
+    }
+
+    [Fact]
+    public async Task FluentTabs_SelectActiveTab_DoesNotRefreshOverflow()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" ActiveTabId="tab1" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var refreshCount = JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+
+        // Act
+        await tabs.SelectTabAsync("tab1");
+
+        // Assert
+        Assert.Equal(refreshCount, JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+    }
+
+    [Theory]
+    [InlineData("unknown", false, true)]
+    [InlineData("tab2", true, true)]
+    [InlineData("tab2", false, false)]
+    public async Task FluentTabs_SelectTabAsync_InvalidTarget_DoesNotChangeSelection(
+        string tabId,
+        bool tabDisabled,
+        bool tabVisible)
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabId="tab1">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" Disabled="@tabDisabled" Visible="@tabVisible" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        // Act
+        await tabs.SelectTabAsync(tabId);
+
+        // Assert
+        Assert.Equal("tab1", tabs.ActiveTabId);
+    }
+
+    [Fact]
+    public async Task FluentTabs_SelectTabAsync_WithoutCallbacks_UpdatesSelection()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabId="tab1">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        // Act
+        await tabs.SelectTabAsync("tab2");
+
+        // Assert
+        Assert.Equal("tab2", tabs.ActiveTabId);
+        Assert.Equal("tab2", tabs.ActiveTab?.Id);
+    }
+
+    [Fact]
+    public async Task FluentTabs_SelectTabAsync_SameIdDifferentTab_OnlyRaisesActiveTabChanged()
+    {
+        string? changedId = null;
+        FluentTab? changedTab = null;
+
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabIdChanged="@(id => changedId = id)"
+                                      ActiveTabChanged="@(tab => changedTab = tab)">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tab1 = cut.FindComponents<FluentTab>()[0].Instance;
+        tabs.Render(parameters => parameters
+            .Add(component => component.ActiveTabId, "tab2")
+            .Add(component => component.ActiveTab, tab1));
+
+        // Act
+        await tabs.Instance.SelectTabAsync("tab2");
+
+        // Assert
+        Assert.Null(changedId);
+        Assert.Equal("tab2", changedTab?.Id);
+    }
+
+    [Fact]
+    public async Task FluentTabs_SelectTabAsync_DifferentIdSameTab_OnlyRaisesActiveTabIdChanged()
+    {
+        string? changedId = null;
+        FluentTab? changedTab = null;
+
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabIdChanged="@(id => changedId = id)"
+                                      ActiveTabChanged="@(tab => changedTab = tab)">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tab2 = cut.FindComponents<FluentTab>()[1].Instance;
+        tabs.Render(parameters => parameters
+            .Add(component => component.ActiveTabId, "tab1")
+            .Add(component => component.ActiveTab, tab2));
+
+        // Act
+        await tabs.Instance.SelectTabAsync("tab2");
+
+        // Assert
+        Assert.Equal("tab2", changedId);
+        Assert.Null(changedTab);
+    }
+
     [Theory]
     [InlineData("MyTabsId", "tab2", "tab2")]          // Normal case
     [InlineData("INVALID_TABS_ID", "tab2", null)]     // Main TabsID is unknown => no change (stay on tab1)
@@ -208,6 +397,314 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentTabs_Overflow_RendersDefaultMenu()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+
+        // Assert
+        Assert.NotNull(cut.Find("[slot='overflow-header']"));
+        Assert.NotNull(cut.Find("#MyTabs-overflow-menu"));
+        Assert.NotNull(cut.Find("#MyTabs-more"));
+    }
+
+    [Fact]
+    public void FluentTabs_MoreTemplate_RendersCustomTriggerContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <MoreTemplate Context="tabs">
+                <span class="custom-more">@tabs.OverflowCount more</span>
+            </MoreTemplate>
+            <ChildContent>
+                <FluentTab Id="tab1" Header="Chat" />
+            </ChildContent>
+        </FluentTabs>);
+
+        // Assert
+        Assert.Equal("0 more", cut.Find(".custom-more").TextContent);
+        Assert.NotNull(cut.Find("#MyTabs-overflow-menu"));
+    }
+
+    [Fact]
+    public void FluentTabs_OverflowTemplate_ReplacesDefaultMenu()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <OverflowTemplate Context="tabs">
+                <span class="custom-overflow">@tabs.OverflowCount overflowed</span>
+            </OverflowTemplate>
+            <ChildContent>
+                <FluentTab Id="tab1" Header="Chat" />
+            </ChildContent>
+        </FluentTabs>);
+
+        // Assert
+        Assert.Equal("0 overflowed", cut.Find(".custom-overflow").TextContent);
+        Assert.Empty(cut.FindAll("#MyTabs-overflow-menu"));
+    }
+
+    [Theory]
+    [InlineData(false, "MyTabs-tablist")]
+    [InlineData(true, "OtherTabs-tablist")]
+    public async Task FluentTabs_OverflowChange_InvalidSource_IsIgnored(bool overflow, string eventId)
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="@overflow">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        // Act
+        await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = eventId,
+            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+        });
+
+        // Assert
+        Assert.Empty(tabs.OverflowTabs);
+    }
+
+    [Fact]
+    public async Task FluentTabs_OverflowChange_UpdatesOrderedOverflowTabs()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        // Act
+        await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items =
+            [
+                new OverflowChangedItem { Id = "tab2", Overflow = true },
+                new OverflowChangedItem { Id = "tab1", Overflow = true },
+                new OverflowChangedItem { Id = "unknown", Overflow = true },
+                new OverflowChangedItem { Id = "", Overflow = true },
+                new OverflowChangedItem { Id = "tab1", Overflow = false },
+            ],
+        });
+
+        // Assert
+        Assert.Equal(["tab1", "tab2"], tabs.OverflowTabs.Select(tab => tab.Id));
+        Assert.Equal(2, tabs.OverflowCount);
+        Assert.Equal(2, cut.FindAll("fluent-menu-item").Count);
+    }
+
+    [Fact]
+    public async Task FluentTabs_OverflowChange_UnchangedItems_PreservesCollection()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabList = cut.Find("fluent-tablist");
+        var args = new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+        };
+        await tabList.TriggerEventAsync("onoverflowchange", args);
+        var overflowTabs = cut.FindComponent<FluentTabs>().Instance.OverflowTabs;
+
+        // Act
+        await tabList.TriggerEventAsync("onoverflowchange", args);
+
+        // Assert
+        Assert.Same(overflowTabs, cut.FindComponent<FluentTabs>().Instance.OverflowTabs);
+    }
+
+    [Fact]
+    public async Task FluentTabs_OverflowChange_NullItems_ClearsOverflowTabs()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabList = cut.Find("fluent-tablist");
+        await tabList.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+        });
+
+        // Act
+        await tabList.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items = null,
+        });
+
+        // Assert
+        Assert.Empty(cut.FindComponent<FluentTabs>().Instance.OverflowTabs);
+    }
+
+    [Fact]
+    public async Task FluentTabs_OverflowChange_TabWithNullId_IsIgnored()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tab = cut.FindComponent<FluentTab>().Instance;
+        typeof(FluentComponentBase).GetProperty(nameof(FluentComponentBase.Id))!.SetValue(tab, null);
+
+        // Act
+        await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+        });
+
+        // Assert
+        Assert.Empty(cut.FindComponent<FluentTabs>().Instance.OverflowTabs);
+    }
+
+    [Fact]
+    public async Task FluentTabs_OverflowMenuItemClick_SelectsTabAndRefreshesOverflow()
+    {
+        string? activeTabId = "tab1";
+        FluentTab? activeTab = null;
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs"
+                                      Overflow="true"
+                                      @bind-ActiveTabId="@activeTabId"
+                                      @bind-ActiveTab="@activeTab">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items = [new OverflowChangedItem { Id = "tab2", Overflow = true }],
+        });
+        var refreshCount = JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+        var menuItem = cut.Find("fluent-menu-item");
+
+        // Act
+        menuItem.TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = menuItem.Id });
+
+        // Assert
+        Assert.Equal("tab2", activeTabId);
+        Assert.Equal("tab2", activeTab?.Id);
+        Assert.Equal(refreshCount + 1, JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_RefreshOverflowAsync_InitializedObserver_InvokesRefresh()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var refreshCount = JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+
+        // Act
+        await cut.FindComponent<FluentTabs>().Instance.RefreshOverflowAsync();
+
+        // Assert
+        Assert.Equal(refreshCount + 1, JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_RefreshOverflowAsync_BeforeInitialization_RefreshesAfterRender()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        typeof(FluentTabs).GetProperty(nameof(FluentTabs.Overflow))!.SetValue(tabs.Instance, true);
+
+        // Act
+        await tabs.Instance.RefreshOverflowAsync();
+        tabs.Render(parameters => parameters.Add(component => component.Overflow, true));
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+    }
+
+    [Fact]
+    public async Task FluentTabs_RefreshOverflowAsync_OverflowDisabled_DoesNotRefresh()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var refreshCount = JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+
+        // Act
+        await cut.FindComponent<FluentTabs>().Instance.RefreshOverflowAsync();
+
+        // Assert
+        Assert.Equal(refreshCount, JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_DisableOverflow_DisposesObserverAndClearsItems()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "MyTabs-tablist",
+            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+        });
+        var tabs = cut.FindComponent<FluentTabs>();
+
+        // Act
+        tabs.Render(parameters => parameters.Add(component => component.Overflow, false));
+
+        // Assert
+        Assert.Empty(tabs.Instance.OverflowTabs);
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose");
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.ObserveTabsChanged", 2);
+    }
+
+    [Fact]
+    public async Task FluentTabs_DisposeAsync_InitializedObservers_DisposesObservers()
+    {
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabs" Overflow="true">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        // Act
+        await tabs.DisposeAsync();
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose");
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.Dispose");
+    }
+
+    [Fact]
+    public void FluentTab_EmptyId_ThrowsInvalidOperationException()
+    {
+        // Arrange && Act
+        var exception = Assert.Throws<InvalidOperationException>(() => Render(@<FluentTab Id="" />));
+
+        // Assert
+        Assert.Equal("Id must be set for FluentTab.", exception.Message);
     }
 
     [Fact]
