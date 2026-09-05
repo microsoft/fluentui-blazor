@@ -1,0 +1,64 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentCartesianChartBase
+
+<fluent-vertical-bar-chart id="@Id"
+                           class="@ClassValue"
+                           style="@StyleValue"
+                           chart-title="@ChartTitle"
+                           data="@ChartJson.Serialize(ChartData)"
+                           width="@Width"
+                           height="@Height"
+                           hide-tooltip="@(HideTooltip ? "true" : null)"
+                           hide-labels="@(HideLabels ? "true" : null)"
+                           hide-legends="@(HideLegends ? "true" : null)"
+                           legend-list-label="@LegendListLabel"
+                           show-y-axis-labels="@(ShowYAxisLabels ? "true" : null)"
+                           show-y-axis-labels-tooltip="@(ShowYAxisLabelsTooltip ? "true" : null)"
+                           use-single-color="@(UseSingleColor ? "true" : null)"
+                           enable-gradient="@(EnableGradient ? "true" : null)"
+                           round-corners="@(RoundedCorners ? "true" : null)"
+                           allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                           bar-width="@BarWidth"
+                           max-bar-width="@MaxBarWidth"
+                           colors="@ColorsJson"
+                           line-legend-text="@LineLegendText"
+                           line-legend-color="@LineLegendColor"
+                           x-axis-category-order="@XAxisCategoryOrder.ToAttributeValue()"
+                           x-axis-inner-padding="@XAxisInnerPadding"
+                           x-axis-outer-padding="@XAxisOuterPadding"
+                           x-axis-tick-count="@XAxisTickCount"
+                           y-axis-tick-count="@YAxisTickCount"
+                           y-axis-tick-values="@YAxisTickValuesJson"
+                           x-min-value="@XMinValue"
+                           x-max-value="@XMaxValue"
+                           y-min-value="@YMinValue"
+                           y-max-value="@YMaxValue"
+                           y-scale-type="@YAxisScaleType.ToAttributeValue()"
+                           x-axis-title="@XAxisTitle"
+                           y-axis-title="@YAxisTitle"
+                           x-axis-tick-format="@XAxisTickFormat"
+                           y-axis-tick-format="@YAxisTickFormat"
+                           tick-padding="@TickPadding"
+                           wrap-x-axis-labels="@(WrapXAxisLabels ? "true" : null)"
+                           rotate-x-axis-labels="@(RotateXAxisLabels ? "true" : null)"
+                           support-negative-data="@(SupportNegativeData ? "true" : null)"
+                           rounded-ticks="@(RoundedTicks ? "true" : null)"
+                           culture="@Culture?.Name"
+                           stroke-width="@StrokeWidth"
+                           no-of-chars-to-truncate="@NoOfCharsToTruncate"
+                           show-x-axis-labels-tooltip="@(ShowXAxisLabelsTooltip ? "true" : null)"
+                           hide-tick-overlap="@(HideTickOverlap ? "true" : null)"
+                           date-localize-options="@DateLocalizeOptionsJson"
+                           use-utc="@(UseUTC ? "true" : null)"
+                           @attributes="@AdditionalAttributes">
+</fluent-vertical-bar-chart>
+
+@if (CartesianTooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@CartesianTooltipTemplate((CartesianTooltipContext)_tooltipContext)</div>
+}
+else if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}
