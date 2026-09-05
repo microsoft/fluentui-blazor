@@ -86,6 +86,17 @@ public interface IThemeService
     Task<string> GetBrandColorAsync();
 
     /// <summary>
+    /// Returns the current theme settings
+    /// </summary>
+    Task<ThemeSettings> GetThemeSettingsAsync();
+
+    /// <summary>
+    /// Returns true if the current brand color is an exact match to the specified color, false if it is a derived color
+    /// from the specified color (by using the generated color ramp).
+    /// </summary>
+    Task<bool> IsExactBrandColorAsync();
+
+    /// <summary>
     /// Switches the document direction between left-to-right and right-to-left.
     /// </summary>
     Task SwitchDirectionAsync();
