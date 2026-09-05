@@ -1,0 +1,25 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@inherits FluentChartBase
+
+<fluent-sankey-chart id="@Id"
+                     class="@ClassValue"
+                     style="@StyleValue"
+                     chart-title="@ChartTitle"
+                     data="@ChartJson.Serialize(ChartData)"
+                     width="@Width"
+                     height="@Height"
+                     hide-tooltip="@(HideTooltip ? "true" : null)"
+                     hide-labels="@(HideLabels ? "true" : null)"
+                     hide-legends="@(HideLegends ? "true" : null)"
+                     legend-list-label="@LegendListLabel"
+                     round-corners="@(RoundedCorners ? "true" : null)"
+                     allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                     culture="@Culture?.Name"
+                     path-color="@PathColor"
+                     @attributes="@AdditionalAttributes">
+</fluent-sankey-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

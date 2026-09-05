@@ -1,0 +1,69 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentCartesianChartBase
+
+<fluent-heat-map-chart id="@Id"
+                       class="@ClassValue"
+                       style="@StyleValue"
+                       chart-title="@ChartTitle"
+                       data="@ChartJson.Serialize(ChartData)"
+                       width="@Width"
+                       height="@Height"
+                       hide-tooltip="@(HideTooltip ? "true" : null)"
+                       hide-labels="@(HideLabels ? "true" : null)"
+                       hide-legends="@(HideLegends ? "true" : null)"
+                       legend-list-label="@LegendListLabel"
+                       round-corners="@(RoundedCorners ? "true" : null)"
+                       allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                       domain-values-for-color-scale="@DomainValuesForColorScaleJson"
+                       range-values-for-color-scale="@RangeValuesForColorScaleJson"
+                       x-axis-date-format-string="@XAxisDateFormatString"
+                       y-axis-date-format-string="@YAxisDateFormatString"
+                       x-axis-number-format-string="@XAxisNumberFormatString"
+                       y-axis-number-format-string="@YAxisNumberFormatString"
+                       y-axis-tick-label-max-width="@YAxisTickLabelMaxWidth"
+                       sort-order="@SortOrder.ToAttributeValue()"
+                       x-axis-string-labels="@XAxisStringLabelsJson"
+                       y-axis-string-labels="@YAxisStringLabelsJson"
+                       x-axis-tick-count="@XAxisTickCount"
+                       y-axis-tick-count="@YAxisTickCount"
+                       y-axis-tick-values="@YAxisTickValuesJson"
+                       x-min-value="@XMinValue"
+                       x-max-value="@XMaxValue"
+                       y-min-value="@YMinValue"
+                       y-max-value="@YMaxValue"
+                       x-axis-category-order="@XAxisCategoryOrder.ToAttributeValue()"
+                       y-axis-category-order="@YAxisCategoryOrder.ToAttributeValue()"
+                       x-scale-type="@XAxisScaleType.ToAttributeValue()"
+                       y-scale-type="@YAxisScaleType.ToAttributeValue()"
+                       x-axis-inner-padding="@XAxisInnerPadding"
+                       x-axis-outer-padding="@XAxisOuterPadding"
+                       x-axis-title="@XAxisTitle"
+                       y-axis-title="@YAxisTitle"
+                       x-axis-tick-format="@XAxisTickFormat"
+                       y-axis-tick-format="@YAxisTickFormat"
+                       tick-padding="@TickPadding"
+                       wrap-x-axis-labels="@(WrapXAxisLabels ? "true" : null)"
+                       rotate-x-axis-labels="@(RotateXAxisLabels ? "true" : null)"
+                       support-negative-data="@(SupportNegativeData ? "true" : null)"
+                       rounded-ticks="@(RoundedTicks ? "true" : null)"
+                       culture="@Culture?.Name"
+                       tick-values="@TickValuesJson"
+                       tick-format="@TickFormat"
+                       hide-tick-overlap="@(HideTickOverlap ? "true" : null)"
+                       stroke-width="@StrokeWidth"
+                       no-of-chars-to-truncate="@NoOfCharsToTruncate"
+                       show-x-axis-labels-tooltip="@(ShowXAxisLabelsTooltip ? "true" : null)"
+                       date-localize-options="@DateLocalizeOptionsJson"
+                       use-utc="@(UseUTC ? "true" : null)"
+                       @attributes="@AdditionalAttributes">
+</fluent-heat-map-chart>
+
+@if (CartesianTooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@CartesianTooltipTemplate((CartesianTooltipContext)_tooltipContext)</div>
+}
+else if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

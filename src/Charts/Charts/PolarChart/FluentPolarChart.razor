@@ -1,0 +1,35 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentChartBase
+
+<fluent-polar-chart id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
+                    chart-title="@ChartTitle"
+                    data="@ChartJson.Serialize(ChartData)"
+                    width="@Width"
+                    height="@Height"
+                    hide-tooltip="@(HideTooltip ? "true" : null)"
+                    hide-labels="@(HideLabels ? "true" : null)"
+                    hide-legends="@(HideLegends ? "true" : null)"
+                    legend-list-label="@LegendListLabel"
+                    round-corners="@(RoundedCorners ? "true" : null)"
+                    allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                    culture="@Culture?.Name"
+                    show-markers="@(ShowMarkers ? "true" : null)"
+                    enable-multi-value-callout="@(EnableMultiValueCallout ? "true" : null)"
+                    shape="@(Shape?.ToAttributeValue())"
+                    direction="@(Direction?.ToAttributeValue())"
+                    hole="@Hole"
+                    radial-axis="@RadialAxisJson"
+                    angular-axis="@AngularAxisJson"
+                    margins="@MarginsJson"
+                    date-localize-options="@DateLocalizeOptionsJson"
+                    use-utc="@(UseUTC ? "true" : null)"
+                    @attributes="@AdditionalAttributes">
+</fluent-polar-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}
