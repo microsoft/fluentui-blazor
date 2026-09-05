@@ -219,6 +219,34 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
     return window.getComputedStyle(document.documentElement).getPropertyValue('--colorBrandForeground1');
   }
 
+  export function getThemeSettings(): ThemeSettings | null {
+    const stored = tryGetThemeSettingsFromStorage();
+    const prefs = tryGetThemePreferencesFromStorage(stored);
+    const brand = tryGetBrandSettingsFromStorage(stored);
+
+    const bodyThemeColor = document.body.getAttribute('data-theme-color');
+    const effectiveColor =
+      bodyThemeColor && isValidHexColor(bodyThemeColor)
+        ? normalizeHexColor(bodyThemeColor)
+        : brand?.color ?? stored?.color ?? null;
+
+    if (!effectiveColor) {
+      return null;
+    }
+
+    return {
+      color: effectiveColor,
+      hueTorsion: brand?.hueTorsion ?? stored?.hue ?? 0,
+      vibrancy: brand?.vibrancy ?? stored?.vibrancy ?? 0,
+      mode: prefs?.mode ?? resolveEffectiveThemeMode() ?? null,
+      isExact: brand?.isExact ?? stored?.exact ?? false,
+    };
+  }
+
+  export function isExactBrandColor(): boolean {
+    return getThemeSettings()?.isExact ?? false;
+  }
+
   /**
    * Returns true if the browser is in dark mode
    */
