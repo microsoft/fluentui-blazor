@@ -341,6 +341,7 @@ export class FunnelChart extends ChartBase {
     path.addEventListener('blur', () => {
       this._clearTooltip();
     });
+    path.addEventListener('click', () => this._focusRovingElement(this._segments, path));
 
     path.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {

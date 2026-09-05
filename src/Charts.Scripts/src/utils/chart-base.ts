@@ -23,6 +23,19 @@ interface TooltipPositionOptions {
   outputAnchorX?: boolean;
   boundsWidth?: number;
   boundsHeight?: number;
+  /**
+   * When the preferred side doesn't have room, clamp to the bounds instead of
+   * flipping to the opposite side of the anchor — flipping would place the
+   * tooltip directly on top of (and obscure) the hovered element.
+   */
+  preventAnchorOverlap?: boolean;
+}
+
+interface TooltipOverlapPositionOptions {
+  horizontalPlacement?: 'center' | 'side';
+  preferredHorizontalSide?: 'left' | 'right';
+  preferredVerticalSide?: TooltipVerticalPlacement;
+  gap?: number;
 }
 
 /**
@@ -133,9 +146,46 @@ export abstract class ChartBase extends FASTElement {
    */
   private _lastRenderedTooltipDataPoint: unknown = undefined;
 
+  /** Updates the custom tooltip renderer and refreshes a currently visible tooltip. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public setTooltipRenderer(value: TooltipRenderer<any> | undefined): void {
+    this.tooltipRenderer = value;
+    this.tooltipRendererChanged();
+  }
+
+  protected tooltipRendererChanged(): void {
+    this._lastRenderedTooltipDataPoint = undefined;
+    if (this.tooltipProps.isVisible) {
+      this.tooltipProps = { ...this.tooltipProps };
+      this._syncTooltipRendererContent();
+    }
+  }
+
+  private _syncTooltipRendererContent(): void {
+    requestAnimationFrame(() => {
+      const tooltipBody = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
+      const defaultContent = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-default-content');
+      const customContent = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-custom-content');
+      if (!this.tooltipRenderer && tooltipBody && !defaultContent) {
+        tooltipBody.innerHTML = this._buildDefaultTooltipHTML(this._currentTooltipDataPoint);
+        return;
+      }
+      if (defaultContent) {
+        defaultContent.hidden = !!this.tooltipRenderer;
+      }
+      if (customContent) {
+        customContent.hidden = !this.tooltipRenderer;
+        if (!this.tooltipRenderer) {
+          customContent.innerHTML = '';
+        }
+      }
+    });
+  }
+
   protected tooltipPropsChanged(_old: TooltipProps, newValue: TooltipProps): void {
     if (newValue.isVisible && !this.hideTooltip) {
       this.liveRegionText = [newValue.legend, newValue.yValue].filter(Boolean).join(': ');
+      this._syncTooltipRendererContent();
       // Only invoke the renderer when the hovered data point has changed.
       //
       // This intentionally allows re-rendering on true→true isVisible transitions
@@ -144,8 +194,12 @@ export abstract class ChartBase extends FASTElement {
       // GanttChart's position-clamping RAF, which updates only xPos and leaves
       // _currentTooltipDataPoint unchanged.
       if (this.tooltipRenderer && this._currentTooltipDataPoint !== this._lastRenderedTooltipDataPoint) {
+        const renderer = this.tooltipRenderer;
         this._lastRenderedTooltipDataPoint = this._currentTooltipDataPoint;
         requestAnimationFrame(() => {
+          if (this.tooltipRenderer !== renderer) {
+            return;
+          }
           // Call the renderer BEFORE querying .tooltip-body.
           //
           // On the very first hover, FAST's when() directive hasn't yet run its own
@@ -153,37 +207,51 @@ export abstract class ChartBase extends FASTElement {
           // We still need to invoke the renderer so that the host (e.g. Blazor) is
           // notified and can re-render its portal.  The bridge's MutationObserver will
           // push the portal content once Blazor renders AND FAST has inserted the body.
-          const result = this.tooltipRenderer!(this._currentTooltipDataPoint, (p: unknown) =>
-            this._buildDefaultTooltipHTML(p),
-          );
+          const result = renderer(this._currentTooltipDataPoint, (p: unknown) => this._buildDefaultTooltipHTML(p));
 
-          const el = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
+          const getTarget = () =>
+            this.shadowRoot?.querySelector<HTMLElement>('.tooltip-custom-content') ??
+            this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
+          const renderResult = (el: HTMLElement) => {
+            el.innerHTML = '';
+            if (result instanceof Promise) {
+              result.then(r => {
+                if (!this.tooltipProps?.isVisible || this.tooltipRenderer !== renderer) return;
+                const body = getTarget();
+                if (!body) return;
+                if (typeof r === 'string') {
+                  body.innerHTML = r;
+                } else {
+                  body.appendChild(r);
+                }
+              });
+            } else if (typeof result === 'string') {
+              el.innerHTML = result;
+            } else {
+              el.appendChild(result);
+            }
+          };
+
+          const tooltipBody = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
+          const customContent = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-custom-content');
+          if (tooltipBody?.classList.contains('preserve-default-content') && !customContent) {
+            requestAnimationFrame(() => {
+              if (this.tooltipRenderer !== renderer) return;
+              const deferredTarget = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-custom-content');
+              if (deferredTarget) {
+                renderResult(deferredTarget);
+              }
+            });
+            return;
+          }
+
+          const el = getTarget();
           if (!el) {
             // .tooltip-body is not in the shadow DOM yet — FAST will insert it in the
             // next rAF.  The bridge MutationObserver handles populating it once ready.
             return;
           }
-
-          el.innerHTML = '';
-          if (result instanceof Promise) {
-            result.then(r => {
-              if (!this.tooltipProps?.isVisible) return;
-              const body = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
-              if (!body) return;
-              if (typeof r === 'string') {
-                body.innerHTML = r;
-              } else {
-                body.appendChild(r);
-              }
-            });
-          } else {
-            el.innerHTML = '';
-            if (typeof result === 'string') {
-              el.innerHTML = result;
-            } else {
-              el.appendChild(result);
-            }
-          }
+          renderResult(el);
         });
       }
     } else {
@@ -216,6 +284,25 @@ export abstract class ChartBase extends FASTElement {
 
   protected _isRTL: boolean = false;
 
+  /** CSS transform used by centered tooltip templates, adjusted for RTL inline positioning. */
+  @observable
+  protected _tooltipTransform: string = 'translateX(-50%)';
+
+  /** Keeps a freshly rendered tooltip hidden until its actual dimensions are measured. */
+  @observable
+  protected _isMeasuringTooltip: boolean = false;
+
+  private _lastTooltipHeight: number = 64;
+  private _lastTooltipWidth: number = 176;
+
+  public get tooltipInlineTransform(): string {
+    return this._tooltipTransform;
+  }
+
+  public get isMeasuringTooltip(): boolean {
+    return this._isMeasuringTooltip;
+  }
+
   /** Set to true in a subclass to automatically observe host resize and re-render. */
   protected _enableResizeObserver: boolean = false;
 
@@ -232,6 +319,7 @@ export abstract class ChartBase extends FASTElement {
   private _renderDirty = false;
   private _frameHandle: number | null = null;
   private _resizeObserver?: ResizeObserver;
+  private _axisLabelTooltipEl?: HTMLDivElement;
 
   constructor() {
     super();
@@ -288,6 +376,9 @@ export abstract class ChartBase extends FASTElement {
       'selectedLegends',
       'legends',
       'tooltipProps',
+      'liveRegionText',
+      '_tooltipTransform',
+      '_isMeasuringTooltip',
     ] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
@@ -332,6 +423,9 @@ export abstract class ChartBase extends FASTElement {
     this.shadowRoot?.removeEventListener('pointerup', this._onShadowPointerUp);
     this._resizeObserver?.disconnect();
     this._cancelScheduledRender();
+    this._hideAxisLabelTooltip();
+    this._axisLabelTooltipEl?.remove();
+    this._axisLabelTooltipEl = undefined;
     super.disconnectedCallback();
   }
 
@@ -435,9 +529,14 @@ export abstract class ChartBase extends FASTElement {
 
   public handleLegendClick(legendTitle: string) {
     if (this.allowMultipleLegendSelection) {
-      const nextSelection = this.selectedLegends.includes(legendTitle)
+      let nextSelection = this.selectedLegends.includes(legendTitle)
         ? this.selectedLegends.filter(legend => legend !== legendTitle)
         : [...this.selectedLegends, legendTitle];
+
+      const legendCount = new Set(this.legends.map(legend => legend.legend)).size;
+      if (nextSelection.length === legendCount) {
+        nextSelection = [];
+      }
 
       this.selectedLegends = nextSelection;
 
@@ -537,6 +636,50 @@ export abstract class ChartBase extends FASTElement {
   }
 
   /**
+   * Shows a shared HTML tooltip for a truncated axis label.
+   * This mirrors React chart behavior more closely than native <title>.
+   */
+  protected _showAxisLabelTooltip(target: SVGTextElement, fullLabel: string): void {
+    if (!this.shadowRoot || !fullLabel) {
+      return;
+    }
+
+    const tooltip = this._getOrCreateAxisLabelTooltipElement();
+    tooltip.textContent = fullLabel;
+
+    const hostRect = this.getBoundingClientRect();
+    const labelRect = target.getBoundingClientRect();
+    const left = (labelRect.left + labelRect.right) / 2 - hostRect.left;
+    const bottom = hostRect.bottom - (labelRect.top - 4);
+
+    tooltip.style.left = `${Math.max(0, left)}px`;
+    tooltip.style.bottom = `${Math.max(0, bottom)}px`;
+    tooltip.style.transform = 'translateX(-50%)';
+    tooltip.style.opacity = '0.9';
+  }
+
+  /** Hides the shared axis-label tooltip overlay. */
+  protected _hideAxisLabelTooltip(): void {
+    if (this._axisLabelTooltipEl) {
+      this._axisLabelTooltipEl.style.opacity = '0';
+    }
+  }
+
+  private _getOrCreateAxisLabelTooltipElement(): HTMLDivElement {
+    if (this._axisLabelTooltipEl && this._axisLabelTooltipEl.isConnected) {
+      return this._axisLabelTooltipEl;
+    }
+
+    const tooltip = document.createElement('div');
+    tooltip.className = 'axis-label-tooltip';
+    tooltip.setAttribute('role', 'tooltip');
+    tooltip.style.opacity = '0';
+    this.shadowRoot!.appendChild(tooltip);
+    this._axisLabelTooltipEl = tooltip;
+    return tooltip;
+  }
+
+  /**
    * Positions the tooltip around an anchor point and keeps it within the host bounds.
    * `anchorX` / `anchorY` are physical host-relative coordinates (LTR geometry).
    */
@@ -590,9 +733,9 @@ export abstract class ChartBase extends FASTElement {
     let top = preferredVertical === 'below' ? topBelow : topAbove;
 
     if (preferredVertical === 'above' && top < padding) {
-      top = topBelow;
+      top = options.preventAnchorOverlap ? padding : topBelow;
     } else if (preferredVertical === 'below' && top + estimatedHeight > heightForClamp - padding) {
-      top = topAbove;
+      top = options.preventAnchorOverlap ? heightForClamp - estimatedHeight - padding : topAbove;
     }
 
     const maxTop = heightForClamp - estimatedHeight - padding;
@@ -610,6 +753,99 @@ export abstract class ChartBase extends FASTElement {
 
     const inlineStart = this._isRTL ? widthForClamp - left - estimatedWidth : left;
     return { xPos: Math.max(0, inlineStart), yPos: top };
+  }
+
+  /**
+   * Positions a tooltip outside the active datum, then corrects that position after
+   * measuring the rendered tooltip. Subclasses provide the datum's vertical bounds.
+   */
+  protected _positionTooltipAvoidingOverlap(
+    anchorX: number,
+    topY: number,
+    bottomY: number = topY,
+    isFreshShow: boolean = true,
+    options: TooltipOverlapPositionOptions = {},
+  ): void {
+    const gap = options.gap ?? 16;
+    const padding = 8;
+    const useSidePlacement = options.horizontalPlacement === 'side';
+
+    this._tooltipTransform = useSidePlacement ? 'none' : this._isRTL ? 'translateX(50%)' : 'translateX(-50%)';
+
+    const applyPosition = (estimatedHeight: number, estimatedWidth: number): void => {
+      const hostHeight = this.offsetHeight;
+      const hostWidth = this.offsetWidth;
+      const roomAbove = topY - padding;
+      const roomBelow = hostHeight - bottomY - padding;
+      const preferBelow = options.preferredVerticalSide === 'below';
+      const preferredVertical = preferBelow
+        ? roomBelow >= estimatedHeight + gap || roomBelow >= roomAbove
+          ? 'below'
+          : 'above'
+        : roomAbove >= estimatedHeight + gap || roomAbove >= roomBelow
+        ? 'above'
+        : 'below';
+      const anchorY = preferredVertical === 'above' ? topY : bottomY;
+
+      if (useSidePlacement) {
+        const { yPos } = this._resolveTooltipPositionFromAnchor(anchorX, anchorY, {
+          preferredVertical,
+          preventAnchorOverlap: true,
+          estimatedHeight,
+          estimatedWidth,
+          gap,
+        });
+        const preferLeft = options.preferredHorizontalSide ? options.preferredHorizontalSide === 'left' : this._isRTL;
+        const preferredLeft = preferLeft ? anchorX - gap - estimatedWidth : anchorX + gap;
+        const fitsPreferredSide = preferredLeft >= padding && preferredLeft + estimatedWidth <= hostWidth - padding;
+        const physicalLeft = fitsPreferredSide
+          ? preferredLeft
+          : preferLeft
+          ? anchorX + gap
+          : anchorX - gap - estimatedWidth;
+        const clampedLeft = ChartBase._clamp(physicalLeft, padding, hostWidth - estimatedWidth - padding);
+        const inlineStart = this._isRTL ? hostWidth - clampedLeft - estimatedWidth : clampedLeft;
+        this.tooltipProps = { ...this.tooltipProps, xPos: Math.max(0, inlineStart), yPos };
+        return;
+      }
+
+      this._positionTooltipFromAnchor(anchorX, anchorY, {
+        outputAnchorX: true,
+        preferredVertical,
+        preventAnchorOverlap: true,
+        estimatedHeight,
+        estimatedWidth,
+        gap,
+      });
+    };
+
+    applyPosition(this._lastTooltipHeight, this._lastTooltipWidth);
+
+    if (!isFreshShow) {
+      return;
+    }
+
+    this._isMeasuringTooltip = true;
+    const measure = (retriesLeft: number): void => {
+      if (!this.tooltipProps.isVisible) {
+        this._isMeasuringTooltip = false;
+        return;
+      }
+
+      const rect = this.shadowRoot?.querySelector<HTMLElement>('.tooltip')?.getBoundingClientRect();
+      if (rect && rect.height > 0 && rect.width > 0) {
+        this._lastTooltipHeight = rect.height;
+        this._lastTooltipWidth = rect.width;
+        applyPosition(rect.height, rect.width);
+        this._isMeasuringTooltip = false;
+      } else if (retriesLeft > 0) {
+        requestAnimationFrame(() => measure(retriesLeft - 1));
+      } else {
+        this._isMeasuringTooltip = false;
+      }
+    };
+
+    requestAnimationFrame(() => measure(2));
   }
   /**
    * Implements the roving tabindex keyboard pattern for a focusable group.
@@ -632,6 +868,14 @@ export abstract class ChartBase extends FASTElement {
     (elements[currentIndex] as HTMLElement).tabIndex = -1;
     (elements[nextIndex] as HTMLElement).tabIndex = 0;
     (elements[nextIndex] as HTMLElement).focus();
+  }
+
+  /** Promotes a pointer-selected element to the active member of a roving tabindex group. */
+  protected _focusRovingElement(elements: HTMLOrSVGElement[], target: HTMLOrSVGElement): void {
+    elements.forEach(element => {
+      element.tabIndex = element === target ? 0 : -1;
+    });
+    target.focus();
   }
 
   /**
@@ -672,6 +916,7 @@ export abstract class ChartBase extends FASTElement {
 
       this._renderDirty = false;
       this._isRTL = getRTL(this);
+      this._hideAxisLabelTooltip();
       this._performRender();
     });
   }

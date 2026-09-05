@@ -35,6 +35,10 @@ export const styles: ElementStyles = css`
     padding-inline-start: ${spacingHorizontalS};
     width: 100%;
     align-items: center;
+    /* Keep this in sync with LEGEND_ITEM_GAP in chart-legend.ts, which reserves
+       this same spacing when measuring overflow. Prevents adjacent legend items'
+       hover/focus outlines from touching or covering each other. */
+    gap: 8px;
   }
 
   :host([hidden]) {
@@ -92,32 +96,51 @@ export const styles: ElementStyles = css`
     background-color: ${colorSubtleBackgroundHover};
   }
 
+  .legend.selected {
+    font-weight: 600;
+  }
+
   .legend:focus-visible {
     outline: ${strokeWidthThick} solid ${colorStrokeFocus2};
     outline-offset: 1px;
   }
 
   .legend-rect {
+    box-sizing: border-box;
     width: 12px;
     height: 12px;
+    flex: none;
     margin-inline-end: ${spacingHorizontalS};
     border: ${strokeWidthThin} solid;
+  }
+
+  .legend-shape {
+    width: 12px;
+    height: 12px;
+    flex: none;
+    margin-inline-end: ${spacingHorizontalS};
+    overflow: hidden;
+  }
+
+  .legend-rect.line {
+    height: 4px;
   }
 
   .legend-rect.rounded {
     border-radius: ${borderRadiusSmall};
   }
 
-/* Same for overflow menu items */
-fluent-menu-item .legend-rect.rounded {
-  border-radius: ${borderRadiusSmall};
-}
+  /* Same for overflow menu items */
+  fluent-menu-item .legend-rect.rounded {
+    border-radius: ${borderRadiusSmall};
+  }
   .legend-text {
     ${typographyCaption1Styles}
     color: ${colorNeutralForeground1};
   }
 
-  .legend.inactive .legend-rect {
+  .legend.inactive .legend-rect,
+  .legend.inactive .legend-shape {
     opacity: 0.1;
   }
 
@@ -125,10 +148,24 @@ fluent-menu-item .legend-rect.rounded {
     opacity: 0.67;
   }
 
+  .legend.selected .legend-rect,
+  .legend.selected .legend-shape {
+    transform: scale(1.04);
+  }
+
+  .legend.selected .legend-text {
+    opacity: 0.67;
+  }
+
   /* ── Overflow menu (fluent-menu/fluent-menu-item) ───────────────── */
 
   fluent-menu {
     flex-shrink: 0;
+  }
+
+  fluent-menu-list {
+    max-height: 320px;
+    overflow-y: auto;
   }
 
   /*
@@ -148,11 +185,30 @@ fluent-menu-item .legend-rect.rounded {
     border: ${strokeWidthThin} solid;
   }
 
-  fluent-menu-item.inactive .legend-rect {
+  fluent-menu-item .legend-shape {
+    width: 12px;
+    height: 12px;
+    margin-inline-end: 0;
+  }
+
+  fluent-menu-item .legend-rect.line {
+    height: 4px;
+  }
+
+  fluent-menu-item.inactive .legend-rect,
+  fluent-menu-item.inactive .legend-shape {
     opacity: 0.1;
   }
 
   fluent-menu-item.inactive .legend-text {
+    opacity: 0.67;
+  }
+
+  fluent-menu-item.selected .legend-rect {
+    transform: scale(1.04);
+  }
+
+  fluent-menu-item.selected .legend-text {
     opacity: 0.67;
   }
 
