@@ -1,15 +1,23 @@
 import type { Axis, AxisDomain } from 'd3-axis';
 import { nice as d3Nice, ticks as d3Ticks } from 'd3-array';
-import type { AxisCategoryOrder } from './chart-options.js';
+import { scaleLinear, scaleLog, type ScaleLinear, type ScaleLogarithmic } from 'd3-scale';
+import type { AxisCategoryOrder, AxisScaleType } from './chart-options.js';
 import { SVG_NAMESPACE_URI, wrapText } from './chart-helpers.js';
 
-export const DEFAULT_REACT_NUMERIC_Y_TICK_COUNT = 4;
+export const DEFAULT_NUMERIC_Y_TICK_COUNT = 4;
 
 export type AxisScaleLike<Domain extends AxisDomain> = {
   domain(): Domain[];
   ticks?: (count?: number) => Domain[];
+  tickFormat?: (count?: number) => (value: Domain) => string;
   bandwidth?: () => number;
+  step?: () => number;
   (value: Domain): number | undefined;
+};
+
+export type AxisLabelTooltipHandlers = {
+  show: (target: SVGTextElement, fullLabel: string) => void;
+  hide: () => void;
 };
 
 export const getAxisTickValues = <Domain extends AxisDomain>(
@@ -25,6 +33,22 @@ export const getAxisTickValues = <Domain extends AxisDomain>(
     return scale.ticks(count);
   }
   return scale.domain();
+};
+
+const getAxisTickLabelFormatter = <Domain extends AxisDomain>(
+  axis: Axis<Domain>,
+  scale: AxisScaleLike<Domain>,
+): ((value: Domain, index: number) => string) | undefined => {
+  const axisFormatter = axis.tickFormat();
+  if (axisFormatter) {
+    return axisFormatter;
+  }
+  if (axis.tickValues() || typeof scale.tickFormat !== 'function') {
+    return undefined;
+  }
+  const [count] = axis.tickArguments() as [number?];
+  const scaleFormatter = scale.tickFormat(count);
+  return value => scaleFormatter(value);
 };
 
 export const getAxisPosition = <Domain extends AxisDomain>(scale: AxisScaleLike<Domain>, value: Domain): number => {
@@ -60,6 +84,35 @@ export const toOptionalAxisNumber = (value: number | string | undefined): number
   }
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : undefined;
+};
+
+export type NumericContinuousScale = ScaleLinear<number, number> | ScaleLogarithmic<number, number>;
+
+export type NumericContinuousScaleOptions = {
+  domainMin: number;
+  domainMax: number;
+  range: [number, number];
+  scaleType?: AxisScaleType;
+  roundedTicks?: boolean;
+};
+
+export const createNumericContinuousScale = ({
+  domainMin,
+  domainMax,
+  range,
+  scaleType = 'default',
+  roundedTicks = false,
+}: NumericContinuousScaleOptions): { scale: NumericContinuousScale; isLogarithmic: boolean } => {
+  const isLogarithmic = scaleType === 'log' && domainMin > 0 && domainMax > 0;
+  const scale = isLogarithmic
+    ? scaleLog().domain([domainMin, domainMax]).range(range)
+    : scaleLinear().domain([domainMin, domainMax]).range(range);
+
+  if (roundedTicks) {
+    scale.nice();
+  }
+
+  return { scale, isLogarithmic };
 };
 
 const handleFloatingPointPrecisionError = (value: number): number => {
@@ -140,12 +193,12 @@ export type PreparedNumericYAxis = {
 export const computePreparedNumericYAxis = ({
   minValue,
   maxValue,
-  tickCount = DEFAULT_REACT_NUMERIC_Y_TICK_COUNT,
+  tickCount = DEFAULT_NUMERIC_Y_TICK_COUNT,
   isIntegralDataset = false,
   roundedTicks = false,
 }: PreparedNumericYAxisOptions): PreparedNumericYAxis => {
   const safeTickCount =
-    Number.isFinite(tickCount) && tickCount > 0 ? Math.floor(tickCount) : DEFAULT_REACT_NUMERIC_Y_TICK_COUNT;
+    Number.isFinite(tickCount) && tickCount > 0 ? Math.floor(tickCount) : DEFAULT_NUMERIC_Y_TICK_COUNT;
   const low = Math.min(minValue, maxValue);
   let high = Math.max(minValue, maxValue);
   if (low === high) {
@@ -161,6 +214,60 @@ export const computePreparedNumericYAxis = ({
     domainMax: tickValues[tickValues.length - 1] ?? high,
     tickValues,
   };
+};
+
+export type PreparedNumericContinuousScaleOptions = {
+  values: readonly number[];
+  range: [number, number];
+  scaleType?: AxisScaleType;
+  tickCount?: number;
+  roundedTicks?: boolean;
+  includeZero?: boolean;
+  minValue?: number;
+  maxValue?: number;
+};
+
+export const createPreparedNumericContinuousScale = ({
+  values,
+  range,
+  scaleType = 'default',
+  tickCount,
+  roundedTicks = false,
+  includeZero = true,
+  minValue,
+  maxValue,
+}: PreparedNumericContinuousScaleOptions): {
+  scale: NumericContinuousScale;
+  preparedAxis: PreparedNumericYAxis;
+  isLogarithmic: boolean;
+} => {
+  const finiteValues = values.filter(Number.isFinite);
+  const canUseLogarithmicScale =
+    scaleType === 'log' && finiteValues.length > 0 && finiteValues.every(value => value > 0);
+  const dataMin = finiteValues.length > 0 ? Math.min(...finiteValues) : 0;
+  const dataMax = finiteValues.length > 0 ? Math.max(...finiteValues) : 1;
+  const domainMin = minValue ?? (includeZero && !canUseLogarithmicScale ? Math.min(0, dataMin) : dataMin);
+  let domainMax = maxValue ?? (includeZero && !canUseLogarithmicScale ? Math.max(0, dataMax) : dataMax);
+  if (domainMin === domainMax) {
+    domainMax += 1;
+  }
+
+  const preparedAxis = computePreparedNumericYAxis({
+    minValue: domainMin,
+    maxValue: domainMax,
+    tickCount,
+    roundedTicks,
+  });
+  const scaleDomain = canUseLogarithmicScale
+    ? { domainMin, domainMax }
+    : { domainMin: preparedAxis.domainMin, domainMax: preparedAxis.domainMax };
+  const { scale, isLogarithmic } = createNumericContinuousScale({
+    ...scaleDomain,
+    range,
+    scaleType: canUseLogarithmicScale ? 'log' : 'default',
+  });
+
+  return { scale, preparedAxis, isLogarithmic };
 };
 
 const createSvgElement = <T extends SVGElement>(tag: string): T =>
@@ -198,11 +305,14 @@ export type BottomAxisRenderOptions<Domain extends AxisDomain> = {
   innerWidth: number;
   innerHeight: number;
   tickPadding: number;
+  isRTL?: boolean;
   rotateXAxisLabels?: boolean;
   wrapXAxisLabels?: boolean;
   wrapLabelWidth?: BottomAxisWrapLabelWidth<Domain>;
   hideTickOverlap?: boolean;
   showXAxisLabelsTooltip?: boolean;
+  noOfCharsToTruncate?: number;
+  axisLabelTooltipHandlers?: AxisLabelTooltipHandlers;
   xAxisTitle?: string;
   labelClassName?: string;
   titleClassName?: string;
@@ -220,20 +330,26 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
   innerWidth,
   innerHeight,
   tickPadding,
+  isRTL = false,
   rotateXAxisLabels = false,
   wrapXAxisLabels = false,
   wrapLabelWidth,
   hideTickOverlap = false,
   showXAxisLabelsTooltip = false,
+  noOfCharsToTruncate = 4,
+  axisLabelTooltipHandlers,
   xAxisTitle,
   labelClassName = 'axis-text',
   titleClassName = 'x-axis-title',
   labelDominantBaseline = 'hanging',
   showTickLines = true,
 }: BottomAxisRenderOptions<Domain>): void => {
+  const safeTruncateChars = Number.isFinite(noOfCharsToTruncate) ? Math.max(1, Math.floor(noOfCharsToTruncate)) : 4;
+
   const group = createSvgElement<SVGGElement>('g');
   group.classList.add('x-axis');
   group.setAttribute('transform', `translate(${axisLeft}, ${axisTop + innerHeight})`);
+  svg.appendChild(group);
 
   const domain = createSvgElement<SVGLineElement>('line');
   domain.classList.add('axis-domain');
@@ -241,10 +357,15 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
   domain.setAttribute('x2', String(innerWidth));
   group.appendChild(domain);
 
-  getAxisTickValues(axis, scale).forEach(value => {
+  const tickValues = getAxisTickValues(axis, scale);
+  const tickPositions = tickValues.map(value => getAxisPosition(scale, value));
+  const tickLabelFormatter = getAxisTickLabelFormatter(axis, scale);
+
+  tickValues.forEach((value, tickIndex) => {
     const tick = createSvgElement<SVGGElement>('g');
+    const tickPosition = tickPositions[tickIndex];
     tick.classList.add('tick');
-    tick.setAttribute('transform', `translate(${getAxisPosition(scale, value)}, 0)`);
+    tick.setAttribute('transform', `translate(${tickPosition}, 0)`);
 
     if (showTickLines) {
       const line = createSvgElement<SVGLineElement>('line');
@@ -253,29 +374,54 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
       tick.appendChild(line);
     }
 
-    const text = createSvgElement<SVGTextElement>('text');
-    text.classList.add(labelClassName);
-    text.setAttribute('y', String(6 + tickPadding));
-    text.setAttribute('text-anchor', rotateXAxisLabels ? 'start' : 'middle');
-    text.setAttribute('dominant-baseline', labelDominantBaseline);
-    text.textContent = formatter(value);
-    if (rotateXAxisLabels) {
-      text.setAttribute('transform', 'rotate(45)');
+    if (tickLabelFormatter?.(value, tickIndex) !== '') {
+      const text = createSvgElement<SVGTextElement>('text');
+      text.classList.add(labelClassName);
+      text.setAttribute('y', String(6 + tickPadding));
+      text.setAttribute('text-anchor', rotateXAxisLabels ? 'end' : 'middle');
+      text.setAttribute('dominant-baseline', labelDominantBaseline);
+      const fullLabel = formatter(value);
+      const shouldTruncateForTooltip = showXAxisLabelsTooltip && !wrapXAxisLabels;
+      const renderedLabel =
+        shouldTruncateForTooltip && fullLabel.length > safeTruncateChars
+          ? `${fullLabel.slice(0, safeTruncateChars)}...`
+          : fullLabel;
+      text.textContent = renderedLabel;
+      if (rotateXAxisLabels) {
+        // Nudge rotated labels toward the chart center so the text midpoint aligns
+        // closer to the tick mark (LTR: left, RTL: right).
+        const rotatedLabelShiftX = isRTL ? 10 : -10;
+        text.setAttribute('transform', `translate(${rotatedLabelShiftX}, 0) rotate(-45)`);
+      }
+      if (showXAxisLabelsTooltip && renderedLabel !== fullLabel) {
+        if (axisLabelTooltipHandlers) {
+          text.addEventListener('mouseover', () => axisLabelTooltipHandlers.show(text, fullLabel));
+          text.addEventListener('mouseout', () => axisLabelTooltipHandlers.hide());
+        } else {
+          const title = createSvgElement<SVGTitleElement>('title');
+          title.textContent = fullLabel;
+          text.appendChild(title);
+        }
+      }
+      tick.appendChild(text);
     }
-    if (showXAxisLabelsTooltip) {
-      const title = createSvgElement<SVGTitleElement>('title');
-      title.textContent = text.textContent;
-      text.appendChild(title);
-    }
-    tick.appendChild(text);
     group.appendChild(tick);
 
-    if (wrapXAxisLabels) {
+    const text = tick.querySelector<SVGTextElement>(`.${labelClassName}`);
+    if (wrapXAxisLabels && text) {
       let width: number | undefined;
       if (typeof wrapLabelWidth === 'number') {
         width = wrapLabelWidth;
       } else if (typeof wrapLabelWidth === 'function') {
         width = wrapLabelWidth(value, scale);
+      } else if (tickPositions.length > 1) {
+        if (tickIndex < tickPositions.length - 1) {
+          width = Math.abs(tickPositions[tickIndex + 1] - tickPosition);
+        } else if (tickIndex > 0) {
+          width = Math.abs(tickPosition - tickPositions[tickIndex - 1]);
+        }
+      } else if (typeof scale.step === 'function') {
+        width = scale.step();
       } else if (typeof scale.bandwidth === 'function') {
         width = scale.bandwidth();
       }
@@ -295,9 +441,7 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
     group.appendChild(title);
   }
 
-  svg.appendChild(group);
-
-  if (hideTickOverlap && !rotateXAxisLabels) {
+  if (hideTickOverlap && !rotateXAxisLabels && !wrapXAxisLabels) {
     hideOverlappingBottomAxisLabels(Array.from(group.querySelectorAll<SVGTextElement>(`.${labelClassName}`)));
   }
 };
@@ -320,36 +464,49 @@ export type PrimaryYAxisRenderOptions = {
   tickLabelMaxWidth?: number;
 };
 
-export type HorizontalGridLinesRenderOptions = {
-  plotGroup: SVGGElement;
-  scale: AxisScaleLike<number>;
-  axis: Axis<number>;
-  innerWidth: number;
-  className?: string;
+export type AxisGridLineOrientation = 'horizontal' | 'vertical';
+
+type AxisGridLinePositionSource<Domain extends AxisDomain> =
+  | { axis: Axis<Domain>; scale: AxisScaleLike<Domain>; positions?: never }
+  | { axis?: never; scale?: never; positions: readonly number[] };
+
+export type AxisGridLinesRenderOptions<Domain extends AxisDomain> = AxisGridLinePositionSource<Domain> & {
+  layer: SVGGElement;
+  orientation: AxisGridLineOrientation;
+  spanStart: number;
+  spanEnd: number;
 };
 
-export const renderHorizontalGridLinesShared = ({
-  plotGroup,
-  scale,
-  axis,
-  innerWidth,
-  className = 'y-axis-grid-line',
-}: HorizontalGridLinesRenderOptions): void => {
+/** Renders plot gridlines using one class and coordinate contract for either orientation. */
+export const renderAxisGridLinesShared = <Domain extends AxisDomain>(
+  options: AxisGridLinesRenderOptions<Domain>,
+): void => {
+  const { layer, orientation, spanStart, spanEnd } = options;
+  const positions =
+    options.positions ??
+    getAxisTickValues(options.axis, options.scale).map(value => getAxisPosition(options.scale, value));
   const gridGroup = createSvgElement<SVGGElement>('g');
-  gridGroup.classList.add('y-axis-grid');
+  gridGroup.classList.add('axis-grid');
+  gridGroup.dataset.orientation = orientation;
 
-  getAxisTickValues(axis, scale).forEach(value => {
-    const y = getAxisPosition(scale, value);
+  positions.forEach(position => {
     const line = createSvgElement<SVGLineElement>('line');
-    line.classList.add(className);
-    line.setAttribute('x1', '0');
-    line.setAttribute('x2', String(innerWidth));
-    line.setAttribute('y1', String(y));
-    line.setAttribute('y2', String(y));
+    line.classList.add('axis-grid-line');
+    if (orientation === 'horizontal') {
+      line.setAttribute('x1', String(spanStart));
+      line.setAttribute('x2', String(spanEnd));
+      line.setAttribute('y1', String(position));
+      line.setAttribute('y2', String(position));
+    } else {
+      line.setAttribute('x1', String(position));
+      line.setAttribute('x2', String(position));
+      line.setAttribute('y1', String(spanStart));
+      line.setAttribute('y2', String(spanEnd));
+    }
     gridGroup.appendChild(line);
   });
 
-  plotGroup.appendChild(gridGroup);
+  layer.appendChild(gridGroup);
 };
 
 const truncateTextToWidth = (text: SVGTextElement, sourceText: string, maxWidth: number): string => {
@@ -380,21 +537,22 @@ const truncateTextToWidth = (text: SVGTextElement, sourceText: string, maxWidth:
 
 const hideOverlappingBottomAxisLabels = (labels: SVGTextElement[]) => {
   let previousRight = Number.NEGATIVE_INFINITY;
-  labels.forEach(label => {
-    const box = label.getBBox?.();
-    if (!box || box.width <= 0) {
-      return;
-    }
-
-    const matrix = label.getCTM?.();
-    const left = (matrix?.e ?? 0) + box.x;
-    const right = left + box.width;
-    if (left < previousRight + 4) {
-      label.style.display = 'none';
-    } else {
-      previousRight = right;
-    }
-  });
+  labels
+    .map(label => {
+      const box = label.getBBox?.();
+      const matrix = label.getCTM?.();
+      return box && box.width > 0 ? { label, left: (matrix?.e ?? 0) + box.x, width: box.width } : undefined;
+    })
+    .filter((entry): entry is { label: SVGTextElement; left: number; width: number } => entry !== undefined)
+    .sort((left, right) => left.left - right.left)
+    .forEach(({ label, left, width }) => {
+      const right = left + width;
+      if (left < previousRight + 4) {
+        label.style.display = 'none';
+      } else {
+        previousRight = right;
+      }
+    });
 };
 
 export const renderPrimaryYAxisShared = ({
@@ -428,7 +586,8 @@ export const renderPrimaryYAxisShared = ({
   domain.setAttribute('y2', String(innerHeight));
   group.appendChild(domain);
 
-  getAxisTickValues(axis, scale).forEach(value => {
+  const tickLabelFormatter = getAxisTickLabelFormatter(axis, scale);
+  getAxisTickValues(axis, scale).forEach((value, index) => {
     const tick = createSvgElement<SVGGElement>('g');
     tick.classList.add('tick');
     tick.setAttribute('transform', `translate(0, ${getAxisPosition(scale, value)})`);
@@ -438,25 +597,27 @@ export const renderPrimaryYAxisShared = ({
     line.setAttribute('x2', isRTL ? '6' : '-6');
     tick.appendChild(line);
 
-    const text = createSvgElement<SVGTextElement>('text');
-    text.classList.add(labelClassName);
-    text.setAttribute('x', String(isRTL ? 6 + tickPadding : -(6 + tickPadding)));
-    text.setAttribute('text-anchor', 'end');
-    text.setAttribute('dominant-baseline', 'middle');
-    const fullLabel = formatter(value);
-    hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
-    const renderedLabel =
-      tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
-        ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
-        : fullLabel;
-    text.textContent = renderedLabel;
-    if (renderedLabel !== fullLabel) {
-      const title = createSvgElement<SVGTitleElement>('title');
-      title.textContent = fullLabel;
-      text.appendChild(title);
+    if (tickLabelFormatter?.(value, index) !== '') {
+      const text = createSvgElement<SVGTextElement>('text');
+      text.classList.add(labelClassName);
+      text.setAttribute('x', String(isRTL ? 6 + tickPadding : -(6 + tickPadding)));
+      text.setAttribute('text-anchor', 'end');
+      text.setAttribute('dominant-baseline', 'middle');
+      const fullLabel = formatter(value);
+      hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
+      const renderedLabel =
+        tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
+          ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
+          : fullLabel;
+      text.textContent = renderedLabel;
+      if (renderedLabel !== fullLabel) {
+        const title = createSvgElement<SVGTitleElement>('title');
+        title.textContent = fullLabel;
+        text.appendChild(title);
+      }
+      maxTickLabelWidth = Math.max(maxTickLabelWidth, measureSvgTextWidth(text, renderedLabel));
+      tick.appendChild(text);
     }
-    maxTickLabelWidth = Math.max(maxTickLabelWidth, measureSvgTextWidth(text, renderedLabel));
-    tick.appendChild(text);
 
     group.appendChild(tick);
   });
@@ -524,7 +685,8 @@ export const renderSecondaryYAxisShared = ({
   domain.setAttribute('y2', String(innerHeight));
   group.appendChild(domain);
 
-  getAxisTickValues(axis, scale).forEach(value => {
+  const tickLabelFormatter = getAxisTickLabelFormatter(axis, scale);
+  getAxisTickValues(axis, scale).forEach((value, index) => {
     const tick = createSvgElement<SVGGElement>('g');
     tick.classList.add('tick');
     tick.setAttribute('transform', `translate(0, ${getAxisPosition(scale, value)})`);
@@ -534,25 +696,27 @@ export const renderSecondaryYAxisShared = ({
     line.setAttribute('x2', isRTL ? '-6' : '6');
     tick.appendChild(line);
 
-    const text = createSvgElement<SVGTextElement>('text');
-    text.classList.add(labelClassName);
-    text.setAttribute('x', String(isRTL ? -(6 + tickPadding) : 6 + tickPadding));
-    text.setAttribute('text-anchor', 'start');
-    text.setAttribute('dominant-baseline', 'middle');
-    const fullLabel = formatter(value);
-    hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
-    const renderedLabel =
-      tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
-        ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
-        : fullLabel;
-    text.textContent = renderedLabel;
-    if (renderedLabel !== fullLabel) {
-      const title = createSvgElement<SVGTitleElement>('title');
-      title.textContent = fullLabel;
-      text.appendChild(title);
+    if (tickLabelFormatter?.(value, index) !== '') {
+      const text = createSvgElement<SVGTextElement>('text');
+      text.classList.add(labelClassName);
+      text.setAttribute('x', String(isRTL ? -(6 + tickPadding) : 6 + tickPadding));
+      text.setAttribute('text-anchor', 'start');
+      text.setAttribute('dominant-baseline', 'middle');
+      const fullLabel = formatter(value);
+      hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
+      const renderedLabel =
+        tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
+          ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
+          : fullLabel;
+      text.textContent = renderedLabel;
+      if (renderedLabel !== fullLabel) {
+        const title = createSvgElement<SVGTitleElement>('title');
+        title.textContent = fullLabel;
+        text.appendChild(title);
+      }
+      maxTickLabelWidth = Math.max(maxTickLabelWidth, measureSvgTextWidth(text, renderedLabel));
+      tick.appendChild(text);
     }
-    maxTickLabelWidth = Math.max(maxTickLabelWidth, measureSvgTextWidth(text, renderedLabel));
-    tick.appendChild(text);
 
     group.appendChild(tick);
   });
@@ -590,6 +754,8 @@ export type BandYAxisRenderOptions<Domain extends AxisDomain> = {
   rtlLabelX?: number;
   axisClassName?: string;
   labelClassName?: string;
+  yAxisTitle?: string;
+  titleClassName?: string;
   tickLabelMaxWidth?: number;
 };
 
@@ -609,6 +775,8 @@ export const renderBandYAxisShared = <Domain extends AxisDomain>({
   rtlLabelX,
   axisClassName = 'y-axis',
   labelClassName = 'y-axis-text',
+  yAxisTitle,
+  titleClassName = 'y-axis-title',
   tickLabelMaxWidth,
 }: BandYAxisRenderOptions<Domain>): void => {
   const group = createSvgElement<SVGGElement>('g');
@@ -656,11 +824,24 @@ export const renderBandYAxisShared = <Domain extends AxisDomain>({
     group.appendChild(tick);
   });
 
+  if (yAxisTitle) {
+    const title = createSvgElement<SVGTextElement>('text');
+    title.classList.add(titleClassName);
+    title.setAttribute('x', String(innerHeight / 2));
+    title.setAttribute('y', String(isRTL ? -14 : 14));
+    title.setAttribute('text-anchor', 'middle');
+    title.setAttribute('transform', `rotate(${isRTL ? 90 : -90})`);
+    title.textContent = yAxisTitle;
+    group.appendChild(title);
+  }
+
   svg.appendChild(group);
 };
 
 export type ContinuousBottomAxisRenderOptions = {
   axisLayer: SVGGElement;
+  gridLayer: SVGGElement;
+  gridLineSpan: { start: number; end: number };
   width: number;
   height: number;
   margins: { left: number; right: number; bottom: number };
@@ -672,12 +853,16 @@ export type ContinuousBottomAxisRenderOptions = {
   wrapXAxisLabels?: boolean;
   hideTickOverlap?: boolean;
   showXAxisLabelsTooltip?: boolean;
+  noOfCharsToTruncate?: number;
+  axisLabelTooltipHandlers?: AxisLabelTooltipHandlers;
   xAxisTitle?: string;
   formatTickLabel: (tick: number, range: [number, number]) => string;
 };
 
 export const renderContinuousBottomAxisShared = ({
   axisLayer,
+  gridLayer,
+  gridLineSpan,
   width,
   height,
   margins,
@@ -689,9 +874,13 @@ export const renderContinuousBottomAxisShared = ({
   wrapXAxisLabels = false,
   hideTickOverlap = false,
   showXAxisLabelsTooltip = false,
+  noOfCharsToTruncate = 4,
+  axisLabelTooltipHandlers,
   xAxisTitle,
   formatTickLabel,
 }: ContinuousBottomAxisRenderOptions) => {
+  const safeTruncateChars = Number.isFinite(noOfCharsToTruncate) ? Math.max(1, Math.floor(noOfCharsToTruncate)) : 4;
+
   const axisY = height - margins.bottom;
   const min = domain[0];
   const max = domain[1];
@@ -700,19 +889,32 @@ export const renderContinuousBottomAxisShared = ({
   const span = max - min || 1;
   const toX = (value: number) => rangeStart + ((value - min) / span) * (rangeEnd - rangeStart);
   const range: [number, number] = [min, max];
+  const tickPositions = ticks.map(toX);
 
-  ticks.forEach(tick => {
-    const x = toX(tick);
+  renderAxisGridLinesShared({
+    layer: gridLayer,
+    orientation: 'vertical',
+    positions: tickPositions,
+    spanStart: gridLineSpan.start,
+    spanEnd: gridLineSpan.end,
+  });
+
+  ticks.forEach((tick, index) => {
+    const x = tickPositions[index];
     const tickLine = createSvgElement<SVGLineElement>('line');
     tickLine.setAttribute('class', 'axis-tick-line');
     tickLine.setAttribute('x1', `${x}`);
     tickLine.setAttribute('x2', `${x}`);
     tickLine.setAttribute('y1', `${axisY}`);
-    tickLine.setAttribute('y2', `${20}`);
+    tickLine.setAttribute('y2', `${axisY + 6}`);
     axisLayer.appendChild(tickLine);
 
     const labelY = axisY + tickPadding + 12;
     const rawLabel = formatTickLabel(tick, range);
+    const renderedLabel =
+      showXAxisLabelsTooltip && !wrapXAxisLabels && rawLabel.length > safeTruncateChars
+        ? `${rawLabel.slice(0, safeTruncateChars)}...`
+        : rawLabel;
 
     const text = createSvgElement<SVGTextElement>('text');
     text.setAttribute('class', 'axis-text');
@@ -722,10 +924,10 @@ export const renderContinuousBottomAxisShared = ({
     if (rotateXAxisLabels) {
       text.setAttribute('text-anchor', isRTL ? 'start' : 'end');
       text.setAttribute('transform', `rotate(-45, ${x}, ${labelY})`);
-      text.textContent = rawLabel;
+      text.textContent = renderedLabel;
     } else if (wrapXAxisLabels) {
       text.setAttribute('text-anchor', 'middle');
-      const words = rawLabel.split(' ');
+      const words = renderedLabel.split(' ');
       if (words.length > 1) {
         words.forEach((word, index) => {
           const tspan = createSvgElement<SVGTSpanElement>('tspan');
@@ -735,17 +937,22 @@ export const renderContinuousBottomAxisShared = ({
           text.appendChild(tspan);
         });
       } else {
-        text.textContent = rawLabel;
+        text.textContent = renderedLabel;
       }
     } else {
       text.setAttribute('text-anchor', 'middle');
-      text.textContent = rawLabel;
+      text.textContent = renderedLabel;
     }
 
-    if (showXAxisLabelsTooltip) {
-      const title = createSvgElement<SVGTitleElement>('title');
-      title.textContent = rawLabel;
-      text.appendChild(title);
+    if (showXAxisLabelsTooltip && renderedLabel !== rawLabel) {
+      if (axisLabelTooltipHandlers) {
+        text.addEventListener('mouseover', () => axisLabelTooltipHandlers.show(text, rawLabel));
+        text.addEventListener('mouseout', () => axisLabelTooltipHandlers.hide());
+      } else {
+        const title = createSvgElement<SVGTitleElement>('title');
+        title.textContent = rawLabel;
+        text.appendChild(title);
+      }
     }
 
     axisLayer.appendChild(text);

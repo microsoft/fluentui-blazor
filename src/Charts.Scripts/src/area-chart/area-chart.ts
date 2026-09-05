@@ -1,7 +1,7 @@
 import { attr } from '@microsoft/fast-element';
 import { bisector, extent } from 'd3-array';
 import { axisBottom, axisLeft, axisRight, type Axis, type AxisDomain } from 'd3-axis';
-import { format, formatPrefix } from 'd3-format';
+import { format } from 'd3-format';
 import { scaleLinear, scaleTime, type ScaleLinear, type ScaleTime } from 'd3-scale';
 import { area as createArea, curveMonotoneX, line as createLine, stack as createStack } from 'd3-shape';
 import { timeFormat, utcFormat } from 'd3-time-format';
@@ -11,15 +11,18 @@ import {
   applyAxisTickConfig,
   type AxisScaleLike,
   computePreparedNumericYAxis,
-  DEFAULT_REACT_NUMERIC_Y_TICK_COUNT,
+  createNumericContinuousScale,
+  createPreparedNumericContinuousScale,
+  DEFAULT_NUMERIC_Y_TICK_COUNT,
+  renderAxisGridLinesShared,
   renderBottomAxisShared,
-  renderHorizontalGridLinesShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
 } from '../utils/cartesian-axis-shared.js';
 import {
+  defaultYAxisTickFormatter,
   escapeHtml,
   formatLocaleNumber,
   getColorFromToken,
@@ -56,18 +59,6 @@ const formatNumberValue = (value: number, specifier: string | undefined, culture
   return formatLocaleNumber(value, culture);
 };
 
-/**
- * Default y-axis tick formatter matching React charting's `defaultYAxisTickFormatter`.
- * Uses d3 SI-prefix notation (e.g. 10k, 1.5M) for values ≥ 1 and general format for
- * small values, keeping up to 2 significant digits and trimming trailing zeros.
- */
-const defaultYAxisTickFormatter = (value: number): string => {
-  if (Math.abs(value) < 1) {
-    return format('.2~g')(value);
-  }
-  return formatPrefix('.2~', value)(value);
-};
-
 const formatDateValue = (chart: AreaChart, value: Date): string => {
   if (chart.customDateTimeFormatter) {
     return chart.customDateTimeFormatter(value);
@@ -79,11 +70,23 @@ const formatDateValue = (chart: AreaChart, value: Date): string => {
       // Fall back to Intl below.
     }
   }
+  const options = chart.dateLocalizeOptions ?? { year: 'numeric', month: '2-digit', day: '2-digit' };
   try {
-    return new Intl.DateTimeFormat(chart.culture, chart.dateLocalizeOptions).format(value);
+    return new Intl.DateTimeFormat(chart.culture, options).format(value);
   } catch {
-    return new Intl.DateTimeFormat(undefined, chart.dateLocalizeOptions).format(value);
+    return new Intl.DateTimeFormat(undefined, options).format(value);
   }
+};
+
+const formatXAxisCalloutValue = (
+  chart: AreaChart,
+  value: AreaChartDataPoint['xAxisCalloutData'],
+  fallback: string,
+): string => {
+  if (Object.prototype.toString.call(value) === '[object Date]') {
+    return formatDateValue(chart, new Date((value as Date).getTime()));
+  }
+  return typeof value === 'string' && value ? value : fallback;
 };
 
 const getNormalizedXValue = (value: number | Date): XValue => {
@@ -109,10 +112,6 @@ export class AreaChart extends CartesianChartBase {
   @attr()
   public mode: AreaChartMode = 'tonexty';
 
-  /** Optional title for the secondary (right) Y axis. */
-  @attr({ attribute: 'secondary-y-axis-title' })
-  public secondaryYAxisTitle: string = '';
-
   /** Max width in px for secondary y-axis tick labels before truncating with ellipsis. */
   @attr({ attribute: 'secondary-y-axis-tick-label-max-width' })
   public secondaryYAxisTickLabelMaxWidth?: number | string;
@@ -121,13 +120,7 @@ export class AreaChart extends CartesianChartBase {
 
   public connectedCallback() {
     const self = this as Record<string, unknown>;
-    const attrFields = [
-      'data',
-      'enableGradient',
-      'mode',
-      'secondaryYAxisTitle',
-      'secondaryYAxisTickLabelMaxWidth',
-    ] as const;
+    const attrFields = ['data', 'enableGradient', 'mode', 'secondaryYAxisTickLabelMaxWidth'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
 
     for (const field of attrFields) {
@@ -147,14 +140,6 @@ export class AreaChart extends CartesianChartBase {
     this._requestRender();
   }
 
-  public get tooltipInlineTransform(): string {
-    // Position the tooltip to the right (LTR) or left (RTL) of the hover crosshair so it
-    // does not cover the indicator line and hover dots.  React's Callout uses
-    // DirectionalHint.topAutoEdge anchored on the highlighted circle, which has the same
-    // visual result: the tooltip appears beside the data point, not on top of it.
-    return this._isRTL ? 'translateX(calc(-100% - 16px))' : 'translateX(16px)';
-  }
-
   protected dataChanged(): void {
     this._requestRender();
   }
@@ -164,10 +149,6 @@ export class AreaChart extends CartesianChartBase {
   }
 
   protected modeChanged(): void {
-    this._requestRender();
-  }
-
-  protected secondaryYAxisTitleChanged(): void {
     this._requestRender();
   }
 
@@ -240,11 +221,12 @@ export class AreaChart extends CartesianChartBase {
       const color = series.color ? getColorFromToken(series.color) : getNextColor(index, 0);
       const data = series.data.map(point => {
         const x = getNormalizedXValue(point.x);
+        const defaultXLabel =
+          x instanceof Date ? formatDateValue(this, x) : formatNumberValue(x, this.xAxisTickFormat, this.culture);
         return {
+          ...point,
           x,
-          y: point.y,
-          xLabel:
-            x instanceof Date ? formatDateValue(this, x) : formatNumberValue(x, this.xAxisTickFormat, this.culture),
+          xLabel: formatXAxisCalloutValue(this, point.xAxisCalloutData, defaultXLabel),
           cx: 0,
           cy: 0,
         };
@@ -259,14 +241,12 @@ export class AreaChart extends CartesianChartBase {
     const isRtl = getRTL(this);
     const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 500);
     const height = toNumber(this.height, 300);
-    // In RTL the primary Y axis moves to the right side and the secondary to the left,
-    // so the two margin sides swap compared to LTR.
-    const primaryAxisSpace = defaultMargins.left; // 60 px — space for Y axis ticks + labels
-    const secondaryAxisSpace = 70; // extra space when a secondary Y axis is present
-    const leftMargin = isRtl ? (hasSecondaryY ? secondaryAxisSpace : defaultMargins.right) : primaryAxisSpace;
-    const rightMargin = isRtl ? primaryAxisSpace : hasSecondaryY ? secondaryAxisSpace : defaultMargins.right;
-    const innerWidth = Math.max(width - leftMargin - rightMargin, 1);
-    const innerHeight = Math.max(height - defaultMargins.top - defaultMargins.bottom, 1);
+    const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
+      width,
+      height,
+      defaultMargins,
+      hasSecondaryYAxis: hasSecondaryY,
+    });
 
     // Build a unified dataset keyed by x-value so d3Stack can compute stacked layers.
     // Each entry holds all series values at that x position (missing values default to 0).
@@ -358,7 +338,7 @@ export class AreaChart extends CartesianChartBase {
     const stackedDataMin = allPrimaryValues.length > 0 ? Math.min(...allPrimaryValues) : 0;
     const stackedDataMax = allPrimaryValues.length > 0 ? Math.max(...allPrimaryValues) : 1;
     const maxOfYVal = hasSecondaryY ? rawPrimaryMax : stackedDataMax;
-    const yTickCount = toNumber(this.yAxisTickCount, DEFAULT_REACT_NUMERIC_Y_TICK_COUNT);
+    const yTickCount = toNumber(this.yAxisTickCount, DEFAULT_NUMERIC_Y_TICK_COUNT);
 
     let yMin = toOptionalNumber(this.yMinValue) ?? Math.min(0, rawPrimaryMin, stackedDataMin);
     let yMax = toOptionalNumber(this.yMaxValue) ?? Math.max(0, maxOfYVal);
@@ -375,6 +355,7 @@ export class AreaChart extends CartesianChartBase {
 
     let xScale: ContinuousScale;
     let xFormatter: (value: AxisDomain) => string;
+    const xRange: [number, number] = isRtl ? [innerWidth, 0] : [0, innerWidth];
     if (isDateAxis) {
       const dateValues = normalizedSeries
         .flatMap(series => series.data.map(point => point.x))
@@ -390,7 +371,7 @@ export class AreaChart extends CartesianChartBase {
           : new Date(rawExtent[1] ?? 0);
       const domainMin = xMin instanceof Date ? xMin : new Date(Number(xMin));
       const domainMax = xMax instanceof Date ? xMax : new Date(Number(xMax));
-      xScale = scaleTime().domain([domainMin, domainMax]).range([0, innerWidth]);
+      xScale = scaleTime().domain([domainMin, domainMax]).range(xRange);
       if (this.roundedTicks) {
         xScale.nice();
       }
@@ -406,10 +387,13 @@ export class AreaChart extends CartesianChartBase {
         xMin -= 1;
         xMax += 1;
       }
-      xScale = scaleLinear().domain([xMin, xMax]).range([0, innerWidth]);
-      if (this.roundedTicks) {
-        xScale.nice();
-      }
+      xScale = createNumericContinuousScale({
+        domainMin: xMin,
+        domainMax: xMax,
+        range: xRange,
+        scaleType: this.xScaleType,
+        roundedTicks: this.roundedTicks,
+      }).scale;
       xFormatter = value => formatNumberValue(Number(value), this.xAxisTickFormat, this.culture);
     }
 
@@ -424,20 +408,14 @@ export class AreaChart extends CartesianChartBase {
       const secValues = seriesData
         .flatMap((s, i) => (isSecondaryByIndex[i] ? s.data.map(p => p.y) : []))
         .filter(v => typeof v === 'number');
-      const secMin = secValues.length > 0 ? Math.min(0, ...secValues) : 0;
-      let secMax = secValues.length > 0 ? Math.max(0, ...secValues) : 1;
-      if (secMin === secMax) {
-        secMax += 1;
-      }
-      preparedSecondaryYAxis = computePreparedNumericYAxis({
-        minValue: secMin,
-        maxValue: secMax,
+      const secondaryYAxis = createPreparedNumericContinuousScale({
+        values: secValues,
+        range: [innerHeight, 0],
         tickCount: yTickCount,
         roundedTicks: this.roundedTicks,
       });
-      yScaleSecondary = scaleLinear()
-        .domain([preparedSecondaryYAxis.domainMin, preparedSecondaryYAxis.domainMax])
-        .range([innerHeight, 0]);
+      preparedSecondaryYAxis = secondaryYAxis.preparedAxis;
+      yScaleSecondary = secondaryYAxis.scale;
     }
 
     normalizedSeries.forEach((series, si) => {
@@ -455,18 +433,8 @@ export class AreaChart extends CartesianChartBase {
       });
     });
 
-    const svg = createSvgElement<SVGSVGElement>('svg');
-    svg.classList.add('chart-svg');
-    svg.setAttribute('width', String(width));
-    svg.setAttribute('height', String(height));
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
-
-    const plotGroup = createSvgElement<SVGGElement>('g');
-    plotGroup.setAttribute('transform', `translate(${leftMargin}, ${defaultMargins.top})`);
-    svg.appendChild(plotGroup);
 
     const xAxis = axisBottom(xScale).tickPadding(toNumber(this.tickPadding, 6));
     if (!isDateAxis) {
@@ -483,15 +451,17 @@ export class AreaChart extends CartesianChartBase {
     const yAxis = axisLeft(yScale).tickPadding(toNumber(this.tickPadding, 6));
     applyAxisTickConfig(
       yAxis,
-      this.yAxisTickCount ?? DEFAULT_REACT_NUMERIC_Y_TICK_COUNT,
+      this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
       this.yAxisTickValues ?? preparedPrimaryYAxis.tickValues,
     );
 
-    renderHorizontalGridLinesShared({
-      plotGroup,
+    renderAxisGridLinesShared({
+      layer: plotGroup,
+      orientation: 'horizontal',
       scale: yScale,
       axis: yAxis as unknown as Axis<number>,
-      innerWidth,
+      spanStart: 0,
+      spanEnd: innerWidth,
     });
 
     // Pre-compute a lookup map from x-value key → all series entries at that x.
@@ -505,6 +475,7 @@ export class AreaChart extends CartesianChartBase {
       y: number;
       stackedY1: number;
       isSecondaryY: boolean;
+      value: string;
       callOutAriaLabel?: string;
     };
     type CalloutPoint = { xLabel: string; cx: number; xAxisAriaLabel?: string; entries: (CalloutEntry | undefined)[] };
@@ -512,7 +483,7 @@ export class AreaChart extends CartesianChartBase {
     const calloutPointsByX = new Map<number, CalloutPoint>();
     normalizedSeries.forEach((series, si) => {
       const layer = stackedLayers[si];
-      series.data.forEach((point, di) => {
+      series.data.forEach(point => {
         const key = point.x instanceof Date ? point.x.getTime() : Number(point.x);
         if (!calloutPointsByX.has(key)) {
           calloutPointsByX.set(key, {
@@ -523,7 +494,13 @@ export class AreaChart extends CartesianChartBase {
           });
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const stackedY1 = (layer[di] as any)?.[1] ?? point.y;
+        const xKey = String(point.x instanceof Date ? point.x.getTime() : point.x);
+        const stackPoint = layer.find(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (entry: any) =>
+            String(entry.data.xVal instanceof Date ? entry.data.xVal.getTime() : entry.data.xVal) === xKey,
+        );
+        const stackedY1 = stackPoint?.[1] ?? point.y;
         // Store at series index so sparse datasets don't misalign entries.
         calloutPointsByX.get(key)!.entries[si] = {
           legend: series.legend,
@@ -531,6 +508,7 @@ export class AreaChart extends CartesianChartBase {
           y: point.y,
           stackedY1,
           isSecondaryY: isSecondaryByIndex[si],
+          value: point.yAxisCalloutData || formatNumberValue(point.y, this.yAxisTickFormat, this.culture),
           callOutAriaLabel: point.callOutAccessibilityData?.ariaLabel,
         };
       });
@@ -604,12 +582,17 @@ export class AreaChart extends CartesianChartBase {
     // Hover elements: vertical intercept line + one dot per series (matching React's behaviour).
     const hoverLine = createSvgElement<SVGLineElement>('line');
     hoverLine.classList.add('hover-line');
-    const hoverLineY1 = defaultMargins.top / 2;
-    const hoverLineY2 = height - defaultMargins.bottom / 2;
+    const hoverLineY1 = margins.top / 2;
+    const hoverLineY2 = margins.top + innerHeight;
     hoverLine.setAttribute('y1', String(hoverLineY1));
     hoverLine.setAttribute('y2', String(hoverLineY2));
     hoverLine.style.display = 'none';
     svg.appendChild(hoverLine);
+
+    const hoverDotLayer = createSvgElement<SVGGElement>('g');
+    hoverDotLayer.classList.add('hover-dot-layer');
+    hoverDotLayer.setAttribute('transform', `translate(${margins.left}, ${margins.top})`);
+    svg.appendChild(hoverDotLayer);
 
     const hoverDots = normalizedSeries.map(series => {
       const dot = createSvgElement<SVGCircleElement>('circle');
@@ -619,11 +602,62 @@ export class AreaChart extends CartesianChartBase {
       dot.setAttribute('stroke', series.color);
       dot.setAttribute('stroke-width', '2');
       dot.style.display = 'none';
-      plotGroup.appendChild(dot);
+      hoverDotLayer.appendChild(dot);
       return dot;
     });
 
     const focusablePoints: SVGCircleElement[] = [];
+    const focusLayer = createSvgElement<SVGGElement>('g');
+    focusLayer.classList.add('data-point-focus-layer');
+    focusLayer.setAttribute('transform', `translate(${margins.left}, ${margins.top})`);
+
+    const updateCalloutMarkers = (found: CalloutPoint, cx: number) => {
+      const svgX = margins.left + cx;
+      hoverLine.setAttribute('x1', String(svgX));
+      hoverLine.setAttribute('x2', String(svgX));
+      hoverLine.style.display = '';
+
+      let topY = innerHeight;
+      const markerEntries: Array<TooltipEntry & { cy: number }> = [];
+      normalizedSeries.forEach((series, seriesIndex) => {
+        const entry = found.entries[seriesIndex];
+        const active = entry && this._shouldShowTooltip(series.legend);
+        if (active) {
+          const dotScale = entry.isSecondaryY ? yScaleSecondary : yScale;
+          const cy = dotScale(entry.stackedY1);
+          hoverDots[seriesIndex].setAttribute('cx', String(cx));
+          hoverDots[seriesIndex].setAttribute('cy', String(cy));
+          hoverDots[seriesIndex].style.display = '';
+          topY = Math.min(topY, cy);
+          markerEntries.push({
+            legend: series.legend,
+            color: series.color,
+            value: entry.value,
+            callOutAriaLabel: entry.callOutAriaLabel,
+            cy,
+          });
+        } else {
+          hoverDots[seriesIndex].style.display = 'none';
+        }
+      });
+
+      plotGroup.querySelectorAll<SVGPathElement>('.area-line').forEach(path => path.classList.add('hovered'));
+
+      return {
+        topY,
+        entries: markerEntries
+          .sort((left, right) => left.cy - right.cy)
+          .map(({ cy: _cy, ...tooltipEntry }) => tooltipEntry),
+      };
+    };
+
+    const clearCalloutMarkers = () => {
+      hoverLine.style.display = 'none';
+      hoverDots.forEach(dot => {
+        dot.style.display = 'none';
+      });
+      plotGroup.querySelectorAll<SVGPathElement>('.area-line').forEach(path => path.classList.remove('hovered'));
+    };
 
     const showPointTooltip = (
       event: FocusEvent,
@@ -631,40 +665,50 @@ export class AreaChart extends CartesianChartBase {
       point: NormalizedPoint,
       element: SVGCircleElement,
     ): void => {
-      if (this.hideTooltip) {
-        return;
-      }
-
       const hostRect = this.getBoundingClientRect();
       const targetRect = element.getBoundingClientRect();
       const anchorX = targetRect.left - hostRect.left + targetRect.width / 2;
-      const anchorY = targetRect.top - hostRect.top + targetRect.height / 2;
-      const value = formatNumberValue(point.y, this.yAxisTickFormat, this.culture);
+      const key = point.x instanceof Date ? point.x.getTime() : Number(point.x);
+      const calloutPoint = calloutPointsByX.get(key);
+      if (!calloutPoint) {
+        return;
+      }
+
+      const cx = xScale(point.x as never) ?? 0;
+      const { entries, topY } = updateCalloutMarkers(calloutPoint, cx);
+
+      if (this.hideTooltip || entries.length === 0) {
+        return;
+      }
+
+      const svgRect = svg.getBoundingClientRect();
+      const anchorY = svgRect.top - hostRect.top + margins.top + topY;
+      const value = point.yAxisCalloutData || formatNumberValue(point.y, this.yAxisTickFormat, this.culture);
 
       element.setAttribute('fill', '#fff');
       element.setAttribute('stroke', series.color);
       element.setAttribute('stroke-width', '2');
 
-      this._currentTooltipDataPoint = { legend: series.legend, x: point.x, y: point.y };
+      const isFreshShow = !this.tooltipProps.isVisible;
+      this._currentTooltipDataPoint =
+        entries.length > 1
+          ? { xLabel: calloutPoint?.xLabel ?? point.xLabel, entries }
+          : { legend: series.legend, ...point };
       this.tooltipProps = {
         isVisible: true,
-        legend: series.legend,
-        yValue: value,
-        color: series.color,
-        xLabel: point.xLabel,
-        xAxisAriaLabel: point.xAxisCalloutAccessibilityData?.ariaLabel,
-        entries: [
-          {
-            legend: series.legend,
-            color: series.color,
-            value,
-            callOutAriaLabel: point.callOutAccessibilityData?.ariaLabel,
-          },
-        ],
+        legend: entries[0]?.legend ?? series.legend,
+        yValue: entries[0]?.value ?? value,
+        color: entries[0]?.color ?? series.color,
+        xLabel: calloutPoint?.xLabel ?? point.xLabel,
+        xAxisAriaLabel: calloutPoint?.xAxisAriaLabel ?? point.xAxisCalloutAccessibilityData?.ariaLabel,
+        entries,
         xPos: anchorX,
         yPos: anchorY,
       };
-      this._positionTooltipFromAnchor(anchorX, anchorY, { outputAnchorX: true, preferredVertical: 'above' });
+      this._positionTooltipAvoidingOverlap(anchorX, anchorY, anchorY, isFreshShow, {
+        horizontalPlacement: 'side',
+        gap: 15,
+      });
     };
 
     const pointKeydown = (event: KeyboardEvent): void => {
@@ -734,7 +778,7 @@ export class AreaChart extends CartesianChartBase {
     const onOverlayMouseMove = (event: MouseEvent) => {
       const svgRect = svg.getBoundingClientRect();
       // localX is in plot-group coordinates (same coordinate space as xScale's range).
-      const localX = event.clientX - svgRect.left - leftMargin;
+      const localX = event.clientX - svgRect.left - margins.left;
 
       // Invert pixel → domain value, then bisect by domain value.
       // This is the exact same approach React uses:
@@ -775,49 +819,13 @@ export class AreaChart extends CartesianChartBase {
 
       const cx = xScale(nearestDataPoint.xVal as never) ?? 0;
 
-      // Position the vertical intercept line.
-      const svgX = leftMargin + cx;
-      hoverLine.setAttribute('x1', String(svgX));
-      hoverLine.setAttribute('x2', String(svgX));
-      hoverLine.style.display = '';
-
-      // Position hover dots at the top of each stacked layer; collect tooltip entries.
-      let topY = innerHeight;
-      const hoverEntries: Array<TooltipEntry & { cy: number }> = [];
-      normalizedSeries.forEach((series, si) => {
-        const entry = found.entries[si];
-        const active = entry && this._shouldShowTooltip(series.legend);
-        if (active) {
-          const dotScale = entry.isSecondaryY ? yScaleSecondary : yScale;
-          const cy = dotScale(entry.stackedY1);
-          hoverDots[si].setAttribute('cx', String(cx));
-          hoverDots[si].setAttribute('cy', String(cy));
-          hoverDots[si].style.display = '';
-          topY = Math.min(topY, cy);
-          hoverEntries.push({
-            legend: series.legend,
-            color: series.color,
-            value: formatNumberValue(entry.y, this.yAxisTickFormat, this.culture),
-            callOutAriaLabel: entry.callOutAriaLabel,
-            cy,
-          });
-        } else {
-          hoverDots[si].style.display = 'none';
-        }
-      });
-
-      // Keep tooltip rows aligned with visual stack order: top-most series first.
-      const entries: TooltipEntry[] = hoverEntries
-        .sort((left, right) => left.cy - right.cy)
-        .map(({ cy: _cy, ...tooltipEntry }) => tooltipEntry);
-
-      // Apply .hovered class to series line paths.
-      plotGroup.querySelectorAll<SVGPathElement>('.area-line').forEach(p => p.classList.add('hovered'));
+      const { entries, topY } = updateCalloutMarkers(found, cx);
 
       if (!this.hideTooltip && entries.length > 0) {
         const hostRect = this.getBoundingClientRect();
-        const anchorX = svgRect.left - hostRect.left + leftMargin + cx;
-        const anchorY = svgRect.top - hostRect.top + defaultMargins.top + topY;
+        const anchorX = svgRect.left - hostRect.left + margins.left + cx;
+        const anchorY = svgRect.top - hostRect.top + margins.top + topY;
+        const isFreshShow = !this.tooltipProps.isVisible || this.tooltipProps.xLabel !== found.xLabel;
         this._currentTooltipDataPoint = { xLabel: found.xLabel, entries };
         this.tooltipProps = {
           isVisible: true,
@@ -830,21 +838,20 @@ export class AreaChart extends CartesianChartBase {
           xPos: anchorX,
           yPos: anchorY,
         };
-        this._positionTooltipFromAnchor(anchorX, anchorY, { outputAnchorX: true, preferredVertical: 'above' });
+        this._positionTooltipAvoidingOverlap(anchorX, anchorY, anchorY, isFreshShow, {
+          horizontalPlacement: 'side',
+          gap: 15,
+        });
       }
     };
 
-    const onOverlayMouseLeave = () => {
-      hoverLine.style.display = 'none';
-      hoverDots.forEach(dot => {
-        dot.style.display = 'none';
-      });
-      plotGroup.querySelectorAll<SVGPathElement>('.area-line').forEach(p => p.classList.remove('hovered'));
+    const onChartMouseLeave = () => {
+      clearCalloutMarkers();
       this._clearTooltip();
     };
 
     overlay.addEventListener('mousemove', onOverlayMouseMove);
-    overlay.addEventListener('mouseleave', onOverlayMouseLeave);
+    svg.addEventListener('mouseleave', onChartMouseLeave);
 
     normalizedSeries.forEach(series => {
       series.data.forEach(point => {
@@ -865,7 +872,9 @@ export class AreaChart extends CartesianChartBase {
         pointCircle.setAttribute('data-x-key', String(point.x instanceof Date ? point.x.getTime() : point.x));
         pointCircle.setAttribute('data-cy', String(point.cy));
         pointCircle.setAttribute('tabindex', focusablePoints.length === 0 ? '0' : '-1');
-        pointCircle.setAttribute('pointer-events', 'none');
+        pointCircle.setAttribute('pointer-events', 'all');
+        pointCircle.addEventListener('mouseenter', onOverlayMouseMove);
+        pointCircle.addEventListener('mousemove', onOverlayMouseMove);
         pointCircle.addEventListener('focus', event => {
           focusablePoints.forEach(pointEl => {
             pointEl.tabIndex = pointEl === pointCircle ? 0 : -1;
@@ -881,30 +890,35 @@ export class AreaChart extends CartesianChartBase {
           pointCircle.setAttribute('fill', 'transparent');
           pointCircle.setAttribute('stroke', 'transparent');
           pointCircle.setAttribute('stroke-width', '0');
+          clearCalloutMarkers();
           this._clearTooltip();
         });
         pointCircle.addEventListener('keydown', pointKeydown);
+        pointCircle.addEventListener('click', () => this._focusRovingElement(focusablePoints, pointCircle));
         focusablePoints.push(pointCircle);
-        plotGroup.appendChild(pointCircle);
+        focusLayer.appendChild(pointCircle);
       });
     });
-
-    this._relocateFocusIfNeeded(focusablePoints);
 
     renderBottomAxisShared({
       svg,
       scale: xScale as AxisScaleLike<AxisDomain>,
       axis: xAxis as Axis<AxisDomain>,
       formatter: xFormatter,
-      axisLeft: leftMargin,
-      axisTop: defaultMargins.top,
+      axisLeft: margins.left,
+      axisTop: margins.top,
       innerWidth,
       innerHeight,
       tickPadding: toNumber(this.tickPadding, 6),
+      isRTL: isRtl,
       rotateXAxisLabels: this.rotateXAxisLabels,
       wrapXAxisLabels: this.wrapXAxisLabels,
       hideTickOverlap: this.hideTickOverlap,
       showXAxisLabelsTooltip: this.showXAxisLabelsTooltip,
+      axisLabelTooltipHandlers: {
+        show: (target, fullLabel) => this._showAxisLabelTooltip(target, fullLabel),
+        hide: () => this._hideAxisLabelTooltip(),
+      },
       xAxisTitle: this.xAxisTitle,
       labelDominantBaseline: 'hanging',
     });
@@ -927,8 +941,8 @@ export class AreaChart extends CartesianChartBase {
         scale: yScale as AxisScaleLike<number>,
         axis: yAxis as unknown as Axis<number>,
         formatter: yFormatter,
-        axisStartX: leftMargin,
-        axisTop: defaultMargins.top,
+        axisStartX: margins.left,
+        axisTop: margins.top,
         innerHeight,
         innerWidth,
         tickPadding: toNumber(this.tickPadding, 6),
@@ -941,7 +955,7 @@ export class AreaChart extends CartesianChartBase {
       const yAxisSecondary = axisRight(yScaleSecondary).tickPadding(toNumber(this.tickPadding, 6));
       applyAxisTickConfig(
         yAxisSecondary,
-        this.yAxisTickCount ?? DEFAULT_REACT_NUMERIC_Y_TICK_COUNT,
+        this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
         preparedSecondaryYAxis.tickValues,
       );
       renderSecondaryYAxisShared({
@@ -949,8 +963,8 @@ export class AreaChart extends CartesianChartBase {
         scale: yScaleSecondary as AxisScaleLike<number>,
         axis: yAxisSecondary as unknown as Axis<number>,
         formatter: yFormatter,
-        axisStartX: leftMargin,
-        axisTop: defaultMargins.top,
+        axisStartX: margins.left,
+        axisTop: margins.top,
         innerHeight,
         innerWidth,
         tickPadding: toNumber(this.tickPadding, 6),
@@ -959,6 +973,19 @@ export class AreaChart extends CartesianChartBase {
         tickLabelMaxWidth: toOptionalNumber(this.secondaryYAxisTickLabelMaxWidth),
       });
     }
+
+    this._renderAnnotations({
+      svg,
+      collisionLayer: plotGroup,
+      margins,
+      innerWidth,
+      innerHeight,
+      mapDataX: value => xScale((isDateAxis ? new Date(value) : Number(value)) as never),
+      mapDataY: (value, axis) => (axis === 'secondary' ? yScaleSecondary : yScale)(Number(value)),
+    });
+
+    svg.appendChild(focusLayer);
+    this._relocateFocusIfNeeded(focusablePoints);
 
     this.chartContainer.appendChild(svg);
     this.legends = normalizedSeries.map(series => ({ legend: series.legend, color: series.color }));

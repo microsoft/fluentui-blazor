@@ -1,0 +1,10 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+@code {
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> data = new List<VerticalBarChartDataPoint>
+    {
+        new VerticalBarChartDataPoint { Legend = "first", Data = 20000 },
+        new VerticalBarChartDataPoint { Legend = "second", Data = 39000 }
+    };
+
+}

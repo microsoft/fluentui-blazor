@@ -125,7 +125,7 @@ public class ChartAxisValueTests
     {
         ChartAxisValue value = 5.5;
 
-        Assert.False(value.Equals(null));
+        Assert.False(value.Equals(null!));
         Assert.False(value.Equals("5.5"));
     }
 

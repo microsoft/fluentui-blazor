@@ -407,7 +407,7 @@ export class HorizontalBarChart extends ChartBase {
         .attr('height', barHeight)
         .attr('role', 'img')
         .attr('aria-label', `${point.legend}: ${formatLocaleNumber(point.data ?? 0, this.culture || undefined)}`)
-        .attr('tabindex', 0);
+        .attr('tabindex', this._bars.length === 0 ? 0 : -1);
       const rectEl = rect.node()!;
       this._bars.push(rectEl);
       rectEl.addEventListener('focus', () => {
@@ -430,10 +430,16 @@ export class HorizontalBarChart extends ChartBase {
         this._positionTooltipFromAnchor(anchorX, anchorY, { preferredVertical: 'above', horizontalAlign: 'center' });
       });
       rectEl.addEventListener('blur', () => this._clearTooltip());
+      rectEl.addEventListener('click', () => {
+        this._focusRovingElement(this._bars, rectEl);
+        point.onClick?.();
+      });
       rectEl.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           point.onClick?.();
+        } else {
+          this._rovingKeydown(this._bars, e);
         }
       });
     };

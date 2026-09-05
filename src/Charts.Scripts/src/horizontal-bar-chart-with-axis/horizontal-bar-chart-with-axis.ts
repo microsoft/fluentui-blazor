@@ -1,4 +1,5 @@
 import { attr } from '@microsoft/fast-element';
+import { resolveChartMargins } from '../utils/cartesian-axis-helpers.js';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
   createNumberFormat,
@@ -374,19 +375,16 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     const yLabelWidth = this._getYAxisLabelWidth(groups, numericYAxis);
     const xAxisTitleOffset = this.xAxisTitle ? 20 : 0;
     const yAxisTitleOffset = this.yAxisTitle ? 16 : 0;
-    const margins = this._isRTL
-      ? {
-          top: 20,
-          right: yLabelWidth + yAxisTitleOffset,
-          bottom: 35 + xAxisTitleOffset,
-          left: 20,
-        }
-      : {
-          top: 20,
-          right: 20,
-          bottom: 35 + xAxisTitleOffset,
-          left: yLabelWidth + yAxisTitleOffset,
-        };
+    const margins = resolveChartMargins(
+      {
+        top: 20,
+        right: 20,
+        bottom: 35 + xAxisTitleOffset,
+        left: yLabelWidth + yAxisTitleOffset,
+      },
+      this.margins,
+      this._isRTL,
+    );
     const innerWidth = width - margins.left - margins.right;
     const plotLayout = this._getPlotLayout(groups.length, numericYAxis, height, margins, yValues);
     const xAxisScale = this._getXScaleInfo(groups);
@@ -398,23 +396,28 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       plotLayout.innerHeight,
       yValues,
     );
-    const svg = createSvgElement<SVGSVGElement>('svg');
-
-    svg.setAttribute('class', 'chart-svg');
-    svg.setAttribute('role', 'none');
-    svg.setAttribute('width', `${width}`);
-    svg.setAttribute('height', `${height}`);
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    const svg = this._createChartSvg(width, height, { role: 'none' });
 
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const axisLayer = createSvgElement<SVGGElement>('g');
+    const gridLayer = createSvgElement<SVGGElement>('g');
     const barsLayer = createSvgElement<SVGGElement>('g');
-    svg.appendChild(axisLayer);
+    const axisLayer = createSvgElement<SVGGElement>('g');
+    svg.appendChild(gridLayer);
     svg.appendChild(barsLayer);
+    svg.appendChild(axisLayer);
 
-    this._renderXAxis(axisLayer, width, height, margins, xAxisScale.domain, xAxisScale.ticks);
+    this._renderXAxis(
+      axisLayer,
+      gridLayer,
+      width,
+      height,
+      margins,
+      plotLayout.margins,
+      xAxisScale.domain,
+      xAxisScale.ticks,
+    );
     this._renderYAxis(axisLayer, groups, numericYAxis, width, height, plotLayout.margins, yPositionForGroup, yValues);
     this._renderOriginLine(axisLayer, plotLayout.margins, height, xAxisScale.domain, innerWidth);
 
@@ -482,7 +485,13 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         rect.addEventListener('mouseout', () => this._clearTooltip());
         rect.addEventListener('focus', event => this._showTooltip(point, color, event, rect));
         rect.addEventListener('blur', () => this._clearTooltip());
-        rect.addEventListener('click', () => point.onClick?.());
+        rect.addEventListener('click', () => {
+          this._focusRovingElement(
+            this._renderedBars.map(bar => bar.element),
+            rect,
+          );
+          point.onClick?.();
+        });
         rect.addEventListener('keydown', (e: KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -519,6 +528,19 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         label.textContent = formatCompactNumber(totalValue, this.culture);
         barsLayer.appendChild(label);
       }
+    });
+
+    this._renderAnnotations({
+      svg,
+      collisionLayer: barsLayer,
+      margins: { left: margins.left, top: plotLayout.margins.top },
+      innerWidth,
+      innerHeight: plotLayout.innerHeight,
+      mapDataX: value => scaleX(Number(value)) - margins.left,
+      mapDataY: value => {
+        const groupIndex = groups.findIndex(group => String(group.rawY) === String(value));
+        return groupIndex < 0 ? undefined : yPositionForGroup(groups[groupIndex], groupIndex) - plotLayout.margins.top;
+      },
     });
 
     this.legends = Array.from(legendColorMap.entries()).map(([legend, color]) => ({ legend, color }));
@@ -811,14 +833,18 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
   private _renderXAxis(
     axisLayer: SVGGElement,
+    gridLayer: SVGGElement,
     width: number,
     height: number,
     margins: { left: number; right: number; bottom: number },
+    plotMargins: { top: number; bottom: number },
     domain: [number, number],
     ticks: number[],
   ) {
     renderContinuousBottomAxisShared({
       axisLayer,
+      gridLayer,
+      gridLineSpan: { start: plotMargins.top, end: height - plotMargins.bottom },
       width,
       height,
       margins,
@@ -830,6 +856,10 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       wrapXAxisLabels: this.wrapXAxisLabels,
       hideTickOverlap: this.hideTickOverlap,
       showXAxisLabelsTooltip: this.showXAxisLabelsTooltip,
+      axisLabelTooltipHandlers: {
+        show: (target, fullLabel) => this._showAxisLabelTooltip(target, fullLabel),
+        hide: () => this._hideAxisLabelTooltip(),
+      },
       xAxisTitle: this.xAxisTitle,
       formatTickLabel: tick =>
         this.xAxisTickFormat ? _applyFormat(tick, this.xAxisTickFormat) : formatAxisNumber(tick, this.culture),

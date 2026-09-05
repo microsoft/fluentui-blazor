@@ -1,7 +1,38 @@
 import { attr } from '@microsoft/fast-element';
-import type { AxisCategoryOrder } from './chart-options.js';
+import { renderChartAnnotations } from './chart-annotation-helpers.js';
+import { resolveChartMargins, type CartesianChartMargins } from './cartesian-axis-helpers.js';
+import type { AxisCategoryOrder, AxisScaleType, ChartAnnotation, ChartMargins } from './chart-options.js';
 import { ChartBase } from './chart-base.js';
-import { jsonConverter } from './chart-helpers.js';
+import { jsonConverter, SVG_NAMESPACE_URI } from './chart-helpers.js';
+
+interface CartesianChartAnnotationRenderOptions {
+  svg: SVGSVGElement;
+  collisionLayer?: SVGGElement;
+  margins: Pick<ChartMargins, 'left' | 'top'>;
+  innerWidth: number;
+  innerHeight: number;
+  mapDataX: (value: number | string | Date) => number | undefined;
+  mapDataY: (value: number | string | Date, axis: 'primary' | 'secondary') => number | undefined;
+}
+
+interface CartesianChartSvgOptions {
+  role?: string;
+}
+
+interface CartesianChartRenderContextOptions extends CartesianChartSvgOptions {
+  width: number;
+  height: number;
+  defaultMargins: CartesianChartMargins;
+  hasSecondaryYAxis?: boolean;
+}
+
+interface CartesianChartRenderContext {
+  svg: SVGSVGElement;
+  plotGroup: SVGGElement;
+  margins: CartesianChartMargins;
+  innerWidth: number;
+  innerHeight: number;
+}
 
 /**
  * Abstract base class for chart web components that use Cartesian axes (x/y).
@@ -24,6 +55,30 @@ export abstract class CartesianChartBase extends ChartBase {
   /** Label rendered beside the y-axis. */
   @attr({ attribute: 'y-axis-title' })
   public yAxisTitle?: string;
+
+  /** Label rendered beside the secondary y-axis when one is present. */
+  @attr({ attribute: 'secondary-y-axis-title' })
+  public secondaryYAxisTitle?: string;
+
+  /** Plot margins in pixels. Missing sides use the chart defaults. */
+  @attr({ converter: jsonConverter })
+  public margins?: Partial<ChartMargins>;
+
+  /** Text annotations rendered over the plot area. */
+  @attr({ converter: jsonConverter })
+  public annotations?: ChartAnnotation[];
+
+  /** Scale type for a continuous numeric x-axis. */
+  @attr({ attribute: 'x-scale-type' })
+  public xScaleType: AxisScaleType = 'default';
+
+  /** Scale type for the primary numeric y-axis. Vertical bars retain a linear zero baseline. */
+  @attr({ attribute: 'y-scale-type' })
+  public yScaleType: AxisScaleType = 'default';
+
+  /** Scale type for a secondary numeric y-axis. */
+  @attr({ attribute: 'secondary-y-scale-type' })
+  public secondaryYScaleType: AxisScaleType = 'default';
 
   /**
    * A d3 format string (e.g. `'.2f'`, `'+,.0f'`) used to format x-axis
@@ -127,9 +182,41 @@ export abstract class CartesianChartBase extends ChartBase {
   @attr({ attribute: 'x-axis-category-order' })
   public xAxisCategoryOrder: AxisCategoryOrder = 'default';
 
+  /** Inner padding between categorical x-axis bands. Applies to categorical bar charts. */
+  @attr({ attribute: 'x-axis-inner-padding' })
+  public xAxisInnerPadding?: number | string;
+
+  /** Outer padding around first and last categorical x-axis bands. Applies to categorical bar charts. */
+  @attr({ attribute: 'x-axis-outer-padding' })
+  public xAxisOuterPadding?: number | string;
+
   /** Width in pixels of the SVG stroke drawn on each bar. When set, an outline is applied. */
   @attr({ attribute: 'stroke-width' })
   public strokeWidth?: number | string;
+
+  /** Width of the overlaid line stroke. */
+  @attr({ attribute: 'line-stroke-width' })
+  public lineStrokeWidth?: number | string;
+
+  /** Dash pattern for the overlaid line stroke. */
+  @attr({ attribute: 'line-stroke-dasharray' })
+  public lineStrokeDasharray?: string | number;
+
+  /** Dash offset for the overlaid line stroke. */
+  @attr({ attribute: 'line-stroke-dashoffset' })
+  public lineStrokeDashoffset?: string | number;
+
+  /** Line cap style for the overlaid line stroke. */
+  @attr({ attribute: 'line-stroke-linecap' })
+  public lineStrokeLinecap?: 'butt' | 'round' | 'square' | 'inherit';
+
+  /** Width of the border around the overlaid line. */
+  @attr({ attribute: 'line-border-width' })
+  public lineBorderWidth?: number | string;
+
+  /** Color of the border around the overlaid line. */
+  @attr({ attribute: 'line-border-color' })
+  public lineBorderColor?: string;
 
   /**
    * When `true`, truncates long x-axis tick labels and shows the full text in a
@@ -137,6 +224,14 @@ export abstract class CartesianChartBase extends ChartBase {
    */
   @attr({ attribute: 'show-x-axis-labels-tooltip', mode: 'boolean' })
   public showXAxisLabelsTooltip: boolean = false;
+
+  /**
+   * Maximum number of characters shown in x-axis labels when
+   * `show-x-axis-labels-tooltip` is enabled. Longer labels are truncated
+   * and full text is available on hover.
+   */
+  @attr({ attribute: 'no-of-chars-to-truncate' })
+  public noOfCharsToTruncate?: number | string;
 
   /**
    * When true (default), hides x-axis tick labels that would overlap with the previous label.
@@ -165,6 +260,69 @@ export abstract class CartesianChartBase extends ChartBase {
    */
   public customDateTimeFormatter?: (dateTime: Date) => string;
 
+  /**
+   * Optional custom formatter function for numeric y-axis tick labels.
+   * Cannot be set via HTML attribute — assign directly on the element.
+   */
+  public customYAxisTickFormatter?: (value: number) => string;
+
+  /** Creates the consistently configured SVG root used by Cartesian charts. */
+  protected _createChartSvg(width: number, height: number, options: CartesianChartSvgOptions = {}): SVGSVGElement {
+    const svg = document.createElementNS(SVG_NAMESPACE_URI, 'svg');
+    svg.classList.add('chart-svg');
+    svg.setAttribute('width', String(width));
+    svg.setAttribute('height', String(height));
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    if (options.role) {
+      svg.setAttribute('role', options.role);
+    }
+    return svg;
+  }
+
+  /** Creates the shared dimensions and plot layers used by standard Cartesian renderers. */
+  protected _createCartesianRenderContext({
+    width,
+    height,
+    defaultMargins,
+    hasSecondaryYAxis = false,
+    role,
+  }: CartesianChartRenderContextOptions): CartesianChartRenderContext {
+    const margins = resolveChartMargins(defaultMargins, this.margins, this._isRTL, hasSecondaryYAxis);
+    const innerWidth = Math.max(width - margins.left - margins.right, 1);
+    const innerHeight = Math.max(height - margins.top - margins.bottom, 1);
+    const svg = this._createChartSvg(width, height, { role });
+    const plotGroup = document.createElementNS(SVG_NAMESPACE_URI, 'g');
+    plotGroup.setAttribute('transform', `translate(${margins.left}, ${margins.top})`);
+    svg.appendChild(plotGroup);
+
+    return { svg, plotGroup, margins, innerWidth, innerHeight };
+  }
+
+  /** Renders this chart's annotations in a final SVG layer above the plot and axes. */
+  protected _renderAnnotations({
+    svg,
+    collisionLayer,
+    margins,
+    innerWidth,
+    innerHeight,
+    mapDataX,
+    mapDataY,
+  }: CartesianChartAnnotationRenderOptions): void {
+    const annotationLayer = document.createElementNS(SVG_NAMESPACE_URI, 'g');
+    annotationLayer.classList.add('annotation-layer');
+    annotationLayer.setAttribute('transform', `translate(${margins.left}, ${margins.top})`);
+    svg.appendChild(annotationLayer);
+    renderChartAnnotations({
+      layer: annotationLayer,
+      collisionLayer,
+      annotations: this.annotations,
+      innerWidth,
+      innerHeight,
+      mapDataX,
+      mapDataY,
+    });
+  }
+
   // ── Lifecycle ────────────────────────────────────────────────────
 
   connectedCallback() {
@@ -174,6 +332,12 @@ export abstract class CartesianChartBase extends ChartBase {
     const attrFields = [
       'xAxisTitle',
       'yAxisTitle',
+      'secondaryYAxisTitle',
+      'margins',
+      'annotations',
+      'xScaleType',
+      'yScaleType',
+      'secondaryYScaleType',
       'xAxisTickFormat',
       'yAxisTickFormat',
       'tickPadding',
@@ -191,8 +355,17 @@ export abstract class CartesianChartBase extends ChartBase {
       'xAxisTickCount',
       'yAxisTickCount',
       'xAxisCategoryOrder',
+      'xAxisInnerPadding',
+      'xAxisOuterPadding',
       'strokeWidth',
+      'lineStrokeWidth',
+      'lineStrokeDasharray',
+      'lineStrokeDashoffset',
+      'lineStrokeLinecap',
+      'lineBorderWidth',
+      'lineBorderColor',
       'showXAxisLabelsTooltip',
+      'noOfCharsToTruncate',
       'hideTickOverlap',
       'dateLocalizeOptions',
       'useUTC',
@@ -220,6 +393,30 @@ export abstract class CartesianChartBase extends ChartBase {
   }
 
   protected yAxisTitleChanged() {
+    this._requestRender();
+  }
+
+  protected secondaryYAxisTitleChanged() {
+    this._requestRender();
+  }
+
+  protected marginsChanged() {
+    this._requestRender();
+  }
+
+  protected annotationsChanged() {
+    this._requestRender();
+  }
+
+  protected xScaleTypeChanged() {
+    this._requestRender();
+  }
+
+  protected yScaleTypeChanged() {
+    this._requestRender();
+  }
+
+  protected secondaryYScaleTypeChanged() {
     this._requestRender();
   }
 
@@ -291,11 +488,47 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected xAxisInnerPaddingChanged() {
+    this._requestRender();
+  }
+
+  protected xAxisOuterPaddingChanged() {
+    this._requestRender();
+  }
+
   protected strokeWidthChanged() {
     this._requestRender();
   }
 
+  protected lineStrokeWidthChanged() {
+    this._requestRender();
+  }
+
+  protected lineStrokeDasharrayChanged() {
+    this._requestRender();
+  }
+
+  protected lineStrokeDashoffsetChanged() {
+    this._requestRender();
+  }
+
+  protected lineStrokeLinecapChanged() {
+    this._requestRender();
+  }
+
+  protected lineBorderWidthChanged() {
+    this._requestRender();
+  }
+
+  protected lineBorderColorChanged() {
+    this._requestRender();
+  }
+
   protected showXAxisLabelsTooltipChanged() {
+    this._requestRender();
+  }
+
+  protected noOfCharsToTruncateChanged() {
     this._requestRender();
   }
 
