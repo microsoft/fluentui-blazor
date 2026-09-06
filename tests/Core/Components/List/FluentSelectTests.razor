@@ -438,6 +438,28 @@
     }
 
     [Fact]
+    public async Task FluentSelect_Manual_Multiple_OnDropdownChange()
+    {
+        IEnumerable<string> selectedItems = [];
+
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" Multiple="true" @bind-SelectedItems="@selectedItems">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+            <FluentOptionString Value="Three">Three</FluentOptionString>
+        </FluentSelect>);
+        var selectedIds = cut.FindAll("fluent-option")
+                             .Where(option => option.GetAttribute("value") is "One" or "Two")
+                             .Select(option => option.GetAttribute("id"));
+
+        await cut.FindComponent<FluentSelect<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', selectedIds),
+        });
+
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Fact]
     public async Task FluentSelect_Manual_OnDropdownChange_EmptySelection()
     {
         string? selectedValue = "One";
