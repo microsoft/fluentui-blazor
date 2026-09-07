@@ -100,6 +100,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // empty content: "zero items" only means "no data" after the provider has actually answered,
     // not during the initial load window between the Virtualize mount and its first query (#5151).
     private bool _virtualizeItemsProvided;
+    private bool _retainEmptyContentOnVirtualizedRefresh;
     private Exception? _lastError;
     private GridItemsProviderRequest<TGridItem>? _lastRequest;
     private bool _forceRefreshData;
@@ -644,6 +645,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             _lastVirtualizationMode = Virtualize;
             _asyncQueryExecuted = false;
+            _retainEmptyContentOnVirtualizedRefresh = false;
         }
 
         if (Loading == true && _asyncQueryExecutor is not null && _asyncQueryExecuted)
@@ -1457,6 +1459,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // provider reported zero items. Clear the flag so the re-render below re-mounts Virtualize;
             // it will call us when it's ready, so we can just wait for that instead of trying to load
             // data now (#5151).
+            _retainEmptyContentOnVirtualizedRefresh |= _virtualizeItemsProvided
+                && _internalGridContext.TotalItemCount == 0;
             _virtualizeItemsProvided = false;
             _pendingDataLoadCancellationTokenSource = null;
             thisLoadCts.Dispose();
@@ -1565,6 +1569,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _internalGridContext.TotalItemCount = providerResult.TotalItemCount;
             _internalGridContext.TotalViewItemCount = Pagination?.ItemsPerPage ?? providerResult.TotalItemCount;
             _virtualizeItemsProvided = true;
+            _retainEmptyContentOnVirtualizedRefresh = false;
 
             if (RefreshItems is null)
             {
