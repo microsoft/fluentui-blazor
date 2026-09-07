@@ -52,11 +52,17 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
 
+    /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
+    public bool IsDisposed { get; private set; }
+
     /// <summary>
-    /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
-    /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
+    /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
     /// </summary>
-    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+    /// <remarks>
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
+    /// and check that it returns <see langword="true"/> before using the module.
+    /// </remarks>
+    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
 
     /// <summary>
     /// Internal usage only: to define the default `ValueExpression`.
@@ -286,11 +292,18 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (_jsModule != null)
+        if (IsDisposed)
+        {
+            return;
+        }
+
+        IsDisposed = true;
+        var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
+        if (moduleToDispose is not null)
         {
             try
             {
-                await DisposeAsync(_jsModule.ObjectReference);
+                await DisposeAsync(moduleToDispose.ObjectReference);
             }
             catch (Exception ex) when (ex is JSDisconnectedException ||
                                        ex is OperationCanceledException ||
@@ -303,7 +316,10 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
         _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
-        await JSModule.DisposeAsync();
+        if (moduleToDispose is not null)
+        {
+            await moduleToDispose.DisposeAsync();
+        }
     }
 
     /// <summary>

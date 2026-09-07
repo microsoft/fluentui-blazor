@@ -154,7 +154,7 @@ public partial class FluentTooltip : FluentComponentBase
         if (firstRender)
         {
             // FluentTooltipInitialize will be removed when the WebComponents Teams will be ready.
-            if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
                 return;
             }

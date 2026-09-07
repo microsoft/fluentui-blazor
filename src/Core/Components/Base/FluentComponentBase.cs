@@ -16,7 +16,6 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
 {
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
-    private bool _jsModuleDisposalClaimed;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentComponentBase"/> class with the specified configuration.
@@ -55,16 +54,17 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     protected internal LibraryConfiguration? LibraryConfiguration { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether component disposal has started.
-    /// </summary>
-    protected bool IsDisposed { get; private set; }
+    /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
+    public bool IsDisposed { get; private set; }
 
     /// <summary>
-    /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
-    /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
+    /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
     /// </summary>
-    protected FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+    /// <remarks>
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
+    /// and check that it returns <see langword="true"/> before using the module.
+    /// </remarks>
+    protected FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
 
     /// <summary>
     /// Gets the class builder, containing the default margin and padding values.
@@ -109,30 +109,6 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     public virtual IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>
-    /// Imports the JavaScript module and disposes it if the component has been disposed.
-    /// </summary>
-    /// <param name="file">The path of the JavaScript module to import.</param>
-    /// <returns><see langword="true"/> if the component is still active; otherwise, <see langword="false"/>.</returns>
-    protected async Task<bool> TryImportJavaScriptModuleAsync(string file)
-    {
-        await JSModule.ImportJavaScriptModuleAsync(file);
-        if (IsDisposed)
-        {
-            // Only claim a late module if DisposeAsync had no module to clean up.
-            // Otherwise component-specific cleanup may still be using it.
-            if (!_jsModuleDisposalClaimed)
-            {
-                _jsModuleDisposalClaimed = true;
-                await JSModule.DisposeAsync();
-            }
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /// <summary>
     /// Dispose the current object.
     /// </summary>
     /// <returns></returns>
@@ -146,10 +122,9 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
         }
 
         IsDisposed = true;
-        var moduleToDispose = _jsModule is { Imported: true } ? _jsModule : null;
+        var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
         if (moduleToDispose is not null)
         {
-            _jsModuleDisposalClaimed = true;
             try
             {
                 await DisposeAsync(moduleToDispose.ObjectReference);

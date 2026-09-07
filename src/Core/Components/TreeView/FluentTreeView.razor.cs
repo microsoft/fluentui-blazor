@@ -170,7 +170,7 @@ public partial class FluentTreeView : FluentComponentBase
         if (firstRender && SelectionMode != TreeSelectionMode.Single)
         {
             // Import the JavaScript module
-            if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
                 return;
             }

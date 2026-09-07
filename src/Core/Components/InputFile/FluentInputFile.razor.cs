@@ -199,7 +199,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
     /// <returns></returns>
     public async Task ShowFilesDialogAsync()
     {
-        if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+        if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
         {
             return;
         }
@@ -213,7 +213,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
         if (firstRender)
         {
             // Import the JavaScript module
-            if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
                 return;
             }

@@ -150,7 +150,7 @@ public partial class FluentNav : FluentComponentBase
                 }
             }
 
-            if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
                 return;
             }

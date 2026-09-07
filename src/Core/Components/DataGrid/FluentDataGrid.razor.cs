@@ -672,7 +672,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (firstRender && _gridReference is not null)
         {
             // Import the JavaScript module
-            if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
                 return;
             }

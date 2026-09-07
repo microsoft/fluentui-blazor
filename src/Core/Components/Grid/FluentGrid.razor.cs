@@ -78,7 +78,7 @@ public partial class FluentGrid : FluentComponentBase
         if (firstRender && OnBreakpointEnter.HasDelegate)
         {
             // Import the JavaScript module
-            if (!await TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
                 return;
             }
