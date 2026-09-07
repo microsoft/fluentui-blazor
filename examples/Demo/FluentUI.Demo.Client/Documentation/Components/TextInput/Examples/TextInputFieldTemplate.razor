@@ -1,10 +1,11 @@
-﻿<FluentStack HorizontalGap="20px">
+<FluentStack HorizontalGap="20px">
 
     <!-- FieldStartTemplate and FieldEndTemplate -->
     <FluentTextInput Label="First name"
                      Placeholder="First name">
         <FieldStartTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size24.Accessibility())" />
+            <FluentIcon Margin="@Margin.Right1"
+                        Value="@(new Icons.Regular.Size24.Accessibility())" />
         </FieldStartTemplate>
         <FieldEndTemplate>
             <FluentButton Appearance="ButtonAppearance.Primary"
@@ -18,7 +19,8 @@
                      Size="@TextInputSize.Large"
                      Placeholder="Last name">
         <FieldStartTemplate>
-            <FluentIcon Value="@(new Icons.Regular.Size24.Accessibility())" />
+            <FluentIcon Margin="@Margin.Right1"
+                        Value="@(new Icons.Regular.Size24.Accessibility())" />
         </FieldStartTemplate>
         <FieldEndTemplate>
             <FluentButton Appearance="ButtonAppearance.Primary"
