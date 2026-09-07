@@ -340,9 +340,17 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       // Position dialog aligned to the start edge of the target (left in LTR, right in RTL)
       const positionDialogStart = () => {
-        const left = this.isRtl
+        let left = this.isRtl
           ? rect.right - this.dialog.offsetWidth + this.offsetHorizontal + viewportLeft
           : rect.left + this.offsetHorizontal + viewportLeft;
+
+        // Clamp horizontally so the dialog stays inside the viewport
+        if (left < viewportLeft) {
+          left = viewportLeft;
+        }
+        if (left + dialogWidth > viewportRight) {
+          left = Math.max(viewportLeft, viewportRight - dialogWidth);
+        }
 
         this.dialog.style.left = `${left}px`;
         this.dialog.style.right = 'auto';
@@ -350,9 +358,17 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       // Position dialog aligned to the end edge of the target (right in LTR, left in RTL)
       const positionDialogEnd = () => {
-        const left = this.isRtl
+        let left = this.isRtl
           ? rect.left + this.offsetHorizontal + viewportLeft
           : rect.right - this.dialog.offsetWidth + this.offsetHorizontal + viewportLeft;
+
+        // Clamp horizontally so the dialog stays inside the viewport
+        if (left < viewportLeft) {
+          left = viewportLeft;
+        }
+        if (left + dialogWidth > viewportRight) {
+          left = Math.max(viewportLeft, viewportRight - dialogWidth);
+        }
 
         this.dialog.style.left = `${left}px`;
         this.dialog.style.right = 'auto';
