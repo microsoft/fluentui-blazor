@@ -13,13 +13,15 @@
     }
 </style>
 
-<FluentAutocomplete TOption="SearchResult"
+<FluentAutocomplete @key="@_currentRoute"
+                    TOption="DemoSearchInputSearchResult"
                     TValue="string"
                     Width="200px"
                     Multiple="false"
+                    hidden-when="xs"
                     Placeholder="Search documentation"
                     ImmediateDelay="250"
-                    MaximumOptionsSearch="@MaximumResults"
+                    MaximumOptionsSearch="@DemoSearchInputSearchResult.MaximumResults"
                     ShowDismiss="false"
                     OptionText="@(result => result?.Title)"
                     OptionValue="@(result => result?.Route)"
@@ -54,7 +56,9 @@
     <FooterContent>
         @if (!context.InProgress && !string.IsNullOrEmpty(_searchText) && !context.Items.Any())
         {
-            <div data-empty>No page found</div>
+            <div class="demo-search-item" style="padding: 8px; width: 300px; font-weight: bold;">
+                No page found
+            </div>
         }
     </FooterContent>
 </FluentAutocomplete>
