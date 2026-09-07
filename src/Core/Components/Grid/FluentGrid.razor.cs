@@ -78,11 +78,14 @@ public partial class FluentGrid : FluentComponentBase
         if (firstRender && OnBreakpointEnter.HasDelegate)
         {
             // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
 
             // Call a function from the JavaScript module
             var dotNetHelper = DotNetObjectReference.Create(this);
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridInitialize", Id, dotNetHelper);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridInitialize", Id, dotNetHelper);
         }
     }
 

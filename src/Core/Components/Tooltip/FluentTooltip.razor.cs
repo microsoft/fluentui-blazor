@@ -154,8 +154,12 @@ public partial class FluentTooltip : FluentComponentBase
         if (firstRender)
         {
             // FluentTooltipInitialize will be removed when the WebComponents Teams will be ready.
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Tooltip.FluentTooltipInitialize", Id);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Tooltip.FluentTooltipInitialize", Id);
         }
     }
 

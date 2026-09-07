@@ -669,13 +669,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && _gridReference is not null)
         {
             // Import the JavaScript module
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
             _selfReference = DotNetObjectReference.Create(this);
 
             await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);

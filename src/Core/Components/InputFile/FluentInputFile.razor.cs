@@ -199,7 +199,11 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
     /// <returns></returns>
     public async Task ShowFilesDialogAsync()
     {
-        await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+        if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+        {
+            return;
+        }
+
         await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.InputFile.RaiseFluentInputFile", Id);
     }
 
@@ -209,7 +213,11 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
         if (firstRender)
         {
             // Import the JavaScript module
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
             _containerInstance = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.InputFile.InitializeFileDropZone", _containerElement, _inputFile?.Element);
         }
 
