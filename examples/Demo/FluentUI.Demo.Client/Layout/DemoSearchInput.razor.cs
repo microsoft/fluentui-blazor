@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
+using FluentUI.Demo.DocViewer.Models;
 using FluentUI.Demo.DocViewer.Services;
 using Markdig;
 using Microsoft.AspNetCore.Components;
@@ -27,17 +28,9 @@ public partial class DemoSearchInput
 
     protected override void OnInitialized()
     {
-        foreach (var page in DocViewerService.Pages.Where(page => !page.Hidden))
-        {
-            var lines = GetSearchableLines(page.Content, page.Title);
-            var description = lines.FirstOrDefault() ?? string.Empty;
-
-            _searchEntries.Add(new SearchEntry(
-                page.Title,
-                page.Route,
-                Truncate(description, MaximumDescriptionLength),
-                string.Join(' ', lines)));
-        }
+        _searchEntries.AddRange(DocViewerService.Pages
+                                                .Where(page => !page.Hidden)
+                                                .Select(page => new SearchEntry(page)));
     }
 
     private void Search(OptionsSearchEventArgs<SearchResult> args)
@@ -100,25 +93,6 @@ public partial class DemoSearchInput
             contentIndex);
     }
 
-    private static IEnumerable<string> GetSearchableLines(string markdown, string title)
-    {
-        var plainText = Markdown.ToPlainText(markdown);
-        var lines = plainText
-            .ReplaceLineEndings("\n")
-            .Split('\n')
-            .Select(NormalizeWhitespace)
-            .Where(line => !string.IsNullOrWhiteSpace(line))
-            .Where(line => !IsDocViewerDirective(line))
-            .ToList();
-
-        if (lines.Count > 0 && string.Equals(lines[0], title, StringComparison.OrdinalIgnoreCase))
-        {
-            lines.RemoveAt(0);
-        }
-
-        return lines;
-    }
-
     private static string CreateContextSnippet(string content, int matchIndex, int matchLength)
     {
         if (content.Length <= MaximumDescriptionLength)
@@ -178,17 +152,10 @@ public partial class DemoSearchInput
     private static string NormalizeWhitespace(string text) => Regex.Replace(text, @"\s+", " ").Trim();
 
     private static bool IsDocViewerDirective(string text) => text.StartsWith("{{", StringComparison.Ordinal) &&
-                                                              text.EndsWith("}}", StringComparison.Ordinal);
+                                                             text.EndsWith("}}", StringComparison.Ordinal);
 
-    private sealed record SearchEntry(string Title, string Route, string Description, string Content);
-
-    private sealed record SearchResult(
-        string Title,
-        string Route,
-        string Description,
-        string? Context,
-        SearchMatchKind MatchKind,
-        int MatchIndex);
+   
+    private sealed record SearchResult(string Title, string Route, string Description, string? Context, SearchMatchKind MatchKind, int MatchIndex);
 
     private enum SearchMatchKind
     {
