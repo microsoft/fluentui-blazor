@@ -594,18 +594,27 @@
         // Regression test for #5151: with Virtualize="true", once the ItemsProvider reports
         // TotalItemCount = 0 the empty content replaces (and disposes) the Virtualize component.
         // A later RefreshDataAsync, issued after the provider has data, must re-mount Virtualize
-        // and leave the empty state instead of delegating to the disposed instance forever.
+        // while retaining the empty content until the new data arrives, then leave the empty state
+        // instead of delegating to the disposed instance forever.
         // (bUnit cannot measure the viewport, so recovery is asserted through the empty content
         // disappearing and the Virtualize component re-appearing, not through visible data rows.)
 
         // Arrange
         FluentDataGrid<Customer>? grid = default!;
         var items = new List<Customer>(); // empty at first — data not loaded yet
+        TaskCompletionSource? providerHold = null;
 
-        GridItemsProvider<Customer> itemsProvider = req =>
-            ValueTask.FromResult(GridItemsProviderResult.From<Customer>(
+        GridItemsProvider<Customer> itemsProvider = async req =>
+        {
+            if (providerHold is not null)
+            {
+                await providerHold.Task;
+            }
+
+            return GridItemsProviderResult.From<Customer>(
                 items: items.Skip(req.StartIndex).Take(req.Count ?? items.Count).ToArray(),
-                totalItemCount: items.Count));
+                totalItemCount: items.Count);
+        };
 
         var cut = Render<FluentDataGrid<Customer>>(
             @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
@@ -625,9 +634,21 @@
 
         // Act: data becomes available and the host refreshes the grid
         items.AddRange(GetRandomCustomers(10));
-        await cut.InvokeAsync(() => grid!.RefreshDataAsync());
+        providerHold = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        var refreshTask = cut.InvokeAsync(() => grid!.RefreshDataAsync());
 
-        // Assert: the empty content is gone and Virtualize is mounted again. Queried as a
+        // Assert: Virtualize is mounted again to retrieve the new data, but the empty content
+        // remains visible while that request is pending.
+        cut.WaitForAssertion(() =>
+        {
+            Assert.NotEmpty(cut.FindAll("tr[row-state=empty-content]"));
+            Assert.NotEmpty(cut.FindComponents<Virtualize<(int, Customer)>>());
+        });
+
+        providerHold.SetResult();
+        await refreshTask;
+
+        // The empty content is gone after the provider returns. Queried as a
         // component (not through the spacer markup): the spacer rows only carry aria-hidden on
         // net10, so a DOM selector is not TFM-agnostic.
         cut.WaitForAssertion(() =>
