@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFluentComponentBase
 {
+    private bool _isDisposed;
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
@@ -55,7 +56,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     protected internal LibraryConfiguration? LibraryConfiguration { get; }
 
     /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
-    public bool IsDisposed { get; private set; }
+    bool IFluentComponentBase.IsDisposed => _isDisposed;
 
     /// <summary>
     /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
@@ -116,12 +117,12 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (IsDisposed)
+        if (_isDisposed)
         {
             return;
         }
 
-        IsDisposed = true;
+        _isDisposed = true;
         var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
         if (moduleToDispose is not null)
         {
