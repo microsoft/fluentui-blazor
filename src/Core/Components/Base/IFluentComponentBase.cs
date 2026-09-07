@@ -10,6 +10,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IFluentComponentBase
 {
     /// <summary>
+    /// Gets a value indicating whether component disposal has started.
+    /// </summary>
+    internal bool IsDisposed => false;
+
+    /// <summary>
     /// Gets or sets the unique identifier.
     /// The value will be used as the HTML <see href="https://developer.mozilla.org/docs/Web/HTML/Global_attributes/id">global id attribute</see>.
     /// </summary>

@@ -150,7 +150,11 @@ public partial class FluentNav : FluentComponentBase
                 }
             }
 
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Nav.Initialize", Id);
         }
     }
