@@ -1,0 +1,112 @@
+﻿@using FluentUI.Demo.Client.Documentation.GetStarted.Cards
+<div class="sticker-sheet-root">
+    <div class="sticker-sheet">
+        @foreach (var card in cards)
+        {
+            <section class="sticker-card">
+                <FluentText As="TextTag.H3" Size="TextSize.Size500" Weight="TextWeight.Semibold">@card.Title</FluentText>
+                <DynamicComponent Type="@card.Type" />
+            </section>
+        }
+    </div>
+</div>
+
+@code {
+    private List<StickerCard> cards = new List<StickerCard>();
+
+    protected override void OnInitialized()
+    {
+        cards.Add(new StickerCard { Title = "Accordion", Type = typeof(FluentAccordionCard) });
+        cards.Add(new StickerCard { Title = "Anchor Button", Type = typeof(FluentAnchorButtonCard) });
+        cards.Add(new StickerCard { Title = "App Bar", Type = typeof(FluentAppBarCard) });
+        cards.Add(new StickerCard { Title = "Autocomplete", Type = typeof(FluentAutocompleteCard) });
+        cards.Add(new StickerCard { Title = "Avatar", Type = typeof(FluentAvatarCard) });
+
+        cards.Add(new StickerCard { Title = "Badge", Type = typeof(FluentBadgeCard) });
+        cards.Add(new StickerCard { Title = "Button", Type = typeof(FluentButtonCard) });
+
+        cards.Add(new StickerCard { Title = "Calendar", Type = typeof(FluentCalendarCard) });
+        cards.Add(new StickerCard { Title = "Card", Type = typeof(FluentCardCard) });
+
+        cards.Add(new StickerCard { Title = "Checkbox", Type = typeof(FluentCheckboxCard) });
+        cards.Add(new StickerCard { Title = "ColorPicker", Type = typeof(FluentColorPickerCard) });
+        cards.Add(new StickerCard { Title = "ComboBox", Type = typeof(FluentComboboxCard) });
+        cards.Add(new StickerCard { Title = "Compound Button", Type = typeof(FluentCompoundButtonCard) });
+        cards.Add(new StickerCard { Title = "Counter Badge", Type = typeof(FluentCounterBadgeCard) });
+
+        cards.Add(new StickerCard { Title = "Data Grid", Type = typeof(FluentDataGridCard) });
+        cards.Add(new StickerCard { Title = "Date Picker", Type = typeof(FluentDatePickerCard) });
+        cards.Add(new StickerCard { Title = "Dialog", Type = typeof(FluentDialogCard) });
+        cards.Add(new StickerCard { Title = "Divider", Type = typeof(FluentDividerCard) });
+
+        cards.Add(new StickerCard { Title = "Emoji", Type = typeof(FluentEmojiCard) });
+
+        cards.Add(new StickerCard { Title = "Field", Type = typeof(FluentFieldCard) });
+
+        cards.Add(new StickerCard { Title = "Highlighter", Type = typeof(FluentHighlighterCard) });
+
+        cards.Add(new StickerCard { Title = "Icon", Type = typeof(FluentIconCard) });
+        cards.Add(new StickerCard { Title = "Image", Type = typeof(FluentImageCard) });
+        cards.Add(new StickerCard { Title = "Input File", Type = typeof(FluentInputFileCard) });
+
+        cards.Add(new StickerCard { Title = "Label Info", Type = typeof(FluentLabelInfoCard) });
+        cards.Add(new StickerCard { Title = "Label", Type = typeof(FluentLabelCard) });
+        cards.Add(new StickerCard { Title = "Link", Type = typeof(FluentLinkCard) });
+        cards.Add(new StickerCard { Title = "List Base", Type = typeof(FluentListBaseCard) });
+        cards.Add(new StickerCard { Title = "Listbox", Type = typeof(FluentListboxCard) });
+
+        cards.Add(new StickerCard { Title = "Menu Button", Type = typeof(FluentMenuButtonCard) });
+        cards.Add(new StickerCard { Title = "Menu", Type = typeof(FluentMenuCard) });
+        cards.Add(new StickerCard { Title = "Message Bar Provider", Type = typeof(FluentMessageBarProviderCard) });
+        cards.Add(new StickerCard { Title = "Message Bar", Type = typeof(FluentMessageBarCard) });
+        cards.Add(new StickerCard { Title = "Message Box", Type = typeof(FluentMessageBoxCard) });
+        cards.Add(new StickerCard { Title = "Multi Splitter", Type = typeof(FluentMultiSplitterCard) });
+
+        cards.Add(new StickerCard { Title = "Nav", Type = typeof(FluentNavCard) });
+        cards.Add(new StickerCard { Title = "Number Input", Type = typeof(FluentNumberInputCard) });
+
+        cards.Add(new StickerCard { Title = "Option", Type = typeof(FluentOptionCard) });
+        cards.Add(new StickerCard { Title = "Overflow Item", Type = typeof(FluentOverflowItemCard) });
+        cards.Add(new StickerCard { Title = "Overflow", Type = typeof(FluentOverflowCard) });
+        cards.Add(new StickerCard { Title = "Overlay", Type = typeof(FluentOverlayCard) });
+
+        cards.Add(new StickerCard { Title = "Paginator", Type = typeof(FluentPaginatorCard) });
+        cards.Add(new StickerCard { Title = "Popover", Type = typeof(FluentPopoverCard) });
+        cards.Add(new StickerCard { Title = "Presence Badge", Type = typeof(FluentPresenceBadgeCard) });
+        cards.Add(new StickerCard { Title = "Progress Bar", Type = typeof(FluentProgressBarCard) });
+        cards.Add(new StickerCard { Title = "Pull To Refresh", Type = typeof(FluentPullToRefreshCard) });
+
+        cards.Add(new StickerCard { Title = "Radio Group", Type = typeof(FluentRadioGroupCard) });
+        cards.Add(new StickerCard { Title = "Rating Display", Type = typeof(FluentRatingDisplayCard) });
+
+        cards.Add(new StickerCard { Title = "Select", Type = typeof(FluentSelectCard) });
+        cards.Add(new StickerCard { Title = "Skeleton", Type = typeof(FluentSkeletonCard) });
+        cards.Add(new StickerCard { Title = "Slider", Type = typeof(FluentSliderCard) });
+        cards.Add(new StickerCard { Title = "Sortable List", Type = typeof(FluentSortableListCard) });
+        cards.Add(new StickerCard { Title = "Spinner", Type = typeof(FluentSpinnerCard) });
+        cards.Add(new StickerCard { Title = "Split Button", Type = typeof(FluentSplitButtonCard) });
+        cards.Add(new StickerCard { Title = "Switch", Type = typeof(FluentSwitchCard) });
+
+        cards.Add(new StickerCard { Title = "Tabs", Type = typeof(FluentTabsCard) });
+        cards.Add(new StickerCard { Title = "Text Area", Type = typeof(FluentTextAreaCard) });
+        cards.Add(new StickerCard { Title = "Text Input", Type = typeof(FluentTextInputCard) });
+        cards.Add(new StickerCard { Title = "Text", Type = typeof(FluentTextCard) });
+        cards.Add(new StickerCard { Title = "Time Picker", Type = typeof(FluentTimePickerCard) });
+        cards.Add(new StickerCard { Title = "Toast", Type = typeof(FluentToastCard) });
+        cards.Add(new StickerCard { Title = "Toggle Button", Type = typeof(FluentToggleButtonCard) });
+        cards.Add(new StickerCard { Title = "Tooltip", Type = typeof(FluentTooltipCard) });
+        cards.Add(new StickerCard { Title = "Tree View", Type = typeof(FluentTreeViewCard) });
+
+        cards.Add(new StickerCard { Title = "Validation", Type = typeof(FluentFormValidationCard) });
+
+        cards.Add(new StickerCard { Title = "Wizard", Type = typeof(FluentWizardCard) });
+
+    }
+
+
+    private class StickerCard
+    {
+        public required string Title { get; set; }
+        public required Type Type { get; set; }
+    }
+}

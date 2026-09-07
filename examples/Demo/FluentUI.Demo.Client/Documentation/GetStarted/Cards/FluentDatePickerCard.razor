@@ -1,0 +1,7 @@
+﻿<div class="sticker-row">
+    <FluentDatePicker Label="Pick a date" @bind-Value="@SelectedValue" />
+</div>
+
+@code{
+    private DateTime SelectedValue { get; set; } = DateTime.Today.AddDays(-2);
+}
