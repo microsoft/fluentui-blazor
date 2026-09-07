@@ -1,0 +1,64 @@
+@using FluentUI.Demo.DocViewer.Services
+
+<style>
+    .demo-search-input div[search-item] {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 350px;
+        margin: 4px 0;
+    }
+
+    .demo-search-input div[search-item] div:first-child {
+        font-weight: 600;
+    }
+</style>
+
+<div class="demo-search-input">
+    <FluentAutocomplete TOption="SearchResult"
+                        TValue="string"
+                        Width="100%"
+                        Multiple="false"
+                        Placeholder="Search documentation"
+                        ImmediateDelay="250"
+                        MaximumOptionsSearch="9"
+                        ShowDismiss="false"
+                        OptionText="@(result => result?.Title)"
+                        OptionValue="@(result => result?.Route)"
+                        OnOptionsSearch="@Search"
+                        SelectedItem="@_selectedItem"
+                        SelectedItemChanged="@NavigateToSelectedPage"
+                        Value="@_searchText"
+                        aria-label="Search documentation">
+        <OptionTemplate>
+            <span slot="checked-indicator"
+                  aria-hidden="true" />
+            <div search-item>
+                <div>
+                    <FluentHighlighter Text="@context.Title"
+                                       HighlightedText="@_searchText" />
+                </div>
+                @if (!string.IsNullOrEmpty(context.Description))
+                {
+                    <div>
+                        <FluentHighlighter Text="@context.Description"
+                                           HighlightedText="@_searchText" />
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(context.Context))
+                {
+                    <div>
+                        <FluentHighlighter Text="@context.Context"
+                                           HighlightedText="@_searchText" />
+                    </div>
+                }
+            </div>
+        </OptionTemplate>
+        <FooterContent>
+            @if (!context.InProgress && !string.IsNullOrEmpty(_searchText) && !context.Items.Any())
+            {
+                <div data-empty>No page found</div>
+            }
+        </FooterContent>
+    </FluentAutocomplete>
+</div>
