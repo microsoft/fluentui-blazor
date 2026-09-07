@@ -382,6 +382,213 @@ public class ComponentBaseTests : Bunit.BunitContext
         });
     }
 
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_ActiveComponent_ReturnsTrue()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        await using var component = new ImportingComponent(runtime);
+        runtime.Completion.SetResult(module);
+
+        var imported = await component.TryImportAsync();
+
+        Assert.True(imported);
+        Assert.Same(module, component.Module);
+        Assert.Equal(0, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_DisposedDuringImport_DisposesModuleAndReturnsFalse()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingComponent(runtime);
+        var importTask = component.TryImportAsync();
+        Assert.False(importTask.IsCompleted);
+
+        await component.DisposeAsync();
+        runtime.Completion.SetResult(module);
+        var imported = await importTask;
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_AlreadyDisposed_DisposesModuleAndReturnsFalse()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingComponent(runtime);
+        await component.DisposeAsync();
+        runtime.Completion.SetResult(module);
+
+        var imported = await component.TryImportAsync();
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task FluentGrid_DisposedDuringImport_SkipsJavaScriptInitialization()
+    {
+        var runtime = new DeferredImportJSRuntime
+        {
+            ModulePath = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Grid/FluentGrid.razor.js"
+        };
+        var module = new TrackingJSObjectReference();
+        Services.AddSingleton<IJSRuntime>(runtime);
+        Services.AddSingleton<LibraryConfiguration>();
+        var cut = Render<MyComponent>(parameters => parameters
+            .Add(component => component.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, _ => { })));
+        var afterRenderTask = cut.Instance.AfterRenderTask;
+        Assert.False(afterRenderTask.IsCompleted);
+
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        runtime.Completion.SetResult(module);
+        await afterRenderTask;
+
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_DuringComponentCleanup_LeavesModuleForCleanup()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var cleanupCompletion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cleanupFinished = false;
+        var component = new ImportingComponent(runtime)
+        {
+            CleanupAsync = async reference =>
+            {
+                await cleanupCompletion.Task;
+                Assert.Same(module, reference);
+                Assert.Equal(0, module.DisposeCount);
+                cleanupFinished = true;
+            }
+        };
+        runtime.Completion.SetResult(module);
+        Assert.True(await component.TryImportAsync());
+        var disposalTask = component.DisposeAsync().AsTask();
+        Assert.False(disposalTask.IsCompleted);
+
+        var imported = await component.TryImportAsync();
+        cleanupCompletion.SetResult();
+        await disposalTask;
+
+        Assert.False(imported);
+        Assert.True(cleanupFinished);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task TryImportJavaScriptModuleAsync_AfterModuleDisposal_DoesNotDisposeAgain(bool importBeforeDisposal)
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingComponent(runtime);
+        var importTask = component.TryImportAsync();
+
+        if (importBeforeDisposal)
+        {
+            runtime.Completion.SetResult(module);
+            Assert.True(await importTask);
+            await component.DisposeAsync();
+        }
+        else
+        {
+            await component.DisposeAsync();
+            runtime.Completion.SetResult(module);
+            Assert.False(await importTask);
+        }
+
+        var imported = await component.TryImportAsync();
+        await component.DisposeAsync();
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_InputDisposedDuringImport_DisposesModuleAndReturnsFalse()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingCalendar(runtime);
+        IFluentComponentBase owner = component;
+        Assert.False(owner.IsDisposed);
+        var importTask = component.TryImportAsync();
+        Assert.False(importTask.IsCompleted);
+
+        await component.DisposeAsync();
+        Assert.True(owner.IsDisposed);
+        runtime.Completion.SetResult(module);
+        var imported = await importTask;
+        Assert.False(await component.TryImportAsync());
+        await component.DisposeAsync();
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_DuringInputCleanup_LeavesModuleForCleanup()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var cleanupCompletion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cleanupFinished = false;
+        var component = new ImportingCalendar(runtime)
+        {
+            CleanupAsync = async reference =>
+            {
+                await cleanupCompletion.Task;
+                Assert.Same(module, reference);
+                Assert.Equal(0, module.DisposeCount);
+                cleanupFinished = true;
+            }
+        };
+        runtime.Completion.SetResult(module);
+        Assert.True(await component.TryImportAsync());
+        var disposalTask = component.DisposeAsync().AsTask();
+        Assert.False(disposalTask.IsCompleted);
+
+        var imported = await component.TryImportAsync();
+        cleanupCompletion.SetResult();
+        await disposalTask;
+        Assert.False(await component.TryImportAsync());
+        await component.DisposeAsync();
+
+        Assert.False(imported);
+        Assert.True(cleanupFinished);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_DisposedDuringImport_SkipsJavaScriptInitialization()
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2026, 9, 7));
+        var runtime = new DeferredImportJSRuntime
+        {
+            ModulePath = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DateTime/FluentCalendar.razor.js"
+        };
+        var module = new TrackingJSObjectReference();
+        Services.AddSingleton<IJSRuntime>(runtime);
+        var cut = Render<ImportingCalendar>();
+        var afterRenderTask = cut.Instance.AfterRenderTask;
+        Assert.False(afterRenderTask.IsCompleted);
+
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        runtime.Completion.SetResult(module);
+        await afterRenderTask;
+
+        Assert.True(((IFluentComponentBase)cut.Instance).IsDisposed);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
     // Helper method to parse HTML attributes
     private static (string Name, string Value) ParseHtmlAttribute(string attributeString)
     {
@@ -450,6 +657,82 @@ public class ComponentBaseTests : Bunit.BunitContext
 
         public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
         public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
+
+        public Task AfterRenderTask { get; private set; } = Task.CompletedTask;
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+            => AfterRenderTask = base.OnAfterRenderAsync(firstRender);
+    }
+
+    private sealed class ImportingComponent : FluentComponentBase
+    {
+        public ImportingComponent(IJSRuntime runtime) : base(LibraryConfiguration.Empty)
+        {
+            JSRuntime = runtime;
+        }
+
+        public IJSObjectReference Module => JSModule.ObjectReference;
+
+        public Func<IJSObjectReference, Task>? CleanupAsync { get; init; }
+
+        public Task<bool> TryImportAsync() => JSModule.TryImportJavaScriptModuleAsync("./test-module.js");
+
+        protected override ValueTask DisposeAsync(IJSObjectReference jsModule)
+            => new(CleanupAsync?.Invoke(jsModule) ?? Task.CompletedTask);
+    }
+
+    private sealed class ImportingCalendar : FluentCalendar<DateTime>
+    {
+        public ImportingCalendar(IJSRuntime runtime) : base(LibraryConfiguration.Empty)
+        {
+            JSRuntime = runtime;
+        }
+
+        public Func<IJSObjectReference, Task>? CleanupAsync { get; init; }
+
+        public Task AfterRenderTask { get; private set; } = Task.CompletedTask;
+
+        public Task<bool> TryImportAsync() => JSModule.TryImportJavaScriptModuleAsync("./test-module.js");
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+            => AfterRenderTask = base.OnAfterRenderAsync(firstRender);
+
+        protected override ValueTask DisposeAsync(IJSObjectReference jsModule)
+            => new(CleanupAsync?.Invoke(jsModule) ?? Task.CompletedTask);
+    }
+
+    private sealed class DeferredImportJSRuntime : IJSRuntime
+    {
+        public string ModulePath { get; init; } = "./test-module.js";
+
+        public TaskCompletionSource<IJSObjectReference> Completion { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
+            => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+
+        public async ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+        {
+            Assert.Equal("import", identifier);
+            Assert.Equal(ModulePath, Assert.Single(args!));
+            return (TValue)await Completion.Task;
+        }
+    }
+
+    private sealed class TrackingJSObjectReference : IJSObjectReference
+    {
+        public int DisposeCount { get; private set; }
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
+            => throw new InvalidOperationException($"Unexpected JavaScript invocation '{identifier}'.");
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+            => throw new InvalidOperationException($"Unexpected JavaScript invocation '{identifier}'.");
+
+        public ValueTask DisposeAsync()
+        {
+            DisposeCount++;
+            return ValueTask.CompletedTask;
+        }
     }
 
     private class Loader

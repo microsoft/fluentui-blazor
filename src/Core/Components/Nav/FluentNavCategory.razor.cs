@@ -118,7 +118,10 @@ public partial class FluentNavCategory : FluentNavBase
     {
         if (firstRender)
         {
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
 
             if (HasActiveSubitem() && !Expanded && !_hasBeenManuallyCollapsed)
             {

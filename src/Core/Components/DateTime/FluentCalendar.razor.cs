@@ -194,7 +194,11 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         if (firstRender)
         {
             // Import the JavaScript module
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
             await RefreshAccessibilityKeyboardAsync(firstRender);
         }
         else if (_refreshAccessibilityPending)
