@@ -45,7 +45,8 @@ internal sealed record DemoSearchInputSearchEntry
     public string Title { get; }
 
     /// <summary>
-    /// Gets True if the documentation page is a default page
+    /// Gets the default order of the documentation page when it is in the default category and at the top level.
+    /// Used to display the pages when no criteria is entered in the search input.
     /// </summary>
     public string? DefaultOrder { get; }
 

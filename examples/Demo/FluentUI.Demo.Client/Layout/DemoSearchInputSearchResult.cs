@@ -69,11 +69,11 @@ internal sealed record DemoSearchInputSearchResult
     /// <returns>The default documentation entries ordered by category, order, and title.</returns>
     public static IEnumerable<DemoSearchInputSearchResult> CreateDefaultResults(IEnumerable<DemoSearchInputSearchEntry> entries)
     {
-        return entries.Where(i => i.DefaultOrder is not null)
-                              .OrderBy(entry => entry.DefaultOrder)
-                              .Select(entry => CreateSearchResult(entry, " "))
-                              .OfType<DemoSearchInputSearchResult>()
-                              .Take(MaximumResults);
+        return entries.Where(entry => entry.DefaultOrder is not null)
+                      .OrderBy(entry => entry.DefaultOrder)
+                      .ThenBy(entry => entry.Title, StringComparer.OrdinalIgnoreCase)
+                      .Select(entry => new DemoSearchInputSearchResult(entry.Title, entry.Route, entry.Description, null, SearchMatchKind.Title, 0))
+                      .Take(MaximumResults);
     }
 
     /// <summary>
