@@ -1,0 +1,75 @@
+<FluentKeyCode GlobalDocument="true"
+               Only="@SearchInputKeyCodes"
+               PreventDefaultOnly="@SearchInputKeyCodes"
+               OnKeyDown="@OnKeyDownAsync" />
+
+<FluentAutocomplete @key="@_currentRoute"
+                    Id="@SearchInputId"
+                    TOption="DemoSearchInputSearchResult"
+                    TValue="string"
+                    Width="200px"
+                    Multiple="false"
+                    hidden-when="xs"
+                    Placeholder="Type / to search"
+                    ImmediateDelay="250"
+                    MaximumOptionsSearch="@DemoSearchInputSearchResult.MaximumResults"
+                    ShowDismiss="false"
+                    OptionText="@(result => result?.Title)"
+                    OptionValue="@(result => result?.Route)"
+                    OnOptionsSearch="@Search"
+                    SelectedItem="@_selectedItem"
+                    SelectedItemChanged="@NavigateToSelectedPage"
+                    Value="@_searchText">
+    <OptionTemplate>
+        <span slot="checked-indicator"
+              aria-hidden="true" />
+        <div class="demo-search-item">
+            <div>
+                <FluentHighlighter Text="@context.Title"
+                                   HighlightedText="@_searchText" />
+            </div>
+            @if (!string.IsNullOrEmpty(context.Description))
+            {
+                <div>
+                    <FluentHighlighter Text="@context.Description"
+                                       HighlightedText="@_searchText" />
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(context.Context))
+            {
+                <div>
+                    <FluentHighlighter Text="@context.Context"
+                                       HighlightedText="@_searchText" />
+                </div>
+            }
+        </div>
+    </OptionTemplate>
+    <FooterContent>
+        @if (!context.InProgress && !string.IsNullOrEmpty(_searchText) && !context.Items.Any())
+        {
+            <div class="demo-search-item"
+                 style="padding: 8px; width: 300px; font-weight: bold;">
+                No page found
+            </div>
+        }
+    </FooterContent>
+</FluentAutocomplete>
+
+<style>
+    .demo-search-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 350px;
+        margin: 4px 0;
+        pointer-events: none;
+    }
+
+    .demo-search-item div:first-child {
+        font-weight: 600;
+    }
+
+    .demo-search-item div:nth-child(3) {
+        font-size: smaller;
+    }
+</style>
