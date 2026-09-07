@@ -845,4 +845,29 @@
         await category.Instance.ToggleExpandedAsync();
         Assert.False(category.Instance.Expanded, "Category should be collapsed");
     }
+
+    [Fact]
+    public async Task FluentNavCategory_Adds_ActiveClass_To_ClassValue_When_Active()
+    {
+        // Arrange
+        var navManager = Services.GetRequiredService<NavigationManager>();
+        navManager.NavigateTo("/test-page");
+
+        var cut = Render(@<FluentNav>
+            <FluentNavCategory Title="Test Category" Expanded="true" ActiveClass="my-active-class">
+                <FluentNavItem Href="/test-page">Active Sub Item</FluentNavItem>
+            </FluentNavCategory>
+        </FluentNav>);
+
+
+        var category = cut.FindComponent<FluentNavCategory>();
+
+        // Act - Collapse to make category active (active subitem + collapsed category)
+        await category.Instance.ToggleExpandedAsync();
+
+        // Assert
+        var button = cut.Find("button.fluent-navcategoryitem");
+        Assert.Contains("active", button.ClassList);
+        Assert.Contains("my-active-class", button.ClassList);
+    }
 }
