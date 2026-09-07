@@ -12,7 +12,7 @@ public interface IFluentComponentBase
     /// <summary>
     /// Gets a value indicating whether component disposal has started.
     /// </summary>
-    bool IsDisposed { get; }
+    internal bool IsDisposed => false;
 
     /// <summary>
     /// Gets or sets the unique identifier.

@@ -20,6 +20,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
 {
+    private bool _isDisposed;
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
@@ -53,7 +54,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
 
     /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
-    public bool IsDisposed { get; private set; }
+    bool IFluentComponentBase.IsDisposed => _isDisposed;
 
     /// <summary>
     /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
@@ -300,12 +301,12 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (IsDisposed)
+        if (_isDisposed)
         {
             return;
         }
 
-        IsDisposed = true;
+        _isDisposed = true;
         var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
         if (moduleToDispose is not null)
         {
