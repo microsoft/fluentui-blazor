@@ -59,7 +59,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// <summary>
     /// Gets or sets an existing FieldInput component to use in the field.
     /// Setting this parameter will define the parameters
-    /// Label, LabelTemplate, LabelPosition, LabelWidth,
+    /// Label, LabelTemplate, FieldStartTemplate, FieldEndTemplate, LabelPosition, LabelWidth,
     /// Required, Disabled,
     /// Message, MessageIcon, MessageTemplate, and MessageCondition.
     /// </summary>
@@ -91,6 +91,14 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// <inheritdoc cref="IFluentField.LabelTemplate"/>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldStartTemplate"/>
+    [Parameter]
+    public RenderFragment? FieldStartTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldEndTemplate"/>
+    [Parameter]
+    public RenderFragment? FieldEndTemplate { get; set; }
 
     /// <inheritdoc cref="IFluentField.LabelPosition"/>
     [Parameter]

@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -219,6 +220,78 @@ public class ComponentBaseTests : Bunit.BunitContext
             {
                 var error = $"\"{componentType.Name}\" does not correctly implement the \"Tooltip\" parameter.";
                 errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_FluentFieldInterface_CorrectRendering()
+    {
+        var errors = new StringBuilder();
+        var fieldParameters = typeof(IFluentField)
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(property => property.SetMethod is not null)
+            .ToArray();
+        var fieldParameterValues = fieldParameters.ToDictionary(
+            property => property.Name,
+            CreateFieldParameterValue);
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentField>(except: [])
+                     .Where(type => typeof(IComponent).IsAssignableFrom(type)))
+        {
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value.ComponentType(componentType)
+                     : componentType;
+
+            try
+            {
+                var renderedComponent = Render<DynamicComponent>(parameters =>
+                {
+                    parameters.Add(p => p.Type, type);
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        fieldParameterValues,
+                        ComponentInitializer.TryGetValue(componentType, out var valueRequired) ? valueRequired.RequiredParameters : null
+                    ));
+
+                    if (ComponentInitializer.TryGetValue(componentType, out var valueCascading))
+                    {
+                        foreach (var (Name, Value) in valueCascading.CascadingValues)
+                        {
+                            if (string.IsNullOrEmpty(Name))
+                            {
+                                parameters.AddCascadingValue(Value);
+                            }
+                            else
+                            {
+                                parameters.AddCascadingValue(Name, Value);
+                            }
+                        }
+                    }
+                });
+
+                var renderedField = renderedComponent.FindComponent<FluentField>().Instance;
+                var effectiveField = renderedField.InputComponent ?? renderedField;
+                var incorrectlyRenderedParameters = fieldParameters
+                    .Where(property => !Equals(fieldParameterValues[property.Name], property.GetValue(effectiveField)))
+                    .Select(property => property.Name)
+                    .ToArray();
+
+                var isValid = incorrectlyRenderedParameters.Length == 0;
+                Output.WriteLine($"{(isValid ? "✅" : "❌")} {componentType.Name}");
+
+                if (!isValid)
+                {
+                    errors.AppendLine(CultureInfo.InvariantCulture, $"\"{componentType.Name}\" does not correctly render the following \"IFluentField\" parameters: {string.Join(", ", incorrectlyRenderedParameters)}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.AppendLine(CultureInfo.InvariantCulture, $"Error rendering component {componentType.Name}: {ex.Message}");
             }
         }
 
@@ -529,6 +602,52 @@ public class ComponentBaseTests : Bunit.BunitContext
         var value = parts[1].Trim(' ', '"', '\'');
 
         return (name, value);
+    }
+
+    private static object CreateFieldParameterValue(PropertyInfo property)
+    {
+        var propertyType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+
+        if (propertyType == typeof(string))
+        {
+            return $"field-{property.Name}";
+        }
+
+        if (propertyType == typeof(bool))
+        {
+            return true;
+        }
+
+        if (propertyType == typeof(RenderFragment))
+        {
+            return (RenderFragment)(builder => builder.AddContent(0, $"field-{property.Name}"));
+        }
+
+        if (propertyType == typeof(Func<IFluentField, bool>))
+        {
+            return (Func<IFluentField, bool>)(_ => true);
+        }
+
+        if (propertyType == typeof(Icon))
+        {
+            return FluentStatus.InfoIcon;
+        }
+
+        if (propertyType == typeof(ILabelInfo))
+        {
+            return new LabelInfo($"field-{property.Name}");
+        }
+
+        if (propertyType.IsEnum)
+        {
+            var defaultValue = Activator.CreateInstance(propertyType);
+            return Enum.GetValues(propertyType)
+                .Cast<object>()
+                .FirstOrDefault(value => !Equals(value, defaultValue))
+                ?? throw new InvalidOperationException($"The enum parameter {property.Name} must define a non-default value for this test.");
+        }
+
+        throw new NotSupportedException($"No test value can be created for the {property.Name} parameter of type {property.PropertyType}.");
     }
 
     // Class used by the "ComponentBase_JsModule" test
