@@ -68,6 +68,20 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
   }
 
+  export function PopoverToggle(blazor: Blazor) {
+    registerCustomEventType(blazor, 'popovertoggle', {
+      browserEventName: 'fluentpopovertoggle',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target.id,
+          type: event.type,
+          oldState: event.detail?.oldState,
+          newState: event.detail?.newState,
+        };
+      }
+    });
+  }
+
   export function MenuItem(blazor: Blazor) {
     registerCustomEventType(blazor, 'menuitemchange', {
       browserEventName: 'change',
