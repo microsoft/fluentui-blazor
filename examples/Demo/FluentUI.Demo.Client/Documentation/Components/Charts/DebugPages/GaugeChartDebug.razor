@@ -1,0 +1,89 @@
+@page "/Charts/GaugeChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="chart-value" id="chart-value--label">
+            Value
+        </label>
+        <FluentSlider slot="input"
+                      id="chart-value"
+                      min="0"
+                      max="100"
+                      @bind-Value="@chartValue">
+        </FluentSlider>
+        <fluent-label slot="message">@chartValue</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
+    <FluentSwitch Label="Hide min/max" @bind-Value="hideMinMax"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Allow multiple legend selection" Disabled="@(hideLegends)" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentGaugeChart ChartTitle="Gauge chart interactive example"
+                      Segments="@segments"
+                      ChartValue="@chartValue"
+                      MinValue="0"
+                      MaxValue="100"
+                      Sublabel="Performance"
+                      Width="@($"{width}px")"
+                      Height="@($"{height}px")"
+                      HideMinMax="@hideMinMax"
+                      HideLabels="@hideLabels"
+                      HideTooltip="@hideTooltips"
+                      RoundedCorners="@roundCorners"
+                      HideLegends="@hideLegends"
+                      EnableGradient="@gradient"
+                      AllowMultipleLegendSelection="@allowMultipleLegendSelection" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 33, Color = DataVizPalette.Color2 },
+        new GaugeChartSegment { Legend = "High", Size = 34, Color = DataVizPalette.Color3 },
+    ];
+
+    private int width = 400;
+    private int height = 300;
+    private int chartValue = 65;
+    private bool gradient;
+    private bool roundCorners;
+    private bool hideMinMax;
+    private bool hideLabels;
+    private bool hideLegends;
+    private bool hideTooltips;
+    private bool allowMultipleLegendSelection;
+}

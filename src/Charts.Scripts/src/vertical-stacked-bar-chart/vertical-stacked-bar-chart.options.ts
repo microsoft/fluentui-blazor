@@ -3,7 +3,7 @@ import type { AccessibilityData, VerticalBarDataPointMetadata } from '../utils/c
 /** @public */
 export interface VerticalStackedBarChartDataPoint extends VerticalBarDataPointMetadata {
   /** @public */ legend: string;
-  /** @public */ data: number;
+  /** @public */ data: number | string;
 }
 
 /** @public */

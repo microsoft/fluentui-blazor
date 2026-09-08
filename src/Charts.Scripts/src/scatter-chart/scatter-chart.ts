@@ -2,8 +2,7 @@ import { attr } from '@microsoft/fast-element';
 import { extent, max } from 'd3-array';
 import { type Axis, axisBottom, type AxisDomain, axisLeft } from 'd3-axis';
 import { format } from 'd3-format';
-import { scalePoint, scaleTime, scaleUtc } from 'd3-scale';
-import { timeFormat, utcFormat } from 'd3-time-format';
+import { scaleBand, scalePoint, scaleTime, scaleUtc } from 'd3-scale';
 import type { AxisScaleType, TooltipProps } from '../utils/chart-options.js';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
@@ -14,7 +13,9 @@ import {
   DEFAULT_NUMERIC_Y_TICK_COUNT,
   renderAxisGridLinesShared,
   renderBottomAxisShared,
+  renderBandYAxisShared,
   renderPrimaryYAxisShared,
+  sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
 } from '../utils/cartesian-axis-shared.js';
@@ -39,8 +40,11 @@ type ScatterTooltipEntry = {
 
 type TooltipState = TooltipProps & { xValue: string; entries: ScatterTooltipEntry[] };
 type XValue = number | Date | string;
+type YValue = number | string;
 
 const defaultMargins = { top: 40, right: 20, bottom: 50, left: 60 };
+const truncateCategoryLabel = (value: string, maxLength = 18): string =>
+  value.length > maxLength ? `${value.slice(0, maxLength)}...` : value;
 
 const getMarkerDomainPadding = (minValue: number, maxValue: number, scaleType?: AxisScaleType) =>
   scaleType === 'log'
@@ -97,7 +101,7 @@ const formatDateValue = (chart: ScatterChart, value: Date): string => {
   }
   if (chart.tickFormat) {
     try {
-      return (chart.useUTC ? utcFormat(chart.tickFormat) : timeFormat(chart.tickFormat))(value);
+      return chart._formatDateWithD3Specifier(value, chart.tickFormat);
     } catch {
       // Fall back to Intl below.
     }
@@ -234,16 +238,15 @@ export class ScatterChart extends CartesianChartBase {
 
     const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 500);
     const height = toNumber(this.height, 300);
-    const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
-      width,
-      height,
-      defaultMargins,
-    });
-
     const yValues = normalizedSeries
       .flatMap(series => series.data.map(point => point.y))
-      .filter(value => Number.isFinite(value) && (this.yScaleType !== 'log' || value > 0));
-    const yExtent = extent(yValues);
+      .filter((value): value is YValue => typeof value === 'number' || typeof value === 'string');
+    const isCategoricalY = yValues.some(value => typeof value === 'string');
+    const numericYValues = yValues.filter(
+      (value): value is number =>
+        typeof value === 'number' && Number.isFinite(value) && (this.yScaleType !== 'log' || value > 0),
+    );
+    const yExtent = extent(numericYValues);
     const yDataMin = yExtent[0] ?? 0;
     const yDataMax = yExtent[1] ?? 1;
     const yPadding = getMarkerDomainPadding(yDataMin, yDataMax, this.yScaleType);
@@ -257,6 +260,29 @@ export class ScatterChart extends CartesianChartBase {
       yMin -= 1;
       yMax += 1;
     }
+
+    const categories = Array.from(new Set(yValues.filter((value): value is string => typeof value === 'string')));
+    const categoryGroups = categories.map(category => ({
+      key: category,
+      points: normalizedSeries.flatMap(series =>
+        series.data.filter(point => point.y === category).map(point => (typeof point.x === 'number' ? point.x : 0)),
+      ),
+    }));
+    const orderedCategories = sortCategoryGroups(
+      categoryGroups,
+      this.yAxisCategoryOrder,
+      yValues.filter((value): value is string => typeof value === 'string'),
+      group => group.points,
+    ).map(group => group.key);
+    const yLabelWidth =
+      isCategoricalY && this.showYAxisLabels
+        ? Math.min(240, Math.max(60, Math.max(...orderedCategories.map(category => category.length), 0) * 7 + 28))
+        : 60;
+    const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
+      width,
+      height,
+      defaultMargins: { ...defaultMargins, left: yLabelWidth },
+    });
 
     const xRange: [number, number] = this._isRTL ? [innerWidth, 0] : [0, innerWidth];
     let xScale: any;
@@ -303,24 +329,30 @@ export class ScatterChart extends CartesianChartBase {
       }
       xFormatter = value => formatNumberValue(Number(value), this.xAxisTickFormat, this.culture);
     }
-    const preparedYAxis = computePreparedNumericYAxis({
-      minValue: yMin,
-      maxValue: yMax,
-      tickCount: toNumber(this.yAxisTickCount, DEFAULT_NUMERIC_Y_TICK_COUNT),
-      roundedTicks: this.roundedTicks,
-    });
-    const { scale: yScale, isLogarithmic: isLogarithmicY } = createNumericContinuousScale({
-      domainMin: this.yScaleType === 'log' ? yMin : preparedYAxis.domainMin,
-      domainMax: this.yScaleType === 'log' ? yMax : preparedYAxis.domainMax,
-      range: [innerHeight, 0],
-      scaleType: this.yScaleType,
-    });
-    if (isLogarithmicY) {
-      yScale.nice();
-    }
+    const preparedYAxis = isCategoricalY
+      ? undefined
+      : computePreparedNumericYAxis({
+          minValue: yMin,
+          maxValue: yMax,
+          tickCount: toNumber(this.yAxisTickCount, DEFAULT_NUMERIC_Y_TICK_COUNT),
+          roundedTicks: this.roundedTicks,
+        });
+    const numericYScale = isCategoricalY
+      ? undefined
+      : createNumericContinuousScale({
+          domainMin: this.yScaleType === 'log' ? yMin : preparedYAxis!.domainMin,
+          domainMax: this.yScaleType === 'log' ? yMax : preparedYAxis!.domainMax,
+          range: [innerHeight, 0],
+          scaleType: this.yScaleType,
+        });
+    const categoricalYScale = isCategoricalY
+      ? scaleBand<string>().domain(orderedCategories).range([innerHeight, 0]).padding(0.1)
+      : undefined;
+    const yScale = categoricalYScale ?? numericYScale!.scale;
+    const isLogarithmicY = numericYScale?.isLogarithmic ?? false;
 
     let extraMaxPixels = 0;
-    if (!isStringAxis) {
+    if (!isStringAxis && !isCategoricalY) {
       const continuousXValues = xValues
         .map(value => (value instanceof Date ? value.getTime() : Number(value)))
         .filter(value => Number.isFinite(value) && (this.xScaleType !== 'log' || value > 0));
@@ -335,36 +367,53 @@ export class ScatterChart extends CartesianChartBase {
       );
 
       const extraYPixels = Math.min(
-        Math.abs(yScale(yDataMin - yPadding.start) - yScale(yDataMin)),
-        Math.abs(yScale(yDataMax) - yScale(yDataMax + yPadding.end)),
+        Math.abs(numericYScale!.scale(yDataMin - yPadding.start) - numericYScale!.scale(yDataMin)),
+        Math.abs(numericYScale!.scale(yDataMax) - numericYScale!.scale(yDataMax + yPadding.end)),
       );
       extraMaxPixels = Math.min(extraXPixels, extraYPixels);
     }
 
-    const xAxis = axisBottom(xScale).tickPadding(toNumber(this.tickPadding, 6));
-    if (!isStringAxis) {
-      xAxis.ticks(this.xScaleType === 'log' ? 10 : 6);
-    }
-    if (this.tickValues?.length) {
-      xAxis.tickValues(
-        this.tickValues.map(value =>
-          isDateAxis ? normalizeXValue(value as XValue) : isStringAxis ? String(value) : Number(value),
-        ),
+    const xAxis = axisBottom(xScale)
+      .tickPadding(this._getXAxisTickPadding(6))
+      .tickSize(this._getXAxisTickSize(6));
+    applyAxisTickConfig(
+      xAxis as unknown as Axis<AxisDomain>,
+      isStringAxis ? this.xAxisTickCount : this.xAxisTickCount ?? (this.xScaleType === 'log' ? 10 : 6),
+      this.tickValues?.map(value =>
+        isDateAxis ? normalizeXValue(value as XValue) : isStringAxis ? String(value) : Number(value),
+      ) as AxisDomain[] | undefined,
+      this.xAxisConfig,
+      xScale as AxisScaleLike<AxisDomain>,
+      this.xScaleType,
+      this.useUTC,
+    );
+
+    const yAxis = isCategoricalY
+      ? axisLeft(categoricalYScale!)
+      : axisLeft(numericYScale!.scale);
+    yAxis.tickPadding(toNumber(this.tickPadding, 6));
+    if (!isCategoricalY) {
+      applyAxisTickConfig(
+        yAxis as unknown as Axis<number>,
+        isLogarithmicY ? this.yAxisTickCount : this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
+        this.yAxisTickValues ?? (isLogarithmicY ? undefined : preparedYAxis!.tickValues),
+        this.yAxisConfig,
+        numericYScale!.scale as AxisScaleLike<number>,
+        this.yScaleType,
       );
     }
-
-    const yAxis = axisLeft(yScale).tickPadding(toNumber(this.tickPadding, 6));
-    applyAxisTickConfig(
-      yAxis,
-      isLogarithmicY ? this.yAxisTickCount : this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
-      this.yAxisTickValues ?? (isLogarithmicY ? undefined : preparedYAxis.tickValues),
-    );
+    const getYPosition = (value: YValue): number => {
+      if (isCategoricalY) {
+        return (categoricalYScale!(String(value)) ?? 0) + categoricalYScale!.bandwidth() / 2;
+      }
+      return numericYScale!.scale(Number(value)) ?? 0;
+    };
 
     renderAxisGridLinesShared({
       layer: plotGroup,
       orientation: 'horizontal',
-      scale: yScale,
-      axis: yAxis as unknown as Axis<number>,
+      scale: yScale as AxisScaleLike<AxisDomain>,
+      axis: yAxis as unknown as Axis<AxisDomain>,
       spanStart: 0,
       spanEnd: innerWidth,
     });
@@ -378,7 +427,7 @@ export class ScatterChart extends CartesianChartBase {
     const renderedPoints: Array<{
       circle: SVGCircleElement;
       x: XValue;
-      y: number;
+      y: YValue;
       xLabel: string;
       yLabel: string;
       legend: string;
@@ -428,7 +477,7 @@ export class ScatterChart extends CartesianChartBase {
         circle.classList.add('scatter-point');
         circle.dataset.legend = series.legend;
         circle.setAttribute('cx', String(xScale(point.x) ?? 0));
-        circle.setAttribute('cy', String(yScale(point.y)));
+        circle.setAttribute('cy', String(getYPosition(point.y)));
         const markerRadius = calculateMarkerRadius(
           point.markerSize,
           minMarkerSize,
@@ -471,17 +520,17 @@ export class ScatterChart extends CartesianChartBase {
           activePoints = matchingPoints.map(matchingPoint => matchingPoint.circle);
 
           const highestPoint = matchingPoints.reduce((highest, candidate) =>
-            yScale(candidate.y) < yScale(highest.y) ? candidate : highest,
+            getYPosition(candidate.y) < getYPosition(highest.y) ? candidate : highest,
           );
           hoverLine.setAttribute('x1', circle.getAttribute('cx') ?? '0');
           hoverLine.setAttribute('x2', circle.getAttribute('cx') ?? '0');
-          hoverLine.setAttribute('y1', String(yScale(highestPoint.y) + highestPoint.markerRadius));
+          hoverLine.setAttribute('y1', String(getYPosition(highestPoint.y) + highestPoint.markerRadius));
           hoverLine.style.display = '';
 
           const hostRect = this.getBoundingClientRect();
           const svgRect = svg.getBoundingClientRect();
           const anchorX = svgRect.left - hostRect.left + margins.left + (xScale(point.x) ?? 0);
-          const anchorY = svgRect.top - hostRect.top + margins.top + yScale(highestPoint.y);
+          const anchorY = svgRect.top - hostRect.top + margins.top + getYPosition(highestPoint.y);
           this._currentTooltipDataPoint = { legend: series.legend, ...point };
           const entries = matchingPoints.map(matchingPoint => ({
             legend: matchingPoint.legend,
@@ -532,7 +581,7 @@ export class ScatterChart extends CartesianChartBase {
       axisTop: margins.top,
       innerWidth,
       innerHeight,
-      tickPadding: toNumber(this.tickPadding, 6),
+      tickPadding: this._getXAxisTickPadding(6),
       isRTL: this._isRTL,
       rotateXAxisLabels: this.rotateXAxisLabels,
       wrapXAxisLabels: this.wrapXAxisLabels,
@@ -544,24 +593,45 @@ export class ScatterChart extends CartesianChartBase {
         hide: () => this._hideAxisLabelTooltip(),
       },
       xAxisTitle: this.xAxisTitle,
+      xAxisAnnotation: this.xAxisAnnotation,
+      tickText: this.xAxisConfig?.tickText,
     });
-    renderPrimaryYAxisShared({
-      svg,
-      scale: yScale as AxisScaleLike<number>,
-      axis: yAxis as unknown as Axis<number>,
-      formatter: value =>
-        this.customYAxisTickFormatter?.(Number(value)) ??
-        (this.yAxisTickFormat
-          ? formatNumberValue(Number(value), this.yAxisTickFormat, this.culture)
-          : defaultYAxisTickFormatter(Number(value))),
-      axisStartX: margins.left,
-      axisTop: margins.top,
-      innerHeight,
-      innerWidth,
-      tickPadding: toNumber(this.tickPadding, 6),
-      isRTL: this._isRTL,
-      yAxisTitle: this.yAxisTitle,
-    });
+    if (isCategoricalY) {
+      renderBandYAxisShared({
+        svg,
+        scale: yScale as AxisScaleLike<string>,
+        axis: yAxis as unknown as Axis<string>,
+        formatter: value => (this.showYAxisLabels ? value : truncateCategoryLabel(value)),
+        axisX: margins.left,
+        axisTop: margins.top,
+        innerHeight,
+        isRTL: this._isRTL,
+        tickPadding: toNumber(this.tickPadding, 6),
+        yAxisTitle: this.yAxisTitle,
+        yAxisAnnotation: this.yAxisAnnotation,
+        tooltipFormatter: value => (this.showYAxisLabelsTooltip ? value : undefined),
+      });
+    } else {
+      renderPrimaryYAxisShared({
+        svg,
+        scale: yScale as AxisScaleLike<number>,
+        axis: yAxis as unknown as Axis<number>,
+        formatter: value =>
+          this.customYAxisTickFormatter?.(Number(value)) ??
+          (this.yAxisTickFormat
+            ? formatNumberValue(Number(value), this.yAxisTickFormat, this.culture)
+            : defaultYAxisTickFormatter(Number(value))),
+        axisStartX: margins.left,
+        axisTop: margins.top,
+        innerHeight,
+        innerWidth,
+        tickPadding: toNumber(this.tickPadding, 6),
+        isRTL: this._isRTL,
+        yAxisTitle: this.yAxisTitle,
+        yAxisAnnotation: this.yAxisAnnotation,
+        tickText: this.yAxisConfig?.tickText,
+      });
+    }
 
     this._renderAnnotations({
       svg,
@@ -570,7 +640,7 @@ export class ScatterChart extends CartesianChartBase {
       innerWidth,
       innerHeight,
       mapDataX: value => xScale(normalizeXValue(value as XValue)) ?? 0,
-      mapDataY: value => yScale(Number(value)),
+      mapDataY: value => getYPosition(value as YValue),
     });
 
     this.chartContainer.appendChild(svg);

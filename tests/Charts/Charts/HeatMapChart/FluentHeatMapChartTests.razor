@@ -1,0 +1,257 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<HeatMapChartData> DefaultData =
+    [
+        new HeatMapChartData
+        {
+            Legend = "Mon",
+            Value = 20,
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Mon", Y = "10 AM", Value = 15 },
+                new HeatMapChartDataPoint { X = "Mon", Y = "11 AM", Value = 25 },
+            ]
+        },
+    ];
+
+    public FluentHeatMapChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" ChartTitle="Activity Heatmap" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("chart-title");
+        Assert.Equal("Activity Heatmap", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_SortOrder()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" SortOrder="HeatMapSortOrder.None" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("sort-order");
+        Assert.Equal("none", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_DomainValuesForColorScale()
+    {
+        // Arrange
+        var domain = new double[] { 0, 50, 100 };
+
+        // Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" DomainValuesForColorScale="@domain" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("domain-values-for-color-scale");
+        Assert.NotNull(attribute);
+        Assert.Contains("0", attribute);
+        Assert.Contains("50", attribute);
+        Assert.Contains("100", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_RangeValuesForColorScale()
+    {
+        // Arrange
+        var colors = new[] { "#FFFFFF", "#FF0000" };
+
+        // Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" RangeValuesForColorScale="@colors" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("range-values-for-color-scale");
+        Assert.NotNull(attribute);
+        Assert.Contains("#FFFFFF", attribute);
+        Assert.Contains("#FF0000", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_XAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" XAxisTitle="Day of Week" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("x-axis-title");
+        Assert.Equal("Day of Week", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_YAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" YAxisTitle="Time of Day" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("y-axis-title");
+        Assert.Equal("Time of Day", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" Width="500px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("width");
+        Assert.Equal("500px", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" Height="300px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("height");
+        Assert.Equal("300px", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("fr-FR");
+
+        // Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("culture");
+        Assert.Equal("fr-FR", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" Class="my-heatmap" />);
+
+        // Assert
+        var element = cut.Find("fluent-heat-map-chart");
+        Assert.Contains("my-heatmap", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-heat-map-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@DefaultData" aria-label="Heatmap view" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("aria-label");
+        Assert.Equal("Heatmap view", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var series = new List<HeatMapChartData>
+        {
+            new HeatMapChartData
+            {
+                Legend = "Wed",
+                Value = 99,
+                Data = [ new HeatMapChartDataPoint { X = "Wed", Y = "12 PM", Value = 99 } ]
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-heat-map-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Wed", attribute);
+        Assert.Contains("12 PM", attribute);
+        Assert.Contains("99", attribute);
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentHeatMapChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentHeatMapChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHeatMapChart ChartData="@(Array.Empty<HeatMapChartData>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-heat-map-chart");
+        Assert.NotNull(element);
+    }
+}

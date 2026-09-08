@@ -10,10 +10,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Provides source-generated JSON serialization metadata for grouped vertical bar chart payloads.
 /// </summary>
-[JsonSerializable(typeof(GroupedVerticalBarChartSeries))]
+[JsonSerializable(typeof(GroupedVerticalBarChartData))]
 [JsonSerializable(typeof(GroupedVerticalBarChartDataPoint))]
-[JsonSerializable(typeof(IReadOnlyList<GroupedVerticalBarChartSeries>))]
-[JsonSerializable(typeof(IReadOnlyList<GroupedVerticalBarChartDataPoint>))]
+[JsonSerializable(typeof(GroupedVerticalBarChartLineDataPoint))]
+[JsonSerializable(typeof(IReadOnlyList<GroupedVerticalBarChartData>))]
 [ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
 
 internal sealed partial class GroupedVerticalBarChartDataJsonSerializerContext : JsonSerializerContext

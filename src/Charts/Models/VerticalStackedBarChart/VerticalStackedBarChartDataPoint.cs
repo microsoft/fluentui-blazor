@@ -8,7 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
-/// Represents a single data point in a vertical stacked bar chart series.
+/// Represents a single segment in a vertical stacked bar chart bar.
 /// </summary>
 public sealed record VerticalStackedBarChartDataPoint
 {
@@ -25,11 +25,18 @@ public sealed record VerticalStackedBarChartDataPoint
     public double Data { get; init; }
 
     /// <summary>
-    /// Gets the optional total bar length used for ratio-style rendering.
+    /// Gets the optional text or date that overrides the x-axis value displayed in the tooltip.
     /// </summary>
-    [JsonPropertyName("total")]
+    [JsonPropertyName("xAxisCalloutData")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public double? Total { get; init; }
+    public string? XAxisCalloutData { get; init; }
+
+    /// <summary>
+    /// Gets the optional text that overrides the numeric value displayed in the tooltip.
+    /// </summary>
+    [JsonPropertyName("yAxisCalloutData")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? YAxisCalloutData { get; init; }
 
     /// <summary>
     /// Gets the solid color used to render the bar segment.
@@ -61,5 +68,13 @@ public sealed record VerticalStackedBarChartDataPoint
     /// The array should contain exactly two color values: start and end.
     /// </summary>
     [JsonPropertyName("gradient")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? Gradient { get; init; }
+
+    /// <summary>
+    /// Gets the optional text rendered as the visible bar label instead of the formatted numeric value.
+    /// </summary>
+    [JsonPropertyName("barLabel")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? BarLabel { get; init; }
 }

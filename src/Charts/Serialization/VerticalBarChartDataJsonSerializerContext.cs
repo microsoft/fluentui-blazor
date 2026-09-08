@@ -10,9 +10,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// <summary>
 /// Provides source-generated JSON serialization metadata for vertical bar chart payloads.
 /// </summary>
-[JsonSerializable(typeof(VerticalBarChartSeries))]
 [JsonSerializable(typeof(VerticalBarChartDataPoint))]
-[JsonSerializable(typeof(IReadOnlyList<VerticalBarChartSeries>))]
+[JsonSerializable(typeof(VerticalBarChartLineDataPoint))]
 [JsonSerializable(typeof(IReadOnlyList<VerticalBarChartDataPoint>))]
 [ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
 

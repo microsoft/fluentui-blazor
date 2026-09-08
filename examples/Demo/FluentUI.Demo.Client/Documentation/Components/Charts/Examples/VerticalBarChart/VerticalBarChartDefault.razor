@@ -1,10 +1,105 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart basic example"
+                        ChartData="@chartData"
+                        Width="650px"
+                        Height="350px"
+                        LineLegendText="just line"
+                        LineLegendColor="brown"
+                        LineBorderWidth="2">
+</FluentVerticalBarChart>
 
 @code {
-    private readonly IReadOnlyList<VerticalBarChartDataPoint> data = new List<VerticalBarChartDataPoint>
-    {
-        new VerticalBarChartDataPoint { Legend = "first", Data = 20000 },
-        new VerticalBarChartDataPoint { Legend = "second", Data = 39000 }
-    };
+    private const string BasicCalloutDate = "2026-04-30T00:00:00.000Z";
 
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> chartData =
+    [
+        new VerticalBarChartDataPoint
+        {
+            X = 0.0,
+            Y = 10000,
+            Legend = "Oranges",
+            Color = DataVizPalette.Custom,
+            CustomColor = "dodgerblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "4%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 7000, YAxisCalloutData = "3%" },
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 10000.0,
+            Y = 50000,
+            Legend = "Dogs",
+            Color = DataVizPalette.Custom,
+            CustomColor = "midnightblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "21%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 30000, YAxisCalloutData = "12%" },
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 25000.0,
+            Y = 30000,
+            Legend = "Apples",
+            Color = DataVizPalette.Custom,
+            CustomColor = "darkblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "12%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 3000, YAxisCalloutData = "1%" },
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 40000.0,
+            Y = 13000,
+            Legend = "Bananas",
+            Color = DataVizPalette.Custom,
+            CustomColor = "blue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "5%",
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 52000.0,
+            Y = 43000,
+            Legend = "Giraffes",
+            Color = DataVizPalette.Custom,
+            CustomColor = "darkslateblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "18%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 30000, YAxisCalloutData = "12%" },
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 68000.0,
+            Y = 30000,
+            Legend = "Cats",
+            Color = DataVizPalette.Custom,
+            CustomColor = "royalblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "12%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 5000, YAxisCalloutData = "2%" },
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 80000.0,
+            Y = 20000,
+            Legend = "Elephants",
+            Color = DataVizPalette.Custom,
+            CustomColor = "slateblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "8%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 16000, YAxisCalloutData = "7%" },
+        },
+        new VerticalBarChartDataPoint
+        {
+            X = 92000.0,
+            Y = 45000,
+            Legend = "Monkeys",
+            Color = DataVizPalette.Custom,
+            CustomColor = "steelblue",
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = "19%",
+            LineData = new VerticalBarChartLineDataPoint { Y = 40000, YAxisCalloutData = "16%" },
+        },
+    ];
 }

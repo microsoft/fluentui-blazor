@@ -5,7 +5,6 @@ import { type Axis, axisBottom, type AxisDomain, axisLeft, axisRight } from 'd3-
 import { format } from 'd3-format';
 import { type ScaleTime, scaleTime, scaleUtc } from 'd3-scale';
 import { line as createLine } from 'd3-shape';
-import { timeFormat, utcFormat } from 'd3-time-format';
 import type { TooltipProps } from '../utils/chart-options.js';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
@@ -77,7 +76,7 @@ const formatDateValue = (chart: LineChart, value: Date): string => {
   }
   if (chart.tickFormat) {
     try {
-      return (chart.useUTC ? utcFormat(chart.tickFormat) : timeFormat(chart.tickFormat))(value);
+      return chart._formatDateWithD3Specifier(value, chart.tickFormat);
     } catch {
       // Fall back to Intl below.
     }
@@ -164,6 +163,7 @@ export class LineChart extends CartesianChartBase {
   public eventAnnotationCardContent!: HTMLDivElement;
 
   private _eventAnnotationTrigger?: SVGTextElement;
+  private _eventAnnotationCardPinned = false;
 
   protected override _enableResizeObserver = true;
 
@@ -231,6 +231,7 @@ export class LineChart extends CartesianChartBase {
     const trigger = this._eventAnnotationTrigger;
     this.eventAnnotationCard = undefined;
     this._eventAnnotationTrigger = undefined;
+    this._eventAnnotationCardPinned = false;
     if (restoreFocus) {
       trigger?.focus();
     }
@@ -243,7 +244,12 @@ export class LineChart extends CartesianChartBase {
     }
   }
 
-  private _showEventAnnotationCard(trigger: SVGTextElement, label: string, events: LineChartEventAnnotation[]): void {
+  private _showEventAnnotationCard(
+    trigger: SVGTextElement,
+    label: string,
+    events: LineChartEventAnnotation[],
+    pinned = false,
+  ): void {
     const contents = events.flatMap(event => {
       const content = event.cardContent ?? event.onRenderCard?.();
       return content === undefined ? [] : [content];
@@ -261,6 +267,7 @@ export class LineChart extends CartesianChartBase {
       contents,
     };
     this._eventAnnotationTrigger = trigger;
+    this._eventAnnotationCardPinned = pinned;
     this.eventAnnotationCard = card;
 
     requestAnimationFrame(() => {
@@ -278,7 +285,9 @@ export class LineChart extends CartesianChartBase {
         return item;
       });
       this.eventAnnotationCardContent.replaceChildren(...items);
-      this.shadowRoot?.querySelector<HTMLButtonElement>('.event-annotation-card-close')?.focus();
+      if (pinned) {
+        this.shadowRoot?.querySelector<HTMLButtonElement>('.event-annotation-card-close')?.focus();
+      }
     });
   }
 
@@ -486,8 +495,8 @@ export class LineChart extends CartesianChartBase {
     let yScaleSecondary: NumericContinuousScale = yScale;
     let isLogarithmicSecondaryY = false;
     if (hasSecondaryY) {
-      let secondaryYMin = Math.min(secondaryYExtent[0] ?? 0, 0);
-      let secondaryYMax = Math.max(secondaryYExtent[1] ?? 0, 0);
+      let secondaryYMin = toOptionalNumber(this.secondaryYMinValue) ?? Math.min(secondaryYExtent[0] ?? 0, 0);
+      let secondaryYMax = toOptionalNumber(this.secondaryYMaxValue) ?? Math.max(secondaryYExtent[1] ?? 0, 0);
       if (secondaryYMin === secondaryYMax) {
         secondaryYMin -= 1;
         secondaryYMax += 1;
@@ -516,17 +525,22 @@ export class LineChart extends CartesianChartBase {
       });
     });
 
-    const xAxis = axisBottom(xScale).tickPadding(toNumber(this.tickPadding, 6));
-    if (!isDateAxis) {
-      xAxis.ticks(6);
-    }
-    if (this.tickValues?.length) {
-      if (isDateAxis) {
-        xAxis.tickValues(this.tickValues.map(value => parseDateOrNumber(value as string | number | Date) as Date));
-      } else {
-        xAxis.tickValues(this.tickValues.map(value => Number(value)));
-      }
-    } else if (isDateAxis) {
+    const xAxis = axisBottom(xScale).tickPadding(this._getXAxisTickPadding(6)).tickSize(this._getXAxisTickSize(6));
+    const xTickValues = this.tickValues?.length
+      ? isDateAxis
+        ? this.tickValues.map(value => parseDateOrNumber(value as string | number | Date) as Date)
+        : this.tickValues.map(value => Number(value))
+      : undefined;
+    applyAxisTickConfig(
+      xAxis as Axis<AxisDomain>,
+      isDateAxis ? this.xAxisTickCount : this.xAxisTickCount ?? 6,
+      xTickValues as AxisDomain[] | undefined,
+      this.xAxisConfig,
+      xScale as AxisScaleLike<AxisDomain>,
+      this.xScaleType,
+      this.useUTC,
+    );
+    if (!xAxis.tickValues() && isDateAxis) {
       const seenLabels = new Set<string>();
       const uniqueDateTicks = (xScale as ScaleTime<number, number>).ticks().filter(value => {
         const label = xFormatter(value);
@@ -541,9 +555,12 @@ export class LineChart extends CartesianChartBase {
 
     const yAxis = axisLeft(yScale).tickPadding(toNumber(this.tickPadding, 6));
     applyAxisTickConfig(
-      yAxis,
+      yAxis as unknown as Axis<number>,
       this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
       this.yAxisTickValues ?? (isLogarithmicY ? undefined : preparedYAxis.tickValues),
+      this.yAxisConfig,
+      yScale as unknown as AxisScaleLike<number>,
+      this.yScaleType,
     );
 
     renderAxisGridLinesShared({
@@ -969,7 +986,7 @@ export class LineChart extends CartesianChartBase {
       axisTop: margins.top,
       innerWidth,
       innerHeight,
-      tickPadding: toNumber(this.tickPadding, 6),
+      tickPadding: this._getXAxisTickPadding(6),
       isRTL: this._isRTL,
       rotateXAxisLabels: this.rotateXAxisLabels,
       wrapXAxisLabels: this.wrapXAxisLabels,
@@ -980,6 +997,8 @@ export class LineChart extends CartesianChartBase {
         hide: () => this._hideAxisLabelTooltip(),
       },
       xAxisTitle: this.xAxisTitle,
+      xAxisAnnotation: this.xAxisAnnotation,
+      tickText: this.xAxisConfig?.tickText,
     });
     renderPrimaryYAxisShared({
       svg,
@@ -996,6 +1015,8 @@ export class LineChart extends CartesianChartBase {
       tickPadding: toNumber(this.tickPadding, 6),
       isRTL: this._isRTL,
       yAxisTitle: this.yAxisTitle,
+      yAxisAnnotation: hasSecondaryY ? undefined : this.yAxisAnnotation,
+      tickText: this.yAxisConfig?.tickText,
       tickLabelMaxWidth: toOptionalNumber(this.yAxisTickLabelMaxWidth),
     });
 
@@ -1064,11 +1085,21 @@ export class LineChart extends CartesianChartBase {
             ? mergedLabel(label.events.length)
             : (mergedLabel ?? '{count} events').replaceAll('{count}', String(label.events.length));
         text.setAttribute('aria-haspopup', 'dialog');
-        text.addEventListener('click', () => this._showEventAnnotationCard(text, text.textContent ?? '', label.events));
+        text.addEventListener('mouseover', () =>
+          this._showEventAnnotationCard(text, text.textContent ?? '', label.events),
+        );
+        text.addEventListener('mouseout', () => {
+          if (!this._eventAnnotationCardPinned) {
+            this.dismissEventAnnotationCard();
+          }
+        });
+        text.addEventListener('click', () =>
+          this._showEventAnnotationCard(text, text.textContent ?? '', label.events, true),
+        );
         text.addEventListener('keydown', event => {
           if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
-            this._showEventAnnotationCard(text, text.textContent ?? '', label.events);
+            this._showEventAnnotationCard(text, text.textContent ?? '', label.events, true);
           }
         });
         eventLayer.appendChild(text);

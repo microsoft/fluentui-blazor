@@ -8,6 +8,7 @@ import type { TooltipProps } from '../utils/chart-options.js';
 import { appendVerticalGradient, resolveBarWidth, resolveChartColor } from '../utils/bar-chart-helpers.js';
 import {
   applyAxisTickConfig,
+  type AxisScaleLike,
   computePreparedNumericYAxis,
   createPreparedNumericContinuousScale,
   DEFAULT_NUMERIC_Y_TICK_COUNT,
@@ -273,6 +274,8 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
       scaleType: hasSecondaryY ? this.secondaryYScaleType : 'default',
       tickCount: toNumber(this.yAxisTickCount, DEFAULT_NUMERIC_Y_TICK_COUNT),
       roundedTicks: this.roundedTicks,
+      minValue: toOptionalNumber(this.secondaryYMinValue),
+      maxValue: toOptionalNumber(this.secondaryYMaxValue),
     });
     const preparedSecondaryYAxis = secondaryYAxis.preparedAxis;
     const yScaleSecondary = secondaryYAxis.scale;
@@ -297,7 +300,9 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const xAxis = axisBottom(xScale).tickPadding(toNumber(this.tickPadding, 6));
+    const xAxis = axisBottom(xScale)
+      .tickPadding(this._getXAxisTickPadding(6))
+      .tickSize(this._getXAxisTickSize(6));
     applyAxisTickConfig(
       xAxis,
       this.xAxisTickCount,
@@ -305,9 +310,12 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
     );
     const yAxis = axisLeft(yScale).tickPadding(toNumber(this.tickPadding, 6));
     applyAxisTickConfig(
-      yAxis,
+      yAxis as unknown as Axis<number>,
       this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
       this.yAxisTickValues ?? (useLogPrimary ? undefined : preparedYAxis.tickValues),
+      this.yAxisConfig,
+      yScale as unknown as AxisScaleLike<number>,
+      this.yScaleType,
     );
     renderAxisGridLinesShared({
       layer: plotGroup,
@@ -563,7 +571,7 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
       axisTop: margins.top,
       innerWidth,
       innerHeight,
-      tickPadding: toNumber(this.tickPadding, 6),
+      tickPadding: this._getXAxisTickPadding(6),
       isRTL: this._isRTL,
       rotateXAxisLabels: this.rotateXAxisLabels,
       wrapXAxisLabels: this.wrapXAxisLabels,
@@ -574,6 +582,8 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
         hide: () => this._hideAxisLabelTooltip(),
       },
       xAxisTitle: this.xAxisTitle,
+      xAxisAnnotation: this.xAxisAnnotation,
+      tickText: this.xAxisConfig?.tickText,
     });
     renderPrimaryYAxisShared({
       svg,
@@ -587,6 +597,8 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
       tickPadding: toNumber(this.tickPadding, 6),
       isRTL: this._isRTL,
       yAxisTitle: this.yAxisTitle,
+      yAxisAnnotation: hasSecondaryY ? undefined : this.yAxisAnnotation,
+      tickText: this.yAxisConfig?.tickText,
     });
     if (hasSecondaryY) {
       const yAxisSecondary = axisRight(yScaleSecondary).tickPadding(toNumber(this.tickPadding, 6));

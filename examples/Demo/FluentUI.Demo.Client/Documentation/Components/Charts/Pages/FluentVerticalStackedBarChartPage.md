@@ -56,3 +56,27 @@ Refer to Vertical Bar Chart page for common dos.
 ## Don'ts
 
 Refer to Vertical Bar Chart page for common don'ts.
+
+## Examples
+
+### Default
+
+The default example renders a vertical stacked bar chart with two data points.
+
+{{ VerticalStackedBarChartDefault }}
+
+## API Fluent Vertical Stacked Bar Chart
+
+{{ API Type=FluentVerticalStackedBarChart }}
+
+## API Vertical Stacked Bar Chart Data
+
+{{ API Type=VerticalStackedBarChartData Properties=All }}
+
+## API Vertical Stacked Bar Chart Data Point
+
+{{ API Type=VerticalStackedBarChartDataPoint Properties=All }}
+
+## API Vertical Stacked Bar Chart Line Data Point
+
+{{ API Type=VerticalStackedBarChartLineDataPoint Properties=All }}

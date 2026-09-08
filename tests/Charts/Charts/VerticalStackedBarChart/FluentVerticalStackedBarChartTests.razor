@@ -1,0 +1,297 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<VerticalStackedBarChartData> DefaultData =
+    [
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = "Q1",
+            ChartData =
+            [
+                new VerticalStackedBarChartDataPoint { Legend = "Product A", Data = 50, Color = DataVizPalette.Color1 },
+                new VerticalStackedBarChartDataPoint { Legend = "Product B", Data = 30, Color = DataVizPalette.Color2 },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = "Q2",
+            ChartData =
+            [
+                new VerticalStackedBarChartDataPoint { Legend = "Product A", Data = 60, Color = DataVizPalette.Color1 },
+                new VerticalStackedBarChartDataPoint { Legend = "Product B", Data = 40, Color = DataVizPalette.Color2 },
+            ],
+        },
+    ];
+
+    public FluentVerticalStackedBarChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" ChartTitle="Stacked Vertical Chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("chart-title");
+        Assert.Equal("Stacked Vertical Chart", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_BarGapMax()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" BarGapMax="10px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("bar-gap-max");
+        Assert.Equal("10px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_BarWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" BarWidth="30px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("bar-width");
+        Assert.Equal("30px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_MaxBarWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" MaxBarWidth="60px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("max-bar-width");
+        Assert.Equal("60px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_Colors()
+    {
+        // Arrange
+        var colors = new[] { "#111111", "#222222" };
+
+        // Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" Colors="@colors" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("colors");
+        Assert.NotNull(attribute);
+        Assert.Contains("#111111", attribute);
+        Assert.Contains("#222222", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" Width="600px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("width");
+        Assert.Equal("600px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("en-CA");
+
+        // Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("culture");
+        Assert.Equal("en-CA", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" Class="my-vstacked-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-vertical-stacked-bar-chart");
+        Assert.Contains("my-vstacked-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-vertical-stacked-bar-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@DefaultData" aria-label="Vertical stacked chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("aria-label");
+        Assert.Equal("Vertical stacked chart", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<VerticalStackedBarChartData>
+        {
+            new VerticalStackedBarChartData
+            {
+                XAxisPoint = "Cat 1",
+                ChartData = [ new VerticalStackedBarChartDataPoint { Legend = "Sub 1", Data = 75, Color = DataVizPalette.Color3 } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Cat 1", attribute);
+        Assert.Contains("Sub 1", attribute);
+        Assert.Contains("75", attribute);
+        Assert.Contains("color3", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<VerticalStackedBarChartData>
+        {
+            new VerticalStackedBarChartData
+            {
+                XAxisPoint = "X",
+                ChartData = [ new VerticalStackedBarChartDataPoint { Legend = "C", Data = 10, Color = DataVizPalette.Custom, CustomColor = "#123789" } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-stacked-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#123789", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentVerticalStackedBarChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentVerticalStackedBarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentVerticalStackedBarChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </CartesianTooltipTemplate>
+            </FluentVerticalStackedBarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentVerticalStackedBarChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalStackedBarChart ChartData="@(Array.Empty<VerticalStackedBarChartData>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-vertical-stacked-bar-chart");
+        Assert.NotNull(element);
+    }
+}

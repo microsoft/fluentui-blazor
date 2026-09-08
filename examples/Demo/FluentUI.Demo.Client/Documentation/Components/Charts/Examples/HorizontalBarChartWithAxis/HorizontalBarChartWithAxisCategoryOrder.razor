@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="margin-top: 16px; max-width: 220px;">
     <FluentSelect TOption="string"
@@ -13,12 +13,7 @@
     </FluentSelect>
 </div>
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
-                                  ChartTitle="Category order control"
-                                  HideLegends="true"
-                                  ShowYAxisLabels="true"
-                                  YAxisCategoryOrder="@_order"
-                                  ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Category order control" HideLegends="true" ShowYAxisLabels="true" YAxisCategoryOrder="@_order" ChartData="@ChartData" Width="650px" Height="350px">
 </FluentHorizontalBarChartWithAxis>
 
 @code {

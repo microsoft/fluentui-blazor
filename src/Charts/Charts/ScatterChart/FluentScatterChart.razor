@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentCartesianChartBase
 
@@ -45,6 +45,13 @@
                       show-x-axis-labels-tooltip="@(ShowXAxisLabelsTooltip ? "true" : null)"
                       date-localize-options="@DateLocalizeOptionsJson"
                       use-utc="@(UseUTC ? "true" : null)"
+                      line-border-color="@LineBorderColor"
+                      line-border-width="@LineBorderWidth"
+                      line-stroke-dasharray="@LineStrokeDasharray"
+                      line-stroke-dashoffset="@LineStrokeDashoffset"
+                      line-stroke-linecap="@(LineStrokeLinecap is null ? null : LineStrokeLinecap.Value.ToAttributeValue())"
+                      line-stroke-width="@LineStrokeWidth"
+                      secondary-y-scale-type="@SecondaryYAxisScaleType.ToAttributeValue()"
                       @attributes="@AdditionalAttributes">
 </fluent-scatter-chart>
 

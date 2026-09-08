@@ -4,10 +4,7 @@
     <FluentCheckbox @bind-Value="@_allowMultiple" Label="Allow multiple legend selection" />
 </div>
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
-                                  ChartTitle="Horizontal bar chart multiple legend selection example"
-                                  AllowMultipleLegendSelection="@_allowMultiple"
-                                  ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Horizontal bar chart multiple legend selection example" AllowMultipleLegendSelection="@_allowMultiple" ChartData="@ChartData" Width="650px" Height="350px">
 </FluentHorizontalBarChartWithAxis>
 
 @code {

@@ -1,8 +1,9 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_allowMultiple" Label="Allow multiple legend selection" />
 
-<FluentHorizontalBarChart ChartTitle="Horizontal bar chart multiple legend selection example"
+<FluentHorizontalBarChart Width="650px"
+                          ChartTitle="Horizontal bar chart multiple legend selection example"
                           AllowMultipleLegendSelection="@_allowMultiple"
                           ChartData="@ChartData">
 </FluentHorizontalBarChart>

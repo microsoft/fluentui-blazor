@@ -1,8 +1,9 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_hideTooltip" Label="Hide tooltip" />
 
-<FluentHorizontalBarChart ChartTitle="Horizontal bar chart hide tooltip example"
+<FluentHorizontalBarChart Width="650px"
+                          ChartTitle="Horizontal bar chart hide tooltip example"
                           HideTooltip="@_hideTooltip"
                           ChartData="@ChartData">
 </FluentHorizontalBarChart>

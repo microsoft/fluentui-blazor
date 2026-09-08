@@ -27,7 +27,7 @@ public partial class FluentVerticalStackedBarChart : FluentCartesianChartBase
     /// Gets or sets the data for the vertical stacked bar chart.
     /// </summary>
     [Parameter, EditorRequired]
-    public IReadOnlyList<VerticalStackedBarChartSeries> ChartData { get; set; } = [];
+    public IReadOnlyList<VerticalStackedBarChartData> ChartData { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the width of each bar. Use <see langword="null"/> to fill the available band automatically.

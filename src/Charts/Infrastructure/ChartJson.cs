@@ -100,32 +100,32 @@ public static class ChartJson
     /// <summary>
     /// Serializes vertical bar chart data using the vertical bar chart serializer context.
     /// </summary>
-    /// <param name="value">The vertical bar chart series collection.</param>
+    /// <param name="value">The vertical bar chart data points.</param>
     /// <returns>A JSON string suitable for the <c>fluent-vertical-bar-chart</c> component.</returns>
-    public static string Serialize(IReadOnlyList<VerticalBarChartSeries> value) =>
+    public static string Serialize(IReadOnlyList<VerticalBarChartDataPoint> value) =>
         JsonSerializer.Serialize(
             value,
-            VerticalBarChartDataJsonSerializerContext.Default.IReadOnlyListVerticalBarChartSeries);
+            VerticalBarChartDataJsonSerializerContext.Default.IReadOnlyListVerticalBarChartDataPoint);
 
     /// <summary>
     /// Serializes grouped vertical bar chart data using the grouped vertical bar chart serializer context.
     /// </summary>
-    /// <param name="value">The grouped vertical bar chart series collection.</param>
+    /// <param name="value">The grouped vertical bar chart category collection.</param>
     /// <returns>A JSON string suitable for the <c>fluent-grouped-vertical-bar-chart</c> component.</returns>
-    public static string Serialize(IReadOnlyList<GroupedVerticalBarChartSeries> value) =>
+    public static string Serialize(IReadOnlyList<GroupedVerticalBarChartData> value) =>
         JsonSerializer.Serialize(
             value,
-            GroupedVerticalBarChartDataJsonSerializerContext.Default.IReadOnlyListGroupedVerticalBarChartSeries);
+            GroupedVerticalBarChartDataJsonSerializerContext.Default.IReadOnlyListGroupedVerticalBarChartData);
 
     /// <summary>
     /// Serializes vertical stacked bar chart data using the vertical stacked bar chart serializer context.
     /// </summary>
-    /// <param name="value">The vertical stacked bar chart series collection.</param>
+    /// <param name="value">The vertical stacked bar chart category collection.</param>
     /// <returns>A JSON string suitable for the <c>fluent-vertical-stacked-bar-chart</c> component.</returns>
-    public static string Serialize(IReadOnlyList<VerticalStackedBarChartSeries> value) =>
+    public static string Serialize(IReadOnlyList<VerticalStackedBarChartData> value) =>
         JsonSerializer.Serialize(
             value,
-            VerticalStackedBarChartDataJsonSerializerContext.Default.IReadOnlyListVerticalStackedBarChartSeries);
+            VerticalStackedBarChartDataJsonSerializerContext.Default.IReadOnlyListVerticalStackedBarChartData);
 
     /// <summary>
     /// Serializes polar chart data using the polar chart serializer context.

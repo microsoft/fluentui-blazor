@@ -42,6 +42,22 @@
                                        tick-format="@TickFormat"
                                        stroke-width="@StrokeWidth"
                                        show-x-axis-labels-tooltip="@(ShowXAxisLabelsTooltip ? "true" : null)"
+                                       hide-tick-overlap="@(HideTickOverlap ? "true" : null)"
+                                       line-border-color="@LineBorderColor"
+                                       line-border-width="@LineBorderWidth"
+                                       line-stroke-dasharray="@LineStrokeDasharray"
+                                       line-stroke-dashoffset="@LineStrokeDashoffset"
+                                       line-stroke-linecap="@(LineStrokeLinecap is null ? null : LineStrokeLinecap.Value.ToAttributeValue())"
+                                       line-stroke-width="@LineStrokeWidth"
+                                       no-of-chars-to-truncate="@NoOfCharsToTruncate"
+                                       secondary-y-scale-type="@SecondaryYAxisScaleType.ToAttributeValue()"
+                                       use-utc="@(UseUTC ? "true" : null)"
+                                       x-axis-category-order="@XAxisCategoryOrder.ToAttributeValue()"
+                                       x-axis-inner-padding="@XAxisInnerPadding"
+                                       x-axis-outer-padding="@XAxisOuterPadding"
+                                       x-scale-type="@XAxisScaleType.ToAttributeValue()"
+                                       y-scale-type="@YAxisScaleType.ToAttributeValue()"
+                                       y-axis-tick-values="@YAxisTickValuesJson"
                                        date-localize-options="@DateLocalizeOptionsJson" @attributes="@AdditionalAttributes">
 </fluent-horizontal-bar-chart-with-axis>
 

@@ -1,7 +1,7 @@
 /** @public */
 export interface ScatterChartDataPoint {
   /** @public */ x: number | Date | string;
-  /** @public */ y: number;
+  /** @public */ y: number | string;
   /** @public */ markerSize?: number;
 }
 

@@ -98,8 +98,7 @@ export class SparklineChart extends ChartBase {
     const legend = series?.legend;
     const chartWidth = toNumber(this.width, 80);
     const chartHeight = toNumber(this.height, 20);
-    const legendWidth = this.showLegend && legend ? this.valueTextWidth ?? 80 : 0;
-    this._applyHostDimensions(chartWidth + legendWidth, chartHeight);
+    let legendWidth = this.showLegend && legend ? this.valueTextWidth ?? 0 : 0;
     this._clearChart();
     this.legends = [];
 
@@ -179,8 +178,14 @@ export class SparklineChart extends ChartBase {
 
     this.chartContainer.appendChild(svg);
     if (this.showLegend && legend) {
-      this.chartContainer.appendChild(this._createLegendSvg(legend, legendWidth, height));
+      const legendSvg = this._createLegendSvg(legend, legendWidth, height);
+      this.chartContainer.appendChild(legendSvg);
+      if (this.valueTextWidth === undefined) {
+        legendWidth = Math.ceil(legendSvg.querySelector('text')?.getComputedTextLength() ?? 0) + 16;
+        legendSvg.setAttribute('width', String(legendWidth));
+      }
     }
+    this._applyHostDimensions(chartWidth + legendWidth, chartHeight);
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
   }
 

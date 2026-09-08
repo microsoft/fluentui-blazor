@@ -26,7 +26,7 @@ public partial class FluentVerticalBarChart : FluentCartesianChartBase
     /// Gets or sets the data for the vertical bar chart.
     /// </summary>
     [Parameter, EditorRequired]
-    public IReadOnlyList<VerticalBarChartSeries> ChartData { get; set; } = [];
+    public IReadOnlyList<VerticalBarChartDataPoint> ChartData { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the width of each bar. Use <see langword="null"/> to fill the available band automatically.
@@ -59,7 +59,7 @@ public partial class FluentVerticalBarChart : FluentCartesianChartBase
     public IReadOnlyList<string>? Colors { get; set; }
 
     /// <summary>
-    /// Gets or sets the legend text for the overlaid line series, when <see cref="VerticalBarChartSeries.BenchmarkData"/>
+    /// Gets or sets the legend text for the overlaid line series, when <see cref="VerticalBarChartDataPoint.LineData"/>
     /// values are supplied.
     /// </summary>
     [Parameter]

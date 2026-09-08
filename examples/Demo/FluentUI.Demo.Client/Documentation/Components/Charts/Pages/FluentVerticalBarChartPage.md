@@ -50,3 +50,23 @@ Try to keep the number of bars in the chart between 3 and 20 to maximize readabi
 ## Don'ts
 
 Don't use very long labels in vertical bar chart. Long labels use unnecessary space and make the chart skewed. For long labels use horizontal bar chart with axis.
+
+## Examples
+
+### Default
+
+The default example renders a vertical bar chart with two data points.
+
+{{ VerticalBarChartDefault }}
+
+## API Fluent Vertical Bar Chart
+
+{{ API Type=FluentVerticalBarChart }}
+
+## API Vertical Bar Chart Data Point
+
+{{ API Type=VerticalBarChartDataPoint Properties=All }}
+
+## API Vertical Bar Chart Line Data Point
+
+{{ API Type=VerticalBarChartLineDataPoint Properties=All }}

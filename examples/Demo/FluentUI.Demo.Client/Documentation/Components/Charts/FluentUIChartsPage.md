@@ -6,19 +6,30 @@ icon: ChartMultiple
 
 # Charts
 
-The Fluent UI Charts are a set of Razor components that allow you to easily use charts in your Blazor applications. The Charts are not part of the core
+The Fluent UI Charts are a set of 16 Razor components that allow you to easily use charts in your Blazor applications. The Charts are not part of the core
 Fluent UI Blazor package, but are available as a separate package (`Microsoft.FluentUI.AspNetCore.Components.Charts`). This allows us to keep the core
 package lightweight and focused on the most commonly used components, while still providing a rich set of charting options for those who need them.
 
-In the future, the package will be extended with more chart types (based on the Fluent UI React v9 Charts package).
-
 Currently, the following chart types are available:
 
+- [Area Chart](/Charts/AreaChart)
 - [Donut Chart](/Charts/DonutChart)
 - [Funnel Chart](/Charts/FunnelChart)
 - [Gantt Chart](/Charts/GanttChart)
+- [Gauge Chart](/Charts/GaugeChart)
+- [Grouped Vertical Bar Chart](/Charts/GroupedVerticalBarChart)
+- [Heat Map Chart](/Charts/HeatMapChart)
 - [Horizontal Bar Chart](/Charts/HorizontalBarChart)
 - [Horizontal Bar Chart with Axis](/Charts/HorizontalBarChartWithAxis)
+- [Line Chart](/Charts/LineChart)
+- [Polar Chart](/Charts/PolarChart)
+- [Sankey Chart](/Charts/SankeyChart)
+- [Scatter Chart](/Charts/ScatterChart)
+- [Sparkline Chart](/Charts/SparklineChart)
+- [Vertical Bar Chart](/Charts/VerticalBarChart)
+- [Vertical Stacked Bar Chart](/Charts/VerticalStackedBarChart)
+
+In the future, the package might be extended with even more chart types (based on the Fluent UI React v9 Charts package).
 
 ## Fluent Chart Base
 

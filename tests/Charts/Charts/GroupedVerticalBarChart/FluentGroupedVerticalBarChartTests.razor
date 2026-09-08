@@ -1,0 +1,351 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<GroupedVerticalBarChartData> DefaultData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Group 1",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "Series A", Legend = "Series A", Data = 25 },
+                new GroupedVerticalBarChartDataPoint { Key = "Series B", Legend = "Series B", Data = 35 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Group 2",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "Series A", Legend = "Series A", Data = 15 },
+                new GroupedVerticalBarChartDataPoint { Key = "Series B", Legend = "Series B", Data = 45 },
+            ],
+        },
+    ];
+
+    public FluentGroupedVerticalBarChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" ChartTitle="Grouped Bar Chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("chart-title");
+        Assert.Equal("Grouped Bar Chart", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_BarWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" BarWidth="20px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("bar-width");
+        Assert.Equal("20px", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_MaxBarWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" MaxBarWidth="40px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("max-bar-width");
+        Assert.Equal("40px", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_UseSingleColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" UseSingleColor="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("use-single-color");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_Colors()
+    {
+        // Arrange
+        var colors = new[] { "#FF0000", "#00FF00" };
+
+        // Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" Colors="@colors" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("colors");
+        Assert.NotNull(attribute);
+        Assert.Contains("#FF0000", attribute);
+        Assert.Contains("#00FF00", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_IsCalloutForStack()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" IsCalloutForStack="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("is-callout-for-stack");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_ShowYAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" ShowYAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("show-y-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_ShowYAxisLabelsTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" ShowYAxisLabelsTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("show-y-axis-labels-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" Width="600px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("width");
+        Assert.Equal("600px", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("de-DE");
+
+        // Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("culture");
+        Assert.Equal("de-DE", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" Class="my-grouped-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-grouped-vertical-bar-chart");
+        Assert.Contains("my-grouped-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-grouped-vertical-bar-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" aria-label="Grouped chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("aria-label");
+        Assert.Equal("Grouped chart", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<GroupedVerticalBarChartData>
+        {
+            new GroupedVerticalBarChartData
+            {
+                XAxisPoint = "Test Series",
+                Series = [ new GroupedVerticalBarChartDataPoint { Key = "Item 1", Legend = "Item 1", Data = 100 } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Test Series", attribute);
+        Assert.Contains("Item 1", attribute);
+        Assert.Contains("100", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_DataPoint_WithColor()
+    {
+        // Arrange
+        var data = new List<GroupedVerticalBarChartData>
+        {
+            new GroupedVerticalBarChartData
+            {
+                XAxisPoint = "Group",
+                Series = [ new GroupedVerticalBarChartDataPoint { Key = "Col", Legend = "Col", Data = 50, Color = DataVizPalette.Color2 } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("color2", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<GroupedVerticalBarChartData>
+        {
+            new GroupedVerticalBarChartData
+            {
+                XAxisPoint = "Group",
+                Series = [ new GroupedVerticalBarChartDataPoint { Key = "Custom", Legend = "Custom", Data = 50, Color = DataVizPalette.Custom, CustomColor = "#AA00FF" } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#AA00FF", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentGroupedVerticalBarChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentGroupedVerticalBarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentGroupedVerticalBarChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </CartesianTooltipTemplate>
+            </FluentGroupedVerticalBarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@(Array.Empty<GroupedVerticalBarChartData>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-grouped-vertical-bar-chart");
+        Assert.NotNull(element);
+    }
+}

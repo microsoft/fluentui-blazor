@@ -1,0 +1,218 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly SankeyChartData DefaultData = new()
+    {
+        Nodes =
+        [
+            new SankeyChartNode { Name = "Source A", Color = DataVizPalette.Color1 },
+            new SankeyChartNode { Name = "Source B", Color = DataVizPalette.Color2 },
+            new SankeyChartNode { Name = "Target C", Color = DataVizPalette.Color3 },
+        ],
+        Links =
+        [
+            new SankeyChartLink { Source = 0, Target = 2, Value = 50 },
+            new SankeyChartLink { Source = 1, Target = 2, Value = 30 },
+        ],
+    };
+
+    public FluentSankeyChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSankeyChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSankeyChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" ChartTitle="Flow Diagram" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("chart-title");
+        Assert.Equal("Flow Diagram", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_PathColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" PathColor="#00FF00" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("path-color");
+        Assert.Equal("#00FF00", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" Width="700px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("width");
+        Assert.Equal("700px", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" Height="500px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("height");
+        Assert.Equal("500px", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("ja-JP");
+
+        // Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("culture");
+        Assert.Equal("ja-JP", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" Class="my-sankey-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-sankey-chart");
+        Assert.Contains("my-sankey-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-sankey-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@DefaultData" aria-label="Sankey view" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("aria-label");
+        Assert.Equal("Sankey view", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new SankeyChartData
+        {
+            Nodes = [ new SankeyChartNode { Name = "Node 1", Color = DataVizPalette.Color4 } ],
+            Links = [ new SankeyChartLink { Source = 0, Target = 1, Value = 100 } ],
+        };
+
+        // Act
+        var cut = Render(@<FluentSankeyChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Node 1", attribute);
+        Assert.Contains("100", attribute);
+        Assert.Contains("color4", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_Node_WithCustomColor()
+    {
+        // Arrange
+        var data = new SankeyChartData
+        {
+            Nodes = [ new SankeyChartNode { Name = "Custom Node", Color = DataVizPalette.Custom, CustomColor = "#118899" } ],
+            Links = [],
+        };
+
+        // Act
+        var cut = Render(@<FluentSankeyChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sankey-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#118899", attribute);
+    }
+
+    [Fact]
+    public void FluentSankeyChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSankeyChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentSankeyChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentSankeyChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSankeyChart ChartData="@(new SankeyChartData())" />);
+
+        // Assert
+        var element = cut.Find("fluent-sankey-chart");
+        Assert.NotNull(element);
+    }
+}

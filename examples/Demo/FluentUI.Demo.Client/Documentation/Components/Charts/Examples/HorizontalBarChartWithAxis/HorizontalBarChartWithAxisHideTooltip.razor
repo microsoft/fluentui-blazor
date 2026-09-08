@@ -4,10 +4,7 @@
     <FluentCheckbox @bind-Value="@_hideTooltip" Label="Hide tooltip" />
 </div>
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
-                                  ChartTitle="Horizontal bar chart hide tooltip example"
-                                  HideTooltip="@_hideTooltip"
-                                  ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Horizontal bar chart hide tooltip example" HideTooltip="@_hideTooltip" ChartData="@ChartData" Width="650px" Height="350px">
 </FluentHorizontalBarChartWithAxis>
 
 @code {

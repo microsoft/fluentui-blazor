@@ -1,0 +1,64 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentLineChart ChartTitle="Line Chart Basic Example"
+                 ChartData="@chartData"
+                 Width="700px"
+                 Height="300px"
+                 XAxisTitle="Values of each category"
+                 YAxisTitle="Different categories of mail flow"
+                 YAxisTickLabelMaxWidth="32"
+                 YMinValue="200"
+                 YMaxValue="301"
+                 LineStrokeWidth="4"
+                 LineBorderWidth="2">
+</FluentLineChart>
+
+@code {
+    private readonly IReadOnlyList<LineChartSeries> chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "From_Legacy_to_O365",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 216000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 10, 0, 0, DateTimeKind.Utc), Y = 218123 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 11, 0, 0, DateTimeKind.Utc), Y = 217124 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 4, 0, 0, 0, DateTimeKind.Utc), Y = 248000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 252000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 6, 0, 0, 0, DateTimeKind.Utc), Y = 274000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 7, 0, 0, 0, DateTimeKind.Utc), Y = 260000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 8, 0, 0, 0, DateTimeKind.Utc), Y = 304000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 9, 0, 0, 0, DateTimeKind.Utc), Y = 218000 },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "All",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 297000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 4, 0, 0, 0, DateTimeKind.Utc), Y = 284000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 282000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 6, 0, 0, 0, DateTimeKind.Utc), Y = 294000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 7, 0, 0, 0, DateTimeKind.Utc), Y = 224000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 8, 0, 0, 0, DateTimeKind.Utc), Y = 300000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 9, 0, 0, 0, DateTimeKind.Utc), Y = 298000 },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "single point",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.5",
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 5, 12, 0, 0, DateTimeKind.Utc), Y = 232000 },
+            ],
+        },
+    ];
+}

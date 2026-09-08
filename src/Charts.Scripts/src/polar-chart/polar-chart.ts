@@ -179,6 +179,7 @@ export class PolarChart extends ChartBase {
       return;
     }
 
+    const activeGroupedTheta = this.enableMultiValueCallout ? this._activeGroupedTheta : undefined;
     this._applyHostDimensions(this.width, this.height);
     this._clearChart();
     this._tooltipTransform = this._isRTL ? 'translateX(50%)' : 'translateX(-50%)';
@@ -604,6 +605,7 @@ export class PolarChart extends ChartBase {
     interactionSurface.addEventListener('mouseleave', clearGroupedCallout);
 
     this.chartContainer.appendChild(svg);
+    this._activeGroupedTheta = activeGroupedTheta;
     this._applyActiveLegendState();
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
   }

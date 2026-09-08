@@ -4,7 +4,6 @@ import { axisBottom, axisLeft, axisRight, type Axis, type AxisDomain } from 'd3-
 import { format } from 'd3-format';
 import { scaleLinear, scaleTime, type ScaleLinear, type ScaleTime } from 'd3-scale';
 import { area as createArea, curveMonotoneX, line as createLine, stack as createStack } from 'd3-shape';
-import { timeFormat, utcFormat } from 'd3-time-format';
 import type { TooltipProps } from '../utils/chart-options.js';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
@@ -65,7 +64,7 @@ const formatDateValue = (chart: AreaChart, value: Date): string => {
   }
   if (chart.tickFormat) {
     try {
-      return (chart.useUTC ? utcFormat(chart.tickFormat) : timeFormat(chart.tickFormat))(value);
+      return chart._formatDateWithD3Specifier(value, chart.tickFormat);
     } catch {
       // Fall back to Intl below.
     }
@@ -413,6 +412,8 @@ export class AreaChart extends CartesianChartBase {
         range: [innerHeight, 0],
         tickCount: yTickCount,
         roundedTicks: this.roundedTicks,
+        minValue: toOptionalNumber(this.secondaryYMinValue),
+        maxValue: toOptionalNumber(this.secondaryYMaxValue),
       });
       preparedSecondaryYAxis = secondaryYAxis.preparedAxis;
       yScaleSecondary = secondaryYAxis.scale;
@@ -436,23 +437,32 @@ export class AreaChart extends CartesianChartBase {
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const xAxis = axisBottom(xScale).tickPadding(toNumber(this.tickPadding, 6));
-    if (!isDateAxis) {
-      xAxis.ticks(6);
-    }
-    if (this.tickValues?.length) {
-      if (isDateAxis) {
-        xAxis.tickValues(this.tickValues.map(value => parseDateOrNumber(value as string | number | Date) as Date));
-      } else {
-        xAxis.tickValues(this.tickValues.map(value => Number(value)));
-      }
-    }
+    const xAxis = axisBottom(xScale)
+      .tickPadding(this._getXAxisTickPadding(6))
+      .tickSize(this._getXAxisTickSize(6));
+    const xTickValues = this.tickValues?.length
+      ? isDateAxis
+        ? this.tickValues.map(value => parseDateOrNumber(value as string | number | Date) as Date)
+        : this.tickValues.map(value => Number(value))
+      : undefined;
+    applyAxisTickConfig(
+      xAxis as Axis<AxisDomain>,
+      isDateAxis ? this.xAxisTickCount : this.xAxisTickCount ?? 6,
+      xTickValues as AxisDomain[] | undefined,
+      this.xAxisConfig,
+      xScale as AxisScaleLike<AxisDomain>,
+      this.xScaleType,
+      this.useUTC,
+    );
 
     const yAxis = axisLeft(yScale).tickPadding(toNumber(this.tickPadding, 6));
     applyAxisTickConfig(
-      yAxis,
+      yAxis as unknown as Axis<number>,
       this.yAxisTickCount ?? DEFAULT_NUMERIC_Y_TICK_COUNT,
       this.yAxisTickValues ?? preparedPrimaryYAxis.tickValues,
+      this.yAxisConfig,
+      yScale as unknown as AxisScaleLike<number>,
+      this.yScaleType,
     );
 
     renderAxisGridLinesShared({
@@ -909,7 +919,7 @@ export class AreaChart extends CartesianChartBase {
       axisTop: margins.top,
       innerWidth,
       innerHeight,
-      tickPadding: toNumber(this.tickPadding, 6),
+      tickPadding: this._getXAxisTickPadding(6),
       isRTL: isRtl,
       rotateXAxisLabels: this.rotateXAxisLabels,
       wrapXAxisLabels: this.wrapXAxisLabels,
@@ -920,6 +930,8 @@ export class AreaChart extends CartesianChartBase {
         hide: () => this._hideAxisLabelTooltip(),
       },
       xAxisTitle: this.xAxisTitle,
+      xAxisAnnotation: this.xAxisAnnotation,
+      tickText: this.xAxisConfig?.tickText,
       labelDominantBaseline: 'hanging',
     });
 
@@ -948,6 +960,8 @@ export class AreaChart extends CartesianChartBase {
         tickPadding: toNumber(this.tickPadding, 6),
         isRTL: isRtl,
         yAxisTitle: this.yAxisTitle,
+        yAxisAnnotation: hasSecondaryY ? undefined : this.yAxisAnnotation,
+        tickText: this.yAxisConfig?.tickText,
       });
     }
 

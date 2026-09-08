@@ -46,3 +46,27 @@ start of a group and the start of the next group. These props are particularly r
 a string x-axis. By default, the inner padding is set to 2 / (2 + groupWidthInTermsOfBarWidth),
 maintaining a 2:1 spacing ratio. This default value is calculated at runtime using the formula:
     > innerPadding = spaceBetweenGroups / (spaceBetweenGroups + groupWidth)
+
+## Examples
+
+### Default
+
+The default example renders a grouped vertical bar chart with two data points.
+
+{{ GroupedVerticalBarChartDefault }}
+
+## API Fluent Grouped Vertical Bar Chart
+
+{{ API Type=FluentGroupedVerticalBarChart }}
+
+## API Grouped Vertical Bar Chart Data
+
+{{ API Type=GroupedVerticalBarChartData Properties=All }}
+
+## API Grouped Vertical Bar Chart Data Point
+
+{{ API Type=GroupedVerticalBarChartDataPoint Properties=All }}
+
+## API Grouped Vertical Bar Chart Line Data Point
+
+{{ API Type=GroupedVerticalBarChartLineDataPoint Properties=All }}

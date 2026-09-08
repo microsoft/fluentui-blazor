@@ -27,7 +27,7 @@ public partial class FluentGroupedVerticalBarChart : FluentCartesianChartBase
     /// Gets or sets the data for the grouped vertical bar chart.
     /// </summary>
     [Parameter, EditorRequired]
-    public IReadOnlyList<GroupedVerticalBarChartSeries> ChartData { get; set; } = [];
+    public IReadOnlyList<GroupedVerticalBarChartData> ChartData { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the width of each bar. Use <see langword="null"/> to fill the available band automatically.

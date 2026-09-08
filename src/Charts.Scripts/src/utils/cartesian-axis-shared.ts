@@ -1,10 +1,11 @@
 import type { Axis, AxisDomain } from 'd3-axis';
-import { nice as d3Nice, ticks as d3Ticks } from 'd3-array';
+import { max as d3Max, min as d3Min, nice as d3Nice, ticks as d3Ticks } from 'd3-array';
 import { scaleLinear, scaleLog, type ScaleLinear, type ScaleLogarithmic } from 'd3-scale';
-import type { AxisCategoryOrder, AxisScaleType } from './chart-options.js';
+import type { AxisCategoryOrder, AxisConfig, AxisScaleType } from './chart-options.js';
 import { SVG_NAMESPACE_URI, wrapText } from './chart-helpers.js';
 
 export const DEFAULT_NUMERIC_Y_TICK_COUNT = 4;
+const DEFAULT_DATE_STRING = '1970-01-01T00:00:00.000Z';
 
 export type AxisScaleLike<Domain extends AxisDomain> = {
   domain(): Domain[];
@@ -60,6 +61,10 @@ export const applyAxisTickConfig = <Domain extends AxisDomain>(
   axis: Axis<Domain>,
   tickCount: number | string | undefined,
   tickValues: readonly Domain[] | undefined,
+  axisConfig?: AxisConfig,
+  scale?: AxisScaleLike<Domain>,
+  scaleType?: AxisScaleType,
+  useUTC?: boolean,
 ) => {
   const parsedCount = Number(tickCount);
   if (Number.isFinite(parsedCount) && parsedCount > 0) {
@@ -67,6 +72,37 @@ export const applyAxisTickConfig = <Domain extends AxisDomain>(
   }
   if (tickValues?.length) {
     axis.tickValues(tickValues as Iterable<Domain>);
+    return;
+  }
+
+  if (!axisConfig?.tickStep || !scale) {
+    return;
+  }
+
+  const domain = scale.domain();
+  const firstDomainValue = domain[0];
+  let generatedTicks: readonly Domain[] | undefined;
+  if (firstDomainValue instanceof Date) {
+    const rawTick0 = axisConfig.tick0 as Date | number | string | undefined;
+    const tick0 = rawTick0 instanceof Date ? rawTick0 : rawTick0 ? new Date(rawTick0) : undefined;
+    generatedTicks = generateDateTicks(
+      axisConfig.tickStep,
+      tick0 && !Number.isNaN(tick0.getTime()) ? tick0 : undefined,
+      domain as Date[],
+      useUTC,
+    ) as readonly Domain[] | undefined;
+  } else if (typeof firstDomainValue === 'number') {
+    const parsedTick0 = Number(axisConfig.tick0);
+    generatedTicks = generateNumericTicks(
+      scaleType,
+      axisConfig.tickStep,
+      Number.isFinite(parsedTick0) ? parsedTick0 : undefined,
+      domain as number[],
+    ) as readonly Domain[] | undefined;
+  }
+
+  if (generatedTicks?.length) {
+    axis.tickValues(generatedTicks as Iterable<Domain>);
   }
 };
 
@@ -84,6 +120,32 @@ export const toOptionalAxisNumber = (value: number | string | undefined): number
   }
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : undefined;
+};
+
+/**
+ * Calculates a number's precision based on the number of trailing
+ * zeros if the number does not have a decimal indicated by a negative
+ * precision. Otherwise, it calculates the number of digits after
+ * the decimal point indicated by a positive precision.
+ */
+export const calculatePrecision = (value: number | string): number => {
+  const groups = /[1-9]([0]+$)|\.([0-9]*)/.exec(String(value));
+  if (!groups) {
+    return 0;
+  }
+  if (groups[1]) {
+    return -groups[1].length;
+  }
+  if (groups[2]) {
+    return groups[2].length;
+  }
+  return 0;
+};
+
+/** Rounds a number to a certain level of precision. Accepts negative precision. */
+export const precisionRound = (value: number, precision: number, base: number = 10): number => {
+  const exp = base ** precision;
+  return Math.round(value * exp) / exp;
 };
 
 export type NumericContinuousScale = ScaleLinear<number, number> | ScaleLogarithmic<number, number>;
@@ -270,6 +332,121 @@ export const createPreparedNumericContinuousScale = ({
   return { scale, preparedAxis, isLogarithmic };
 };
 
+export const generateLinearTicks = (tick0: number, tickStep: number, scaleDomain: number[]): number[] => {
+  const domainMin = d3Min(scaleDomain) ?? 0;
+  const domainMax = d3Max(scaleDomain) ?? 0;
+  const precision = Math.max(calculatePrecision(tick0), calculatePrecision(tickStep));
+  const start = Math.ceil(precisionRound((domainMin - tick0) / tickStep, precision));
+  const end = Math.floor(precisionRound((domainMax - tick0) / tickStep, precision));
+
+  const ticks: number[] = [];
+  for (let index = start; index <= end; index++) {
+    ticks.push(precisionRound(tick0 + index * tickStep, precision));
+  }
+
+  return ticks;
+};
+
+export const generateMonthlyTicks = (
+  tick0: Date,
+  tickStepInMonths: number,
+  scaleDomain: Date[],
+  useUTC?: boolean,
+): Date[] => {
+  const domainMin = +(d3Min(scaleDomain) ?? new Date(DEFAULT_DATE_STRING));
+  const domainMax = +(d3Max(scaleDomain) ?? new Date(DEFAULT_DATE_STRING));
+  const getMonth = (date: Date) => (useUTC ? date.getUTCMonth() : date.getMonth());
+  const setMonth = (date: Date, month: number) =>
+    useUTC ? new Date(date.setUTCMonth(month)) : new Date(date.setMonth(month));
+
+  let start = 0;
+  for (let firstTick = new Date(+tick0); +firstTick > domainMin; ) {
+    firstTick = setMonth(firstTick, getMonth(firstTick) - tickStepInMonths);
+    start -= tickStepInMonths;
+  }
+
+  const baseMonth = getMonth(tick0);
+  const ticks: Date[] = [];
+
+  for (let index = start; ; index += tickStepInMonths) {
+    let tickDate = setMonth(new Date(+tick0), baseMonth + index);
+    if (getMonth(tickDate) !== (((baseMonth + index) % 12) + 12) % 12) {
+      tickDate = useUTC ? new Date(tickDate.setUTCDate(0)) : new Date(tickDate.setDate(0));
+    }
+
+    if (+tickDate > domainMax) {
+      break;
+    }
+    if (+tickDate >= domainMin) {
+      ticks.push(tickDate);
+    }
+  }
+
+  return ticks;
+};
+
+export const generateNumericTicks = (
+  scaleType: AxisScaleType | undefined,
+  tickStep: string | number | undefined,
+  tick0: number | Date | undefined,
+  scaleDomain: number[],
+): number[] | undefined => {
+  const refTick = typeof tick0 === 'number' && Number.isFinite(tick0) ? tick0 : 0;
+
+  if (scaleType === 'log') {
+    if (typeof tickStep === 'number' && tickStep > 0) {
+      return generateLinearTicks(
+        refTick,
+        tickStep,
+        scaleDomain.map(value => Math.log10(value)),
+      ).map(value => 10 ** value);
+    }
+
+    if (typeof tickStep === 'string') {
+      const prefix = tickStep[0];
+      const stepValue = Number(tickStep.slice(1));
+      if (prefix === 'L' && Number.isFinite(stepValue) && stepValue > 0) {
+        return generateLinearTicks(refTick, stepValue, scaleDomain);
+      }
+    }
+
+    return undefined;
+  }
+
+  if (typeof tickStep === 'number' && tickStep > 0) {
+    return generateLinearTicks(refTick, tickStep, scaleDomain);
+  }
+
+  return undefined;
+};
+
+export const generateDateTicks = (
+  tickStep: string | number | undefined,
+  tick0: number | Date | undefined,
+  scaleDomain: Date[],
+  useUTC?: boolean,
+): Date[] | undefined => {
+  const refTick = tick0 instanceof Date && !Number.isNaN(tick0.getTime()) ? tick0 : new Date(DEFAULT_DATE_STRING);
+
+  if (typeof tickStep === 'number' && tickStep > 0) {
+    return generateLinearTicks(
+      +refTick,
+      tickStep,
+      scaleDomain.map(date => +date),
+    ).map(value => new Date(value));
+  }
+
+  if (typeof tickStep === 'string') {
+    const prefix = tickStep[0];
+    const stepValue = Number(tickStep.slice(1));
+    if (prefix === 'M' && Number.isFinite(stepValue) && stepValue > 0 && stepValue === Math.round(stepValue)) {
+      return generateMonthlyTicks(refTick, stepValue, scaleDomain, useUTC);
+    }
+  }
+
+  return undefined;
+};
+
 const createSvgElement = <T extends SVGElement>(tag: string): T =>
   document.createElementNS(SVG_NAMESPACE_URI, tag) as T;
 
@@ -300,6 +477,8 @@ export type BottomAxisRenderOptions<Domain extends AxisDomain> = {
   scale: AxisScaleLike<Domain>;
   axis: Axis<Domain>;
   formatter: (value: Domain) => string;
+  tickText?: string[];
+  preferAxisFormatter?: boolean;
   axisLeft: number;
   axisTop: number;
   innerWidth: number;
@@ -314,8 +493,10 @@ export type BottomAxisRenderOptions<Domain extends AxisDomain> = {
   noOfCharsToTruncate?: number;
   axisLabelTooltipHandlers?: AxisLabelTooltipHandlers;
   xAxisTitle?: string;
+  xAxisAnnotation?: string;
   labelClassName?: string;
   titleClassName?: string;
+  annotationClassName?: string;
   labelDominantBaseline?: 'hanging' | 'middle' | 'auto';
   showTickLines?: boolean;
 };
@@ -325,6 +506,8 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
   scale,
   axis,
   formatter,
+  tickText,
+  preferAxisFormatter = false,
   axisLeft,
   axisTop,
   innerWidth,
@@ -339,8 +522,10 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
   noOfCharsToTruncate = 4,
   axisLabelTooltipHandlers,
   xAxisTitle,
+  xAxisAnnotation,
   labelClassName = 'axis-text',
   titleClassName = 'x-axis-title',
+  annotationClassName = 'axis-annotation',
   labelDominantBaseline = 'hanging',
   showTickLines = true,
 }: BottomAxisRenderOptions<Domain>): void => {
@@ -368,19 +553,26 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
     tick.setAttribute('transform', `translate(${tickPosition}, 0)`);
 
     if (showTickLines) {
+      const tickSize = Math.max(0, axis.tickSizeInner());
       const line = createSvgElement<SVGLineElement>('line');
       line.classList.add('axis-tick-line');
-      line.setAttribute('y2', '6');
+      line.setAttribute('y2', String(tickSize));
       tick.appendChild(line);
     }
 
-    if (tickLabelFormatter?.(value, tickIndex) !== '') {
+    const resolvedLabel =
+      tickText?.[tickIndex] ??
+      (preferAxisFormatter && tickLabelFormatter ? tickLabelFormatter(value, tickIndex) : formatter(value));
+    if (
+      resolvedLabel !== '' &&
+      (tickText?.[tickIndex] !== undefined || tickLabelFormatter?.(value, tickIndex) !== '')
+    ) {
       const text = createSvgElement<SVGTextElement>('text');
       text.classList.add(labelClassName);
-      text.setAttribute('y', String(6 + tickPadding));
+      text.setAttribute('y', String(Math.max(0, axis.tickSizeInner()) + tickPadding));
       text.setAttribute('text-anchor', rotateXAxisLabels ? 'end' : 'middle');
       text.setAttribute('dominant-baseline', labelDominantBaseline);
-      const fullLabel = formatter(value);
+      const fullLabel = resolvedLabel;
       const shouldTruncateForTooltip = showXAxisLabelsTooltip && !wrapXAxisLabels;
       const renderedLabel =
         shouldTruncateForTooltip && fullLabel.length > safeTruncateChars
@@ -441,6 +633,17 @@ export const renderBottomAxisShared = <Domain extends AxisDomain>({
     group.appendChild(title);
   }
 
+  if (xAxisAnnotation) {
+    const annotation = createSvgElement<SVGTextElement>('text');
+    annotation.classList.add(annotationClassName);
+    annotation.setAttribute('x', String(axisLeft + innerWidth / 2));
+    annotation.setAttribute('y', String(Math.max(14, axisTop - 16)));
+    annotation.setAttribute('text-anchor', 'middle');
+    annotation.setAttribute('aria-hidden', 'true');
+    annotation.textContent = xAxisAnnotation;
+    svg.appendChild(annotation);
+  }
+
   if (hideTickOverlap && !rotateXAxisLabels && !wrapXAxisLabels) {
     hideOverlappingBottomAxisLabels(Array.from(group.querySelectorAll<SVGTextElement>(`.${labelClassName}`)));
   }
@@ -451,6 +654,7 @@ export type PrimaryYAxisRenderOptions = {
   scale: AxisScaleLike<number>;
   axis: Axis<number>;
   formatter: (value: number) => string;
+  tickText?: string[];
   axisStartX: number;
   axisTop: number;
   innerHeight: number;
@@ -458,9 +662,11 @@ export type PrimaryYAxisRenderOptions = {
   tickPadding: number;
   isRTL: boolean;
   yAxisTitle?: string;
+  yAxisAnnotation?: string;
   axisClassName?: string;
   labelClassName?: string;
   titleClassName?: string;
+  annotationClassName?: string;
   tickLabelMaxWidth?: number;
 };
 
@@ -560,6 +766,7 @@ export const renderPrimaryYAxisShared = ({
   scale,
   axis,
   formatter,
+  tickText,
   axisStartX,
   axisTop,
   innerHeight,
@@ -567,9 +774,11 @@ export const renderPrimaryYAxisShared = ({
   tickPadding,
   isRTL,
   yAxisTitle,
+  yAxisAnnotation,
   axisClassName = 'y-axis',
   labelClassName = 'y-axis-text',
   titleClassName = 'y-axis-title',
+  annotationClassName = 'axis-annotation',
   tickLabelMaxWidth,
 }: PrimaryYAxisRenderOptions): void => {
   const group = createSvgElement<SVGGElement>('g');
@@ -597,13 +806,14 @@ export const renderPrimaryYAxisShared = ({
     line.setAttribute('x2', isRTL ? '6' : '-6');
     tick.appendChild(line);
 
-    if (tickLabelFormatter?.(value, index) !== '') {
+    const resolvedLabel = tickText?.[index] ?? formatter(value);
+    if (tickText?.[index] !== undefined || tickLabelFormatter?.(value, index) !== '') {
       const text = createSvgElement<SVGTextElement>('text');
       text.classList.add(labelClassName);
       text.setAttribute('x', String(isRTL ? 6 + tickPadding : -(6 + tickPadding)));
       text.setAttribute('text-anchor', 'end');
       text.setAttribute('dominant-baseline', 'middle');
-      const fullLabel = formatter(value);
+      const fullLabel = resolvedLabel;
       hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
       const renderedLabel =
         tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
@@ -636,6 +846,20 @@ export const renderPrimaryYAxisShared = ({
     title.textContent = yAxisTitle;
     group.appendChild(title);
   }
+
+  if (yAxisAnnotation) {
+    const annotationX = isRTL ? axisStartX - 14 : axisStartX + innerWidth + 14;
+    const annotationY = axisTop + innerHeight / 2;
+    const annotation = createSvgElement<SVGTextElement>('text');
+    annotation.classList.add(annotationClassName);
+    annotation.setAttribute('x', String(annotationX));
+    annotation.setAttribute('y', String(annotationY));
+    annotation.setAttribute('text-anchor', 'middle');
+    annotation.setAttribute('transform', `rotate(-90, ${annotationX}, ${annotationY})`);
+    annotation.setAttribute('aria-hidden', 'true');
+    annotation.textContent = yAxisAnnotation;
+    svg.appendChild(annotation);
+  }
 };
 
 export type SecondaryYAxisRenderOptions = {
@@ -643,6 +867,7 @@ export type SecondaryYAxisRenderOptions = {
   scale: AxisScaleLike<number>;
   axis: Axis<number>;
   formatter: (value: number) => string;
+  tickText?: string[];
   axisStartX: number;
   axisTop: number;
   innerHeight: number;
@@ -661,6 +886,7 @@ export const renderSecondaryYAxisShared = ({
   scale,
   axis,
   formatter,
+  tickText,
   axisStartX,
   axisTop,
   innerHeight,
@@ -696,13 +922,14 @@ export const renderSecondaryYAxisShared = ({
     line.setAttribute('x2', isRTL ? '-6' : '6');
     tick.appendChild(line);
 
-    if (tickLabelFormatter?.(value, index) !== '') {
+    const resolvedLabel = tickText?.[index] ?? formatter(value);
+    if (tickText?.[index] !== undefined || tickLabelFormatter?.(value, index) !== '') {
       const text = createSvgElement<SVGTextElement>('text');
       text.classList.add(labelClassName);
       text.setAttribute('x', String(isRTL ? -(6 + tickPadding) : 6 + tickPadding));
       text.setAttribute('text-anchor', 'start');
       text.setAttribute('dominant-baseline', 'middle');
-      const fullLabel = formatter(value);
+      const fullLabel = resolvedLabel;
       hasNegativeTickLabel ||= fullLabel.startsWith('-') || fullLabel.startsWith('−');
       const renderedLabel =
         tickLabelMaxWidth && Number.isFinite(tickLabelMaxWidth)
@@ -755,8 +982,11 @@ export type BandYAxisRenderOptions<Domain extends AxisDomain> = {
   axisClassName?: string;
   labelClassName?: string;
   yAxisTitle?: string;
+  yAxisAnnotation?: string;
   titleClassName?: string;
+  annotationClassName?: string;
   tickLabelMaxWidth?: number;
+  tooltipFormatter?: (value: Domain) => string | undefined;
 };
 
 export const renderBandYAxisShared = <Domain extends AxisDomain>({
@@ -776,8 +1006,11 @@ export const renderBandYAxisShared = <Domain extends AxisDomain>({
   axisClassName = 'y-axis',
   labelClassName = 'y-axis-text',
   yAxisTitle,
+  yAxisAnnotation,
   titleClassName = 'y-axis-title',
+  annotationClassName = 'axis-annotation',
   tickLabelMaxWidth,
+  tooltipFormatter,
 }: BandYAxisRenderOptions<Domain>): void => {
   const group = createSvgElement<SVGGElement>('g');
   group.classList.add(axisClassName);
@@ -814,9 +1047,10 @@ export const renderBandYAxisShared = <Domain extends AxisDomain>({
         ? truncateTextToWidth(text, fullLabel, tickLabelMaxWidth)
         : fullLabel;
     text.textContent = renderedLabel;
-    if (renderedLabel !== fullLabel) {
+    const tooltipText = tooltipFormatter?.(value) ?? (renderedLabel !== fullLabel ? fullLabel : undefined);
+    if (tooltipText) {
       const title = createSvgElement<SVGTitleElement>('title');
-      title.textContent = fullLabel;
+      title.textContent = tooltipText;
       text.appendChild(title);
     }
     tick.appendChild(text);
@@ -833,6 +1067,20 @@ export const renderBandYAxisShared = <Domain extends AxisDomain>({
     title.setAttribute('transform', `rotate(${isRTL ? 90 : -90})`);
     title.textContent = yAxisTitle;
     group.appendChild(title);
+  }
+
+  if (yAxisAnnotation) {
+    const annotationX = isRTL ? axisX - 14 : axisX + 14;
+    const annotationY = axisTop + innerHeight / 2;
+    const annotation = createSvgElement<SVGTextElement>('text');
+    annotation.classList.add(annotationClassName);
+    annotation.setAttribute('x', String(annotationX));
+    annotation.setAttribute('y', String(annotationY));
+    annotation.setAttribute('text-anchor', 'middle');
+    annotation.setAttribute('transform', `rotate(-90, ${annotationX}, ${annotationY})`);
+    annotation.setAttribute('aria-hidden', 'true');
+    annotation.textContent = yAxisAnnotation;
+    svg.appendChild(annotation);
   }
 
   svg.appendChild(group);
@@ -856,6 +1104,8 @@ export type ContinuousBottomAxisRenderOptions = {
   noOfCharsToTruncate?: number;
   axisLabelTooltipHandlers?: AxisLabelTooltipHandlers;
   xAxisTitle?: string;
+  xAxisAnnotation?: string;
+  tickText?: string[];
   formatTickLabel: (tick: number, range: [number, number]) => string;
 };
 
@@ -877,6 +1127,8 @@ export const renderContinuousBottomAxisShared = ({
   noOfCharsToTruncate = 4,
   axisLabelTooltipHandlers,
   xAxisTitle,
+  xAxisAnnotation,
+  tickText,
   formatTickLabel,
 }: ContinuousBottomAxisRenderOptions) => {
   const safeTruncateChars = Number.isFinite(noOfCharsToTruncate) ? Math.max(1, Math.floor(noOfCharsToTruncate)) : 4;
@@ -901,16 +1153,8 @@ export const renderContinuousBottomAxisShared = ({
 
   ticks.forEach((tick, index) => {
     const x = tickPositions[index];
-    const tickLine = createSvgElement<SVGLineElement>('line');
-    tickLine.setAttribute('class', 'axis-tick-line');
-    tickLine.setAttribute('x1', `${x}`);
-    tickLine.setAttribute('x2', `${x}`);
-    tickLine.setAttribute('y1', `${axisY}`);
-    tickLine.setAttribute('y2', `${axisY + 6}`);
-    axisLayer.appendChild(tickLine);
-
-    const labelY = axisY + tickPadding + 12;
-    const rawLabel = formatTickLabel(tick, range);
+    const labelY = axisY + tickPadding + 6;
+    const rawLabel = tickText?.[index] ?? formatTickLabel(tick, range);
     const renderedLabel =
       showXAxisLabelsTooltip && !wrapXAxisLabels && rawLabel.length > safeTruncateChars
         ? `${rawLabel.slice(0, safeTruncateChars)}...`
@@ -958,16 +1202,19 @@ export const renderContinuousBottomAxisShared = ({
     axisLayer.appendChild(text);
   });
 
-  if (hideTickOverlap) {
+  if (hideTickOverlap && !rotateXAxisLabels && !wrapXAxisLabels) {
     const textEls = Array.from(axisLayer.querySelectorAll<SVGTextElement>('text.axis-text'));
     let previousRight = Number.NEGATIVE_INFINITY;
     textEls.forEach(el => {
       const bbox = el.getBBox?.();
-      if (!bbox) {
+      const x = Number(el.getAttribute('x'));
+      const measuredWidth = el.getComputedTextLength?.() || bbox?.width || (el.textContent?.length ?? 0) * 6;
+      if (!Number.isFinite(x) || measuredWidth <= 0) {
         return;
       }
-      const left = bbox.x;
-      const right = bbox.x + bbox.width;
+      const textAnchor = el.getAttribute('text-anchor');
+      const left = textAnchor === 'middle' ? x - measuredWidth / 2 : bbox?.x ?? x;
+      const right = left + measuredWidth;
       if (left < previousRight + 4) {
         el.style.display = 'none';
       } else {
@@ -987,6 +1234,19 @@ export const renderContinuousBottomAxisShared = ({
     titleText.textContent = xAxisTitle;
     axisLayer.appendChild(titleText);
   }
+
+  if (xAxisAnnotation) {
+    const annotationX = (rangeStart + rangeEnd) / 2;
+    const annotationY = Math.max(14, gridLineSpan.start - 16);
+    const annotationText = createSvgElement<SVGTextElement>('text');
+    annotationText.setAttribute('class', 'axis-annotation');
+    annotationText.setAttribute('x', `${annotationX}`);
+    annotationText.setAttribute('y', `${annotationY}`);
+    annotationText.setAttribute('text-anchor', 'middle');
+    annotationText.setAttribute('aria-hidden', 'true');
+    annotationText.textContent = xAxisAnnotation;
+    axisLayer.appendChild(annotationText);
+  }
 };
 
 export type HorizontalYAxisTickEntry = {
@@ -1002,6 +1262,7 @@ export type HorizontalYAxisRenderOptions = {
   tickPadding: number;
   ticks: HorizontalYAxisTickEntry[];
   yAxisTitle?: string;
+  yAxisAnnotation?: string;
   width: number;
   height: number;
   margins: { top: number; bottom: number; right: number };
@@ -1014,6 +1275,7 @@ export const renderHorizontalYAxisShared = ({
   tickPadding,
   ticks,
   yAxisTitle,
+  yAxisAnnotation,
   width,
   height,
   margins,
@@ -1022,7 +1284,7 @@ export const renderHorizontalYAxisShared = ({
     const tickLine = createSvgElement<SVGLineElement>('line');
     tickLine.setAttribute('class', 'axis-tick-line');
     tickLine.setAttribute('x1', `${axisX}`);
-    tickLine.setAttribute('x2', `${axisX + tickPadding}`);
+    tickLine.setAttribute('x2', `${axisX + (isRTL ? tickPadding : -tickPadding)}`);
     tickLine.setAttribute('y1', `${tick.y}`);
     tickLine.setAttribute('y2', `${tick.y}`);
     axisLayer.appendChild(tickLine);
@@ -1055,6 +1317,20 @@ export const renderHorizontalYAxisShared = ({
     titleText.setAttribute('transform', `rotate(-90, ${titleX}, ${midY})`);
     titleText.textContent = yAxisTitle;
     axisLayer.appendChild(titleText);
+  }
+
+  if (yAxisAnnotation) {
+    const midY = (margins.top + (height - margins.bottom)) / 2;
+    const annotationX = isRTL ? width - margins.right + 28 : width - margins.right + 14;
+    const annotationText = createSvgElement<SVGTextElement>('text');
+    annotationText.setAttribute('class', 'axis-annotation');
+    annotationText.setAttribute('x', `${annotationX}`);
+    annotationText.setAttribute('y', `${midY}`);
+    annotationText.setAttribute('text-anchor', 'middle');
+    annotationText.setAttribute('transform', `rotate(-90, ${annotationX}, ${midY})`);
+    annotationText.setAttribute('aria-hidden', 'true');
+    annotationText.textContent = yAxisAnnotation;
+    axisLayer.appendChild(annotationText);
   }
 };
 

@@ -1,7 +1,15 @@
 import { attr } from '@microsoft/fast-element';
+import { timeFormat as d3TimeFormat, timeFormatLocale as d3TimeFormatLocale, type TimeLocaleDefinition, utcFormat } from 'd3-time-format';
 import { renderChartAnnotations } from './chart-annotation-helpers.js';
 import { resolveChartMargins, type CartesianChartMargins } from './cartesian-axis-helpers.js';
-import type { AxisCategoryOrder, AxisScaleType, ChartAnnotation, ChartMargins } from './chart-options.js';
+import type {
+  AxisCategoryOrder,
+  AxisConfig,
+  AxisScaleType,
+  ChartAnnotation,
+  ChartMargins,
+  XAxisConfig,
+} from './chart-options.js';
 import { ChartBase } from './chart-base.js';
 import { jsonConverter, SVG_NAMESPACE_URI } from './chart-helpers.js';
 
@@ -17,6 +25,7 @@ interface CartesianChartAnnotationRenderOptions {
 
 interface CartesianChartSvgOptions {
   role?: string;
+  ariaLabel?: string;
 }
 
 interface CartesianChartRenderContextOptions extends CartesianChartSvgOptions {
@@ -98,6 +107,14 @@ export abstract class CartesianChartBase extends ChartBase {
   @attr({ attribute: 'tick-padding' })
   public tickPadding?: number | string;
 
+  /** Gap in pixels between x-axis tick lines and their text labels. Overrides `tick-padding` for the x-axis only. */
+  @attr({ attribute: 'x-axis-tick-padding' })
+  public xAxisTickPadding?: number | string;
+
+  /** Length in pixels of x-axis tick lines. Falls back to the chart's existing default when unset. */
+  @attr({ attribute: 'x-axis-tick-size' })
+  public xAxisTickSize?: number | string;
+
   /** Wraps long x-axis text labels onto multiple lines instead of truncating. */
   @attr({ attribute: 'wrap-x-axis-labels', mode: 'boolean' })
   public wrapXAxisLabels: boolean = false;
@@ -135,6 +152,14 @@ export abstract class CartesianChartBase extends ChartBase {
   /** Maximum value for the y axis domain (numeric y axis only). Overrides the data maximum. */
   @attr({ attribute: 'y-max-value' })
   public yMaxValue?: number | string;
+
+  /** Minimum value for the secondary y axis domain (numeric secondary y axis only). Overrides the data minimum. */
+  @attr({ attribute: 'secondary-y-min-value' })
+  public secondaryYMinValue?: number | string;
+
+  /** Maximum value for the secondary y axis domain (numeric secondary y axis only). Overrides the data maximum. */
+  @attr({ attribute: 'secondary-y-max-value' })
+  public secondaryYMaxValue?: number | string;
 
   /**
    * Explicit tick positions for the x-axis. Overrides the auto-generated ticks.
@@ -181,6 +206,13 @@ export abstract class CartesianChartBase extends ChartBase {
    */
   @attr({ attribute: 'x-axis-category-order' })
   public xAxisCategoryOrder: AxisCategoryOrder = 'default';
+
+  /**
+   * Optional order strategy for categorical y-axis domains (or string tick labels).
+   * Charts with non-categorical y-axes ignore this.
+   */
+  @attr({ attribute: 'y-axis-category-order' })
+  public yAxisCategoryOrder: AxisCategoryOrder = 'default';
 
   /** Inner padding between categorical x-axis bands. Applies to categorical bar charts. */
   @attr({ attribute: 'x-axis-inner-padding' })
@@ -234,6 +266,22 @@ export abstract class CartesianChartBase extends ChartBase {
   public noOfCharsToTruncate?: number | string;
 
   /**
+   * When `true`, renders the full y-axis category label instead of truncating it,
+   * and reserves enough y-axis width to fit the longest label.
+   * Historically named `showYAxisLables` in the React implementation.
+   */
+  @attr({ attribute: 'show-y-axis-labels', mode: 'boolean' })
+  public showYAxisLabels: boolean = false;
+
+  /**
+   * When `true`, truncates long y-axis category labels and shows the full text in a
+   * `<title>` tooltip on hover.
+   * Historically named `showYAxisLablesTooltip` in the React implementation.
+   */
+  @attr({ attribute: 'show-y-axis-labels-tooltip', mode: 'boolean' })
+  public showYAxisLabelsTooltip: boolean = false;
+
+  /**
    * When true (default), hides x-axis tick labels that would overlap with the previous label.
    * Set to false to always show all tick labels regardless of overlap.
    */
@@ -248,9 +296,34 @@ export abstract class CartesianChartBase extends ChartBase {
   @attr({ attribute: 'date-localize-options', converter: jsonConverter })
   public dateLocalizeOptions?: Intl.DateTimeFormatOptions;
 
+  /** Locale definition used by d3-time-format when formatting date-axis ticks. */
+  @attr({ attribute: 'time-format-locale', converter: jsonConverter })
+  public timeFormatLocale?: TimeLocaleDefinition;
+
   /** When true, date axes display values in UTC instead of the user's local timezone. */
   @attr({ attribute: 'use-utc', mode: 'boolean' })
   public useUTC: boolean = false;
+
+  /** Text annotation rendered above the plot area. */
+  @attr({ attribute: 'x-axis-annotation' })
+  public xAxisAnnotation?: string;
+
+  /** Text annotation rendered along the right side when no secondary y-axis is present. */
+  @attr({ attribute: 'y-axis-annotation' })
+  public yAxisAnnotation?: string;
+
+  /**
+   * Shared x-axis configuration mirrored from React `xAxis` props.
+   * Supports `tickStep`, `tick0`, and `tickText`.
+   *
+   * TODO: Support `tickLayout: 'auto'` behavior.
+   */
+  @attr({ attribute: 'x-axis-config', converter: jsonConverter })
+  public xAxisConfig?: XAxisConfig;
+
+  /** Shared y-axis configuration mirrored from React `yAxis` props. Supports `tickStep`, `tick0`, and `tickText`. */
+  @attr({ attribute: 'y-axis-config', converter: jsonConverter })
+  public yAxisConfig?: AxisConfig;
 
   /**
    * Optional custom formatter function for date-axis tick labels.
@@ -276,6 +349,9 @@ export abstract class CartesianChartBase extends ChartBase {
     if (options.role) {
       svg.setAttribute('role', options.role);
     }
+    if (options.ariaLabel) {
+      svg.setAttribute('aria-label', options.ariaLabel);
+    }
     return svg;
   }
 
@@ -287,10 +363,15 @@ export abstract class CartesianChartBase extends ChartBase {
     hasSecondaryYAxis = false,
     role,
   }: CartesianChartRenderContextOptions): CartesianChartRenderContext {
-    const margins = resolveChartMargins(defaultMargins, this.margins, this._isRTL, hasSecondaryYAxis);
+    const annotationAwareDefaultMargins = {
+      ...defaultMargins,
+      top: defaultMargins.top + (this.xAxisAnnotation ? 20 : 0),
+      right: defaultMargins.right + (!hasSecondaryYAxis && this.yAxisAnnotation ? 20 : 0),
+    };
+    const margins = resolveChartMargins(annotationAwareDefaultMargins, this.margins, this._isRTL, hasSecondaryYAxis);
     const innerWidth = Math.max(width - margins.left - margins.right, 1);
     const innerHeight = Math.max(height - margins.top - margins.bottom, 1);
-    const svg = this._createChartSvg(width, height, { role });
+    const svg = this._createChartSvg(width, height, { role, ariaLabel: role ? this._getHostAriaLabel() : undefined });
     const plotGroup = document.createElementNS(SVG_NAMESPACE_URI, 'g');
     plotGroup.setAttribute('transform', `translate(${margins.left}, ${margins.top})`);
     svg.appendChild(plotGroup);
@@ -341,6 +422,8 @@ export abstract class CartesianChartBase extends ChartBase {
       'xAxisTickFormat',
       'yAxisTickFormat',
       'tickPadding',
+      'xAxisTickPadding',
+      'xAxisTickSize',
       'wrapXAxisLabels',
       'rotateXAxisLabels',
       'supportNegativeData',
@@ -349,12 +432,15 @@ export abstract class CartesianChartBase extends ChartBase {
       'xMaxValue',
       'yMinValue',
       'yMaxValue',
+      'secondaryYMinValue',
+      'secondaryYMaxValue',
       'tickValues',
       'tickFormat',
       'yAxisTickValues',
       'xAxisTickCount',
       'yAxisTickCount',
       'xAxisCategoryOrder',
+      'yAxisCategoryOrder',
       'xAxisInnerPadding',
       'xAxisOuterPadding',
       'strokeWidth',
@@ -366,9 +452,16 @@ export abstract class CartesianChartBase extends ChartBase {
       'lineBorderColor',
       'showXAxisLabelsTooltip',
       'noOfCharsToTruncate',
+      'showYAxisLabels',
+      'showYAxisLabelsTooltip',
       'hideTickOverlap',
       'dateLocalizeOptions',
+      'timeFormatLocale',
       'useUTC',
+      'xAxisAnnotation',
+      'yAxisAnnotation',
+      'xAxisConfig',
+      'yAxisConfig',
     ] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
@@ -432,6 +525,14 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected xAxisTickPaddingChanged() {
+    this._requestRender();
+  }
+
+  protected xAxisTickSizeChanged() {
+    this._requestRender();
+  }
+
   protected wrapXAxisLabelsChanged() {
     this._requestRender();
   }
@@ -464,6 +565,14 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected secondaryYMinValueChanged() {
+    this._requestRender();
+  }
+
+  protected secondaryYMaxValueChanged() {
+    this._requestRender();
+  }
+
   protected tickValuesChanged() {
     this._requestRender();
   }
@@ -485,6 +594,10 @@ export abstract class CartesianChartBase extends ChartBase {
   }
 
   protected xAxisCategoryOrderChanged() {
+    this._requestRender();
+  }
+
+  protected yAxisCategoryOrderChanged() {
     this._requestRender();
   }
 
@@ -532,6 +645,14 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected showYAxisLabelsChanged() {
+    this._requestRender();
+  }
+
+  protected showYAxisLabelsTooltipChanged() {
+    this._requestRender();
+  }
+
   protected hideTickOverlapChanged() {
     this._requestRender();
   }
@@ -540,7 +661,58 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected timeFormatLocaleChanged() {
+    this._requestRender();
+  }
+
   protected useUTCChanged() {
     this._requestRender();
+  }
+
+  protected xAxisAnnotationChanged() {
+    this._requestRender();
+  }
+
+  protected yAxisAnnotationChanged() {
+    this._requestRender();
+  }
+
+  protected xAxisConfigChanged() {
+    this._requestRender();
+  }
+
+  protected yAxisConfigChanged() {
+    this._requestRender();
+  }
+
+  protected _getXAxisTickPadding(fallback: number): number {
+    const value = this.xAxisTickPadding ?? this.tickPadding;
+    if (value === undefined || value === null || value === '') {
+      return fallback;
+    }
+
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : fallback;
+  }
+
+  protected _getXAxisTickSize(fallback: number): number {
+    if (this.xAxisTickSize === undefined || this.xAxisTickSize === null || this.xAxisTickSize === '') {
+      return fallback;
+    }
+
+    const parsed = Number(this.xAxisTickSize);
+    return Number.isFinite(parsed) ? parsed : fallback;
+  }
+
+  public _formatDateWithD3Specifier(date: Date, specifier: string): string {
+    const locale = this.timeFormatLocale ? d3TimeFormatLocale(this.timeFormatLocale) : undefined;
+    const formatter = locale
+      ? this.useUTC
+        ? locale.utcFormat(specifier)
+        : locale.format(specifier)
+      : this.useUTC
+      ? utcFormat(specifier)
+      : d3TimeFormat(specifier);
+    return formatter(date);
   }
 }

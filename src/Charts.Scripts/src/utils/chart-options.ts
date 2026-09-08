@@ -74,6 +74,30 @@ export type AxisCategoryOrder =
 /** @public */
 export type AxisScaleType = 'default' | 'log';
 
+/**
+ * Shared Cartesian axis configuration mirrored from React axis props.
+ *
+ * @public
+ */
+export interface AxisConfig {
+  /** Explicit distance between generated ticks. */
+  tickStep?: number | string;
+  /** Reference tick value used together with `tickStep`. */
+  tick0?: number | string;
+  /** Optional tick label overrides matched by tick index. */
+  tickText?: string[];
+}
+
+/**
+ * X-axis configuration mirrored from React `xAxis` props.
+ *
+ * @public
+ */
+export interface XAxisConfig extends AxisConfig {
+  /** Stored for parity; `tickLayout: 'auto'` behavior is not yet implemented. */
+  tickLayout?: 'default' | 'auto';
+}
+
 /** Plot margins in pixels. */
 /** @public */
 export interface ChartMargins {

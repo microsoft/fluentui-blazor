@@ -6,6 +6,7 @@ import { timeFormat as d3TimeFormat } from 'd3-time-format';
 import { resolveChartMargins } from '../utils/cartesian-axis-helpers.js';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
+  applyAxisTickConfig,
   type AxisScaleLike,
   renderBandYAxisShared,
   renderBottomAxisShared,
@@ -172,14 +173,6 @@ export class HeatMapChart extends CartesianChartBase {
   public override xAxisCategoryOrder: AxisCategoryOrder = 'default';
 
   /**
-   * Sort order for y-axis category labels.
-   * Supports all 14 AxisCategoryOrder modes. Default: `'default'`.
-   * When set, takes precedence over `sortOrder` for the y-axis.
-   */
-  @attr({ attribute: 'y-axis-category-order' })
-  public yAxisCategoryOrder: AxisCategoryOrder = 'default';
-
-  /**
    * Optional JS function to map x-axis string keys to display labels.
    * Called for each unique x-axis string value. When set, overrides the raw string key.
    * Cannot be set via HTML attribute — assign directly on the element.
@@ -237,7 +230,6 @@ export class HeatMapChart extends CartesianChartBase {
       'yAxisTickLabelMaxWidth',
       'sortOrder',
       'xAxisCategoryOrder',
-      'yAxisCategoryOrder',
       'xAxisStringLabels',
       'yAxisStringLabels',
     ] as const;
@@ -327,10 +319,6 @@ export class HeatMapChart extends CartesianChartBase {
   }
 
   protected xAxisCategoryOrderChanged(): void {
-    this._requestRender();
-  }
-
-  protected yAxisCategoryOrderChanged(): void {
     this._requestRender();
   }
 
@@ -716,7 +704,12 @@ export class HeatMapChart extends CartesianChartBase {
 
     // ── Axes ──────────────────────────────────────────────────────────────────
 
-    const xAxis = axisBottom(xScale).tickPadding(8);
+    const xAxis = axisBottom(xScale).tickPadding(this._getXAxisTickPadding(8)).tickSize(this._getXAxisTickSize(6));
+    applyAxisTickConfig(
+      xAxis as Axis<string>,
+      this.xAxisTickCount,
+      this.tickValues?.map(value => String(value)),
+    );
     renderBottomAxisShared({
       svg,
       scale: xScale as AxisScaleLike<string>,
@@ -726,10 +719,12 @@ export class HeatMapChart extends CartesianChartBase {
       axisTop: margins.top,
       innerWidth,
       innerHeight,
-      tickPadding: 8,
+      tickPadding: this._getXAxisTickPadding(8),
       isRTL,
       showTickLines: false,
       xAxisTitle: this.xAxisTitle,
+      xAxisAnnotation: this.xAxisAnnotation,
+      tickText: this.xAxisConfig?.tickText,
       titleClassName: 'axis-title',
     });
 
@@ -748,6 +743,7 @@ export class HeatMapChart extends CartesianChartBase {
       ltrLabelX: -6,
       rtlLabelX: innerWidth + 6,
       yAxisTitle: this.yAxisTitle,
+      yAxisAnnotation: this.yAxisAnnotation,
       titleClassName: 'axis-title',
       tickLabelMaxWidth: toOptionalNumber(this.yAxisTickLabelMaxWidth),
     });

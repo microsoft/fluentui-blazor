@@ -1,0 +1,80 @@
+@page "/Charts/VerticalStackedBarChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    <FluentSwitch Label="Use stack callout" @bind-Value="isCalloutForStack"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart interactive example"
+                                   ChartData="@chartData"
+                                   Width="@($"{width}px")"
+                                   Height="@($"{height}px")"
+                                   EnableGradient="@gradient"
+                                   IsCalloutForStack="@isCalloutForStack"
+                                   HideLabels="@hideLabels"
+                                   HideTooltip="@hideTooltips"
+                                   HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<VerticalStackedBarChartData> chartData =
+    [
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = "Q1",
+            ChartData =
+            [
+                new VerticalStackedBarChartDataPoint { Legend = "Product A", Data = 50, Color = DataVizPalette.Color1 },
+                new VerticalStackedBarChartDataPoint { Legend = "Product B", Data = 30, Color = DataVizPalette.Color2 },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = "Q2",
+            ChartData =
+            [
+                new VerticalStackedBarChartDataPoint { Legend = "Product A", Data = 60, Color = DataVizPalette.Color1 },
+                new VerticalStackedBarChartDataPoint { Legend = "Product B", Data = 40, Color = DataVizPalette.Color2 },
+            ],
+        },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private bool gradient;
+    private bool isCalloutForStack;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}
