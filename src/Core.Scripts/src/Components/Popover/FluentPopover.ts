@@ -215,14 +215,17 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Dispatch event when opened or closed
     private dispatchOpenedEvent(opened: boolean) {
-      this.dispatchEvent(new CustomEvent('toggle', {
+      const eventInit = {
         detail: {
           oldState: opened ? 'closed' : 'open',
           newState: opened ? 'open' : 'closed',
         },
         bubbles: true,
         composed: true
-      }));
+      };
+
+      this.dispatchEvent(new CustomEvent('toggle', eventInit));
+      this.dispatchEvent(new CustomEvent('fluentpopovertoggle', eventInit));
     }
 
     // Handles clicks outside the dialog to close it
