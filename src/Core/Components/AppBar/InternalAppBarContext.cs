@@ -6,7 +6,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 internal sealed class InternalAppBarContext(FluentAppBar appBar)
 {
-    public readonly Dictionary<string, IAppBarItem> Apps = [];
+    public readonly Dictionary<string, IAppBarItem> Apps = [with(StringComparer.OrdinalIgnoreCase)];
     public FluentAppBar AppBar { get; } = appBar;
 
     internal void Register(IAppBarItem app)

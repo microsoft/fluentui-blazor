@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAccordion : FluentComponentBase
 {
-    private readonly Dictionary<string, FluentAccordionItem> _items = [];
+    private readonly Dictionary<string, FluentAccordionItem> _items = [with(StringComparer.OrdinalIgnoreCase)];
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder.Build();

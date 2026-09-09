@@ -20,7 +20,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent
 {
-    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
+    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [with(StringComparer.OrdinalIgnoreCase)];
     internal string RowId { get; set; } = string.Empty;
 
     /// <summary />

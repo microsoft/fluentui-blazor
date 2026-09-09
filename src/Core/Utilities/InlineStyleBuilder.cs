@@ -19,7 +19,7 @@ public readonly struct InlineStyleBuilder
     /// </summary>
     public InlineStyleBuilder()
     {
-        _styles = [];
+        _styles = [with(StringComparer.OrdinalIgnoreCase)];
     }
 
     /// <summary>
