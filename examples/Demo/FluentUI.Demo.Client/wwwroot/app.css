@@ -28,7 +28,7 @@ body:has(fluent-message-bar.demo-notification) {
 }
 
 .demo-notification {
-  height: var(--demo-notification-height);
+  min-height: var(--demo-notification-height);
   font-size: var(--fontSizeBase300);
   overflow-y: auto;
 }
