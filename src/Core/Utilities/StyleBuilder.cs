@@ -30,7 +30,7 @@ public readonly struct StyleBuilder
     /// <param name="userStyles">The user styles to include at the end.</param>
     public StyleBuilder(string? userStyles)
     {
-        _styles = [with(StringComparer.OrdinalIgnoreCase)];
+        _styles = new(StringComparer.OrdinalIgnoreCase);
         _userStyles = string.IsNullOrWhiteSpace(userStyles)
                     ? null
                     : string.Join("; ", userStyles.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)

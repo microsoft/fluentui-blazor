@@ -33,7 +33,7 @@ public readonly partial struct CssBuilder
     /// <param name="userClasses">The user classes to include at the end.</param>
     public CssBuilder(string? userClasses)
     {
-        _classes = [with(StringComparer.OrdinalIgnoreCase)];
+        _classes = new(StringComparer.OrdinalIgnoreCase);
         _userClasses = string.IsNullOrWhiteSpace(userClasses)
                      ? null
                      : SplitAndValidate(userClasses).ToArray();
