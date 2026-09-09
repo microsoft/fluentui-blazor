@@ -94,13 +94,6 @@ public partial class DemoNewsBar
         Visible = !string.Equals(storedSha, NewsSha, StringComparison.Ordinal);
 
         StateHasChanged();
-
-        // When the content is set and the message bar is visible, apply the
-        // notification style override defined in the razor script.
-        if (Visible)
-        {
-            await JSRuntime.InvokeVoidAsync("applyDemoNotificationStyle");
-        }
     }
 
     private async Task DismissClickAsync()
