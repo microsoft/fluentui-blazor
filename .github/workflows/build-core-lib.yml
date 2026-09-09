@@ -67,7 +67,7 @@ jobs:
      - name: Setup .NET 11.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 11.0.100-preview.7.26381.103
+        dotnet-version: 11.0.100-rc.1.26425.128
 
      # Build
 
@@ -241,7 +241,7 @@ jobs:
     - name: Setup .NET 11.0
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 11.0.100-preview.7.26381.103
+        dotnet-version: 11.0.100-rc.1.26425.128
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
