@@ -11,6 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class DialogOptions : IFluentComponentBase
 {
+    bool IFluentComponentBase.IsDisposed => false;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="DialogOptions"/> class.
     /// </summary>

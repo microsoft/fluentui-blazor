@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFluentComponentBase
 {
+    private bool _isDisposed;
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
@@ -54,11 +55,17 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     /// </summary>
     protected internal LibraryConfiguration? LibraryConfiguration { get; }
 
+    /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
+    bool IFluentComponentBase.IsDisposed => _isDisposed;
+
     /// <summary>
-    /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
-    /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
+    /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
     /// </summary>
-    protected FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+    /// <remarks>
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
+    /// and check that it returns <see langword="true"/> before using the module.
+    /// </remarks>
+    protected FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
 
     /// <summary>
     /// Gets the class builder, containing the default margin and padding values.
@@ -110,11 +117,18 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (_jsModule != null && _jsModule.Imported)
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        _isDisposed = true;
+        var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
+        if (moduleToDispose is not null)
         {
             try
             {
-                await DisposeAsync(_jsModule.ObjectReference);
+                await DisposeAsync(moduleToDispose.ObjectReference);
             }
             catch (Exception ex) when (ex is JSDisconnectedException ||
                                        ex is OperationCanceledException ||
@@ -127,7 +141,10 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
 
         _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
-        await JSModule.DisposeAsync();
+        if (moduleToDispose is not null)
+        {
+            await moduleToDispose.DisposeAsync();
+        }
     }
 
     /// <summary>

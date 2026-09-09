@@ -341,6 +341,52 @@ public class ThemeServiceTests
     }
 
     [Fact]
+    public async Task IsExactBrandColorAsync_ReturnsValueFromJs()
+    {
+        var js = new FakeJSRuntime();
+        js.SetResult("Blazor.theme.isExactBrandColor", true);
+        var sut = new ThemeService(js);
+
+        var result = await sut.IsExactBrandColorAsync();
+
+        Assert.True(result);
+        var inv = Assert.Single(js.Invocations);
+        Assert.Equal("Blazor.theme.isExactBrandColor", inv.Identifier);
+        Assert.Empty(inv.Arguments);
+    }
+
+    [Fact]
+    public async Task GetThemeSettingsAsync_ReturnsSettingsFromJs()
+    {
+        var js = new FakeJSRuntime();
+        var expected = new ThemeSettings("#0078D4", 0.1, 0.2, ThemeMode.Dark, IsExact: true);
+        js.SetResult("Blazor.theme.getThemeSettings", expected);
+        var sut = new ThemeService(js);
+
+        var result = await sut.GetThemeSettingsAsync();
+
+        Assert.Equal(expected, result);
+        var inv = Assert.Single(js.Invocations);
+        Assert.Equal("Blazor.theme.getThemeSettings", inv.Identifier);
+        Assert.Empty(inv.Arguments);
+    }
+
+    [Fact]
+    public async Task GetThemeSettingsAsync_WhenJsReturnsNull_ReturnsNull()
+    {
+        var js = new FakeJSRuntime();
+        js.SetResult("Blazor.theme.getThemeSettings", result: null);
+        var sut = new ThemeService(js);
+
+        var result = await sut.GetThemeSettingsAsync();
+
+        Assert.Null(result);
+        var inv = Assert.Single(js.Invocations);
+        Assert.Equal("Blazor.theme.getThemeSettings", inv.Identifier);
+        Assert.Empty(inv.Arguments);
+    }
+
+    [Fact]
     public async Task GetColorRampAsync_ReturnsDictionaryFromJs()
     {
         var js = new FakeJSRuntime();

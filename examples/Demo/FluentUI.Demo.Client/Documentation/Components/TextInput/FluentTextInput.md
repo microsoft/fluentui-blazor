@@ -165,6 +165,12 @@ There are certain placeholder values which you should avoid to prevent the brows
 
 If you still want to use these placeholder values, then you need to disable autofill in your browser settings completely.
 
+## Input adornments
+
+Use `FieldStartTemplate` and `FieldEndTemplate` to render custom content immediately before or after the input control. These templates are intended for adornments such as icons, status indicators, or action buttons. They accept arbitrary Razor content and can be used independently or together.
+
+{{ TextInputFieldTemplate }}
+
 ## API FluentTextInput
 
 {{ API Type=FluentTextInput }}

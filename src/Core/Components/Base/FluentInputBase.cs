@@ -20,6 +20,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
 {
+    private bool _isDisposed;
     private FluentJSModule? _jsModule;
     private CachedServices? _cachedServices;
 
@@ -52,11 +53,17 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
 
+    /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
+    bool IFluentComponentBase.IsDisposed => _isDisposed;
+
     /// <summary>
-    /// Gets the JavaScript module imported with the <see cref="FluentJSModule.ImportJavaScriptModuleAsync"/> method.
-    /// You need to call this method (in the `OnAfterRenderAsync` method) before using the module.
+    /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
     /// </summary>
-    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime);
+    /// <remarks>
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
+    /// and check that it returns <see langword="true"/> before using the module.
+    /// </remarks>
+    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
 
     /// <summary>
     /// Internal usage only: to define the default `ValueExpression`.
@@ -111,6 +118,14 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <inheritdoc cref="IFluentField.LabelTemplate" />
     [Parameter]
     public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldStartTemplate" />
+    [Parameter]
+    public virtual RenderFragment? FieldStartTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldEndTemplate" />
+    [Parameter]
+    public virtual RenderFragment? FieldEndTemplate { get; set; }
 
     /// <inheritdoc cref="IFluentField.LabelPosition" />
     [Parameter]
@@ -286,11 +301,18 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [ExcludeFromCodeCoverage]
     public virtual async ValueTask DisposeAsync()
     {
-        if (_jsModule != null)
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        _isDisposed = true;
+        var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
+        if (moduleToDispose is not null)
         {
             try
             {
-                await DisposeAsync(_jsModule.ObjectReference);
+                await DisposeAsync(moduleToDispose.ObjectReference);
             }
             catch (Exception ex) when (ex is JSDisconnectedException ||
                                        ex is OperationCanceledException ||
@@ -303,7 +325,10 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
         _cachedServices?.DisposeTooltipAsync(this);
         _cachedServices?.Dispose();
-        await JSModule.DisposeAsync();
+        if (moduleToDispose is not null)
+        {
+            await moduleToDispose.DisposeAsync();
+        }
     }
 
     /// <summary>
