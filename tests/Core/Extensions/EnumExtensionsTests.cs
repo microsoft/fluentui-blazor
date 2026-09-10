@@ -117,6 +117,19 @@ public partial class EnumExtensionsTests
     }
 
     [Theory]
+    [InlineData(WizardStepStatus.None, "none")]
+    [InlineData(WizardStepStatus.Current, "current")]
+    [InlineData(WizardStepStatus.All, "all")]
+    [InlineData(WizardStepStatus.Previous | WizardStepStatus.Current, "")]
+    public void ToAttributeValue_FlagsEnum_UsesGeneratedOverload(WizardStepStatus value, string expected)
+    {
+        var method = typeof(GeneratedEnumExtensions).GetMethod("GetDescription", BindingFlags.Static | BindingFlags.NonPublic, [typeof(WizardStepStatus)]);
+
+        Assert.NotNull(method);
+        Assert.Equal(expected, value.ToAttributeValue());
+    }
+
+    [Theory]
     [InlineData(Color.Default, "var(--colorNeutralForeground1)")]
     [InlineData(Color.Primary, "var(--colorBrandForeground1)")]
     [InlineData((Color)(-1), "")]

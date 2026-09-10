@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Operations;
@@ -31,7 +32,12 @@ public sealed class EnumAttributeValueAnalyzer : DiagnosticAnalyzer
                 return;
             }
 
-            var receiver = invocation.Arguments[0].Value;
+            var receiver = invocation.Arguments.FirstOrDefault(argument => argument.Parameter?.Ordinal == 0)?.Value;
+            if (receiver is null)
+            {
+                return;
+            }
+
             while (receiver is IConversionOperation conversion)
             {
                 receiver = conversion.Operand;

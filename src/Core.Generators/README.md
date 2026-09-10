@@ -24,7 +24,8 @@ For each registration, the generator adds concrete `GetDescription` and
 `ToAttributeValue` extension overloads to the context, including nullable,
 `isNull`, and `returnEmptyAsNull` variants. They read `DescriptionAttribute` at
 build time and use typed switch expressions at runtime. There is no generic
-dispatcher, boxing, reflection-based attribute lookup, or runtime dictionary.
+dispatcher, boxing, reflection-based attribute lookup, runtime name lookup,
+or runtime dictionary.
 
 Import the context's namespace at the call site (including Razor imports).
 Existing calls such as `Color.Primary.ToAttributeValue()` then select the
@@ -35,13 +36,24 @@ known as `Enum` retain the public reflection-based fallback.
 
 Descriptions are emitted verbatim, including empty strings. Fields without a
 description use their invariant lowercase name. Undefined values and unnamed
-flags combinations return an empty string, matching `EnumExtensions`.
-Aliased values use the AOT-compatible generic `Enum.GetName` to retain the
-runtime's choice of name, then select a generated description for that name.
-`GetDisplay` and `IsObsolete` are not changed.
+flags combinations return an empty string, matching `EnumExtensions`. Named
+flags combinations use the matching field's description; individual flag
+descriptions are not combined.
+
+Limitation: aliases sharing a numeric value use the first declared member's
+description (or its lowercase name when no description is present). If aliases
+have different descriptions, the result may differ from the reflection-based
+implementation because .NET does not guarantee which alias its name lookup
+selects. Aliases with identical descriptions are unaffected. Generated overloads
+do not call `ToString()` or `Enum.GetName`. `GetDisplay` and `IsObsolete` are not
+changed.
 
 The generator is a build-only project reference; it is not shipped as a runtime
 dependency of the component libraries. Tests cover explicit opt-in, imported
 enum types, concrete overloads, constants, description literals, and the
-registration diagnostic. Core and Charts tests also compare all registered
-enum values against the reflection implementation.
+registration diagnostic. Malformed registrations are skipped so they do not
+prevent generation for valid registrations. Core and Charts tests also compare
+all registered enum values against the reflection implementation. Runtime tests
+cover all four flags overloads, including aliases with identical descriptions
+and named/unnamed combinations. Separate tests cover the conflicting-alias
+limitation.
