@@ -65,7 +65,7 @@ public static class EnumExtensions
     /// <param name="value"></param>
     /// <returns></returns>
     [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
-                     Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
+                     Justification = "In the context of the Enum, the 'Description' attribute will not be trimmed.")]
     public static string GetDescription(this Enum value)
     {
         var fieldInfo = value.GetType().GetField(value.ToString());
