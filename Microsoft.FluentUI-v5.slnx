@@ -28,6 +28,9 @@
     </Project>
     <Project Path="src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" Id="63c9d5be-e015-46ac-96d1-77d52ae5ea17" />
   </Folder>
+  <Folder Name="/src/Core.Generators/">
+    <Project Path="src/Core.Generators/Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" />
+  </Folder>
   <Folder Name="/src/Core/">
     <Project Path="src/Core.Scripts/Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj">
       <Build />
