@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -237,6 +237,22 @@
                 <TooltipTemplate Context="ctx">
                     <span>@ctx.Legend: @ctx.YValue</span>
                 </TooltipTemplate>
+            </FluentHeatMapChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentHeatMapChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentHeatMapChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue (@ctx.XStart - @ctx.XEnd)</span>
+                </CartesianTooltipTemplate>
             </FluentHeatMapChart>
         );
 

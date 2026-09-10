@@ -55,6 +55,12 @@ The default example renders a grouped vertical bar chart with two data points.
 
 {{ GroupedVerticalBarChartDefault }}
 
+### Line
+
+This example renders line data on top of the grouped vertical bars.
+
+{{ GroupedVerticalBarChartLine }}
+
 ## API Fluent Grouped Vertical Bar Chart
 
 {{ API Type=FluentGroupedVerticalBarChart }}

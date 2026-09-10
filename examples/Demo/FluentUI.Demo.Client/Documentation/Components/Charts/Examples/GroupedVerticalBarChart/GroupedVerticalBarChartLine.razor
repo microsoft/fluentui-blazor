@@ -1,0 +1,99 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+        <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="grouped-vertical-bar-line-width" Min="200" Max="1000" Step="10" Style="width:300px;" />
+        <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="grouped-vertical-bar-line-height" Min="200" Max="1000" Step="10" Style="width:300px;" />
+    </FluentStack>
+
+    <FluentRadioGroup Label="Pick a callout variant"
+                      @bind-Value="_calloutVariant"
+                      Name="grouped-vertical-bar-line-callout">
+        <FluentRadio Value="@("single")">Single Callout</FluentRadio>
+        <FluentRadio Value="@("stack")">Stack Callout</FluentRadio>
+    </FluentRadioGroup>
+</FluentStack>
+
+<FluentGroupedVerticalBarChart ChartTitle="Grouped Vertical Bar chart line example"
+                               ChartData="@chartData"
+                               Width="@($"{_width}px")"
+                               Height="@($"{_height}px")"
+                               SupportNegativeData="true"
+                               LineBorderWidth="2"
+                               IsCalloutForStack="@(_calloutVariant == "stack")"
+                               Style="margin-top:20px;">
+</FluentGroupedVerticalBarChart>
+
+@code {
+    private int _width = 700;
+    private int _height = 400;
+    private string _calloutVariant = "single";
+
+    private readonly IReadOnlyList<GroupedVerticalBarChartData> chartData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jan - Mar",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Legend = "2022", Data = 33000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Legend = "2023", Data = -44000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Legend = "2024", Data = -54000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Legend = "2021", Data = 24000, Color = DataVizPalette.Color6 },
+            ],
+            LineData =
+            [
+                new GroupedVerticalBarChartLineDataPoint { Legend = "From_Legacy_to_O365", Y = -21600, Color = "qualitative.1" },
+                new GroupedVerticalBarChartLineDataPoint { Legend = "All", Y = 29700, Color = "qualitative.2" },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Apr - Jun",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Legend = "2022", Data = 33000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Legend = "2023", Data = -3000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Legend = "2024", Data = 9000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Legend = "2021", Data = -12000, Color = DataVizPalette.Color6 },
+            ],
+            LineData =
+            [
+                new GroupedVerticalBarChartLineDataPoint { Legend = "From_Legacy_to_O365", Y = 21812, Color = "qualitative.1" },
+                new GroupedVerticalBarChartLineDataPoint { Legend = "All", Y = -28400, Color = "qualitative.2" },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jul - Sep",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Legend = "2022", Data = 14000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Legend = "2023", Data = 50000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Legend = "2024", Data = -60000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Legend = "2021", Data = -10000, Color = DataVizPalette.Color6 },
+            ],
+            LineData =
+            [
+                new GroupedVerticalBarChartLineDataPoint { Legend = "From_Legacy_to_O365", Y = -21712, Color = "qualitative.1" },
+                new GroupedVerticalBarChartLineDataPoint { Legend = "All", Y = 28200, Color = "qualitative.2" },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Oct - Dec",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Legend = "2022", Data = -33000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Legend = "2023", Data = 3000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Legend = "2024", Data = -6000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Legend = "2021", Data = -15000, Color = DataVizPalette.Color6 },
+            ],
+            LineData =
+            [
+                new GroupedVerticalBarChartLineDataPoint { Legend = "From_Legacy_to_O365", Y = 24800, Color = "qualitative.1" },
+                new GroupedVerticalBarChartLineDataPoint { Legend = "All", Y = -29400, Color = "qualitative.2" },
+            ],
+        },
+    ];
+}

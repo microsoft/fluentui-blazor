@@ -53,6 +53,19 @@ public class ChartAxisValueJsonConverterTests
     }
 
     [Fact]
+    public void Deserialize_UnexpectedToken_ThrowsJsonException()
+    {
+        // Arrange
+        const string json = "true";
+
+        // Act
+        var exception = Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<ChartAxisValue>(json));
+
+        // Assert
+        Assert.Contains("Unexpected token", exception.Message);
+    }
+
+    [Fact]
     public void Serialize_NumericChartAxisValue_WritesJsonNumber()
     {
         // Arrange
