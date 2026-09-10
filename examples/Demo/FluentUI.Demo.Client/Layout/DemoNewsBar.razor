@@ -1,24 +1,26 @@
 ﻿@if (Visible)
 {
-    <FluentMessageBar Intent="@NewsIntent"
-                      AllowDismiss="false"
-                      Class="demo-notification">
-        <FluentStack VerticalAlignment="VerticalAlignment.Center">
-            <div>
-                @if (!string.IsNullOrEmpty(NewsContent))
-                {
-                    <strong>@NewsTitle:&nbsp;</strong>
-                }
-                @NewsContent
-            </div>
-            <FluentSpacer />
-            <FluentButton Appearance="ButtonAppearance.Transparent"
-                          IconStart="@(new Icons.Regular.Size20.Dismiss().WithColor("currentColor"))"
-                          IconOnly="true"
-                          Title="Dismiss"
-                          Size="ButtonSize.Small"
-                          OnClick="@DismissClickAsync" />
-        </FluentStack>
+    <div class="demo-notification-section">
+        <FluentMessageBar Intent="@NewsIntent"
+                          AllowDismiss="false"
+                          Class="demo-notification">
+            <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                <div>
+                    @if (!string.IsNullOrEmpty(NewsContent))
+                    {
+                        <strong>@NewsTitle:&nbsp;</strong>
+                    }
+                    @NewsContent
+                </div>
+                <FluentSpacer />
+                <FluentButton Appearance="ButtonAppearance.Transparent"
+                              IconStart="@(new Icons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                              IconOnly="true"
+                              Title="Dismiss"
+                              Size="ButtonSize.Small"
+                              OnClick="@DismissClickAsync" />
+            </FluentStack>
 
-    </FluentMessageBar>
+        </FluentMessageBar>
+    </div>
 }
