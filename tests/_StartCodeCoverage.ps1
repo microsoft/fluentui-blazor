@@ -184,8 +184,8 @@ Write-Host '=== Merging coverage reports ==='
     "-targetdir:$resultsDir\Report" `
     '-reporttypes:HtmlInline_AzurePipelines' `
     '-assemblyfilters:-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools' `
-    '-classfilters:-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*' `
-    '-filefilters:-*RegexGenerator.g.cs;-*GeneratedEnumExtensions.g.cs' `
+    '-classfilters:-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*;--Microsoft.FluentUI.AspNetCore.McpServer.*' `
+    '-filefilters:-*.g.cs' `
     'riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30' `
     'riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30' `
     'minimumCoverageThresholds:lineCoverage=98'

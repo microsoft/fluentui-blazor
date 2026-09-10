@@ -52,6 +52,28 @@
         timePicker.Verify();
     }
 
+    [Fact]
+    public void TimeEqualityComparer_GetHashCode_UsesHourAndMinuteOnly()
+    {
+        // Arrange
+        var comparerField = typeof(FluentTimePicker<DateTime>).GetField("TimeComparer", BindingFlags.Static | BindingFlags.NonPublic);
+        Assert.NotNull(comparerField);
+
+        var comparer = (IEqualityComparer<DateTime?>)comparerField!.GetValue(null)!;
+        var first = new DateTime(2023, 1, 1, 10, 30, 0);
+        var second = new DateTime(2023, 1, 2, 10, 30, 5);
+        var different = new DateTime(2023, 1, 3, 11, 30, 0);
+
+        // Act
+        var firstHash = comparer.GetHashCode(first);
+        var secondHash = comparer.GetHashCode(second);
+        var differentHash = comparer.GetHashCode(different);
+
+        // Assert
+        Assert.Equal(firstHash, secondHash);
+        Assert.NotEqual(firstHash, differentHash);
+    }
+
     [Theory]
     [InlineData(ListAppearance.Outline)]
     [InlineData(ListAppearance.FilledLighter)]
@@ -445,4 +467,6 @@
         Assert.Equal(DatePickerRenderStyle.FluentUI, fluentUIInstance.RenderStyle);
         Assert.Equal(DatePickerRenderStyle.Native, nativeInstance.RenderStyle);
     }
+
+
 }
