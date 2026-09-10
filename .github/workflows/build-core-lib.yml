@@ -166,7 +166,7 @@ jobs:
          title: 'Unit Tests Code Coverage'
          assemblyfilters: '-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools;-McpServer.Tests'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
-         filefilters: '-*RegexGenerator.g.cs'
+         filefilters: '-*RegexGenerator.g.cs;-*GeneratedEnumExtensions.g.cs'
          customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }};riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
