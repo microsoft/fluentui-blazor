@@ -68,14 +68,14 @@ public static class EnumExtensions
                      Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string GetDescription(this Enum value)
     {
-        var memberInfo = value.GetType().GetMember(value.ToString());
+        var fieldInfo = value.GetType().GetField(value.ToString());
 
-        if (memberInfo.Length == 0)
+        if (fieldInfo is null)
         {
             return string.Empty;
         }
 
-        var attribute = memberInfo[0].GetCustomAttribute<DescriptionAttribute>();
+        var attribute = fieldInfo.GetCustomAttribute<DescriptionAttribute>();
         var result = attribute?.Description ?? value.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture);
 
         return result;
@@ -91,8 +91,8 @@ public static class EnumExtensions
                      Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string GetDisplay(this Enum value)
     {
-        var memberInfo = value.GetType().GetMember(value.ToString());
-        var attribute = memberInfo[0].GetCustomAttribute<DisplayAttribute>();
+        var fieldInfo = value.GetType().GetField(value.ToString());
+        var attribute = fieldInfo?.GetCustomAttribute<DisplayAttribute>();
 
         var result = attribute?.GetName() ?? value.ToString().ToLower(System.Globalization.CultureInfo.InvariantCulture);
 
@@ -117,8 +117,8 @@ public static class EnumExtensions
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static bool IsObsolete(this Enum value)
     {
-        var memberInfo = value.GetType().GetMember(value.ToString());
-        var attribute = memberInfo[0].GetCustomAttribute<ObsoleteAttribute>();
+        var fieldInfo = value.GetType().GetField(value.ToString());
+        var attribute = fieldInfo?.GetCustomAttribute<ObsoleteAttribute>();
 
         return attribute != null;
     }
