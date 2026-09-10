@@ -194,20 +194,42 @@ public class EnumAttributeValueGeneratorTests
     [InlineData("[System.ComponentModel.Description(\"\")] Value", "")]
     [InlineData("[System.ComponentModel.Description(\"quoted\\\"\\nvalue\")] Value", "quoted\"\nvalue")]
     [InlineData("NoAttribute", "noattribute")]
-    public void Generate_DescriptionAttribute_EmitsMatchingStringLiteral(string field, string expected)
+    public void ToAttributeValue_DescriptionAttribute_MatchesReflection(string field, string expected)
     {
         var output = Generate($$"""
+            using Microsoft.FluentUI.AspNetCore.Components.Extensions;
             using Microsoft.FluentUI.AspNetCore.Components.Generators;
             namespace Example;
             public enum Selected { {{field}} }
             [EnumAttributeValues(typeof(Selected))]
             internal static partial class Lookup { }
+            public static class Probe
+            {
+                public static string?[] Convert() =>
+                [
+                    Lookup.ToAttributeValue((Selected)0),
+                    EnumExtensions.ToAttributeValue((Selected)0),
+                    Lookup.ToAttributeValue((Selected)0, returnEmptyAsNull: true),
+                    EnumExtensions.ToAttributeValue((Selected)0, returnEmptyAsNull: true)
+                ];
+            }
             """);
 
         var arm = output.SyntaxTrees.SelectMany(tree => tree.GetRoot(TestContext.Current.CancellationToken).DescendantNodes())
             .OfType<SwitchExpressionArmSyntax>().First();
+        using var stream = new MemoryStream();
+        var result = output.Emit(stream, cancellationToken: TestContext.Current.CancellationToken);
+        Assert.True(result.Success, string.Join(Environment.NewLine, result.Diagnostics));
+        var assembly = Assembly.Load(stream.ToArray());
+        var convert = assembly.GetType("Example.Probe")!.GetMethod("Convert")!.CreateDelegate<Func<string?[]>>();
+
+        var actual = convert();
 
         Assert.Equal(expected, Assert.IsType<LiteralExpressionSyntax>(arm.Expression).Token.ValueText);
+        Assert.Equal(expected, actual[0]);
+        Assert.Equal(actual[1], actual[0]);
+        Assert.Equal(expected.Length == 0 ? null : expected, actual[2]);
+        Assert.Equal(actual[3], actual[2]);
     }
 
     [Theory]
