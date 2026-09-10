@@ -279,7 +279,12 @@ public class EnumAttributeValueGeneratorTests
         var diagnostics = await output.WithAnalyzers(ImmutableArray.Create<DiagnosticAnalyzer>(new EnumAttributeValueAnalyzer())).GetAnalyzerDiagnosticsAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(expectedDiagnostics, diagnostics.Length);
-        Assert.All(diagnostics, diagnostic => Assert.Equal("FLUENTGEN001", diagnostic.Id));
+        Assert.All(diagnostics, diagnostic =>
+        {
+            Assert.Equal("FUIBGEN001", diagnostic.Id);
+            Assert.EndsWith("with the [EnumAttributeValues] attribute (for example, in GeneratedEnumExtensions.cs) and import its generated extensions to avoid reflection and boxing",
+                diagnostic.GetMessage(System.Globalization.CultureInfo.InvariantCulture));
+        });
     }
 
     private static Compilation Generate(string source, string path = "Input.cs")

@@ -4,4 +4,4 @@
 
 Rule ID | Category | Severity | Notes
 --------|----------|----------|-------
-FLUENTGEN001 | Performance | Warning | Register concrete enum attribute conversions for generation.
+FUIBGEN001 | Performance | Warning | Register concrete enum attribute conversions for generation.

@@ -10,9 +10,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Generators;
 public sealed class EnumAttributeValueAnalyzer : DiagnosticAnalyzer
 {
     private static readonly DiagnosticDescriptor MissingRegistration = new(
-        "FLUENTGEN001",
+        "FUIBGEN001",
         "Register enum attribute values for generation",
-        "Register '{0}' with EnumAttributeValuesAttribute and import its generated extensions to avoid reflection and boxing",
+        "Register '{0}' with the [EnumAttributeValues] attribute (for example, in GeneratedEnumExtensions.cs) and import its generated extensions to avoid reflection and boxing",
         "Performance",
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true);

@@ -29,7 +29,7 @@ or runtime dictionary.
 
 Import the context's namespace at the call site (including Razor imports).
 Existing calls such as `Color.Primary.ToAttributeValue()` then select the
-concrete overload instead of converting to `Enum`. Diagnostic `FLUENTGEN001`
+concrete overload instead of converting to `Enum`. Diagnostic `FUIBGEN001`
 reports typed calls that still select the reflection API, so missing
 registrations or imports fail the library build. Calls whose receiver is only
 known as `Enum` retain the public reflection-based fallback.
