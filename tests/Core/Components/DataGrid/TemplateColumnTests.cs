@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Components.Rendering;
 using Xunit;
 
-namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions;
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
 public class TemplateColumnTests
 {
