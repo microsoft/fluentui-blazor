@@ -99,6 +99,7 @@
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 	  </PackageReference>
     <ProjectReference Include="..\Core.Scripts\Microsoft.FluentUI.AspNetCore.Components.Scripts.esproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Core.Generators\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
   </ItemGroup>
 
   <!-- Enable deterministic builds for CI environments and Release configuration -->

@@ -119,7 +119,7 @@ public class DefaultValues
     /// take precedence, then resolves each property's <see cref="PropertyInfo"/> once. The result is cached per exact
     /// component type by <see cref="GetCachedProperties"/> so no reflection lookup is repeated on later calls.
     /// </summary>
-    [SuppressMessage("Trimming", "IL2070:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matchi[...]",
+    [SuppressMessage("Trimming", "IL2070:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
                      Justification = "TComponent properties are preserved via DynamicDependency attributes. The componentType parameter comes from BuildMergedProperties which processes only cached component types with preserved properties.")]
     private CachedDefault[]? BuildMergedProperties(Type componentType)
     {
