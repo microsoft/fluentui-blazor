@@ -22,6 +22,7 @@ import {
   typographyCaption1Styles,
   typographySubtitle2StrongerStyles,
 } from '@fluentui/web-components';
+import { axisGridLineStyles } from '../utils/cartesian-grid.styles.js';
 import { tooltipBaseStyles } from '../utils/tooltip.styles.js';
 
 export const styles: ElementStyles = css`
@@ -150,6 +151,8 @@ export const styles: ElementStyles = css`
     stroke-width: 1;
     opacity: 0.24;
   }
+
+  ${axisGridLineStyles}
 
   .axis-text,
   .y-axis-text {

@@ -23,7 +23,7 @@ export function areaChartTemplate<T extends AreaChart>(): ElementViewTemplate<T>
         x => !x.hideTooltip && x.tooltipProps.isVisible,
         html<T>`
           <div
-            class="tooltip"
+            class="tooltip ${x => (x.isMeasuringTooltip ? 'measuring' : '')}"
             style="inset-inline-start: ${x => x.tooltipProps.xPos}px; top: ${x =>
               x.tooltipProps.yPos}px; transform: ${x => x.tooltipInlineTransform}"
           >

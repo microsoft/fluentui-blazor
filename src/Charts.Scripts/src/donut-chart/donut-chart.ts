@@ -8,6 +8,7 @@ import {
   getColorFromToken,
   getNextColor,
   jsonConverter,
+  resolvePixelDimension,
   SVG_NAMESPACE_URI,
   validateDonutDataArray,
   wrapText,
@@ -198,13 +199,14 @@ export class DonutChart extends ChartBase {
     const totalValue = chartData.reduce((sum, point) => sum + (point.data ?? 0), 0);
     const svgEl = this.group.ownerSVGElement!;
     const svgRect = svgEl.getBoundingClientRect();
-    const pixelWidth = svgRect.width || parseFloat(String(this.width)) || 200;
-    const pixelHeight = svgRect.height || parseFloat(String(this.height)) || 200;
+    const pixelWidth = resolvePixelDimension(this.width, svgRect.width, 200);
+    const pixelHeight = resolvePixelDimension(this.height, svgRect.height, 200);
     this.group.setAttribute('transform', `translate(${pixelWidth / 2}, ${pixelHeight / 2})`);
     const outerRadius = Math.max(0, (Math.min(pixelHeight, pixelWidth) - 20) / 2);
     const cornerRadius = this.roundCorners ? 3 : 0;
 
     const pie = d3Pie<DonutChartDataPoint>()
+      .sort(null)
       .value(d => d.data)
       .padAngle(0.02);
 
@@ -235,11 +237,14 @@ export class DonutChart extends ChartBase {
 
       path.addEventListener('mouseover', event => this._showArcTooltip(arcDatum.data, path, event));
 
+      path.addEventListener('mouseout', () => this._clearTooltip());
+
       path.addEventListener('focus', () => this._showArcTooltip(arcDatum.data, path));
 
       path.addEventListener('blur', () => {
         this._clearTooltip();
       });
+      path.addEventListener('click', () => this._focusRovingElement(this._arcs, path));
 
       path.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {

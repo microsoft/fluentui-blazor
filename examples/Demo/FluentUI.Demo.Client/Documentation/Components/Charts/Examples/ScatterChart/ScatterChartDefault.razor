@@ -1,0 +1,63 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentScatterChart ChartTitle="Project Revenue and Transactions Over Time"
+                    ChartData="@chartData"
+                    Width="650px"
+                    Height="350px"
+                    XAxisTitle="Days since project start"
+                    YAxisTitle="Revenue in dollars"
+                    XMinValue="0"
+                    XMaxValue="110"
+                    YMinValue="0"
+                    YMaxValue="325000"
+                    TickValues="@xAxisTicks"
+                    YAxisTickValues="@yAxisTicks">
+</FluentScatterChart>
+
+@code {
+    private readonly double[] xAxisTicks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110];
+
+    private readonly double[] yAxisTicks = [0, 81250, 162500, 243750, 325000];
+
+    private readonly IReadOnlyList<ScatterChartSeries> chartData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Phase 1",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 10.0, Y = 50000, MarkerSize = 12 },
+                new ScatterChartDataPoint { X = 20.0, Y = 75000, MarkerSize = 15 },
+                new ScatterChartDataPoint { X = 30.0, Y = 90000, MarkerSize = 18 },
+                new ScatterChartDataPoint { X = 40.0, Y = 120000, MarkerSize = 22 },
+                new ScatterChartDataPoint { X = 50.0, Y = 150000, MarkerSize = 25 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Phase 2",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 60.0, Y = 180000, MarkerSize = 28 },
+                new ScatterChartDataPoint { X = 70.0, Y = 200000, MarkerSize = 30 },
+                new ScatterChartDataPoint { X = 80.0, Y = 220000, MarkerSize = 32 },
+                new ScatterChartDataPoint { X = 90.0, Y = 250000, MarkerSize = 35 },
+                new ScatterChartDataPoint { X = 100.0, Y = 300000, MarkerSize = 40 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Milestone",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.5",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 75.0, Y = 250000, MarkerSize = 50 },
+            ],
+        },
+    ];
+}

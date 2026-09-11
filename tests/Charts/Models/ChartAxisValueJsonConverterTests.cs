@@ -39,13 +39,30 @@ public class ChartAxisValueJsonConverterTests
     }
 
     [Fact]
-    public void Deserialize_InvalidDateString_ThrowsFormatException()
+    public void Deserialize_NonDateString_ReturnsStringChartAxisValue()
     {
         // Arrange
         const string json = "\"not-a-date\"";
 
-        // Act + Assert
-        Assert.Throws<FormatException>(() => JsonSerializer.Deserialize<ChartAxisValue>(json));
+        // Act
+        var result = JsonSerializer.Deserialize<ChartAxisValue>(json);
+
+        // Assert
+        Assert.True(result.IsString);
+        Assert.Equal("not-a-date", result.StringValue);
+    }
+
+    [Fact]
+    public void Deserialize_UnexpectedToken_ThrowsJsonException()
+    {
+        // Arrange
+        const string json = "true";
+
+        // Act
+        var exception = Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<ChartAxisValue>(json));
+
+        // Assert
+        Assert.Contains("Unexpected token", exception.Message);
     }
 
     [Fact]

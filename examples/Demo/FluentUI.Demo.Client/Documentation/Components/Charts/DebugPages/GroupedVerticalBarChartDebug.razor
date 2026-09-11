@@ -1,0 +1,104 @@
+﻿@page "/Charts/GroupedVerticalBarChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="@Orientation.Vertical" Margin="ml-4">
+    <FluentStack Orientation="@Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Start">
+        <FluentField Label="Width" LabelPosition="LabelPosition.Above"
+                     Style="min-width:220px;flex:1 1 220px;">
+            <FluentSlider slot="input"
+                          Id="basic-width"
+                          Min="200"
+                          Max="1000"
+                          @bind-Value="@width">
+            </FluentSlider>
+            <FluentLabel slot="message" Margin="ml-1">@width</FluentLabel>
+        </FluentField>
+        <FluentField Label="Height" LabelPosition="LabelPosition.Above"
+                     Style="min-width:220px;flex:1 1 220px;">
+            <FluentSlider slot="input"
+                          Id="basic-height"
+                          Min="200"
+                          Max="1000"
+                          @bind-Value="@height">
+            </FluentSlider>
+            <FluentLabel slot="message" Margin="ml-1">@height</FluentLabel>
+        </FluentField>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentSwitch Label="Use single color" @bind-Value="useSingleColor"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentSwitch Label="Show Y-axis labels" @bind-Value="showYAxisLabels"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Show Y-axis labels tooltip" @bind-Value="showYAxisLabelsTooltip"></FluentSwitch>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentRadioGroup Label="Pick a callout variant"
+                          @bind-Value="calloutVariant"
+                          Name="grouped-vertical-bar-line-callout">
+            <FluentRadio Value="@CalloutVariant.Single">Single Callout</FluentRadio>
+            <FluentRadio Value="@CalloutVariant.Stacked">Stacked Callout</FluentRadio>
+        </FluentRadioGroup>
+    </FluentStack>
+</FluentStack>
+
+<div style="margin:20px;">
+    <FluentGroupedVerticalBarChart ChartTitle="Grouped vertical bar chart interactive example"
+                                   ChartData="@chartData"
+                                   Width="@($"{width}px")"
+                                   Height="@($"{height}px")"
+                                   UseSingleColor="@useSingleColor"
+                                   EnableGradient="@gradient"
+                                   ShowYAxisLabels="@showYAxisLabels"
+                                   ShowYAxisLabelsTooltip="@showYAxisLabelsTooltip"
+                                   CalloutVariant="@calloutVariant"
+                                   HideLabels="@hideLabels"
+                                   HideTooltip="@hideTooltips"
+                                   HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<GroupedVerticalBarChartData> chartData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Q1",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "Product A", Legend = "Product A", Data = 25, Color = DataVizPalette.Color1 },
+                new GroupedVerticalBarChartDataPoint { Key = "Product B", Legend = "Product B", Data = 35, Color = DataVizPalette.Color2 },
+                new GroupedVerticalBarChartDataPoint { Key = "Product C", Legend = "Product C", Data = 18, Color = DataVizPalette.Color3 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Q2",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "Product A", Legend = "Product A", Data = 15, Color = DataVizPalette.Color1 },
+                new GroupedVerticalBarChartDataPoint { Key = "Product B", Legend = "Product B", Data = 45, Color = DataVizPalette.Color2 },
+                new GroupedVerticalBarChartDataPoint { Key = "Product C", Legend = "Product C", Data = 28, Color = DataVizPalette.Color3 },
+            ],
+        },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private bool useSingleColor;
+    private bool gradient;
+    private bool showYAxisLabels;
+    private bool showYAxisLabelsTooltip;
+    private CalloutVariant calloutVariant = CalloutVariant.Single;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}

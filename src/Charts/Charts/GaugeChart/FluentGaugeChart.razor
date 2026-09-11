@@ -1,0 +1,34 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentChartBase
+
+<fluent-gauge-chart id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
+                    chart-title="@ChartTitle"
+                    segments="@ChartJson.Serialize(Segments)"
+                    chart-value="@ChartValue"
+                    min-value="@MinValue"
+                    max-value="@MaxValue"
+                    sublabel="@Sublabel"
+                    hide-min-max="@(HideMinMax ? "true" : null)"
+                    chart-value-format="@ChartValueFormat?.ToAttributeValue()"
+                    chart-value-format-template="@ChartValueFormatTemplate"
+                    variant="@Variant?.ToAttributeValue()"
+                    enable-gradient="@(EnableGradient ? "true" : null)"
+                    width="@Width"
+                    height="@Height"
+                    hide-tooltip="@(HideTooltip ? "true" : null)"
+                    hide-labels="@(HideLabels ? "true" : null)"
+                    hide-legends="@(HideLegends ? "true" : null)"
+                    legend-list-label="@LegendListLabel"
+                    round-corners="@(RoundedCorners ? "true" : null)"
+                    allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                    culture="@Culture?.Name"
+                    @attributes="@AdditionalAttributes">
+</fluent-gauge-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

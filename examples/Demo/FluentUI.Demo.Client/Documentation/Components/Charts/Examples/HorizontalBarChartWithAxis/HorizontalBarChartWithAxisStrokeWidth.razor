@@ -1,11 +1,10 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div style="max-width: 300px;">
   <FluentSlider Label="@($"Stroke width ({_strokeWidth} px)")" Min="0" Max="6" @bind-Value="@_strokeWidth" />
 </div>
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px" ChartTitle="Stroke width on bars"
-                                  StrokeWidth="@_strokeWidth" ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Stroke width on bars" Width="650px" ChartData="@ChartData" Height="350px">
 </FluentHorizontalBarChartWithAxis>
 
 @code {

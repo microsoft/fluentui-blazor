@@ -9,6 +9,22 @@ export const getDirectionalMargins = (margins: CartesianChartMargins, isRTL: boo
   return isRTL ? { top: margins.top, right: margins.left, bottom: margins.bottom, left: margins.right } : margins;
 };
 
+export const resolveChartMargins = (
+  defaults: CartesianChartMargins,
+  custom: Partial<CartesianChartMargins> | undefined,
+  isRTL: boolean,
+  hasSecondaryYAxis: boolean = false,
+): CartesianChartMargins => {
+  const resolved = { ...defaults, ...custom };
+  if (hasSecondaryYAxis) {
+    const secondarySide = isRTL ? 'left' : 'right';
+    if (custom?.[secondarySide] === undefined) {
+      resolved[secondarySide] = 70;
+    }
+  }
+  return getDirectionalMargins(resolved, isRTL);
+};
+
 export type PrimaryYAxisLayout = {
   axisX: number;
   tickLineX2: number;

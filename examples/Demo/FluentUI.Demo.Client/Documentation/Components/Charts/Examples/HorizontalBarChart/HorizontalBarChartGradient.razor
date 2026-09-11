@@ -1,8 +1,9 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_enableGradient" Label="Enable gradient" />
 
-<FluentHorizontalBarChart ChartTitle="Horizontal bar chart gradient example"
+<FluentHorizontalBarChart Width="650px"
+                          ChartTitle="Horizontal bar chart gradient example"
                           EnableGradient="@_enableGradient"
                           ChartData="@ChartData">
 </FluentHorizontalBarChart>

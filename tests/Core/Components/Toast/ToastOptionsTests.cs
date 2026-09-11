@@ -182,4 +182,14 @@ public class ToastOptionsTests
         Assert.Equal("One", options.QuickAction1.Label);
         Assert.Equal("Two", options.QuickAction2.Label);
     }
+
+    [Fact]
+    public void ToastOptions_ExplicitIFluentComponentBaseIsDisposed_ReturnsFalse()
+    {
+        // Arrange
+        IFluentComponentBase options = new ToastOptions();
+
+        // Act & Assert
+        Assert.False(options.IsDisposed);
+    }
 }

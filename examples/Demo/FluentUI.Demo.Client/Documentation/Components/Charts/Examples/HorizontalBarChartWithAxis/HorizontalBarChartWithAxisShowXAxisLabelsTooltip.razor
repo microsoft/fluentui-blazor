@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 @*
     ShowXAxisLabelsTooltip truncates x-axis tick labels longer than 10 characters and shows
@@ -7,8 +7,7 @@
     that exceed the 10-character limit and demonstrate the tooltip behaviour.
 *@
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px" ChartTitle="Tooltip on truncated x-axis labels"
-                                  XAxisTickFormat=",.2f" ShowXAxisLabelsTooltip="true" ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Tooltip on truncated x-axis labels" XAxisTickFormat=",.2f" ShowXAxisLabelsTooltip="true" ChartData="@ChartData" Width="650px" Height="350px">
 </FluentHorizontalBarChartWithAxis>
 
 @code {

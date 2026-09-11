@@ -1,4 +1,5 @@
 import { attr } from '@microsoft/fast-element';
+import { resolveChartMargins } from '../utils/cartesian-axis-helpers.js';
 import { CartesianChartBase } from '../utils/cartesian-chart-base.js';
 import {
   createNumberFormat,
@@ -8,10 +9,13 @@ import {
   lightenColor,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
-import type { AxisCategoryOrder, Legend, TooltipProps, TooltipRenderer } from '../utils/chart-options.js';
+import type { Legend, TooltipProps, TooltipRenderer } from '../utils/chart-options.js';
 import {
+  generateNumericTicks,
+  parseDimensionNumber,
   renderContinuousBottomAxisShared,
   renderHorizontalYAxisShared,
+  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -37,6 +41,7 @@ type RenderedBar = {
 
 type PlotLayout = {
   barHeight: number;
+  gridLineTop: number;
   margins: {
     top: number;
     right: number;
@@ -171,12 +176,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   @attr({ converter: jsonConverter })
   public data!: HorizontalBarChartWithAxisDataPoint[];
 
-  @attr({ attribute: 'show-y-axis-labels', mode: 'boolean' })
-  public showYAxisLabels: boolean = false;
-
-  @attr({ attribute: 'show-y-axis-labels-tooltip', mode: 'boolean' })
-  public showYAxisLabelsTooltip: boolean = false;
-
   @attr({ attribute: 'use-single-color', mode: 'boolean' })
   public useSingleColor: boolean = false;
 
@@ -186,17 +185,8 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   @attr({ attribute: 'bar-height' })
   public barHeight?: number | string;
 
-  @attr({ attribute: 'x-axis-tick-count' })
-  public xAxisTickCount?: number | string;
-
-  @attr({ attribute: 'y-axis-tick-count' })
-  public yAxisTickCount?: number | string;
-
   @attr({ attribute: 'y-axis-padding' })
   public yAxisPadding?: number | string;
-
-  @attr({ attribute: 'y-axis-category-order' })
-  public yAxisCategoryOrder: AxisCategoryOrder = 'default';
 
   /** Narrows the inherited base tooltipProps type to include axis label fields. */
   public declare tooltipProps: HBCWATooltipProps;
@@ -214,18 +204,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     // attribute changes go through the FAST reactive system and trigger the *Changed()
     // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
-    const attrFields = [
-      'data',
-      'showYAxisLabels',
-      'showYAxisLabelsTooltip',
-      'useSingleColor',
-      'enableGradient',
-      'barHeight',
-      'xAxisTickCount',
-      'yAxisTickCount',
-      'yAxisPadding',
-      'yAxisCategoryOrder',
-    ] as const;
+    const attrFields = ['data', 'useSingleColor', 'enableGradient', 'barHeight', 'yAxisPadding'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
     for (const field of attrFields) {
       saved[field] = self[field];
@@ -275,19 +254,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     this._requestRender();
   }
 
-  protected xAxisTickCountChanged() {
-    this._requestRender();
-  }
-
-  protected yAxisTickCountChanged() {
-    this._requestRender();
-  }
-
   protected yAxisPaddingChanged() {
-    this._requestRender();
-  }
-
-  protected yAxisCategoryOrderChanged() {
     this._requestRender();
   }
 
@@ -319,14 +286,6 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         `${esc((p as HBCWATooltipProps).xValue)}</div>`,
       `</div>`,
     ].join('');
-  }
-
-  protected showYAxisLabelsChanged() {
-    this._requestRender();
-  }
-
-  protected showYAxisLabelsTooltipChanged() {
-    this._requestRender();
   }
 
   protected _getHostAriaLabel(): string {
@@ -364,7 +323,11 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     this._applyHostDimensions();
 
     const width = Math.max(
-      this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width || 640,
+      resolvePixelDimension(
+        this.width,
+        this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width,
+        640,
+      ),
       320,
     );
     const groups = this._getGroupedSeries();
@@ -374,19 +337,16 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     const yLabelWidth = this._getYAxisLabelWidth(groups, numericYAxis);
     const xAxisTitleOffset = this.xAxisTitle ? 20 : 0;
     const yAxisTitleOffset = this.yAxisTitle ? 16 : 0;
-    const margins = this._isRTL
-      ? {
-          top: 20,
-          right: yLabelWidth + yAxisTitleOffset,
-          bottom: 35 + xAxisTitleOffset,
-          left: 20,
-        }
-      : {
-          top: 20,
-          right: 20,
-          bottom: 35 + xAxisTitleOffset,
-          left: yLabelWidth + yAxisTitleOffset,
-        };
+    const margins = resolveChartMargins(
+      {
+        top: 20,
+        right: 20,
+        bottom: 35 + xAxisTitleOffset,
+        left: yLabelWidth + yAxisTitleOffset,
+      },
+      this.margins,
+      this._isRTL,
+    );
     const innerWidth = width - margins.left - margins.right;
     const plotLayout = this._getPlotLayout(groups.length, numericYAxis, height, margins, yValues);
     const xAxisScale = this._getXScaleInfo(groups);
@@ -398,25 +358,38 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       plotLayout.innerHeight,
       yValues,
     );
-    const svg = createSvgElement<SVGSVGElement>('svg');
-
-    svg.setAttribute('class', 'chart-svg');
-    svg.setAttribute('role', 'none');
-    svg.setAttribute('width', `${width}`);
-    svg.setAttribute('height', `${height}`);
-    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    const svg = this._createChartSvg(width, height, { role: 'group', ariaLabel: this._getHostAriaLabel() });
 
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const axisLayer = createSvgElement<SVGGElement>('g');
+    const gridLayer = createSvgElement<SVGGElement>('g');
     const barsLayer = createSvgElement<SVGGElement>('g');
-    svg.appendChild(axisLayer);
+    const axisLayer = createSvgElement<SVGGElement>('g');
+    svg.appendChild(gridLayer);
     svg.appendChild(barsLayer);
+    svg.appendChild(axisLayer);
 
-    this._renderXAxis(axisLayer, width, height, margins, xAxisScale.domain, xAxisScale.ticks);
+    this._renderXAxis(
+      axisLayer,
+      gridLayer,
+      width,
+      height,
+      margins,
+      plotLayout.gridLineTop,
+      xAxisScale.domain,
+      xAxisScale.ticks,
+    );
     this._renderYAxis(axisLayer, groups, numericYAxis, width, height, plotLayout.margins, yPositionForGroup, yValues);
-    this._renderOriginLine(axisLayer, plotLayout.margins, height, xAxisScale.domain, innerWidth);
+    this._renderOriginLine(
+      gridLayer,
+      plotLayout.margins,
+      plotLayout.gridLineTop,
+      height,
+      xAxisScale.domain,
+      xAxisScale.ticks,
+      innerWidth,
+    );
 
     this._renderedBars = [];
     const legendColorMap = this._buildLegendColorMap();
@@ -482,7 +455,13 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         rect.addEventListener('mouseout', () => this._clearTooltip());
         rect.addEventListener('focus', event => this._showTooltip(point, color, event, rect));
         rect.addEventListener('blur', () => this._clearTooltip());
-        rect.addEventListener('click', () => point.onClick?.());
+        rect.addEventListener('click', () => {
+          this._focusRovingElement(
+            this._renderedBars.map(bar => bar.element),
+            rect,
+          );
+          point.onClick?.();
+        });
         rect.addEventListener('keydown', (e: KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -519,6 +498,19 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
         label.textContent = formatCompactNumber(totalValue, this.culture);
         barsLayer.appendChild(label);
       }
+    });
+
+    this._renderAnnotations({
+      svg,
+      collisionLayer: barsLayer,
+      margins: { left: margins.left, top: plotLayout.margins.top },
+      innerWidth,
+      innerHeight: plotLayout.innerHeight,
+      mapDataX: value => scaleX(Number(value)) - margins.left,
+      mapDataY: value => {
+        const groupIndex = groups.findIndex(group => String(group.rawY) === String(value));
+        return groupIndex < 0 ? undefined : yPositionForGroup(groups[groupIndex], groupIndex) - plotLayout.margins.top;
+      },
     });
 
     this.legends = Array.from(legendColorMap.entries()).map(([legend, color]) => ({ legend, color }));
@@ -588,8 +580,15 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   }
 
   private _getChartHeight(groupCount: number, numericYAxis: boolean, yValues: number[]) {
-    if (this.height !== undefined) {
-      return Math.max(toNumber(this.height, DEFAULT_HEIGHT), 160);
+    if (this.height !== undefined && this.height !== null && this.height !== '') {
+      const explicitHeight = parseDimensionNumber(this.height);
+      if (explicitHeight !== undefined) {
+        return Math.max(explicitHeight, 160);
+      }
+      const measuredHeight = this.chartContainer?.getBoundingClientRect().height;
+      if (measuredHeight && measuredHeight > 0) {
+        return Math.max(measuredHeight, 160);
+      }
     }
 
     if (numericYAxis && yValues.length > 1) {
@@ -639,6 +638,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
     return {
       barHeight,
+      gridLineTop: margins.top,
       margins,
       innerHeight: height - margins.top - margins.bottom,
     };
@@ -680,19 +680,39 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     if (this.tickValues) {
       return { domain: result.domain, ticks: (this.tickValues as number[]).map(Number) };
     }
+    const configuredTicks = generateNumericTicks(
+      this.xScaleType,
+      this.xAxisConfig?.tickStep,
+      Number(this.xAxisConfig?.tick0),
+      result.domain,
+    );
+    if (configuredTicks?.length) {
+      return { domain: result.domain, ticks: configuredTicks };
+    }
     return result;
   }
 
   private _getNumericYDomain(yValues: number[]) {
+    return this._getNumericYScaleInfo(yValues).domain;
+  }
+
+  private _getNumericYScaleInfo(yValues: number[]) {
     const yMin = Math.min(...yValues);
     const yMax = Math.max(...yValues);
+    const explicitYMax = toOptionalNumber(this.yMaxValue);
     const domainMin = Math.min(yMin, toOptionalNumber(this.yMinValue) ?? (this.supportNegativeData ? yMin : 0));
-    const domainMax = Math.max(yMax, toOptionalNumber(this.yMaxValue) ?? 0);
-    if (this.roundedTicks) {
-      const niced = getNiceDomainAndTicks(domainMin, domainMax, toNumber(this.yAxisTickCount, DEFAULT_Y_TICK_COUNT));
-      return niced.domain;
+    const domainMax = Math.max(yMax, explicitYMax ?? 0);
+    const tickInfo = getNiceDomainAndTicks(domainMin, domainMax, toNumber(this.yAxisTickCount, DEFAULT_Y_TICK_COUNT));
+    let domain = this.roundedTicks ? tickInfo.domain : ([domainMin, domainMax] as [number, number]);
+    let ticks = tickInfo.ticks;
+
+    if (explicitYMax === undefined && tickInfo.domain[1] <= yMax && tickInfo.ticks.length > 1) {
+      const tickStep = tickInfo.ticks[1] - tickInfo.ticks[0];
+      domain = [tickInfo.domain[0], tickInfo.domain[1] + tickStep];
+      ticks = tickInfo.ticks;
     }
-    return [domainMin, domainMax] as [number, number];
+
+    return { domain, ticks };
   }
 
   private _createYPositioner(
@@ -811,26 +831,36 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
 
   private _renderXAxis(
     axisLayer: SVGGElement,
+    gridLayer: SVGGElement,
     width: number,
     height: number,
     margins: { left: number; right: number; bottom: number },
+    gridLineTop: number,
     domain: [number, number],
     ticks: number[],
   ) {
     renderContinuousBottomAxisShared({
       axisLayer,
+      gridLayer,
+      gridLineSpan: { start: gridLineTop, end: height - margins.bottom },
       width,
       height,
       margins,
       domain,
       ticks,
-      tickPadding: toNumber(this.tickPadding, 6),
+      tickPadding: this._getXAxisTickPadding(6),
       isRTL: this._isRTL,
       rotateXAxisLabels: this.rotateXAxisLabels,
       wrapXAxisLabels: this.wrapXAxisLabels,
       hideTickOverlap: this.hideTickOverlap,
       showXAxisLabelsTooltip: this.showXAxisLabelsTooltip,
+      axisLabelTooltipHandlers: {
+        show: (target, fullLabel) => this._showAxisLabelTooltip(target, fullLabel),
+        hide: () => this._hideAxisLabelTooltip(),
+      },
       xAxisTitle: this.xAxisTitle,
+      xAxisAnnotation: this.xAxisAnnotation,
+      tickText: this.xAxisConfig?.tickText,
       formatTickLabel: tick =>
         this.xAxisTickFormat ? _applyFormat(tick, this.xAxisTickFormat) : formatAxisNumber(tick, this.culture),
     });
@@ -849,23 +879,33 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     const axisX = this._isRTL ? width - margins.right : margins.left;
     const tickEntries: { y: number; label: string; tooltipText?: string }[] = [];
     if (numericYAxis) {
-      const [min, max] = this._getNumericYDomain(yValues);
-      const yAxisScale = getNiceDomainAndTicks(min, max, toNumber(this.yAxisTickCount, DEFAULT_Y_TICK_COUNT));
-      const effectiveTicks = this.yAxisTickValues ?? yAxisScale.ticks;
+      const yAxisScale = this._getNumericYScaleInfo(yValues);
+      const effectiveTicks =
+        this.yAxisTickValues ??
+        generateNumericTicks(
+          this.yScaleType,
+          this.yAxisConfig?.tickStep,
+          Number(this.yAxisConfig?.tick0),
+          yAxisScale.domain,
+        ) ??
+        yAxisScale.ticks;
       const safeSpan = yAxisScale.domain[1] - yAxisScale.domain[0] || 1;
-      effectiveTicks.forEach(tick => {
+      effectiveTicks.forEach((tick, index) => {
         const ratio = (tick - yAxisScale.domain[0]) / safeSpan;
         const y = height - margins.bottom - ratio * (height - margins.top - margins.bottom);
-        const label = this.yAxisTickFormat
-          ? _applyFormat(tick, this.yAxisTickFormat)
-          : formatCompactNumber(tick, this.culture).toLowerCase();
+        const label =
+          this.yAxisConfig?.tickText?.[index] ??
+          (this.yAxisTickFormat
+            ? _applyFormat(tick, this.yAxisTickFormat)
+            : formatCompactNumber(tick, this.culture).toLowerCase());
         tickEntries.push({ y, label });
       });
     } else {
       groups.forEach((group, index) => {
         const y = yPositionForGroup(group, index);
         const fullLabel = String(group.rawY);
-        const label = this.showYAxisLabels ? fullLabel : truncateText(fullLabel, 18);
+        const label =
+          this.yAxisConfig?.tickText?.[index] ?? (this.showYAxisLabels ? fullLabel : truncateText(fullLabel, 18));
         tickEntries.push({ y, label, tooltipText: this.showYAxisLabelsTooltip ? fullLabel : undefined });
       });
     }
@@ -877,6 +917,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
       tickPadding: toNumber(this.tickPadding, 6),
       ticks: tickEntries,
       yAxisTitle: this.yAxisTitle,
+      yAxisAnnotation: this.yAxisAnnotation,
       width,
       height,
       margins,
@@ -884,13 +925,15 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
   }
 
   private _renderOriginLine(
-    axisLayer: SVGGElement,
+    gridLayer: SVGGElement,
     margins: { top: number; right: number; left: number; bottom: number },
+    gridLineTop: number,
     height: number,
     domain: [number, number],
+    ticks: number[],
     innerWidth: number,
   ) {
-    if (!(domain[0] < 0 && domain[1] > 0)) {
+    if (!(domain[0] < 0 && domain[1] > 0) || ticks.includes(0)) {
       return;
     }
 
@@ -903,9 +946,9 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     line.setAttribute('class', 'origin-line');
     line.setAttribute('x1', `${originX}`);
     line.setAttribute('x2', `${originX}`);
-    line.setAttribute('y1', `${margins.top}`);
+    line.setAttribute('y1', `${gridLineTop}`);
     line.setAttribute('y2', `${height - margins.bottom}`);
-    axisLayer.appendChild(line);
+    gridLayer.appendChild(line);
   }
 
   private _showTooltip(

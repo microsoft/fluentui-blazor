@@ -1,0 +1,163 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div>
+    A sparkline
+    <FluentSparklineChart ChartData="@sparklineExamples[0]"
+                          Width="80px"
+                          Height="20px"
+                          ShowLegend="true"
+                          Style="display: inline-block;">
+    </FluentSparklineChart>
+    - is a very small line chart, drawn without axes or coordinates. It presents the general shape of the variation (like over time) in some measurement,
+    <FluentSparklineChart ChartData="@sparklineExamples[1]"
+                          Width="80px"
+                          Height="20px"
+                          Style="display: inline-block;">
+    </FluentSparklineChart>
+    - such as temperature or stock market price, in a simple and highly condensed way.
+    <br />
+    <br />
+    Below table shows sparklines in one of its columns.
+    <br />
+    <br />
+</div>
+
+<table role="grid">
+    <tbody>
+        @for (var index = 0; index < sparklineExamples.Count; index++)
+        {
+            <tr>
+                <td style="padding-block:5px;padding-inline-end:15px;">Row @(index + 1)</td>
+                <td>
+                    <FluentSparklineChart ChartData="@sparklineExamples[index]"
+                                          Width="80px"
+                                          Height="20px"
+                                          ShowLegend="@(index < 2 || index > 4)">
+                    </FluentSparklineChart>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private readonly IReadOnlyList<SparklineChartData> sparklineExamples =
+    [
+        new SparklineChartData
+        {
+            ChartTitle = "10.21",
+            LineChartData =
+            [
+                new SparklineChartSeries
+                {
+                    Legend = "19.64",
+                    Color = DataVizPalette.Custom,
+                    CustomColor = "qualitative.1",
+                    Data =
+                    [
+                        new SparklineDataPoint { X = 1.0, Y = 58.13 },
+                        new SparklineDataPoint { X = 2.0, Y = 140.98 },
+                        new SparklineDataPoint { X = 3.0, Y = 20 },
+                        new SparklineDataPoint { X = 4.0, Y = 89.7 },
+                        new SparklineDataPoint { X = 5.0, Y = 99 },
+                        new SparklineDataPoint { X = 6.0, Y = 13.28 },
+                        new SparklineDataPoint { X = 7.0, Y = 31.32 },
+                        new SparklineDataPoint { X = 8.0, Y = 10.21 },
+                    ],
+                },
+            ],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "49.44",
+            LineChartData = [CreateSharedSeries("19.64", "qualitative.2")],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "49.44",
+            LineChartData = [CreateSharedSeries("19.64", "qualitative.3")],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "49.44",
+            LineChartData = [CreateSharedSeries("464.64", "qualitative.4")],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "49.44",
+            LineChartData = [CreateSharedSeries("46.49", "qualitative.5")],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "49.44",
+            LineChartData =
+            [
+                new SparklineChartSeries
+                {
+                    Legend = "49.44",
+                    Color = DataVizPalette.Custom,
+                    CustomColor = "qualitative.6",
+                    Data =
+                    [
+                        new SparklineDataPoint { X = new DateTime(2020, 3, 3), Y = 29.13 },
+                        new SparklineDataPoint { X = new DateTime(2020, 3, 4), Y = 70.98 },
+                        new SparklineDataPoint { X = new DateTime(2020, 3, 5), Y = 60 },
+                        new SparklineDataPoint { X = new DateTime(2020, 3, 7), Y = 89.7 },
+                        new SparklineDataPoint { X = new DateTime(2020, 3, 12), Y = 19 },
+                        new SparklineDataPoint { X = new DateTime(2020, 3, 15), Y = 49.44 },
+                    ],
+                },
+            ],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "49.44",
+            LineChartData = [CreateSharedSeries("49.44", "qualitative.7")],
+        },
+        new SparklineChartData
+        {
+            ChartTitle = "541.44",
+            LineChartData =
+            [
+                new SparklineChartSeries
+                {
+                    Legend = "541.44",
+                    Color = DataVizPalette.Custom,
+                    CustomColor = "qualitative.8",
+                    Data =
+                    [
+                        new SparklineDataPoint { X = 1.0, Y = 291.13 },
+                        new SparklineDataPoint { X = 2.0, Y = 170.98 },
+                        new SparklineDataPoint { X = 3.0, Y = 260 },
+                        new SparklineDataPoint { X = 4.0, Y = 89.7 },
+                        new SparklineDataPoint { X = 5.0, Y = 664 },
+                        new SparklineDataPoint { X = 6.0, Y = 66.44 },
+                        new SparklineDataPoint { X = 7.0, Y = 541.44 },
+                        new SparklineDataPoint { X = 8.0, Y = 32.44 },
+                        new SparklineDataPoint { X = 9.0, Y = 499.14 },
+                        new SparklineDataPoint { X = 10.0, Y = 350.48 },
+                        new SparklineDataPoint { X = 11.0, Y = 32.44 },
+                        new SparklineDataPoint { X = 12.0, Y = 400.44 },
+                    ],
+                },
+            ],
+        },
+    ];
+
+    private static SparklineChartSeries CreateSharedSeries(string legend, string color) =>
+        new()
+        {
+            Legend = legend,
+            Color = DataVizPalette.Custom,
+            CustomColor = color,
+            Data =
+            [
+                new SparklineDataPoint { X = 1.0, Y = 29.13 },
+                new SparklineDataPoint { X = 2.0, Y = 70.98 },
+                new SparklineDataPoint { X = 3.0, Y = 60 },
+                new SparklineDataPoint { X = 4.0, Y = 89.7 },
+                new SparklineDataPoint { X = 5.0, Y = 19 },
+                new SparklineDataPoint { X = 6.0, Y = 49.44 },
+            ],
+        };
+}

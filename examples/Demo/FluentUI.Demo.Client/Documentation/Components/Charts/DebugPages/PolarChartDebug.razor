@@ -1,0 +1,99 @@
+@page "/Charts/PolarChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:180px;flex:1 1 180px;">
+        <label slot="label" for="hole" id="hole--label">
+            Hole
+        </label>
+        <FluentSlider slot="input"
+                      id="hole"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      @bind-Value="@hole">
+        </FluentSlider>
+        <fluent-label slot="message">@hole</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Show markers" @bind-Value="showMarkers"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentPolarChart ChartTitle="Polar chart interactive example"
+                      ChartData="@chartData"
+                      Width="@($"{width}px")"
+                      Height="@($"{height}px")"
+                      Hole="@hole"
+                      ShowMarkers="@showMarkers"
+                      HideLabels="@hideLabels"
+                      HideTooltip="@hideTooltips"
+                      HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<PolarChartSeries> chartData =
+    [
+        new PolarChartSeries
+        {
+            Legend = "Series 1",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Speed", Y = 80 },
+                new PolarChartDataPoint { X = "Power", Y = 65 },
+                new PolarChartDataPoint { X = "Accuracy", Y = 70 },
+                new PolarChartDataPoint { X = "Endurance", Y = 55 },
+            ],
+            Color = DataVizPalette.Color1,
+        },
+        new PolarChartSeries
+        {
+            Legend = "Series 2",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Speed", Y = 60 },
+                new PolarChartDataPoint { X = "Power", Y = 75 },
+                new PolarChartDataPoint { X = "Accuracy", Y = 58 },
+                new PolarChartDataPoint { X = "Endurance", Y = 85 },
+            ],
+            Color = DataVizPalette.Color2,
+        },
+    ];
+
+    private int width = 400;
+    private int height = 400;
+    private double hole;
+    private bool showMarkers;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}

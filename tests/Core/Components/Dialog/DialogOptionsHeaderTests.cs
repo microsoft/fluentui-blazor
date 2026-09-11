@@ -156,4 +156,14 @@ public class DialogOptionsHeaderTests
         // Assert
         Assert.True(clicked);
     }
+
+    [Fact]
+    public void DialogOptions_ExplicitIFluentComponentBaseIsDisposed_ReturnsFalse()
+    {
+        // Arrange
+        IFluentComponentBase options = new DialogOptions();
+
+        // Act & Assert
+        Assert.False(options.IsDisposed);
+    }
 }

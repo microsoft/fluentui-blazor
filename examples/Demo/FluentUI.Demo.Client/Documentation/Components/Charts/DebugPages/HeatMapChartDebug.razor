@@ -1,0 +1,84 @@
+@page "/Charts/HeatMapChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentHeatMapChart ChartTitle="Heat map chart interactive example"
+                        ChartData="@chartData"
+                        Width="@($"{width}px")"
+                        Height="@($"{height}px")"
+                        XAxisTitle="Day"
+                        YAxisTitle="Time"
+                        DomainValuesForColorScale="@domainValuesForColorScale"
+                        RangeValuesForColorScale="@rangeValuesForColorScale"
+                        HideLabels="@hideLabels"
+                        HideTooltip="@hideTooltips"
+                        HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<HeatMapChartData> chartData =
+    [
+        new HeatMapChartData
+        {
+            Legend = "Monday",
+            Value = 20,
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Mon", Y = "10 AM", Value = 15 },
+                new HeatMapChartDataPoint { X = "Mon", Y = "11 AM", Value = 25 },
+                new HeatMapChartDataPoint { X = "Mon", Y = "12 PM", Value = 40 },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Legend = "Tuesday",
+            Value = 40,
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Tue", Y = "10 AM", Value = 30 },
+                new HeatMapChartDataPoint { X = "Tue", Y = "11 AM", Value = 45 },
+                new HeatMapChartDataPoint { X = "Tue", Y = "12 PM", Value = 60 },
+            ],
+        },
+    ];
+
+    private readonly double[] domainValuesForColorScale = [0, 50, 100];
+    private readonly string[] rangeValuesForColorScale = ["#F3F2F1", "#0078D4", "#004578"];
+    private int width = 650;
+    private int height = 350;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}

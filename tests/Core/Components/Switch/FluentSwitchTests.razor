@@ -3,6 +3,23 @@
 
 @code
 {
+    private sealed class TestableFluentSwitch : FluentSwitch
+    {
+        public TestableFluentSwitch() : base(LibraryConfiguration.Empty)
+        {
+        }
+
+        protected override bool TryParseValueFromString(
+            string? value,
+            [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out bool result,
+            [System.Diagnostics.CodeAnalysis.NotNullWhen(false)] out string? validationErrorMessage)
+        {
+            validationErrorMessage = null;
+            result = string.Equals(value, "on", StringComparison.OrdinalIgnoreCase);
+            return true;
+        }
+    }
+
     public FluentSwitchTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -91,6 +108,21 @@
 
         // Act & Assert
         Assert.Throws<NotSupportedException>(() => fluentSwitch.InternalTryParseValueFromString(string.Empty, out var parsedValue, out var validationErrorMessage));
+    }
+
+    [Fact]
+    public void FluentSwitch_InternalTryParseValueFromString_DelegatesToOverride()
+    {
+        // Arrange
+        var fluentSwitch = new TestableFluentSwitch();
+
+        // Act
+        var success = fluentSwitch.InternalTryParseValueFromString("on", out var parsedValue, out var validationErrorMessage);
+
+        // Assert
+        Assert.True(success);
+        Assert.True(parsedValue);
+        Assert.Null(validationErrorMessage);
     }
 
     [Fact]

@@ -1,5 +1,10 @@
 import { css } from '@microsoft/fast-element';
-import { colorNeutralBackground1, spacingHorizontalL, spacingVerticalMNudge } from '@fluentui/web-components';
+import {
+  colorNeutralBackground1,
+  colorNeutralForeground1,
+  spacingHorizontalL,
+  spacingVerticalMNudge,
+} from '@fluentui/web-components';
 
 /**
  * Shared base styles for the chart tooltip container.
@@ -26,5 +31,25 @@ export const tooltipBaseStyles = css`
     padding: ${spacingVerticalMNudge} ${spacingHorizontalL};
     background: ${colorNeutralBackground1};
     pointer-events: none;
+  }
+
+  .tooltip.measuring {
+    visibility: hidden;
+  }
+
+  .axis-label-tooltip {
+    position: absolute;
+    z-index: 1000;
+    max-inline-size: 320px;
+    padding: ${spacingVerticalMNudge} ${spacingHorizontalL};
+    border-radius: 4px;
+    background: ${colorNeutralBackground1};
+    color: ${colorNeutralForeground1};
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
   }
 `;

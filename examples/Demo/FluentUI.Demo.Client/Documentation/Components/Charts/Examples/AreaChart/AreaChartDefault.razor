@@ -1,16 +1,21 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentAreaChart ChartData="data"
+<FluentAreaChart ChartTitle="Area chart basic example"
+                 ChartData="@chartData"
                  Width="700px"
-                 ChartTitle="Area chart basic example" />
+                 Height="300px"
+                 XAxisTitle="Number of days"
+                 YAxisTitle="Variation of stock market prices">
+</FluentAreaChart>
 
 @code {
-    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
-    {
-
-        new AreaChartSeries { Legend = "legend1",
-            ChartData = new List<AreaChartDataPoint>
-            {
+    private readonly IReadOnlyList<AreaChartSeries> chartData =
+    [
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData =
+            [
                 new AreaChartDataPoint { X = 20, Y = 7000 },
                 new AreaChartDataPoint { X = 25, Y = 9000 },
                 new AreaChartDataPoint { X = 30, Y = 13000 },
@@ -25,12 +30,14 @@
                 new AreaChartDataPoint { X = 75, Y = 6876 },
                 new AreaChartDataPoint { X = 80, Y = 12000 },
                 new AreaChartDataPoint { X = 85, Y = 7000 },
-                new AreaChartDataPoint { X = 90, Y = 10000 }
-            }
+                new AreaChartDataPoint { X = 90, Y = 10000 },
+            ],
         },
-        new AreaChartSeries { Legend = "legend2",
-            ChartData = new List<AreaChartDataPoint>
-            {
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            ChartData =
+            [
                 new AreaChartDataPoint { X = 20, Y = 12000 },
                 new AreaChartDataPoint { X = 25, Y = 14000 },
                 new AreaChartDataPoint { X = 30, Y = 18000 },
@@ -45,12 +52,14 @@
                 new AreaChartDataPoint { X = 75, Y = 11876 },
                 new AreaChartDataPoint { X = 80, Y = 17000 },
                 new AreaChartDataPoint { X = 85, Y = 12000 },
-                new AreaChartDataPoint { X = 90, Y = 15000 }
-           }
+                new AreaChartDataPoint { X = 90, Y = 15000 },
+            ],
         },
-        new AreaChartSeries { Legend = "legend3",
-            ChartData = new List<AreaChartDataPoint>
-            {
+        new AreaChartSeries
+        {
+            Legend = "legend3",
+            ChartData =
+            [
                 new AreaChartDataPoint { X = 20, Y = 14000 },
                 new AreaChartDataPoint { X = 25, Y = 16000 },
                 new AreaChartDataPoint { X = 30, Y = 20000 },
@@ -65,18 +74,8 @@
                 new AreaChartDataPoint { X = 75, Y = 13876 },
                 new AreaChartDataPoint { X = 80, Y = 19000 },
                 new AreaChartDataPoint { X = 85, Y = 14000 },
-                new AreaChartDataPoint { X = 90, Y = 17000 }
-            }
-        }
-    };
+                new AreaChartDataPoint { X = 90, Y = 17000 },
+            ],
+        },
+    ];
 }
-
-
-@*
-xaxis-title="Number of days"
-y-axis-title="Variation of stock market prices"
-x-axis-category-order="default"
-hide-tick-overlap
-mode="tonexty"
-secondary-y-axis-title
-*@
