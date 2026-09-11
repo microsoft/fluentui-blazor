@@ -1,5 +1,10 @@
 import { attr } from '@microsoft/fast-element';
-import { timeFormat as d3TimeFormat, timeFormatLocale as d3TimeFormatLocale, type TimeLocaleDefinition, utcFormat } from 'd3-time-format';
+import {
+  timeFormat as d3TimeFormat,
+  timeFormatLocale as d3TimeFormatLocale,
+  type TimeLocaleDefinition,
+  utcFormat,
+} from 'd3-time-format';
 import { renderChartAnnotations } from './chart-annotation-helpers.js';
 import { resolveChartMargins, type CartesianChartMargins } from './cartesian-axis-helpers.js';
 import type {

@@ -304,4 +304,24 @@
         Assert.Equal(0, value);
         Assert.Contains("Summary 3", cut.Markup);
     }
+
+    [Fact]
+    public void FluentWizardStep_StepIcon_UnknownStatus_UsesFallbackIcon()
+    {
+        // Arrange
+        var step = new FluentWizardStep(LibraryConfiguration.Empty);
+        var statusProperty = typeof(FluentWizardStep).GetProperty(
+            "Status",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+        var stepIconProperty = typeof(FluentWizardStep).GetProperty(
+            "StepIcon",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+        // Act
+        statusProperty!.SetValue(step, (WizardStepStatus)999);
+        var icon = stepIconProperty!.GetValue(step);
+
+        // Assert
+        Assert.IsType<CoreIcons.Regular.Size20.Circle>(icon);
+    }
 }

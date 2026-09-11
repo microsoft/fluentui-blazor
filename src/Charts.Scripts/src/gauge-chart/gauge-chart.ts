@@ -6,6 +6,7 @@ import {
   getColorFromToken,
   getNextColor,
   jsonConverter,
+  resolvePixelDimension,
   SVG_NAMESPACE_URI,
   wrapText,
 } from '../utils/chart-helpers.js';
@@ -428,9 +429,9 @@ export class GaugeChart extends ChartBase {
   private _calculateGeometry() {
     const svgEl = this.group.ownerSVGElement!;
     const svgRect = svgEl.getBoundingClientRect();
-    const w = svgRect.width || parseFloat(String(this.width)) || 252;
+    const w = resolvePixelDimension(this.width, svgRect.width, 252);
     const defaultHeight = this.sublabel ? 116 : 96;
-    const h = svgRect.height || parseFloat(String(this.height)) || defaultHeight;
+    const h = resolvePixelDimension(this.height, svgRect.height, defaultHeight);
 
     const marginLeft = (!this.hideMinMax ? LABEL_OFFSET + LABEL_WIDTH : 0) + GAUGE_MARGIN;
     const marginRight = (!this.hideMinMax ? LABEL_OFFSET + LABEL_WIDTH : 0) + GAUGE_MARGIN;

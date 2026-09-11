@@ -42,6 +42,58 @@ export const defaultYAxisTickFormatter = (value: number): string => {
   return Math.abs(value) >= 1e9 ? formattedValue.replace('G', 'B') : formattedValue;
 };
 
+export const parseDimensionNumber = (value: number | string | undefined): number | undefined => {
+  if (value === undefined || value === null || value === '') {
+    return undefined;
+  }
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? value : undefined;
+  }
+  const str = String(value).trim();
+  if (str.endsWith('%')) {
+    return undefined;
+  }
+  const parsed = parseFloat(str);
+  return Number.isFinite(parsed) ? parsed : undefined;
+};
+
+export const resolvePixelDimension = (
+  configuredValue: number | string | undefined,
+  measuredValue: number | undefined,
+  fallback: number,
+): number => {
+  const direct = parseDimensionNumber(configuredValue);
+  if (direct !== undefined) {
+    return direct;
+  }
+  if (measuredValue !== undefined && Number.isFinite(measuredValue) && measuredValue > 0) {
+    return measuredValue;
+  }
+  return fallback;
+};
+
+export const parseNumber = (value: number | string | undefined, fallback: number): number => {
+  if (value === undefined || value === null || value === '') {
+    return fallback;
+  }
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? value : fallback;
+  }
+  const parsed = parseFloat(String(value));
+  return Number.isFinite(parsed) ? parsed : fallback;
+};
+
+export const parseOptionalNumber = (value: number | string | undefined): number | undefined => {
+  if (value === undefined || value === null || value === '') {
+    return undefined;
+  }
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? value : undefined;
+  }
+  const parsed = parseFloat(String(value));
+  return Number.isFinite(parsed) ? parsed : undefined;
+};
+
 export const escapeHtml = (str: string): string =>
   str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 

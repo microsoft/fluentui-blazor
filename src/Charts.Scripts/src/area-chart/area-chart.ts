@@ -13,10 +13,12 @@ import {
   createNumericContinuousScale,
   createPreparedNumericContinuousScale,
   DEFAULT_NUMERIC_Y_TICK_COUNT,
+  parseDimensionNumber,
   renderAxisGridLinesShared,
   renderBottomAxisShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
+  resolvePixelDimension,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
 } from '../utils/cartesian-axis-shared.js';
@@ -238,8 +240,8 @@ export class AreaChart extends CartesianChartBase {
     const hasSecondaryY = isSecondaryByIndex.some(Boolean);
 
     const isRtl = getRTL(this);
-    const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 500);
-    const height = toNumber(this.height, 300);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 500);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
       width,
       height,
@@ -437,9 +439,7 @@ export class AreaChart extends CartesianChartBase {
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const xAxis = axisBottom(xScale)
-      .tickPadding(this._getXAxisTickPadding(6))
-      .tickSize(this._getXAxisTickSize(6));
+    const xAxis = axisBottom(xScale).tickPadding(this._getXAxisTickPadding(6)).tickSize(this._getXAxisTickSize(6));
     const xTickValues = this.tickValues?.length
       ? isDateAxis
         ? this.tickValues.map(value => parseDateOrNumber(value as string | number | Date) as Date)

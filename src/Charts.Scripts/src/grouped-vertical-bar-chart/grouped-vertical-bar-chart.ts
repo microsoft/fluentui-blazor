@@ -16,6 +16,7 @@ import {
   renderBottomAxisShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
+  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -43,6 +44,8 @@ type LinePlotPoint = {
   group: GroupedVerticalBarChartData;
   entry: GroupedVerticalBarChartLineDataPoint;
   xCenter: number;
+  groupLeft: number;
+  groupRight: number;
 };
 
 const defaultMargins = { top: 40, right: 20, bottom: 50, left: 60 };
@@ -174,8 +177,8 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
       return;
     }
 
-    const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 600);
-    const height = toNumber(this.height, 300);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 600);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const hasSecondaryY = groups.some(
       group =>
         group.series.some(point => point.useSecondaryYScale) || group.lineData?.some(entry => entry.useSecondaryYScale),
@@ -280,6 +283,15 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
     const preparedSecondaryYAxis = secondaryYAxis.preparedAxis;
     const yScaleSecondary = secondaryYAxis.scale;
     const useLogSecondary = secondaryYAxis.isLogarithmic;
+    const getGroupAverageValueY = (group: GroupedVerticalBarChartData): number => {
+      const positions = [
+        ...group.series.map(point => (point.useSecondaryYScale ? yScaleSecondary : yScale)(point.data)),
+        ...(group.lineData ?? []).map(entry => (entry.useSecondaryYScale ? yScaleSecondary : yScale)(entry.y)),
+      ].filter(Number.isFinite);
+      return positions.length > 0
+        ? positions.reduce((total, position) => total + position, 0) / positions.length
+        : innerHeight / 2;
+    };
 
     const firstPoint = groups.flatMap(group => group.series)[0];
     const singleColor = this.useSingleColor ? resolveChartColor(firstPoint?.color, this.colors, 0) : undefined;
@@ -300,9 +312,7 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const xAxis = axisBottom(xScale)
-      .tickPadding(this._getXAxisTickPadding(6))
-      .tickSize(this._getXAxisTickSize(6));
+    const xAxis = axisBottom(xScale).tickPadding(this._getXAxisTickPadding(6)).tickSize(this._getXAxisTickSize(6));
     applyAxisTickConfig(
       xAxis,
       this.xAxisTickCount,
@@ -376,10 +386,13 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
           }
           const hostRect = this.getBoundingClientRect();
           const svgRect = svg.getBoundingClientRect();
-          const anchorX = svgRect.left - hostRect.left + margins.left + groupX + slotX + offset + actualBarWidth / 2;
+          const groupLeft = svgRect.left - hostRect.left + margins.left + groupX;
+          const groupRight = groupLeft + effectiveGroupWidth;
+          const anchorX = groupLeft + slotX + offset + actualBarWidth / 2;
           const minY = svgRect.top - hostRect.top + margins.top + barTop;
           const maxY = svgRect.top - hostRect.top + margins.top + barBottom;
           const anchorY = event ? Math.min(Math.max(event.clientY - hostRect.top, minY), maxY) : (minY + maxY) / 2;
+          const groupAverageY = svgRect.top - hostRect.top + margins.top + getGroupAverageValueY(group);
           const isFreshShow = !this.tooltipProps.isVisible;
           this._currentTooltipDataPoint = this.isCalloutForStack ? group : { ...point, xAxisPoint: group.xAxisPoint };
           const entries: TooltipEntry[] = (this.isCalloutForStack ? group.series : [point])
@@ -413,7 +426,11 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
             yPos: anchorY,
             entries,
           };
-          this._positionTooltipAvoidingOverlap(anchorX, minY, maxY, isFreshShow);
+          this._positionTooltipAvoidingOverlap(anchorX, groupAverageY, groupAverageY, isFreshShow, {
+            horizontalPlacement: 'side',
+            verticalAlign: 'center',
+            horizontalBounds: { left: groupLeft, right: groupRight },
+          });
         };
         rect.addEventListener('mouseenter', showTooltip);
         rect.addEventListener('mousemove', showTooltip);
@@ -459,7 +476,14 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
         const entry = group.lineData?.find(item => item.legend === legend);
         const groupX = xScale(group.xAxisPoint);
         if (entry && groupX !== undefined && Number.isFinite(entry.y)) {
-          result.push({ group, entry, xCenter: groupX + xScale.bandwidth() / 2 });
+          const groupLeft = groupX + (xScale.bandwidth() - effectiveGroupWidth) / 2;
+          result.push({
+            group,
+            entry,
+            xCenter: groupX + xScale.bandwidth() / 2,
+            groupLeft,
+            groupRight: groupLeft + effectiveGroupWidth,
+          });
         }
         return result;
       }, []);
@@ -519,8 +543,13 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
         );
         const showTooltip = () => {
           if (!this._shouldShowTooltip(legend) || this.hideTooltip) return;
+          const isFreshShow = !this.tooltipProps.isVisible;
           const hostRect = this.getBoundingClientRect();
           const svgRect = svg.getBoundingClientRect();
+          const groupLeft = svgRect.left - hostRect.left + margins.left + point.groupLeft;
+          const groupRight = svgRect.left - hostRect.left + margins.left + point.groupRight;
+          const anchorX = svgRect.left - hostRect.left + margins.left + point.xCenter;
+          const groupAverageY = svgRect.top - hostRect.top + margins.top + getGroupAverageValueY(point.group);
           const value =
             point.entry.yAxisCalloutData ?? formatNumberValue(point.entry.y, this.yAxisTickFormat, this.culture);
           const entries: TooltipEntry[] = this.isCalloutForStack
@@ -548,10 +577,15 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
             xValue: point.group.xAxisPoint,
             yValue: value,
             color,
-            xPos: svgRect.left - hostRect.left + margins.left + point.xCenter,
-            yPos: svgRect.top - hostRect.top + margins.top + getScale(point.entry)(point.entry.y),
+            xPos: anchorX,
+            yPos: groupAverageY,
             entries,
           };
+          this._positionTooltipAvoidingOverlap(anchorX, groupAverageY, groupAverageY, isFreshShow, {
+            horizontalPlacement: 'side',
+            verticalAlign: 'center',
+            horizontalBounds: { left: groupLeft, right: groupRight },
+          });
         };
         marker.addEventListener('mouseenter', showTooltip);
         marker.addEventListener('focus', showTooltip);

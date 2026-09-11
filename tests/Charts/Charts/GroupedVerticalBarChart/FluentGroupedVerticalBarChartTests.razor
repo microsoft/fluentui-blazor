@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 @using Xunit;
 @inherits FluentUITestContext
 
@@ -114,14 +114,25 @@
     }
 
     [Fact]
-    public void FluentGroupedVerticalBarChart_IsCalloutForStack()
+    public void FluentGroupedVerticalBarChart_CalloutVariant_Stacked()
     {
         // Arrange && Act
-        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" IsCalloutForStack="true" />);
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" CalloutVariant="@CalloutVariant.Stacked" />);
 
         // Assert
         var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("is-callout-for-stack");
         Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGroupedVerticalBarChart_CalloutVariant_Single()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGroupedVerticalBarChart ChartData="@DefaultData" CalloutVariant="@CalloutVariant.Single" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-grouped-vertical-bar-chart").GetAttribute("is-callout-for-stack");
+        Assert.Null(attribute);
     }
 
     [Fact]

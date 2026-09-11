@@ -25,6 +25,7 @@ import {
   renderBottomAxisShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
+  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -232,8 +233,8 @@ export class VerticalBarChart extends VerticalBarChartBase {
     }
 
     const hasSecondaryY = points.some(point => point.lineData?.useSecondaryYScale);
-    const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 500);
-    const height = toNumber(this.height, 300);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 500);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
       width,
       height,
@@ -281,9 +282,7 @@ export class VerticalBarChart extends VerticalBarChartBase {
 
       xAxis = axisBottom(xScaleLinear)
         .tickPadding(this._getXAxisTickPadding(6))
-        .tickSize(this._getXAxisTickSize(6)) as unknown as Axis<
-        string | number | Date
-      >;
+        .tickSize(this._getXAxisTickSize(6)) as unknown as Axis<string | number | Date>;
       applyAxisTickConfig(
         xAxis as unknown as Axis<number>,
         this.xAxisTickCount,
@@ -323,9 +322,7 @@ export class VerticalBarChart extends VerticalBarChartBase {
 
       xAxis = axisBottom(xScaleTime)
         .tickPadding(this._getXAxisTickPadding(6))
-        .tickSize(this._getXAxisTickSize(6)) as unknown as Axis<
-        string | number | Date
-      >;
+        .tickSize(this._getXAxisTickSize(6)) as unknown as Axis<string | number | Date>;
       const parsedTickValues = (this.tickValues ?? [])
         .map(value => {
           if (value instanceof Date) {
@@ -393,9 +390,7 @@ export class VerticalBarChart extends VerticalBarChartBase {
         .paddingOuter(xAxisOuterPadding);
       xAxis = axisBottom(xScaleBand)
         .tickPadding(this._getXAxisTickPadding(6))
-        .tickSize(this._getXAxisTickSize(6)) as unknown as Axis<
-        string | number | Date
-      >;
+        .tickSize(this._getXAxisTickSize(6)) as unknown as Axis<string | number | Date>;
       applyAxisTickConfig(
         xAxis as unknown as Axis<string>,
         this.xAxisTickCount,

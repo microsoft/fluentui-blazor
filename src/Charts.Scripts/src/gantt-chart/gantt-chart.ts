@@ -15,8 +15,10 @@ import type { Legend, TooltipProps, TooltipRenderer } from '../utils/chart-optio
 import {
   generateDateTicks,
   generateNumericTicks,
+  parseDimensionNumber,
   renderContinuousBottomAxisShared,
   renderHorizontalYAxisShared,
+  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -196,12 +198,7 @@ export class GanttChart extends CartesianChartBase {
     // attribute changes go through the FAST reactive system and trigger the *Changed()
     // callbacks, and so that observable assignments notify template bindings.
     const self = this as Record<string, unknown>;
-    const attrFields = [
-      'data',
-      'enableGradient',
-      'barHeight',
-      'yAxisPadding',
-    ] as const;
+    const attrFields = ['data', 'enableGradient', 'barHeight', 'yAxisPadding'] as const;
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
     for (const field of attrFields) {
       saved[field] = self[field];
@@ -315,7 +312,11 @@ export class GanttChart extends CartesianChartBase {
     this._applyHostDimensions();
 
     const width = Math.max(
-      this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width || 640,
+      resolvePixelDimension(
+        this.width,
+        this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width,
+        640,
+      ),
       320,
     );
     const groups = this._getGroupedSeries();
@@ -526,8 +527,15 @@ export class GanttChart extends CartesianChartBase {
   }
 
   private _getChartHeight(groupCount: number, numericYAxis: boolean, yValues: number[]) {
-    if (this.height !== undefined) {
-      return Math.max(toNumber(this.height, DEFAULT_HEIGHT), 160);
+    if (this.height !== undefined && this.height !== null && this.height !== '') {
+      const explicitHeight = parseDimensionNumber(this.height);
+      if (explicitHeight !== undefined) {
+        return Math.max(explicitHeight, 160);
+      }
+      const measuredHeight = this.chartContainer?.getBoundingClientRect().height;
+      if (measuredHeight && measuredHeight > 0) {
+        return Math.max(measuredHeight, 160);
+      }
     }
 
     if (numericYAxis && yValues.length > 1) {
@@ -848,7 +856,12 @@ export class GanttChart extends CartesianChartBase {
       const yAxisScale = this._getNumericYScaleInfo(yValues);
       const effectiveTicks =
         this.yAxisTickValues ??
-        generateNumericTicks(this.yScaleType, this.yAxisConfig?.tickStep, Number(this.yAxisConfig?.tick0), yAxisScale.domain) ??
+        generateNumericTicks(
+          this.yScaleType,
+          this.yAxisConfig?.tickStep,
+          Number(this.yAxisConfig?.tick0),
+          yAxisScale.domain,
+        ) ??
         yAxisScale.ticks;
       const safeSpan = yAxisScale.domain[1] - yAxisScale.domain[0] || 1;
       effectiveTicks.forEach((tick, index) => {
@@ -865,7 +878,8 @@ export class GanttChart extends CartesianChartBase {
       groups.forEach((group, index) => {
         const y = yPositionForGroup(group, index);
         const fullLabel = String(group.rawY);
-        const label = this.yAxisConfig?.tickText?.[index] ?? (this.showYAxisLabels ? fullLabel : truncateText(fullLabel, 18));
+        const label =
+          this.yAxisConfig?.tickText?.[index] ?? (this.showYAxisLabels ? fullLabel : truncateText(fullLabel, 18));
         tickEntries.push({ y, label, tooltipText: this.showYAxisLabelsTooltip ? fullLabel : undefined });
       });
     }

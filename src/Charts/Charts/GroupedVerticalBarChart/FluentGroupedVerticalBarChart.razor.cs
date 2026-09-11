@@ -60,11 +60,11 @@ public partial class FluentGroupedVerticalBarChart : FluentCartesianChartBase
     public IReadOnlyList<string>? Colors { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the tooltip aggregates all values in the group (stack)
+    /// Gets or sets a value indicating whether the callout aggregates all values in the group (stack)
     /// rather than showing only the hovered bar.
     /// </summary>
     [Parameter]
-    public bool IsCalloutForStack { get; set; }
+    public CalloutVariant CalloutVariant { get; set; }
 
     /// <summary>
     /// Serializes <see cref="Colors"/> to a JSON array string for the web component attribute.

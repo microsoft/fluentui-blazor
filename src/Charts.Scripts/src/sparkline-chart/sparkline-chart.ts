@@ -2,20 +2,17 @@ import { attr, nullableNumberConverter } from '@microsoft/fast-element';
 import { scaleLinear, scaleTime } from 'd3-scale';
 import { area, line } from 'd3-shape';
 import { ChartBase } from '../utils/chart-base.js';
-import { getColorFromToken, jsonConverter, SVG_NAMESPACE_URI } from '../utils/chart-helpers.js';
+import {
+  getColorFromToken,
+  jsonConverter,
+  parseNumber as toNumber,
+  resolvePixelDimension,
+  SVG_NAMESPACE_URI,
+} from '../utils/chart-helpers.js';
 import type { SparklineChartData, SparklineDataPoint, SparklineVariant } from './sparkline-chart.options.js';
 
 const createSvgElement = <T extends SVGElement>(tag: string): T =>
   document.createElementNS(SVG_NAMESPACE_URI, tag) as T;
-
-const toNumber = (value: number | string | undefined, fallback: number): number => {
-  if (value === undefined || value === null || value === '') {
-    return fallback;
-  }
-
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-};
 
 interface NormalizedPoint {
   x: number | Date;
@@ -96,8 +93,8 @@ export class SparklineChart extends ChartBase {
     const series = this.data?.lineChartData[0];
     const points = series?.data ?? [];
     const legend = series?.legend;
-    const chartWidth = toNumber(this.width, 80);
-    const chartHeight = toNumber(this.height, 20);
+    const chartWidth = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 80);
+    const chartHeight = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 20);
     let legendWidth = this.showLegend && legend ? this.valueTextWidth ?? 0 : 0;
     this._clearChart();
     this.legends = [];

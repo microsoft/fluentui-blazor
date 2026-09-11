@@ -26,6 +26,7 @@ import {
   renderBottomAxisShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
+  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -290,10 +291,8 @@ export class VerticalStackedBarChart extends VerticalBarChartBase {
       return;
     }
 
-    const requestedChartWidth = toOptionalNumber(this.width);
-    const measuredWidth = this.chartContainer.getBoundingClientRect().width;
-    const width = requestedChartWidth ?? (measuredWidth || toNumber(this.width, 600));
-    const height = toNumber(this.height, 350);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 600);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 350);
     const hasSecondaryY = stacks.some(stack => stack.lineData?.some(entry => entry.useSecondaryYScale));
     const chartDataValues = stacks.flatMap(stack => stack.chartData.map(point => point.data));
     const isCategoricalY = chartDataValues.some(value => typeof value === 'string');
@@ -400,14 +399,10 @@ export class VerticalStackedBarChart extends VerticalBarChartBase {
       : undefined;
     const positiveTotals = isCategoricalY
       ? []
-      : stacks.map(stack =>
-          stack.chartData.reduce((sum, point) => sum + Math.max(point.data as number, 0), 0),
-        );
+      : stacks.map(stack => stack.chartData.reduce((sum, point) => sum + Math.max(point.data as number, 0), 0));
     const negativeTotals = isCategoricalY
       ? []
-      : stacks.map(stack =>
-          stack.chartData.reduce((sum, point) => sum + Math.min(point.data as number, 0), 0),
-        );
+      : stacks.map(stack => stack.chartData.reduce((sum, point) => sum + Math.min(point.data as number, 0), 0));
     const maxTotal = max(positiveTotals) ?? 0;
     const minTotal = this.supportNegativeData ? Math.min(...negativeTotals, 0) : 0;
     const preparedYAxis = computePreparedNumericYAxis({
@@ -517,9 +512,9 @@ export class VerticalStackedBarChart extends VerticalBarChartBase {
     const defs = createSvgElement<SVGDefsElement>('defs');
     svg.appendChild(defs);
 
-    const yAxis = (
-      isCategoricalY ? axisLeft(categoricalYScale!) : axisLeft(yScale)
-    ).tickPadding(toNumber(this.tickPadding, 6));
+    const yAxis = (isCategoricalY ? axisLeft(categoricalYScale!) : axisLeft(yScale)).tickPadding(
+      toNumber(this.tickPadding, 6),
+    );
     if (!isCategoricalY) {
       applyAxisTickConfig(
         yAxis as Axis<number>,
@@ -566,9 +561,7 @@ export class VerticalStackedBarChart extends VerticalBarChartBase {
         .map(segment => Math.max(segment.data as number, 0))
         .filter(value => value > 0);
       const negativeValues = this.supportNegativeData
-        ? stack.chartData
-            .map(segment => Math.abs(Math.min(segment.data as number, 0)))
-            .filter(value => value > 0)
+        ? stack.chartData.map(segment => Math.abs(Math.min(segment.data as number, 0))).filter(value => value > 0)
         : [];
       const getSideMetrics = (values: number[], total: number, endpoint: number) => {
         const gapsCount = barGapMax > 0 ? Math.max(values.length - 1, 0) : 0;
@@ -691,9 +684,9 @@ export class VerticalStackedBarChart extends VerticalBarChartBase {
                   segment.legend,
                   color,
                   segment.yAxisCalloutData ||
-                  (typeof segment.data === 'number'
-                    ? formatNumberValue(segment.data, this.yAxisTickFormat, this.culture)
-                    : segment.data),
+                    (typeof segment.data === 'number'
+                      ? formatNumberValue(segment.data, this.yAxisTickFormat, this.culture)
+                      : segment.data),
                 ),
           });
         });

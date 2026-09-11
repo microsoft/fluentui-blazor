@@ -66,11 +66,11 @@ public partial class FluentVerticalStackedBarChart : FluentCartesianChartBase
     public string? BarGapMax { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the tooltip aggregates all segment values in the stack
-    /// rather than showing only the hovered segment.
+    /// Gets or sets a value indicating whether the callout aggregates all values in the group (stack)
+    /// rather than showing only the hovered bar.
     /// </summary>
     [Parameter]
-    public bool IsCalloutForStack { get; set; }
+    public CalloutVariant CalloutVariant { get; set; }
 
     /// <summary>
     /// Serializes <see cref="Colors"/> to a JSON array string for the web component attribute.

@@ -41,10 +41,11 @@ public partial class FluentLineChart
     public bool AllowMultipleShapesForPoints { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the callout is rendered using stacked content.
+    /// Gets or sets a value indicating whether the callout aggregates all values in the group (stack)
+    /// rather than showing only the hovered bar.
     /// </summary>
     [Parameter]
-    public bool IsCalloutForStack { get; set; }
+    public CalloutVariant CalloutVariant { get; set; } = CalloutVariant.Stacked;
 
     /// <summary>
     /// Gets or sets the optional colored bars rendered behind x-axis ranges.

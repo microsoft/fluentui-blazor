@@ -2,7 +2,16 @@ import type { Axis, AxisDomain } from 'd3-axis';
 import { max as d3Max, min as d3Min, nice as d3Nice, ticks as d3Ticks } from 'd3-array';
 import { scaleLinear, scaleLog, type ScaleLinear, type ScaleLogarithmic } from 'd3-scale';
 import type { AxisCategoryOrder, AxisConfig, AxisScaleType } from './chart-options.js';
-import { SVG_NAMESPACE_URI, wrapText } from './chart-helpers.js';
+import {
+  parseDimensionNumber,
+  parseNumber as toAxisNumber,
+  parseOptionalNumber as toOptionalAxisNumber,
+  resolvePixelDimension,
+  SVG_NAMESPACE_URI,
+  wrapText,
+} from './chart-helpers.js';
+
+export { parseDimensionNumber, resolvePixelDimension, toAxisNumber, toOptionalAxisNumber };
 
 export const DEFAULT_NUMERIC_Y_TICK_COUNT = 4;
 const DEFAULT_DATE_STRING = '1970-01-01T00:00:00.000Z';
@@ -104,22 +113,6 @@ export const applyAxisTickConfig = <Domain extends AxisDomain>(
   if (generatedTicks?.length) {
     axis.tickValues(generatedTicks as Iterable<Domain>);
   }
-};
-
-export const toAxisNumber = (value: number | string | undefined, fallback: number): number => {
-  if (value === undefined || value === null || value === '') {
-    return fallback;
-  }
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-};
-
-export const toOptionalAxisNumber = (value: number | string | undefined): number | undefined => {
-  if (value === undefined || value === null || value === '') {
-    return undefined;
-  }
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : undefined;
 };
 
 /**

@@ -35,6 +35,8 @@ interface TooltipOverlapPositionOptions {
   horizontalPlacement?: 'center' | 'side';
   preferredHorizontalSide?: 'left' | 'right';
   preferredVerticalSide?: TooltipVerticalPlacement;
+  verticalAlign?: 'center';
+  horizontalBounds?: { left: number; right: number };
   gap?: number;
 }
 
@@ -788,21 +790,25 @@ export abstract class ChartBase extends FASTElement {
       const anchorY = preferredVertical === 'above' ? topY : bottomY;
 
       if (useSidePlacement) {
-        const { yPos } = this._resolveTooltipPositionFromAnchor(anchorX, anchorY, {
-          preferredVertical,
-          preventAnchorOverlap: true,
-          estimatedHeight,
-          estimatedWidth,
-          gap,
-        });
+        const yPos =
+          options.verticalAlign === 'center'
+            ? ChartBase._clamp(topY - estimatedHeight / 2, padding, hostHeight - estimatedHeight - padding)
+            : this._resolveTooltipPositionFromAnchor(anchorX, anchorY, {
+                preferredVertical,
+                preventAnchorOverlap: true,
+                estimatedHeight,
+                estimatedWidth,
+                gap,
+              }).yPos;
         const preferLeft = options.preferredHorizontalSide ? options.preferredHorizontalSide === 'left' : this._isRTL;
-        const preferredLeft = preferLeft ? anchorX - gap - estimatedWidth : anchorX + gap;
+        const horizontalBounds = options.horizontalBounds ?? { left: anchorX, right: anchorX };
+        const preferredLeft = preferLeft ? horizontalBounds.left - gap - estimatedWidth : horizontalBounds.right + gap;
         const fitsPreferredSide = preferredLeft >= padding && preferredLeft + estimatedWidth <= hostWidth - padding;
         const physicalLeft = fitsPreferredSide
           ? preferredLeft
           : preferLeft
-          ? anchorX + gap
-          : anchorX - gap - estimatedWidth;
+          ? horizontalBounds.right + gap
+          : horizontalBounds.left - gap - estimatedWidth;
         const clampedLeft = ChartBase._clamp(physicalLeft, padding, hostWidth - estimatedWidth - padding);
         const inlineStart = this._isRTL ? hostWidth - clampedLeft - estimatedWidth : clampedLeft;
         this.tooltipProps = { ...this.tooltipProps, xPos: Math.max(0, inlineStart), yPos };

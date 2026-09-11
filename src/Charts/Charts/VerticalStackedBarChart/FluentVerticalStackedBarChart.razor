@@ -23,7 +23,7 @@
                                    max-bar-width="@MaxBarWidth"
                                    bar-gap-max="@BarGapMax"
                                    colors="@ColorsJson"
-                                   is-callout-for-stack="@(IsCalloutForStack ? "true" : null)"
+                                   is-callout-for-stack="@(CalloutVariant == CalloutVariant.Stacked ? "true" : null)"
                                    x-axis-category-order="@XAxisCategoryOrder.ToAttributeValue()"
                                    x-axis-inner-padding="@XAxisInnerPadding"
                                    x-axis-outer-padding="@XAxisOuterPadding"

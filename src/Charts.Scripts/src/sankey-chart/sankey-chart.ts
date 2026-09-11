@@ -2,7 +2,14 @@ import { attr } from '@microsoft/fast-element';
 import { format } from 'd3-format';
 import { sankey, sankeyLinkHorizontal, type SankeyLink, type SankeyNode } from 'd3-sankey';
 import { ChartBase } from '../utils/chart-base.js';
-import { getColorFromToken, getNextColor, jsonConverter, SVG_NAMESPACE_URI } from '../utils/chart-helpers.js';
+import {
+  getColorFromToken,
+  getNextColor,
+  jsonConverter,
+  parseNumber as toNumber,
+  resolvePixelDimension,
+  SVG_NAMESPACE_URI,
+} from '../utils/chart-helpers.js';
 import type { SankeyChartData, SankeyChartLink, SankeyChartNode } from './sankey-chart.options.js';
 
 const createSvgElement = <T extends SVGElement>(tag: string): T =>
@@ -12,15 +19,6 @@ const defaultNumberFormatter = format(',.2~f');
 const NODE_WIDTH = 124;
 const MIN_HEIGHT_FOR_LABEL = 24;
 const MIN_HEIGHT_FOR_TWO_LINE_LABEL = 36;
-
-const toNumber = (value: number | string | undefined, fallback: number): number => {
-  if (value === undefined || value === null || value === '') {
-    return fallback;
-  }
-
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-};
 
 interface SankeyNodeDatum extends SankeyChartNode {
   actualValue?: number;
@@ -158,8 +156,8 @@ export class SankeyChart extends ChartBase {
       return;
     }
 
-    const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 700);
-    const height = this.chartContainer.getBoundingClientRect().height || toNumber(this.height, 300);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 700);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const margins = { top: 16, right: 48, bottom: 32, left: 48 };
     const innerWidth = Math.max(width - margins.left - margins.right, 1);
     const innerHeight = Math.max(height - margins.top - margins.bottom, 1);

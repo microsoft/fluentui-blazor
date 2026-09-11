@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
     <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
@@ -9,8 +9,8 @@
     <FluentRadioGroup Label="Pick a callout variant"
                       @bind-Value="_calloutVariant"
                       Name="grouped-vertical-bar-line-callout">
-        <FluentRadio Value="@("single")">Single Callout</FluentRadio>
-        <FluentRadio Value="@("stack")">Stack Callout</FluentRadio>
+        <FluentRadio Value="@CalloutVariant.Single">Single Callout</FluentRadio>
+        <FluentRadio Value="@CalloutVariant.Stacked">Stacked Callout</FluentRadio>
     </FluentRadioGroup>
 </FluentStack>
 
@@ -20,14 +20,14 @@
                                Height="@($"{_height}px")"
                                SupportNegativeData="true"
                                LineBorderWidth="2"
-                               IsCalloutForStack="@(_calloutVariant == "stack")"
+                               CalloutVariant="@_calloutVariant"
                                Style="margin-top:20px;">
 </FluentGroupedVerticalBarChart>
 
 @code {
     private int _width = 700;
     private int _height = 400;
-    private string _calloutVariant = "single";
+    private CalloutVariant _calloutVariant = CalloutVariant.Single;
 
     private readonly IReadOnlyList<GroupedVerticalBarChartData> chartData =
     [

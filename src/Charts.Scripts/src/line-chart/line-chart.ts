@@ -18,6 +18,7 @@ import {
   renderBottomAxisShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
+  resolvePixelDimension,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
 } from '../utils/cartesian-axis-shared.js';
@@ -360,8 +361,8 @@ export class LineChart extends CartesianChartBase {
     });
 
     const hasSecondaryY = normalizedSeries.some(series => series.useSecondaryYScale);
-    const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 500);
-    const height = toNumber(this.height, 300);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 500);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const eventLabelHeight = this.eventAnnotationProps?.labelHeight ?? 0;
     const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
       width,

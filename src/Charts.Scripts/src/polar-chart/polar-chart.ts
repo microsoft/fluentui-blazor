@@ -7,6 +7,8 @@ import {
   getColorFromToken,
   getNextColor,
   jsonConverter,
+  parseNumber as toNumber,
+  resolvePixelDimension,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type { ChartMargins, TooltipProps } from '../utils/chart-options.js';
@@ -23,15 +25,6 @@ import {
 
 const createSvgElement = <T extends SVGElement>(tag: string): T =>
   document.createElementNS(SVG_NAMESPACE_URI, tag) as T;
-
-const toNumber = (value: number | string | undefined, fallback: number): number => {
-  if (value === undefined || value === null || value === '') {
-    return fallback;
-  }
-
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : fallback;
-};
 
 interface RenderedSeries {
   legend: string;
@@ -198,8 +191,8 @@ export class PolarChart extends ChartBase {
       return;
     }
 
-    const width = this.chartContainer.getBoundingClientRect().width || toNumber(this.width, 400);
-    const height = this.chartContainer.getBoundingClientRect().height || toNumber(this.height, 400);
+    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 400);
+    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 400);
     const margins = { top: 32, right: 56, bottom: 48, left: 56, ...this.margins };
     const innerWidth = Math.max(width - margins.left - margins.right, 1);
     const innerHeight = Math.max(height - margins.top - margins.bottom, 1);

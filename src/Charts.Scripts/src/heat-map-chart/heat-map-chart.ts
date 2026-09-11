@@ -10,6 +10,7 @@ import {
   type AxisScaleLike,
   renderBandYAxisShared,
   renderBottomAxisShared,
+  resolvePixelDimension,
   toOptionalAxisNumber as toOptionalNumber,
 } from '../utils/cartesian-axis-shared.js';
 import { getColorFromToken, jsonConverter, SVG_NAMESPACE_URI } from '../utils/chart-helpers.js';
@@ -663,10 +664,15 @@ export class HeatMapChart extends CartesianChartBase {
     const containerWidth =
       this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width || DEFAULT_WIDTH;
 
-    const w = Math.max(parseFloat(String(this.width)) || containerWidth, 200);
+    const w = Math.max(resolvePixelDimension(this.width, containerWidth, DEFAULT_WIDTH), 200);
     const legendOffset = this.hideLegends ? 0 : LEGEND_HEIGHT;
     const titleOffset = this.chartTitle ? TITLE_HEIGHT : 0;
-    const h = Math.max((parseFloat(String(this.height)) || DEFAULT_HEIGHT) - legendOffset - titleOffset, 100);
+    const configuredHeight = resolvePixelDimension(
+      this.height,
+      this.chartContainer.getBoundingClientRect().height,
+      DEFAULT_HEIGHT,
+    );
+    const h = Math.max(configuredHeight - legendOffset - titleOffset, 100);
 
     const isRTL = this._isRTL;
     const yLabelMargin = this._measureLongestYLabel(yLabels);

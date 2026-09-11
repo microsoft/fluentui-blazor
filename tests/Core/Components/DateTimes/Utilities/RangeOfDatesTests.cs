@@ -504,4 +504,18 @@ public class RangeOfDatesTests
         // Assert
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void IsSelectionOutsideRange_InvalidCalendarView_ReturnsFalse()
+    {
+        // Arrange
+        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 12, 15));
+        var value = new DateTime(2024, 6, 1);
+
+        // Act
+        var result = range.IsOutside(value, (CalendarViews)999, CultureInfo.InvariantCulture);
+
+        // Assert
+        Assert.False(result);
+    }
 }

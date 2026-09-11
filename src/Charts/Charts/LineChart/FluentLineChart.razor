@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentCartesianChartBase
 
@@ -17,7 +17,7 @@
                    allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
                    show-markers="@(ShowMarkers ? "true" : null)"
                    allow-multiple-shapes-for-points="@(AllowMultipleShapesForPoints ? "true" : null)"
-                   is-callout-for-stack="@(IsCalloutForStack ? "true" : null)"
+                   is-callout-for-stack="@(CalloutVariant == CalloutVariant.Stacked ? "true" : null)"
                    color-fill-bars="@ColorFillBarsJson"
                    y-axis-tick-label-max-width="@YAxisTickLabelMaxWidth"
                    event-annotation-props="@EventAnnotationProps"

@@ -1,42 +1,55 @@
-@page "/Charts/GroupedVerticalBarChart/Debug"
+﻿@page "/Charts/GroupedVerticalBarChart/Debug"
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
-    <FluentField LabelPosition="LabelPosition.Above"
-                 Style="min-width:220px;flex:1 1 220px;">
-        <label slot="label" for="basic-width" id="basic-width--label">
-            Width
-        </label>
-        <FluentSlider slot="input"
-                      id="basic-width"
-                      min="200"
-                      max="1000"
-                      @bind-Value="@width">
-        </FluentSlider>
-        <fluent-label slot="message">@width</fluent-label>
-    </FluentField>
-    <FluentField LabelPosition="LabelPosition.Above"
-                 Style="min-width:220px;flex:1 1 220px;">
-        <label slot="label" for="basic-height" id="basic-height--label">
-            Height
-        </label>
-        <FluentSlider slot="input"
-                      id="basic-height"
-                      min="200"
-                      max="1000"
-                      @bind-Value="@height">
-        </FluentSlider>
-        <fluent-label slot="message">@height</fluent-label>
-    </FluentField>
-    <FluentSwitch Label="Use single color" @bind-Value="useSingleColor"></FluentSwitch>
-    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
-    <FluentSwitch Label="Show Y-axis labels" @bind-Value="showYAxisLabels"></FluentSwitch>
-    <FluentSwitch Label="Show Y-axis labels tooltip" @bind-Value="showYAxisLabelsTooltip"></FluentSwitch>
-    <FluentSwitch Label="Use stack callout" @bind-Value="isCalloutForStack"></FluentSwitch>
-    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
-    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
-    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
-</div>
+<FluentStack Orientation="@Orientation.Vertical" Margin="ml-4">
+    <FluentStack Orientation="@Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Start">
+        <FluentField Label="Width" LabelPosition="LabelPosition.Above"
+                     Style="min-width:220px;flex:1 1 220px;">
+            <FluentSlider slot="input"
+                          Id="basic-width"
+                          Min="200"
+                          Max="1000"
+                          @bind-Value="@width">
+            </FluentSlider>
+            <FluentLabel slot="message" Margin="ml-1">@width</FluentLabel>
+        </FluentField>
+        <FluentField Label="Height" LabelPosition="LabelPosition.Above"
+                     Style="min-width:220px;flex:1 1 220px;">
+            <FluentSlider slot="input"
+                          Id="basic-height"
+                          Min="200"
+                          Max="1000"
+                          @bind-Value="@height">
+            </FluentSlider>
+            <FluentLabel slot="message" Margin="ml-1">@height</FluentLabel>
+        </FluentField>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentSwitch Label="Use single color" @bind-Value="useSingleColor"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentSwitch Label="Show Y-axis labels" @bind-Value="showYAxisLabels"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Show Y-axis labels tooltip" @bind-Value="showYAxisLabelsTooltip"></FluentSwitch>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+        <FluentSpacer Width="50px" />
+        <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+    </FluentStack>
+    <FluentStack Orientation="@Orientation.Horizontal">
+        <FluentRadioGroup Label="Pick a callout variant"
+                          @bind-Value="calloutVariant"
+                          Name="grouped-vertical-bar-line-callout">
+            <FluentRadio Value="@CalloutVariant.Single">Single Callout</FluentRadio>
+            <FluentRadio Value="@CalloutVariant.Stacked">Stacked Callout</FluentRadio>
+        </FluentRadioGroup>
+    </FluentStack>
+</FluentStack>
 
 <div style="margin:20px;">
     <FluentGroupedVerticalBarChart ChartTitle="Grouped vertical bar chart interactive example"
@@ -47,7 +60,7 @@
                                    EnableGradient="@gradient"
                                    ShowYAxisLabels="@showYAxisLabels"
                                    ShowYAxisLabelsTooltip="@showYAxisLabelsTooltip"
-                                   IsCalloutForStack="@isCalloutForStack"
+                                   CalloutVariant="@calloutVariant"
                                    HideLabels="@hideLabels"
                                    HideTooltip="@hideTooltips"
                                    HideLegends="@hideLegends" />
@@ -84,7 +97,7 @@
     private bool gradient;
     private bool showYAxisLabels;
     private bool showYAxisLabelsTooltip;
-    private bool isCalloutForStack;
+    private CalloutVariant calloutVariant = CalloutVariant.Single;
     private bool hideLabels = true;
     private bool hideLegends;
     private bool hideTooltips;
