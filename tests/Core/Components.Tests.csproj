@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="bunit" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
     <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Include="xunit.v3.mtp-v2" />
@@ -22,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\..\src\Core.Generators\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" />
     <ProjectReference Include="..\Tools\Components.Tests.Tools.csproj" />
   </ItemGroup>
 

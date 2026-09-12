@@ -67,7 +67,7 @@ jobs:
      - name: Setup .NET 11.0
        uses: actions/setup-dotnet@v4
        with:
-        dotnet-version: 11.0.100-preview.7.26381.103
+        dotnet-version: 11.0.100-rc.1.26425.128
 
      # Build
 
@@ -166,7 +166,7 @@ jobs:
          title: 'Unit Tests Code Coverage'
          assemblyfilters: '-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools;-McpServer.Tests'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
-         filefilters: '-*RegexGenerator.g.cs'
+         filefilters: '-*.g.cs'
          customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }};riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
@@ -241,7 +241,7 @@ jobs:
     - name: Setup .NET 11.0
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 11.0.100-preview.7.26381.103
+        dotnet-version: 11.0.100-rc.1.26425.128
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
