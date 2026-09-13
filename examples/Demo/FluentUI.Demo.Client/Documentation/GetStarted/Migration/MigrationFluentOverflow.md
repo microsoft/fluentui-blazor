@@ -21,7 +21,7 @@ and resize are handled there, with Blazor receiving overflow state updates.
 ## New/updated parameters
 
 - `TItem` specifies the source item type and can usually be inferred from `Items`. For direct child content, specify it explicitly, for example `TItem="string"`.
-- `MaxOverflowItems` (`int`, default `0`) retains its name and limits the overflow record payload for direct child content. With `Items`, it instead limits the number of source items rendered for measurement; all omitted source items remain available in the typed overflow context. Values less than or equal to zero are unlimited in both modes.
+- `MaxRenderedItems` (`int`, default `0`) limits the number of source items rendered for measurement when `Items` is supplied. All omitted source items remain available in the typed overflow context. Values less than or equal to zero render all source items. With direct child content, use `Take` or another LINQ operator in `OverflowTemplate` to limit the displayed overflow records.
 - `Selector` continues to select managed direct children when `Items` is not supplied.
 - `ItemText` selects the text shown in the default tooltip for complex source objects.
 - `MoreTemplate` and `OverflowTemplate` receive `OverflowContext<TItem>`, retaining `ItemsOverflow`, `OverflowCount`, and `IdMoreButton` and adding typed `Items`.

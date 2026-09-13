@@ -9,8 +9,7 @@
                  orientation="@(Orientation.ToAttributeValue())"
                  selector="@(Items is null ? Selector : null)"
                  visible-on-load="@(VisibleOnLoad ? "true" : "false")"
-                 max-overflow-items="@(Items is null ? MaxOverflowItems : 0)"
-                 pre-overflow-count="@PreOverflowCount"
+                 pre-overflow-count="@(Items is null ? null : PreOverflowCount)"
                  @onoverflowchange="@OnOverflowChangedAsync"
                  @attributes="@AdditionalAttributes">
     @if (Items is null)

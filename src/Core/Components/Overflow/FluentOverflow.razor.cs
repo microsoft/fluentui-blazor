@@ -19,7 +19,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     private int _measuredOverflowCount;
     private int[] _overflowIndices = [];
 
-    private int RenderedItemCount => MaxOverflowItems > 0 ? Math.Min(MaxOverflowItems, _sourceItems.Count) : _sourceItems.Count;
+    private int RenderedItemCount => MaxRenderedItems > 0 ? Math.Min(MaxRenderedItems, _sourceItems.Count) : _sourceItems.Count;
     private int PreOverflowCount => _sourceItems.Count - RenderedItemCount;
     private OverflowContext<TItem> OverflowContext => new(_overflowItems, ItemsOverflow, OverflowCount, IdMoreButton);
 
@@ -80,13 +80,12 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum number of overflow records returned for direct child content.
-    /// When Items is supplied, limits the number of source items rendered for measurement instead;
-    /// remaining source items are included in the typed overflow context without being rendered.
+    /// Gets or sets the maximum number of source items rendered for measurement when <see cref="Items"/> is supplied.
+    /// Remaining source items are included in the typed overflow context without being rendered.
     /// Values less than or equal to zero are unlimited. Defaults to zero.
     /// </summary>
     [Parameter]
-    public int MaxOverflowItems { get; set; }
+    public int MaxRenderedItems { get; set; }
 
     /// <summary>
     /// Gets or sets the CSS selector of direct children to include in overflow.

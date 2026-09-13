@@ -40,7 +40,7 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
         await Assertions.Expect(firstOverflow.Locator("[slot='trigger']")).ToBeHiddenAsync();
         var normalOverflowCount = await GetIntAttributeAsync(firstOverflow, "data-overflow-count");
         var normalPayloadCount = await GetIntAttributeAsync(firstOverflow, "data-payload-count");
-        Assert.Equal(Math.Min(normalOverflowCount, 3), normalPayloadCount);
+        Assert.Equal(normalOverflowCount, normalPayloadCount);
         await Assertions.Expect(firstOverflow.Locator(".overflow-indicator"))
             .ToHaveTextAsync($"+{normalOverflowCount}");
 
@@ -53,7 +53,7 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
         var narrowPayloadCount = await GetIntAttributeAsync(firstOverflow, "data-payload-count");
         Assert.True(narrowOverflowCount > normalOverflowCount);
         Assert.True(narrowOverflowCount > 3);
-        Assert.Equal(Math.Min(narrowOverflowCount, 3), narrowPayloadCount);
+        Assert.Equal(narrowOverflowCount, narrowPayloadCount);
         await Assertions.Expect(firstOverflow.Locator(".managed-item[hidden]"))
             .ToHaveCountAsync(narrowOverflowCount);
         await Assertions.Expect(firstOverflow.Locator("[slot='trigger']")).ToBeVisibleAsync();

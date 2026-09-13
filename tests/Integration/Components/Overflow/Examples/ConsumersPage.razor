@@ -40,7 +40,7 @@
 </FluentOverflow>
 
 <button data-testid="resize-bounded" @onclick="@(() => _boundedNarrow = !_boundedNarrow)">Resize bounded overflow</button>
-<FluentOverflow TItem="int" Id="bounded-overflow" Items="@(Enumerable.Range(0, 100))" MaxOverflowItems="10"
+<FluentOverflow TItem="int" Id="bounded-overflow" Items="@(Enumerable.Range(0, 100))" MaxRenderedItems="10"
                 OnMoreClick="@(() => _boundedOpened = !_boundedOpened)"
                 Style="@($"width: {(_boundedNarrow ? 180 : 400)}px; --fluent-overflow-gap: 0px;")">
     <ItemTemplate Context="item"><span class="bounded-item" style="width: 40px; flex: none;">@item</span></ItemTemplate>
