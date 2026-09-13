@@ -157,7 +157,7 @@
         var cut = Render(@<FluentAppBar Id="appbar" Items="items" />);
         var host = cut.Find("fluent-overflow");
 
-        Assert.Equal("0", host.GetAttribute("max-overflow-items"));
+        Assert.Null(host.GetAttribute("max-overflow-items"));
         Assert.NotNull(cut.Find("[slot='trigger']"));
         await host.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {
