@@ -14,14 +14,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverflow<TItem> : FluentComponentBase
 {
     private IReadOnlyList<TItem> _sourceItems = [];
-    private IReadOnlyList<TItem> _items = [];
+    private IReadOnlyList<TItem> _overflowItems = [];
     private IReadOnlyList<OverflowItem> _renderedOverflowItems = [];
     private int _measuredOverflowCount;
     private int[] _overflowIndices = [];
 
     private int RenderedItemCount => MaxOverflowItems > 0 ? Math.Min(MaxOverflowItems, _sourceItems.Count) : _sourceItems.Count;
     private int PreOverflowCount => _sourceItems.Count - RenderedItemCount;
-    private OverflowContext<TItem> OverflowContext => new(_items, ItemsOverflow, OverflowCount, IdMoreButton);
+    private OverflowContext<TItem> OverflowContext => new(_overflowItems, ItemsOverflow, OverflowCount, IdMoreButton);
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -136,7 +136,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     /// <summary>
     /// Gets the total number of overflowed items.
     /// </summary>
-    public int OverflowCount => Items is null ? _measuredOverflowCount : _items.Count;
+    public int OverflowCount => Items is null ? _measuredOverflowCount : _overflowItems.Count;
 
     /// <summary>
     /// Gets the unique identifier associated to the more button ([Id]-more).
@@ -157,7 +157,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         if (Items is null)
         {
             _sourceItems = [];
-            _items = [];
+            _overflowItems = [];
             return;
         }
 
@@ -168,7 +168,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
 
     private void UpdateOverflowItems()
     {
-        _items = _overflowIndices
+        _overflowItems = _overflowIndices
             .Where(index => index >= 0 && index < RenderedItemCount)
             .Distinct()
             .Order()

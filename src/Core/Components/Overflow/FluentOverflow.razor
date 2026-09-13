@@ -63,7 +63,7 @@ else
         }
         else
         {
-            @foreach (var item in _items)
+            @foreach (var item in _overflowItems)
             {
                 <div>@(ItemText is null ? $"{item}" : ItemText(item))</div>
             }
