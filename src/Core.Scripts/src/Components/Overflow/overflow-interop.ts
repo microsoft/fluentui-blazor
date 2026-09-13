@@ -2,8 +2,8 @@
  * Exposes the imperative API for attaching overflow behavior to existing elements.
  */
 
-import { Microsoft as OverflowControllerFile } from './overflow-controller.js';
-import { Microsoft as OverflowFile } from './overflow.js';
+import { Microsoft as OverflowControllerFile } from './overflow-controller';
+import { Microsoft as OverflowFile } from './overflow';
 
 export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 

@@ -2,9 +2,9 @@
  * Exposes the public API of the `Overflow` folder.
  */
 
-import { Microsoft as OverflowControllerFile } from './overflow-controller.js';
-import { Microsoft as OverflowInteropFile } from './overflow-interop.js';
-import { Microsoft as OverflowFile } from './overflow.js';
+import { Microsoft as OverflowControllerFile } from './overflow-controller';
+import { Microsoft as OverflowInteropFile } from './overflow-interop';
+import { Microsoft as OverflowFile } from './overflow';
 
 export import OverflowController = OverflowControllerFile.FluentUI.Blazor.Components.Overflow.OverflowController;
 export import fluentOverflowChangeEventName = OverflowControllerFile.FluentUI.Blazor.Components.Overflow.fluentOverflowChangeEventName;
@@ -23,9 +23,9 @@ export {
   type OverflowItem,
   type OverflowOrientation,
   type OverflowToggleDetail,
-} from './overflow.types.js';
+} from './overflow.types';
 
-export { definition as OverflowDefinition } from './overflow.definition.js';
-export { styles as OverflowStyles } from './overflow.styles.js';
-export { template as OverflowTemplate } from './overflow.template.js';
+export { definition as OverflowDefinition } from './overflow.definition';
+export { styles as OverflowStyles } from './overflow.styles';
+export { template as OverflowTemplate } from './overflow.template';
 export import Overflow = OverflowFile.FluentUI.Blazor.Components.Overflow.Overflow;

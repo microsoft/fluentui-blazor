@@ -8,7 +8,7 @@ import type {
   OverflowDirection,
   OverflowItem,
   OverflowOrientation,
-} from './overflow.types.js';
+} from './overflow.types';
 
 /** Browser-facing overflow state event name. */
 export const overflowChangeEventName = 'overflowchange';

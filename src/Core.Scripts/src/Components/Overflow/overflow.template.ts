@@ -2,7 +2,7 @@
  * Defines the HTML structure rendered in the Shadow DOM.
  */
 
-import { styles } from './overflow.styles.js';
+import { styles } from './overflow.styles';
 
 /** Template for the overflow component. */
 export const template = document.createElement('template');
