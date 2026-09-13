@@ -92,10 +92,10 @@
 .fluent-appbar-item:hover svg[part="icon-rest"],
 .fluent-appbar-item:not(:hover):not(.active) svg[part="icon-active"],
 .fluent-appbar-item:not(:hover) a.active svg[part="icon-rest"],
-.fluent-appbar-item[overflow],
+.fluent-appbar-item[hidden],
 .fluent-appbar-more-item:hover svg[part="icon-rest"],
 .fluent-appbar-more-item:not(:hover):not(.active) svg[part="icon-active"],
-.fluent-appbar-more-item[overflow] {
+.fluent-appbar-more-item[hidden] {
   display: none;
 }
 

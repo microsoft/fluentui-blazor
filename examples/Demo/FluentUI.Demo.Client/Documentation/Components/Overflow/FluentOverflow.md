@@ -29,10 +29,10 @@ This example shows a fully customized More button and tooltip content, and inclu
 This example uses `Selector=".overflow-item"` so only matching children are overflow-managed; the non-matching `behavior="fixed"` badges stay visible.
 {{ OverflowSelectorExample }}
 
-## MaxRenderedItems payload cap
+## MaxOverflowItems payload cap
 
-This example sets `MaxRenderedItems="2"` and shows the difference between `OverflowCount` (total) and `ItemsOverflow` (rendered subset).
-{{ OverflowMaxRenderedItemsExample }}
+This example sets `MaxOverflowItems="2"` and shows the difference between `OverflowCount` (total) and `ItemsOverflow` (rendered subset). The default is `0`, which returns all overflowed items. Negative values are also unlimited.
+{{ OverflowMaxOverflowItemsExample }}
 
 ## Item overflow behavior modes
 

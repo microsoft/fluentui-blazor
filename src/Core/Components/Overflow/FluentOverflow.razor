@@ -7,13 +7,12 @@
                  style="@StyleValue"
                  orientation="@(Orientation.ToAttributeValue())"
                  selector="@Selector"
-                 visible-on-load="@(VisibleOnLoad ? "true" : null)"
-                 store-overflow-in-memory="@(StoreOverflowInMemory ? "true" : null)"
-                 max-rendered-items="@MaxRenderedItems"
+                 visible-on-load="@(VisibleOnLoad ? "true" : "false")"
+                 max-overflow-items="@MaxOverflowItems"
                  @onoverflowchange="@OnOverflowChangedAsync"
                  @attributes="@AdditionalAttributes">
     @ChildContent
-    <div id="@IdMoreButton" class="fluent-overflow-more" style="@MoreButtonStyleValue" behavior="fixed">
+    <div id="@IdMoreButton" class="fluent-overflow-more" style="@MoreButtonStyleValue" slot="trigger">
         @if (MoreTemplate != null)
         {
             @MoreTemplate(this)

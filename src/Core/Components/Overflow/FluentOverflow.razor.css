@@ -1,21 +1,13 @@
 .fluent-overflow[orientation="horizontal"] {
-    display: flex;
-    flex-direction: row;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    gap: 5px;
+    --fluent-overflow-gap: 5px;
 }
 
 .fluent-overflow[orientation="vertical"] {
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    --fluent-overflow-gap: 0px;
 }
 
-/* Prevent flex from shrinking items — sizes must be measured at natural width */
-.fluent-overflow > * {
-    flex-shrink: 0;
+.fluent-overflow:not(:defined)[visible-on-load="false"] {
+    visibility: hidden;
 }
 
 .fluent-overflow-more {
@@ -28,23 +20,6 @@
     justify-content: center;
 }
 
-.fluent-overflow-more[style*="visibility: hidden"] {
-    pointer-events: none;
-}
-
-.fluent-overflow > *[overflow] {
+.fluent-overflow > [hidden] {
     display: none;
-}
-
-.fluent-overflow > *[fixed] {
-    flex-shrink: 0;
-}
-
-.fluent-overflow > *[fixed='ellipsis'] {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-    max-width: fit-content;
-    flex-shrink: 1;
 }

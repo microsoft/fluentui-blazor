@@ -1,6 +1,39 @@
+import { Microsoft as OverflowControllerFile } from '../Overflow/overflow-controller.js';
+
 export namespace Microsoft.FluentUI.Blazor.Components.Tabs {
+  import OverflowController = OverflowControllerFile.FluentUI.Blazor.Components.Overflow.OverflowController;
+
   const observers = new Map<string, MutationObserver>();
   const keyboardControllers = new Map<string, AbortController>();
+  const overflowControllers = new Map<string, OverflowController>();
+
+  export function InitializeOverflow(id: string): void {
+    DisposeOverflow(id);
+    const host = document.getElementById(id) as (HTMLElement & { tabsChanged(): void }) | null;
+    if (!host) {
+      return;
+    }
+
+    const controller = new OverflowController({
+      host,
+      querySelector: 'fluent-tab',
+      threshold: 0,
+      maxRenderedItems: 0,
+      pinnedItemIdAttribute: 'activeid',
+      onVisibilityChanged: () => host.tabsChanged(),
+    });
+    overflowControllers.set(id, controller);
+    controller.connect();
+  }
+
+  export function RefreshOverflow(id: string): void {
+    overflowControllers.get(id)?.refresh();
+  }
+
+  export function DisposeOverflow(id: string): void {
+    overflowControllers.get(id)?.disconnect();
+    overflowControllers.delete(id);
+  }
 
   /**
    * Initiates the list of tabs when a tab is added or removed
@@ -64,7 +97,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Tabs {
     if (event.defaultPrevented
       || tabsList.getAttribute('orientation') === 'vertical'
       || (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft')
-      || !tabsList.querySelector('fluent-tab[overflow]')) {
+      || !tabsList.querySelector('fluent-tab[hidden]')) {
       return;
     }
 

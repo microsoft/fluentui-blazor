@@ -19,24 +19,25 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
     {
     }
 
-    [Fact(Skip = "Playwright is optional for the moment")]
-    public async Task FluentOverflow_AutomaticRefreshes_AreCoalesced()
+    [Theory]
+    [InlineData(1280, 800)]
+    [InlineData(390, 844)]
+    public async Task FluentOverflow_Resize_UpdatesHiddenItemsAndPayload(int width, int height)
     {
         var page = await WaitOpenPageAsync("/overflow/scheduling", openDevTools: false);
-        await InstallMeasurementCounterAsync(page);
+        await page.SetViewportSizeAsync(width, height);
 
         await page.GetByTestId("render-overflows").ClickAsync();
 
         var overflows = page.Locator("fluent-overflow.test-overflow");
         var firstOverflow = page.Locator("#test-overflow-0");
         await Assertions.Expect(overflows).ToHaveCountAsync(220);
-        await page.WaitForFunctionAsync("count => window.overflowMeasurements >= count", 220);
         await Assertions.Expect(firstOverflow).ToHaveCSSAsync("visibility", "visible");
         await Assertions.Expect(firstOverflow).ToHaveAttributeAsync("data-event-count", new Regex("^[1-9]"));
 
-        var initialMeasurements = await GetMeasurementCountAsync(page);
-        Assert.Equal(220, initialMeasurements);
-        Assert.Equal(220, await GetHiddenMeasurementCountAsync(page));
+        Assert.True(await firstOverflow.EvaluateAsync<bool>("element => !!element.shadowRoot"));
+        await Assertions.Expect(firstOverflow).ToHaveAttributeAsync("visible-on-load", "false");
+        await Assertions.Expect(firstOverflow.Locator("[slot='trigger']")).ToBeHiddenAsync();
         var normalOverflowCount = await GetIntAttributeAsync(firstOverflow, "data-overflow-count");
         var normalPayloadCount = await GetIntAttributeAsync(firstOverflow, "data-payload-count");
         Assert.Equal(Math.Min(normalOverflowCount, 3), normalPayloadCount);
@@ -51,46 +52,95 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
         var narrowOverflowCount = await GetIntAttributeAsync(firstOverflow, "data-overflow-count");
         var narrowPayloadCount = await GetIntAttributeAsync(firstOverflow, "data-payload-count");
         Assert.True(narrowOverflowCount > normalOverflowCount);
+        Assert.True(narrowOverflowCount > 3);
         Assert.Equal(Math.Min(narrowOverflowCount, 3), narrowPayloadCount);
+        await Assertions.Expect(firstOverflow.Locator(".managed-item[hidden]"))
+            .ToHaveCountAsync(narrowOverflowCount);
+        await Assertions.Expect(firstOverflow.Locator("[slot='trigger']")).ToBeVisibleAsync();
         await Assertions.Expect(firstOverflow.Locator(".overflow-indicator"))
             .ToHaveTextAsync($"+{narrowOverflowCount}");
 
         await page.GetByTestId("restore-first").ClickAsync();
         await Assertions.Expect(firstOverflow)
             .ToHaveAttributeAsync("data-overflow-count", normalOverflowCount.ToString(CultureInfo.InvariantCulture));
+        await Assertions.Expect(firstOverflow.Locator(".managed-item[hidden]")).ToHaveCountAsync(0);
+        await Assertions.Expect(firstOverflow.Locator("[slot='trigger']")).ToBeHiddenAsync();
 
         await Assertions.Expect(page.Locator(".managed-item"))
             .ToHaveCountAsync(220 * 6);
     }
 
-    private static async Task InstallMeasurementCounterAsync(IPage page)
-    {
-        await page.EvaluateAsync("""
-            () => {
-                const overflowPrototype = customElements.get("fluent-overflow").prototype;
-                const originalRefreshNow = overflowPrototype.refreshNow;
-                window.overflowMeasurements = 0;
-                window.hiddenOverflowMeasurements = 0;
-                overflowPrototype.refreshNow = function (...args) {
-                    window.overflowMeasurements++;
-                    if (this.style.visibility === "hidden") {
-                        window.hiddenOverflowMeasurements++;
-                    }
-                    return originalRefreshNow.apply(this, args);
-                };
-            }
-            """);
-    }
-
-    private static Task<int> GetMeasurementCountAsync(IPage page) =>
-        page.EvaluateAsync<int>("() => window.overflowMeasurements");
-
-    private static Task<int> GetHiddenMeasurementCountAsync(IPage page) =>
-        page.EvaluateAsync<int>("() => window.hiddenOverflowMeasurements");
-
     private static async Task<int> GetIntAttributeAsync(ILocator locator, string name)
     {
         var value = await locator.GetAttributeAsync(name);
         return int.Parse(value!, CultureInfo.InvariantCulture);
+    }
+
+    [Fact]
+    public async Task FluentOverflow_Tabs_PreservesKeyboardSelectionAndDisposal()
+    {
+        var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);
+        var tabList = page.Locator("#overflow-tabs-tablist");
+        var more = page.Locator("#overflow-tabs-more");
+        await Assertions.Expect(more).ToBeVisibleAsync();
+        await page.WaitForFunctionAsync("() => document.querySelectorAll('#overflow-tabs-tablist fluent-tab[hidden]').length > 0");
+        var lastVisibleTab = tabList.Locator("fluent-tab:not([hidden])").Last;
+        await lastVisibleTab.FocusAsync();
+        await lastVisibleTab.PressAsync("ArrowRight");
+        await Assertions.Expect(more).ToBeFocusedAsync();
+        await more.PressAsync("ArrowLeft");
+        await Assertions.Expect(lastVisibleTab).ToBeFocusedAsync();
+
+        await more.ClickAsync();
+        await page.Locator("#overflow-tabs-overflow-menu fluent-menu-item").Last.ClickAsync();
+        await Assertions.Expect(tabList).ToHaveAttributeAsync("activeid", "tab-7");
+        await Assertions.Expect(page.Locator("#tab-7")).ToBeVisibleAsync();
+
+        await page.GetByTestId("toggle-tabs").ClickAsync();
+        await Assertions.Expect(tabList.Locator("fluent-tab[hidden]")).ToHaveCountAsync(0);
+        await Assertions.Expect(page.Locator("#overflow-tabs-more")).ToHaveCountAsync(0);
+        await page.GetByTestId("toggle-tabs").ClickAsync();
+        await Assertions.Expect(more).ToBeVisibleAsync();
+        await Assertions.Expect(tabList.Locator("fluent-tab[aria-selected='true']")).ToBeVisibleAsync();
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FluentOverflow_AppBar_UpdatesCompleteMenuAndRestoresItems(bool vertical)
+    {
+        var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);
+        if (vertical)
+        {
+            await page.GetByTestId("rotate-appbar").ClickAsync();
+        }
+
+        var host = page.Locator("#overflow-appbar-overflow");
+        await page.WaitForFunctionAsync("() => document.querySelectorAll('#overflow-appbar-overflow > .fluent-appbar-item[hidden]').length > 25");
+        var hiddenCount = await host.Locator(":scope > .fluent-appbar-item[hidden]").CountAsync();
+        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeVisibleAsync();
+        await host.Locator("[slot='trigger']").ClickAsync();
+        await Assertions.Expect(page.Locator("#overflow-appbar fluent-popover-b .fluent-appbar-item"))
+            .ToHaveCountAsync(hiddenCount);
+
+        await page.GetByTestId("expand-appbar").ClickAsync();
+        await Assertions.Expect(host.Locator(":scope > .fluent-appbar-item[hidden]")).ToHaveCountAsync(0);
+        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeHiddenAsync();
+        await Assertions.Expect(page.Locator("#overflow-appbar fluent-popover-b")).ToHaveCountAsync(0);
+    }
+
+    [Fact]
+    public async Task FluentOverflow_SelectorAndBehaviors_PreserveFixedItemsAndCustomTrigger()
+    {
+        var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);
+        var host = page.Locator("#behavior-overflow");
+        await page.WaitForFunctionAsync("() => document.querySelectorAll('#behavior-overflow > .managed[hidden]').length > 0");
+        var hiddenCount = await host.Locator(".managed[hidden]").CountAsync();
+        await Assertions.Expect(host.Locator("#fixed-item")).ToBeVisibleAsync();
+        await Assertions.Expect(host.Locator("#ellipsis-item")).Not.ToHaveAttributeAsync("hidden", "");
+        await Assertions.Expect(host.Locator("#unmanaged-item")).ToBeVisibleAsync();
+        await Assertions.Expect(host.Locator("#custom-count")).ToHaveTextAsync($"+{hiddenCount}");
+        await host.Locator("[slot='trigger']").HoverAsync();
+        await Assertions.Expect(page.Locator("fluent-tooltip[anchor='behavior-overflow-more']")).ToContainTextAsync("Item 5");
     }
 }

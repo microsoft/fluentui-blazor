@@ -17,10 +17,8 @@
 				<FluentAppBarItem Id="@item.Id" IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" Tooltip="@item.Tooltip" Match="@item.Match" OnClick="@item.OnClick" />
 			}
 		}
-		@if (AppsOverflow.Any())
-		{
 			<FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-more-item" style="min-width: var(--appbar-item-size);" tabindex="0" fixed="fixed" title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
+			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-more-item" style="min-width: var(--appbar-item-size);" tabindex="0" slot="trigger" title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
 				<FluentStack Orientation="Orientation.Vertical"
 							 HorizontalAlignment="HorizontalAlignment.Center"
 							 VerticalAlignment="VerticalAlignment.Center"
@@ -30,7 +28,6 @@
 					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Primary" part="icon-active" />
 				</FluentStack>
 			</div>
-		}
 		</fluent-overflow>
 
 		@if (AppsOverflow.Any())

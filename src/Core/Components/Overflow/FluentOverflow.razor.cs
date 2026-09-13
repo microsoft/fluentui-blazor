@@ -22,7 +22,6 @@ public partial class FluentOverflow : FluentComponentBase
 
     /// <summary />
     protected virtual string? StyleValue => DefaultStyleBuilder
-        .AddStyle("visibility", "hidden", !VisibleOnLoad)
         .Build();
 
     /// <summary />
@@ -67,17 +66,11 @@ public partial class FluentOverflow : FluentComponentBase
     public string? Selector { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets whether overflow items are cached in JavaScript memory.
-    /// </summary>
-    [Parameter]
-    public bool StoreOverflowInMemory { get; set; }
-
-    /// <summary>
     /// Gets or sets the maximum number of overflow items returned to the Blazor wrapper.
-    /// Values less than or equal to zero return all overflow items.
+    /// Values less than or equal to zero return all overflow items. Defaults to zero (unlimited).
     /// </summary>
     [Parameter]
-    public int MaxRenderedItems { get; set; } = 25;
+    public int MaxOverflowItems { get; set; }
 
     /// <summary>
     /// Gets or sets whether the tooltip is displayed using the TooltipService.
@@ -115,21 +108,11 @@ public partial class FluentOverflow : FluentComponentBase
 
     /// <summary />
     protected virtual string? MoreButtonStyleValue => new StyleBuilder()
-        .AddStyle("visibility", "hidden", OverflowCount == 0)
         .AddStyle("anchor-name", $"--{IdMoreButton}")
         .Build();
 
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            VisibleOnLoad = true;
-        }
-    }
-
     /// <summary>
-    /// Asynchronously refreshes the overflow state of the associated UI element.
+    /// Requests an overflow recalculation. State changes are delivered through the overflow event.
     /// </summary>
     public async Task RefreshAsync()
     {
@@ -138,14 +121,15 @@ public partial class FluentOverflow : FluentComponentBase
             return;
         }
 
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh", Id);
-        await LoadOverflowItemsAsync();
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.refreshOverflow", Id);
     }
 
     /// <summary />
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        SetOverflowItems(items, items.Count(item => item.Overflow));
+        _items.Clear();
+        _items.AddRange(items);
+        _overflowCount = items.Length;
 
         if (OnOverflowRaised.HasDelegate)
         {
@@ -172,25 +156,6 @@ public partial class FluentOverflow : FluentComponentBase
         await InvokeAsync(StateHasChanged);
     }
 
-    private async Task LoadOverflowItemsAsync()
-    {
-        var state = await JSRuntime.InvokeAsync<OverflowState>("Microsoft.FluentUI.Blazor.Components.Overflow.GetOverflowState", [Id]);
-        SetOverflowItems(state?.OverflowItems, state?.OverflowCount ?? 0);
-    }
-
-    private void SetOverflowItems(IEnumerable<OverflowItem>? items, int overflowCount)
-    {
-        if (items is null)
-        {
-            return;
-        }
-
-        _items.Clear();
-        _overflowCount = Math.Max(overflowCount, 0);
-
-        _items.AddRange(items.Where(item => item.Overflow));
-    }
-
     private void SetOverflowItems(IEnumerable<OverflowChangedItem>? items, int overflowCount)
     {
         _items.Clear();
@@ -202,13 +167,10 @@ public partial class FluentOverflow : FluentComponentBase
         }
 
         _items.AddRange(items
-            .Where(item => item.Overflow)
             .Select(item => new OverflowItem
             {
                 Id = item.Id,
-                Overflow = item.Overflow,
                 Text = item.Text,
-                Behavior = item.Behavior,
                 Index = item.Index,
             }));
     }

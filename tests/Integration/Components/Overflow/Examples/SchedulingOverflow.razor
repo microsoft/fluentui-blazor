@@ -3,8 +3,8 @@
                 Class="@OverflowClass"
                 Style="@OverflowStyle"
                 Selector=".managed-item"
-                VisibleOnLoad="@_visibleOnLoad"
-                MaxRenderedItems="3"
+                VisibleOnLoad="false"
+                MaxOverflowItems="3"
                 OnOverflowRaised="HandleOverflowRaised"
                 threshold="@Threshold"
                 data-overflow-count="@_overflowCount"
@@ -32,7 +32,6 @@
     private int _eventCount;
     private int _overflowCount;
     private int _payloadCount;
-    private bool _visibleOnLoad;
 
     [Parameter]
     public int Index { get; set; }
@@ -45,11 +44,10 @@
 
     private string OverflowClass => $"test-overflow{(Narrow ? " narrow" : string.Empty)}";
 
-    private string OverflowStyle => $"display: flex; width: {(Narrow ? 104 : 700)}px; height: 32px; gap: 4px; overflow: hidden;";
+    private string OverflowStyle => $"width: {(Narrow ? 104 : 700)}px; height: 32px; --fluent-overflow-gap: 4px;";
 
     private void HandleOverflowRaised(IEnumerable<OverflowItem> items)
     {
-        _visibleOnLoad = true;
         _eventCount++;
         _overflowCount = _overflow?.OverflowCount ?? 0;
         _payloadCount = items.Count();

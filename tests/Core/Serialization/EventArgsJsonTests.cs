@@ -26,15 +26,11 @@ public class EventArgsJsonTests
                 new OverflowChangedItem
                 {
                     Id = "overflow-item-1",
-                    Overflow = true,
                     Text = "Overflow item 1",
-                    Behavior = OverflowBehavior.Fixed,
                     Index = 1,
                 },
             ],
             OverflowCount = 1,
-            FirstOverflowIndex = 1,
-            OrderedItemIds = ["overflow-item-1"],
         },
         new RadioEventArgs { Id = "radio-1", Value = "value-1" },
         new TabChangeEventArgs { Id = "tabs-1", ActiveId = "tab-1" },

@@ -106,45 +106,26 @@ public partial class FluentAppBar : FluentComponentBase
             return;
         }
 
-        ApplyOverflowState(args.FirstOverflowIndex, args.OrderedItemIds);
+        ApplyOverflowItems(args.Items?.Select(item => item.Id));
         await InvokeAsync(StateHasChanged);
     }
 
     /// <summary />
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        foreach (var item in items)
-        {
-            if (item.Id is not null && _internalAppBarContext.Apps.TryGetValue(item.Id, out var app))
-            {
-                app.Overflow = item.Overflow;
-            }
-        }
-
+        ApplyOverflowItems(items.Select(item => item.Id));
         await InvokeAsync(StateHasChanged);
     }
 
-    private void ApplyOverflowState(int firstOverflowIndex, IReadOnlyList<string>? orderedItemIds)
+    private void ApplyOverflowItems(IEnumerable<string?>? itemIds)
     {
+        var overflowIds = itemIds?.OfType<string>().ToHashSet(StringComparer.Ordinal) ?? [];
         foreach (var app in _internalAppBarContext.Apps.Values)
         {
-            app.Overflow = false;
+            app.Overflow = app.Id is not null && overflowIds.Contains(app.Id);
         }
 
-        if (orderedItemIds is null || orderedItemIds.Count == 0 || firstOverflowIndex < 0)
-        {
-            return;
-        }
-
-        for (var index = 0; index < orderedItemIds.Count; index++)
-        {
-            if (!_internalAppBarContext.Apps.TryGetValue(orderedItemIds[index], out var app))
-            {
-                continue;
-            }
-
-            app.Overflow = index >= firstOverflowIndex;
-        }
+        HandleSearch();
     }
 
     internal Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
