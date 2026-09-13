@@ -1,4 +1,4 @@
-<FluentOverflow @ref="_overflow"
+<FluentOverflow TItem="string" @ref="_overflow"
                 Id="@($"test-overflow-{Index}")"
                 Class="@OverflowClass"
                 Style="@OverflowStyle"
@@ -28,7 +28,7 @@
 {
     public const int ManagedItemCount = 6;
 
-    private FluentOverflow? _overflow;
+    private FluentOverflow<string>? _overflow;
     private int _eventCount;
     private int _overflowCount;
     private int _payloadCount;

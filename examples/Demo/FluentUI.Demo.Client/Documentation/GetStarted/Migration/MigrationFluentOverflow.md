@@ -12,15 +12,19 @@ and resize are handled there, with Blazor receiving overflow state updates.
 ## Content model changes
 
 - The old dedicated overflow item component is removed.
-- Overflow now works with direct children of `FluentOverflow`.
+- `FluentOverflow<TItem>` supports the existing direct `ChildContent`; add `TItem="string"` without changing its markup.
+- Optionally supply `Items` and an `ItemTemplate` to render typed source objects. Each item template must produce exactly one root HTML element.
 - Per-item behavior is expressed with HTML attributes on the child element (for example `behavior="fixed"` or `behavior="ellipsis"`).
 - Hidden items use the standard `hidden` attribute instead of `overflow`.
 - The More trigger uses the web component's `trigger` slot. Existing `MoreTemplate`, `OverflowTemplate`, and tooltip service customization remain available.
 
 ## New/updated parameters
 
-- `Selector` — CSS selector for direct children to include in overflow handling.
-- `MaxOverflowItems` (`int`, default `0`) replaces `MaxRenderedItems` and limits the number of overflow items returned in the payload (`<= 0` means unlimited). Set it to `25` to preserve the previous default limit.
+- `TItem` specifies the source item type and can usually be inferred from `Items`. For direct child content, specify it explicitly, for example `TItem="string"`.
+- `MaxOverflowItems` (`int`, default `0`) retains its name and limits the overflow record payload for direct child content. With `Items`, it instead limits the number of source items rendered for measurement; all omitted source items remain available in the typed overflow context. Values less than or equal to zero are unlimited in both modes.
+- `Selector` continues to select managed direct children when `Items` is not supplied.
+- `ItemText` selects the text shown in the default tooltip for complex source objects.
+- `MoreTemplate` and `OverflowTemplate` receive `OverflowContext<TItem>`, retaining `ItemsOverflow`, `OverflowCount`, and `IdMoreButton` and adding typed `Items`.
 - `VisibleOnLoad="false"` hides the component until its first layout completes without changing the parameter value.
 
 ## Removed APIs
@@ -33,9 +37,11 @@ and resize are handled there, with Blazor receiving overflow state updates.
 
 ## Event payload changes
 
-Every item in `ItemsOverflow` and `OnOverflowRaised` now represents a hidden item and contains only `Id`, `Text`, and `Index`. The `Overflow` and `Behavior` fields are removed from `OverflowItem` and `OverflowChangedItem`. The `OverflowChangedEventArgs` event retains `Id`, `Items`, and `OverflowCount`; `FirstOverflowIndex` and `OrderedItemIds` are removed.
+`ItemsOverflow` and `OnOverflowRaised` continue to expose rendered `OverflowItem` records (`Id`, `Text`, `Index`). Existing callbacks and templates can remain unchanged. In data-bound mode, use `context.Items` to access all overflowed source objects, including entries omitted from the DOM, in source order.
 
-`OverflowCount` is the total hidden count, even when `MaxOverflowItems` limits the number of entries. An empty event clears the previous state. `OverflowRaisedAsync` accepts only the hidden items, not a mixed list of visible and hidden items.
+With direct content, `OverflowCount` is the total measured overflow count even when the record payload is capped. With `Items`, it includes pre-overflowed items. An empty browser event clears measured overflow; source items excluded by the rendering ceiling remain in overflow.
+
+Custom overflow content is not automatically deferred. Keep `FluentPopover` mounted in `OverflowTemplate` and conditionally render its item content when opened. Use `OnMoreClick` to activate a custom popup from the default badge. The default tooltip displays all overflowed items as text.
 
 ## Migration example
 
@@ -48,9 +54,11 @@ Every item in `ItemsOverflow` and `OnOverflowRaised` now represents a hidden ite
 </FluentOverflow>
 
 <!-- V5 -->
-<FluentOverflow>
+<FluentOverflow TItem="string">
     <div behavior="fixed">Pinned</div>
     <div>Blazor</div>
     <div>Microsoft</div>
 </FluentOverflow>
 ```
+
+Existing component references also need a type argument: `FluentOverflow<string>?`. See the data-bound `Items` example on the Overflow page to opt into bounded rendering.

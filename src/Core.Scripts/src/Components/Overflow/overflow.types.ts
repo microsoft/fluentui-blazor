@@ -31,6 +31,7 @@ export interface OverflowToggleDetail {
 
 /** Configuration adapters used to apply overflow behavior to any host element. */
 export interface OverflowControllerOptions {
+  readonly preOverflowCount?: number;                                                                   // Items omitted from the DOM but counted as overflow; reserves trigger space even when all rendered items fit. Defaults to zero.
   readonly host: HTMLElement;                                                                           // Element that owns the managed direct children and dispatches overflow events.
   readonly querySelector: string;                                                                       // Selector applied to candidate direct children.
   readonly threshold: number;                                                                           // Number of pixels reserved before overflow begins.

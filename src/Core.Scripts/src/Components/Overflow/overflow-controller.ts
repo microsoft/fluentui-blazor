@@ -266,7 +266,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.managedItems = items;
       this.hiddenItems = items.filter((item) => hiddenItems.has(item));
       this.syncObservedItems(items, new Set([...hiddenItems, ...consumerHidden]));
-      this.options.setOverflowActive?.(this.hiddenItems.length > 0);
+      this.options.setOverflowActive?.(this.hiddenItems.length > 0 || (this.options.preOverflowCount ?? 0) > 0);
       const detail = this.createChangeDetail();
       this.options.onLayoutChanged?.(detail, this.hiddenItems);
       if (visibilityChanged) {
@@ -314,7 +314,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       let visibleSize = naturalSize - shrinkableSize;
 
       // If the visible size exceeds the available size, determine which items to hide.
-      if (visibleSize > availableSize) {
+      if (visibleSize > availableSize || (this.options.preOverflowCount ?? 0) > 0) {
         this.options.setOverflowActive?.(true);
         const reservedElement = this.options.reservedElement;
         const reservedSize = reservedElement ? this.getOuterSize(reservedElement, vertical, false) + gap : 0;
@@ -552,7 +552,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       const overflowItems = this.getHiddenOverflowItems(this.options.maxRenderedItems);
       return {
         items: overflowItems,
-        overflowCount: this.hiddenItems.length,
+        overflowCount: this.hiddenItems.length + (this.options.preOverflowCount ?? 0),
       };
     }
 

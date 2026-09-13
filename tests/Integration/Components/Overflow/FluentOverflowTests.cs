@@ -143,4 +143,44 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
         await host.Locator("[slot='trigger']").HoverAsync();
         await Assertions.Expect(page.Locator("fluent-tooltip[anchor='behavior-overflow-more']")).ToContainTextAsync("Item 5");
     }
+
+    [Theory]
+    [InlineData(1280, 800)]
+    [InlineData(390, 844)]
+    public async Task FluentOverflow_RenderLimit_ReservesTriggerAndExposesOmittedItems(int width, int height)
+    {
+        var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);
+        await page.SetViewportSizeAsync(width, height);
+        var host = page.Locator("#bounded-overflow");
+        await Assertions.Expect(host.Locator(".bounded-item")).ToHaveCountAsync(10);
+        await Assertions.Expect(page.Locator(".bounded-popup-item")).ToHaveCountAsync(0);
+        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeVisibleAsync();
+        await Assertions.Expect(host.Locator(".bounded-item[hidden]")).ToHaveCountAsync(1);
+        await Assertions.Expect(page.Locator("#bounded-count")).ToHaveTextAsync("91");
+
+        await host.EvaluateAsync("element => element.style.width = '700px'");
+        await Assertions.Expect(host.Locator(".bounded-item[hidden]")).ToHaveCountAsync(0);
+        await Assertions.Expect(page.Locator("#bounded-count")).ToHaveTextAsync("90");
+        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeVisibleAsync();
+
+        await page.GetByTestId("resize-bounded").ClickAsync();
+        await Assertions.Expect(host.Locator(".bounded-item[hidden]")).ToHaveCountAsync(7);
+        await Assertions.Expect(page.Locator("#bounded-count")).ToHaveTextAsync("97");
+        var trigger = host.Locator("[slot='trigger']");
+        var popup = page.Locator("fluent-popover-b[anchor-id='bounded-overflow-more'] [part='dialog']");
+        await trigger.ClickAsync();
+        await Assertions.Expect(popup).ToBeVisibleAsync();
+        await Assertions.Expect(page.Locator(".bounded-popup-item")).ToHaveCountAsync(97);
+        await Assertions.Expect(page.Locator(".bounded-popup-item").Last).ToHaveTextAsync("99");
+        await Assertions.Expect(host.Locator(".bounded-item")).ToHaveCountAsync(10);
+
+        await page.Keyboard.PressAsync("Escape");
+        await Assertions.Expect(popup).ToBeHiddenAsync();
+        await Assertions.Expect(page.Locator(".bounded-popup-item")).ToHaveCountAsync(0);
+        await trigger.FocusAsync();
+        await trigger.PressAsync("Enter");
+        await Assertions.Expect(popup).ToBeVisibleAsync();
+        await trigger.ClickAsync();
+        await Assertions.Expect(popup).ToBeHiddenAsync();
+    }
 }

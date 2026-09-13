@@ -34,6 +34,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
   export class Overflow extends HTMLElement {
     static readonly observedAttributes = [
       'max-overflow-items',
+      'pre-overflow-count',
       'overflow-direction',
       'orientation',
       'selector',
@@ -90,6 +91,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       return Number.isFinite(value) && value > 0
         ? Math.floor(value)
         : Number.POSITIVE_INFINITY;
+    }
+
+    /** Number of items displayed before overflow begins. */
+    get preOverflowCount(): number {
+      const value = Number(this.getAttribute('pre-overflow-count'));
+      return Number.isFinite(value) && value > 0 ? Math.floor(value) : 0;
     }
 
     /** Updates the maximum number of overflow items included in payloads. */
@@ -198,6 +205,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
         get querySelector() { return overflow.selector; },
         get threshold() { return overflow.threshold; },
         get maxRenderedItems() { return overflow.maxOverflowItems; },
+        get preOverflowCount() { return overflow.preOverflowCount; },
         get visibleOnLoad() { return overflow.visibleOnLoad; },
         get orientation() { return overflow.orientation; },
         get overflowDirection() { return overflow.overflowDirection; },
@@ -233,11 +241,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     /** Synchronizes trigger and menu content with the hidden items. */
     private updateOverflowPresentation(): void {
       const hiddenItems = this.controller?.getHiddenItems() ?? [];
-      const count = String(hiddenItems.length);
+      const totalCount = hiddenItems.length + this.preOverflowCount;
+      const count = String(totalCount);
       const itemTexts = hiddenItems
         .slice(0, this.maxOverflowItems)
         .map((item) => (item.textContent ?? '').trim());
-      this.triggerSlot.hidden = hiddenItems.length === 0;
+      this.triggerSlot.hidden = totalCount === 0;
 
       const trigger = this.getTriggerElement();
       if (trigger) {
