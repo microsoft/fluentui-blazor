@@ -302,6 +302,41 @@
     }
 
     [Fact]
+    public async Task FluentOverflow_DirectContentRerender_PreservesOverflowState()
+    {
+        var cut = Render(@<FluentOverflow TItem="string" Id="overflow">
+            <ChildContent><span>Initial content</span></ChildContent>
+            <MoreTemplate><FluentButton>+@context.OverflowCount</FluentButton></MoreTemplate>
+            <OverflowTemplate>
+                <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
+                    @foreach (var item in context.ItemsOverflow)
+                    {
+                        <span class="overflow-record">@item.Text</span>
+                    }
+                </FluentTooltip>
+            </OverflowTemplate>
+        </FluentOverflow>);
+        var host = cut.Find("fluent-overflow");
+        var overflow = cut.FindComponent<FluentOverflow<string>>();
+
+        await host.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "overflow",
+            Items = [new() { Id = "second", Text = "Second", Index = 1 }],
+            OverflowCount = 1,
+        });
+
+        Assert.Equal("+1", cut.Find("#overflow-more fluent-button").TextContent.Trim());
+        Assert.Equal("Second", cut.Find(".overflow-record").TextContent);
+
+        overflow.Render(parameters => parameters.Add(component => component.ChildContent,
+            builder => builder.AddMarkupContent(0, "<span>Updated content</span>")));
+
+        Assert.Equal("+1", cut.Find("#overflow-more fluent-button").TextContent.Trim());
+        Assert.Equal("Second", cut.Find(".overflow-record").TextContent);
+    }
+
+    [Fact]
     public void FluentOverflow_EmptyItems_DoesNotRenderDirectContent()
     {
         var cut = Render(@<FluentOverflow TItem="string" Items="@(Array.Empty<string>())">

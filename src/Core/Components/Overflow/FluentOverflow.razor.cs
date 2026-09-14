@@ -18,6 +18,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     private IReadOnlyList<OverflowItem> _renderedOverflowItems = [];
     private int _measuredOverflowCount;
     private int[] _overflowIndices = [];
+    private bool _itemsWereSupplied;
 
     private int RenderedItemCount => MaxRenderedItems > 0 ? Math.Min(MaxRenderedItems, _sourceItems.Count) : _sourceItems.Count;
     private int PreOverflowCount => _sourceItems.Count - RenderedItemCount;
@@ -156,14 +157,20 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         var items = Items;
         if (items is null)
         {
-            _sourceItems = [];
-            _overflowItems = [];
-            _renderedOverflowItems = [];
-            _overflowIndices = [];
-            _measuredOverflowCount = 0;
+            if (_itemsWereSupplied)
+            {
+                _sourceItems = [];
+                _overflowItems = [];
+                _renderedOverflowItems = [];
+                _overflowIndices = [];
+                _measuredOverflowCount = 0;
+            }
+
+            _itemsWereSupplied = false;
             return;
         }
 
+        _itemsWereSupplied = true;
         _sourceItems = items.ToArray();
         _overflowIndices = _overflowIndices.Where(index => index >= 0 && index < RenderedItemCount).ToArray();
         UpdateOverflowItems();
