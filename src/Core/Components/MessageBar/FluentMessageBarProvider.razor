@@ -1,8 +1,5 @@
 @namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@{
-#pragma warning disable IL2111
-}
 
 <div id="@Id"
      class="@ClassValue"
@@ -34,9 +31,7 @@
                 }
                 else
                 {
-                    <DynamicComponent @key="messageBar.Id"
-                                      Type="@messageBar.ComponentType"
-                                      Parameters="@messageBar.Options.Parameters" />
+                    @RenderCustomMessageBar(messageBar)
                 }
             </CascadingValue>
         }

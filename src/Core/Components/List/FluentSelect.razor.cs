@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -11,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A FluentSelect allows for selecting one or more options from a list of options.
 /// </summary>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentSelect<TOption, TValue> : FluentListBase<TOption, TValue>, IFluentControlStyle, IFluentComponentElementBase
+public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>, IFluentControlStyle, IFluentComponentElementBase
 {
     /// <summary />
     public FluentSelect(LibraryConfiguration configuration) : base(configuration) { }

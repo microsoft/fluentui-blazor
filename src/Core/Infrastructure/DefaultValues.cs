@@ -60,8 +60,6 @@ public class DefaultValues
     }
 
     /// <summary />
-    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
-                     Justification = "TComponent properties are preserved via DynamicDependency attributes. The usage of TComponent.GetType() generates this IL2075 warning.")]
     internal void ApplyDefaults<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TComponent>(TComponent component)
         where TComponent : IFluentComponentBase
     {
@@ -77,8 +75,6 @@ public class DefaultValues
         }
     }
 
-    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
-                     Justification = "TComponent properties are preserved via DynamicDependency attributes. The usage of TComponent.GetType() generates this IL2075 warning.")]
     internal void SetInitialValues<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] TComponent>(TComponent component, ReadOnlySpan<(string Name, object? Value)> initialValues)
         where TComponent : IFluentComponentBase
     {
@@ -92,7 +88,7 @@ public class DefaultValues
             {
                 if (!ContainsProperty(properties, kvp.Name))
                 {
-                    var propInfo = componentType.GetProperty(kvp.Name, BindingFlags.Public | BindingFlags.Instance);
+                    var propInfo = GetPublicInstanceProperty(componentType, kvp.Name);
                     if (propInfo != null && propInfo.CanWrite)
                     {
                         propInfo.SetValue(component, kvp.Value);
@@ -119,8 +115,6 @@ public class DefaultValues
     /// take precedence, then resolves each property's <see cref="PropertyInfo"/> once. The result is cached per exact
     /// component type by <see cref="GetCachedProperties"/> so no reflection lookup is repeated on later calls.
     /// </summary>
-    [SuppressMessage("Trimming", "IL2070:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
-                     Justification = "TComponent properties are preserved via DynamicDependency attributes. The componentType parameter comes from BuildMergedProperties which processes only cached component types with preserved properties.")]
     private CachedDefault[]? BuildMergedProperties(Type componentType)
     {
         Dictionary<string, object?>? merged = null;
@@ -156,7 +150,7 @@ public class DefaultValues
 
         foreach (var (name, value) in merged)
         {
-            var propInfo = componentType.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
+            var propInfo = GetPublicInstanceProperty(componentType, name);
             if (propInfo != null && propInfo.CanWrite)
             {
                 resolved[count++] = new CachedDefault(propInfo, value);
@@ -165,6 +159,11 @@ public class DefaultValues
 
         return count == resolved.Length ? resolved : resolved[..count];
     }
+
+    [UnconditionalSuppressMessage("Trimming", "IL2070:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method.",
+                                  Justification = "Default values are registered through property expressions, which preserve the selected public properties on component types.")]
+    private static PropertyInfo? GetPublicInstanceProperty(Type componentType, string name)
+        => componentType.GetProperty(name, BindingFlags.Public | BindingFlags.Instance);
 
     /// <summary>
     /// Tries to retrieve the registered properties for a given component type, checking both the exact type and its open generic definition if applicable.

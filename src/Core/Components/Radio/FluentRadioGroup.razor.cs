@@ -17,7 +17,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of the value</typeparam>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluentComponentElementBase
+public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, IFluentComponentElementBase
 {
     internal ConcurrentDictionary<string, FluentRadio<TValue>> InternalRadios { get; } = new(StringComparer.Ordinal);
 
