@@ -77,4 +77,11 @@ public sealed record VerticalStackedBarChartDataPoint
     [JsonPropertyName("barLabel")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? BarLabel { get; init; }
+
+    /// <summary>
+    /// Gets the optional accessible label announced for this stack segment's callout.
+    /// </summary>
+    [JsonPropertyName("callOutAccessibilityData")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CalloutAccessibilityData? CallOutAccessibilityData { get; init; }
 }

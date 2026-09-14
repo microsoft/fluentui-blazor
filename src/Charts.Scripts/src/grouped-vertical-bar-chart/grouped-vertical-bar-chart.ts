@@ -177,7 +177,7 @@ export class GroupedVerticalBarChart extends VerticalBarChartBase {
       return;
     }
 
-    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 600);
+    const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 600);
     const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const hasSecondaryY = groups.some(
       group =>

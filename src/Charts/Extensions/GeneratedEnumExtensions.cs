@@ -5,9 +5,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts.Extensions;
 
 [EnumAttributeValues(typeof(AreaChartMode))]
 [EnumAttributeValues(typeof(ChartAxisScaleType))]
+[EnumAttributeValues(typeof(ChartLegendPosition))]
+[EnumAttributeValues(typeof(ChartTitleAlign))]
+[EnumAttributeValues(typeof(ChartTitlePosition))]
 [EnumAttributeValues(typeof(ChartCategoryOrder))]
 [EnumAttributeValues(typeof(ChartStrokeLinecap))]
 [EnumAttributeValues(typeof(DataVizPalette))]
+[EnumAttributeValues(typeof(DonutChartOrder))]
 [EnumAttributeValues(typeof(GaugeChartVariant))]
 [EnumAttributeValues(typeof(GaugeValueFormat))]
 [EnumAttributeValues(typeof(HeatMapSortOrder))]

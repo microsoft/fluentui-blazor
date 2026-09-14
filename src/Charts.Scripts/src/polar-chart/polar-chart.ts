@@ -191,7 +191,7 @@ export class PolarChart extends ChartBase {
       return;
     }
 
-    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 400);
+    const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 400);
     const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 400);
     const margins = { top: 32, right: 56, bottom: 48, left: 56, ...this.margins };
     const innerWidth = Math.max(width - margins.left - margins.right, 1);

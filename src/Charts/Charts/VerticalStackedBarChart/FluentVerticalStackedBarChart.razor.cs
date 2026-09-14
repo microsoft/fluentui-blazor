@@ -60,6 +60,12 @@ public partial class FluentVerticalStackedBarChart : FluentCartesianChartBase
     public IReadOnlyList<string>? Colors { get; set; }
 
     /// <summary>
+    /// Gets or sets the label rendered beside the secondary y-axis.
+    /// </summary>
+    [Parameter]
+    public string? SecondaryYAxisTitle { get; set; }
+
+    /// <summary>
     /// Gets or sets the maximum gap in pixels between bars when computed automatically.
     /// </summary>
     [Parameter]

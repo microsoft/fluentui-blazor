@@ -8,7 +8,7 @@ import type {
   TooltipProps,
   TooltipRenderer,
 } from './chart-options.js';
-import { escapeHtml, getRTL } from './chart-helpers.js';
+import { escapeHtml, getRTL, resolvePixelDimension } from './chart-helpers.js';
 
 type TooltipVerticalPlacement = 'above' | 'below';
 type TooltipHorizontalAlign = 'start' | 'center' | 'end';
@@ -954,6 +954,31 @@ export abstract class ChartBase extends FASTElement {
 
   protected _toCssLength(value: number | string): string {
     return typeof value === 'number' || /^\d+(\.\d+)?$/.test(value as string) ? `${value}px` : `${value}`;
+  }
+
+  /**
+   * Resolves the plot width in pixels.
+   *
+   * An explicit `width` sizes the whole host, so when the legend is rendered beside the chart
+   * (`legend-position="start"` or `"end"`) the plot is capped by the available chart area. Without the
+   * cap the plot keeps the full host width and renders underneath the legend column.
+   *
+   * Charts that size their own SVG (donut, funnel, gauge) measure that SVG for `measuredWidth` and pass
+   * the chart area as `availableWidth`, so only the cap uses the surrounding grid cell.
+   */
+  protected _resolvePlotWidth(
+    measuredWidth: number | undefined,
+    fallback: number,
+    availableWidth: number | undefined = measuredWidth,
+  ): number {
+    const resolved = resolvePixelDimension(this.width, measuredWidth, fallback);
+    const hasSideLegend = this.legendPosition === 'start' || this.legendPosition === 'end';
+
+    if (hasSideLegend && availableWidth !== undefined && Number.isFinite(availableWidth) && availableWidth > 0) {
+      return Math.min(resolved, availableWidth);
+    }
+
+    return resolved;
   }
 
   /**

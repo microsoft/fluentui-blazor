@@ -30,4 +30,11 @@ public sealed record VerticalStackedBarChartData
     [JsonPropertyName("lineData")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IReadOnlyList<VerticalStackedBarChartLineDataPoint>? LineData { get; init; }
+
+    /// <summary>
+    /// Gets the optional accessible label announced when the stack-level callout is shown.
+    /// </summary>
+    [JsonPropertyName("stackCallOutAccessibilityData")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CalloutAccessibilityData? StackCallOutAccessibilityData { get; init; }
 }

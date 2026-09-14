@@ -87,6 +87,13 @@ public sealed record VerticalBarChartDataPoint
     public string? BarLabel { get; init; }
 
     /// <summary>
+    /// Gets the optional accessible label announced for this bar's callout.
+    /// </summary>
+    [JsonPropertyName("callOutAccessibilityData")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CalloutAccessibilityData? CallOutAccessibilityData { get; init; }
+
+    /// <summary>
     /// Gets the optional line series point overlaid on this bar's x-axis category.
     /// </summary>
     [JsonPropertyName("lineData")]

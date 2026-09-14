@@ -1,0 +1,77 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentGroupedVerticalBarChart ChartTitle="@($"Grouped vertical bar chart culture example ({_selectedCulture})")"
+                               ChartData="@chartData"
+                               Width="650px"
+                               Height="350px"
+                               Culture="@SelectedCulture">
+</FluentGroupedVerticalBarChart>
+
+@code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private readonly IReadOnlyList<GroupedVerticalBarChartData> chartData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jan - Mar",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 24000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 33000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 44000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 54000, Color = DataVizPalette.Color6 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Apr - Jun",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 12000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 33000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 3000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 9000, Color = DataVizPalette.Color6 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jul - Sep",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 10000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 14000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 50000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 60000, Color = DataVizPalette.Color6 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Oct - Dec",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 15000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 33000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 3000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 6000, Color = DataVizPalette.Color6 },
+            ],
+        },
+    ];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}
+
+
+

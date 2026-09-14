@@ -1,0 +1,57 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="polar-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="polar-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
+</FluentStack>
+
+<FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
+
+<FluentPolarChart ChartTitle="Academic Performance"
+                  ChartData="@chartData"
+                  Shape="PolarChartShape.Polygon"
+                  Direction="PolarChartDirection.Clockwise"
+                  Width=@($"{_width}px")
+                  Height=@($"{_height}px")>
+</FluentPolarChart>
+
+@code {
+    private int _width = 500;
+    private bool _hideLegends = true;
+    private int _height = 450;
+
+    private readonly IReadOnlyList<PolarChartSeries> chartData =
+    [
+        new PolarChartSeries
+        {
+            Legend = "Mike",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Math", Y = 120 },
+                new PolarChartDataPoint { X = "Chinese", Y = 98 },
+                new PolarChartDataPoint { X = "English", Y = 86 },
+                new PolarChartDataPoint { X = "Geography", Y = 99 },
+                new PolarChartDataPoint { X = "Physics", Y = 85 },
+                new PolarChartDataPoint { X = "History", Y = 65 },
+            ],
+        },
+        new PolarChartSeries
+        {
+            Legend = "Lily",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Math", Y = 110 },
+                new PolarChartDataPoint { X = "Chinese", Y = 130 },
+                new PolarChartDataPoint { X = "English", Y = 95 },
+                new PolarChartDataPoint { X = "Geography", Y = 90 },
+                new PolarChartDataPoint { X = "Physics", Y = 100 },
+                new PolarChartDataPoint { X = "History", Y = 90 },
+            ],
+        },
+    ];
+}
+

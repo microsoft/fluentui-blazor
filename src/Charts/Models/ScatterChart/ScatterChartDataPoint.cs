@@ -19,10 +19,11 @@ public sealed record ScatterChartDataPoint
     public ChartAxisValue X { get; init; }
 
     /// <summary>
-    /// Gets the y-axis numeric value rendered for this point.
+    /// Gets the y-axis value rendered for this point.
+    /// Accepts a numeric value, date/time value, or string category label.
     /// </summary>
     [JsonPropertyName("y")]
-    public double Y { get; init; }
+    public ChartAxisValue Y { get; init; }
 
     /// <summary>
     /// Gets the optional marker size in pixels.

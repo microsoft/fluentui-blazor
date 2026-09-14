@@ -15,6 +15,58 @@ The default example renders two groups of points with different marker sizes.
 
 {{ ScatterChartDefault }}
 
+### Date based
+
+{{ ScatterChartDateBased }}
+
+### String based
+
+{{ ScatterChartStringBased }}
+
+### Axis category order
+
+{{ ScatterChartAxisCategoryOrder }}
+
+### Log axis
+
+{{ ScatterChartLogAxis }}
+
+### Hide Legends
+
+{{ ScatterChartHideLegends }}
+
+### Multiple Legend Selection
+
+{{ ScatterChartMultipleLegendSelection }}
+
+### Rounded Corners
+
+{{ ScatterChartRoundedCorners }}
+
+### Culture
+
+{{ ScatterChartCulture }}
+
+### Title Align
+
+{{ ScatterChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ ScatterChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ ScatterChartHideTooltip }}
+
+### Custom Tooltip
+
+{{ ScatterChartCustomTooltip }}
+
+### RTL
+
+{{ ScatterChartRTL }}
+
 ## API Fluent Scatter Chart
 
 {{ API Type=FluentScatterChart }}
@@ -26,3 +78,4 @@ The default example renders two groups of points with different marker sizes.
 ## API Scatter Chart Data Point
 
 {{ API Type=ScatterChartDataPoint Properties=All }}
+

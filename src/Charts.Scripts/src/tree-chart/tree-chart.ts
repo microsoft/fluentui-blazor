@@ -75,7 +75,7 @@ export class TreeChart extends ChartBase {
       return;
     }
 
-    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 600);
+    const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 600);
     const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const nodeWidth = toNumber(this.nodeWidth, 96);
     const nodeHeight = toNumber(this.nodeHeight, 42);

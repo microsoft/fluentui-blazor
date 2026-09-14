@@ -119,7 +119,7 @@ export class StackedBarChart extends ChartBase {
 
     const margins = { top: 32, right: 20, bottom: 20, left: 20 };
     const barHeight = toNumber(this.barHeight, 16);
-    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 600);
+    const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 600);
     const height = resolvePixelDimension(
       this.height,
       this.chartContainer.getBoundingClientRect().height,

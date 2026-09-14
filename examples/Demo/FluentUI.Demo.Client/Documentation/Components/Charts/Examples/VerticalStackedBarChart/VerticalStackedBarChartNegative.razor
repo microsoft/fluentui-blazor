@@ -1,0 +1,41 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart negative example"
+                               ChartData="@_chartData"
+                               Width="650px"
+                               Height="350px"
+                               BarGapMax="2"
+                               SupportNegativeData="true"
+                               RoundedTicks="true"
+                               XAxisTitle="Number of days"
+                               YAxisTitle="Variation of number of sales"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private const string BasicCalloutDate = "2020/04/30";
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        CreateStack(0, [CreatePoint("Metadata1", 40, "qualitative.1", "68%"), CreatePoint("Metadata2", 5, "qualitative.2", "8.5%"), CreatePoint("Metadata3", -20, "qualitative.3", "34%"), CreatePoint("Metadata4", 10, "qualitative.4", "17%"), CreatePoint("Metadata5", 23, "qualitative.5", "39%"), CreatePoint("Metadata6", 0.4, "qualitative.6", "0.7%"), CreatePoint("Metadata7", -0.5, "qualitative.7", "0.85%"), CreatePoint("Metadata8", -0.3, "qualitative.8", "0.5%"), CreatePoint("Metadata9", 0.7, "qualitative.9", "1.2%"), CreatePoint("Metadata10", 0.1, "qualitative.10", "0.2%")], [CreateLine(42, "Supported Builds", "qualitative.5"), CreateLine(10, "Recommended Builds", "qualitative.9")]),
+        CreateStack(20, [CreatePoint("Metadata1", -30, "qualitative.1", "33%"), CreatePoint("Metadata2", -20, "qualitative.2", "22%"), CreatePoint("Metadata3", -40, "qualitative.3", "45%")], [CreateLine(33, "Supported Builds", "qualitative.5")]),
+        CreateStack(40, [CreatePoint("Metadata1", 44, "qualitative.1", "43%"), CreatePoint("Metadata2", 28, "qualitative.2", "27%"), CreatePoint("Metadata3", 30, "qualitative.3", "30%")], [CreateLine(60, "Supported Builds", "qualitative.5"), CreateLine(20, "Recommended Builds", "qualitative.9")]),
+        CreateStack(60, [CreatePoint("Metadata1", 40, "qualitative.1", "68%"), CreatePoint("Metadata2", 5, "qualitative.2", "8.5%"), CreatePoint("Metadata3", -20, "qualitative.3", "34%"), CreatePoint("Metadata4", 10, "qualitative.4", "17%"), CreatePoint("Metadata5", 23, "qualitative.5", "39%"), CreatePoint("Metadata6", 0.4, "qualitative.6", "0.7%"), CreatePoint("Metadata7", -0.5, "qualitative.7", "0.85%"), CreatePoint("Metadata8", -0.3, "qualitative.8", "0.5%"), CreatePoint("Metadata9", 0.7, "qualitative.9", "1.2%"), CreatePoint("Metadata10", 0.1, "qualitative.10", "0.2%")], [CreateLine(41, "Supported Builds", "qualitative.5"), CreateLine(10, "Recommended Builds", "qualitative.9")]),
+        CreateStack(80, [CreatePoint("Metadata1", 88, "qualitative.1", "63%"), CreatePoint("Metadata2", 22, "qualitative.2", "16%"), CreatePoint("Metadata3", 30, "qualitative.3", "21%")], [CreateLine(100, "Supported Builds", "qualitative.5"), CreateLine(70, "Recommended Builds", "qualitative.9")]),
+        CreateStack(100, [CreatePoint("Metadata1", 40, "qualitative.1", "68%"), CreatePoint("Metadata2", 5, "qualitative.2", "8.5%"), CreatePoint("Metadata3", -20, "qualitative.3", "34%"), CreatePoint("Metadata4", 10, "qualitative.4", "17%"), CreatePoint("Metadata5", 23, "qualitative.5", "39%"), CreatePoint("Metadata6", 0.4, "qualitative.6", "0.7%"), CreatePoint("Metadata7", -0.5, "qualitative.7", "0.85%"), CreatePoint("Metadata8", -0.3, "qualitative.8", "0.5%"), CreatePoint("Metadata9", 0.7, "qualitative.9", "1.2%"), CreatePoint("Metadata10", 0.1, "qualitative.10", "0.2%")], null),
+    ];
+
+    private static VerticalStackedBarChartData CreateStack(double x, IReadOnlyList<VerticalStackedBarChartDataPoint> points, IReadOnlyList<VerticalStackedBarChartLineDataPoint>? lines) => new() { XAxisPoint = x, ChartData = points, LineData = lines };
+
+    private static VerticalStackedBarChartLineDataPoint CreateLine(double y, string legend, string color) => new() { Y = y, Legend = legend, Color = color };
+
+    private static VerticalStackedBarChartDataPoint CreatePoint(string legend, double data, string color, string yAxisCalloutData) => new()
+    {
+        Legend = legend,
+        Data = data,
+        Color = DataVizPalette.Custom,
+        CustomColor = color,
+        XAxisCalloutData = BasicCalloutDate,
+        YAxisCalloutData = yAxisCalloutData,
+    };
+}

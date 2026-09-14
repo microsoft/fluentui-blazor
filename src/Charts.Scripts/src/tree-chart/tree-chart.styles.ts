@@ -15,9 +15,10 @@ export const styles = css`
     display: grid;
     grid-template-areas:
       'title'
-      'chart';
+      'chart'
+      'legend';
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     width: 100%;
     height: 100%;
     position: relative;
@@ -33,6 +34,71 @@ export const styles = css`
 
   .chart-container {
     grid-area: chart;
+    min-inline-size: 0;
+  }
+
+  fluent-chart-legend {
+    grid-area: legend;
+  }
+
+  :host([title-position='bottom']) {
+    grid-template-areas:
+      'chart'
+      'legend'
+      'title';
+  }
+
+  :host([title-position='bottom']) .chart-title {
+    margin-bottom: 0;
+    margin-top: ${spacingVerticalS};
+  }
+
+  :host([legend-position='top']) {
+    grid-template-areas:
+      'title'
+      'legend'
+      'chart';
+  }
+
+  :host([legend-position='start']) {
+    grid-template-areas:
+      'title  title'
+      'legend chart';
+    grid-template-columns: auto 1fr;
+  }
+
+  :host([legend-position='end']) {
+    grid-template-areas:
+      'title  title'
+      'chart  legend';
+    grid-template-columns: 1fr auto;
+  }
+
+  :host([legend-position='start']) fluent-chart-legend,
+  :host([legend-position='end']) fluent-chart-legend {
+    align-self: start;
+  }
+
+  :host([title-position='bottom'][legend-position='top']) {
+    grid-template-areas:
+      'legend'
+      'chart'
+      'title';
+    grid-template-columns: 1fr;
+  }
+
+  :host([title-position='bottom'][legend-position='start']) {
+    grid-template-areas:
+      'legend chart'
+      'title  title';
+    grid-template-columns: auto 1fr;
+  }
+
+  :host([title-position='bottom'][legend-position='end']) {
+    grid-template-areas:
+      'chart  legend'
+      'title  title';
+    grid-template-columns: 1fr auto;
   }
 
   .chart {

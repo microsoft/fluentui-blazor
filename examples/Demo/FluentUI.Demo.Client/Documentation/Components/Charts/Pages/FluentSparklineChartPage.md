@@ -15,6 +15,42 @@ The default example renders a compact line sparkline.
 
 {{ SparklineChartDefault }}
 
+### Hide Legends
+
+{{ SparklineChartHideLegends }}
+
+### Multiple Legend Selection
+
+{{ SparklineChartMultipleLegendSelection }}
+
+### Rounded Corners
+
+{{ SparklineChartRoundedCorners }}
+
+### Culture
+
+{{ SparklineChartCulture }}
+
+### Title Align
+
+{{ SparklineChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ SparklineChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ SparklineChartHideTooltip }}
+
+### Custom Tooltip
+
+{{ SparklineChartCustomTooltip }}
+
+### RTL
+
+{{ SparklineChartRTL }}
+
 ## API Fluent Sparkline Chart
 
 {{ API Type=FluentSparklineChart }}
@@ -30,3 +66,4 @@ The default example renders a compact line sparkline.
 ## API Sparkline Data Point
 
 {{ API Type=SparklineDataPoint Properties=All }}
+

@@ -1,0 +1,66 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentPolarChart ChartTitle="Mixed polar series"
+                  ChartData="@_chartData"
+                  Shape="PolarChartShape.Polygon"
+                  Width="500px"
+                  Height="450px">
+</FluentPolarChart>
+
+@code {
+    private readonly IReadOnlyList<PolarChartSeries> _chartData =
+    [
+        new PolarChartSeries
+        {
+            Type = PolarSeriesType.AreaPolar,
+            Legend = "Current",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data =
+            [
+                new PolarChartDataPoint { Theta = "Quality", R = 82.0 },
+                new PolarChartDataPoint { Theta = "Speed", R = 74.0 },
+                new PolarChartDataPoint { Theta = "Reliability", R = 88.0 },
+                new PolarChartDataPoint { Theta = "Support", R = 70.0 },
+                new PolarChartDataPoint { Theta = "Value", R = 78.0 },
+                new PolarChartDataPoint { Theta = "Adoption", R = 65.0 },
+            ],
+        },
+        new PolarChartSeries
+        {
+            Type = PolarSeriesType.LinePolar,
+            Legend = "Target",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.7",
+            LineOptions = new PolarLineOptions
+            {
+                Curve = PolarLineCurve.Natural,
+                StrokeWidth = 3,
+                StrokeDasharray = "7 4",
+                StrokeLinecap = ChartStrokeLinecap.Round,
+            },
+            Data =
+            [
+                new PolarChartDataPoint { Theta = "Quality", R = 90.0 },
+                new PolarChartDataPoint { Theta = "Speed", R = 85.0 },
+                new PolarChartDataPoint { Theta = "Reliability", R = 92.0 },
+                new PolarChartDataPoint { Theta = "Support", R = 80.0 },
+                new PolarChartDataPoint { Theta = "Value", R = 88.0 },
+                new PolarChartDataPoint { Theta = "Adoption", R = 82.0 },
+            ],
+        },
+        new PolarChartSeries
+        {
+            Type = PolarSeriesType.ScatterPolar,
+            Legend = "Milestones",
+            Color = DataVizPalette.Custom,
+            CustomColor = "semantic.success",
+            Data =
+            [
+                new PolarChartDataPoint { Theta = "Quality", R = 95.0, MarkerSize = 8 },
+                new PolarChartDataPoint { Theta = "Reliability", R = 96.0, MarkerSize = 12, Text = "Release" },
+                new PolarChartDataPoint { Theta = "Value", R = 91.0, MarkerSize = 10 },
+            ],
+        },
+    ];
+}

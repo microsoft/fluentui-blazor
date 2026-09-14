@@ -15,6 +15,70 @@ The default example renders activity values by day and time using a color scale.
 
 {{ HeatMapChartDefault }}
 
+### String axis
+
+{{ HeatMapChartStringAxis }}
+
+### Sort order none
+
+{{ HeatMapChartSortOrderNone }}
+
+### String labels
+
+{{ HeatMapChartStringLabels }}
+
+### Category order
+
+{{ HeatMapChartCategoryOrder }}
+
+### Axis titles
+
+{{ HeatMapChartAxisTitles }}
+
+### Custom date format
+
+{{ HeatMapChartCustomDateFormat }}
+
+### Legend toggle
+
+{{ HeatMapChartLegendToggle }}
+
+### Multiple Legend Selection
+
+{{ HeatMapChartMultipleLegendSelection }}
+
+### Hide Legends
+
+{{ HeatMapChartHideLegends }}
+
+### Rounded Corners
+
+{{ HeatMapChartRoundedCorners }}
+
+### Culture
+
+{{ HeatMapChartCulture }}
+
+### Title Align
+
+{{ HeatMapChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ HeatMapChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ HeatMapChartHideTooltip }}
+
+### Custom Tooltip
+
+{{ HeatMapChartCustomTooltip }}
+
+### RTL
+
+{{ HeatMapChartRTL }}
+
 ## API Fluent Heat Map Chart
 
 {{ API Type=FluentHeatMapChart }}

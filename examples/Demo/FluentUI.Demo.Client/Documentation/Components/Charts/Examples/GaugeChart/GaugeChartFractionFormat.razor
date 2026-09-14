@@ -1,0 +1,20 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGaugeChart ChartTitle="Gauge chart fraction format example"
+                  Segments="@_chartData"
+                  ChartValue="50"
+                  MaxValue="100"
+                  ChartValueFormat="@GaugeValueFormat.Fraction"
+                  Width="252px"
+                  Height="173px">
+</FluentGaugeChart>
+
+@code {
+    private readonly IReadOnlyList<GaugeChartSegment> _chartData =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+}
+

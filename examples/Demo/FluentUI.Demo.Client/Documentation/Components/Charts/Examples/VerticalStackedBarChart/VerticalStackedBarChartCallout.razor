@@ -1,0 +1,58 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10" Style="margin-bottom: 16px;">
+    <FluentRadioGroup Label="Callout variant" @bind-Value="@_calloutVariant" Orientation="Orientation.Vertical" Name="vsbar-callout-mode">
+        <FluentRadio Value="@CalloutVariant.Single">Single callout</FluentRadio>
+        <FluentRadio Value="@CalloutVariant.Stacked">Stack callout</FluentRadio>
+    </FluentRadioGroup>
+    <FluentSwitch @bind-Value="@_hideLines" Label="Hide lines" />
+</FluentStack>
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart callout example"
+                               ChartData="@ChartData"
+                               Width="650px"
+                               Height="350px"
+                               BarGapMax="2"
+                               BarWidth="16"
+                               YMaxValue="120"
+                               CalloutVariant="@_calloutVariant"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private bool _hideLines;
+    private CalloutVariant _calloutVariant = CalloutVariant.Stacked;
+
+    private IReadOnlyList<VerticalStackedBarChartData> ChartData => _hideLines
+        ? _chartData.Select(stack => stack with { LineData = null }).ToArray()
+        : _chartData;
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        CreateStack("Jan", [40, 5, 15], [CreateLine(40, "qualitative.10", "line1")]),
+        CreateStack("Feb", [30, 3, 40], [CreateLine(15, "qualitative.10", "line1"), CreateLine(70, "qualitative.7", "line3")]),
+        CreateStack("March", [10, 60, 30], [CreateLine(65, "qualitative.5", "line2"), CreateLine(98, "qualitative.7", "line3")]),
+        CreateStack("April", [40, 10, 30], [CreateLine(40, "qualitative.10", "line1"), CreateLine(50, "qualitative.5", "line2"), CreateLine(65, "qualitative.7", "line3")]),
+        CreateStack("May", [40, 40, 40], [CreateLine(20, "qualitative.10", "line1"), CreateLine(65, "qualitative.5", "line2")]),
+        CreateStack("June", [40, 20, 40], [CreateLine(54, "qualitative.5", "line2"), CreateLine(87, "qualitative.7", "line3")]),
+        CreateStack("July", [10, 80, 20], [CreateLine(10, "qualitative.10", "line1"), CreateLine(110, "qualitative.7", "line3")]),
+        CreateStack("August", [50, 50, 20], [CreateLine(45, "qualitative.10", "line1"), CreateLine(87, "qualitative.5", "line2")]),
+        CreateStack("September", [40, 5, 15], [CreateLine(15, "qualitative.10", "line1"), CreateLine(60, "qualitative.7", "line3")]),
+    ];
+
+    private static VerticalStackedBarChartData CreateStack(string x, IReadOnlyList<double> values, IReadOnlyList<VerticalStackedBarChartLineDataPoint> lines) => new()
+    {
+        XAxisPoint = x,
+        ChartData =
+        [
+            CreatePoint("Metadata1", values[0], "qualitative.2"),
+            CreatePoint("Metadata2", values[1], "qualitative.1"),
+            CreatePoint("Metadata3", values[2], "qualitative.6"),
+        ],
+        LineData = lines,
+    };
+
+    private static VerticalStackedBarChartDataPoint CreatePoint(string legend, double data, string color) => new() { Legend = legend, Data = data, Color = DataVizPalette.Custom, CustomColor = color };
+
+    private static VerticalStackedBarChartLineDataPoint CreateLine(double y, string color, string legend) => new() { Y = y, Color = color, Legend = legend };
+}

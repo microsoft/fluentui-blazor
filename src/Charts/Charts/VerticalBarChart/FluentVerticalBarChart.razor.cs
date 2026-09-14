@@ -59,6 +59,12 @@ public partial class FluentVerticalBarChart : FluentCartesianChartBase
     public IReadOnlyList<string>? Colors { get; set; }
 
     /// <summary>
+    /// Gets or sets the label rendered beside the secondary y-axis.
+    /// </summary>
+    [Parameter]
+    public string? SecondaryYAxisTitle { get; set; }
+
+    /// <summary>
     /// Gets or sets the legend text for the overlaid line series, when <see cref="VerticalBarChartDataPoint.LineData"/>
     /// values are supplied.
     /// </summary>

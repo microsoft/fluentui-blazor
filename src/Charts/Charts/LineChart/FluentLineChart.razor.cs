@@ -68,6 +68,14 @@ public partial class FluentLineChart
 
     /// <summary>
     /// Gets or sets the pre-serialized JSON payload passed to the web component's
+    /// <c>annotations</c> attribute.
+    /// The value must match the TypeScript <c>ChartAnnotation[]</c> shape.
+    /// </summary>
+    [Parameter]
+    public string? Annotations { get; set; }
+
+    /// <summary>
+    /// Gets or sets the pre-serialized JSON payload passed to the web component's
     /// <c>event-annotation-props</c> attribute.
     /// The value must match the TypeScript <c>LineChartEventAnnotationProps</c> shape.
     /// </summary>

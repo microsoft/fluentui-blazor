@@ -1,0 +1,23 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentCheckbox @bind-Value="@_roundedCorners" Label="Rounded corners" />
+
+<FluentFunnelChart ChartTitle="Basic Funnel Chart"
+                   ChartData="@chartData"
+                   Width="600px"
+                   Height="350px"
+                   Orientation="Orientation.Horizontal">
+</FluentFunnelChart>
+
+@code {
+    private bool _roundedCorners = false;
+
+    private readonly IReadOnlyList<FunnelDataPoint> chartData =
+    [
+        new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups", Value = 600 },
+        new FunnelDataPoint { Stage = "Trials", Value = 300 },
+        new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    ];
+}
+

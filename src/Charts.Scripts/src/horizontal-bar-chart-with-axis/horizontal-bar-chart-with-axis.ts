@@ -15,7 +15,6 @@ import {
   parseDimensionNumber,
   renderContinuousBottomAxisShared,
   renderHorizontalYAxisShared,
-  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -323,8 +322,7 @@ export class HorizontalBarChartWithAxis extends CartesianChartBase {
     this._applyHostDimensions();
 
     const width = Math.max(
-      resolvePixelDimension(
-        this.width,
+      this._resolvePlotWidth(
         this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width,
         640,
       ),

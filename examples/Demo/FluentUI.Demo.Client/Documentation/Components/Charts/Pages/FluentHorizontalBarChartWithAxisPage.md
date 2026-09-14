@@ -49,153 +49,127 @@ The chart can accommodate unusually long labels by shrinking the bars without di
 
 ### Default
 
-The default example renders a grouped horizontal bar chart with a numeric x-axis and string y-axis labels, showing the baseline appearance of the component.
-
 {{ HorizontalBarChartWithAxisDefault }}
 
-### String Y-axis
+### Axis titles
 
-Demonstrates using string labels on the y-axis, where each category is identified by a text value rather than a numeric position.
+{{ HorizontalBarChartWithAxisAxisTitles }}
+
+### Rotate X axis labels
+
+{{ HorizontalBarChartWithAxisRotateXAxisLabels }}
+
+### Wrap X axis labels
+
+{{ HorizontalBarChartWithAxisWrapXAxisLabels }}
+
+### Tick format
+
+{{ HorizontalBarChartWithAxisTickFormat }}
+
+### String Y-Axis
 
 {{ HorizontalBarChartWithAxisStringYAxis }}
 
-### Numeric Y-axis
-
-Demonstrates using numeric values on the y-axis, suitable for scenarios where categories are identified by ordered numeric keys.
+### Numeric Y-Axis
 
 {{ HorizontalBarChartWithAxisNumericYAxis }}
 
-### Stacked bars
-
-In the stacked variant, multiple data series are layered into a single bar per category, making it easy to see both part-to-whole relationships and totals.
+### Stacked Bars
 
 {{ HorizontalBarChartWithAxisStacked }}
 
-### Negative values
-
-Shows how the chart handles data that contains negative values, with bars extending in both directions from the zero baseline.
+### Negative Values
 
 {{ HorizontalBarChartWithAxisNegative }}
 
-### Category order
-
-Use the selector to change the ordering of the y-axis categories at runtime, illustrating how the `CategoryOrder` property rearranges bars without changing the underlying data.
+### Category Order
 
 {{ HorizontalBarChartWithAxisCategoryOrder }}
 
-### Single color
-
-Setting a single color for all series removes per-series color differentiation, useful when the category labels alone carry the semantic meaning.
+### Single Color
 
 {{ HorizontalBarChartWithAxisSingleColor }}
 
-### Hide legends
-
-Setting `HideLegends` removes the legend list below the chart, reducing visual clutter when series are already identifiable from the axis labels.
-
-{{ HorizontalBarChartWithAxisHideLegends }}
-
 ### Gradient
-
-Enabling `EnableGradient` fills each bar with a gradient that transitions from a lighter tint at the start to the full series color at the end.
 
 {{ HorizontalBarChartWithAxisGradient }}
 
-### Rounded corners
-
-Enabling `RoundedCorners` applies a small border-radius to each bar, giving a softer appearance while retaining the same data layout.
-
-{{ HorizontalBarChartWithAxisRoundedCorners }}
-
-### Show Y-axis labels
-
-Enabling `ShowYAxisLabels` adds text labels directly on the y-axis ticks, making category names visible without requiring the legend.
-
-{{ HorizontalBarChartWithAxisShowYAxisLabels }}
-
-### Culture
-
-Setting the `Culture` property to a specific locale (here `de-DE`) formats all numeric axis tick values and tooltips according to that culture's conventions.
-
-{{ HorizontalBarChartWithAxisCulture }}
-
-### Legend list label
-
-The `LegendListLabel` property sets an accessible heading for the legend list, useful when the chart is embedded in a larger page that requires descriptive landmark text.
-
-{{ HorizontalBarChartWithAxisLegendListLabel }}
-
-### Hide tooltip
-
-Setting `HideTooltip` disables the hover callout so that mousing over a bar no longer shows a data tooltip.
-
-{{ HorizontalBarChartWithAxisHideTooltip }}
-
-### Multiple legend selection
-
-When `AllowMultipleLegendSelection` is enabled, clicking a legend item highlights only the corresponding bars; multiple items can be selected at the same time.
-
-{{ HorizontalBarChartWithAxisMultipleLegendSelection }}
-
-### Hide labels
-
-Setting `HideLabels` suppresses the numeric value labels rendered at the end of each bar, producing a cleaner look when exact values are shown elsewhere.
+### Hide Labels
 
 {{ HorizontalBarChartWithAxisHideLabels }}
 
-### Bar height
+### Hide Legends
 
-Use the slider to adjust the `BarHeight` property at runtime, controlling the pixel thickness of each individual bar in the chart.
+{{ HorizontalBarChartWithAxisHideLegends }}
 
-{{ HorizontalBarChartWithAxisBarHeight }}
+### Multiple Legend Selection
 
-### Axis tick counts
+{{ HorizontalBarChartWithAxisMultipleLegendSelection }}
 
-Use the sliders to change the number of ticks rendered on the x-axis and y-axis independently, allowing fine-grained control over axis density.
+### Rounded Corners
 
-{{ HorizontalBarChartWithAxisAxisTickCounts }}
+{{ HorizontalBarChartWithAxisRoundedCorners }}
 
-### Y-axis padding
+### Culture
 
-Use the slider to adjust the `YAxisPadding` property, which controls the proportional gap between the y-axis labels and the start of the bars.
+{{ HorizontalBarChartWithAxisCulture }}
 
-{{ HorizontalBarChartWithAxisYAxisPadding }}
+### Title Align
 
-### Domain override
+{{ HorizontalBarChartWithAxisTitleAlign }}
 
-Use the sliders to override the minimum and maximum values of both axes, demonstrating how `XMinValue`, `XMaxValue`, `YMinValue`, and `YMaxValue` can constrain or expand the visible data range.
+### Title and Legend Positions
 
-{{ HorizontalBarChartWithAxisDomainOverride }}
+{{ HorizontalBarChartWithAxisTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ HorizontalBarChartWithAxisHideTooltip }}
+
+### Custom Tooltip
+
+{{ HorizontalBarChartWithAxisCustomTooltip }}
 
 ### RTL
 
-Demonstrates the right-to-left layout mode, where bars grow from the right edge and axis labels are mirrored to support RTL languages.
-
 {{ HorizontalBarChartWithAxisRTL }}
 
-### Tick values
+### Show Y-Axis Labels
 
-Set `TickValues` to an explicit array of doubles to control exactly which values appear as tick marks on the x-axis, overriding the auto-generated ticks.
+{{ HorizontalBarChartWithAxisShowYAxisLabels }}
+
+### Legend List Label
+
+{{ HorizontalBarChartWithAxisLegendListLabel }}
+
+### Bar Height
+
+{{ HorizontalBarChartWithAxisBarHeight }}
+
+### Axis Tick Counts
+
+{{ HorizontalBarChartWithAxisAxisTickCounts }}
+
+### Y-Axis Padding
+
+{{ HorizontalBarChartWithAxisYAxisPadding }}
+
+### Domain Override
+
+{{ HorizontalBarChartWithAxisDomainOverride }}
+
+### Tick Values
 
 {{ HorizontalBarChartWithAxisTickValues }}
 
-### Stroke width
-
-Set `StrokeWidth` to add an outline stroke to each bar. Use the slider to adjust the width in pixels at runtime.
+### Stroke Width
 
 {{ HorizontalBarChartWithAxisStrokeWidth }}
 
-### X-axis labels tooltip
-
-Setting `ShowXAxisLabelsTooltip` truncates x-axis tick labels that exceed ten characters and shows the full text in a tooltip on hover. In this example, `XAxisTickFormat` is set to `,.2f` so that large values are formatted with comma separators and two decimal places (e.g. "1,500,000.00"), producing labels that trigger the truncation.
+### Show X-Axis Labels Tooltip
 
 {{ HorizontalBarChartWithAxisShowXAxisLabelsTooltip }}
-
-### Custom tooltip
-
-Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue` (category), `XValue` (value), and `Color`.
-
-{{ HorizontalBarChartWithAxisCustomTooltip }}
 
 ## API Fluent Horizontal Bar Chart With Axis
 

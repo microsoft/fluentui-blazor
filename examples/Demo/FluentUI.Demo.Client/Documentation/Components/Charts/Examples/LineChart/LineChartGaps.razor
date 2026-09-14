@@ -1,0 +1,106 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="400px"
+                 YMinValue="150000"
+                 YMaxValue="400000"
+                 CalloutVariant="CalloutVariant.Stacked">
+</FluentLineChart>
+
+@code {
+    private readonly IReadOnlyList<LineChartSeries> _chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Confidence Level",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.11",
+            LineOptions = new LineChartLineOptions
+            {
+                StrokeDasharray = "5",
+                StrokeLinecap = ChartStrokeLinecap.Butt,
+                StrokeWidth = 2,
+                LineBorderWidth = 4,
+            },
+            Data =
+            [
+                new LineChartDataPoint { X = At(3), Y = 250000, HideCallout = true },
+                new LineChartDataPoint { X = At(10), Y = 250000, HideCallout = true },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "Normal Data",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.12",
+            Gaps =
+            [
+                new LineChartGap { StartIndex = 1, EndIndex = 2 },
+                new LineChartGap { StartIndex = 3, EndIndex = 4 },
+                new LineChartGap { StartIndex = 6, EndIndex = 7 },
+            ],
+            LineOptions = new LineChartLineOptions { LineBorderWidth = 4 },
+            Data =
+            [
+                new LineChartDataPoint { X = At(3), Y = 216000 },
+                new LineChartDataPoint { X = At(3, 10, 30), Y = 218123, HideCallout = true },
+                new LineChartDataPoint { X = At(3, 11), Y = 219000, HideCallout = true },
+                new LineChartDataPoint { X = At(4), Y = 248000, HideCallout = true },
+                new LineChartDataPoint { X = At(5), Y = 252000, HideCallout = true },
+                new LineChartDataPoint { X = At(6), Y = 274000 },
+                new LineChartDataPoint { X = At(7), Y = 260000, HideCallout = true },
+                new LineChartDataPoint { X = At(8), Y = 300000, HideCallout = true },
+                new LineChartDataPoint { X = At(8, 12), Y = 218000 },
+                new LineChartDataPoint { X = At(9), Y = 218000 },
+                new LineChartDataPoint { X = At(10), Y = 269000 },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "Low Confidence Data*",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.13",
+            Gaps =
+            [
+                new LineChartGap { StartIndex = 1, EndIndex = 2 },
+                new LineChartGap { StartIndex = 3, EndIndex = 4 },
+            ],
+            LineOptions = new LineChartLineOptions
+            {
+                StrokeDasharray = "2",
+                StrokeDashoffset = "-1",
+                StrokeLinecap = ChartStrokeLinecap.Butt,
+                LineBorderWidth = 4,
+            },
+            Data =
+            [
+                new LineChartDataPoint { X = At(3, 10, 30), Y = 218123 },
+                new LineChartDataPoint { X = At(3, 11), Y = 219000 },
+                new LineChartDataPoint { X = At(4), Y = 248000 },
+                new LineChartDataPoint { X = At(5), Y = 252000 },
+                new LineChartDataPoint { X = At(7), Y = 260000 },
+                new LineChartDataPoint { X = At(8), Y = 300000 },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "Green Data",
+            Color = DataVizPalette.Custom,
+            CustomColor = "semantic.success",
+            LineOptions = new LineChartLineOptions { LineBorderWidth = 4 },
+            Data = CreateGreenData(),
+        },
+    ];
+
+    private static DateTime At(int day, int hour = 0, int minute = 0) =>
+        new(2020, 3, day, hour, minute, 0, DateTimeKind.Utc);
+
+    private static IReadOnlyList<LineChartDataPoint> CreateGreenData()
+    {
+        double[] values = [297000, 284000, 282000, 294000, 224000, 300000, 298000, 299000];
+
+        return values.Select((y, index) => new LineChartDataPoint { X = At(3 + index), Y = y }).ToArray();
+    }
+}

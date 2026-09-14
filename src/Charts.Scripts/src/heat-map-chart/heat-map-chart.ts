@@ -664,7 +664,7 @@ export class HeatMapChart extends CartesianChartBase {
     const containerWidth =
       this.chartContainer.getBoundingClientRect().width || this.getBoundingClientRect().width || DEFAULT_WIDTH;
 
-    const w = Math.max(resolvePixelDimension(this.width, containerWidth, DEFAULT_WIDTH), 200);
+    const w = Math.max(this._resolvePlotWidth(containerWidth, DEFAULT_WIDTH), 200);
     const legendOffset = this.hideLegends ? 0 : LEGEND_HEIGHT;
     const titleOffset = this.chartTitle ? TITLE_HEIGHT : 0;
     const configuredHeight = resolvePixelDimension(

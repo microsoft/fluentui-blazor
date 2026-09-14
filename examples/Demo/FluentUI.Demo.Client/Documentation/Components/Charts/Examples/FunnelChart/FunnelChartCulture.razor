@@ -1,0 +1,38 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentFunnelChart ChartTitle="@($"Funnel chart culture example ({_selectedCulture})")"
+                   ChartData="@chartData"
+                   Width="650px"
+                   Height="350px"
+                   Culture="@SelectedCulture"
+                   Orientation="Orientation.Horizontal">
+</FluentFunnelChart>
+
+@code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private readonly IReadOnlyList<FunnelDataPoint> chartData =
+    [
+        new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups", Value = 600 },
+        new FunnelDataPoint { Stage = "Trials", Value = 300 },
+        new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    ];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}
+
+
+

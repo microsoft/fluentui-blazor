@@ -361,7 +361,7 @@ export class LineChart extends CartesianChartBase {
     });
 
     const hasSecondaryY = normalizedSeries.some(series => series.useSecondaryYScale);
-    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 500);
+    const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 500);
     const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const eventLabelHeight = this.eventAnnotationProps?.labelHeight ?? 0;
     const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({

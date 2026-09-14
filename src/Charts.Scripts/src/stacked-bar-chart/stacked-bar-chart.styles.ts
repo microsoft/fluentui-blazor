@@ -46,6 +46,7 @@ export const styles = css`
 
   .chart-container {
     grid-area: chart;
+    min-inline-size: 0;
   }
 
   fluent-chart-legend {
@@ -73,16 +74,16 @@ export const styles = css`
 
   :host([legend-position='start']) {
     grid-template-areas:
-      'title title title'
-      'legend chart .';
-    grid-template-columns: auto auto 1fr;
+      'title  title'
+      'legend chart';
+    grid-template-columns: auto 1fr;
   }
 
   :host([legend-position='end']) {
     grid-template-areas:
-      'title title title'
-      'chart legend .';
-    grid-template-columns: auto auto 1fr;
+      'title  title'
+      'chart  legend';
+    grid-template-columns: 1fr auto;
   }
 
   :host([legend-position='start']) fluent-chart-legend,
@@ -99,16 +100,16 @@ export const styles = css`
 
   :host([title-position='bottom'][legend-position='start']) {
     grid-template-areas:
-      'legend chart .'
-      'title title title';
-    grid-template-columns: auto auto 1fr;
+      'legend chart'
+      'title  title';
+    grid-template-columns: auto 1fr;
   }
 
   :host([title-position='bottom'][legend-position='end']) {
     grid-template-areas:
-      'chart legend .'
-      'title title title';
-    grid-template-columns: auto auto 1fr;
+      'chart  legend'
+      'title  title';
+    grid-template-columns: 1fr auto;
   }
 
   :host([title-align='center']) .chart-title {

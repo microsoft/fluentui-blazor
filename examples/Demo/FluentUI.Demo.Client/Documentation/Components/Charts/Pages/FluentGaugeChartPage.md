@@ -15,6 +15,74 @@ The default example renders a gauge with three colored segments and a current va
 
 {{ GaugeChartDefault }}
 
+### Custom min max
+
+{{ GaugeChartCustomMinMax }}
+
+### Format template
+
+{{ GaugeChartFormatTemplate }}
+
+### Fraction format
+
+{{ GaugeChartFractionFormat }}
+
+### Live value
+
+{{ GaugeChartLiveValue }}
+
+### Segment aria labels
+
+{{ GaugeChartSegmentAriaLabels }}
+
+### Single segment
+
+{{ GaugeChartSingleSegment }}
+
+### Sublabel
+
+{{ GaugeChartSublabel }}
+
+### Sublabel and title
+
+{{ GaugeChartSublabelAndTitle }}
+
+### Multiple Legend Selection
+
+{{ GaugeChartMultipleLegendSelection }}
+
+### Hide Legends
+
+{{ GaugeChartHideLegends }}
+
+### Rounded Corners
+
+{{ GaugeChartRoundedCorners }}
+
+### Culture
+
+{{ GaugeChartCulture }}
+
+### Title Align
+
+{{ GaugeChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ GaugeChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ GaugeChartHideTooltip }}
+
+### Custom Tooltip
+
+{{ GaugeChartCustomTooltip }}
+
+### RTL
+
+{{ GaugeChartRTL }}
+
 ## API Fluent Gauge Chart
 
 {{ API Type=FluentGaugeChart }}
@@ -22,3 +90,4 @@ The default example renders a gauge with three colored segments and a current va
 ## API Gauge Chart Segment
 
 {{ API Type=GaugeChartSegment Properties=All }}
+

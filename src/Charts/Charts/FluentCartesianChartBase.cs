@@ -156,6 +156,13 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     public IEnumerable<double>? TickValues { get; set; }
 
     /// <summary>
+    /// Gets or sets the explicit set of x-axis tick values to render when the chart uses a date x-axis.
+    /// For numeric axes, use <see cref="TickValues"/> instead.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<DateTime>? DateTickValues { get; set; }
+
+    /// <summary>
     /// Gets or sets a d3-time-format specifier string (e.g. <c>"%m/%d"</c>, <c>"%Y-%m"</c>) for date x-axis tick labels.
     /// Only applicable when the x-axis uses a date/time scale (e.g. in <see cref="FluentGanttChart"/>).
     /// When set, this overrides the locale-aware <c>DateLocalizeOptions</c> / <c>Culture</c> fallback.
@@ -337,7 +344,9 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     /// Overridden by <see cref="FluentGanttChart"/> to also handle date tick values.
     /// </summary>
     internal virtual string? TickValuesJson =>
-        TickValues is not null ? JsonSerializer.Serialize(TickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
+        DateTickValues is not null
+            ? JsonSerializer.Serialize(DateTickValues.Select(d => (double)new DateTimeOffset(d).ToUnixTimeMilliseconds()), ChartJsonSerializerContext.Default.IEnumerableDouble)
+            : TickValues is not null ? JsonSerializer.Serialize(TickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
 
     /// <summary>
     /// Serializes <see cref="YAxisTickValues"/> to a JSON array string for the web component attribute.

@@ -12,6 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// </summary>
 [JsonSerializable(typeof(VerticalBarChartDataPoint))]
 [JsonSerializable(typeof(VerticalBarChartLineDataPoint))]
+[JsonSerializable(typeof(CalloutAccessibilityData))]
 [JsonSerializable(typeof(IReadOnlyList<VerticalBarChartDataPoint>))]
 [ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
 

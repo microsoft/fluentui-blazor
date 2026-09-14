@@ -44,6 +44,24 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public string? ChartTitle { get; set; }
 
     /// <summary>
+    /// Gets or sets the horizontal alignment of the chart title.
+    /// </summary>
+    [Parameter]
+    public ChartTitleAlign? TitleAlign { get; set; }
+
+    /// <summary>
+    /// Gets or sets the position of the chart title.
+    /// </summary>
+    [Parameter]
+    public ChartTitlePosition? TitlePosition { get; set; }
+
+    /// <summary>
+    /// Gets or sets the position of the chart legend.
+    /// </summary>
+    [Parameter]
+    public ChartLegendPosition? LegendPosition { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether legends are hidden in the component output.
     /// </summary>
     [Parameter]

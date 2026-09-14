@@ -1,0 +1,36 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="Title position"
+                  Items="@(Enum.GetValues<ChartTitlePosition>())"
+                  @bind-Value="@_titlePosition" />
+    <FluentSelect Label="Legend position"
+                  Items="@(Enum.GetValues<ChartLegendPosition>())"
+                  @bind-Value="@_legendPosition" />
+</FluentStack>
+
+
+<FluentFunnelChart ChartTitle="Basic Funnel Chart"
+                   ChartData="@chartData"
+                   Width="600px"
+                   Height="500px"
+                   Orientation="Orientation.Horizontal"
+                 TitlePosition="@_titlePosition"
+                 LegendPosition="@_legendPosition">
+</FluentFunnelChart>
+
+@code {
+    private ChartTitlePosition _titlePosition = ChartTitlePosition.Top;
+    private ChartLegendPosition _legendPosition = ChartLegendPosition.Top;
+
+    private readonly IReadOnlyList<FunnelDataPoint> chartData =
+    [
+        new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups", Value = 600 },
+        new FunnelDataPoint { Stage = "Trials", Value = 300 },
+        new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    ];
+}
+
+
+

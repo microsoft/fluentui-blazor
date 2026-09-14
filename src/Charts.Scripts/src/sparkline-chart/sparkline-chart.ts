@@ -93,7 +93,7 @@ export class SparklineChart extends ChartBase {
     const series = this.data?.lineChartData[0];
     const points = series?.data ?? [];
     const legend = series?.legend;
-    const chartWidth = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 80);
+    const chartWidth = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 80);
     const chartHeight = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 20);
     let legendWidth = this.showLegend && legend ? this.valueTextWidth ?? 0 : 0;
     this._clearChart();

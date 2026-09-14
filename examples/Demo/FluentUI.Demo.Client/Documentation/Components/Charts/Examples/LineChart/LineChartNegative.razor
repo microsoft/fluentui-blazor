@@ -1,0 +1,96 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSwitch @bind-Value="@_allowMultipleShapesForPoints" Label="Multiple shapes" />
+    <FluentSwitch @bind-Value="@_showAxisTitles" Label="Show axis titles" />
+    <FluentSwitch @bind-Value="@_useUtc" Label="Use UTC time" />
+</FluentStack>
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="300px"
+                 UseUTC="@_useUtc"
+                 YMinValue="200"
+                 YMaxValue="301"
+                 XAxisTickCount="10"
+                 XAxisTitle="@XAxisTitle"
+                 YAxisTitle="@YAxisTitle"
+                 CalloutVariant="CalloutVariant.Stacked"
+                 AllowMultipleShapesForPoints="@_allowMultipleShapesForPoints"
+                 SupportNegativeData="true">
+</FluentLineChart>
+
+@code {
+    private bool _allowMultipleShapesForPoints;
+    private bool _showAxisTitles = true;
+    private bool _useUtc = true;
+
+    private readonly IReadOnlyList<LineChartSeries> _chartData = CreateChartData(false);
+
+    private string? XAxisTitle => _showAxisTitles ? "Values of each category" : null;
+
+    private string? YAxisTitle => _showAxisTitles ? "Different categories of mail flow" : null;
+
+    private static IReadOnlyList<LineChartSeries> CreateChartData(bool allNegative)
+    {
+        var firstSeries = new (DateTime X, double Y)[]
+        {
+            (new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), 216000),
+            (new DateTime(2020, 3, 3, 10, 0, 0, DateTimeKind.Utc), 218123),
+            (new DateTime(2020, 3, 3, 11, 0, 0, DateTimeKind.Utc), 217124),
+            (new DateTime(2020, 3, 4, 0, 0, 0, DateTimeKind.Utc), 248000),
+            (new DateTime(2020, 3, 5, 0, 0, 0, DateTimeKind.Utc), 252000),
+            (new DateTime(2020, 3, 6, 0, 0, 0, DateTimeKind.Utc), 274000),
+            (new DateTime(2020, 3, 7, 0, 0, 0, DateTimeKind.Utc), 260000),
+            (new DateTime(2020, 3, 8, 0, 0, 0, DateTimeKind.Utc), 304000),
+            (new DateTime(2020, 3, 9, 0, 0, 0, DateTimeKind.Utc), 218000),
+        };
+
+        double[] secondSeries = [297000, 284000, 282000, 294000, 224000, 300000, 298000];
+
+        return
+        [
+            new LineChartSeries
+            {
+                Legend = "From_Legacy_to_O365",
+                Color = DataVizPalette.Custom,
+                CustomColor = "qualitative.3",
+                LineOptions = new LineChartLineOptions { LineBorderWidth = 4 },
+                Data = firstSeries.Select((point, index) => new LineChartDataPoint
+                {
+                    X = point.X,
+                    Y = SignedValue(point.Y, index, allNegative),
+                }).ToArray(),
+            },
+            new LineChartSeries
+            {
+                Legend = "All",
+                Color = DataVizPalette.Custom,
+                CustomColor = "qualitative.4",
+                LineOptions = new LineChartLineOptions { LineBorderWidth = 4 },
+                Data = secondSeries.Select((y, index) => new LineChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 3 + index, 0, 0, 0, DateTimeKind.Utc),
+                    Y = SignedValue(y, index + 1, allNegative),
+                }).ToArray(),
+            },
+            new LineChartSeries
+            {
+                Legend = "Single point",
+                Color = DataVizPalette.Custom,
+                CustomColor = "qualitative.5",
+                Data =
+                [
+                    new LineChartDataPoint
+                    {
+                        X = new DateTime(2020, 3, 5, 12, 0, 0, DateTimeKind.Utc),
+                        Y = allNegative ? -232000 : 232000,
+                    },
+                ],
+            },
+        ];
+    }
+
+    private static double SignedValue(double value, int index, bool allNegative) => allNegative || index % 2 == 0 ? -value : value;
+}

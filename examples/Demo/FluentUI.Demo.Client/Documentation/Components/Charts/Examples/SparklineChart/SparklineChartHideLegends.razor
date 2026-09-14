@@ -1,0 +1,47 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="sparkline-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="sparkline-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
+</FluentStack>
+
+<FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
+
+<FluentSparklineChart ChartData="@sparklineData"
+                      Width=@($"{_width}px")
+                      Height=@($"{_height}px")
+                      ShowLegend="@(!_hideLegends)"
+                      Style="display: block;">
+</FluentSparklineChart>
+
+@code {
+    private int _width = 700;
+    private bool _hideLegends = true;
+    private int _height = 250;
+
+    private readonly SparklineChartData sparklineData = new()
+    {
+        ChartTitle = "10.21",
+        LineChartData =
+        [
+            new SparklineChartSeries
+            {
+                Legend = "19.64",
+                Color = DataVizPalette.Custom,
+                CustomColor = "qualitative.1",
+                Data =
+                [
+                    new SparklineDataPoint { X = 1.0, Y = 58.13 },
+                    new SparklineDataPoint { X = 2.0, Y = 140.98 },
+                    new SparklineDataPoint { X = 3.0, Y = 20 },
+                    new SparklineDataPoint { X = 4.0, Y = 89.7 },
+                    new SparklineDataPoint { X = 5.0, Y = 99 },
+                    new SparklineDataPoint { X = 6.0, Y = 13.28 },
+                    new SparklineDataPoint { X = 7.0, Y = 31.32 },
+                    new SparklineDataPoint { X = 8.0, Y = 10.21 },
+                ],
+            },
+        ],
+    };
+}
+

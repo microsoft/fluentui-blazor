@@ -15,6 +15,54 @@ The default example renders two polar series across the same set of metrics.
 
 {{ PolarChartDefault }}
 
+### Mixed series
+
+{{ PolarChartMixedSeries }}
+
+### Multi-value callout
+
+{{ PolarChartMultiValueCallout }}
+
+### Show markers
+
+{{ PolarChartShowMarkers }}
+
+### Multiple Legend Selection
+
+{{ PolarChartMultipleLegendSelection }}
+
+### Hide Legends
+
+{{ PolarChartHideLegends }}
+
+### Rounded Corners
+
+{{ PolarChartRoundedCorners }}
+
+### Culture
+
+{{ PolarChartCulture }}
+
+### Title Align
+
+{{ PolarChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ PolarChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ PolarChartHideTooltip }}
+
+### Custom Tooltip
+
+{{ PolarChartCustomTooltip }}
+
+### RTL
+
+{{ PolarChartRTL }}
+
 ## API Fluent Polar Chart
 
 {{ API Type=FluentPolarChart }}

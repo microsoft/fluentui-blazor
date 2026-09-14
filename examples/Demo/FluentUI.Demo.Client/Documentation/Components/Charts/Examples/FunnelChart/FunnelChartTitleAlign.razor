@@ -1,0 +1,31 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="Title align"
+                  Items="@(Enum.GetValues<ChartTitleAlign>())"
+                  @bind-Value="@_titleAlign" />
+</FluentStack>
+
+
+<FluentFunnelChart ChartTitle="Basic Funnel Chart"
+                   ChartData="@chartData"
+                   Width="600px"
+                   Height="500px"
+                   Orientation="Orientation.Horizontal"
+                 TitleAlign="@_titleAlign">
+</FluentFunnelChart>
+
+@code {
+    private ChartTitleAlign _titleAlign = ChartTitleAlign.Center;
+
+    private readonly IReadOnlyList<FunnelDataPoint> chartData =
+    [
+        new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups", Value = 600 },
+        new FunnelDataPoint { Stage = "Trials", Value = 300 },
+        new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    ];
+}
+
+
+

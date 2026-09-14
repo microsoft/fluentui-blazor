@@ -1,0 +1,114 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div dir="rtl">
+
+<FluentHeatMapChart ChartTitle="Heat map explaining the Air Quality Index"
+                    ChartData="@chartData"
+                    DomainValuesForColorScale="@domainValuesForColorScale"
+                    RangeValuesForColorScale="@rangeValuesForColorScale"
+                    YAxisTickLabelMaxWidth="64"
+                    SortOrder="HeatMapSortOrder.None"
+                    AllowMultipleLegendSelection="true"
+                    Width="650px"
+                    Height="350px">
+</FluentHeatMapChart>
+</div>
+
+@code {
+
+    private readonly IReadOnlyList<HeatMapChartData> chartData =
+    [
+        new HeatMapChartData
+        {
+            Value = 100,
+            Legend = "Excellent (0-200)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 5),
+                    Y = "Texas",
+                    Value = 46,
+                    RectText = "46",
+                    Ratio = [46, 2391],
+                    DescriptionMessage = "air quality seems to be excellent today",
+                },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 250,
+            Legend = "Good (201-300)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 3),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 265,
+                    RectText = "265",
+                    Ratio = [265, 2479],
+                    DescriptionMessage = "today we have good air quality in Alaska",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "Ohio",
+                    Value = 310,
+                    RectText = "310",
+                    Ratio = [310, 2043],
+                    DescriptionMessage = "a sudden rise of 150 units in Ohio today",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 5),
+                    Y = "Ohio",
+                    Value = 320,
+                    RectText = "320",
+                    Ratio = [320, 2043],
+                    DescriptionMessage = "air quality seems to have decreased by only 15 units from yesterday",
+                },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 350,
+            Legend = "Medium (301-400)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "Texas",
+                    Value = 400,
+                    RectText = "400",
+                    Ratio = [400, 2391],
+                    DescriptionMessage = "a sudden spike in the badness of the air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 6),
+                    Y = "Ohio",
+                    Value = 400,
+                    RectText = "400",
+                    Ratio = [400, 2043],
+                    DescriptionMessage = "situation got worse in air quality due to industrial smoke",
+                },
+            ],
+        },
+    ];
+
+    private readonly double[] domainValuesForColorScale = [0, 200, 400, 600];
+
+    private readonly string[] rangeValuesForColorScale =
+    [
+        "#13a10e",
+        "#3a96dd",
+        "#2aa0a4",
+        "#ae8c00",
+    ];
+}
+
+
+
+

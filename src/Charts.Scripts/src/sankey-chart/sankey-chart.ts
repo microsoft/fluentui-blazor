@@ -156,7 +156,7 @@ export class SankeyChart extends ChartBase {
       return;
     }
 
-    const width = resolvePixelDimension(this.width, this.chartContainer.getBoundingClientRect().width, 700);
+    const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 700);
     const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
     const margins = { top: 16, right: 48, bottom: 32, left: 48 };
     const innerWidth = Math.max(width - margins.left - margins.right, 1);

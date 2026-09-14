@@ -55,11 +55,61 @@ The default example renders a grouped vertical bar chart with two data points.
 
 {{ GroupedVerticalBarChartDefault }}
 
+### Axis category order
+
+{{ GroupedVerticalBarChartAxisCategoryOrder }}
+
+### Negative values
+
+{{ GroupedVerticalBarChartNegativeValues }}
+
+### Secondary Y axis
+
+{{ GroupedVerticalBarChartSecondaryYAxis }}
+
 ### Line
 
-This example renders line data on top of the grouped vertical bars.
-
 {{ GroupedVerticalBarChartLine }}
+
+### Multiple Legend Selection
+
+{{ GroupedVerticalBarChartMultipleLegendSelection }}
+
+### Hide Legends
+
+{{ GroupedVerticalBarChartHideLegends }}
+
+### Rounded Corners
+
+{{ GroupedVerticalBarChartRoundedCorners }}
+
+### Gradient
+
+{{ GroupedVerticalBarChartGradient }}
+
+### Culture
+
+{{ GroupedVerticalBarChartCulture }}
+
+### Title Align
+
+{{ GroupedVerticalBarChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ GroupedVerticalBarChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ GroupedVerticalBarChartHideTooltip }}
+
+### Custom Tooltip
+
+{{ GroupedVerticalBarChartCustomTooltip }}
+
+### RTL
+
+{{ GroupedVerticalBarChartRTL }}
 
 ## API Fluent Grouped Vertical Bar Chart
 
@@ -76,3 +126,4 @@ This example renders line data on top of the grouped vertical bars.
 ## API Grouped Vertical Bar Chart Line Data Point
 
 {{ API Type=GroupedVerticalBarChartLineDataPoint Properties=All }}
+

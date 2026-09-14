@@ -41,111 +41,111 @@ Bar height can be customized via the `BarHeight` property. The default is determ
 
 ### Default
 
-The default example shows a simple Gantt chart with a date x-axis and three tasks distributed across two assignees.
-
 {{ GanttChartDefault }}
 
 ### Grouped
 
-The grouped example uses the same date axis but includes multiple assignee groups with semantic colors (success, warning, error), demonstrating how overlapping bars in the same category row are distinguished by legend and color.
-
 {{ GanttChartGrouped }}
 
-### Numeric axis
-
-When x-axis values are numbers rather than dates the chart automatically switches to a numeric scale. This is useful for representing durations, offsets, or any scalar range.
+### Numeric Axis
 
 {{ GanttChartNumericAxis }}
 
-### Hide legends
-
-Setting `HideLegends` removes the legend list below the chart, reducing visual clutter when the category labels on the y-axis already convey the necessary context.
-
-{{ GanttChartHideLegends }}
-
-### Category order
-
-Use the selector to change the ordering of the y-axis categories at runtime, illustrating how the `YAxisCategoryOrder` property rearranges bars without changing the underlying data.
+### Category Order
 
 {{ GanttChartCategoryOrder }}
 
-### Axis titles
-
-Setting `XAxisTitle` and `YAxisTitle` adds descriptive labels to both axes, providing additional context especially when the chart is used in isolation on a page.
+### Axis Titles
 
 {{ GanttChartAxisTitles }}
 
-### Tick format
-
-The `XAxisTickFormat` property accepts a D3 format specifier string. Setting it to `.1f` displays all numeric x-axis tick values with one decimal place.
+### Tick Format
 
 {{ GanttChartTickFormat }}
 
-### Tick padding
+### Tick format locale
 
-Use the slider to adjust the `TickPadding` property, which controls the pixel gap between axis tick marks and their labels.
+{{ GanttChartTickFormatLocale }}
+
+### Tick Padding
 
 {{ GanttChartTickPadding }}
 
-### Rotate x-axis labels
-
-Enabling `RotateXAxisLabels` tilts the x-axis tick labels to prevent overlap when the axis is dense or the labels are long.
+### Rotate X-Axis Labels
 
 {{ GanttChartRotateXAxisLabels }}
 
-### Support negative data
-
-Setting `SupportNegativeData` allows bars to start at or extend into negative x-axis territory. The zero baseline is visible and bars on both sides are rendered correctly.
+### Support Negative Data
 
 {{ GanttChartSupportNegativeData }}
 
-### Rounded ticks
-
-Enabling `RoundedTicks` applies D3's `scale.nice()` to the x-axis domain, rounding the outer tick values to clean multiples for a more readable axis.
+### Rounded Ticks
 
 {{ GanttChartRoundedTicks }}
 
-### Tick values (numeric axis)
-
-Set `TickValues` to an explicit array of doubles to control exactly which values appear as tick marks on a numeric x-axis, overriding the auto-generated ticks.
+### Tick Values (Numeric Axis)
 
 {{ GanttChartTickValues }}
 
-### Date tick values (date axis)
-
-Set `DateTickValues` to an explicit array of `DateTime` values to control exactly which dates appear as tick marks on a date x-axis. The values are automatically converted to the Unix millisecond timestamps expected by the web component.
+### Date Tick Values (Date Axis)
 
 {{ GanttChartDateTickValues }}
 
-### Tick format (placeholder)
-
-`TickFormat` accepts a d3-time-format specifier (e.g. `%m/%d`) for date x-axis tick labels. This attribute is **reserved for future d3-time-format support** and currently has no visual effect. Use `DateLocalizeOptions` together with `Culture` to customise date formatting today.
+### Date Tick Format
 
 {{ GanttChartDateTickFormat }}
 
-### Stroke width
-
-Set `StrokeWidth` to add an outline stroke to each bar. Use the slider to adjust the width in pixels at runtime.
+### Stroke Width
 
 {{ GanttChartStrokeWidth }}
 
-### X-axis labels tooltip
-
-Setting `ShowXAxisLabelsTooltip` truncates x-axis tick labels that exceed ten characters and shows the full text in a tooltip on hover. In this example, `DateLocalizeOptions` is set to produce full month names (e.g. "September 1") that trigger the truncation.
+### Show X-Axis Labels Tooltip
 
 {{ GanttChartShowXAxisLabelsTooltip }}
 
-### Date localize options
-
-`DateLocalizeOptions` lets you supply an `Intl.DateTimeFormat`-compatible options object to control how date x-axis tick labels are formatted. Keys and values must match the [MDN Intl.DateTimeFormat options](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat). When not set the component auto-selects a format based on the visible date range.
+### Date Localize Options
 
 {{ GanttChartDateLocalizeOptions }}
 
-### Custom tooltip
+### Use UTC
 
-Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend` (assignee), `YValue` (task name), `XValue` (date range), and `Color`.
+{{ GanttChartUseUTC }}
+
+### Hide Legends
+
+{{ GanttChartHideLegends }}
+
+### Multiple Legend Selection
+
+{{ GanttChartMultipleLegendSelection }}
+
+### Rounded Corners
+
+{{ GanttChartRoundedCorners }}
+
+### Culture
+
+{{ GanttChartCulture }}
+
+### Title Align
+
+{{ GanttChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ GanttChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ GanttChartHideTooltip }}
+
+### Custom Tooltip
 
 {{ GanttChartCustomTooltip }}
+
+### RTL
+
+{{ GanttChartRTL }}
 
 ## API Fluent Gantt Chart
 
