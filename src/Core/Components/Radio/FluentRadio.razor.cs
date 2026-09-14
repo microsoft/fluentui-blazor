@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -10,7 +11,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A Fluent Radio button component.
 /// </summary>
-public partial class FluentRadio<TValue> : FluentComponentBase, IDisposable
+public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase, IDisposable
 {
     private bool _disposedValue;
 

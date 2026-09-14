@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 [CascadingTypeParameter(nameof(TValue))]
-public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
+public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
