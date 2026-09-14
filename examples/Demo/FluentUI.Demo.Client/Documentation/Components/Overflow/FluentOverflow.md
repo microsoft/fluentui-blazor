@@ -24,6 +24,11 @@ Then refresh the page to see the difference between this example and the one abo
 This example shows a fully customized More button and tooltip content, and includes add/remove actions to demonstrate dynamic overflow recalculation.
 {{ OverflowCustomExample }}
 
+The following example uses a `FluentPopover` to display the overflowed items. Clicking the custom More button toggles the value bound to the popover's `Opened` parameter. 
+If you do not define a `MoreTemplate`, use `FluentOverflow.OnMoreClick` to handle clicks on the default More button instead.
+
+{{ OverflowCustomPopupExample }}
+
 ## Selector-based overflow
 
 This example uses `Selector=".overflow-item"` so only matching children are overflow-managed.
