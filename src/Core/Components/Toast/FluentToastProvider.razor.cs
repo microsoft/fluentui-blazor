@@ -101,16 +101,7 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
 
             if (hasComponent)
             {
-                builder.OpenComponent(1, toast.ComponentType!);
-                if (toast.Options.Parameters is not null)
-                {
-                    foreach (var parameter in toast.Options.Parameters)
-                    {
-                        builder.AddAttribute(2, parameter.Key, parameter.Value);
-                    }
-                }
-
-                builder.CloseComponent();
+                builder.RenderDynamicComponent(1, toast.ComponentType!, toast.Options.Parameters);
             }
         };
     }

@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -11,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A FluentCombobox allows one option to be selected from multiple items.
 /// </summary>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentCombobox<TOption, TValue> : FluentSelect<TOption, TValue>, IFluentInputImmediate
+public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentSelect<TOption, TValue>, IFluentInputImmediate
 {
     private readonly FluentInputImmediateManager _immediateManager;
     private TValue? _lastSelectedValue;
