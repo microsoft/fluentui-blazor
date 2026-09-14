@@ -153,14 +153,15 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        if (Items is null)
+        var items = Items;
+        if (items is null)
         {
             _sourceItems = [];
             _overflowItems = [];
             return;
         }
 
-        _sourceItems = Items?.ToArray() ?? [];
+        _sourceItems = items.ToArray();
         _overflowIndices = _overflowIndices.Where(index => index >= 0 && index < RenderedItemCount).ToArray();
         UpdateOverflowItems();
     }
