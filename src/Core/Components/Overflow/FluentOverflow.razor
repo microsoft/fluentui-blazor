@@ -28,7 +28,7 @@
          style="@MoreButtonStyleValue"
          slot="trigger"
          role="@(HasDefaultMoreAction ? "button" : null)"
-         tabindex="@(HasDefaultMoreAction ? "0" : null)"
+         tabindex="@(MoreTemplate is null ? "0" : null)"
          @onclick="@(HasDefaultMoreAction ? OnMoreClick : default)"
          @onkeydown="OnMoreKeyDownAsync">
         @if (MoreTemplate != null)

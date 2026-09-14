@@ -153,6 +153,35 @@
     }
 
     [Fact]
+    public async Task FluentOverflow_SwitchingToDirectContent_ClearsOverflowState()
+    {
+        var items = new[] { "First", "Second" };
+        var cut = Render(@<FluentOverflow Items="@items" Id="overflow">
+            <ChildContent><span>Direct content</span></ChildContent>
+            <ItemTemplate Context="item"><span>@item</span></ItemTemplate>
+        </FluentOverflow>);
+        var host = cut.Find("fluent-overflow");
+        var overflow = cut.FindComponent<FluentOverflow<string>>();
+
+        await host.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "overflow",
+            Items = [new() { Id = "second", Text = "Second", Index = 1 }],
+            OverflowCount = 1,
+        });
+
+        overflow.Render(parameters => parameters.Add(component => component.Items, (IEnumerable<string>?)null));
+
+        Assert.Equal("Direct content", Assert.Single(cut.FindAll("fluent-overflow > span")).TextContent);
+        Assert.Empty(overflow.Instance.ItemsOverflow);
+        Assert.Equal(0, overflow.Instance.OverflowCount);
+        Assert.Empty(cut.FindAll("fluent-tooltip > div"));
+
+        overflow.Render(parameters => parameters.Add(component => component.Items, items));
+        Assert.Empty(cut.FindAll("fluent-tooltip > div"));
+    }
+
+    [Fact]
     public async Task FluentOverflow_InvalidAndDuplicateIndices_AreIgnored()
     {
         var items = new[] { "Same", "Same", "Last" };
@@ -307,6 +336,16 @@
         trigger.KeyDown("Escape");
 
         Assert.Equal(3, invocationCount);
+    }
+
+    [Fact]
+    public void FluentOverflow_DefaultTooltipTrigger_IsFocusableWithoutButtonRole()
+    {
+        var cut = Render(@<FluentOverflow TItem="string" Id="overflow"><span>Item</span></FluentOverflow>);
+        var trigger = cut.Find("#overflow-more");
+
+        Assert.Equal("0", trigger.GetAttribute("tabindex"));
+        Assert.False(trigger.HasAttribute("role"));
     }
 
     [Fact]

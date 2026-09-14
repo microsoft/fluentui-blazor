@@ -21,6 +21,7 @@
 		// Assert
 		var ab = cut.Find(".fluent-appbar");
 		Assert.NotNull(ab);
+                Assert.Contains("--fluent-overflow-gap: 2px", cut.Find("fluent-overflow").GetAttribute("style"));
     }
 
     [Fact]

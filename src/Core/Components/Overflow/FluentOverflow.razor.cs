@@ -158,6 +158,9 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         {
             _sourceItems = [];
             _overflowItems = [];
+            _renderedOverflowItems = [];
+            _overflowIndices = [];
+            _measuredOverflowCount = 0;
             return;
         }
 

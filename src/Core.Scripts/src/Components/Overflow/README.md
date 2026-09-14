@@ -11,7 +11,6 @@ The component follows the module organization used by Fluent UI Web Components. 
 - `FluentOverflowStyles.ts`: Defines the component styles.
 - `FluentOverflowTypes.ts`: Defines the public types and custom element tag name.
 - `FluentOverflowController.ts`: Calculates and manages overflow independently of the custom element.
-- `FluentOverflowAttachedController.ts`: Adapts overflow behavior to an existing host element.
 - `FluentOverflowInterop.ts`: Exposes the imperative API for attaching overflow behavior to existing elements.
 
 ## Usage

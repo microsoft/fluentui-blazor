@@ -90,7 +90,7 @@ public partial class FluentAppBar : FluentComponentBase
         .AddStyle("min-width", "0", Orientation == Orientation.Horizontal)
         .AddStyle("height", "100%", Orientation == Orientation.Vertical)
         .AddStyle("width", "100%", Orientation == Orientation.Horizontal)
-        .AddStyle("gap", "2px")
+        .AddStyle("--fluent-overflow-gap", "2px")
         .Build();
 
     /// <summary />
