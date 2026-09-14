@@ -119,7 +119,8 @@ public partial class FluentAppBar : FluentComponentBase
 
     private void ApplyOverflowItems(IEnumerable<string?>? itemIds)
     {
-        var overflowIds = itemIds?.OfType<string>().ToHashSet(StringComparer.Ordinal) ?? [];
+        var overflowIds = itemIds?.OfType<string>().ToHashSet(StringComparer.Ordinal)
+                       ?? new HashSet<string>(StringComparer.Ordinal);
         foreach (var app in _internalAppBarContext.Apps.Values)
         {
             app.Overflow = app.Id is not null && overflowIds.Contains(app.Id);
