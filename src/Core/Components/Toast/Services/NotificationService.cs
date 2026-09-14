@@ -22,10 +22,6 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     /// </summary>
     /// <param name="serviceProvider">List of services available in the application.</param>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBarInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(INotificationInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IMessageBarInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IToastInstance))]
     public NotificationService(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;

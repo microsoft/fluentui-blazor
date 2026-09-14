@@ -54,7 +54,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <inheritdoc />
-#pragma warning disable IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
     protected override void OnParametersSet()
     {
         // We have to do a bit of pre-processing on the lambda expression. Only do that if it's new or changed.
@@ -94,7 +93,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
             if (Title is null)
             {
                 PropertyInfo = memberExpression.Member as PropertyInfo;
-                var daText = memberExpression.Member.DeclaringType?.GetDisplayAttributeString(memberExpression.Member.Name);
+                var daText = PropertyInfo?.GetDisplayAttributeString();
                 if (!string.IsNullOrEmpty(daText))
                 {
                     Title = daText;
@@ -107,7 +106,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
         }
     }
 
-#pragma warning restore IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
     private static Func<TGridItem, string?> CreateFormatter(Func<TGridItem, TProp> getter, string format)
     {
         var propertyType = Nullable.GetUnderlyingType(typeof(TProp)) ?? typeof(TProp);
