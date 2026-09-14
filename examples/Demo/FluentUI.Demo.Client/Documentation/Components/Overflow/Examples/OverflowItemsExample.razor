@@ -24,7 +24,7 @@
 @code
 {
     private readonly ResourceUrl[] _urls = Enumerable.Range(1, 100)
-        .Select(index => new ResourceUrl($"Resource {index}"))
+        .Select(index => new ResourceUrl($"Item {index}"))
         .ToArray();
 
     private sealed record ResourceUrl(string DisplayName);

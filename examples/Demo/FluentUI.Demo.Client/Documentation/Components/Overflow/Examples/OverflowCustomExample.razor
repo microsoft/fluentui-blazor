@@ -1,29 +1,38 @@
 ﻿<div class="resizable-horizontal">
-    <FluentOverflow TItem="string" OnOverflowRaised="OverflowHandler" Style="display: flex; align-items: center; width: 100%;  padding: 2px; margin-bottom: 4px;">
+    <FluentOverflow TItem="string"
+                    OnOverflowRaised="OverflowHandler">
         <ChildContent>
             @foreach (var item in Items)
             {
-                <FluentLabel Style="border:dashed 1px red; padding: 2px;">@item</FluentLabel>
+                <FluentLabel Style="border: dashed 1px var(--colorStatusWarningBorder2); padding: 2px;">@item</FluentLabel>
             }
         </ChildContent>
         <MoreTemplate>
-            <FluentButton Appearance="ButtonAppearance.Subtle" Style="height: 20px; min-width: 32px; max-width:32px;">@($"+{context.ItemsOverflow.Count()}")</FluentButton>
+            <FluentButton Appearance="ButtonAppearance.Subtle"
+                          Style="min-width: 32px; max-width:32px;">
+                @($"+{context.ItemsOverflow.Count()}")
+            </FluentButton>
         </MoreTemplate>
         <OverflowTemplate>
-            <FluentTooltip Anchor="@context.IdMoreButton" UseTooltipService="false">
-                <div style="display: flex; flex-direction: column; align-items: flex-start; width: max-content;">
-                    @foreach (var item in context.ItemsOverflow)
-                    {
-                        <FluentLabel Style="border:dashed 1px red; padding: 2px; margin: 3px;">@item.Text</FluentLabel>
-                    }
-                </div>
+            <FluentTooltip Anchor="@context.IdMoreButton"
+                           UseTooltipService="false"
+                           Positioning="Positioning.BelowStart"
+                           Style="flex-direction: column; row-gap: 4px;">
+                @foreach (var item in context.ItemsOverflow)
+                {
+                    <FluentLabel Style="padding: 2px; margin: 3px;">@item.Text</FluentLabel>
+                }
             </FluentTooltip>
         </OverflowTemplate>
     </FluentOverflow>
 </div>
 
-<FluentButton @onclick="@AddNewItemClick">Add</FluentButton>
-<FluentButton @onclick="@RemoveLastItemClick">Remove</FluentButton>
+<FluentButton OnClick="@AddNewItemClick">
+    Add
+</FluentButton>
+<FluentButton OnClick="@RemoveLastItemClick">
+    Remove
+</FluentButton>
 
 @code
 {
@@ -36,7 +45,7 @@
     void OverflowHandler(IEnumerable<OverflowItem> items)
     {
         var text = String.Join("; ", items.Select(i => i.Text));
-
+        Console.WriteLine($"Overflow raised with items: {text}");
     }
 
     void AddNewItemClick()
@@ -47,6 +56,6 @@
 
     void RemoveLastItemClick()
     {
-        Items.RemoveAt(Items.Count-1);
+        Items.RemoveAt(Items.Count - 1);
     }
 }
