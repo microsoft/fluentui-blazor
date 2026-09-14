@@ -364,7 +364,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
           left = 0;
         }
         if (left + dialogWidth > viewportWidth) {
-          left = Math.max(0, viewportWidth - dialogWidth);
+          left = Math.max(0, viewportWidth - this.dialog.offsetWidth);
         }
 
         this.dialog.style.left = `${left + viewportOffsetLeft}px`;
@@ -382,7 +382,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
           left = 0;
         }
         if (left + dialogWidth > viewportWidth) {
-          left = Math.max(0, viewportWidth - dialogWidth);
+          left = Math.max(0, viewportWidth - this.dialog.offsetWidth);
         }
 
         this.dialog.style.left = `${left + viewportOffsetLeft}px`;
