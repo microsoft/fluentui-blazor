@@ -10,13 +10,10 @@ The component follows the module organization used by Fluent UI Web Components. 
 - `overflow.template.ts`: Defines the HTML structure rendered in the Shadow DOM.
 - `overflow.styles.ts`: Defines the component styles.
 - `overflow.types.ts`: Defines the public types and custom element tag name.
-- `overflow.definition.ts`: Provides the declarative component definition.
-- `define.ts`: Registers the `<fluent-overflow>` custom element.
 - `overflow-controller.ts`: Calculates and manages overflow independently of the custom element.
 - `overflow-interop.ts`: Exposes the imperative API for attaching overflow behavior to existing elements.
-- `index.ts`: Exposes the public API of the `Overflow` folder.
 
-#U## sage
+## Usage
 
 Add direct children. By default, every direct child participates in overflow calculations.
 
@@ -35,7 +32,6 @@ Add direct children. By default, every direct child participates in overflow cal
 	</fluent-tooltip>
 </fluent-overflow>
 ```
-.
 
 ## API
 
@@ -172,12 +168,14 @@ Overflow behavior can also be attached to an existing element such as a
 `fluent-tablist`, without wrapping or moving its children:
 
 ```ts
-import {
+import { Microsoft as OverflowInteropFile } from './overflow-interop.js';
+
+const {
 	disposeOverflow,
 	getOverflowItemIds,
 	initializeOverflow,
 	refreshOverflow,
-} from './index.js';
+} = OverflowInteropFile.FluentUI.Blazor.Components.Overflow;
 
 initializeOverflow('tabs', 'fluent-tab', 0, 0, 'activeid');
 refreshOverflow('tabs');
@@ -206,7 +204,10 @@ are exposed as properties and can use JavaScript getters when attribute or state
 changes must be read at the time of each layout:
 
 ```ts
-import { OverflowController } from './index.js';
+import { Microsoft as OverflowControllerFile } from './overflow-controller.js';
+
+const OverflowController =
+	OverflowControllerFile.FluentUI.Blazor.Components.Overflow.OverflowController;
 
 const host = document.querySelector<HTMLElement>('#tabs')!;
 const controller = new OverflowController({
