@@ -5,7 +5,7 @@ import { Microsoft as FluentUIWebComponentsOverrideFile } from './FluentUIWebCom
 import { Microsoft as FluentPageScriptFile } from './Components/PageScript/FluentPageScript';
 import { Microsoft as FluentPopoverFile } from './Components/Popover/FluentPopover';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
-import { Microsoft as FluentOverflowFile } from './Components/Overflow/overflow';
+import { Microsoft as FluentOverflowFile } from './Components/Overflow/FluentOverflow';
 import { Microsoft as FluentToastFile } from './Components/Toast/FluentToast';
 import { Microsoft as FluentUIStylesFile } from './FluentUIStyles';
 import { Microsoft as FluentUICustomEventsFile } from './FluentUICustomEvents';

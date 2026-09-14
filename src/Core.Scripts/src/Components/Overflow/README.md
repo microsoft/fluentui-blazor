@@ -6,12 +6,13 @@
 
 The component follows the module organization used by Fluent UI Web Components. Each file has a focused responsibility:
 
-- `overflow.ts`: Defines the main `Overflow` class and the Web Component behavior.
-- `overflow.template.ts`: Defines the HTML structure rendered in the Shadow DOM.
-- `overflow.styles.ts`: Defines the component styles.
-- `overflow.types.ts`: Defines the public types and custom element tag name.
-- `overflow-controller.ts`: Calculates and manages overflow independently of the custom element.
-- `overflow-interop.ts`: Exposes the imperative API for attaching overflow behavior to existing elements.
+- `FluentOverflow.ts`: Defines the main `Overflow` class and the Web Component behavior.
+- `FluentOverflowTemplate.ts`: Defines the HTML structure rendered in the Shadow DOM.
+- `FluentOverflowStyles.ts`: Defines the component styles.
+- `FluentOverflowTypes.ts`: Defines the public types and custom element tag name.
+- `FluentOverflowController.ts`: Calculates and manages overflow independently of the custom element.
+- `FluentOverflowAttachedController.ts`: Adapts overflow behavior to an existing host element.
+- `FluentOverflowInterop.ts`: Exposes the imperative API for attaching overflow behavior to existing elements.
 
 ## Usage
 
@@ -168,7 +169,7 @@ Overflow behavior can also be attached to an existing element such as a
 `fluent-tablist`, without wrapping or moving its children:
 
 ```ts
-import { Microsoft as OverflowInteropFile } from './overflow-interop.js';
+import { Microsoft as OverflowInteropFile } from './FluentOverflowInterop.js';
 
 const {
 	disposeOverflow,
@@ -204,7 +205,7 @@ are exposed as properties and can use JavaScript getters when attribute or state
 changes must be read at the time of each layout:
 
 ```ts
-import { Microsoft as OverflowControllerFile } from './overflow-controller.js';
+import { Microsoft as OverflowControllerFile } from './FluentOverflowController.js';
 
 const OverflowController =
 	OverflowControllerFile.FluentUI.Blazor.Components.Overflow.OverflowController;

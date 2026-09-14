@@ -15,7 +15,7 @@ import { Microsoft as FluentSelectFile } from './Components/List/FluentSelect';
 import { Microsoft as FluentMenuFile } from './Components/Menu/FluentMenu';
 import { Microsoft as FluentColorPickerFile } from './Components/ColorPicker/FluentColorPicker';
 import { Microsoft as FluentKeyCodeFile } from './Components/KeyCode/FluentKeyCode';
-import { Microsoft as FluentOverflowFile } from './Components/Overflow/overflow-interop';
+import { Microsoft as FluentOverflowFile } from './Components/Overflow/FluentOverflowInterop';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
 

@@ -2,6 +2,9 @@
  * Defines the public types and custom element tag name.
  */
 
+/** Tag name for the overflow element. */
+export const tagName = 'fluent-overflow' as const;
+
 /** Logical side from which items are hidden when space runs out. */
 export type OverflowDirection = 'start' | 'end';
 
@@ -48,6 +51,3 @@ export interface OverflowControllerOptions {
   readonly onLayoutChanged?: (detail: OverflowChangeDetail, hiddenItems: readonly Element[]) => void;   // Receives every completed layout, including layouts whose event state is unchanged.
   readonly onVisibilityChanged?: () => void;                                                            // Receives a notification when the controller changes managed-item visibility.
 }
-
-/** Tag name for the overflow element. */
-export const tagName = 'fluent-overflow' as const;

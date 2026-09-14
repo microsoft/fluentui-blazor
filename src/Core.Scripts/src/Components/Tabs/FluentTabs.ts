@@ -1,4 +1,4 @@
-import { Microsoft as OverflowControllerFile } from '../Overflow/overflow-controller.js';
+import { Microsoft as OverflowControllerFile } from '../Overflow/FluentOverflowController.js';
 
 export namespace Microsoft.FluentUI.Blazor.Components.Tabs {
   import OverflowController = OverflowControllerFile.FluentUI.Blazor.Components.Overflow.OverflowController;

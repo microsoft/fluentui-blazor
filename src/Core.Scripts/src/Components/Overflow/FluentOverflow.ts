@@ -12,11 +12,11 @@
  * @slot menu - Overflow menu. A `[target="content"]` descendant receives the hidden item labels.
  */
 
-import { template } from './overflow.template';
-import { Microsoft as OverflowControllerFile } from './overflow-controller';
+import { template } from './FluentOverflowTemplate';
+import { Microsoft as OverflowControllerFile } from './FluentOverflowController';
 import { StartedMode } from '../../d-ts/StartedMode';
-import { tagName } from './overflow.types';
-import type { OverflowDirection, OverflowOrientation, OverflowToggleDetail } from './overflow.types';
+import { tagName } from './FluentOverflowTypes';
+import type { OverflowDirection, OverflowOrientation, OverflowToggleDetail } from './FluentOverflowTypes';
 
 export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
 

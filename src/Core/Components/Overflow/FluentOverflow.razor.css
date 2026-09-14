@@ -1,5 +1,5 @@
 .fluent-overflow[orientation="horizontal"] {
-    --fluent-overflow-gap: 5px;
+    --fluent-overflow-gap: 4px;
 }
 
 .fluent-overflow[orientation="vertical"] {

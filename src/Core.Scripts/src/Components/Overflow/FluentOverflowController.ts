@@ -8,7 +8,7 @@ import type {
   OverflowDirection,
   OverflowItem,
   OverflowOrientation,
-} from './overflow.types';
+} from './FluentOverflowTypes';
 
 export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     

@@ -14,7 +14,7 @@ The `FluentOverflow<TItem>` component manages items that may exceed the availabl
 
 ## Overflow not visible on load
 
-With below example the `VisibleOnLoad` parameter is set to false.Make sure the screen dimension is small enough to show an overflow badge with count.
+With below example the `VisibleOnLoad` parameter is set to false. Make sure the screen dimension is small enough to show an overflow badge with count.
 Then refresh the page to see the difference between this example and the one above
 
 {{ OverflowVisibleOnLoad }}
@@ -37,7 +37,7 @@ In this mode, `MaxRenderedItems="20"` renders only the first 20 source items for
 
 `MoreTemplate` and `OverflowTemplate` receive an `OverflowContext<TItem>`. Its `Items` property contains all overflowed source objects in source order, including those never rendered. `OverflowCount` includes these omitted items, and `IdMoreButton` anchors a custom popup. `ItemsOverflow` and `OnOverflowRaised` continue to expose measured DOM records (`Id`, `Text`, `Index`); use `overflow.Items` for the complete typed collection.
 
-Without an `OverflowTemplate`, the default tooltip lists all overflowed items as text. Use `ItemText` to select a display property for complex objects. With a custom template, use LINQ operators such as `Take` to limit the rendered overflow content. Use `OnMoreClick` to open a custom popup from the default badge without supplying a `MoreTemplate`. Keep the `FluentPopover` mounted and conditionally render its item content when opened; this lets the popover connect to the DOM before opening while avoiding early creation of its item components. Pagination or `Virtualize` can also be used inside it for large collections.
+Without an `OverflowTemplate`, the default tooltip lists all overflowed items as text. Use `ItemText` to select a display property for complex objects. With a custom template, use LINQ operators such as `Take` to limit the rendered overflow content. Use `OnMoreClick` to open a custom popup from the default badge without supplying a `MoreTemplate`. Keep the `FluentPopover` mounted and conditionally render its item content when opened; this lets the popover connect to the DOM before opening while avoiding early creation of its item components..
 
 {{ OverflowItemsExample }}
 
