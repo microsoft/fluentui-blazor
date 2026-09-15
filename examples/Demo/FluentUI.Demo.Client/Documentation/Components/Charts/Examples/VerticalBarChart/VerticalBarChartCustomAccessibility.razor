@@ -1,0 +1,46 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSwitch @bind-Value="@_showLine" Label="Show line" />
+    <FluentSwitch @bind-Value="@_useSingleColor" Label="Use single color" />
+</FluentStack>
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart custom accessibility example"
+                        ChartData="@ChartData"
+                        Width="800px"
+                        Height="400px"
+                        BarWidth="20"
+                        LineLegendColor="rgb(174, 140, 0)"
+                        XAxisTitle="Category"
+                        YAxisTitle="Value"
+                        HideLegends="true"
+                        UseSingleColor="@_useSingleColor">
+</FluentVerticalBarChart>
+
+@code {
+    private bool _showLine = true;
+    private bool _useSingleColor = true;
+
+    private IReadOnlyList<VerticalBarChartDataPoint> ChartData => _baseData
+        .Select(point => _showLine ? point : point with { LineData = null })
+        .Select(point => _useSingleColor ? point with { CustomColor = "lightgreen" } : point)
+        .ToArray();
+
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _baseData =
+    [
+        CreatePoint("One", 20, "lightgreen", 10, "12%", "Bar series 1 of 4 one 12% 20"),
+        CreatePoint("Two", 48, "green", 28, null, "Bar series 2 of 4 Two 28 48"),
+        CreatePoint("Three", 30, "darkgreen", 4, null, "Bar series 3 of 4 Three 4 30"),
+        CreatePoint("Four", 40, "forestgreen", 28, null, "Bar series 4 of 4 Four 28 40"),
+    ];
+
+    private static VerticalBarChartDataPoint CreatePoint(string x, double y, string color, double lineY, string? lineCallout, string ariaLabel) => new()
+    {
+        X = x,
+        Y = y,
+        Color = DataVizPalette.Custom,
+        CustomColor = color,
+        LineData = new VerticalBarChartLineDataPoint { Y = lineY, YAxisCalloutData = lineCallout },
+        CallOutAccessibilityData = new CalloutAccessibilityData { AriaLabel = ariaLabel },
+    };
+}

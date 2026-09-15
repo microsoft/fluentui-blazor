@@ -44,6 +44,24 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public string? ChartTitle { get; set; }
 
     /// <summary>
+    /// Gets or sets the horizontal alignment of the chart title.
+    /// </summary>
+    [Parameter]
+    public ChartTitleAlign? TitleAlign { get; set; }
+
+    /// <summary>
+    /// Gets or sets the position of the chart title.
+    /// </summary>
+    [Parameter]
+    public ChartTitlePosition? TitlePosition { get; set; }
+
+    /// <summary>
+    /// Gets or sets the position of the chart legend.
+    /// </summary>
+    [Parameter]
+    public ChartLegendPosition? LegendPosition { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether legends are hidden in the component output.
     /// </summary>
     [Parameter]
@@ -62,7 +80,9 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public bool HideLabels { get; set; }
 
     /// <summary>
-    /// Gets or sets the label displayed for the legend list.
+    /// Gets or sets the label displayed for the legend list. The legend renders it as the listbox aria-label,
+    /// falling back to "Chart legend" when unset. It is accessibility-only; it does not display visible text or alter
+    /// legend layout.
     /// </summary>
     [Parameter]
     public string? LegendListLabel { get; set; }

@@ -1,0 +1,38 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart secondary y-axis example"
+                               ChartData="@_chartData"
+                               Width="700px"
+                               Height="300px"
+                               BarGapMax="2"
+                               HideTickOverlap="true"
+                               XAxisTitle="Number of days"
+                               YAxisTitle="Variation of number of sales"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        CreateStack(0, 120, 80, 150, 200, 90, 150),
+        CreateStack(20, 140, 100, 130, 220, 110, 180),
+        CreateStack(40, 160, 120, 140, 250, 100, 200),
+        CreateStack(60, 180, 140, 160, 300, 120, 250),
+    ];
+
+    private static VerticalStackedBarChartData CreateStack(double x, double electronics, double furniture, double clothing, double groceries, double toys, double target) => new()
+    {
+        XAxisPoint = x,
+        ChartData =
+        [
+            CreatePoint("Electronics", electronics, "qualitative.1"),
+            CreatePoint("Furniture", furniture, "qualitative.2"),
+            CreatePoint("Clothing", clothing, "qualitative.3"),
+            CreatePoint("Groceries", groceries, "qualitative.4"),
+            CreatePoint("Toys", toys, "qualitative.5"),
+        ],
+        LineData = [new VerticalStackedBarChartLineDataPoint { Y = target, Legend = "Sales Target", Color = "qualitative.9", UseSecondaryYScale = true }],
+    };
+
+    private static VerticalStackedBarChartDataPoint CreatePoint(string legend, double data, string color) => new() { Legend = legend, Data = data, Color = DataVizPalette.Custom, CustomColor = color };
+}

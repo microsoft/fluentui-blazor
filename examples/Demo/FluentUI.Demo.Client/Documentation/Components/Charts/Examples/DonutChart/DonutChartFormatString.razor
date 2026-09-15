@@ -1,0 +1,16 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentDonutChart ChartTitle="Format String with {0} placeholder"
+                  ChartData="@_chartData"
+                  InnerRadius="55"
+                  ValueInsideDonut="Total: {0} items">
+</FluentDonutChart>
+
+@code {
+    private readonly IReadOnlyList<DonutDataPoint> _chartData =
+    [
+        new DonutDataPoint { Legend = "small", Data = 5000 },
+        new DonutDataPoint { Legend = "large", Data = 39000 },
+        new DonutDataPoint { Legend = "medium", Data = 15000 },
+    ];
+}

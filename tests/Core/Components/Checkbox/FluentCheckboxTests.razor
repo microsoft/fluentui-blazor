@@ -7,6 +7,23 @@
 
 @code
 {
+    private sealed class TestableFluentCheckbox : FluentCheckbox
+    {
+        public TestableFluentCheckbox() : base(LibraryConfiguration.Empty)
+        {
+        }
+
+        protected override bool TryParseValueFromString(
+            string? value,
+            [System.Diagnostics.CodeAnalysis.MaybeNullWhen(false)] out bool result,
+            [System.Diagnostics.CodeAnalysis.NotNullWhen(false)] out string? validationErrorMessage)
+        {
+            validationErrorMessage = null;
+            result = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase);
+            return true;
+        }
+    }
+
     public FluentCheckboxTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -77,6 +94,21 @@
 
         // Act & Assert
         Assert.Throws<NotSupportedException>(() => fluentCheckbox.InternalTryParseValueFromString(value, out _, out _));
+    }
+
+    [Fact]
+    public void FluentCheckbox_InternalTryParseValueFromString_DelegatesToOverride()
+    {
+        // Arrange
+        var checkbox = new TestableFluentCheckbox();
+
+        // Act
+        var success = checkbox.InternalTryParseValueFromString("true", out var parsedValue, out var validationErrorMessage);
+
+        // Assert
+        Assert.True(success);
+        Assert.True(parsedValue);
+        Assert.Null(validationErrorMessage);
     }
 
     [Fact]

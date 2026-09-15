@@ -1,0 +1,88 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSwitch @bind-Value="@_allowMultipleShapesForPoints" Label="Multiple shapes" />
+    <FluentSelect Label="Callout" Items="@(Enum.GetValues<CalloutVariant>())" @bind-Value="@_calloutVariant" />
+</FluentStack>
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="300px"
+                 TickFormat="%m/%d"
+                 DateTickValues="@_dates"
+                 ColorFillBars="@_colorFillBars"
+                 AllowMultipleShapesForPoints="@_allowMultipleShapesForPoints"
+                 CalloutVariant="@_calloutVariant"
+                 AllowMultipleLegendSelection="true">
+</FluentLineChart>
+
+@code {
+    private bool _allowMultipleShapesForPoints = true;
+    private CalloutVariant _calloutVariant = CalloutVariant.Stacked;
+
+    private static readonly DateTime[] _dates = Enumerable.Range(0, 7)
+        .Select(index => new DateTime(2018, index + 1, 1, 0, 0, 0, DateTimeKind.Local))
+        .ToArray();
+
+    private readonly IReadOnlyList<LineChartSeries> _chartData = CreateChartData();
+
+    private readonly IReadOnlyList<LineChartColorFillBar> _colorFillBars =
+    [
+        new LineChartColorFillBar
+        {
+            Legend = "Time range 1",
+            Color = "color19",
+            Data =
+            [
+                new LineChartColorFillBarData
+                {
+                    StartX = new DateTime(2018, 1, 6, 0, 0, 0, DateTimeKind.Local),
+                    EndX = new DateTime(2018, 1, 25, 0, 0, 0, DateTimeKind.Local),
+                },
+            ],
+        },
+        new LineChartColorFillBar
+        {
+            Legend = "Time range 2",
+            Color = "color20",
+            ApplyPattern = true,
+            Data =
+            [
+                new LineChartColorFillBarData
+                {
+                    StartX = new DateTime(2018, 1, 18, 0, 0, 0, DateTimeKind.Local),
+                    EndX = new DateTime(2018, 2, 20, 0, 0, 0, DateTimeKind.Local),
+                },
+                new LineChartColorFillBarData
+                {
+                    StartX = new DateTime(2018, 4, 17, 0, 0, 0, DateTimeKind.Local),
+                    EndX = new DateTime(2018, 5, 10, 0, 0, 0, DateTimeKind.Local),
+                },
+            ],
+        },
+    ];
+
+    private static IReadOnlyList<LineChartSeries> CreateChartData()
+    {
+        string[] names =
+        [
+            "First", "Second", "Third", "Fourth", "Fifth", "Sixth",
+            "Seventh", "Eighth", "Ninth", "Tenth", "Eleventh", "Twelfth",
+        ];
+
+        return names.Select((legend, seriesIndex) => new LineChartSeries
+        {
+            Legend = legend,
+            Color = DataVizPalette.Custom,
+            CustomColor = $"qualitative.{seriesIndex % 10 + 1}",
+            LineOptions = new LineChartLineOptions { LineBorderWidth = 2 },
+            Data = _dates.Select((x, pointIndex) => new LineChartDataPoint
+            {
+                X = x,
+                Y = 10 + seriesIndex * 20 + pointIndex % 2 * 20,
+                XAxisCalloutData = x.ToString("d"),
+            }).ToArray(),
+        }).ToArray();
+    }
+}

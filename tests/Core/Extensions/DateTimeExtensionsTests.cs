@@ -208,6 +208,18 @@ public class DateTimeExtensionsTests
     }
 
     [Fact]
+    public void DateTimeExtensions_AddYears_WhenAddingBeyondMaxSupportedDate_ReturnsMaxSupportedDate()
+    {
+        var culture = CultureInfo.InvariantCulture;
+        var max = culture.Calendar.MaxSupportedDateTime;
+        var date = new DateTime(max.Year, 1, 1);
+
+        var result = date.AddYears(9999, culture);
+
+        Assert.Equal(max, result);
+    }
+
+    [Fact]
     public void DateTimeExtensions_GetMonthName_ValidDate_ReturnsMonthName()
     {
         var date = new DateTime(2025, 4, 19);

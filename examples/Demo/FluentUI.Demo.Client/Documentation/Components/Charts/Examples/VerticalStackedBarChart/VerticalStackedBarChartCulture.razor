@@ -1,0 +1,140 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentVerticalStackedBarChart ChartTitle="@($"Vertical stacked bar chart culture example ({_selectedCulture})")"
+                               ChartData="@chartData"
+                               Width="650"
+                               Height="350"
+                               Culture="@SelectedCulture"
+                               XAxisTitle="Number of days"
+                               YAxisTitle="Variation of number of sales"
+                               RoundedTicks="true">
+</FluentVerticalStackedBarChart>
+
+@code {
+
+    private const string BasicCalloutDate = "2026-04-30T00:00:00.000Z";
+
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> chartData =
+    [
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = 0.0,
+            ChartData =
+            [
+                CreateChartPoint("Metadata1", 40, "qualitative.11", "40%"),
+                CreateChartPoint("Metadata2", 5, "darkblue", "5%"),
+                CreateChartPoint("Metadata3", 20, "qualitative.6", "20%"),
+                CreateChartPoint("Metadata4", 10, "qualitative.4", "10%"),
+                CreateChartPoint("Metadata5", 23, "qualitative.5", "23%"),
+            ],
+            LineData =
+            [
+                new VerticalStackedBarChartLineDataPoint { Y = 42, Legend = "Supported Builds", Color = "qualitative.2" },
+                new VerticalStackedBarChartLineDataPoint { Y = 10, Legend = "Recommended Builds", Color = "qualitative.17" },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = 20.0,
+            ChartData =
+            [
+                CreateChartPoint("Metadata1", 30, "qualitative.11", "33%"),
+                CreateChartPoint("Metadata2", 20, "darkblue", "22%"),
+                CreateChartPoint("Metadata3", 40, "qualitative.6", "45%"),
+            ],
+            LineData =
+            [
+                new VerticalStackedBarChartLineDataPoint { Y = 33, Legend = "Supported Builds", Color = "qualitative.2" },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = 40.0,
+            ChartData =
+            [
+                CreateChartPoint("Metadata1", 44, "qualitative.11", "43%"),
+                CreateChartPoint("Metadata2", 28, "darkblue", "27%"),
+                CreateChartPoint("Metadata3", 30, "qualitative.6", "30%"),
+            ],
+            LineData =
+            [
+                new VerticalStackedBarChartLineDataPoint { Y = 60, Legend = "Supported Builds", Color = "qualitative.2" },
+                new VerticalStackedBarChartLineDataPoint { Y = 20, Legend = "Recommended Builds", Color = "qualitative.17" },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = 60.0,
+            ChartData =
+            [
+                CreateChartPoint("Metadata1", 40, "qualitative.11", "40%"),
+                CreateChartPoint("Metadata2", 5, "darkblue", "5%"),
+                CreateChartPoint("Metadata3", 20, "qualitative.6", "20%"),
+                CreateChartPoint("Metadata4", 10, "qualitative.4", "10%"),
+                CreateChartPoint("Metadata5", 23, "qualitative.5", "23%"),
+            ],
+            LineData =
+            [
+                new VerticalStackedBarChartLineDataPoint { Y = 41, Legend = "Supported Builds", Color = "qualitative.2" },
+                new VerticalStackedBarChartLineDataPoint { Y = 10, Legend = "Recommended Builds", Color = "qualitative.17" },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = 80.0,
+            ChartData =
+            [
+                CreateChartPoint("Metadata1", 88, "qualitative.11", "63%"),
+                CreateChartPoint("Metadata2", 22, "darkblue", "16%"),
+                CreateChartPoint("Metadata3", 30, "qualitative.6", "21%"),
+            ],
+            LineData =
+            [
+                new VerticalStackedBarChartLineDataPoint { Y = 100, Legend = "Supported Builds", Color = "qualitative.2" },
+                new VerticalStackedBarChartLineDataPoint { Y = 70, Legend = "Recommended Builds", Color = "qualitative.17" },
+            ],
+        },
+        new VerticalStackedBarChartData
+        {
+            XAxisPoint = 100.0,
+            ChartData =
+            [
+                CreateChartPoint("Metadata1", 40, "qualitative.11", "40%"),
+                CreateChartPoint("Metadata2", 5, "darkblue", "5%"),
+                CreateChartPoint("Metadata3", 20, "qualitative.6", "20%"),
+                CreateChartPoint("Metadata4", 10, "qualitative.4", "10%"),
+                CreateChartPoint("Metadata5", 23, "qualitative.5", "23%"),
+            ],
+        },
+    ];
+
+    private static VerticalStackedBarChartDataPoint CreateChartPoint(string legend, double data, string color, string yAxisCalloutData) =>
+        new()
+        {
+            Legend = legend,
+            Data = data,
+            Color = DataVizPalette.Custom,
+            CustomColor = color,
+            XAxisCalloutData = BasicCalloutDate,
+            YAxisCalloutData = yAxisCalloutData,
+        };
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}
+
+
+

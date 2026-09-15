@@ -16,29 +16,53 @@ section is at the bottom.
 
 ## Examples
 
-### Basic example
+### Default
 
 {{ FunnelChartDefault }}
 
-### Vertical orientation
+### Vertical
 
 {{ FunnelChartVertical }}
 
-### Stacked Funnel chart
+### Stacked
 
 {{ FunnelChartStacked }}
 
-### RTL
+### Multiple Legend Selection
 
-Demonstrates the right-to-left layout mode, where segment labels and the legend are mirrored for RTL language support.
+{{ FunnelChartMultipleLegendSelection }}
 
-{{ FunnelChartDefaultRTL }}
+### Hide Legends
 
-### Custom tooltip
+{{ FunnelChartHideLegends }}
 
-Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue`, and `Color` populated from the hovered funnel stage.
+### Rounded Corners
+
+{{ FunnelChartRoundedCorners }}
+
+### Culture
+
+{{ FunnelChartCulture }}
+
+### Title Align
+
+{{ FunnelChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ FunnelChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ FunnelChartHideTooltip }}
+
+### Custom Tooltip
 
 {{ FunnelChartCustomTooltip }}
+
+### RTL
+
+{{ FunnelChartRTL }}
 
 ## API Fluent Funnel Chart
 
@@ -51,3 +75,4 @@ Use the `TooltipTemplate` parameter to replace the default hover callout with fu
 ## API Funnel Sub Value
 
 {{ API Type=FunnelSubValue Properties=All }}
+

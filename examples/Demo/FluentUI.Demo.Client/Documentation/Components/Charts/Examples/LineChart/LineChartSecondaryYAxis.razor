@@ -1,0 +1,39 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="300px"
+                 UseUTC="true"
+                 CalloutVariant="CalloutVariant.Stacked"
+                 SupportNegativeData="true">
+</FluentLineChart>
+
+@code {
+    private static readonly DateTime[] _dates = Enumerable.Range(0, 7)
+        .Select(index => new DateTime(2020, 3, 3 + index, 0, 0, 0, DateTimeKind.Utc))
+        .ToArray();
+
+    private readonly IReadOnlyList<LineChartSeries> _chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Primary",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data = CreatePoints([216, 218, 217, 248, -252, 274, 304]),
+        },
+        new LineChartSeries
+        {
+            Legend = "Secondary",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            UseSecondaryYScale = true,
+            Data = CreatePoints([297000, 284000, 282000, -294000, 224000, -300000, 298000]),
+        },
+    ];
+
+    private static IReadOnlyList<LineChartDataPoint> CreatePoints(double[] values) => values
+        .Select((y, index) => new LineChartDataPoint { X = _dates[index], Y = y })
+        .ToArray();
+}

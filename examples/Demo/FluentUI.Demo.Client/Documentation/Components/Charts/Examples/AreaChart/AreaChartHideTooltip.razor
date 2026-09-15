@@ -1,11 +1,16 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
+<FluentCheckbox @bind-Value="@_hideTooltip" Label="Hide tooltip" />
+
 <FluentAreaChart ChartData="data"
                  ChartTitle="Area chart hide tooltip example"
-                 Width="700px"
-                 HideTooltip="true" />
+                 Width="700"
+                 Height="312"
+                 HideTooltip="@_hideTooltip" />
 
 @code {
+    private bool _hideTooltip = true;
+
     private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
     {
         new AreaChartSeries

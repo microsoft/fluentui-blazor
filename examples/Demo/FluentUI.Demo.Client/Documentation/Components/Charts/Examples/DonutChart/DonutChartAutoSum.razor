@@ -1,0 +1,15 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentDonutChart ChartTitle="Auto-sum: no value-inside-donut attribute"
+                  ChartData="@_chartData"
+                  InnerRadius="55">
+</FluentDonutChart>
+
+@code {
+    private readonly IReadOnlyList<DonutDataPoint> _chartData =
+    [
+        new DonutDataPoint { Legend = "small", Data = 5000 },
+        new DonutDataPoint { Legend = "large", Data = 39000 },
+        new DonutDataPoint { Legend = "medium", Data = 15000 },
+    ];
+}

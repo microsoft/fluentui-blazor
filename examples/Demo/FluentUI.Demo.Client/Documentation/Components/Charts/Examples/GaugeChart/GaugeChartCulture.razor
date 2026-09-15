@@ -1,0 +1,38 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentGaugeChart ChartTitle="@($"Gauge chart culture example ({_selectedCulture})")"
+                  Segments="@segments"
+                  ChartValue="50"
+                  MaxValue="100"
+                  Width="650"
+                  Height="350"
+                  Culture="@SelectedCulture">
+</FluentGaugeChart>
+
+@code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}
+
+
+

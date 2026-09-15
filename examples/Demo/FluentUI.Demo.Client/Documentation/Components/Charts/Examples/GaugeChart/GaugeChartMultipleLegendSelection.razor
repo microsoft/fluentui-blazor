@@ -1,0 +1,24 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentCheckbox @bind-Value="@_allowMultipleLegendSelection" Label="Allow multiple legend selection" />
+
+<FluentGaugeChart ChartTitle="Gauge chart basic example"
+                  Segments="@segments"
+                  ChartValue="50"
+                  MaxValue="100"
+                  Width="600"
+                  Height="350"
+                  AllowMultipleLegendSelection="@_allowMultipleLegendSelection">
+</FluentGaugeChart>
+
+@code {
+    private bool _allowMultipleLegendSelection = true;
+
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+}
+

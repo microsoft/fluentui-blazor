@@ -49,119 +49,93 @@ Horizontal bar chart can be of 2 types -
 
 ## Examples
 
-### Default horizontal bar chart
-
-The default variant renders multiple series, each as a stacked bar composed of several color-coded segments. The chart automatically distributes the data across the available width.
+### Default
 
 {{ HorizontalBarChartDefault }}
 
-### Single Bar
+### Legend for single point bar
 
-The single-bar variant displays one bar per series with a single data segment, making it easy to compare a single value across multiple categories at a glance.
+{{ HorizontalBarChartLegendForSinglePointBar }}
+
+### Single Bar
 
 {{ HorizontalBarChartSingleBar }}
 
 ### Single Bar NM Variant
 
-The n/M variant shows each bar scaled relative to its own target value rather than a shared maximum, allowing per-category comparison against individual goals.
-
 {{ HorizontalBarChartSingleBarNMVariant }}
 
 ### Benchmark
-
-The benchmark example adds an inverted-triangle indicator to the bar, visually marking a reference or target value within each series.
 
 {{ HorizontalBarChartBenchmark }}
 
 ### Single Data Point
 
-This example shows how the chart renders when each series contains only a single data point, useful for simple value comparisons without stacking.
-
 {{ HorizontalBarChartSingleDataPoint }}
-
-### Hide labels
-
-Setting `HideLabels` removes the numeric value labels shown at the end of each bar, producing a cleaner visual when precise values are not required.
-
-{{ HorizontalBarChartHideLabels }}
-
-### Hide ratio
-
-When `HideRatio` is set, the fractional value shown to the right of the bar (e.g. 1543/15000) is suppressed, leaving only the bar itself.
-
-{{ HorizontalBarChartHideRatio }}
-
-### Hide legends
-
-Setting `HideLegends` removes the legend list below the chart, useful when the bar titles alone provide sufficient context.
-
-{{ HorizontalBarChartHideLegends }}
-
-### Hide tooltip
-
-Setting `HideTooltip` disables the hover tooltip so that hovering over a bar segment no longer shows a callout with the data value.
-
-{{ HorizontalBarChartHideTooltip }}
-
-### Rounded corners
-
-Enabling `RoundedCorners` applies a small border-radius to each bar segment, giving the chart a softer, more modern appearance.
-
-{{ HorizontalBarChartRoundedCorners }}
 
 ### Gradient
 
-Enabling `EnableGradient` fills each bar segment with a gradient that transitions from a lighter tint to the segment's full color.
-
 {{ HorizontalBarChartGradient }}
 
-### Fraction mode
+### Hide Labels
 
-Setting `ChartDataMode` to `fraction` displays the value label as a numerator/denominator pair (e.g. 1543/15000) so the viewer can see both the current value and the total at a glance.
+{{ HorizontalBarChartHideLabels }}
 
-{{ HorizontalBarChartChartDataModeFraction }}
+### Hide Legends
 
-### Percentage mode
+{{ HorizontalBarChartHideLegends }}
 
-Setting `ChartDataMode` to `percentage` replaces the raw numeric label with a rounded percentage of the total, giving a proportional view of each bar's value.
-
-{{ HorizontalBarChartChartDataModePercentage }}
-
-### Data mode (interactive)
-
-Use the selector to switch between `default`, `fraction`, and `percentage` display modes at runtime, illustrating how `ChartDataMode` changes the value label without altering the bar lengths.
-
-{{ HorizontalBarChartChartDataModeInteractive }}
-
-### Legend list label
-
-The `LegendListLabel` property sets an accessible heading for the legend list, useful when the chart is embedded in a larger page that requires descriptive landmark text.
-
-{{ HorizontalBarChartLegendListLabel }}
-
-### Culture
-
-Setting the `Culture` property to a specific locale (here `de-DE`) formats all numeric values and separators according to that culture's conventions.
-
-{{ HorizontalBarChartCulture }}
-
-### Multiple legend selection
-
-When `AllowMultipleLegendSelection` is enabled, clicking a legend item highlights only the corresponding bar segments; multiple items can be selected simultaneously.
+### Multiple Legend Selection
 
 {{ HorizontalBarChartMultipleLegendSelection }}
 
-### RTL
+### Rounded Corners
 
-Demonstrates the right-to-left layout mode, where bars grow from the right edge and all labels are mirrored for RTL language support.
+{{ HorizontalBarChartRoundedCorners }}
 
-{{ HorizontalBarChartDefaultRTL }}
+### Culture
 
-### Custom tooltip
+{{ HorizontalBarChartCulture }}
 
-Use the `TooltipTemplate` parameter to replace the default hover callout with fully custom Blazor markup. The `Context` parameter exposes a `TooltipContext` with `Legend`, `YValue`, and `Color` populated from the hovered bar segment.
+### Title Align
+
+{{ HorizontalBarChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ HorizontalBarChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ HorizontalBarChartHideTooltip }}
+
+### Custom Tooltip
 
 {{ HorizontalBarChartCustomTooltip }}
+
+### RTL
+
+{{ HorizontalBarChartRTL }}
+
+### Hide Ratio
+
+{{ HorizontalBarChartHideRatio }}
+
+### Fraction Mode
+
+{{ HorizontalBarChartChartDataModeFraction }}
+
+### Percentage Mode
+
+{{ HorizontalBarChartChartDataModePercentage }}
+
+### Data Mode (Interactive)
+
+{{ HorizontalBarChartChartDataModeInteractive }}
+
+### Legend List Label
+
+{{ HorizontalBarChartLegendListLabel }}
 
 ## API Fluent Horizontal Bar Chart
 

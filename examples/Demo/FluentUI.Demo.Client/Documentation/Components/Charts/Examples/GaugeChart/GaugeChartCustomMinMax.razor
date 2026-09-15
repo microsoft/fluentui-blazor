@@ -1,0 +1,31 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentSlider Label=@($"Chart value: {_chartValue}")
+                  @bind-Value="@_chartValue"
+                  Id="gauge-custom-value"
+                  Min="10"
+                  Max="70"
+                  Step="1"
+                  Style="width:300px;" />
+
+    <FluentGaugeChart ChartTitle="Gauge chart custom range example"
+                      Segments="@_chartData"
+                      ChartValue="@_chartValue"
+                      MinValue="10"
+                      MaxValue="70"
+                      Width="252px"
+                      Height="173px">
+    </FluentGaugeChart>
+</FluentStack>
+
+@code {
+    private int _chartValue = 40;
+
+    private readonly IReadOnlyList<GaugeChartSegment> _chartData =
+    [
+        new GaugeChartSegment { Legend = "Cold", Size = 20 },
+        new GaugeChartSegment { Legend = "Warm", Size = 20 },
+        new GaugeChartSegment { Legend = "Hot", Size = 20 },
+    ];
+}

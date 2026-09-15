@@ -1,0 +1,320 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHeatMapChart ChartTitle="Heat map explaining the Air Quality Index"
+                    ChartData="@chartData"
+                    DomainValuesForColorScale="@domainValuesForColorScale"
+                    RangeValuesForColorScale="@rangeValuesForColorScale"
+                    YAxisTickLabelMaxWidth="64"
+                    SortOrder="HeatMapSortOrder.None"
+                    AllowMultipleLegendSelection="true"
+                    Width="450px"
+                    Height="378px">
+</FluentHeatMapChart>
+
+@code {
+    private readonly IReadOnlyList<HeatMapChartData> chartData =
+    [
+        new HeatMapChartData
+        {
+            Value = 100,
+            Legend = "Excellent (0-200)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 5),
+                    Y = "Texas",
+                    Value = 46,
+                    RectText = "46",
+                    Ratio = [46, 2391],
+                    DescriptionMessage = "air quality seems to be excellent today",
+                },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 250,
+            Legend = "Good (201-300)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 3),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 265,
+                    RectText = "265",
+                    Ratio = [265, 2479],
+                    DescriptionMessage = "today we have good air quality in Alaska",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "Ohio",
+                    Value = 310,
+                    RectText = "310",
+                    Ratio = [310, 2043],
+                    DescriptionMessage = "a sudden rise of 150 units in Ohio today",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 5),
+                    Y = "Ohio",
+                    Value = 320,
+                    RectText = "320",
+                    Ratio = [320, 2043],
+                    DescriptionMessage = "air quality seems to have decreased by only 15 units from yesterday",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 9),
+                    Y = "Texas",
+                    Value = 300,
+                    RectText = "300",
+                    Ratio = [300, 2391],
+                    DescriptionMessage = "air comes to control a little bit more than yesterday",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 3),
+                    Y = "DC",
+                    Value = 290,
+                    RectText = "290",
+                    Ratio = [290, 2462],
+                    DescriptionMessage = "1st day in the week, DC witnesses good air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 7),
+                    Y = "NYC",
+                    Value = 280,
+                    RectText = "280",
+                    Ratio = [280, 2486],
+                    DescriptionMessage = "Air quality index decreases by exactly 300 units, giving the people of NYC good hope",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 8),
+                    Y = "DC",
+                    Value = 300,
+                    RectText = "300",
+                    Ratio = [300, 2462],
+                    DescriptionMessage = "60 units decreased from yesterday.",
+                },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 350,
+            Legend = "Medium (301-400)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 345,
+                    RectText = "345",
+                    Ratio = [345, 2479],
+                    DescriptionMessage = "Alaska has just reported nearly 100 units hike in air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 9),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 325,
+                    RectText = "325",
+                    Ratio = [325, 2479],
+                    DescriptionMessage = "Alaska to 300",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 8),
+                    Y = "Texas",
+                    Value = 390,
+                    RectText = "390",
+                    Ratio = [390, 2391],
+                    DescriptionMessage = "air comes to control a little bit",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "DC",
+                    Value = 385,
+                    RectText = "385",
+                    Ratio = [385, 2462],
+                    DescriptionMessage = "Washington DC witnesses a hike of nearly 100 units in air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 7),
+                    Y = "DC",
+                    Value = 360,
+                    RectText = "360",
+                    Ratio = [360, 2462],
+                    DescriptionMessage = "a 200% hike in the air quality index",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "Texas",
+                    Value = 400,
+                    RectText = "400",
+                    Ratio = [400, 2391],
+                    DescriptionMessage = "a sudden spike in the badness of the air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 6),
+                    Y = "Ohio",
+                    Value = 400,
+                    RectText = "400",
+                    Ratio = [400, 2043],
+                    DescriptionMessage = "situation got worse in air quality due to industrial smoke",
+                },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 450,
+            Legend = "Danger (401-500)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 7),
+                    Y = "Ohio",
+                    Value = 423,
+                    RectText = "423",
+                    Ratio = [423, 2043],
+                    DescriptionMessage = "we can see an increase of 23 units",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 5),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 463,
+                    RectText = "463",
+                    Ratio = [463, 2479],
+                    DescriptionMessage = "day by day, situation is getting worse in Alaska",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 6),
+                    Y = "Texas",
+                    Value = 480,
+                    RectText = "480",
+                    Ratio = [480, 2391],
+                    DescriptionMessage = "same story, today also air quality decreases. a bad day in Texas",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 5),
+                    Y = "DC",
+                    Value = 491,
+                    RectText = "491",
+                    Ratio = [491, 2462],
+                    DescriptionMessage = "Day by day, 100 units are increasing in air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 4),
+                    Y = "NYC",
+                    Value = 433,
+                    RectText = "433",
+                    Ratio = [433, 2486],
+                    DescriptionMessage = "They say good things stay for a short time, today this saying became reality. New York has witnessed nearly 300% bad air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 8),
+                    Y = "NYC",
+                    Value = 473,
+                    RectText = "473",
+                    Ratio = [473, 2486],
+                    DescriptionMessage = "Today is the same fate as the 2nd day. still, air quality stays above 400",
+                },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 550,
+            Legend = "Very Danger (501-600)",
+            Data =
+            [
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 8),
+                    Y = "Ohio",
+                    Value = 600,
+                    RectText = "600",
+                    Ratio = [600, 2043],
+                    DescriptionMessage = "looks like god has cursed us with poisonous air. worst air quality index",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 8),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 536,
+                    RectText = "536",
+                    Ratio = [536, 2479],
+                    DescriptionMessage = "shh!, all the hopes were washed away in the rain yesterday, with another hike of 400% in air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 6),
+                    Y = "Alaskaaaaaaaaaaaaaaaaaaa",
+                    Value = 520,
+                    RectText = "520",
+                    Ratio = [520, 2479],
+                    DescriptionMessage = "Alaska planning to build air purifier to control the air quality",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 7),
+                    Y = "Texas",
+                    Value = 525,
+                    RectText = "525",
+                    Ratio = [525, 2391],
+                    DescriptionMessage = "air worsens badly today due to farmers burning the harvest",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 9),
+                    Y = "DC",
+                    Value = 560,
+                    RectText = "560",
+                    Ratio = [560, 2462],
+                    DescriptionMessage = "Due to industrial pollution and the burning of harvest, it resulted in bad air quality in Washington DC",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 6),
+                    Y = "NYC",
+                    Value = 580,
+                    RectText = "580",
+                    Ratio = [580, 2486],
+                    DescriptionMessage = "Air quality index is becoming worse day by day, leaving the people of NYC in very bad medical conditions.",
+                },
+                new HeatMapChartDataPoint
+                {
+                    X = new DateTime(2020, 3, 9),
+                    Y = "NYC",
+                    Value = 590,
+                    RectText = "590",
+                    Ratio = [590, 2486],
+                    DescriptionMessage = "finally, the weekend ends with very bad air quality in New York City",
+                },
+            ],
+        },
+    ];
+
+    private readonly double[] domainValuesForColorScale = [0, 200, 400, 600];
+
+    private readonly string[] rangeValuesForColorScale =
+    [
+        "#13a10e",
+        "#3a96dd",
+        "#2aa0a4",
+        "#ae8c00",
+    ];
+}

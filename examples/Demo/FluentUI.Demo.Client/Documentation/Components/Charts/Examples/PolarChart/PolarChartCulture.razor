@@ -1,0 +1,65 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentPolarChart ChartTitle="@($"Academic Performance ({_selectedCulture})")"
+                  ChartData="@chartData"
+                  Shape="PolarChartShape.Polygon"
+                  Direction="PolarChartDirection.Clockwise"
+                  Width="650"
+                  Height="350"
+                  Culture="@SelectedCulture">
+</FluentPolarChart>
+
+@code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private readonly IReadOnlyList<PolarChartSeries> chartData =
+    [
+        new PolarChartSeries
+        {
+            Legend = "Mike",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Math", Y = 120 },
+                new PolarChartDataPoint { X = "Chinese", Y = 98 },
+                new PolarChartDataPoint { X = "English", Y = 86 },
+                new PolarChartDataPoint { X = "Geography", Y = 99 },
+                new PolarChartDataPoint { X = "Physics", Y = 85 },
+                new PolarChartDataPoint { X = "History", Y = 65 },
+            ],
+        },
+        new PolarChartSeries
+        {
+            Legend = "Lily",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Math", Y = 110 },
+                new PolarChartDataPoint { X = "Chinese", Y = 130 },
+                new PolarChartDataPoint { X = "English", Y = 95 },
+                new PolarChartDataPoint { X = "Geography", Y = 90 },
+                new PolarChartDataPoint { X = "Physics", Y = 100 },
+                new PolarChartDataPoint { X = "History", Y = 90 },
+            ],
+        },
+    ];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}
+
+
+

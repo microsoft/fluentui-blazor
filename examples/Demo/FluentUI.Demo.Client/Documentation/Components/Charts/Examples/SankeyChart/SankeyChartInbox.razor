@@ -1,0 +1,47 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentSankeyChart ChartTitle="Email flow from IPs to folders"
+                   ChartData="@_chartData"
+                   Width="900px"
+                   Height="450px">
+</FluentSankeyChart>
+
+@code {
+    private readonly SankeyChartData _chartData = new()
+    {
+        Nodes =
+        [
+            CreateNode("192.168.42.72", "qualitative.2"),
+            CreateNode("172.152.48.13", "qualitative.2"),
+            CreateNode("124.360.55.1", "qualitative.2"),
+            CreateNode("192.564.10.2", "qualitative.2"),
+            CreateNode("124.124.50.1", "qualitative.2"),
+            CreateNode("172.630.89.4", "qualitative.2"),
+            CreateNode("inbox", "qualitative.7"),
+            CreateNode("Junk Folder", "qualitative.7"),
+            CreateNode("Deleted Folder", "qualitative.7"),
+            CreateNode("Clicked", "qualitative.8"),
+            CreateNode("Opened", "qualitative.8"),
+            CreateNode(" No further action  required", "qualitative.8"),
+        ],
+        Links =
+        [
+            CreateLink(0, 6, 80),
+            CreateLink(1, 6, 50),
+            CreateLink(1, 7, 28),
+            CreateLink(2, 7, 14),
+            CreateLink(3, 7, 7),
+            CreateLink(3, 8, 20),
+            CreateLink(4, 7, 10),
+            CreateLink(5, 7, 10),
+            CreateLink(6, 9, 30),
+            CreateLink(6, 10, 55),
+            CreateLink(7, 11, 60),
+            CreateLink(8, 11, 2),
+        ],
+    };
+
+    private static SankeyChartNode CreateNode(string name, string color) => new() { Name = name, Color = DataVizPalette.Custom, CustomColor = color };
+
+    private static SankeyChartLink CreateLink(int source, int target, double value) => new() { Source = source, Target = target, Value = value };
+}

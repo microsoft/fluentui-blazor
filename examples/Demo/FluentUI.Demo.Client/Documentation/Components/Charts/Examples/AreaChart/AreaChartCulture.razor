@@ -1,12 +1,27 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
 
 <FluentAreaChart ChartData="data"
-                 ChartTitle="Area chart culture example (de-DE)"
-                 Width="700px"
-                 Culture="culture" />
+                 ChartTitle="@($"Area chart culture example ({_selectedCulture})")"
+                 Width="700"
+                 Height="312"
+                 Culture="@SelectedCulture" />
 
 @code {
-    private readonly System.Globalization.CultureInfo culture = new("de-DE");
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
 
     private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
     {

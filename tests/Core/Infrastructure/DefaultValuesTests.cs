@@ -123,6 +123,20 @@ public class DefaultValuesTests
     }
 
     [Fact]
+    public void SetInitialValues_RegisteredPropertiesExist_AndNameIsNotRegistered_SetsInitialValue()
+    {
+        var defaultValues = new DefaultValues();
+        defaultValues.For<FluentDivider>().Set(x => x.Inset, false);
+        var component = CreateDivider();
+
+        defaultValues.ApplyDefaults(component);
+        defaultValues.SetInitialValues(component, [(nameof(FluentDivider.Vertical), true)]);
+
+        Assert.Equal((bool?)false, component.Inset);
+        Assert.Equal((bool?)true, component.Vertical);
+    }
+
+    [Fact]
     public void SetInitialValues_ComponentTypeNotInitialized_DoesNotSetValue()
     {
         var defaultValues = new DefaultValues();

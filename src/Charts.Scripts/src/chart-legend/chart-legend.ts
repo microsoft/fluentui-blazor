@@ -2,6 +2,9 @@ import { FASTElement, attr, observable } from '@microsoft/fast-element';
 import type { ChartLegendPosition, Legend } from '../utils/chart-options.js';
 import { jsonConverter } from '../utils/chart-helpers.js';
 
+// Keep in sync with the `gap` in chart-legend.styles.ts.
+const LEGEND_ITEM_GAP_PX = 8;
+
 /**
  * A reusable legend list used by all chart components.
  *
@@ -175,6 +178,14 @@ export class ChartLegend extends FASTElement {
     const hostWidth = this.clientWidth;
     if (hostWidth === 0) return;
 
+    // Keep a tiny safety margin so borders/anti-aliasing do not get clipped.
+    const overflowSafetyPx = 2;
+    const hostStyles = getComputedStyle(this);
+    const horizontalPadding =
+      (Number.parseFloat(hostStyles.paddingLeft || '0') || 0) +
+      (Number.parseFloat(hostStyles.paddingRight || '0') || 0);
+    const availableWidth = Math.max(hostWidth - horizontalPadding - overflowSafetyPx, 0);
+
     const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('.legend:not(.overflow-button)'));
     if (buttons.length === 0) return;
 
@@ -185,13 +196,15 @@ export class ChartLegend extends FASTElement {
 
     // Build / refresh the width cache.
     for (let i = 0; i < buttons.length; i++) {
-      const w = buttons[i].offsetWidth;
+      const w = buttons[i].getBoundingClientRect().width || buttons[i].offsetWidth;
       if (w > 0) this._itemWidths[i] = w;
     }
 
-    const totalWidth = this._itemWidths.slice(0, buttons.length).reduce((s, w) => s + (w ?? 0), 0);
+    const totalWidth =
+      this._itemWidths.slice(0, buttons.length).reduce((s, w) => s + (w ?? 0), 0) +
+      LEGEND_ITEM_GAP_PX * Math.max(buttons.length - 1, 0);
 
-    if (totalWidth <= hostWidth) {
+    if (totalWidth <= availableWidth) {
       // Everything fits — clear any previous overflow state.
       this._visibleCount = buttons.length;
       this._overflowCount = 0;
@@ -204,15 +217,17 @@ export class ChartLegend extends FASTElement {
     // conservative estimate (the ResizeObserver will fire again after FAST adds
     // the button to the DOM and the measurement will self-correct).
     const overflowMenu = root.querySelector<HTMLElement>('fluent-menu');
-    const overflowBtnWidth = overflowMenu ? overflowMenu.offsetWidth || 80 : 80;
+    const measuredOverflowBtnWidth = overflowMenu?.getBoundingClientRect().width ?? 0;
+    const overflowBtnWidth = measuredOverflowBtnWidth > 0 ? measuredOverflowBtnWidth : 80;
 
     // Find how many items fit alongside the overflow button.
     let used = 0;
     let count = 0;
     for (let i = 0; i < buttons.length; i++) {
       const w = this._itemWidths[i] ?? 0;
-      if (used + w + overflowBtnWidth <= hostWidth) {
-        used += w;
+      const gapBeforeItem = i > 0 ? LEGEND_ITEM_GAP_PX : 0;
+      if (used + gapBeforeItem + w + LEGEND_ITEM_GAP_PX + overflowBtnWidth <= availableWidth) {
+        used += gapBeforeItem + w;
         count = i + 1;
       } else {
         break;
@@ -230,6 +245,12 @@ export class ChartLegend extends FASTElement {
 
     this._overflowCount = buttons.length - count;
     this._overflowItems = this.items.slice(count);
+
+    // If we had to estimate trigger width, run one more pass after the trigger
+    // has rendered so the final visible/overflow split uses exact width.
+    if (!overflowMenu && this._overflowCount > 0) {
+      requestAnimationFrame(() => this._measure());
+    }
   }
 
   /**

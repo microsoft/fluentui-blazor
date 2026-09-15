@@ -144,4 +144,14 @@ public class MessageBarOptionsTests
         Assert.NotNull(options.AdditionalAttributes);
         Assert.Equal("value", options.AdditionalAttributes["data-test"]);
     }
+
+    [Fact]
+    public void MessageBarOptions_ExplicitIFluentComponentBaseIsDisposed_ReturnsFalse()
+    {
+        // Arrange
+        IFluentComponentBase options = new MessageBarOptions();
+
+        // Act & Assert
+        Assert.False(options.IsDisposed);
+    }
 }

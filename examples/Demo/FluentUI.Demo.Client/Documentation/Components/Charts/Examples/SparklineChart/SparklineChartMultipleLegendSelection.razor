@@ -1,0 +1,41 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentCheckbox @bind-Value="@_allowMultipleLegendSelection" Label="Allow multiple legend selection" />
+
+<FluentSparklineChart ChartData="@sparklineData"
+                      Width="700"
+                      Height="250"
+                      AllowMultipleLegendSelection="@_allowMultipleLegendSelection"
+                      ShowLegend="true"
+                      Style="display: block;">
+</FluentSparklineChart>
+
+@code {
+    private bool _allowMultipleLegendSelection = true;
+
+    private readonly SparklineChartData sparklineData = new()
+    {
+        ChartTitle = "10.21",
+        LineChartData =
+        [
+            new SparklineChartSeries
+            {
+                Legend = "19.64",
+                Color = DataVizPalette.Custom,
+                CustomColor = "qualitative.1",
+                Data =
+                [
+                    new SparklineDataPoint { X = 1.0, Y = 58.13 },
+                    new SparklineDataPoint { X = 2.0, Y = 140.98 },
+                    new SparklineDataPoint { X = 3.0, Y = 20 },
+                    new SparklineDataPoint { X = 4.0, Y = 89.7 },
+                    new SparklineDataPoint { X = 5.0, Y = 99 },
+                    new SparklineDataPoint { X = 6.0, Y = 13.28 },
+                    new SparklineDataPoint { X = 7.0, Y = 31.32 },
+                    new SparklineDataPoint { X = 8.0, Y = 10.21 },
+                ],
+            },
+        ],
+    };
+}
+
