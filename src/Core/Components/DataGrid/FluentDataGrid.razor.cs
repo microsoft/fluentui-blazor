@@ -124,9 +124,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
-    #if NET11_0_OR_GREATER
+#if NET11_0_OR_GREATER
         _virtualizeItemComparer = new VirtualizeItemComparer(this);
-    #endif
+#endif
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
