@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Represents an item that may be subject to overflow handling.
+/// Represents an item hidden by overflow handling.
 /// </summary>
 public record OverflowItem
 {
@@ -15,19 +15,9 @@ public record OverflowItem
     public string? Id { get; init; }
 
     /// <summary>
-    /// Gets a value indicating whether the item is in overflow.
-    /// </summary>
-    public bool Overflow { get; init; }
-
-    /// <summary>
     /// Gets the text associated with the overflow item.
     /// </summary>
     public string? Text { get; init; }
-
-    /// <summary>
-    /// Gets the overflow behavior of the item.
-    /// </summary>
-    public OverflowBehavior? Behavior { get; init; }
 
     /// <summary>
     /// Gets the index of the overflow item.

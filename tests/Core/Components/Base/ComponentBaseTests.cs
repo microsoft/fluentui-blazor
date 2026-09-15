@@ -55,6 +55,7 @@ public class ComponentBaseTests : Bunit.BunitContext
         { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
         { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentOverflow<>), Loader.MakeGenericType(typeof(string)) },
         { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
         { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
         { typeof(FluentKeyCode), Loader.Default.WithRequiredParameter("ChildContent", (RenderFragment)(builder => builder.AddContent(0, "MyContent"))) },

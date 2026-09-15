@@ -1,4 +1,4 @@
-﻿<div class="resizable-horizontal">
+<div class="resizable-horizontal">
     <FluentOverflow TItem="string"
                     OnOverflowRaised="OverflowHandler">
         <ChildContent>
@@ -9,20 +9,24 @@
         </ChildContent>
         <MoreTemplate>
             <FluentButton Appearance="ButtonAppearance.Subtle"
-                          Style="min-width: 32px; max-width:32px;">
+                          Style="min-width: 32px; max-width:32px;"
+                          OnClick="@(() => _popupOpened = !_popupOpened)">
                 @($"+{context.ItemsOverflow.Count()}")
             </FluentButton>
         </MoreTemplate>
         <OverflowTemplate>
-            <FluentTooltip Anchor="@context.IdMoreButton"
-                           UseTooltipService="false"
-                           Positioning="Positioning.BelowStart"
-                           Style="flex-direction: column; row-gap: 4px;">
-                @foreach (var item in context.ItemsOverflow)
+            <FluentPopover AnchorId="@context.IdMoreButton"
+                           @bind-Opened="@_popupOpened">
+                @if (_popupOpened)
                 {
-                    <FluentLabel>@item.Text</FluentLabel>
+                    <div style="display: flex; flex-direction: column; row-gap: 4px;">
+                        @foreach (var item in context.ItemsOverflow)
+                        {
+                            <FluentLabel>@item.Text</FluentLabel>
+                        }
+                    </div>
                 }
-            </FluentTooltip>
+            </FluentPopover>
         </OverflowTemplate>
     </FluentOverflow>
 </div>
@@ -41,6 +45,8 @@
                                       "Office", "Installation", "Azure", "DevOps" };
 
     List<string> Items = new List<string>() { Catalog[0], Catalog[1] };
+
+    private bool _popupOpened;
 
     void OverflowHandler(IEnumerable<OverflowItem> items)
     {

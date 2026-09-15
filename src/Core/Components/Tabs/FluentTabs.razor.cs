@@ -181,7 +181,7 @@ public partial class FluentTabs : FluentComponentBase
         // Dispose the overflow observer if the Overflow property is false and it was previously initialized
         if (!Overflow && _overflowInitialized)
         {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose", TabListId);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.DisposeOverflow", TabListId);
             _overflowInitialized = false;
             OverflowTabs = [];
         }
@@ -196,7 +196,7 @@ public partial class FluentTabs : FluentComponentBase
         // Initialize the overflow observer
         if (Overflow && !_overflowInitialized)
         {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Initialize", TabListId, "fluent-tab", 0, 0, "activeid", true, true);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.InitializeOverflow", TabListId);
             _overflowInitialized = true;
         }
 
@@ -204,7 +204,7 @@ public partial class FluentTabs : FluentComponentBase
         if (_overflowInitialized && _refreshOverflowAfterRender)
         {
             _refreshOverflowAfterRender = false;
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh", TabListId);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow", TabListId);
         }
 
         _previousOverflowValue = Overflow;
@@ -319,7 +319,7 @@ public partial class FluentTabs : FluentComponentBase
     {
         if (_overflowInitialized)
         {
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh", TabListId);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow", TabListId);
         }
         else if (Overflow)
         {
@@ -332,7 +332,7 @@ public partial class FluentTabs : FluentComponentBase
     {
         if (_overflowInitialized)
         {
-            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose", TabListId);
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.DisposeOverflow", TabListId);
             _overflowInitialized = false;
         }
 
@@ -406,7 +406,7 @@ public partial class FluentTabs : FluentComponentBase
         }
 
         var overflowTabIds = args.Items?
-            .Where(item => item.Overflow && !string.IsNullOrEmpty(item.Id))
+            .Where(item => !string.IsNullOrEmpty(item.Id))
             .Select(item => item.Id!)
             .ToHashSet(StringComparer.Ordinal) ?? new HashSet<string>(StringComparer.Ordinal);
 
