@@ -813,8 +813,8 @@
         var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
         var timestamp = System.Diagnostics.Stopwatch.Frequency;
 
-        Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp));
-        Assert.Equal(expectedDelay, grid.ShouldDebounceVirtualizeProviderRequest(timestamp + elapsedMilliseconds * System.Diagnostics.Stopwatch.Frequency / 1000));
+        Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.Equal(expectedDelay, grid.ShouldDebounceVirtualizeProviderRequest(timestamp + elapsedMilliseconds * System.Diagnostics.Stopwatch.Frequency / 1000, isRequestCanceled: false));
     }
 
     [Fact]
@@ -824,9 +824,9 @@
         var timestamp = System.Diagnostics.Stopwatch.Frequency;
         var interval = 90 * System.Diagnostics.Stopwatch.Frequency / 1000;
 
-        Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp));
-        Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + interval));
-        Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + 2 * interval));
+        Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + interval, isRequestCanceled: false));
+        Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + 2 * interval, isRequestCanceled: false));
     }
 
     [Theory]
@@ -860,8 +860,8 @@
         Assert.True(cut.Instance.SkipNextVirtualizeProviderDelay);
 
         var timestamp = cut.Instance.LastVirtualizeProviderRequestTimestamp;
-        Assert.False(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp));
-        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp));
+        Assert.False(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
     }
 
     [Fact]
@@ -879,13 +879,19 @@
             </FluentDataGrid>);
         var callsBeforeCancellation = calls;
         ItemsProviderDelegate<(int, Customer)> provider = cut.Instance.ProvideVirtualizedItemsAsync;
+        await cut.InvokeAsync(() => provider(new ItemsProviderRequest(0, 1, Xunit.TestContext.Current.CancellationToken)).AsTask());
+        callsBeforeCancellation = calls;
+
+        Assert.True(cut.Instance.SkipNextVirtualizeProviderDelay);
 
         await cut.InvokeAsync(() => provider(new ItemsProviderRequest(0, 1, new CancellationToken(canceled: true))).AsTask());
 
         Assert.Equal(callsBeforeCancellation, calls);
+        Assert.True(cut.Instance.SkipNextVirtualizeProviderDelay);
         var timestamp = cut.Instance.LastVirtualizeProviderRequestTimestamp;
         Assert.NotEqual(0, timestamp);
-        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp));
+        Assert.False(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
     }
 
     [Fact]
@@ -919,7 +925,7 @@
         await pendingRequest;
 
         Assert.Equal(3, cut.Instance.LastVirtualizeProviderTotalItemCount);
-        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(cut.Instance.LastVirtualizeProviderRequestTimestamp));
+        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(cut.Instance.LastVirtualizeProviderRequestTimestamp, isRequestCanceled: false));
     }
 
     private async Task<GridItemsProviderResult<Customer>> RefreshItemsAsync(GridItemsProviderRequest<Customer> req)

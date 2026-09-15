@@ -1529,11 +1529,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _ = InvokeAsync(StateHasChanged);
     }
 
-    internal bool ShouldDebounceVirtualizeProviderRequest(long requestTimestamp)
+    internal bool ShouldDebounceVirtualizeProviderRequest(long requestTimestamp, bool isRequestCanceled)
     {
         var isRequestBurst = _lastVirtualizeProviderRequestTimestamp != 0
             && Stopwatch.GetElapsedTime(_lastVirtualizeProviderRequestTimestamp, requestTimestamp) < _virtualizeRequestBurstInterval;
+
+        // All request arrivals extend the burst window, including requests that are already canceled.
         _lastVirtualizeProviderRequestTimestamp = requestTimestamp;
+
+        if (isRequestCanceled)
+        {
+            // Preserve the one-shot bypass for the next request that can invoke the provider.
+            return false;
+        }
 
         var skipDelay = _skipNextVirtualizeProviderDelay;
         _skipNextVirtualizeProviderDelay = false;
@@ -1549,7 +1557,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _lastRefreshedPaginationState = Pagination;
         // Debounce rapid requests from scrolling, but do not delay the first request after an idle period,
         // an explicit refresh, or a provider result that changed the total item count.
-        if (ShouldDebounceVirtualizeProviderRequest(Stopwatch.GetTimestamp()))
+        if (ShouldDebounceVirtualizeProviderRequest(Stopwatch.GetTimestamp(), request.CancellationToken.IsCancellationRequested))
         {
             await Task.Delay(20, request.CancellationToken)
                 .ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing | ConfigureAwaitOptions.ContinueOnCapturedContext);
