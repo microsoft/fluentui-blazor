@@ -10,6 +10,10 @@
     visibility: hidden;
 }
 
+.fluent-overflow:not(:defined) > [slot="trigger"] {
+    display: none;
+}
+
 .fluent-overflow-more {
     min-width: 32px;
     max-width: 32px;

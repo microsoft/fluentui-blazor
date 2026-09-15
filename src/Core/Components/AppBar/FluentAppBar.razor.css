@@ -3,6 +3,11 @@
   --appbar-item-height-adjustment: 10px;
   background-color: var(--colorNeutralBackground2);
 }
+
+  .fluent-appbar fluent-overflow:not(:defined) > [slot="trigger"] {
+    display: none;
+  }
+
   .fluent-appbar fluent-popover-b .fluent-appbar-popover {
     width: 320px;
     height: 200px;
