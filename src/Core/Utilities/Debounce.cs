@@ -87,9 +87,16 @@ public class Debounce : IDisposable
         _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         cancellationToken = _cancellationTokenSource.Token;
 
+        await Task.Delay(milliseconds, cancellationToken)
+            .ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing | ConfigureAwaitOptions.ContinueOnCapturedContext);
+
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return;
+        }
+
         try
         {
-            await Task.Delay(milliseconds, cancellationToken);
             await action.Invoke(cancellationToken);
             _isCompleted = true;
         }
