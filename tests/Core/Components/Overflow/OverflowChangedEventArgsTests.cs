@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.Json;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Overflow;
@@ -18,8 +19,6 @@ public class OverflowChangedEventArgsTests
         Assert.Null(args.Id);
         Assert.Null(args.Items);
         Assert.Equal(0, args.OverflowCount);
-        Assert.Equal(-1, args.FirstOverflowIndex);
-        Assert.Null(args.OrderedItemIds);
     }
 
     [Fact]
@@ -31,13 +30,10 @@ public class OverflowChangedEventArgsTests
             new()
             {
                 Id = "item-1",
-                Overflow = true,
                 Text = "Item 1",
-                Behavior = OverflowBehavior.Fixed,
                 Index = 3
             }
         ];
-        IReadOnlyList<string> orderedItemIds = ["item-0", "item-1", "item-2"];
 
         // Act
         var args = new OverflowChangedEventArgs
@@ -45,16 +41,33 @@ public class OverflowChangedEventArgsTests
             Id = "overflow-1",
             Items = items,
             OverflowCount = 5,
-            FirstOverflowIndex = 3,
-            OrderedItemIds = orderedItemIds
         };
 
         // Assert
         Assert.Equal("overflow-1", args.Id);
         Assert.Same(items, args.Items);
         Assert.Equal(5, args.OverflowCount);
-        Assert.Equal(3, args.FirstOverflowIndex);
-        Assert.Same(orderedItemIds, args.OrderedItemIds);
+    }
+
+    [Fact]
+    public void OverflowChangedEventArgs_CamelCasePayload_DeserializesHiddenItems()
+    {
+        const string json = """
+            { "id": "overflow", "items": [
+                { "id": "item-1", "text": "Item 1", "index": 2 },
+                { "id": "item-2", "text": "Item 2", "index": 4 }
+              ], "overflowCount": 6 }
+            """;
+
+        var args = JsonSerializer.Deserialize<OverflowChangedEventArgs>(json, new JsonSerializerOptions(JsonSerializerDefaults.Web));
+
+        Assert.NotNull(args);
+        Assert.Equal("overflow", args.Id);
+        Assert.Equal(6, args.OverflowCount);
+        Assert.NotNull(args.Items);
+        Assert.Equal(["item-1", "item-2"], args.Items.Select(item => item.Id));
+        Assert.Equal(["Item 1", "Item 2"], args.Items.Select(item => item.Text));
+        Assert.Equal([2, 4], args.Items.Select(item => item.Index));
     }
 }
 
@@ -68,9 +81,7 @@ public class OverflowChangedItemTests
 
         // Assert
         Assert.Null(item.Id);
-        Assert.False(item.Overflow);
         Assert.Null(item.Text);
-        Assert.Null(item.Behavior);
         Assert.Equal(0, item.Index);
     }
 
@@ -81,17 +92,13 @@ public class OverflowChangedItemTests
         var item = new OverflowChangedItem
         {
             Id = "item-2",
-            Overflow = true,
             Text = "Item 2",
-            Behavior = OverflowBehavior.Ellipsis,
             Index = 4
         };
 
         // Assert
         Assert.Equal("item-2", item.Id);
-        Assert.True(item.Overflow);
         Assert.Equal("Item 2", item.Text);
-        Assert.Equal(OverflowBehavior.Ellipsis, item.Behavior);
         Assert.Equal(4, item.Index);
     }
 }

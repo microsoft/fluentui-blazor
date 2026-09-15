@@ -4,6 +4,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
 @using System.ComponentModel.DataAnnotations
+@using System.Diagnostics
 @using Xunit
 @inherits FluentUITestContext
 
@@ -373,18 +374,9 @@
         builder.AddContent(0, text);
     };
 
-#if NET9_0_OR_GREATER
-    // If this test fails, rebuild the Core project for .NET 9 (`dotnet build src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj -f net9.0`).
-    // The Core library targets .NET 8 by default, while the unit tests target .NET 9.
-#if DEBUG
-    [Fact(Skip = "Only runs in Release builds with the Core library built for .NET 9.")]
-#else
-  #if NET11_0_OR_GREATER
-    [Fact(Skip = "TEMP-BUNIT-NET11-VIRTUALIZE: Re-enable after bUnit supports .NET 11 Virtualize callbacks.")]
-  #else
+// Only in Release mode on .NET 9 or .NET 10
+#if !DEBUG && NET9_0_OR_GREATER && !NET11_0_OR_GREATER
     [Fact]
-  #endif
-#endif
     public void FluentDataGrid_Virtualize_SetsMaxItemCount()
     {
         // Arrange && Act
@@ -635,6 +627,7 @@
         FluentDataGrid<Customer>? grid = default!;
         var items = new List<Customer>(); // empty at first — data not loaded yet
         TaskCompletionSource? providerHold = null;
+        Action? observeRemount = null;
 
         GridItemsProvider<Customer> itemsProvider = async req =>
         {
@@ -652,6 +645,7 @@
             @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
                 <FluentDataGrid @ref="grid" TGridItem="Customer" ItemsProvider="itemsProvider" ItemSize=32 Virtualize="true" DisplayMode="DataGridDisplayMode.Table">
                     <ChildContent>
+                        @{ observeRemount?.Invoke(); }
                         <PropertyColumn Property="@(x => x.Name)" />
                     </ChildContent>
                     <EmptyContent><p>empty content</p></EmptyContent>
@@ -667,6 +661,12 @@
         // Act: data becomes available and the host refreshes the grid
         items.AddRange(GetRandomCustomers(10));
         providerHold = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        bool? skipDelayOnRemount = null;
+        observeRemount = () =>
+        {
+            skipDelayOnRemount = grid!.SkipNextVirtualizeProviderDelay;
+            observeRemount = null;
+        };
         var refreshTask = cut.InvokeAsync(() => grid!.RefreshDataAsync());
 
         // Assert: Virtualize is mounted again to retrieve the new data, but the empty content
@@ -679,6 +679,7 @@
 
         providerHold.SetResult();
         await refreshTask;
+        Assert.True(skipDelayOnRemount);
 
         // The empty content is gone after the provider returns. Queried as a
         // component (not through the spacer markup): the spacer rows only carry aria-hidden on
@@ -792,6 +793,132 @@
             Assert.NotEmpty(cut.FindAll("tr[row-state=empty-content]"));
             Assert.Contains("height: 100%", cut.Find("table").GetAttribute("style"));
         });
+    }
+
+    [Theory]
+    [InlineData(0, true)]
+    [InlineData(99, true)]
+    [InlineData(100, false)]
+    [InlineData(101, false)]
+    public void ShouldDebounceVirtualizeProviderRequest_ElapsedInterval_UsesBurstBoundary(int elapsedMilliseconds, bool expectedDelay)
+    {
+        var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
+        var timestamp = Stopwatch.Frequency;
+        var elapsedTimestampTicks = (long)Math.Ceiling(elapsedMilliseconds * (double)Stopwatch.Frequency / 1000);
+
+        Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.Equal(expectedDelay, grid.ShouldDebounceVirtualizeProviderRequest(timestamp + elapsedTimestampTicks, isRequestCanceled: false));
+    }
+
+    [Fact]
+    public void ShouldDebounceVirtualizeProviderRequest_RepeatedRequests_ExtendsBurst()
+    {
+        var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
+        var timestamp = Stopwatch.Frequency;
+        var interval = 90 * Stopwatch.Frequency / 1000;
+
+        Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + interval, isRequestCanceled: false));
+        Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + 2 * interval, isRequestCanceled: false));
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public async Task ProvideVirtualizedItemsAsync_TotalCountChanges_SkipsNextDelay(bool useItemsProvider, bool useAsyncQueryExecutor)
+    {
+        if (useAsyncQueryExecutor)
+        {
+            Services.AddSingleton<IAsyncQueryExecutor>(new FakeAsyncQueryExecutor());
+        }
+
+        var items = GetCustomers().ToList();
+        GridItemsProvider<Customer> itemsProvider = request => ValueTask.FromResult(
+            GridItemsProviderResult.From<Customer>(items.Skip(request.StartIndex).Take(request.Count ?? items.Count).ToArray(), items.Count));
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             Items="@(useItemsProvider ? null : items.AsQueryable())"
+                             ItemsProvider="@(useItemsProvider ? itemsProvider : null)"
+                             Loading="false">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+        ItemsProviderDelegate<(int, Customer)> provider = cut.Instance.ProvideVirtualizedItemsAsync;
+        var request = new ItemsProviderRequest(0, 1, Xunit.TestContext.Current.CancellationToken);
+        await cut.InvokeAsync(() => provider(request).AsTask());
+
+        items.RemoveAt(0);
+        await cut.InvokeAsync(() => provider(request).AsTask());
+
+        Assert.True(cut.Instance.SkipNextVirtualizeProviderDelay);
+
+        var timestamp = cut.Instance.LastVirtualizeProviderRequestTimestamp;
+        Assert.False(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+    }
+
+    [Fact]
+    public async Task ProvideVirtualizedItemsAsync_CanceledRequest_TracksRequestWithoutCallingProvider()
+    {
+        var calls = 0;
+        GridItemsProvider<Customer> itemsProvider = request =>
+        {
+            calls++;
+            return ValueTask.FromResult(GridItemsProviderResult.From<Customer>(GetCustomers().ToArray(), 3));
+        };
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="itemsProvider" Loading="false">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+        var callsBeforeCancellation = calls;
+        ItemsProviderDelegate<(int, Customer)> provider = cut.Instance.ProvideVirtualizedItemsAsync;
+        await cut.InvokeAsync(() => provider(new ItemsProviderRequest(0, 1, Xunit.TestContext.Current.CancellationToken)).AsTask());
+        callsBeforeCancellation = calls;
+
+        Assert.True(cut.Instance.SkipNextVirtualizeProviderDelay);
+
+        await cut.InvokeAsync(() => provider(new ItemsProviderRequest(0, 1, new CancellationToken(canceled: true))).AsTask());
+
+        Assert.Equal(callsBeforeCancellation, calls);
+        Assert.True(cut.Instance.SkipNextVirtualizeProviderDelay);
+        var timestamp = cut.Instance.LastVirtualizeProviderRequestTimestamp;
+        Assert.NotEqual(0, timestamp);
+        Assert.False(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
+    }
+
+    [Fact]
+    public async Task ProvideVirtualizedItemsAsync_CanceledResult_PreservesAcceptedCount()
+    {
+        TaskCompletionSource<GridItemsProviderResult<Customer>>? providerHold = null;
+        var providerEntered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        GridItemsProvider<Customer> itemsProvider = async request =>
+        {
+            if (providerHold is not null)
+            {
+                providerEntered.TrySetResult();
+                return await providerHold.Task;
+            }
+
+            return GridItemsProviderResult.From<Customer>(GetCustomers().ToArray(), 3);
+        };
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="itemsProvider" Loading="false">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+            </FluentDataGrid>);
+        ItemsProviderDelegate<(int, Customer)> provider = cut.Instance.ProvideVirtualizedItemsAsync;
+        await cut.InvokeAsync(() => provider(new ItemsProviderRequest(0, 1, Xunit.TestContext.Current.CancellationToken)).AsTask());
+        providerHold = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var cancellation = new CancellationTokenSource();
+
+        var pendingRequest = cut.InvokeAsync(() => provider(new ItemsProviderRequest(0, 1, cancellation.Token)).AsTask());
+        await providerEntered.Task.WaitAsync(TimeSpan.FromSeconds(5), Xunit.TestContext.Current.CancellationToken);
+        cancellation.Cancel();
+        providerHold.SetResult(GridItemsProviderResult.From<Customer>(Array.Empty<Customer>(), 100));
+        await pendingRequest;
+
+        Assert.Equal(3, cut.Instance.LastVirtualizeProviderTotalItemCount);
+        Assert.True(cut.Instance.ShouldDebounceVirtualizeProviderRequest(cut.Instance.LastVirtualizeProviderRequestTimestamp, isRequestCanceled: false));
     }
 
     private async Task<GridItemsProviderResult<Customer>> RefreshItemsAsync(GridItemsProviderRequest<Customer> req)
@@ -2909,53 +3036,45 @@
     }
 
     [Fact]
-    public void FluentDataGrid_RenderErrorContent_WhenLastErrorIsNull()
+    public void FluentDataGrid_SuccessfulLoad_DoesNotRenderErrorContent()
     {
-        // Arrange
-        var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
-        var field = typeof(FluentDataGrid<Customer>).GetField("_renderErrorContent", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        Assert.NotNull(field);
-        var fragment = (RenderFragment?)field.GetValue(grid);
-        Assert.NotNull(fragment);
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(customer => customer.Name)" />
+                </ChildContent>
+                <ErrorContent><p id="error-msg">Unexpected error</p></ErrorContent>
+            </FluentDataGrid>);
 
-        var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
-
-        // Act
-        fragment(builder);
-
-        // Assert
-#pragma warning disable BL0006 // Do not use RenderTree types
-        Assert.Equal(0, builder.GetFrames().Count);
-#pragma warning restore BL0006
+        Assert.Empty(cut.FindAll("#error-msg"));
+        Assert.Empty(cut.FindAll($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}']"));
+        Assert.Equal(4, cut.FindAll("tr").Count);
     }
 
     [Fact]
-    public void FluentDataGrid_RenderNonVirtualizedRows_WithError()
+    public async Task FluentDataGrid_RefreshDataAsync_AfterLoadingError_RendersRows()
     {
-        // Arrange
-        var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
+        var shouldFail = true;
+        GridItemsProvider<Customer> provider = request => shouldFail
+            ? throw new InvalidOperationException("Custom Error")
+            : ValueTask.FromResult(GridItemsProviderResult.From<Customer>(GetCustomers().ToArray(), 3));
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" ItemsProvider="provider" Loading="false" HandleLoadingError="@(exception => true)">
+                <ChildContent>
+                    <PropertyColumn Property="@(customer => customer.Name)" />
+                </ChildContent>
+                <ErrorContent><p id="error-msg">@context?.Message</p></ErrorContent>
+            </FluentDataGrid>);
 
-        // Set _lastError via reflection
-        var errorField = typeof(FluentDataGrid<Customer>).GetField("_lastError", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        Assert.NotNull(errorField);
-        errorField.SetValue(grid, new Exception("Custom Error"));
+        Assert.Equal("Custom Error", cut.Find("#error-msg").TextContent);
 
-        // Get _renderNonVirtualizedRows fragment via reflection
-        var fragmentField = typeof(FluentDataGrid<Customer>).GetField("_renderNonVirtualizedRows", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        Assert.NotNull(fragmentField);
-        var fragment = (RenderFragment?)fragmentField.GetValue(grid);
-        Assert.NotNull(fragment);
+        shouldFail = false;
+        await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
-        var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
-
-        // Act
-        fragment(builder);
-
-        // Assert
-#pragma warning disable BL0006 // Do not use RenderTree types
-        var frames = builder.GetFrames();
-        Assert.NotEqual(0, frames.Count);
-#pragma warning restore BL0006
+        Assert.Empty(cut.FindAll("#error-msg"));
+        Assert.Empty(cut.FindAll($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}']"));
+        Assert.Equal(4, cut.FindAll("tr").Count);
+        Assert.Contains("Denis Voituron", cut.Markup);
     }
 
     // Sample enum types for testing

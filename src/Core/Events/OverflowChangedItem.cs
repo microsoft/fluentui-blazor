@@ -15,19 +15,9 @@ public class OverflowChangedItem
     public string? Id { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the item is currently in overflow.
-    /// </summary>
-    public bool Overflow { get; set; }
-
-    /// <summary>
     /// Gets or sets the item text.
     /// </summary>
     public string? Text { get; set; }
-
-    /// <summary>
-    /// Gets or sets the overflow behavior.
-    /// </summary>
-    public OverflowBehavior? Behavior { get; set; }
 
     /// <summary>
     /// Gets or sets the item index.

@@ -1,4 +1,4 @@
-﻿@using Xunit;
+@using Xunit;
 @inherits FluentUITestContext
 
 @code
@@ -161,14 +161,14 @@
         </FluentTabs>);
         var tabs = cut.FindComponent<FluentTabs>().Instance;
         var refreshCount = JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow");
 
         // Act
         await tabs.SelectTabAsync("tab1");
 
         // Assert
         Assert.Equal(refreshCount, JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow"));
     }
 
     [Theory]
@@ -464,7 +464,7 @@
         await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {
             Id = eventId,
-            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+            Items = [new OverflowChangedItem { Id = "tab1" }],
         });
 
         // Assert
@@ -487,11 +487,10 @@
             Id = "MyTabs-tablist",
             Items =
             [
-                new OverflowChangedItem { Id = "tab2", Overflow = true },
-                new OverflowChangedItem { Id = "tab1", Overflow = true },
-                new OverflowChangedItem { Id = "unknown", Overflow = true },
-                new OverflowChangedItem { Id = "", Overflow = true },
-                new OverflowChangedItem { Id = "tab1", Overflow = false },
+                new OverflowChangedItem { Id = "tab2" },
+                new OverflowChangedItem { Id = "tab1" },
+                new OverflowChangedItem { Id = "unknown" },
+                new OverflowChangedItem { Id = "" },
             ],
         });
 
@@ -512,7 +511,7 @@
         var args = new OverflowChangedEventArgs
         {
             Id = "MyTabs-tablist",
-            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+            Items = [new OverflowChangedItem { Id = "tab1" }],
         };
         await tabList.TriggerEventAsync("onoverflowchange", args);
         var overflowTabs = cut.FindComponent<FluentTabs>().Instance.OverflowTabs;
@@ -535,7 +534,7 @@
         await tabList.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {
             Id = "MyTabs-tablist",
-            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+            Items = [new OverflowChangedItem { Id = "tab1" }],
         });
 
         // Act
@@ -563,7 +562,7 @@
         await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {
             Id = "MyTabs-tablist",
-            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+            Items = [new OverflowChangedItem { Id = "tab1" }],
         });
 
         // Assert
@@ -587,10 +586,10 @@
         await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {
             Id = "MyTabs-tablist",
-            Items = [new OverflowChangedItem { Id = "tab2", Overflow = true }],
+            Items = [new OverflowChangedItem { Id = "tab2" }],
         });
         var refreshCount = JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow");
         var menuItem = cut.Find("fluent-menu-item");
 
         // Act
@@ -600,7 +599,7 @@
         Assert.Equal("tab2", activeTabId);
         Assert.Equal("tab2", activeTab?.Id);
         Assert.Equal(refreshCount + 1, JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow"));
     }
 
     [Fact]
@@ -611,14 +610,14 @@
             <FluentTab Id="tab1" Header="Chat" />
         </FluentTabs>);
         var refreshCount = JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow");
 
         // Act
         await cut.FindComponent<FluentTabs>().Instance.RefreshOverflowAsync();
 
         // Assert
         Assert.Equal(refreshCount + 1, JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow"));
     }
 
     [Fact]
@@ -636,7 +635,7 @@
         tabs.Render(parameters => parameters.Add(component => component.Overflow, true));
 
         // Assert
-        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow");
     }
 
     [Fact]
@@ -647,14 +646,14 @@
             <FluentTab Id="tab1" Header="Chat" />
         </FluentTabs>);
         var refreshCount = JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh");
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow");
 
         // Act
         await cut.FindComponent<FluentTabs>().Instance.RefreshOverflowAsync();
 
         // Assert
         Assert.Equal(refreshCount, JSInterop.Invocations.Count(invocation =>
-            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Overflow.Refresh"));
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow"));
     }
 
     [Fact]
@@ -667,7 +666,7 @@
         await cut.Find("fluent-tablist").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {
             Id = "MyTabs-tablist",
-            Items = [new OverflowChangedItem { Id = "tab1", Overflow = true }],
+            Items = [new OverflowChangedItem { Id = "tab1" }],
         });
         var tabs = cut.FindComponent<FluentTabs>();
 
@@ -676,7 +675,7 @@
 
         // Assert
         Assert.Empty(tabs.Instance.OverflowTabs);
-        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose");
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.DisposeOverflow");
         JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.ObserveTabsChanged", 2);
     }
 
@@ -693,7 +692,7 @@
         await tabs.DisposeAsync();
 
         // Assert
-        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overflow.Dispose");
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.DisposeOverflow");
         JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Tabs.Dispose");
     }
 
