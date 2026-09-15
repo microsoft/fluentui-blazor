@@ -4,6 +4,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Localization
 @using System.ComponentModel.DataAnnotations
+@using System.Diagnostics
 @using Xunit
 @inherits FluentUITestContext
 
@@ -811,18 +812,19 @@
     public void ShouldDebounceVirtualizeProviderRequest_ElapsedInterval_UsesBurstBoundary(int elapsedMilliseconds, bool expectedDelay)
     {
         var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
-        var timestamp = System.Diagnostics.Stopwatch.Frequency;
+        var timestamp = Stopwatch.Frequency;
+        var elapsedTimestampTicks = (long)Math.Ceiling(elapsedMilliseconds * (double)Stopwatch.Frequency / 1000);
 
         Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
-        Assert.Equal(expectedDelay, grid.ShouldDebounceVirtualizeProviderRequest(timestamp + elapsedMilliseconds * System.Diagnostics.Stopwatch.Frequency / 1000, isRequestCanceled: false));
+        Assert.Equal(expectedDelay, grid.ShouldDebounceVirtualizeProviderRequest(timestamp + elapsedTimestampTicks, isRequestCanceled: false));
     }
 
     [Fact]
     public void ShouldDebounceVirtualizeProviderRequest_RepeatedRequests_ExtendsBurst()
     {
         var grid = new FluentDataGrid<Customer>(new LibraryConfiguration());
-        var timestamp = System.Diagnostics.Stopwatch.Frequency;
-        var interval = 90 * System.Diagnostics.Stopwatch.Frequency / 1000;
+        var timestamp = Stopwatch.Frequency;
+        var interval = 90 * Stopwatch.Frequency / 1000;
 
         Assert.False(grid.ShouldDebounceVirtualizeProviderRequest(timestamp, isRequestCanceled: false));
         Assert.True(grid.ShouldDebounceVirtualizeProviderRequest(timestamp + interval, isRequestCanceled: false));
