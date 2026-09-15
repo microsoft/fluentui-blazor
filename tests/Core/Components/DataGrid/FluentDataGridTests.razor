@@ -123,6 +123,183 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_ColumnInteractions_UnchangedRender_DoesNotReinitialize()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var items = GetCustomers().AsQueryable();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@items" ResizableColumns="true" ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(customer => customer.Name)" />
+                <PropertyColumn ColumnId="created" Property="@(customer => customer.CreatedDate)" />
+            </FluentDataGrid>);
+        var resizeCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count;
+        var reorderCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count;
+        Assert.True(resizeCalls > 0);
+        Assert.True(reorderCalls > 0);
+
+        cut.Render();
+        await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+        Assert.Equal(resizeCalls, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnInteractions_Disposed_StopsControllerOnce()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var controller = module.SetupModule("Microsoft.FluentUI.Blazor.DataGrid.Initialize", invocation => true);
+        controller.Mode = JSRuntimeMode.Loose;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" ResizableColumns="true" ReorderableColumns="true">
+                <PropertyColumn Property="@(customer => customer.Name)" />
+                <PropertyColumn Property="@(customer => customer.CreatedDate)" />
+            </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+
+        controller.VerifyInvoke("stop", 1);
+    }
+
+    [Theory]
+    [InlineData("header")]
+    [InlineData("display")]
+    [InlineData("allRows")]
+    [InlineData("rowSize")]
+    [InlineData("template")]
+    public void FluentDataGrid_ColumnInteractions_OptionsChanged_Reinitializes(string option)
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var items = GetCustomers().AsQueryable();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@items" ResizableColumns="true" ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(customer => customer.Name)" />
+                <PropertyColumn ColumnId="created" Property="@(customer => customer.CreatedDate)" />
+            </FluentDataGrid>);
+        var resizeCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count;
+        var reorderCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count;
+
+        cut.Render(parameters =>
+        {
+            switch (option)
+            {
+                case "header": parameters.Add(grid => grid.GenerateHeader, DataGridGeneratedHeaderType.None); break;
+                case "display": parameters.Add(grid => grid.DisplayMode, DataGridDisplayMode.Table); break;
+                case "allRows": parameters.Add(grid => grid.ResizeColumnOnAllRows, false); break;
+                case "rowSize": parameters.Add(grid => grid.RowSize, DataGridRowSize.Medium); break;
+                case "template": parameters.Add(grid => grid.GridTemplateColumns, "150px 200px"); break;
+            }
+        });
+
+        Assert.Equal(resizeCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+        cut.Render();
+        Assert.Equal(resizeCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+    }
+
+    [Theory]
+    [InlineData("add")]
+    [InlineData("remove")]
+    [InlineData("replace")]
+    [InlineData("key")]
+    [InlineData("width")]
+    [InlineData("pin")]
+    public void FluentDataGrid_ColumnInteractions_ColumnsChanged_Reinitializes(string change)
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var items = GetCustomers().AsQueryable();
+        var showCreated = true;
+        var showId = false;
+        var columnKey = "name";
+        var columnVersion = 0;
+        var width = "150px";
+        var pin = DataGridColumnPin.None;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@items" ResizableColumns="true" ReorderableColumns="true" DisplayMode="DataGridDisplayMode.Table">
+                <PropertyColumn @key="columnVersion" ColumnId="@columnKey" Width="@width" Pin="@pin" Property="@(customer => customer.Name)" />
+                @if (showCreated)
+                {
+                    <PropertyColumn ColumnId="created" Property="@(customer => customer.CreatedDate)" />
+                }
+                @if (showId)
+                {
+                    <PropertyColumn ColumnId="id" Property="@(customer => customer.Id)" />
+                }
+            </FluentDataGrid>);
+        var resizeCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count;
+        var reorderCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count;
+
+        switch (change)
+        {
+            case "add": showId = true; break;
+            case "remove": showCreated = false; break;
+            case "replace": columnVersion++; break;
+            case "key": columnKey = "renamed"; break;
+            case "width": width = "200px"; break;
+            case "pin": pin = DataGridColumnPin.Start; break;
+        }
+        cut.Render();
+
+        Assert.Equal(resizeCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_ColumnInteractions_OrderChanged_ReinitializesOnce()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var items = GetCustomers().AsQueryable();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@items" ResizableColumns="true" ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(customer => customer.Name)" />
+                <PropertyColumn ColumnId="created" Property="@(customer => customer.CreatedDate)" />
+            </FluentDataGrid>);
+        var resizeCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count;
+        var reorderCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count;
+
+        await cut.InvokeAsync(() => cut.Instance.SetColumnOrderAsync(["created", "name"]));
+        await cut.InvokeAsync(() => cut.Instance.SetColumnOrderAsync(["created", "name"]));
+
+        Assert.Equal(resizeCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+    }
+
+    [Fact]
+    public void FluentDataGrid_ColumnInteractions_DisabledAndEnabled_CleansUpAndReinitializes()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var items = GetCustomers().AsQueryable();
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@items" ResizableColumns="true" ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(customer => customer.Name)" />
+                <PropertyColumn ColumnId="created" Property="@(customer => customer.CreatedDate)" />
+            </FluentDataGrid>);
+        var resizeCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count;
+        var reorderCalls = module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count;
+
+        cut.Render(parameters => parameters.Add(grid => grid.ResizableColumns, false).Add(grid => grid.ReorderableColumns, false));
+        cut.Render();
+
+        module.VerifyInvoke("Microsoft.FluentUI.Blazor.DataGrid.DisableColumnResizing", 1);
+        module.VerifyInvoke("Microsoft.FluentUI.Blazor.DataGrid.DisableColumnReordering", 1);
+        Assert.Equal(resizeCalls, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+
+        cut.Render(parameters => parameters.Add(grid => grid.ResizableColumns, true).Add(grid => grid.ReorderableColumns, true));
+
+        Assert.Equal(resizeCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing"].Count);
+        Assert.Equal(reorderCalls + 1, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering"].Count);
+    }
+
+    [Fact]
     public async Task FluentDataGrid_SetColumnOrderAsync_ReorderableColumns_False_DoesNotInvokeEnableColumnReordering()
     {
         // Arrange
