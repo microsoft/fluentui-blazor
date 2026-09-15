@@ -291,8 +291,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       const pinnedItemId = pinnedItemIdAttribute
         ? this.options.host.getAttribute(pinnedItemIdAttribute)
         : null;
-      const ellipsisItems = items.filter((item) => item.getAttribute('behavior') === 'ellipsis');
-
       // Determine which items can be hidden to make room for overflow.
       const overflowableItems = items.filter((item) => {
         const behavior = item.getAttribute('behavior');
@@ -305,13 +303,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       const naturalSize = layoutChildren.reduce((total, item) => total + (sizes.get(item) ?? 0), 0)
         + gap * Math.max(0, layoutChildren.length - 1);
 
-      const shrinkableSize = vertical
-        ? 0
-        : ellipsisItems.reduce((total, item) => total + (sizes.get(item) ?? 0), 0);
-
       const hiddenItems = new Set<HTMLElement>();
-      
-      let visibleSize = naturalSize - shrinkableSize;
+
+      let visibleSize = naturalSize;
 
       // If the visible size exceeds the available size, determine which items to hide.
       if (visibleSize > availableSize || (this.options.preOverflowCount ?? 0) > 0) {

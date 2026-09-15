@@ -39,6 +39,22 @@
     <MoreTemplate Context="overflow"><span id="custom-count">+@overflow.OverflowCount</span></MoreTemplate>
 </FluentOverflow>
 
+<FluentOverflow TItem="string" Id="priority-overflow"
+                Style="width: 330px; --fluent-overflow-gap: 0px;"
+                Selector=".priority-item">
+    <ChildContent>
+        <span class="priority-item priority-ellipsis" behavior="ellipsis" style="inline-size: 80px;">Aspire item</span>
+        <span class="priority-item priority-ellipsis" behavior="ellipsis" style="inline-size: 80px;">Blazor item</span>
+        <span class="priority-item" behavior="fixed" style="inline-size: 40px;">Fixed</span>
+        @for (var index = 0; index < 3; index++)
+        {
+            <FluentBadge Class="priority-item priority-badge"
+                         Style="inline-size: 60px;"
+                         Content="@($"Badge {index + 1}")" />
+        }
+    </ChildContent>
+</FluentOverflow>
+
 <button data-testid="resize-bounded" @onclick="@(() => _boundedNarrow = !_boundedNarrow)">Resize bounded overflow</button>
 <FluentOverflow TItem="int" Id="bounded-overflow" Items="@(Enumerable.Range(0, 100))" MaxRenderedItems="10"
                 OnMoreClick="@(() => _boundedOpened = !_boundedOpened)"

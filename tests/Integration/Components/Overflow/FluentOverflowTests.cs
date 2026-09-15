@@ -144,6 +144,30 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
         await Assertions.Expect(page.Locator("fluent-tooltip[anchor='behavior-overflow-more']")).ToContainTextAsync("Item 5");
     }
 
+    [Fact]
+    public async Task FluentOverflow_EllipsisBehavior_OverflowsRegularItemsBeforeShrinking()
+    {
+        var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);
+        var host = page.Locator("#priority-overflow");
+        var ellipsisItems = host.Locator(".priority-ellipsis");
+
+        await Assertions.Expect(host.Locator(".priority-badge[hidden]")).ToHaveCountAsync(2);
+        var initialWidths = await ellipsisItems.EvaluateAllAsync<double[]>(
+            "items => items.map(item => item.getBoundingClientRect().width)");
+        Assert.All(initialWidths, width => Assert.InRange(width, 79, 81));
+
+        await host.Locator("[slot='trigger']").HoverAsync();
+        var tooltip = page.Locator("fluent-tooltip[anchor='priority-overflow-more']");
+        await Assertions.Expect(tooltip).ToContainTextAsync("Badge 2");
+        await Assertions.Expect(tooltip).ToContainTextAsync("Badge 3");
+
+        await host.EvaluateAsync("element => element.style.width = '170px'");
+        await Assertions.Expect(host.Locator(".priority-badge[hidden]")).ToHaveCountAsync(3);
+        var narrowedWidths = await ellipsisItems.EvaluateAllAsync<double[]>(
+            "items => items.map(item => item.getBoundingClientRect().width)");
+        Assert.All(narrowedWidths, width => Assert.True(width < 79));
+    }
+
     [Theory]
     [InlineData(1280, 800)]
     [InlineData(390, 844)]
