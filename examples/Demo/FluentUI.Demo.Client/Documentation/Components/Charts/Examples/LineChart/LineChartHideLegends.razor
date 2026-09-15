@@ -1,29 +1,23 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
-    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="line-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
-    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="line-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
-</FluentStack>
-
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
 <FluentLineChart ChartTitle="Line Chart Basic Example"
                  ChartData="@chartData"
-                 Width=@($"{_width}px")
-                 Height=@($"{_height}px")
+                 Width="700"
+                 Height="300"
                  XAxisTitle="Values of each category"
                  YAxisTitle="Different categories of mail flow"
                  YAxisTickLabelMaxWidth="32"
                  YMinValue="200"
                  YMaxValue="301"
                  LineStrokeWidth="4"
-                 LineBorderWidth="2">
+                 LineBorderWidth="2"
+                 HideLegends="@_hideLegends">
 </FluentLineChart>
 
 @code {
-    private int _width = 700;
     private bool _hideLegends = true;
-    private int _height = 300;
 
     private readonly IReadOnlyList<LineChartSeries> chartData =
     [

@@ -936,7 +936,7 @@ export abstract class ChartBase extends FASTElement {
     this._renderDirty = false;
   }
 
-  // ── Host dimension helpers (used by both bar charts) ─────────────
+  // ── Dimension helpers ────────────────────────────────────────────
 
   protected _applyHostDimensions(width: number | string | undefined, height: number | string | undefined): void {
     if (width === undefined || width === null || width === '') {
@@ -957,6 +957,18 @@ export abstract class ChartBase extends FASTElement {
   }
 
   /**
+   * Resolves a drawing-surface dimension. Explicit dimensions size the host,
+   * while its chart container supplies the SVG's remaining layout area.
+   */
+  protected _resolveChartDimension(measuredDimension: number | undefined, fallback: number): number {
+    if (measuredDimension !== undefined && Number.isFinite(measuredDimension) && measuredDimension > 0) {
+      return measuredDimension;
+    }
+
+    return fallback;
+  }
+
+  /**
    * Resolves the plot width in pixels.
    *
    * An explicit `width` sizes the whole host, so when the legend is rendered beside the chart
@@ -971,7 +983,10 @@ export abstract class ChartBase extends FASTElement {
     fallback: number,
     availableWidth: number | undefined = measuredWidth,
   ): number {
-    const resolved = resolvePixelDimension(this.width, measuredWidth, fallback);
+    const resolved = this._resolveChartDimension(
+      measuredWidth,
+      resolvePixelDimension(this.width, measuredWidth, fallback),
+    );
     const hasSideLegend = this.legendPosition === 'start' || this.legendPosition === 'end';
 
     if (hasSideLegend && availableWidth !== undefined && Number.isFinite(availableWidth) && availableWidth > 0) {
@@ -982,18 +997,18 @@ export abstract class ChartBase extends FASTElement {
   }
 
   /**
-   * Returns a safe SVG width/height attribute value when host dimensions are also applied in CSS.
-   * Percentages are normalized to `100%` to avoid percentage-of-percentage double scaling.
+   * Returns a safe SVG width/height attribute value. When a dimension is supplied, the host owns that
+   * dimension and the SVG fills its chart container; otherwise the SVG uses its component default.
    */
   public _toSvgLength(value: number | string | undefined, fallback: number | string): number | string {
     if (value === undefined || value === null || value === '') {
       return fallback;
     }
 
-    if (typeof value === 'string' && value.trim().endsWith('%')) {
+    if (value !== undefined && value !== null && value !== '') {
       return '100%';
     }
 
-    return value;
+    return fallback;
   }
 }

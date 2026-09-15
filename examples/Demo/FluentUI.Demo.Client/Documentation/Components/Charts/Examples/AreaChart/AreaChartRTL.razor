@@ -1,9 +1,11 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentAreaChart ChartData="data"
-                 ChartTitle="Area chart hide labels example"
-                 Width="700px"
-                 HideLabels="true" />
+<div dir="rtl">
+    <FluentAreaChart ChartData="data"
+                     ChartTitle="Area chart basic example RTL"
+                     Width="700"
+                     Height="312" />
+</div>
 
 @code {
     private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>

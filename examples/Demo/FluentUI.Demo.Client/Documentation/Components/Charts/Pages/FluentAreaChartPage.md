@@ -94,10 +94,6 @@ The chart axes support 2 ways of localization.
 
 {{ AreaChartAxisTitles }}
 
-### Hide Labels
-
-{{ AreaChartHideLabels }}
-
 ### Hide Legends
 
 {{ AreaChartHideLegends }}
@@ -132,11 +128,7 @@ The chart axes support 2 ways of localization.
 
 ### RTL
 
-{{ AreaChartDefaultRTL }}
-
-### Legend List Label
-
-{{ AreaChartLegendListLabel }}
+{{ AreaChartRTL }}
 
 ## API Fluent Area Chart
 

@@ -1,4 +1,5 @@
 import { css } from '@microsoft/fast-element';
+import { chartTitleStyles } from '../utils/chart-title.styles.js';
 import {
   borderRadiusMedium,
   colorNeutralBackground1,
@@ -36,13 +37,7 @@ export const styles = css`
     position: relative;
   }
 
-  .chart-title {
-    grid-area: title;
-    margin-bottom: ${spacingVerticalS};
-    ${typographyBody1StrongStyles}
-    color: ${colorNeutralForeground1};
-    text-align: start;
-  }
+  ${chartTitleStyles}
 
   .chart-container {
     grid-area: chart;
@@ -60,10 +55,6 @@ export const styles = css`
       'title';
   }
 
-  :host([title-position='bottom']) .chart-title {
-    margin-bottom: 0;
-    margin-top: ${spacingVerticalS};
-  }
 
   :host([legend-position='top']) {
     grid-template-areas:
@@ -112,13 +103,7 @@ export const styles = css`
     grid-template-columns: 1fr auto;
   }
 
-  :host([title-align='center']) .chart-title {
-    text-align: center;
-  }
 
-  :host([title-align='end']) .chart-title {
-    text-align: end;
-  }
 
   .chart {
     display: block;

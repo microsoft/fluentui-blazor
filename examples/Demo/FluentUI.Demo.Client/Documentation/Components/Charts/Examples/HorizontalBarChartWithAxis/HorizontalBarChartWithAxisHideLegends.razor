@@ -1,9 +1,13 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentHorizontalBarChartWithAxis ChartTitle="Revenue by category (legends hidden)" HideLegends="true" ChartData="@ChartData" Width="650px">
+<FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
+
+<FluentHorizontalBarChartWithAxis ChartTitle="Revenue by category (legends hidden)" HideLegends="@_hideLegends" ChartData="@ChartData" Width="650">
 </FluentHorizontalBarChartWithAxis>
 
 @code {
+    private bool _hideLegends = true;
+
     private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
     [
         new HorizontalBarChartWithAxisDataPoint { Y = "String One",   X = 1000,  Legend = "Oranges", Color = DataVizPalette.Color1, XAxisCalloutData = "1K",  YAxisCalloutData = "String One"   },

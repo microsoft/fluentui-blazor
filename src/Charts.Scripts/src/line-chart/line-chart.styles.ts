@@ -19,6 +19,7 @@ import {
   typographySubtitle2StrongerStyles,
 } from '@fluentui/web-components';
 import { axisGridLineStyles } from '../utils/cartesian-grid.styles.js';
+import { chartTitleStyles } from '../utils/chart-title.styles.js';
 import { tooltipBaseStyles } from '../utils/tooltip.styles.js';
 
 export const styles: ElementStyles = css`
@@ -36,12 +37,7 @@ export const styles: ElementStyles = css`
     width: 100%;
   }
 
-  .chart-title {
-    grid-area: title;
-    margin-bottom: 8px;
-    ${typographyBody1StrongStyles}
-    text-align: start;
-  }
+  ${chartTitleStyles}
 
   .chart-container {
     grid-area: chart;
@@ -57,11 +53,6 @@ export const styles: ElementStyles = css`
       'chart'
       'legend'
       'title';
-  }
-
-  :host([title-position='bottom']) .chart-title {
-    margin-bottom: 0;
-    margin-top: 8px;
   }
 
   :host([legend-position='top']) {
@@ -110,14 +101,6 @@ export const styles: ElementStyles = css`
       'chart  legend'
       'title  title';
     grid-template-columns: 1fr auto;
-  }
-
-  :host([title-align='center']) .chart-title {
-    text-align: center;
-  }
-
-  :host([title-align='end']) .chart-title {
-    text-align: end;
   }
 
   .chart-svg {

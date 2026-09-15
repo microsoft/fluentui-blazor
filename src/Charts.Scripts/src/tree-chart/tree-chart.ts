@@ -6,7 +6,6 @@ import {
   getNextColor,
   jsonConverter,
   parseNumber as toNumber,
-  resolvePixelDimension,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type { TreeChartDataPoint } from './tree-chart.options.js';
@@ -76,7 +75,7 @@ export class TreeChart extends ChartBase {
     }
 
     const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 600);
-    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
+    const height = this._resolveChartDimension(this.chartContainer.getBoundingClientRect().height, 300);
     const nodeWidth = toNumber(this.nodeWidth, 96);
     const nodeHeight = toNumber(this.nodeHeight, 42);
     const margins = { top: nodeHeight, right: nodeWidth / 2, bottom: nodeHeight, left: nodeWidth / 2 };

@@ -1,13 +1,28 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
-@using System.Globalization
+﻿@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
 
 <FluentDonutChart ChartData="@data"
-                  ChartTitle="Donut chart culture example (de-DE)"
+                  ChartTitle="@($"Donut chart culture example ({_selectedCulture})")"
                   ValueInsideDonut="39.000"
                   InnerRadius="55"
-                  Culture="@(new CultureInfo("de-DE"))" />
+                  Culture="@SelectedCulture" />
 
 @code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+
     private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
     {
         new DonutDataPoint { Legend = "first",  Data = 20000 },

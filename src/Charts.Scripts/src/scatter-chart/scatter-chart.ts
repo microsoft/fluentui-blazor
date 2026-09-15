@@ -15,7 +15,6 @@ import {
   renderBottomAxisShared,
   renderBandYAxisShared,
   renderPrimaryYAxisShared,
-  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -238,7 +237,7 @@ export class ScatterChart extends CartesianChartBase {
     const isStringAxis = !isDateAxis && xValues.some(value => typeof value === 'string');
 
     const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 500);
-    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
+    const height = this._resolveChartDimension(this.chartContainer.getBoundingClientRect().height, 300);
     const yValues = normalizedSeries
       .flatMap(series => series.data.map(point => point.y))
       .filter((value): value is YValue => typeof value === 'number' || typeof value === 'string');

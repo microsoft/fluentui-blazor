@@ -8,7 +8,6 @@ import {
   getColorFromToken,
   getNextColor,
   jsonConverter,
-  resolvePixelDimension,
   SVG_NAMESPACE_URI,
   validateDonutDataArray,
   wrapText,
@@ -199,8 +198,8 @@ export class DonutChart extends ChartBase {
     const totalValue = chartData.reduce((sum, point) => sum + (point.data ?? 0), 0);
     const svgEl = this.group.ownerSVGElement!;
     const svgRect = svgEl.getBoundingClientRect();
-    const pixelWidth = resolvePixelDimension(this.width, svgRect.width, 200);
-    const pixelHeight = resolvePixelDimension(this.height, svgRect.height, 200);
+    const pixelWidth = this._resolveChartDimension(svgRect.width, 200);
+    const pixelHeight = this._resolveChartDimension(svgRect.height, 200);
     this.group.setAttribute('transform', `translate(${pixelWidth / 2}, ${pixelHeight / 2})`);
     const outerRadius = Math.max(0, (Math.min(pixelHeight, pixelWidth) - 20) / 2);
     const cornerRadius = this.roundCorners ? 3 : 0;

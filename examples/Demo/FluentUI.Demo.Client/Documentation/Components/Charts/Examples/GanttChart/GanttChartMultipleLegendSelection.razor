@@ -1,11 +1,11 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_allowMultipleLegendSelection" Label="Allow multiple legend selection" />
 
 <FluentGanttChart ChartTitle="Gantt Chart"
                   ChartData="@chartData"
-                  Width="600px"
-                  Height="350px"
+                  Width="600"
+                  Height="350"
                   AllowMultipleLegendSelection="@_allowMultipleLegendSelection"
                   ShowYAxisLabels="true">
 </FluentGanttChart>

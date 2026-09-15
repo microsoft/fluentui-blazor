@@ -1,23 +1,17 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
-    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="funnel-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
-    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="funnel-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
-</FluentStack>
-
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
 <FluentFunnelChart ChartTitle="Basic Funnel Chart"
                    ChartData="@chartData"
-                   Width=@($"{_width}px")
-                   Height=@($"{_height}px")
-                   Orientation="Orientation.Horizontal">
+                   Width="600"
+                   Height="500"
+                   Orientation="Orientation.Horizontal"
+                   HideLegends="@_hideLegends">
 </FluentFunnelChart>
 
 @code {
-    private int _width = 600;
     private bool _hideLegends = true;
-    private int _height = 500;
 
     private readonly IReadOnlyList<FunnelDataPoint> chartData =
     [

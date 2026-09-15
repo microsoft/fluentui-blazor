@@ -80,7 +80,9 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public bool HideLabels { get; set; }
 
     /// <summary>
-    /// Gets or sets the label displayed for the legend list.
+    /// Gets or sets the label displayed for the legend list. The legend renders it as the listbox aria-label,
+    /// falling back to "Chart legend" when unset. It is accessibility-only; it does not display visible text or alter
+    /// legend layout.
     /// </summary>
     [Parameter]
     public string? LegendListLabel { get; set; }

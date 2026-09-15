@@ -1,22 +1,16 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
-    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="grouped-vertical-bar-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
-    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="grouped-vertical-bar-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
-</FluentStack>
-
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
 <FluentGroupedVerticalBarChart ChartTitle="Grouped Vertical Bar chart basic example"
                                ChartData="@chartData"
-                               Width=@($"{_width}px")
-                               Height=@($"{_height}px")>
+                               Width="650"
+                               Height="350"
+                               HideLegends="@_hideLegends">
 </FluentGroupedVerticalBarChart>
 
 @code {
-    private int _width = 650;
     private bool _hideLegends = true;
-    private int _height = 350;
 
     private readonly IReadOnlyList<GroupedVerticalBarChartData> chartData =
     [

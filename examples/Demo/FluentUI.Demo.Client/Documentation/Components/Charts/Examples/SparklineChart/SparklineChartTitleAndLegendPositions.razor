@@ -13,8 +13,8 @@
 <div>
     A sparkline
     <FluentSparklineChart ChartData="@sparklineExamples[0]"
-                          Width="80px"
-                          Height="20px"
+                          Width="80"
+                          Height="20"
                           ShowLegend="true"
                           Style="display: inline-block;"
                  TitlePosition="@_titlePosition"
@@ -22,8 +22,8 @@
     </FluentSparklineChart>
     - is a very small line chart, drawn without axes or coordinates. It presents the general shape of the variation (like over time) in some measurement,
     <FluentSparklineChart ChartData="@sparklineExamples[1]"
-                          Width="80px"
-                          Height="20px"
+                          Width="80"
+                          Height="20"
                           Style="display: inline-block;">
     </FluentSparklineChart>
     - such as temperature or stock market price, in a simple and highly condensed way.
@@ -42,8 +42,8 @@
                 <td style="padding-block:5px;padding-inline-end:15px;">Row @(index + 1)</td>
                 <td>
                     <FluentSparklineChart ChartData="@sparklineExamples[index]"
-                                          Width="80px"
-                                          Height="20px"
+                                          Width="80"
+                                          Height="20"
                                           ShowLegend="@(index < 2 || index > 4)">
                     </FluentSparklineChart>
                 </td>

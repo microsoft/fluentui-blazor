@@ -31,7 +31,7 @@ export const styles: ElementStyles = css`
     overflow-y: visible;
     position: relative;
     box-sizing: border-box;
-    padding-top: ${spacingVerticalL};
+
     padding-inline-start: ${spacingHorizontalS};
     width: 100%;
     align-items: center;

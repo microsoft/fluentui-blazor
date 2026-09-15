@@ -1,10 +1,10 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_allowMultipleLegendSelection" Label="Allow multiple legend selection" />
 
 <FluentSparklineChart ChartData="@sparklineData"
-                      Width="700px"
-                      Height="250px"
+                      Width="700"
+                      Height="250"
                       AllowMultipleLegendSelection="@_allowMultipleLegendSelection"
                       ShowLegend="true"
                       Style="display: block;">

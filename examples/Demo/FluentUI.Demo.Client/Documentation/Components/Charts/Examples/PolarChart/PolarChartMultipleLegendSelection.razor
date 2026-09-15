@@ -1,4 +1,4 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_allowMultipleLegendSelection" Label="Allow multiple legend selection" />
 
@@ -6,8 +6,8 @@
                   ChartData="@chartData"
                   Shape="PolarChartShape.Polygon"
                   Direction="PolarChartDirection.Clockwise"
-                  Width="500px"
-                  Height="500px"
+                  Width="500"
+                  Height="500"
                   AllowMultipleLegendSelection="@_allowMultipleLegendSelection">
 </FluentPolarChart>
 

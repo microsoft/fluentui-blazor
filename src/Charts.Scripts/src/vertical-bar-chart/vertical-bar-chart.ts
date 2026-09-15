@@ -25,7 +25,6 @@ import {
   renderBottomAxisShared,
   renderPrimaryYAxisShared,
   renderSecondaryYAxisShared,
-  resolvePixelDimension,
   sortCategoryGroups,
   toAxisNumber as toNumber,
   toOptionalAxisNumber as toOptionalNumber,
@@ -234,7 +233,7 @@ export class VerticalBarChart extends VerticalBarChartBase {
 
     const hasSecondaryY = points.some(point => point.lineData?.useSecondaryYScale);
     const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 500);
-    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
+    const height = this._resolveChartDimension(this.chartContainer.getBoundingClientRect().height, 300);
     const { svg, plotGroup, margins, innerWidth, innerHeight } = this._createCartesianRenderContext({
       width,
       height,

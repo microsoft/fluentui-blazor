@@ -51,4 +51,11 @@ corresponding chart elements by using the space bar/enter key when focused. Pres
 The charts use the Fluent UI DataViz color palette by default, but you can customize the colors of the chart segments by providing your own color palette.
 You can also specify a custom color for each segment in the data points.
 
+{{ DataVizPaletteColorsTable }}
+
+## Rendering
+
+Normally, each chart shows a title and a legend. With the default styling applied, these take up 52 pixels of height (20 for the title and 32 for the legend). The chart area is then sized to fill the remaining height of the chart container.
+Take these heights into account if you want the chart itself to be a specific height. For example, if you want the actual generated AreaChart image to be 260 pixels high, you should set the Height parameter to 312 pixels (260 + 52).
+
 {{ API Type=DataVizPalette Properties=all }}

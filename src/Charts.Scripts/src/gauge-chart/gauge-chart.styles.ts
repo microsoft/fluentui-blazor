@@ -23,6 +23,7 @@ import {
   typographyCaption1Styles,
   typographyTitle3Styles,
 } from '@fluentui/web-components';
+import { chartTitleStyles } from '../utils/chart-title.styles.js';
 
 /**
  * Styles for the GaugeChart component.
@@ -48,13 +49,7 @@ export const styles = css`
 
   /* ── Title and legend layout (CSS Grid named areas) ─────────── */
 
-  .chart-title {
-    grid-area: title;
-    margin-bottom: ${spacingVerticalS};
-    ${typographyBody1StrongStyles}
-    color: ${colorNeutralForeground1};
-    text-align: start;
-  }
+  ${chartTitleStyles}
 
   .chart-container {
     grid-area: chart;
@@ -70,11 +65,6 @@ export const styles = css`
       'chart'
       'legend'
       'title';
-  }
-
-  :host([title-position='bottom']) .chart-title {
-    margin-bottom: 0;
-    margin-top: ${spacingVerticalS};
   }
 
   /* legend-position="top" */
@@ -129,14 +119,6 @@ export const styles = css`
       'chart  legend .    '
       'title  title  title';
     grid-template-columns: auto auto 1fr;
-  }
-
-  :host([title-align='center']) .chart-title {
-    text-align: center;
-  }
-
-  :host([title-align='end']) .chart-title {
-    text-align: end;
   }
 
   /* ── SVG chart ───────────────────────────────────────────────── */

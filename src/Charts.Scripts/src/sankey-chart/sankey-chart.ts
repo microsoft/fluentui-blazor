@@ -7,7 +7,6 @@ import {
   getNextColor,
   jsonConverter,
   parseNumber as toNumber,
-  resolvePixelDimension,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type { SankeyChartData, SankeyChartLink, SankeyChartNode } from './sankey-chart.options.js';
@@ -157,7 +156,7 @@ export class SankeyChart extends ChartBase {
     }
 
     const width = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 700);
-    const height = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 300);
+    const height = this._resolveChartDimension(this.chartContainer.getBoundingClientRect().height, 300);
     const margins = { top: 16, right: 48, bottom: 32, left: 48 };
     const innerWidth = Math.max(width - margins.left - margins.right, 1);
     const innerHeight = Math.max(height - margins.top - margins.bottom, 1);

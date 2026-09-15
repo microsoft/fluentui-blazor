@@ -6,7 +6,6 @@ import {
   getColorFromToken,
   jsonConverter,
   parseNumber as toNumber,
-  resolvePixelDimension,
   SVG_NAMESPACE_URI,
 } from '../utils/chart-helpers.js';
 import type { SparklineChartData, SparklineDataPoint, SparklineVariant } from './sparkline-chart.options.js';
@@ -94,7 +93,7 @@ export class SparklineChart extends ChartBase {
     const points = series?.data ?? [];
     const legend = series?.legend;
     const chartWidth = this._resolvePlotWidth(this.chartContainer.getBoundingClientRect().width, 80);
-    const chartHeight = resolvePixelDimension(this.height, this.chartContainer.getBoundingClientRect().height, 20);
+    const chartHeight = this._resolveChartDimension(this.chartContainer.getBoundingClientRect().height, 20);
     let legendWidth = this.showLegend && legend ? this.valueTextWidth ?? 0 : 0;
     this._clearChart();
     this.legends = [];

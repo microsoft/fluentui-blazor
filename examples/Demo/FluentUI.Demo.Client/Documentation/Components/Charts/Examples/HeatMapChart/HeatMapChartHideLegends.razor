@@ -1,10 +1,5 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
-    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="heatmap-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
-    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="heatmap-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
-</FluentStack>
-
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
 <FluentHeatMapChart ChartTitle="Heat map explaining the Air Quality Index"
@@ -14,14 +9,13 @@
                     YAxisTickLabelMaxWidth="64"
                     SortOrder="HeatMapSortOrder.None"
                     AllowMultipleLegendSelection="true"
-                    Width=@($"{_width}px")
-                    Height=@($"{_height}px")>
+                    Width="750"
+                    Height="400"
+                    HideLegends="@_hideLegends">
 </FluentHeatMapChart>
 
 @code {
-    private int _width = 450;
     private bool _hideLegends = true;
-    private int _height = 378;
 
     private readonly IReadOnlyList<HeatMapChartData> chartData =
     [

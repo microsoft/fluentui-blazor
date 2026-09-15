@@ -1,8 +1,8 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
-    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="area-width" Min="200" Max="1000" Step="10" Style="width:300px;" />
-    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="area-height" Min="200" Max="1000" Step="10" Style="width:300px;" />
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="area-width" Min="200" Max="1000" Step="25" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="area-height" Min="200" Max="1000" Step="25" Style="width:300px;" />
 </FluentStack>
 
 <FluentAreaChart ChartData="@data"

@@ -8,9 +8,10 @@
             Width
         </label>
         <FluentSlider slot="input"
-                      id="basic-width"
-                      min="200"
-                      max="1000"
+                      Id="basic-width"
+                      Min="200"
+                      Max="1000"
+                      Step="50"
                       @bind-Value="@width">
         </FluentSlider>
         <fluent-label slot="message">@width</fluent-label>
@@ -21,9 +22,10 @@
             Height
         </label>
         <FluentSlider slot="input"
-                      id="basic-height"
-                      min="200"
-                      max="1000"
+                      Id="basic-height"
+                      Min="200"
+                      Max="1000"
+                      Step="50"
                       @bind-Value="@height">
         </FluentSlider>
         <fluent-label slot="message">@height</fluent-label>
@@ -114,7 +116,7 @@
         }
     };
 
-    private int width = 400;
+    private int width = 600;
     private int height = 400;
     private bool gradient;
     private bool roundCorners;

@@ -1,11 +1,17 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
+<FluentCheckbox @bind-Value="@_roundedCorners" Label="Rounded corners" />
+
+
 <FluentAreaChart ChartData="data"
                  ChartTitle="Area chart rounded corners example"
-                 Width="700px"
-                 RoundedCorners="true" />
+                 Width="700"
+                 Height="312"
+                 RoundedCorners="@_roundedCorners" />
 
 @code {
+    private bool _roundedCorners = true;
+
     private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
     {
         new AreaChartSeries

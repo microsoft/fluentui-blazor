@@ -1,24 +1,18 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
-    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="gauge-width" Min="200" Max="1000" Step="50" Style="width:300px;" />
-    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="gauge-height" Min="200" Max="1000" Step="50" Style="width:300px;" />
-</FluentStack>
-
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
 <FluentGaugeChart ChartTitle="Gauge chart basic example"
                   Segments="@segments"
                   ChartValue="50"
                   MaxValue="100"
-                  Width=@($"{_width}px")
-                  Height=@($"{_height}px")>
+                  Width="600"
+                  Height="350"
+                  HideLegends="@_hideLegends">
 </FluentGaugeChart>
 
 @code {
-    private int _width = 600;
     private bool _hideLegends = true;
-    private int _height = 350;
 
     private readonly IReadOnlyList<GaugeChartSegment> segments =
     [

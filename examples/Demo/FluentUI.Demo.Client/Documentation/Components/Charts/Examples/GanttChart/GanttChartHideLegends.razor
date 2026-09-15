@@ -1,13 +1,18 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentGanttChart Style="width: 600px; height: 350px"
-                  ChartTitle="Gantt Chart"
+<FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
+
+<FluentGanttChart ChartTitle="Gantt Chart"
                   ShowYAxisLabels="true"
-                  HideLegends="true"
+                  Width="600"
+                  Height="350"
+                  HideLegends="@_hideLegends"
                   ChartData="@ChartData">
 </FluentGanttChart>
 
 @code {
+    private bool _hideLegends = true;
+
     private IReadOnlyList<GanttChartDataPoint> ChartData =
     [
         new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 1, 1),  End = new DateTime(2009, 2, 28) }, Y = "Job A", Legend = "Alex", Color = DataVizPalette.Color1 },
