@@ -1,0 +1,31 @@
+<div class="resizable-horizontal">
+    <FluentOverflow TItem="ResourceUrl"
+                    Items="@_urls"
+                    MaxRenderedItems="20">
+
+        <ItemTemplate Context="url">
+            <FluentBadge>@url.DisplayName</FluentBadge>
+        </ItemTemplate>
+
+        <OverflowTemplate Context="overflow">
+            <FluentTooltip Anchor="@overflow.IdMoreButton"
+                           UseTooltipService="false"
+                           Style="flex-direction: column; row-gap: 4px;">
+                @foreach (var url in overflow.Items.Take(10))
+                {
+                    <FluentBadge>@url.DisplayName</FluentBadge>
+                }
+            </FluentTooltip>
+        </OverflowTemplate>
+
+    </FluentOverflow>
+</div>
+
+@code
+{
+    private readonly ResourceUrl[] _urls = Enumerable.Range(1, 100)
+        .Select(index => new ResourceUrl($"Item {index}"))
+        .ToArray();
+
+    private sealed record ResourceUrl(string DisplayName);
+}
