@@ -34,10 +34,15 @@ and resize are handled there, with Blazor receiving overflow state updates.
 - `StoreOverflowInMemory` and `store-overflow-in-memory` are removed.
 - `GetOverflowState` and the internal `OverflowState` snapshot are removed. `RefreshAsync()` only requests recalculation; changed state arrives through events.
 - The plural `selectors` alias is removed; use `Selector` in Blazor or `selector` in HTML.
+- `OverflowItem.Overflow` and `OverflowChangedItem.Overflow` are removed. Item collections now contain only hidden records, so an overflow flag is no longer needed.
+- `OverflowItem.Behavior` and `OverflowChangedItem.Behavior` are removed. Configure behavior with the child element's `behavior` attribute; retain it in the source model if callback code also needs it.
+- `OverflowChangedEventArgs.FirstOverflowIndex` and `OverflowChangedEventArgs.OrderedItemIds` are removed. Use the hidden records' `Index` and `Id` values. Consumers that require the complete item order must retain it in their source model.
 
 ## Event payload changes
 
-`ItemsOverflow` and `OnOverflowRaised` continue to expose rendered `OverflowItem` records (`Id`, `Text`, `Index`). Existing callbacks and templates can remain unchanged. In data-bound mode, use `context.Items` to access all overflowed source objects, including entries omitted from the DOM, in source order.
+`ItemsOverflow` and `OnOverflowRaised` continue to expose rendered `OverflowItem` records through `Id`, `Text`, and `Index`. Existing callbacks and templates that use only these members can remain unchanged. In data-bound mode, use `context.Items` to access all overflowed source objects, including entries omitted from the DOM, in source order.
+
+Previously, the raw `OverflowChangedEventArgs.Items` payload contained all managed items and used `Overflow` to identify hidden ones. It now contains only hidden records. `OrderedItemIds` included every managed item in DOM order; the hidden event records cannot reconstruct that complete order.
 
 With direct content, `OverflowCount` is the total measured overflow count even when the record payload is capped. With `Items`, it includes pre-overflowed items. An empty browser event clears measured overflow; source items excluded by the rendering ceiling remain in overflow.
 

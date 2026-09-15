@@ -77,6 +77,20 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
     }
 
     [Fact]
+    public async Task FluentOverflow_ConstrainedFixedItem_UsesRenderedSize()
+    {
+        var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);
+        var host = page.Locator("#constrained-overflow");
+        var fixedItem = host.Locator("#constrained-fixed-item");
+
+        await Assertions.Expect(host).ToHaveAttributeAsync("data-overflow-count", "0");
+        Assert.True(await fixedItem.EvaluateAsync<bool>(
+            "item => item.scrollWidth > item.getBoundingClientRect().width"));
+        await Assertions.Expect(host.Locator(".constrained-item[hidden]")).ToHaveCountAsync(0);
+        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeHiddenAsync();
+    }
+
+    [Fact]
     public async Task FluentOverflow_Tabs_PreservesKeyboardSelectionAndDisposal()
     {
         var page = await WaitOpenPageAsync("/overflow/consumers", openDevTools: false);

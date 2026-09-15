@@ -513,7 +513,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     }
 
     /**
-     * Measures an item's rendered size, intrinsic size, and margins.
+     * Measures an item's layout contribution, including margins.
      */
     private getOuterSize(item: Element, vertical: boolean, cache = true): number {
       const orientation = vertical ? 'vertical' : 'horizontal';
@@ -525,7 +525,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       const rect = item.getBoundingClientRect();
       const styles = getComputedStyle(item);
       const renderedSize = vertical ? rect.height : rect.width;
-      const intrinsicSize = vertical ? item.scrollHeight : item.scrollWidth;
+      const intrinsicSize = item.getAttribute('behavior') === 'ellipsis'
+        ? (vertical ? item.scrollHeight : item.scrollWidth)
+        : 0;
       const margins = vertical
         ? Number.parseFloat(styles.marginBlockStart) + Number.parseFloat(styles.marginBlockEnd)
         : Number.parseFloat(styles.marginInlineStart) + Number.parseFloat(styles.marginInlineEnd);

@@ -8,6 +8,20 @@
 <button data-testid="expand-appbar" @onclick="@(() => _expanded = !_expanded)">Resize app bar</button>
 <button data-testid="rotate-appbar" @onclick="@(() => _vertical = !_vertical)">Rotate app bar</button>
 
+<FluentOverflow TItem="string" Id="constrained-overflow"
+                Style="width: 100px; --fluent-overflow-gap: 0px;"
+                Selector=".constrained-item"
+                OnOverflowRaised="@(items => _constrainedOverflowCount = items.Count())"
+                data-overflow-count="@_constrainedOverflowCount">
+    <ChildContent>
+        <span id="constrained-fixed-item" class="constrained-item" behavior="fixed"
+              style="inline-size: 40px; overflow: hidden;">
+            <span style="display: block; inline-size: 200px;">Constrained fixed item</span>
+        </span>
+        <span class="constrained-item" style="inline-size: 40px;">Regular</span>
+    </ChildContent>
+</FluentOverflow>
+
 <FluentTabs Id="overflow-tabs" Width="280px" Overflow="@_tabsOverflow">
     @foreach (var index in Enumerable.Range(0, 8))
     {
@@ -81,4 +95,5 @@
     private bool _vertical;
     private bool _boundedNarrow;
     private bool _boundedOpened;
+    private int _constrainedOverflowCount = -1;
 }
