@@ -219,15 +219,8 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
         _ = Task.Run(async () =>
         {
-            try
-            {
-                await Task.Delay(lifetime, token);
-            }
-            catch (TaskCanceledException)
-            {
-                // The MessageBar was closed before the lifetime elapsed.
-                return;
-            }
+            await Task.Delay(lifetime, token)
+                .ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
             if (token.IsCancellationRequested)
             {
