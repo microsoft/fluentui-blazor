@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
@@ -56,6 +57,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 #endif
 
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DataGrid/FluentDataGrid.razor.js";
+    private static readonly TimeSpan _virtualizeRequestBurstInterval = TimeSpan.FromMilliseconds(100);
 
     private ElementReference? _gridReference;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
@@ -94,7 +96,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool? _lastVirtualizationMode;
     private GridItemsProvider<TGridItem>? _lastAssignedItemsProvider;
     private CancellationTokenSource? _pendingDataLoadCancellationTokenSource;
-    private bool _isFirstVirtualizeProviderCall = true;
+    private long _lastVirtualizeProviderRequestTimestamp;
+    private bool _skipNextVirtualizeProviderDelay;
+    private int _lastVirtualizeProviderTotalItemCount;
 
     // True once ProvideVirtualizedItemsAsync has applied a provider result. Gates the virtualized
     // empty content: "zero items" only means "no data" after the provider has actually answered,
@@ -120,9 +124,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _renderEmptyContent = RenderEmptyContent;
         _renderLoadingContent = RenderLoadingContent;
         _renderErrorContent = RenderErrorContent;
-    #if NET11_0_OR_GREATER
+#if NET11_0_OR_GREATER
         _virtualizeItemComparer = new VirtualizeItemComparer(this);
-    #endif
+#endif
 
         // As a special case, we don't issue the first data load request until we've collected the initial set of columns
         // This is so we can apply default sort order (or any future per-column options) before loading data
@@ -592,6 +596,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Returns Loading if set (controlled). If not controlled,
     // we assume the grid is loading until the next data load completes
     internal bool EffectiveLoadingValue => Loading ?? (ItemsProvider is not null);
+
+    internal long LastVirtualizeProviderRequestTimestamp => _lastVirtualizeProviderRequestTimestamp;
+
+    internal bool SkipNextVirtualizeProviderDelay => _skipNextVirtualizeProviderDelay;
+
+    internal int LastVirtualizeProviderTotalItemCount => _lastVirtualizeProviderTotalItemCount;
 
     /// <summary>
     /// Indicates whether the grid is currently sorted ascending.
@@ -1446,6 +1456,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (Virtualize)
         {
+            _skipNextVirtualizeProviderDelay = true;
             if (_virtualizeComponent is not null)
             {
                 // If we're using Virtualize, we have to go through its RefreshDataAsync API otherwise:
@@ -1518,27 +1529,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _ = InvokeAsync(StateHasChanged);
     }
 
+    internal bool ShouldDebounceVirtualizeProviderRequest(long requestTimestamp, bool isRequestCanceled)
+    {
+        var isRequestBurst = _lastVirtualizeProviderRequestTimestamp != 0
+            && Stopwatch.GetElapsedTime(_lastVirtualizeProviderRequestTimestamp, requestTimestamp) < _virtualizeRequestBurstInterval;
+
+        // All request arrivals extend the burst window, including requests that are already canceled.
+        _lastVirtualizeProviderRequestTimestamp = requestTimestamp;
+
+        if (isRequestCanceled)
+        {
+            // Preserve the one-shot bypass for the next request that can invoke the provider.
+            return false;
+        }
+
+        var skipDelay = _skipNextVirtualizeProviderDelay;
+        _skipNextVirtualizeProviderDelay = false;
+
+        return isRequestBurst && !skipDelay;
+    }
+
     // Gets called both by RefreshDataCoreAsync and directly by the Virtualize child component during scrolling
     [ExcludeFromCodeCoverage(Justification = "This method requires Virtualiztion which cannot be tested with bunit.")]
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Not going to do artificial optimization because of some random arbitrary determined line count number")]
-    private async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
+    internal async ValueTask<ItemsProviderResult<(int, TGridItem)>> ProvideVirtualizedItemsAsync(ItemsProviderRequest request)
     {
         _lastRefreshedPaginationState = Pagination;
-        // Debounce the requests (except on first call). This eliminates a lot of redundant queries at the cost of slight lag after interactions.
-        if (_isFirstVirtualizeProviderCall)
+        // Debounce rapid requests from scrolling, but do not delay the first request after an idle period,
+        // an explicit refresh, or a provider result that changed the total item count.
+        if (ShouldDebounceVirtualizeProviderRequest(Stopwatch.GetTimestamp(), request.CancellationToken.IsCancellationRequested))
         {
-            _isFirstVirtualizeProviderCall = false;
-        }
-        else
-        {
-            try
-            {
-                await Task.Delay(20, request.CancellationToken);
-            }
-            catch (TaskCanceledException)
-            {
-                return default;
-            }
+            await Task.Delay(20, request.CancellationToken)
+                .ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing | ConfigureAwaitOptions.ContinueOnCapturedContext);
         }
 
         if (request.CancellationToken.IsCancellationRequested)
@@ -1567,10 +1589,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // TODO: This currently assumes we always want to expand the last page to have ItemsPerPage rows, but the experience might
             //       be better if we let the last page only be as big as its number of actual rows.
             var isFirstProviderResult = !_virtualizeItemsProvided;
-            var totalItemCountChanged = _internalGridContext.TotalItemCount != providerResult.TotalItemCount;
+            var totalItemCountChanged = _lastVirtualizeProviderTotalItemCount != providerResult.TotalItemCount;
 
+            _lastVirtualizeProviderTotalItemCount = providerResult.TotalItemCount;
             _internalGridContext.TotalItemCount = providerResult.TotalItemCount;
             _internalGridContext.TotalViewItemCount = Pagination?.ItemsPerPage ?? providerResult.TotalItemCount;
+            _skipNextVirtualizeProviderDelay |= totalItemCountChanged;
             _virtualizeItemsProvided = true;
             _retainEmptyContentOnVirtualizedRefresh = false;
 
