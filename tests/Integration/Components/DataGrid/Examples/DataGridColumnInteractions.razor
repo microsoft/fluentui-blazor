@@ -1,0 +1,31 @@
+@page "/datagrid/column-interactions"
+
+<link href="Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.styles.css" rel="stylesheet" />
+<link href="_content/Microsoft.FluentUI.AspNetCore.Components/css/default-fuib.css" rel="stylesheet" />
+
+<button data-testid="grow-grid" @onclick="() => _containerWidth = 600">Grow</button>
+<button data-testid="refresh-grid" @onclick="RefreshAsync">Refresh</button>
+<span data-testid="refresh-count">@_refreshCount</span>
+
+<div style="width: @(_containerWidth)px">
+    <FluentDataGrid @ref="_grid" Id="resize-grid" Items="@_items" Style="width: 100%"
+                    ResizableColumns="true" ReorderableColumns="true" GridTemplateColumns="1fr 1fr">
+        <PropertyColumn ColumnId="name" Property="@(item => item.Name)" />
+        <PropertyColumn ColumnId="value" Property="@(item => item.Value)" />
+    </FluentDataGrid>
+</div>
+
+@code {
+    private readonly IQueryable<GridItem> _items = new[] { new GridItem("First", 1) }.AsQueryable();
+    private FluentDataGrid<GridItem> _grid = default!;
+    private int _containerWidth = 500;
+    private int _refreshCount;
+
+    private async Task RefreshAsync()
+    {
+        await _grid.RefreshDataAsync();
+        _refreshCount++;
+    }
+
+    private sealed record GridItem(string Name, int Value);
+}

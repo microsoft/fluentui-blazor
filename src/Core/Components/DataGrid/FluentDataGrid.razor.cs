@@ -60,6 +60,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private static readonly TimeSpan _virtualizeRequestBurstInterval = TimeSpan.FromMilliseconds(100);
 
     private ElementReference? _gridReference;
+    private IJSObjectReference? _gridController;
     private Virtualize<(int, TGridItem)>? _virtualizeComponent;
 #if NET11_0_OR_GREATER
     private IEqualityComparer<TGridItem>? _itemComparer;
@@ -80,7 +81,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool _checkColumnHeaderUiPosition;
     private bool _checkColumnResizing;
     private bool _checkColumnReordering;
+    private ColumnInteractionOptions? _columnInteractionOptions;
+    private readonly List<(ColumnBase<TGridItem> Column, string Key, DataGridColumnPin Pin, string? Width, string? MinWidth)> _columnInteractionColumns = [];
     private bool _manualGrid;
+
+    private readonly record struct ColumnInteractionOptions(
+        bool Resizing,
+        bool Reordering,
+        bool AllRows,
+        DataGridGeneratedHeaderType? Header,
+        DataGridDisplayMode DisplayMode,
+        DataGridRowSize RowSize,
+        bool MultiLine,
+        string? Template);
 
     // Keys (as returned by ItemKey) of the rows whose RowDetails content is currently expanded
     private readonly HashSet<object> _expandedRowDetails = [];
@@ -691,7 +704,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             _selfReference = DotNetObjectReference.Create(this);
 
-            await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
+            _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
             if (AutoItemsPerPage)
             {
 
@@ -712,17 +725,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference);
         }
 
-        if (_checkColumnResizing && _gridReference is not null && JSModule.Imported)
-        {
-            _checkColumnResizing = false;
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows);
-        }
-
-        if (_checkColumnReordering && _gridReference is not null && JSModule.Imported && _selfReference is not null)
-        {
-            _checkColumnReordering = false;
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering", _gridReference, _selfReference);
-        }
+        await UpdateColumnInteractionsAsync();
 
         if (_pendingHeaderUiReopenColumn is not null && _pendingHeaderUiReopenKind != ColumnHeaderUiKind.None)
         {
@@ -733,6 +736,54 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _pendingHeaderUiReopenKind = ColumnHeaderUiKind.None;
 
             await ShowColumnHeaderUiAsync(column, kind);
+        }
+    }
+
+    /// <inheritdoc />
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    {
+        if (_gridController is not null)
+        {
+            var controller = _gridController;
+            _gridController = null;
+            try
+            {
+                // Initialize returns a controller whose stop method aborts its registered event listeners and observers.
+                await controller.InvokeVoidAsync("stop");
+            }
+            finally
+            {
+                await controller.DisposeAsync();
+            }
+        }
+    }
+
+    private async Task UpdateColumnInteractionsAsync()
+    {
+        if (_checkColumnResizing && _gridReference is not null && JSModule.Imported)
+        {
+            _checkColumnResizing = false;
+            if (ResizableColumns)
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnResizing", _gridReference, ResizeColumnOnAllRows);
+            }
+            else
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.DisableColumnResizing", _gridReference);
+            }
+        }
+
+        if (_checkColumnReordering && _gridReference is not null && JSModule.Imported && _selfReference is not null)
+        {
+            _checkColumnReordering = false;
+            if (ReorderableColumns)
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.EnableColumnReordering", _gridReference, _selfReference);
+            }
+            else
+            {
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.DisableColumnReordering", _gridReference);
+            }
         }
     }
 
@@ -785,8 +836,49 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         ValidateAndComputePinnedColumns();
         UpdateGridTemplateColumns();
 
-        _checkColumnResizing = ResizableColumns;
-        _checkColumnReordering = ReorderableColumns;
+        UpdateColumnInteractionState();
+    }
+
+    private void UpdateColumnInteractionState()
+    {
+        var options = new ColumnInteractionOptions(
+            ResizableColumns,
+            ReorderableColumns,
+            ResizeColumnOnAllRows,
+            GenerateHeader,
+            DisplayMode,
+            RowSize,
+            MultiLine,
+            _internalGridTemplateColumns);
+        var changed = _columnInteractionOptions != options || _columnInteractionColumns.Count != _columns.Count;
+
+        for (var columnIndex = 0; columnIndex < _columns.Count; columnIndex++)
+        {
+            var column = _columns[columnIndex];
+            var state = (column, column.ColumnKey, column.Pin, column.Width, column.MinWidth);
+            if (columnIndex >= _columnInteractionColumns.Count)
+            {
+                _columnInteractionColumns.Add(state);
+            }
+            else if (_columnInteractionColumns[columnIndex] != state)
+            {
+                _columnInteractionColumns[columnIndex] = state;
+                changed = true;
+            }
+        }
+
+        if (_columnInteractionColumns.Count > _columns.Count)
+        {
+            _columnInteractionColumns.RemoveRange(_columns.Count, _columnInteractionColumns.Count - _columns.Count);
+        }
+
+        if (changed)
+        {
+            _checkColumnResizing |= ResizableColumns || _columnInteractionOptions?.Resizing == true;
+            _checkColumnReordering |= ReorderableColumns || _columnInteractionOptions?.Reordering == true;
+        }
+
+        _columnInteractionOptions = options;
     }
 
     private void AssignColumnKeys()
@@ -1045,8 +1137,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         ApplyStoredColumnOrder();
         ValidateAndComputePinnedColumns();
         UpdateGridTemplateColumns();
-        _checkColumnResizing = ResizableColumns;
-        _checkColumnReordering = ReorderableColumns;
         _ = InvokeAsync(StateHasChanged);
         return Task.CompletedTask;
     }
@@ -1147,8 +1237,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         await PersistColumnOrderAsync();
 
         _checkColumnHeaderUiPosition = _activeHeaderUiColumn is not null;
-        _checkColumnResizing = ResizableColumns;
-        _checkColumnReordering = ReorderableColumns;
         await InvokeAsync(StateHasChanged);
     }
 
