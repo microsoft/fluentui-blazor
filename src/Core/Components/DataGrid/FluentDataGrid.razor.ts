@@ -76,14 +76,12 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
   export function Initialize(gridElement: HTMLElement, autoFocus: boolean) {
-    if (gridElement === undefined || gridElement === null) {
+    if (!gridElement) {
       return;
     }
 
     const controller = new AbortController();
     const { signal } = controller;
-
-    EnableColumnResizing(gridElement, true, signal);
 
     // Recalculate sticky offsets now that the DOM is fully rendered, so any
     // browser-computed widths (e.g. after grid layout) are reflected.
@@ -407,10 +405,24 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
   }
 
-  export function EnableColumnResizing(gridElement: HTMLElement, resizeColumnOnAllRows: boolean = true, signal?: AbortSignal) {
-    if (gridElement === undefined || gridElement === null) {
+  export function DisableColumnResizing(gridElement: HTMLElement) {
+    if (!gridElement) {
       return;
     }
+
+    const grid = grids.find(grid => grid.id === gridElement.id);
+    grid?.resizeController?.abort();
+    if (grid) {
+      grid.resizeController = undefined;
+    }
+  }
+
+  export function EnableColumnResizing(gridElement: HTMLElement, resizeColumnOnAllRows: boolean = true) {
+    if (!gridElement) {
+      return;
+    }
+
+    DisableColumnResizing(gridElement);
 
     const columns: Column[] = [];
     const headers = gridElement.querySelectorAll("th[cell-type='columnheader'][resizable='true']");
@@ -422,34 +434,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     const id = gridElement.id;
     let grid = grids.find((g: Grid) => g.id === id);
 
-    if (grid?.resizeController) {
-      grid.resizeController.abort();
-    }
-
     const localController = new AbortController();
-    const effectiveSignal = signal ?? localController.signal;
+    const { signal } = localController;
 
     const isGrid = gridElement.getAttribute('display-mode') === 'grid';
-
-    let tableHeight = gridElement.offsetHeight;
-    // rows have not been loaded yet, so we need to calculate the height
-    if (tableHeight < 70) {
-      // by getting the aria rowcount attribute
-      const rowCount = gridElement.getAttribute('aria-rowcount');
-      if (rowCount) {
-        const rowHeight = (gridElement.querySelector('thead tr th') as HTMLElement)?.offsetHeight;
-        // and multiply by the itemsize (== height of the header cells)
-        tableHeight = Number(rowCount) * rowHeight;
-      }
-    }
-
-    // Determine the height based on the resizeColumnOnAllRows parameter
-    let resizeHandleHeight = tableHeight;
-    if (!resizeColumnOnAllRows) {
-      // Only use the header height when resizeColumnOnAllRows is false
-      // Use the first header's height if available
-      resizeHandleHeight = headers.length > 0 ? ((headers[0] as HTMLElement).offsetHeight - 14) : 30; // fallback to 30px if no headers
-    }
+    const handles: HTMLElement[] = [];
 
     headers.forEach((header) => {
       columns.push({
@@ -457,20 +446,14 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         size: `${isGrid ? (header as HTMLElement).offsetWidth : (header as HTMLElement).clientWidth}px`,
       });
 
-      // remove any previously created divs
-      const resizedivs = header.querySelectorAll('[actual-resize-handle]');
-      resizedivs.forEach(div => div.remove());
-
-      // get the top of the first resize handle
-      const resizeTop = (header.querySelector('[resize-handle]') as HTMLElement)?.offsetTop ?? 2;
-
       // add a new resize div
-      const div = createDiv(resizeHandleHeight, resizeTop);
+      const div = createDiv();
       header.appendChild(div);
+      handles.push(div);
       if (header.nextElementSibling && (header.nextElementSibling as HTMLElement).getAttribute('col-pinned') === 'end') {
         div.style.insetInlineEnd = '-1px';
       }
-      setListeners(div, effectiveSignal);
+      setListeners(div, signal);
     });
 
     let initialWidths: string;
@@ -485,20 +468,54 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     }
 
     if (!grid) {
-      grids.push({
+      grid = {
         id,
         columns,
         initialWidths,
-        resizeController: signal ? undefined : localController,
-      });
+        resizeController: localController,
+      };
+      grids.push(grid);
     } else {
       const columnsChanged = grid.columns.length !== columns.length;
       grid.columns = columns;
       if (columnsChanged) {
         grid.initialWidths = initialWidths;
       }
-      grid.resizeController = signal ? undefined : localController;
+      grid.resizeController = localController;
     }
+
+    const updateHandleGeometry = () => {
+      const height = resizeColumnOnAllRows
+        ? gridElement.offsetHeight
+        : (headers[0] as HTMLElement).offsetHeight - 14;
+      const tops = Array.from(headers, header => (header.querySelector('[resize-handle]') as HTMLElement)?.offsetTop ?? 2);
+
+      handles.forEach((handle, index) => {
+        handle.style.height = Math.max(0, height - 4) + 'px';
+        handle.style.top = tops[index] + 'px';
+      });
+    };
+
+    let geometryFrame: number | undefined;
+    const observer = new ResizeObserver(() => {
+      if (geometryFrame === undefined) {
+        geometryFrame = requestAnimationFrame(() => {
+          geometryFrame = undefined;
+          updateHandleGeometry();
+          UpdatePinnedColumnOffsets(gridElement);
+        });
+      }
+    });
+    observer.observe(gridElement);
+    headers.forEach(header => observer.observe(header));
+    signal.addEventListener('abort', () => {
+      observer.disconnect();
+      if (geometryFrame !== undefined) {
+        cancelAnimationFrame(geometryFrame);
+      }
+      handles.forEach(handle => handle.remove());
+    }, { once: true });
+    updateHandleGeometry();
 
     function setListeners(div: HTMLElement, signal?: AbortSignal) {
       let pageX: number | undefined, curCol: HTMLElement | undefined, curColWidth: number | undefined;
@@ -562,6 +579,8 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         previousDraggable = null;
       };
 
+      signal?.addEventListener('abort', upHandler, { once: true });
+
       div.addEventListener('pointerdown', function (e: PointerEvent) {
         curCol = (e.target as HTMLElement).parentElement as HTMLElement;
         pageX = e.pageX;
@@ -573,6 +592,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         }
 
         const isGrid = gridElement.getAttribute('display-mode') === 'grid';
+        refreshColumnWidths(columns, isGrid);
         const padding = isGrid ? 0 : paddingDiff(curCol);
 
         curColWidth = curCol.offsetWidth - padding;
@@ -599,14 +619,12 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       }, { signal });
     }
 
-    function createDiv(height: number, top: number) {
+    function createDiv() {
       const div = document.createElement('div');
       div.setAttribute('actual-resize-handle', '');
-      div.style.top = top + 'px';
       div.style.position = 'absolute';
       div.style.cursor = 'col-resize';
       div.style.userSelect = 'none';
-      div.style.height = (height - 4) + 'px'; // adjust for the top offset
       div.style.width = '6px';
       div.style.opacity = 'var(--fluent-data-grid-header-opacity)';
       div.style.insetInlineEnd = '0'
@@ -633,6 +651,12 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
         ((e.target as HTMLElement).previousElementSibling as HTMLElement).style.visibility = 'visible';
       }
     }
+  }
+
+  function refreshColumnWidths(columns: Column[], isGrid: boolean) {
+    columns.forEach(column => {
+      column.size = `${isGrid ? (column.header as HTMLElement).offsetWidth : (column.header as HTMLElement).clientWidth}px`;
+    });
   }
 
   export function ResetColumnWidths(gridElement: HTMLElement) {
@@ -667,17 +691,27 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.focus();
   }
 
+  export function DisableColumnReordering(gridElement: HTMLElement) {
+    if (!gridElement) {
+      return;
+    }
+
+    const grid = grids.find(grid => grid.id === gridElement.id);
+    grid?.reorderController?.abort();
+    if (grid) {
+      grid.reorderController = undefined;
+    }
+  }
+
   export function EnableColumnReordering(gridElement: HTMLElement, dotNetHelper: any) {
-    if (gridElement === undefined || gridElement === null) {
+    if (!gridElement) {
       return;
     }
 
     const id = gridElement.id;
     let grid = grids.find((g: Grid) => g.id === id);
 
-    if (grid?.reorderController) {
-      grid.reorderController.abort();
-    }
+    DisableColumnReordering(gridElement);
 
     const controller = new AbortController();
     const { signal } = controller;
@@ -731,6 +765,11 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       sourceColumnKey = null;
       sourceColumnIndex = null;
     };
+
+    signal.addEventListener('abort', () => {
+      clearDragState();
+      headers.forEach(header => header.removeAttribute('draggable'));
+    }, { once: true });
 
     headers.forEach(header => {
       header.addEventListener('dragstart', event => {
@@ -814,7 +853,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     else {
       headerBeingResized = gridElement.querySelector("th[cell-type='columnheader'][col-index='" + column + "']") as HTMLElement | null;
     }
-    grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
+    const grid = grids.find(grid => grid.id === gridElement.id)!;
+    refreshColumnWidths(grid.columns, isGrid);
+    grid.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         const width = headerBeingResized!.offsetWidth + change;
         //const width = headerBeingResized!.getBoundingClientRect().width + change;
@@ -851,7 +892,9 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       return;
     }
 
-    grids.find(grid => grid.id === gridElement.id)!.columns.forEach((column: any) => {
+    const grid = grids.find(grid => grid.id === gridElement.id)!;
+    refreshColumnWidths(grid.columns, isGrid);
+    grid.columns.forEach((column: any) => {
       if (column.header === headerBeingResized) {
         column.size = Math.max(getMinWidthPx(column.header), width) + 'px';
         column.header.style.width = column.size;
