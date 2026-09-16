@@ -5,7 +5,6 @@ trigger:
   batch: true
   branches:
     include:
-    - dev
     - dev-v5
 
   paths:
@@ -24,8 +23,7 @@ trigger:
 pr:
   branches:
     include:
-    - main
-    - dev
+    - dev-v5
 
   paths:
     include:
