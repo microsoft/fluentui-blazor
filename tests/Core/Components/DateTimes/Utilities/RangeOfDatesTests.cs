@@ -440,7 +440,6 @@ public class RangeOfDatesTests
         Assert.True(result);
     }
 
-
     [Theory]
     [InlineData(2024, 1, 1, true)]
     [InlineData(2024, 1, 15, false)]
