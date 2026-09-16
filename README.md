@@ -212,7 +212,7 @@ builder.Services.AddDataGridEntityFrameworkAdapter();
 
 The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
 supported and isn’t committed to ship updates as part of any official .NET updates. Like with most other open source projects, support is offered on a best effort basis
-through the GitHub repository **only**.
+through the GitHub repository **only**..
 
 ## Contributing to the project
 
