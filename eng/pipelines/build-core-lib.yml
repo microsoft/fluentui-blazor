@@ -6,7 +6,7 @@ trigger:
   branches:
     include:
     - main
-    - dev
+    - archive-v4
     - dev-v5
     - archives/v3
 
@@ -27,7 +27,7 @@ pr:
   branches:
     include:
     - main
-    - dev
+    - archive-v4
 
   paths:
     include:
@@ -215,7 +215,7 @@ extends:
         # see publish-symbols-stage.yml for why this must run pre-test.
         - template: /eng/pipelines/publish-symbols-stage.yml@self
           parameters:
-            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/dev', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/')))
+            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/archive-v4', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/')))
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -247,7 +247,7 @@ extends:
 
         - template: /eng/pipelines/publish-symbols-upload.yml@self
           parameters:
-            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/dev', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/')))
+            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/archive-v4', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/')))
 
         # Index sources and publish symbols
         - task: PublishSymbols@2

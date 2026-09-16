@@ -13,7 +13,7 @@
 
 .PARAMETER packageSuffix
     Suffix to add to the computed version. Example "Preview", "RC.1", ...
-    This suffix overrides the one calculated for dev our main branches.
+    This suffix overrides the one calculated for archive-v4 or main branches.
     Default is "".
 
 .PARAMETER testProjects
@@ -21,7 +21,7 @@
     Not empty, ShouldTest will be "true".
 
 .EXAMPLE
-    $> .\compute-version-variables -branchName "dev" -buildNumber "4.6.1.24123.3" -packageSuffix "Preview"
+    $> .\compute-version-variables -branchName "archive-v4" -buildNumber "4.6.1.24123.3" -packageSuffix "Preview"
 
 .EXAMPLE
     # Compute AssemblyVersion and PackageVersion
@@ -56,12 +56,12 @@ $package = ""
 # To Test?
 $toTest = "true"
 
-# BranchName = dev, main, archive or PR
+# BranchName = archive-v4, main, archive or PR
 if ($branchName -eq "main") {
     $branch = "main"
 }
-elseif ($branchName -eq "dev") {
-    $branch = "dev"
+elseif ($branchName -eq "archive-v4") {
+    $branch = "archive-v4"
 }
 # elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
 elseif ($branchName -like "*/archives/*") {
@@ -97,9 +97,9 @@ if ($branch -eq "main" -or $branch -eq "archive") {
 }
 
 
-# Dev without PackageSuffix: 1.2.4-preview-23296-1
-# Dev with    PackageSuffix: 1.2.4-beta.1
-elseif ($branch -eq "dev") {
+# Archive v4 without PackageSuffix: 1.2.4-preview-23296-1
+# Archive v4 with    PackageSuffix: 1.2.4-beta.1
+elseif ($branch -eq "archive-v4") {
     if ($packageSuffix -eq "") {
         $package = "$($builds[0]).$($builds[1]).$($builds[2])-preview.$($builds[3]).$($builds[4])"
     }

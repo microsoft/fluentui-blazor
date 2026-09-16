@@ -6,7 +6,7 @@ trigger:
   branches:
     include:
     - main
-    - dev
+    - archive-v4
 
   paths:
     include:
@@ -25,7 +25,7 @@ pr:
   branches:
     include:
     - main
-    - dev
+    - archive-v4
 
   paths:
     include:
