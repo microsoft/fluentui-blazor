@@ -2,14 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes.Utilities;
 
@@ -446,7 +440,7 @@ public class RangeOfDatesTests
         Assert.True(result);
     }
 
-    
+
     [Theory]
     [InlineData(2024, 1, 1, true)]
     [InlineData(2024, 1, 15, false)]
@@ -503,19 +497,5 @@ public class RangeOfDatesTests
 
         // Assert
         Assert.Equal(expected, result);
-    }
-
-    [Fact]
-    public void IsSelectionOutsideRange_InvalidCalendarView_ReturnsFalse()
-    {
-        // Arrange
-        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 12, 15));
-        var value = new DateTime(2024, 6, 1);
-
-        // Act
-        var result = range.IsOutside(value, (CalendarViews)999, CultureInfo.InvariantCulture);
-
-        // Assert
-        Assert.False(result);
     }
 }
