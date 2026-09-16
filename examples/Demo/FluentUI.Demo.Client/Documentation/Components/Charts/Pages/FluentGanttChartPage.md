@@ -111,6 +111,10 @@ Bar height can be customized via the `BarHeight` property. The default is determ
 
 {{ GanttChartUseUTC }}
 
+### Sizing
+
+{{ GanttChartSizing }}
+
 ### Hide Legends
 
 {{ GanttChartHideLegends }}

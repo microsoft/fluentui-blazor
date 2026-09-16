@@ -43,7 +43,6 @@ export const styles = css`
       'title';
   }
 
-
   :host([legend-position='top']) {
     grid-template-areas:
       'title'

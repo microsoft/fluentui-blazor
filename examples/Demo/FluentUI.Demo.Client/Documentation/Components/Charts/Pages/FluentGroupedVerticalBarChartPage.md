@@ -75,6 +75,10 @@ The default example renders a grouped vertical bar chart with two data points.
 
 {{ GroupedVerticalBarChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ GroupedVerticalBarChartSizing }}
+
 ### Hide Legends
 
 {{ GroupedVerticalBarChartHideLegends }}

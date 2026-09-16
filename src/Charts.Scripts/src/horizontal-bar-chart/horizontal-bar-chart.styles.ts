@@ -65,7 +65,6 @@ export const styles: ElementStyles = css`
       'title';
   }
 
-
   /* legend-position="top" */
   :host([legend-position='top']) {
     grid-template-areas:
@@ -120,7 +119,6 @@ export const styles: ElementStyles = css`
       'title  title';
     grid-template-columns: 1fr auto;
   }
-
 
   ${tooltipBaseStyles}
 

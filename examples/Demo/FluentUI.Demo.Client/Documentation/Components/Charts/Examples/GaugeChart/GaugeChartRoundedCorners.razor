@@ -1,13 +1,11 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_roundedCorners" Label="Rounded corners" />
 
 <FluentGaugeChart ChartTitle="Gauge chart basic example"
                   Segments="@segments"
                   ChartValue="50"
-                  MaxValue="100"
-                  Width="600"
-                  Height="350">
+                  RoundedCorners="@_roundedCorners">
 </FluentGaugeChart>
 
 @code {

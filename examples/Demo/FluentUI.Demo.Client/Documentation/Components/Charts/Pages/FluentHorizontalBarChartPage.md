@@ -81,6 +81,10 @@ Horizontal bar chart can be of 2 types -
 
 {{ HorizontalBarChartHideLabels }}
 
+### Sizing
+
+{{ HorizontalBarChartSizing }}
+
 ### Hide Legends
 
 {{ HorizontalBarChartHideLegends }}

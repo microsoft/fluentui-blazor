@@ -51,6 +51,10 @@ The default example renders a gauge with three colored segments and a current va
 
 {{ GaugeChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ GaugeChartSizing }}
+
 ### Hide Legends
 
 {{ GaugeChartHideLegends }}

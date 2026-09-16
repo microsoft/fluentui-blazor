@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
     <FluentSlider Label=@($"Chart value: {_chartValue}")
@@ -6,7 +6,7 @@
                   Id="gauge-custom-value"
                   Min="10"
                   Max="70"
-                  Step="1"
+                  Step="5"
                   Style="width:300px;" />
 
     <FluentGaugeChart ChartTitle="Gauge chart custom range example"
@@ -14,8 +14,8 @@
                       ChartValue="@_chartValue"
                       MinValue="10"
                       MaxValue="70"
-                      Width="252px"
-                      Height="173px">
+                      Width="252"
+                      Height="96">
     </FluentGaugeChart>
 </FluentStack>
 

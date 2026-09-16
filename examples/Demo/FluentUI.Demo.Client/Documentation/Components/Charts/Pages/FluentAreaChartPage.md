@@ -94,6 +94,10 @@ The chart axes support 2 ways of localization.
 
 {{ AreaChartAxisTitles }}
 
+### Sizing
+
+{{ AreaChartSizing }}
+
 ### Hide Legends
 
 {{ AreaChartHideLegends }}

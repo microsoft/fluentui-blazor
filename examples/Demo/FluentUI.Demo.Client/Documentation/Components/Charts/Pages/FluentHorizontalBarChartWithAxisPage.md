@@ -99,6 +99,10 @@ The chart can accommodate unusually long labels by shrinking the bars without di
 
 {{ HorizontalBarChartWithAxisHideLabels }}
 
+### Sizing
+
+{{ HorizontalBarChartWithAxisSizing }}
+
 ### Hide Legends
 
 {{ HorizontalBarChartWithAxisHideLegends }}

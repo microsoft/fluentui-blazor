@@ -55,7 +55,6 @@ export const styles = css`
       'title';
   }
 
-
   :host([legend-position='top']) {
     grid-template-areas:
       'title'
@@ -102,8 +101,6 @@ export const styles = css`
       'title  title';
     grid-template-columns: 1fr auto;
   }
-
-
 
   .chart {
     display: block;

@@ -31,6 +31,10 @@ The default example renders two groups of points with different marker sizes.
 
 {{ ScatterChartLogAxis }}
 
+### Sizing
+
+{{ ScatterChartSizing }}
+
 ### Hide Legends
 
 {{ ScatterChartHideLegends }}

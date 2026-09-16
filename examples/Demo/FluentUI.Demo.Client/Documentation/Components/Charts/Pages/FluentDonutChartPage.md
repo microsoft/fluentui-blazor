@@ -69,6 +69,10 @@ Donut charts are used to show proportion, which expresses a partial value in com
 
 {{ DonutChartHideLabels }}
 
+### Sizing
+
+{{ DonutChartSizing }}
+
 ### Hide Legends
 
 {{ DonutChartHideLegends }}

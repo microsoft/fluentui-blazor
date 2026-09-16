@@ -1,11 +1,9 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentGaugeChart ChartTitle="Gauge chart basic example"
                   Segments="@segments"
                   ChartValue="50"
-                  MaxValue="100"
-                  Width="650px"
-                  Height="350px">
+                  MaxValue="100">
     <TooltipTemplate Context="ctx">
         <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
             <strong>@ctx.Legend</strong>

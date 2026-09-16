@@ -1,13 +1,11 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentGaugeChart ChartTitle="Gauge chart full example"
                   Segments="@_chartData"
                   ChartValue="50"
                   MaxValue="100"
                   Sublabel="out of 100"
-                  ChartValueFormat="@GaugeValueFormat.Fraction"
-                  Width="252px"
-                  Height="173px">
+                  ChartValueFormat="@GaugeValueFormat.Fraction">
 </FluentGaugeChart>
 
 @code {

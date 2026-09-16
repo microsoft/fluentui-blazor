@@ -59,6 +59,10 @@ The default example renders two series to compare values across the same x-axis.
 
 {{ LineChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ LineChartSizing }}
+
 ### Hide Legends
 
 {{ LineChartHideLegends }}

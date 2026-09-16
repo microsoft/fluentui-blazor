@@ -32,6 +32,10 @@ section is at the bottom.
 
 {{ FunnelChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ FunnelChartSizing }}
+
 ### Hide Legends
 
 {{ FunnelChartHideLegends }}

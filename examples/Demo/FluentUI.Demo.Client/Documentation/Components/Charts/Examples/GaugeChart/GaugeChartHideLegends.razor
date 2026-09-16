@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
@@ -6,8 +6,6 @@
                   Segments="@segments"
                   ChartValue="50"
                   MaxValue="100"
-                  Width="600"
-                  Height="350"
                   HideLegends="@_hideLegends">
 </FluentGaugeChart>
 

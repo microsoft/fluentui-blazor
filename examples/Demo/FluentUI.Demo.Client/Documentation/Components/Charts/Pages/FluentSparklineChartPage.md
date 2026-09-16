@@ -15,6 +15,10 @@ The default example renders a compact line sparkline.
 
 {{ SparklineChartDefault }}
 
+### Sizing
+
+{{ SparklineChartSizing }}
+
 ### Hide Legends
 
 {{ SparklineChartHideLegends }}

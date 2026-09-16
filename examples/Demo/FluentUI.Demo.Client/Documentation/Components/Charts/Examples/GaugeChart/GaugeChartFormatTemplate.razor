@@ -1,12 +1,11 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentGaugeChart ChartTitle="Gauge chart custom value template example"
                   Segments="@_chartData"
                   ChartValue="45"
                   MaxValue="100"
-                  ChartValueFormatTemplate="{value} of {max} GB"
-                  Width="252px"
-                  Height="173px">
+                  ChartValueFormatTemplate="{value}/{max}"
+                  >
 </FluentGaugeChart>
 
 @code {

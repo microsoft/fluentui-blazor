@@ -31,6 +31,10 @@ The default example renders two polar series across the same set of metrics.
 
 {{ PolarChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ PolarChartSizing }}
+
 ### Hide Legends
 
 {{ PolarChartHideLegends }}

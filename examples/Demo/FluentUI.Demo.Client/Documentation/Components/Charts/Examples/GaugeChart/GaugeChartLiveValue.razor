@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 @using System.Timers
 @implements IDisposable
 
@@ -11,16 +11,14 @@
     <FluentGaugeChart ChartTitle="Gauge chart live value example"
                       Segments="@_chartData"
                       ChartValue="@_chartValue"
-                      MaxValue="100"
-                      Width="252px"
-                      Height="173px">
+                      MaxValue="100">
     </FluentGaugeChart>
 </FluentStack>
 
 @code {
     private readonly System.Timers.Timer _timer = new(500);
     private bool _isRunning;
-    private int _chartValue = 50;
+    private int _chartValue = 0;
 
     private readonly IReadOnlyList<GaugeChartSegment> _chartData =
     [
@@ -52,7 +50,7 @@
     {
         _timer.Stop();
         _isRunning = false;
-        _chartValue = 50;
+        _chartValue = 0;
     }
 
     private void OnTimerElapsed(object? sender, ElapsedEventArgs e)

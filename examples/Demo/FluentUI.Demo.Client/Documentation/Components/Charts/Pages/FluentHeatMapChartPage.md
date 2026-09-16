@@ -47,6 +47,10 @@ The default example renders activity values by day and time using a color scale.
 
 {{ HeatMapChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ HeatMapChartSizing }}
+
 ### Hide Legends
 
 {{ HeatMapChartHideLegends }}

@@ -99,6 +99,10 @@ Refer to Vertical Bar Chart page for common don'ts.
 
 {{ VerticalStackedBarChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ VerticalStackedBarChartSizing }}
+
 ### Hide Legends
 
 {{ VerticalStackedBarChartHideLegends }}

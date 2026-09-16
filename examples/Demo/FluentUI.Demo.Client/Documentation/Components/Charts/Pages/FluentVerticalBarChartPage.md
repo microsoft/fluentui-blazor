@@ -105,6 +105,10 @@ Don't use very long labels in vertical bar chart. Long labels use unnecessary sp
 
 {{ VerticalBarChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ VerticalBarChartSizing }}
+
 ### Hide Legends
 
 {{ VerticalBarChartHideLegends }}

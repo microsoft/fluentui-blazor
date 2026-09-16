@@ -70,7 +70,8 @@ public partial class FluentGaugeChart : FluentChartBase
     public string? ChartValueFormatTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the visual variant of the gauge chart.
+    /// Gets or sets the variant of the gauge chart. This only affects the rendering of the data in the callout and does
+    /// not affect the data and/or rendering itself.
     /// </summary>
     [Parameter]
     public GaugeChartVariant? Variant { get; set; }

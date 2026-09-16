@@ -31,6 +31,10 @@ The default example renders a small flow from two sources into two targets.
 
 {{ SankeyChartMultipleLegendSelection }}
 
+### Sizing
+
+{{ SankeyChartSizing }}
+
 ### Hide Legends
 
 {{ SankeyChartHideLegends }}
