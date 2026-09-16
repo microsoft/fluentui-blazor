@@ -225,4 +225,22 @@
         // Assert: registered at DialogService construction, so the provider already contains the global overlay.
         Assert.Contains($"id=\"{Microsoft.FluentUI.AspNetCore.Components.DialogService.GlobalOverlayId}\"", DialogProvider.Markup);
     }
+
+    [Fact]
+    public async Task DialogService_ShowDialogAsync_PreservesGlobalOverlayInstance()
+    {
+        // Arrange
+        var overlay = DialogProvider.FindComponent<FluentOverlay>().Instance;
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<FluentButton>(new DialogOptions());
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Same(overlay, DialogProvider.FindComponent<FluentOverlay>().Instance);
+
+        var dialog = DialogProvider.FindComponent<FluentDialog>().Instance.Instance;
+        await dialog!.CloseAsync();
+        await dialogTask;
+    }
 }
