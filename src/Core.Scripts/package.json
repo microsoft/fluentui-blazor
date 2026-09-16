@@ -19,7 +19,7 @@
     "@typescript-eslint/parser": "8.70.0",
     "esbuild": "0.28.2",
     "esbuild-plugin-inline-css": "0.0.1",
-    "eslint": "10.9.1",
+    "eslint": "10.10.0",
     "glob": "^13.0.6",
     "imask": "^7.6.1",
     "rimraf": "6.1.3",
