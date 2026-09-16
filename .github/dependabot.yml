@@ -6,10 +6,10 @@
 version: 2
 
 updates:
-  # NuGet - dev
+  # NuGet - archive-v4
   - package-ecosystem: "nuget"
     directory: "/"
-    target-branch: "dev"
+    target-branch: "archive-v4"
     groups:
       all-nuget-dependencies:
         patterns: ["*"]
@@ -26,11 +26,11 @@ updates:
     schedule:
       interval: "weekly"
 
-  # npm - dev
+  # npm - archive-v4
   - package-ecosystem: "npm"
     directories:
       - "/src/Core.Assets"
-    target-branch: "dev"
+    target-branch: "archive-v4"
     groups:
       all-npm-dependencies:
         patterns: ["*"]

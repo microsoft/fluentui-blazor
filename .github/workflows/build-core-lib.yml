@@ -9,7 +9,7 @@ on:
 
   push:
     branches:
-      - dev
+      - archive-v4
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
@@ -17,7 +17,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - dev
+      - archive-v4
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'

@@ -6,7 +6,7 @@ on:
 
   push:
     branches:
-      - dev
+      - archive-v4
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
@@ -76,7 +76,7 @@ jobs:
           output_location: "publish/wwwroot"
           skip_api_build: true
           skip_app_build: true
-          production_branch: 'dev'
+          production_branch: 'archive-v4'
 
   destroy:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
