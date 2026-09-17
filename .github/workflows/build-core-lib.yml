@@ -54,11 +54,6 @@ jobs:
         dotnet-version: 10.0.x
         dotnet-quality: ga
 
-     - task: npmAuthenticate@0
-       displayName: Authenticate npm feeds
-       inputs:
-         workingFile: src/Core.Assets/.npmrc
-
      # Build
 
      - name: Restore
