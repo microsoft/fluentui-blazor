@@ -54,15 +54,10 @@ jobs:
         dotnet-version: 10.0.x
         dotnet-quality: ga
 
-     - name: Debug npm config
-       run: |
-         npm config get registry
-         npm config get always-auth
-
-     - name: Debug auth variables
-       shell: pwsh
-       run: |
-         Get-ChildItem Env:NODE_AUTH_TOKEN
+     - task: npmAuthenticate@0
+       displayName: Authenticate npm feeds
+       inputs:
+         workingFile: src/Core.Assets/.npmrc
 
      # Build
 
