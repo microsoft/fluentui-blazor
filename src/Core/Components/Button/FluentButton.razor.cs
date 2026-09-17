@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and
-/// is often found inside forms, dialogs, drawers (panels) and/or pages.
+/// is often found inside forms, dialogs, drawers (panels) or pages.
 /// </summary>
 public partial class FluentButton : FluentComponentBase, ITooltipComponent
 {

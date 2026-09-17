@@ -14,7 +14,17 @@
 
 If you'd like to view the code for version 4, navigate to the [archive-v4](https://github.com/microsoft/fluentui-blazor/tree/archive-v4) branch.
 
-**This package is for use in Blazor projects.**
+> ✅ UPDATE 2026-09-17:
+> Active v5 development has moved from the old `dev-v5` branch to 
+> the `dev` branch. If your local repository previously used `dev-v5` branch, 
+> run the following commands from its folder to switch to and track 
+> the new active development branch:
+>
+> ```shell
+> git fetch origin --prune
+> git switch --track -c dev origin/dev
+> git pull --ff-only origin dev
+> ```
 
 ## Introduction
 
