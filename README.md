@@ -31,6 +31,10 @@ If you encounter any problems, you can use the [backup site](https://fluentui-bl
 
 This package is for use in .NET 8 and 9 Blazor projects. If you are using **now unsupported** .NET 6 or 7, please use the v3 version of the packages (names starting with `Microsoft.Fast.Components.FluentUI`)
 
+> ⚠️ [!IMPORTANT]
+> Version 4 is no longer supported and will receive security updates only. No new features or non-security bug fixes will be released for v4. We recommend upgrading 
+> to [version 5](https://github.com/microsoft/fluentui-blazor/tree/dev) to receive the latest features, improvements, and bug fixes.
+
 ## Introduction
 
 The `Microsoft.FluentUI.AspNetCore.*` family of packages provides a set of Razor components for building [Blazor](https://blazor.net) applications that leverage the Fluent Design System (i.e. have the look and feel of modern Microsoft applications). 
