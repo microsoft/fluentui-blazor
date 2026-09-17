@@ -26,9 +26,6 @@ env:
   PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
   TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
   DOTNET_VERSION: "net10.0"
-  NPM_CONFIG_REGISTRY: "https://registry.npmjs.org/"
-  NPM_CONFIG_ALWAYS_AUTH: "false"
-  NPM_CONFIG_REPLACE_REGISTRY_HOST: "always"
 
 jobs:
   Build:

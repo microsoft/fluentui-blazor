@@ -10,12 +10,6 @@
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 -->
 
-> [!IMPORTANT]
-> Version 4 is no longer supported and will receive security updates only.
-> No new features or non-security bug fixes will be released for v4.
-> xxx
-
-
 > ## Reporting an issue?
 > Please supply us with **ready-to-run** reproduction code in the form of something we can copy/paste, a (zipped) project structure or a GitHub repository.
 >
