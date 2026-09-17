@@ -114,18 +114,54 @@ export const jsonConverter: ValueConverter = {
   },
 };
 
+// Matches ISO 8601 date/date-time strings, e.g. "2024-01-15" or "2024-01-15T10:30:00+05:30".
+const ISO_8601_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|[+-]\d{2}:\d{2})?)?$/;
+
+// Matches a bare "YYYY-MM-DD" string, with no time-of-day or zone offset component.
+const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
 /**
  * Coerces a JSON-deserialized temporal value to `Date` or `number`.
  *
  * When chart data arrives from a JSON source such as a Blazor wrapper,
  * C# `DateTime` and `DateTimeOffset` fields are serialized as ISO 8601 strings
- * (e.g. `"2024-01-15T10:30:00Z"`, `"2024-01-15T10:30:00+05:30"`). Passing
- * such a string directly to the unary `+` operator or to d3 scales yields `NaN`.
- * This helper converts any string to a `Date` via `new Date(iso)`, which handles
- * all timezone variants, and passes `Date` and `number` values through unchanged.
+ * (e.g. `"2024-01-15T10:30:00Z"`, `"2024-01-15T10:30:00+05:30"`). This helper
+ * converts such strings to a `Date`, converts plain numeric strings to a `number`,
+ * and passes `Date`/`number` values through unchanged.
+ *
+ * A bare `"YYYY-MM-DD"` string is a special case: per the ECMAScript `Date` parsing
+ * spec it is read as UTC midnight, unlike every other ISO 8601 shape (a date-time
+ * without a zone offset, e.g. `"2024-01-15T00:00:00"`, is read as *local* midnight).
+ * Charts render date axes with local `Date` getters (`scaleTime`, `timeFormat`, etc.),
+ * so honoring the spec's UTC reading for date-only strings would display the point on
+ * the previous calendar day for viewers in a negative UTC-offset time zone. To keep the
+ * date policy consistent, date-only strings are parsed as local midnight here too.
+ *
+ * These charts render continuous (number or date) axes, not categorical ones, so
+ * any other string (e.g. a category label like `"Q1"`) is rejected rather than
+ * silently turned into an `Invalid Date`, which would otherwise corrupt the axis
+ * domain and scale computations without a clear cause.
  */
-export const parseDateOrNumber = (v: Date | number | string): Date | number =>
-  typeof v === 'string' ? new Date(v) : v;
+export const parseDateOrNumber = (v: Date | number | string): Date | number => {
+  if (typeof v !== 'string') {
+    return v;
+  }
+  if (DATE_ONLY_PATTERN.test(v)) {
+    const [year, month, day] = v.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+  if (ISO_8601_DATE_PATTERN.test(v)) {
+    const parsed = new Date(v);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed;
+    }
+  } else if (v.trim() !== '' && !Number.isNaN(Number(v))) {
+    return Number(v);
+  }
+  throw new TypeError(
+    `Invalid x value "${v}": expected a number, a Date, or an ISO 8601 date string (e.g. "2024-01-15T10:30:00Z").`,
+  );
+};
 
 export const booleanStringConverter = {
   toView(value: boolean): string {

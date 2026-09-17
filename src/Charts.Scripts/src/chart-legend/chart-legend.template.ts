@@ -47,11 +47,11 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
             tabindex="${(x, c) => (c.parent.items.indexOf(x) === 0 ? 0 : -1)}"
             aria-setsize="${(x, c) => c.parent.items.length}"
             aria-posinset="${(x, c) => c.parent.items.indexOf(x) + 1}"
-            aria-selected="${(x, c) => c.parent.highlighted.includes(x.legend) || c.parent.selected.includes(x.legend)}"
+            aria-selected="${(x, c) => c.parent.selected.includes(x.legend)}"
             @mouseover="${(x, c) => c.parent.$emit('legend-mouseover', x.legend)}"
             @mouseout="${(x, c) => c.parent.$emit('legend-mouseout')}"
             @focus="${(x, c) => c.parent.$emit('legend-focus', x.legend)}"
-            @blur="${(x, c) => c.parent.$emit('legend-blur')}"
+            @blur="${(x, c) => c.parent._handleLegendBlur(c.event as FocusEvent)}"
             @click="${(x, c) => c.parent.$emit('legend-click', x.legend)}"
             @keydown="${(x, c) => c.parent._handleLegendKeydown(c.event as KeyboardEvent)}"
           >
@@ -88,8 +88,18 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
       ${when(
         x => x._overflowCount > 0,
         html<T>`
-          <fluent-menu close-on-scroll persist-on-item-click>
-            <fluent-menu-button slot="trigger" size="small">
+          <fluent-menu
+            close-on-scroll
+            persist-on-item-click
+          >
+            <fluent-menu-button
+              slot="trigger"
+              size="small"
+              role="option"
+              tabindex="-1"
+              aria-label="${x => `+${x._overflowCount} ${x.overflowText ?? 'more'}`}"
+              @keydown="${(x, c) => x._handleOverflowKeydown(c.event as KeyboardEvent)}"
+            >
               +${x => x._overflowCount} ${x => x.overflowText ?? 'more'}
             </fluent-menu-button>
             <fluent-menu-list>
@@ -104,11 +114,11 @@ export function chartLegendTemplate<T extends ChartLegend>(): ElementViewTemplat
                       const selected = c.parent.selected.includes(x.legend);
                       return `${inactive ? 'inactive' : ''}${selected ? ' selected' : ''}`.trim();
                     }}"
-                    @click="${(x, c) => c.parent.$emit('legend-click', x.legend)}"
+                    @change="${(x, c) => c.parent.$emit('legend-click', x.legend)}"
                     @mouseover="${(x, c) => c.parent.$emit('legend-mouseover', x.legend)}"
                     @mouseout="${(x, c) => c.parent.$emit('legend-mouseout')}"
                     @focus="${(x, c) => c.parent.$emit('legend-focus', x.legend)}"
-                    @blur="${(x, c) => c.parent.$emit('legend-blur')}"
+                    @blur="${(x, c) => c.parent._handleLegendBlur(c.event as FocusEvent)}"
                   >
                     <span slot="indicator"></span>
                     ${when(

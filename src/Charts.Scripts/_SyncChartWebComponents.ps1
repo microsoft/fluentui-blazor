@@ -19,14 +19,21 @@ if (-not (Test-Path -LiteralPath $DestinationRoot -PathType Container)) {
 $resolvedSourceRoot = (Resolve-Path -LiteralPath $SourceRoot).Path
 $resolvedDestinationRoot = (Resolve-Path -LiteralPath $DestinationRoot).Path
 $excludedTypeScriptPattern = '\.(bench|spec|stories)\.ts$'
+$excludedChartDirectories = @(
+    'stacked-bar-chart'
+    'tree-chart'
+)
 $copiedFileCount = 0
 $skippedFileCount = 0
 
 foreach ($sourceFile in Get-ChildItem -LiteralPath $resolvedSourceRoot -File -Recurse) {
     $relativePath = [System.IO.Path]::GetRelativePath($resolvedSourceRoot, $sourceFile.FullName)
+    $relativeDirectory = Split-Path -Parent $relativePath
+    $chartDirectory = ($relativeDirectory -split '[\\/]')[0]
 
     if (-not $relativePath.Contains([System.IO.Path]::DirectorySeparatorChar) -or
-        $sourceFile.Name -match $excludedTypeScriptPattern) {
+        $sourceFile.Name -match $excludedTypeScriptPattern -or
+        $excludedChartDirectories -contains $chartDirectory) {
         $skippedFileCount++
         continue
     }
@@ -45,4 +52,4 @@ foreach ($sourceFile in Get-ChildItem -LiteralPath $resolvedSourceRoot -File -Re
 }
 
 Write-Host "Copied $copiedFileCount chart files to $resolvedDestinationRoot."
-Write-Host "Skipped $skippedFileCount root, benchmark, story, and test files."
+Write-Host "Skipped $skippedFileCount root, benchmark, story, test, stacked-bar-chart, and tree-chart files."

@@ -13,11 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 public sealed record PolarChartDataPoint
 {
     /// <summary>
-    /// Gets the angular value for the point.
+    /// Gets the angular value for the point. Accepts either a numeric angle or a category label.
     /// </summary>
     [JsonPropertyName("theta")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Theta { get; init; }
+    public ChartAxisValue? Theta { get; init; }
 
     /// <summary>
     /// Gets the radial value for the point.

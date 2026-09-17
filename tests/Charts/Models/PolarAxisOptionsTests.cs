@@ -55,7 +55,7 @@ public class PolarAxisOptionsTests
             TickValues = [(ChartAxisValue)1, (ChartAxisValue)2],
             TickText = ["One", "Two"],
             TickFormat = ".2f",
-            TickStep = "2",
+            TickStep = (ChartAxisValue)2.0,
             Tick0 = (ChartAxisValue)0,
             CategoryOrder = ChartCategoryOrder.Default,
             ScaleType = ChartAxisScaleType.Default,
@@ -70,7 +70,7 @@ public class PolarAxisOptionsTests
         Assert.Contains("\"tickValues\":[1,2]", json);
         Assert.Contains("\"tickText\":[\"One\",\"Two\"]", json);
         Assert.Contains("\"tickFormat\":\".2f\"", json);
-        Assert.Contains("\"tickStep\":\"2\"", json);
+        Assert.Contains("\"tickStep\":2", json);
         Assert.Contains("\"tick0\":0", json);
         Assert.Contains("\"categoryOrder\":\"default\"", json);
         Assert.Contains("\"scaleType\":\"default\"", json);

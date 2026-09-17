@@ -54,9 +54,11 @@ const detectAxisType = (value: string | Date | number): 'date' | 'number' | 'str
   if (typeof value === 'number') {
     return 'number';
   }
-  // ISO date string?
-  const d = new Date(value as string);
-  if (!isNaN(d.getTime()) && /^\d{4}/.test(value as string)) {
+  // Only treat full ISO date strings as dates. Numeric-looking categories such as
+  // "2020" must remain categorical values.
+  const stringValue = value as string;
+  const d = new Date(stringValue);
+  if (!isNaN(d.getTime()) && /^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(stringValue)) {
     return 'date';
   }
   // Numeric string?
@@ -90,15 +92,23 @@ const formatAxisKey = (
   return key;
 };
 
-// Determine foreground text color with adequate contrast against `bgHex`.
-const getTextColorForBg = (bgHex: string): string => {
-  const clean = bgHex.replace('#', '');
-  if (clean.length !== 6) {
+// Determine foreground text color with adequate contrast against a CSS color.
+const getTextColorForBg = (backgroundColor: string, context: HTMLElement): string => {
+  const colorProbe = document.createElement('span');
+  colorProbe.style.color = backgroundColor;
+  context.appendChild(colorProbe);
+  const resolvedColor = getComputedStyle(colorProbe).color;
+  colorProbe.remove();
+
+  const rgb = resolvedColor.match(/^rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)/);
+  const clean = resolvedColor.startsWith('#') ? resolvedColor.slice(1) : '';
+  const r = rgb ? Number(rgb[1]) : clean.length === 6 ? parseInt(clean.slice(0, 2), 16) : NaN;
+  const g = rgb ? Number(rgb[2]) : clean.length === 6 ? parseInt(clean.slice(2, 4), 16) : NaN;
+  const b = rgb ? Number(rgb[3]) : clean.length === 6 ? parseInt(clean.slice(4, 6), 16) : NaN;
+  if (![r, g, b].every(Number.isFinite)) {
     return '#000000';
   }
-  const r = parseInt(clean.slice(0, 2), 16);
-  const g = parseInt(clean.slice(2, 4), 16);
-  const b = parseInt(clean.slice(4, 6), 16);
+
   // Relative luminance (WCAG 2.1)
   const toLinear = (c: number) => {
     const s = c / 255;
@@ -775,7 +785,7 @@ export class HeatMapChart extends CartesianChartBase {
         const point = pointMap.get(key) ?? null;
         const hasData = point !== null && !isNaN(point.value);
         const fillColor = hasData ? colorScale(point!.value) : 'transparent';
-        const textColor = hasData ? getTextColorForBg(fillColor) : 'transparent';
+        const textColor = hasData ? getTextColorForBg(fillColor, this.chartContainer) : 'transparent';
         const ariaLabel = this._getAriaLabel(point, xLabel, yLabel);
         const legend = point?.legend ?? '';
 

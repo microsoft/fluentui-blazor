@@ -3,6 +3,7 @@ import { arc as d3Arc } from 'd3-shape';
 import { ChartBase } from '../utils/chart-base.js';
 import {
   escapeHtml,
+  formatLocaleNumber,
   getColorFromToken,
   getNextColor,
   jsonConverter,
@@ -55,7 +56,11 @@ type TooltipAnchorMode = 'pointer' | 'element';
 // ── Helper functions (mirrors React exports) ──────────────────────────────────
 
 export function calcNeedleRotation(chartValue: number, minValue: number, maxValue: number): number {
-  let needleRotation = ((chartValue - minValue) / (maxValue - minValue)) * 180;
+  const span = maxValue - minValue;
+  if (!(span > 0)) {
+    return 0;
+  }
+  let needleRotation = ((chartValue - minValue) / span) * 180;
   if (needleRotation < 0) {
     needleRotation = 0;
   } else if (needleRotation > 180) {
@@ -70,15 +75,18 @@ export function getSegmentLabel(
   maxValue: number,
   variant?: GaugeChartVariant,
   isAriaLabel: boolean = false,
+  culture?: string,
 ): string {
+  const formatNumber = (value: number): string => formatLocaleNumber(value, culture);
+  const percentOfMax = maxValue > 0 ? formatNumber((segment.size / maxValue) * 100) : formatNumber(0);
   if (isAriaLabel) {
     return minValue === 0 && variant === 'single-segment'
-      ? `${segment.legend}, ${segment.size} out of ${maxValue} or ${((segment.size / maxValue) * 100).toFixed()}%`
-      : `${segment.legend}, ${segment.start} to ${segment.end}`;
+      ? `${segment.legend}, ${formatNumber(segment.size)} out of ${formatNumber(maxValue)} or ${percentOfMax}%`
+      : `${segment.legend}, ${formatNumber(segment.start)} to ${formatNumber(segment.end)}`;
   }
   return minValue === 0 && variant === 'single-segment'
-    ? `${segment.size} (${((segment.size / maxValue) * 100).toFixed()}%)`
-    : `${segment.start} - ${segment.end}`;
+    ? `${formatNumber(segment.size)} (${percentOfMax}%)`
+    : `${formatNumber(segment.start)} - ${formatNumber(segment.end)}`;
 }
 
 export function getChartValueLabel(
@@ -89,32 +97,35 @@ export function getChartValueLabel(
   forCallout: boolean = false,
   chartValueFormatFn?: (sweepFraction: [number, number]) => string,
   chartValueFormatTemplate?: string,
+  culture?: string,
 ): string {
+  const formatNumber = (value: number): string => formatLocaleNumber(value, culture);
   // JS function takes highest precedence.
   if (chartValueFormatFn) {
     return chartValueFormatFn([chartValue, maxValue]);
   }
   // Template string (Blazor path) takes second precedence.
   if (chartValueFormatTemplate) {
-    const percent = maxValue > minValue ? (((chartValue - minValue) / (maxValue - minValue)) * 100).toFixed() : '0';
+    const percent = maxValue > minValue ? formatNumber(((chartValue - minValue) / (maxValue - minValue)) * 100) : formatNumber(0);
     return chartValueFormatTemplate
-      .replace('{value}', String(chartValue))
-      .replace('{max}', String(maxValue))
-      .replace('{min}', String(minValue))
+      .replace('{value}', formatNumber(chartValue))
+      .replace('{max}', formatNumber(maxValue))
+      .replace('{min}', formatNumber(minValue))
       .replace('{percent}', percent);
   }
+  const percentOfMax = maxValue > 0 ? formatNumber((chartValue / maxValue) * 100) : formatNumber(0);
   if (forCallout) {
     return minValue !== 0
-      ? chartValue.toString()
+      ? formatNumber(chartValue)
       : chartValueFormat === 'fraction'
-      ? `${((chartValue / maxValue) * 100).toFixed()}%`
-      : `${chartValue}/${maxValue}`;
+      ? `${percentOfMax}%`
+      : `${formatNumber(chartValue)}/${formatNumber(maxValue)}`;
   }
   return minValue !== 0
-    ? chartValue.toString()
+    ? formatNumber(chartValue)
     : chartValueFormat === 'fraction'
-    ? `${chartValue}/${maxValue}`
-    : `${((chartValue / maxValue) * 100).toFixed()}%`;
+    ? `${formatNumber(chartValue)}/${formatNumber(maxValue)}`
+    : `${percentOfMax}%`;
 }
 
 // ── Component class ───────────────────────────────────────────────────────────
@@ -495,9 +506,10 @@ export class GaugeChart extends ChartBase {
 
     const rtlSegments = this._isRTL ? [...segments].reverse() : segments;
     let prevAngle = -Math.PI / 2;
+    const span = maxValue - minValue;
 
     const arcs = rtlSegments.map((seg, i) => {
-      const endAngle = prevAngle + (seg.size / (maxValue - minValue)) * Math.PI;
+      const endAngle = span > 0 ? prevAngle + (seg.size / span) * Math.PI : prevAngle;
       const d = arcGenerator({
         innerRadius,
         outerRadius,
@@ -553,7 +565,7 @@ export class GaugeChart extends ChartBase {
       path.setAttribute('role', 'img');
       path.setAttribute(
         'aria-label',
-        segment.ariaLabel ?? getSegmentLabel(segment, minValue, maxValue, this.variant, true),
+        segment.ariaLabel ?? getSegmentLabel(segment, minValue, maxValue, this.variant, true, this.culture),
       );
       path.setAttribute('tabindex', this._segmentEls.length === 1 ? '0' : '-1');
       path.classList.add('segment');
@@ -660,6 +672,7 @@ export class GaugeChart extends ChartBase {
         false,
         this.chartValueFormatFn,
         this.chartValueFormatTemplate,
+        this.culture,
       )}`,
     );
     path.setAttribute('tabindex', this._segmentEls.length === 0 ? '0' : '-1');
@@ -711,6 +724,7 @@ export class GaugeChart extends ChartBase {
       false,
       this.chartValueFormatFn,
       this.chartValueFormatTemplate,
+      this.culture,
     );
     this.group.appendChild(text);
 
@@ -743,7 +757,7 @@ export class GaugeChart extends ChartBase {
     minLabel.setAttribute('y', '0');
     minLabel.setAttribute('text-anchor', 'end');
     minLabel.setAttribute('role', 'img');
-    minLabel.setAttribute('aria-label', `Min value: ${this._computedMinValue}`);
+    minLabel.setAttribute('aria-label', `Min value: ${formatLocaleNumber(this._computedMinValue, this.culture)}`);
     minLabel.textContent = this._formatScientific(this._computedMinValue);
     this.group.appendChild(minLabel);
 
@@ -754,18 +768,18 @@ export class GaugeChart extends ChartBase {
     maxLabel.setAttribute('y', '0');
     maxLabel.setAttribute('text-anchor', 'start');
     maxLabel.setAttribute('role', 'img');
-    maxLabel.setAttribute('aria-label', `Max value: ${this._computedMaxValue}`);
+    maxLabel.setAttribute('aria-label', `Max value: ${formatLocaleNumber(this._computedMaxValue, this.culture)}`);
     maxLabel.textContent = this._formatScientific(this._computedMaxValue);
     this.group.appendChild(maxLabel);
   }
 
   private _formatScientific(value: number): string {
     const abs = Math.abs(value);
-    if (abs === 0) return '0';
-    if (abs >= 1e3 && abs < 1e6) return `${(value / 1e3).toFixed(1)}k`;
-    if (abs >= 1e6 && abs < 1e9) return `${(value / 1e6).toFixed(1)}M`;
-    if (abs >= 1e9) return `${(value / 1e9).toFixed(1)}B`;
-    return value.toString();
+    if (abs === 0) return formatLocaleNumber(0, this.culture);
+    if (abs >= 1e3 && abs < 1e6) return `${formatLocaleNumber(value / 1e3, this.culture)}k`;
+    if (abs >= 1e6 && abs < 1e9) return `${formatLocaleNumber(value / 1e6, this.culture)}M`;
+    if (abs >= 1e9) return `${formatLocaleNumber(value / 1e9, this.culture)}B`;
+    return formatLocaleNumber(value, this.culture);
   }
 
   private _buildLegends(segments: ExtendedSegment[]): Legend[] {
@@ -785,7 +799,7 @@ export class GaugeChart extends ChartBase {
       )
       .map(seg => ({
         legend: seg.legend,
-        value: getSegmentLabel(seg, this._computedMinValue, this._computedMaxValue, this.variant),
+        value: getSegmentLabel(seg, this._computedMinValue, this._computedMaxValue, this.variant, false, this.culture),
         color: seg.color!,
       }));
   }
@@ -801,6 +815,7 @@ export class GaugeChart extends ChartBase {
         true,
         this.chartValueFormatFn,
         this.chartValueFormatTemplate,
+        this.culture,
       )
     );
   }

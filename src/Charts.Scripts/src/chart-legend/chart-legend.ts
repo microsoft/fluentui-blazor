@@ -254,28 +254,53 @@ export class ChartLegend extends FASTElement {
   }
 
   /**
-   * Roving tabindex handler for visible legend button keyboard navigation.
-   * Arrow keys move focus between legend items; all other keys are ignored.
+   * Roving tabindex handler for visible legend options and the overflow option.
+   * Arrow keys move focus between options; all other keys are ignored.
    */
   public _handleLegendKeydown(e: KeyboardEvent): boolean {
-    const forward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
-    const backward = e.key === 'ArrowLeft' || e.key === 'ArrowUp';
-    if (!forward && !backward) {
-      return true; // Don't prevent default for Space, Enter, Tab, etc.
+    return this._isArrowKey(e) ? this._moveFocus(e) : true;
+  }
+
+  /** Handles arrow-key navigation from the overflow trigger back into the legend. */
+  public _handleOverflowKeydown(e: KeyboardEvent): boolean {
+    if ((e.currentTarget as HTMLElement).getAttribute('aria-expanded') === 'true') {
+      return true;
     }
+
+    return this._isArrowKey(e) ? this._moveFocus(e) : true;
+  }
+
+  /** Keeps the current highlight while focus moves between legend controls. */
+  public _handleLegendBlur(e: FocusEvent): boolean {
+    if (this.shadowRoot?.contains(e.relatedTarget as Node | null)) {
+      return true;
+    }
+
+    this.$emit('legend-blur');
+    return true;
+  }
+
+  private _moveFocus(e: KeyboardEvent): boolean {
+    const forward = e.key === 'ArrowRight' || e.key === 'ArrowDown';
     e.preventDefault();
-    // Navigate only among visible legend buttons (not the overflow trigger).
-    const buttons = Array.from(
-      this.shadowRoot?.querySelectorAll<HTMLButtonElement>('.legend:not(.overflow-button)') ?? [],
-    ).filter(b => b.style.display !== 'none');
-    const count = buttons.length;
+    const options = Array.from(
+      this.shadowRoot?.querySelectorAll<HTMLElement>('.legend, fluent-menu-button[role="option"]') ?? [],
+    ).filter(option => option.style.display !== 'none');
+    const count = options.length;
     if (count === 0) return false;
-    const index = buttons.indexOf(e.currentTarget as HTMLButtonElement);
+    const currentOption =
+      options.find(option => option === e.currentTarget || e.composedPath().includes(option)) ??
+      options.find(option => option === this.shadowRoot?.activeElement);
+    const index = currentOption ? options.indexOf(currentOption) : -1;
     if (index === -1) return false;
     const nextIndex = forward ? (index + 1) % count : (index - 1 + count) % count;
-    buttons[index].tabIndex = -1;
-    buttons[nextIndex].tabIndex = 0;
-    buttons[nextIndex].focus();
+    options[index].tabIndex = -1;
+    options[nextIndex].tabIndex = 0;
+    options[nextIndex].focus();
     return false;
+  }
+
+  private _isArrowKey(e: KeyboardEvent): boolean {
+    return e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowUp';
   }
 }

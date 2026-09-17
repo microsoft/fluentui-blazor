@@ -1,8 +1,8 @@
 import { attr } from '@microsoft/fast-element';
-import { format } from 'd3-format';
 import { sankey, sankeyLinkHorizontal, type SankeyLink, type SankeyNode } from 'd3-sankey';
 import { ChartBase } from '../utils/chart-base.js';
 import {
+  formatLocaleNumber,
   getColorFromToken,
   getNextColor,
   jsonConverter,
@@ -14,7 +14,6 @@ import type { SankeyChartData, SankeyChartLink, SankeyChartNode } from './sankey
 const createSvgElement = <T extends SVGElement>(tag: string): T =>
   document.createElementNS(SVG_NAMESPACE_URI, tag) as T;
 
-const defaultNumberFormatter = format(',.2~f');
 const NODE_WIDTH = 124;
 const MIN_HEIGHT_FOR_LABEL = 24;
 const MIN_HEIGHT_FOR_TWO_LINE_LABEL = 36;
@@ -29,6 +28,57 @@ interface SankeyLayoutData {
   nodes: SankeyNodeDatum[];
   links: SankeyLinkDatum[];
 }
+
+export const getSankeyDataError = (data: SankeyChartData | undefined): string | undefined => {
+  if (!data || !Array.isArray(data.nodes) || !Array.isArray(data.links)) {
+    return 'Sankey chart data is missing nodes or links.';
+  }
+
+  const adjacency = data.nodes.map(() => [] as number[]);
+  for (const link of data.links) {
+    if (
+      !Number.isInteger(link.source) ||
+      !Number.isInteger(link.target) ||
+      link.source < 0 ||
+      link.source >= data.nodes.length ||
+      link.target < 0 ||
+      link.target >= data.nodes.length ||
+      link.source === link.target ||
+      !Number.isFinite(link.value) ||
+      link.value < 0
+    ) {
+      return 'Sankey chart contains an invalid link.';
+    }
+    adjacency[link.source].push(link.target);
+  }
+
+  const visiting = new Set<number>();
+  const visited = new Set<number>();
+  const hasCycle = (node: number): boolean => {
+    if (visiting.has(node)) {
+      return true;
+    }
+    if (visited.has(node)) {
+      return false;
+    }
+
+    visiting.add(node);
+    for (const target of adjacency[node]) {
+      if (hasCycle(target)) {
+        return true;
+      }
+    }
+    visiting.delete(node);
+    visited.add(node);
+    return false;
+  };
+
+  if (adjacency.some((_, index) => hasCycle(index))) {
+    return 'Sankey chart cannot render cyclic link data.';
+  }
+
+  return undefined;
+};
 
 const normalizeSmallNodes = (
   nodes: Array<SankeyNode<SankeyNodeDatum, SankeyLinkDatum>>,
@@ -143,6 +193,7 @@ export class SankeyChart extends ChartBase {
 
     this._applyHostDimensions(this.width, this.height);
     this._clearChart();
+    this.liveRegionText = '';
 
     const chartData = this.data;
     const nodes = chartData?.nodes ?? [];
@@ -152,6 +203,12 @@ export class SankeyChart extends ChartBase {
       this.legends = [];
       this._updateLegendInteractionState();
       this.elementInternals.ariaLabel = this._getHostAriaLabel();
+      return;
+    }
+
+    const dataError = getSankeyDataError(chartData);
+    if (dataError) {
+      this._setDataError(dataError);
       return;
     }
 
@@ -183,9 +240,15 @@ export class SankeyChart extends ChartBase {
         [0, 0],
         [innerWidth, innerHeight],
       ]);
-    let graph = layout(graphData);
-    normalizeSmallNodes(graph.nodes, graph.links);
-    graph = layout(graphData);
+    let graph: ReturnType<typeof layout>;
+    try {
+      graph = layout(graphData);
+      normalizeSmallNodes(graph.nodes, graph.links);
+      graph = layout(graphData);
+    } catch {
+      this._setDataError('Sankey chart could not render the supplied graph data.');
+      return;
+    }
 
     this.legends = graph.nodes.map((node, index) => ({
       legend: node.name,
@@ -227,7 +290,7 @@ export class SankeyChart extends ChartBase {
       path.setAttribute('stroke-width', String(linkWidth));
       const linkValue = link.unnormalizedValue ?? link.value;
       path.setAttribute('role', 'img');
-      path.setAttribute('aria-label', `${sourceLegend} to ${targetLegend}, ${defaultNumberFormatter(linkValue)}`);
+      path.setAttribute('aria-label', `${sourceLegend} to ${targetLegend}, ${formatLocaleNumber(linkValue, this.culture)}`);
       path.setAttribute('tabindex', index === 0 ? '0' : '-1');
 
       const showLinkCallout = (): void => {
@@ -243,7 +306,7 @@ export class SankeyChart extends ChartBase {
         this.tooltipProps = {
           isVisible: true,
           legend: `${sourceLegend} → ${targetLegend}`,
-          yValue: defaultNumberFormatter(linkValue),
+          yValue: formatLocaleNumber(linkValue, this.culture),
           color: strokeColor,
           xPos: this._isRTL ? rootBounds.width - anchorX : anchorX,
           yPos: Math.max(anchorY, 0),
@@ -277,7 +340,7 @@ export class SankeyChart extends ChartBase {
       rect.setAttribute('role', 'img');
       rect.setAttribute('tabindex', graph.links.length === 0 && index === 0 ? '0' : '-1');
       const nodeValue = node.actualValue ?? node.value ?? 0;
-      rect.setAttribute('aria-label', `${node.name}, ${defaultNumberFormatter(nodeValue)}`);
+      rect.setAttribute('aria-label', `${node.name}, ${formatLocaleNumber(nodeValue, this.culture)}`);
       group.appendChild(rect);
 
       const label = createSvgElement<SVGTextElement>('text');
@@ -302,7 +365,7 @@ export class SankeyChart extends ChartBase {
         value.setAttribute('x', String(hasTwoLineLabel ? (node.x0 ?? 0) + 5 : (node.x1 ?? 0) - 8));
         value.setAttribute('dy', hasTwoLineLabel ? '1.2em' : '0');
         value.setAttribute('text-anchor', hasTwoLineLabel ? 'start' : 'end');
-        value.textContent = defaultNumberFormatter(nodeValue);
+        value.textContent = formatLocaleNumber(nodeValue, this.culture);
         label.appendChild(value);
       }
       group.appendChild(label);
@@ -324,7 +387,7 @@ export class SankeyChart extends ChartBase {
         this.tooltipProps = {
           isVisible: true,
           legend: node.name,
-          yValue: defaultNumberFormatter(nodeValue),
+          yValue: formatLocaleNumber(nodeValue, this.culture),
           color: fill,
           ...position,
         };
@@ -376,6 +439,13 @@ export class SankeyChart extends ChartBase {
     const nodeCount = this.data?.nodes?.length ?? 0;
     const linkCount = this.data?.links?.length ?? 0;
     return `Sankey chart with ${nodeCount} nodes and ${linkCount} links.`;
+  }
+
+  private _setDataError(message: string): void {
+    this.legends = [];
+    this._updateLegendInteractionState();
+    this.liveRegionText = message;
+    this.elementInternals.ariaLabel = message;
   }
 
   private _shouldShowLinkTooltip(sourceLegend: string, targetLegend: string): boolean {

@@ -341,11 +341,16 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
 
     /// <summary>
     /// Serializes <see cref="TickValues"/> to a JSON array string for the web component attribute.
-    /// Overridden by <see cref="FluentGanttChart"/> to also handle date tick values.
     /// </summary>
+    /// <remarks>
+    /// <see cref="DateTickValues"/> is normalized through <see cref="ChartAxisValue.ToUtcDateTimeOffset"/>,
+    /// the same date policy used for chart data points, so a <see cref="DateTimeKind.Unspecified"/> tick
+    /// value lines up with an <see cref="DateTimeKind.Unspecified"/> data point instead of drifting by the
+    /// server's local UTC offset.
+    /// </remarks>
     internal virtual string? TickValuesJson =>
         DateTickValues is not null
-            ? JsonSerializer.Serialize(DateTickValues.Select(d => (double)new DateTimeOffset(d).ToUnixTimeMilliseconds()), ChartJsonSerializerContext.Default.IEnumerableDouble)
+            ? JsonSerializer.Serialize(DateTickValues.Select(d => (double)ChartAxisValue.ToUtcDateTimeOffset(d).ToUnixTimeMilliseconds()), ChartJsonSerializerContext.Default.IEnumerableDouble)
             : TickValues is not null ? JsonSerializer.Serialize(TickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
 
     /// <summary>

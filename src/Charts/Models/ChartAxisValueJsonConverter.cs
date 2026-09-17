@@ -10,7 +10,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 
 /// <summary>
 /// Serializes and deserializes a <see cref="ChartAxisValue"/> as either a JSON number
-/// or string, matching the format expected by the chart web components.
+/// or string, matching the format expected by the chart web components. Non-finite
+/// numeric values are serialized as JSON <see langword="null"/> so chart renderers
+/// can treat them as gaps instead of receiving invalid numeric tokens.
 /// </summary>
 internal sealed class ChartAxisValueJsonConverter : JsonConverter<ChartAxisValue>
 {
@@ -49,6 +51,12 @@ internal sealed class ChartAxisValueJsonConverter : JsonConverter<ChartAxisValue
             return;
         }
 
-        writer.WriteNumberValue(value.NumberValue);
+        if (double.IsFinite(value.NumberValue))
+        {
+            writer.WriteNumberValue(value.NumberValue);
+            return;
+        }
+
+        writer.WriteNullValue();
     }
 }

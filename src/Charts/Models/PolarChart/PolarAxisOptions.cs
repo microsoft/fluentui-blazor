@@ -41,11 +41,11 @@ public sealed record PolarAxisOptions
     public string? TickFormat { get; init; }
 
     /// <summary>
-    /// Gets the tick step value.
+    /// Gets the tick step value. Accepts a numeric step or a month-step string such as <c>"M3"</c>.
     /// </summary>
     [JsonPropertyName("tickStep")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? TickStep { get; init; }
+    public ChartAxisValue? TickStep { get; init; }
 
     /// <summary>
     /// Gets the axis origin tick value.

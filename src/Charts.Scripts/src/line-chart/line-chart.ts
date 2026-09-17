@@ -23,6 +23,7 @@ import {
 } from '../utils/cartesian-axis-shared.js';
 import {
   defaultYAxisTickFormatter,
+  escapeHtml,
   formatLocaleNumber,
   getColorFromToken,
   getNextColor,
@@ -306,12 +307,12 @@ export class LineChart extends CartesianChartBase {
 
   protected override _buildDefaultTooltipHTML(): string {
     return [
-      `<div class="tooltip-header">${this.tooltipProps.xValue}</div>`,
+      `<div class="tooltip-header">${escapeHtml(this.tooltipProps.xValue)}</div>`,
       ...this.tooltipProps.entries.map(
         entry =>
-          `<div class="tooltip-info" style="border-color: ${entry.color};">` +
-          `<div class="tooltip-legend-text">${entry.legend}</div>` +
-          `<div class="tooltip-primary-value" style="color: ${entry.color};">${entry.value}</div>` +
+          `<div class="tooltip-info" style="border-color: ${escapeHtml(entry.color)};">` +
+          `<div class="tooltip-legend-text">${escapeHtml(entry.legend)}</div>` +
+          `<div class="tooltip-primary-value" style="color: ${escapeHtml(entry.color)};">${entry.value}</div>` +
           `</div>`,
       ),
     ].join('');

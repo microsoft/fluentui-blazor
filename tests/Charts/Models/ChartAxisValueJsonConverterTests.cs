@@ -78,6 +78,22 @@ public class ChartAxisValueJsonConverterTests
         Assert.Equal("42.75", json);
     }
 
+    [Theory]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(double.NegativeInfinity)]
+    public void Serialize_NonFiniteNumericChartAxisValue_WritesJsonNull(double value)
+    {
+        // Arrange
+        ChartAxisValue chartAxisValue = value;
+
+        // Act
+        var json = JsonSerializer.Serialize(chartAxisValue);
+
+        // Assert
+        Assert.Equal("null", json);
+    }
+
     [Fact]
     public void Serialize_DateChartAxisValue_WritesIso8601String()
     {

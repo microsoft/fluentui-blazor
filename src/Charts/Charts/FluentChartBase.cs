@@ -197,20 +197,31 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     /// <inheritdoc />
     public override async ValueTask DisposeAsync()
     {
-        if (_jsModule is not null)
+        try
         {
-            try
+            if (_jsModule is not null)
             {
-                await _jsModule.InvokeVoidAsync("destroyTooltipBridge", Id);
-                await _jsModule.DisposeAsync();
+                try
+                {
+                    await _jsModule.InvokeVoidAsync("destroyTooltipBridge", Id);
+                    await _jsModule.DisposeAsync();
+                }
+                catch (Exception ex) when (ex is JSDisconnectedException || ex is OperationCanceledException)
+                {
+                    // Client disconnected — safe to ignore.
+                }
+                finally
+                {
+                    _jsModule = null;
+                }
             }
-            catch (Exception ex) when (ex is JSDisconnectedException || ex is OperationCanceledException)
-            {
-                // Client disconnected — safe to ignore.
-            }
-        }
 
-        _dotNetRef?.Dispose();
-        GC.SuppressFinalize(this);
+            _dotNetRef?.Dispose();
+            _dotNetRef = null;
+        }
+        finally
+        {
+            await base.DisposeAsync();
+        }
     }
 }
