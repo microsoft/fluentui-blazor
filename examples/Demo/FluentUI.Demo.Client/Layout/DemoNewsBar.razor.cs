@@ -31,7 +31,7 @@ public partial class DemoNewsBar
     /// <summary>
     /// The URI of the news content to display in the message bar.
     /// </summary>
-    private static readonly Uri NewsUri = new("https://raw.githubusercontent.com/microsoft/fluentui-blazor/refs/heads/dev-v5/NEWS-BANNER.md");
+    private static readonly Uri NewsUri = new("https://raw.githubusercontent.com/microsoft/fluentui-blazor/refs/heads/dev/NEWS-BANNER.md");
 
     private const string LocalStorageKey = "fluentui-demo-newsbar-sha";
 

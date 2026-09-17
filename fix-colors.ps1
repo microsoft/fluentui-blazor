@@ -1,4 +1,4 @@
-$e = "D:\Source\FluentUI\fluentui-blazor\users\vnbaaij\dev-v5\charts\examples"
+$e = "D:\Source\FluentUI\fluentui-blazor\users\vnbaaij\dev\charts\examples"
 
 # Use regex replacements so we can anchor to word boundary: match " Color = " not "CustomColor = "
 # Pattern: match Color property assignment preceded by whitespace, comma, or opening brace
