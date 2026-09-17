@@ -3,10 +3,18 @@ fluent-menu fluent-menu-list:not([popover]) {
     display: none;
 }
 
-/* Fix #5207 */
+/* Fix #5207 and #5288 */
+@position-try --fluent-menu-submenu-viewport {
+    top: 4px;
+    bottom: auto;
+    max-height: calc(100dvh - 8px);
+}
+
 fluent-menu-item>fluent-menu-list[slot="submenu"] {
     position-try-fallbacks:
         flip-inline,
         flip-block,
-        flip-block flip-inline;
+        flip-block flip-inline,
+        --fluent-menu-submenu-viewport,
+        --fluent-menu-submenu-viewport flip-inline;
 }

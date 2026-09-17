@@ -46,7 +46,7 @@ Please provide a summary of the tests affected by this work and any unique strat
 - [ ] I have added tests for my changes.
 - [ ] I have tested my changes.
 - [ ] I have updated the project documentation to reflect my changes.
-- [ ] I have read the [CONTRIBUTING](https://github.com/microsoft/fluentui-blazor/blob/dev-v5/docs/contributing.md) documentation and followed the [standards](https://www.fast.design/docs/community/code-of-conduct/#our-standards) for this project.
+- [ ] I have read the [CONTRIBUTING](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/contributing.md) documentation and followed the [standards](https://www.fast.design/docs/community/code-of-conduct/#our-standards) for this project.
 
 ### Component-specific
 
@@ -54,16 +54,16 @@ Please provide a summary of the tests affected by this work and any unique strat
 <!--- Remove this section if not applicable. -->
 
 - [ ] I have added a new component
-- [ ] I have added [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/dev-v5/docs/unit-tests.md) for my new component
+- [ ] I have added [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/dev/docs/unit-tests.md) for my new component
 - [ ] I have modified an existing component
-- [ ] I have validated the [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/dev-v5/docs/unit-tests.md) for an existing component
+- [ ] I have validated the [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/dev/docs/unit-tests.md) for an existing component
 
 ### MCP Server
 
 <!--- Review the list and put an x in the boxes that apply. -->
 <!--- Remove this section if not applicable. -->
 - [ ] I have added or updated MCP Server tools/prompts/resources
-- [ ] I have added [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/dev-v5/docs/unit-tests.md) for my MCP Server changes
+- [ ] I have added [Unit Tests](https://github.com/Microsoft/fluentui-blazor/blob/dev/docs/unit-tests.md) for my MCP Server changes
 
 ## ⏭ Next Steps
 

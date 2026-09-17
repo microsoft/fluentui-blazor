@@ -2,7 +2,7 @@
 
 These instructions will get you set up with the latest build of **FluentUI-Blazor**.
 
-Each time a commit is pushed to `dev-v5`, the **Core** package is published on a special NuGet repository.
+Each time a commit is pushed to `dev`, the **Core** package is published on a special NuGet repository.
 Install the latest [Visual Studio 2022 Preview version](https://visualstudio.microsoft.com/vs/preview/)
 or [Visual Studio 2026 Insider edition](https://visualstudio.microsoft.com/insiders/) for the tooling.
 

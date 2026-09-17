@@ -13,7 +13,7 @@
 
 .PARAMETER packageSuffix
     Suffix to add to the computed version. Example "Preview", "RC.1", ...
-    This suffix overrides the one calculated for dev-v5 or main branches.
+    This suffix overrides the one calculated for dev or main branches.
     Default is "".
 
 .PARAMETER testProjects
@@ -21,7 +21,7 @@
     Not empty, ShouldTest will be "true".
 
 .EXAMPLE
-    $> .\compute-version-variables -branchName "dev-v5" -buildNumber "4.6.1.24123.3" -packageSuffix "Preview"
+    $> .\compute-version-variables -branchName "dev" -buildNumber "4.6.1.24123.3" -packageSuffix "Preview"
 
 .EXAMPLE
     # Compute AssemblyVersion and PackageVersion
@@ -56,15 +56,15 @@ $package = ""
 # To Test?
 $toTest = "true"
 
-# BranchName = dev-v5, main, archive or PR
+# BranchName = dev, main, archive or PR
 if ($branchName -eq "main") {
     $branch = "main"
 }
-elseif ($branchName -eq "archive-v4" -or $branchName -eq "dev-v5") {
+elseif ($branchName -eq "dev") {
     $branch = "dev"
 }
 # elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
-elseif ($branchName -like "*/archives/*") {
+elseif ($branchName -like "*/archives/*" -or $branchName -like "archive-*") {
     $branch = "archive"
 }
 else {

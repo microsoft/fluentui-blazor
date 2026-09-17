@@ -186,7 +186,7 @@ This repository uses a fork-based contribution model:
 
 1. **Fork** the repository from [microsoft/fluentui-blazor](https://github.com/microsoft/fluentui-blazor)
 2. **Clone** your fork locally
-3. **Create a feature branch** from the target branch (`dev-v5`)
+3. **Create a feature branch** from the target branch (`dev`)
 4. **Make changes** and commit following conventional commit guidelines
 5. **Push** to your fork
 6. **Create a Pull Request** targeting the upstream repository `microsoft/fluentui-blazor`
@@ -201,7 +201,7 @@ git remote add upstream https://github.com/microsoft/fluentui-blazor.git
 git fetch upstream
 
 # Rebase your branch on upstream
-git rebase upstream/dev-v5
+git rebase upstream/dev
 ```
 
 ## Additional Resources
