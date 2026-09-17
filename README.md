@@ -10,7 +10,7 @@
 
 :star:  We appreciate your star, it helps!
 
-**This package is for use in .NET 9 (and up) Blazor projects.**
+**This package is for use in Blazor projects.**
 
 ## Introduction
 
@@ -216,8 +216,8 @@ through the GitHub repository **only**.
 
 ## Contributing to the project
 
-We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/dev-v5/docs/contributing.md).
-We also have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/dev-v5/docs/unit-tests.md)
+We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/contributing.md).
+We also have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/unit-tests.md)
 
 ## Joining the Community
 
