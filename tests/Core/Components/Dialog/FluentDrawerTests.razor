@@ -27,6 +27,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentDrawer_Render()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
@@ -50,6 +52,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentDrawer_Options()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
@@ -72,6 +76,8 @@
     [InlineData("position=\"end\"", DialogAlignment.End)]
     public async Task FluentDrawer_Position(string expectedContains, DialogAlignment alignment)
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
@@ -111,7 +117,7 @@
                });
 
         // Don't wait for the dialog to be closed
-        await Task.CompletedTask;
+        await Task.CompletedTask.WaitAsync(Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         var dialog = DialogProvider.Find("fluent-drawer");
@@ -132,6 +138,8 @@
     [InlineData("type=\"non-modal\"", false)]
     public async Task FluentDrawer_Modal(string expectedContains, bool? modal)
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
@@ -154,6 +162,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentDrawer_InverseActions()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 
@@ -187,6 +197,8 @@
     [InlineData("full", DialogSize.Full)]
     public async Task FluentDrawer_Size(string? expected, DialogSize? size)
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var renderOptions = new Templates.DialogRenderOptions();
 

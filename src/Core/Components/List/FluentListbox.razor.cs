@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -12,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// A FluentListbox allows for selecting one or more options from a list of options.
 /// </summary>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentListbox<TOption, TValue> : FluentListBase<TOption, TValue>
+public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>
 {
     /// <summary />
     public FluentListbox(LibraryConfiguration configuration) : base(configuration) { }

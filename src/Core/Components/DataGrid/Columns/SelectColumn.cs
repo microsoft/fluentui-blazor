@@ -664,6 +664,9 @@ public class SelectColumn<TGridItem> : ColumnBase<TGridItem>, IDisposable
     }
 
     /// <inheritdoc />
+    protected internal override bool RequiresCellComponent => true;
+
+    /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
 

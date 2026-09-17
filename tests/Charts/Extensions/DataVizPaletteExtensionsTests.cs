@@ -2,13 +2,43 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Reflection;
 using Microsoft.FluentUI.AspNetCore.Components.Charts;
 using Xunit;
+using GeneratedChartEnumExtensions = Microsoft.FluentUI.AspNetCore.Components.Charts.Extensions.GeneratedEnumExtensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Charts.Extensions;
 
 public class DataVizPaletteExtensionsTests
 {
+    public static IEnumerable<object[]> RegisteredEnumValues()
+    {
+        return typeof(GeneratedChartEnumExtensions).GetCustomAttributesData()
+            .Where(attribute => attribute.AttributeType.Name == "EnumAttributeValuesAttribute")
+            .Select(attribute => (Type)attribute.ConstructorArguments[0].Value!)
+            .SelectMany(type => Enum.GetValues(type).Cast<Enum>())
+            .Select(value => new object[] { value });
+    }
+
+    [Theory]
+    [MemberData(nameof(RegisteredEnumValues))]
+    public void GetDescription_RegisteredChartValue_MatchesReflection(Enum value)
+    {
+        var method = typeof(GeneratedChartEnumExtensions).GetMethod("GetDescription", BindingFlags.Static | BindingFlags.NonPublic, [value.GetType()]);
+
+        Assert.NotNull(method);
+        Assert.False(method.IsGenericMethod);
+        Assert.Equal(Components.Extensions.EnumExtensions.GetDescription(value), method.Invoke(null, [value]));
+    }
+
+    [Fact]
+    public void ToAttributeValue_NullablePalette_ReturnsNull()
+    {
+        DataVizPalette? value = null;
+
+        Assert.Null(GeneratedChartEnumExtensions.ToAttributeValue(value));
+    }
+
     // ── TryGetDataVizPaletteFromToken ─────────────────────────────────────────
 
     [Fact]

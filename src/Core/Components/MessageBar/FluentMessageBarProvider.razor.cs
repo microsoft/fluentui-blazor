@@ -83,4 +83,7 @@ public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 
         builder.AddContent(0, new MarkupStringSanitized(messageBar.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
     };
+
+    private static RenderFragment RenderCustomMessageBar(IMessageBarInstance messageBar) => builder =>
+        builder.RenderDynamicComponent(0, messageBar.ComponentType!, messageBar.Options.Parameters, messageBar.Id);
 }

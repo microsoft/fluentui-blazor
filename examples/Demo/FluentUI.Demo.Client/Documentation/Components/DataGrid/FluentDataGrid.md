@@ -123,11 +123,9 @@ The following examples show how to use the DataGrid component in different scena
 
 ### Columns
 
-- [Single/Multi select](/DataGrid/MultiSelect)
+- [Column types](/DataGrid/ColumnTypes)
 - [Dynamic columns](/DataGrid/DynamicColumns)
 - [Column headers](/DataGrid/HeaderGeneration)
-- [Template columns](/DataGrid/TemplateColumns)
-- [Template columns 2](/DataGrid/TemplateColumns2)
 
 ### Advanced
 
@@ -148,18 +146,6 @@ The following examples show how to use the DataGrid component in different scena
 ## API FluentDataGridCell
 
 {{ API Type=FluentDataGridCell<string> }}
-
-## API PropertyColumn
-
-{{ API Type=PropertyColumn<string,string> }}
-
-## API TemplateColumn
-
-{{ API Type=TemplateColumn<string> }}
-
-## API SelectColumn
-
-{{ API Type=SelectColumn<string> }}
 
 ## Migrating to v5
 

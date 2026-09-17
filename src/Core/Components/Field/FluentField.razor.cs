@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Linq.Expressions;
-using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -60,7 +59,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// <summary>
     /// Gets or sets an existing FieldInput component to use in the field.
     /// Setting this parameter will define the parameters
-    /// Label, LabelTemplate, LabelPosition, LabelWidth,
+    /// Label, LabelTemplate, FieldStartTemplate, FieldEndTemplate, LabelPosition, LabelWidth,
     /// Required, Disabled,
     /// Message, MessageIcon, MessageTemplate, and MessageCondition.
     /// </summary>
@@ -92,6 +91,14 @@ public partial class FluentField : FluentComponentBase, IFluentField
     /// <inheritdoc cref="IFluentField.LabelTemplate"/>
     [Parameter]
     public RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldStartTemplate"/>
+    [Parameter]
+    public RenderFragment? FieldStartTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldEndTemplate"/>
+    [Parameter]
+    public RenderFragment? FieldEndTemplate { get; set; }
 
     /// <inheritdoc cref="IFluentField.LabelPosition"/>
     [Parameter]
@@ -197,6 +204,51 @@ public partial class FluentField : FluentComponentBase, IFluentField
         return base.DisposeAsync();
     }
 
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // Only for FluentTextInput, FluentTextArea and FluentNumberInput
+            if (InputComponent is IFluentControlAriaLabel)
+            {
+                // The <label> rendered above targets the wrapped component's host element (e.g. <fluent-text-input>),
+                // but the real focusable control lives inside that host's shadow DOM and has no accessible name of its
+                // own: light-DOM `for`/`aria-labelledby` cannot cross the shadow boundary. Rather than relying on each
+                // component's internal (and inconsistent) shadow-DOM label, push a plain-text `aria-label` directly onto
+                // the shadow ".control" element, the same way for every wrapped component.
+                var ariaLabel = GetControlAriaLabel();
+                var targetId = GetId("input");
+
+                if (string.IsNullOrEmpty(targetId) || string.IsNullOrEmpty(ariaLabel))
+                {
+                    return;
+                }
+
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", targetId, ".control", "aria-label", ariaLabel);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Computes the plain-text accessible name to apply to the wrapped control, from <see cref="IFluentField.Label"/>
+    /// (⚠️ <see cref="IFluentField.LabelTemplate"/> and <see cref="IFluentField.LabelInfo"/> are not plain text and
+    /// are not reflected here), suffixed with the localized "required" indicator when applicable.
+    /// </summary>
+    private string? GetControlAriaLabel()
+    {
+        var label = (InputComponent as IFluentControlAriaLabel)?.AriaLabel ?? Parameters.Label;
+
+        if (string.IsNullOrWhiteSpace(label))
+        {
+            return null;
+        }
+
+        return label + (Parameters.Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
+    }
+
     internal string? GetId(string slot)
     {
         // Wrapper of an FieldInput component
@@ -244,8 +296,22 @@ public partial class FluentField : FluentComponentBase, IFluentField
 
     private static FieldIdentifier CreateFieldIdentifier(LambdaExpression accessor)
     {
-        var method = typeof(FieldIdentifier).GetMethod(nameof(FieldIdentifier.Create), BindingFlags.Public | BindingFlags.Static)!;
-        return (FieldIdentifier)method.MakeGenericMethod(accessor.ReturnType).Invoke(null, [accessor])!;
+        var accessorBody = accessor.Body;
+        while (accessorBody is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } unaryExpression)
+        {
+            accessorBody = unaryExpression.Operand;
+        }
+
+        if (accessorBody is not MemberExpression { Expression: not null } memberExpression)
+        {
+            throw new ArgumentException($"The provided expression contains a {accessorBody.NodeType} which is not supported. Field identifiers only support simple member accessors.", nameof(accessor));
+        }
+
+        var model = Expression.Lambda<Func<object?>>(Expression.Convert(memberExpression.Expression, typeof(object)))
+            .Compile(preferInterpretation: true)()
+            ?? throw new ArgumentException("The provided expression must evaluate to a non-null value.", nameof(accessor));
+
+        return new FieldIdentifier(model, memberExpression.Member.Name);
     }
 
     private void DetachValidationStateChangedListener()

@@ -13,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
 [CascadingTypeParameter(nameof(TValue))]
-public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
+public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, ITooltipComponent, IInternalListBase<TValue>
 {
     // List of items rendered with an ID to retrieve the element by ID.
     private Dictionary<string, TOption> InternalOptions { get; } = new(StringComparer.Ordinal);
@@ -236,6 +236,12 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         }
 
         // Single item
+        if (CurrentValue is null && SelectedItems is not null && SelectedItems.FirstOrDefault() is { } selectedItem)
+        {
+            return OptionSelectedComparer?.Equals(item, selectedItem)
+                ?? EqualityComparer<TOption>.Default.Equals(item, selectedItem);
+        }
+
         if (OptionSelectedComparer != null && CurrentValue is TOption currentAsOption)
         {
             return OptionSelectedComparer.Equals(item, currentAsOption);
@@ -320,6 +326,22 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// Handler for the OnFocusIn event.
+    /// Only used when the component implements <see cref="IFluentInputImmediate"/>.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusInHandlerAsync(FocusEventArgs e) => Task.CompletedTask;
+
+    /// <summary>
+    /// Handler for the OnInput event.
+    /// Only used when the component implements <see cref="IFluentInputImmediate"/>.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task InputHandlerAsync(ChangeEventArgs e) => Task.CompletedTask;
+
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
         // List of IDs received from the web component.
@@ -348,13 +370,23 @@ public abstract partial class FluentListBase<TOption, TValue> : FluentInputBase<
         // Manual FluentOptions
         if (InternalValues.Count > 0)
         {
-            var SelectedValue = selectedIds.Length > 0
-                              ? InternalValues.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).FirstOrDefault()
-                              : default;
+            var selectedValues = selectedIds.Length > 0
+                               ? InternalValues.Where(kvp => selectedIds.Contains(kvp.Key, StringComparer.Ordinal)).Select(kvp => kvp.Value).ToList()
+                               : [];
+
+            if (IsOptionTypeCompatibleWithValue())
+            {
+                SelectedItems = selectedValues.Cast<TOption>().ToList();
+
+                if (SelectedItemsChanged.HasDelegate)
+                {
+                    await SelectedItemsChanged.InvokeAsync(SelectedItems);
+                }
+            }
 
             if (ValueChanged.HasDelegate)
             {
-                await ValueChanged.InvokeAsync(SelectedValue);
+                await ValueChanged.InvokeAsync(selectedValues.FirstOrDefault());
             }
 
             NotifyValidationFieldChanged();

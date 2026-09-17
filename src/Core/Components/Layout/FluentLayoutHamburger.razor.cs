@@ -190,7 +190,14 @@ public partial class FluentLayoutHamburger : FluentComponentBase
     /// <summary />
     private bool RenderDrawer()
     {
+        // If the layout is not set, or the hamburger is visible
         if (LayoutContainer == null || Visible == true)
+        {
+            return true;
+        }
+
+        // Static and not Deferred
+        if (!IsInteractive && !LayoutContainer.NavigationDeferredLoading)
         {
             return true;
         }

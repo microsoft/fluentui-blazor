@@ -2,18 +2,27 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary />
-public partial class FluentOverflow : FluentComponentBase
+public partial class FluentOverflow<TItem> : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overflow/FluentOverflow.razor.js";
-    private readonly List<FluentOverflowItem> _items = [];
-    private DotNetObjectReference<FluentOverflow>? _dotNetHelper;
+    private IReadOnlyList<TItem> _sourceItems = [];
+    private IReadOnlyList<TItem> _overflowItems = [];
+    private IReadOnlyList<OverflowItem> _renderedOverflowItems = [];
+    private int _measuredOverflowCount;
+    private int[] _overflowIndices = [];
+    private bool _itemsWereSupplied;
+
+    private int RenderedItemCount => MaxRenderedItems > 0 ? Math.Min(MaxRenderedItems, _sourceItems.Count) : _sourceItems.Count;
+    private int PreOverflowCount => _sourceItems.Count - RenderedItemCount;
+    private OverflowContext<TItem> OverflowContext => new(_overflowItems, ItemsOverflow, OverflowCount, IdMoreButton);
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -22,39 +31,42 @@ public partial class FluentOverflow : FluentComponentBase
 
     /// <summary />
     protected virtual string? StyleValue => DefaultStyleBuilder
-        .AddStyle("visibility", "hidden", !VisibleOnLoad)
         .Build();
 
     /// <summary />
+    [DynamicDependency(nameof(OnOverflowChangedAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowChangedEventArgs))]
     public FluentOverflow(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
-    }
-
-    internal FluentOverflow(LibraryConfiguration configuration, List<FluentOverflowItem> items) : this(configuration)
-    {
-        _items = items;
     }
 
     /// <summary>
     /// Gets or sets the template to display <see cref="ItemsOverflow"/> elements.
     /// </summary>
     [Parameter]
-    public RenderFragment<FluentOverflow>? OverflowTemplate { get; set; }
+    public RenderFragment<OverflowContext<TItem>>? OverflowTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets whether overflow items are visible immediately on load.
-    /// Set to <c>false</c> to hide items until the component is fully loaded,
-    /// preventing a flickering effect. Defaults to <c>true</c>.
+    /// Set to <see langword="false"/> to hide items until the component is fully loaded,
+    /// preventing a flickering effect. Defaults to <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool VisibleOnLoad { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the template to display the More button.
+    /// Gets or sets the template to display the overflow trigger content.
     /// </summary>
     [Parameter]
-    public RenderFragment<FluentOverflow>? MoreButtonTemplate { get; set; }
+    public RenderFragment<OverflowContext<TItem>>? MoreTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback invoked when the default overflow trigger is activated.
+    /// Custom MoreTemplate content handles its own interaction.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnMoreClick { get; set; }
 
     /// <summary>
     /// Gets or sets the orientation of the items flow.
@@ -63,86 +75,139 @@ public partial class FluentOverflow : FluentComponentBase
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
-    /// Gets or sets the CSS selectors of the items to include in the overflow.
+    /// Gets or sets the source items, in display order.
     /// </summary>
     [Parameter]
-    public string? Selectors { get; set; } = string.Empty;
+    public IEnumerable<TItem>? Items { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of source items rendered for measurement when <see cref="Items"/> is supplied.
+    /// Remaining source items are included in the typed overflow context without being rendered.
+    /// Values less than or equal to zero are unlimited. Defaults to zero.
+    /// </summary>
+    [Parameter]
+    public int MaxRenderedItems { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS selector of direct children to include in overflow.
+    /// Applies only when Items is not supplied. Null or empty selects all direct children.
+    /// </summary>
+    [Parameter]
+    public string? Selector { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the item template. Each item must produce exactly one root HTML element.
+    /// Used when <see cref="Items"/> is supplied.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text selector used by the default overflow tooltip.
+    /// Defaults to the string representation of each source item.
+    /// </summary>
+    [Parameter]
+    public Func<TItem, string>? ItemText { get; set; }
 
     /// <summary>
     /// Gets or sets whether the tooltip is displayed using the TooltipService.
     /// </summary>
     [Parameter]
-    public bool UseTooltipService { get; set; } = false;
+    public bool UseTooltipService { get; set; }
 
     /// <summary>
-    /// Event raised when a <see cref="FluentOverflowItem"/> enter or leave the current panel.
+    /// Event raised when overflow items change.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<FluentOverflowItem>> OnOverflowRaised { get; set; }
+    public EventCallback<IEnumerable<OverflowItem>> OnOverflowRaised { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to display.
-    /// All first level HTML elements are included in the items flow.
+    /// Gets or sets direct child content, rendered once when Items is not supplied.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets all items with <see cref="FluentOverflowItem.Overflow"/> assigned to True.
+    /// Gets the rendered overflow records returned by the web component.
+    /// Typed source items, including those omitted from the DOM, are available through the template context's Items.
     /// </summary>
-    public IEnumerable<FluentOverflowItem> ItemsOverflow => _items.Where(i => i.Overflow == true);
+    public IReadOnlyList<OverflowItem> ItemsOverflow => _renderedOverflowItems;
+
+    /// <summary>
+    /// Gets the total number of overflowed items.
+    /// </summary>
+    public int OverflowCount => Items is null ? _measuredOverflowCount : _overflowItems.Count;
 
     /// <summary>
     /// Gets the unique identifier associated to the more button ([Id]-more).
     /// </summary>
     public string IdMoreButton => $"{Id}-more";
 
-    private bool IsHorizontal => Orientation == Orientation.Horizontal;
+    private bool HasDefaultMoreAction => MoreTemplate is null && OnMoreClick.HasDelegate;
 
     /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+    protected virtual string? MoreButtonStyleValue => new StyleBuilder()
+        .AddStyle("anchor-name", $"--{IdMoreButton}")
+        .Build();
 
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Initialize", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
-            VisibleOnLoad = true;
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        var items = Items;
+        if (items is null)
+        {
+            if (_itemsWereSupplied)
+            {
+                _sourceItems = [];
+                _overflowItems = [];
+                _renderedOverflowItems = [];
+                _overflowIndices = [];
+                _measuredOverflowCount = 0;
+            }
+
+            _itemsWereSupplied = false;
+            return;
         }
+
+        _itemsWereSupplied = true;
+        _sourceItems = items.ToArray();
+        _overflowIndices = _overflowIndices.Where(index => index >= 0 && index < RenderedItemCount).ToArray();
+        UpdateOverflowItems();
+    }
+
+    private void UpdateOverflowItems()
+    {
+        _overflowItems = _overflowIndices
+            .Where(index => index >= 0 && index < RenderedItemCount)
+            .Distinct()
+            .Order()
+            .Select(index => _sourceItems[index])
+            .Concat(_sourceItems.Skip(RenderedItemCount))
+            .ToArray();
     }
 
     /// <summary>
-    /// Asynchronously refreshes the overflow state of the associated UI element.
+    /// Requests an overflow recalculation. State changes are delivered through the overflow event.
     /// </summary>
-    /// <remarks>Call this method to update the overflow indicators when the content or layout of the element
-    /// changes. This method has no effect if the underlying JavaScript module is not loaded.</remarks>
-    /// <returns>A task that represents the asynchronous refresh operation.</returns>
     public async Task RefreshAsync()
     {
-        if (JSModule is not null)
-        {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, IsHorizontal, Selectors, 25);
-        }
-    }
-
-    /// <summary />
-    [JSInvokable]
-    public async Task OverflowRaisedAsync(OverflowItem[] items)
-    {
-        if (items == null || items.Length == 0)
+        if (JSRuntime is null)
         {
             return;
         }
 
-        // Update Item components
-        foreach (var item in items)
-        {
-            var element = _items.FirstOrDefault(i => string.Equals(i.Id, item.Id, StringComparison.OrdinalIgnoreCase));
-            element?.SetProperties(item.Overflow, item.Text);
-        }
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Overflow.refreshOverflow", Id);
+    }
 
-        // Raise event
+    /// <summary />
+    public async Task OverflowRaisedAsync(OverflowItem[] items)
+    {
+        _renderedOverflowItems = items;
+        _measuredOverflowCount = items.Length;
+        _overflowIndices = items.Select(item => item.Index).ToArray();
+        UpdateOverflowItems();
+
         if (OnOverflowRaised.HasDelegate)
         {
             await OnOverflowRaised.InvokeAsync(ItemsOverflow);
@@ -150,37 +215,37 @@ public partial class FluentOverflow : FluentComponentBase
 
         await InvokeAsync(StateHasChanged);
     }
-    internal async Task RegisterAsync(FluentOverflowItem item)
+
+    private async Task OnMoreKeyDownAsync(KeyboardEventArgs args)
     {
-        await InvokeAsync(() => _items.Add(item));
+        if (HasDefaultMoreAction && args.Key is "Enter" or " ")
+        {
+            await OnMoreClick.InvokeAsync(new MouseEventArgs());
+        }
     }
 
-    internal async Task UnregisterAsync(FluentOverflowItem item)
+    private async Task OnOverflowChangedAsync(OverflowChangedEventArgs args)
     {
-        _items.Remove(item);
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", item.Id);
-    }
+        if (!string.Equals(args.Id, Id, StringComparison.Ordinal))
+        {
+            return;
+        }
 
-    /// <inheritdoc />
-    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
-    {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Dispose", Id);
-        _dotNetHelper?.Dispose();
-    }
+        _renderedOverflowItems = args.Items?.Select(item => new OverflowItem
+        {
+            Id = item.Id,
+            Text = item.Text,
+            Index = item.Index,
+        }).ToArray() ?? [];
+        _measuredOverflowCount = Math.Max(0, args.OverflowCount);
+        _overflowIndices = _renderedOverflowItems.Select(item => item.Index).ToArray();
+        UpdateOverflowItems();
 
-    /// <summary>
-    /// Represents an item that may be subject to overflow handling, typically used in scenarios where content or data
-    /// exceeds a predefined limit.
-    /// </summary>
-    public class OverflowItem
-    {
-        /// <summary />
-        public string? Id { get; set; }
+        if (OnOverflowRaised.HasDelegate)
+        {
+            await OnOverflowRaised.InvokeAsync(ItemsOverflow);
+        }
 
-        /// <summary />
-        public bool? Overflow { get; set; }
-
-        /// <summary />
-        public string? Text { get; set; }
+        await InvokeAsync(StateHasChanged);
     }
 }

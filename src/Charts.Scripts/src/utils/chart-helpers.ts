@@ -34,6 +34,9 @@ export const formatLocaleNumber = (value: number, locale: string | undefined): s
   }
 };
 
+export const escapeHtml = (str: string): string =>
+  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
 export const jsonConverter: ValueConverter = {
   toView(value: any): string {
     return JSON.stringify(value);

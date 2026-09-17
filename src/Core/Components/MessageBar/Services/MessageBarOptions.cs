@@ -11,6 +11,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class MessageBarOptions : IFluentComponentBase
 {
+    bool IFluentComponentBase.IsDisposed => false;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MessageBarOptions"/> class.
     /// </summary>
@@ -145,6 +147,12 @@ public class MessageBarOptions : IFluentComponentBase
     /// Gets or sets the action raised when the message bar lifecycle status changes.
     /// </summary>
     public Action<MessageBarEventArgs>? OnStatusChange { get; set; }
+
+    /// <summary>
+    /// Gets or sets when the <see cref="IMessageBarInstance.Result"/> task is completed.
+    /// The default is <see cref="MessageBarResultTiming.Visible"/>.
+    /// </summary>
+    public MessageBarResultTiming ResultTiming { get; set; } = MessageBarResultTiming.Visible;
 
     /// <summary>
     /// Gets the class, including the optional <see cref="Margin"/> and <see cref="Padding"/> values.

@@ -1,4 +1,13 @@
 import { Microsoft as FluentDialogFile } from "./Components/Dialog/FluentDialog";
+import { defineOnce } from './RegistrationState';
+
+// Blazor Web Apps can invoke both Web and Server startup hooks. Keep registrations
+// in shared global state because .NET 11 rejects registering the same custom event twice.
+function registerCustomEventType(blazor: Blazor, eventName: string, options: EventTypeOptions) {
+  defineOnce(`fluentui:custom-event:${eventName}`, () => {
+    blazor.registerCustomEventType(eventName, options);
+  });
+}
 
 export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
@@ -11,7 +20,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   */
 
   export function Accordion(blazor: Blazor) {
-    blazor.registerCustomEventType('accordionchange', {
+    registerCustomEventType(blazor, 'accordionchange', {
       browserEventName: 'change',
       createEventArgs: event => {
 
@@ -33,7 +42,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
   export function DialogToggle(blazor: Blazor) {
 
-    blazor.registerCustomEventType('dialogbeforetoggle', {
+    registerCustomEventType(blazor, 'dialogbeforetoggle', {
       browserEventName: 'beforetoggle',
       createEventArgs: (event: any) => {
         FluentDialogFile.FluentUI.Blazor.Components.Dialog.DialogToggle_PreviousActiveElement(event.target.id, event.detail?.newState ?? event.newState);
@@ -46,7 +55,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
 
-    blazor.registerCustomEventType('dialogtoggle', {
+    registerCustomEventType(blazor, 'dialogtoggle', {
       browserEventName: 'toggle',
       createEventArgs: (event: any) => {
         return {
@@ -59,8 +68,22 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
   }
 
+  export function PopoverToggle(blazor: Blazor) {
+    registerCustomEventType(blazor, 'popovertoggle', {
+      browserEventName: 'fluentpopovertoggle',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target.id,
+          type: event.type,
+          oldState: event.detail?.oldState,
+          newState: event.detail?.newState,
+        };
+      }
+    });
+  }
+
   export function MenuItem(blazor: Blazor) {
-    blazor.registerCustomEventType('menuitemchange', {
+    registerCustomEventType(blazor, 'menuitemchange', {
       browserEventName: 'change',
       createEventArgs: event => {
         return {
@@ -76,7 +99,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
 
     // Event when an element is selected or deselected
     // from the dropdown list: listbox, select, combobox, ...
-    blazor.registerCustomEventType('dropdownchange', {
+    registerCustomEventType(blazor, 'dropdownchange', {
       browserEventName: 'change',
       createEventArgs: (event: any) => {
         return {
@@ -87,7 +110,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
       }
     });
 
-    blazor.registerCustomEventType('listchange', {
+    registerCustomEventType(blazor, 'listchange', {
       browserEventName: 'listboxchange',
       createEventArgs: (event: any)=> {
         return {
@@ -102,7 +125,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   export function Tabs(blazor: Blazor) {
 
     // Event when a tab is selected
-    blazor.registerCustomEventType('tabchange', {
+    registerCustomEventType(blazor, 'tabchange', {
       browserEventName: 'change',
       createEventArgs: (event: any) => {
         return {
@@ -116,7 +139,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   export function RadioGroup(blazor: Blazor) {
 
     // Event when a radio element is changed
-    blazor.registerCustomEventType('radiochange', {
+    registerCustomEventType(blazor, 'radiochange', {
       browserEventName: 'change',
       createEventArgs: (event: any) => {
         return {
@@ -130,7 +153,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   export function TreeView(blazor: Blazor) {
 
     // Event when an element is selected or deselected
-    blazor.registerCustomEventType('treechanged', {
+    registerCustomEventType(blazor, 'treechanged', {
       browserEventName: 'change',
       createEventArgs: (event: EventType) => {
         return {
@@ -141,7 +164,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     });
 
     // Event when an element is expanded or collapsed
-    blazor.registerCustomEventType('treetoggle', {
+    registerCustomEventType(blazor, 'treetoggle', {
       browserEventName: 'toggle',
       createEventArgs: (event: any) => {
         return {
@@ -155,13 +178,28 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
   }
 
   export function TextInput(blazor: Blazor) {
-    blazor.registerCustomEventType('textimmediate', {
+    registerCustomEventType(blazor, 'textimmediate', {
       browserEventName: 'immediate',
       createEventArgs: (event: any)=> {
        return {
           id: event.target.id,
           type: event.type,
           value: event.detail?.value ?? event.value,
+        };
+      }
+    });
+  }
+
+  export function Overflow(blazor: Blazor) {
+    registerCustomEventType(blazor, 'overflowchange', {
+      // .NET 11 requires a custom event name to differ from its browser event name.
+      // FluentOverflow emits this internal event with the public overflowchange event.
+      browserEventName: 'fluentoverflowchange',
+      createEventArgs: (event: any) => {
+        return {
+          id: event.target?.id ?? '',
+          items: event.detail?.items ?? [],
+          overflowCount: event.detail?.overflowCount ?? 0,
         };
       }
     });

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Linq.Expressions;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -16,7 +17,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TOption"></typeparam>
 /// <typeparam name="TValue"></typeparam>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOption, TValue>
+public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>
 {
     private static readonly Icon SearchIcon = new CoreIcons.Regular.Size20.Search();
     private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
@@ -81,6 +82,12 @@ public partial class FluentAutocomplete<TOption, TValue> : FluentListBase<TOptio
     /// </summary>
     [Parameter]
     public int ImmediateDelay { get; set; } = 400;
+
+    /// <summary>
+    /// Gets or sets the size of the input. See <see cref="Components.TextInputSize"/>
+    /// </summary>
+    [Parameter]
+    public TextInputSize? Size { get; set; }
 
     /// <summary>
     /// Filter the list of options (items) using the text written by the user.

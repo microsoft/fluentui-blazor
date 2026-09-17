@@ -22,8 +22,6 @@ public partial class FluentTreeView : FluentComponentBase
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTreeView"/> class.
     /// </summary>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemChangedEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeItemToggleEventArgs))]
     public FluentTreeView(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
@@ -172,10 +170,13 @@ public partial class FluentTreeView : FluentComponentBase
         if (firstRender && SelectionMode != TreeSelectionMode.Single)
         {
             // Import the JavaScript module
-            var jsModule = await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
 
             // Call a function from the JavaScript module
-            await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, true);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, true);
         }
     }
 }

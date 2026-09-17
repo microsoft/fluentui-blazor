@@ -1,5 +1,6 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using System.Linq.Expressions
 @using Xunit;
 @inherits FluentUITestContext
 @code
@@ -18,6 +19,18 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentField_NumberInput_CopiesAccessibleNameToInternalControl()
+    {
+        // Arrange & Act
+        using var context = new IdentifierContext(_ => "myId");
+        Render(@<FluentNumberInput TValue="int" Label="Number" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+        Assert.Equal(["myId", ".control", "aria-label", "Number"], invocation.Arguments);
     }
 
     [Fact]
@@ -88,6 +101,37 @@
 
         // Assert
         Assert.Contains("Name is invalid", cut.Markup);
+        Assert.Contains("slot=\"message\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentField_Renders_Validation_Messages_ForConvertedExpression()
+    {
+        // Arrange
+        var model = new FluentFieldValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+        Expression<Func<object>> valueExpression = Expression.Lambda<Func<object>>(
+            Expression.Convert(
+                Expression.ConvertChecked(
+                    Expression.Property(Expression.Constant(model), nameof(FluentFieldValidationModel.Number)),
+                    typeof(long)),
+                typeof(object)));
+
+        var cut = Render(
+            @<CascadingValue Value="@editContext">
+                <FluentField ValueExpression="@valueExpression">Field content</FluentField>
+            </CascadingValue>);
+
+        // Act
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(FluentFieldValidationModel.Number)), "Number is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        // Assert
+        Assert.Contains("Number is invalid", cut.Markup);
         Assert.Contains("slot=\"message\"", cut.Markup);
     }
 
@@ -244,6 +288,78 @@
         Assert.Equal(withInputSlot, hasSlot);
     }
 
+    [Theory]
+    [InlineData(true, false, "StartFieldcontent")]
+    [InlineData(false, true, "FieldcontentEnd")]
+    [InlineData(true, true, "StartFieldcontentEnd")]
+    public void FluentField_FieldTemplates_RenderAroundChildContent(bool hasStartTemplate, bool hasEndTemplate, string expectedContent)
+    {
+        // Arrange & Act
+        var cut = Render<FluentField>(parameters => parameters
+            .Add(p => p.FieldStartTemplate, hasStartTemplate ? CreateContent("Start") : null)
+            .Add(p => p.ChildContent, CreateContent("Field content"))
+            .Add(p => p.FieldEndTemplate, hasEndTemplate ? CreateContent("End") : null));
+
+        // Assert
+        var wrapper = cut.Find("div[part='input-adornments']");
+        var content = string.Concat(wrapper.TextContent.Where(character => !char.IsWhiteSpace(character)));
+
+        Assert.Equal(expectedContent, content);
+    }
+
+    [Fact]
+    public void FluentField_FieldTemplate_StandaloneWrapperOwnsInputId()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<FluentField Id="MyField" Label="My label">
+                <FieldStartTemplate>Start</FieldStartTemplate>
+                <ChildContent>Field content</ChildContent>
+            </FluentField>);
+
+        // Assert
+        var wrapper = cut.Find("div[part='input-adornments']");
+
+        Assert.Equal("MyField-input", wrapper.GetAttribute("id"));
+        Assert.Equal("MyField-input", cut.Find("label").GetAttribute("for"));
+    }
+
+    [Fact]
+    public void FluentField_FieldTemplate_InputComponentOwnsInputId()
+    {
+        // Arrange & Act
+        using var context = new IdentifierContext(_ => "myId");
+        var cut = Render(
+            @<FluentTextInput Label="My label">
+                <FieldStartTemplate>Start</FieldStartTemplate>
+            </FluentTextInput>);
+
+        // Assert
+        var wrapper = cut.Find("div[part='input-adornments']");
+
+        Assert.False(wrapper.HasAttribute("id"));
+        Assert.Equal("myId", cut.Find("fluent-text-input").GetAttribute("id"));
+        Assert.Single(cut.FindAll("#myId"));
+    }
+
+    [Fact]
+    public void FluentField_FieldTemplate_WithoutInputSlot_ChildOwnsInputId()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<FluentField Label="My label" ForId="custom-input" IncludeInputSlot="false">
+                <FieldStartTemplate>Start</FieldStartTemplate>
+                <ChildContent><input id="custom-input" /></ChildContent>
+            </FluentField>);
+
+        // Assert
+        var wrapper = cut.Find("div[part='input-adornments']");
+
+        Assert.False(wrapper.HasAttribute("id"));
+        Assert.Equal("custom-input", cut.Find("label").GetAttribute("for"));
+        Assert.Single(cut.FindAll("#custom-input"));
+    }
+
     [Fact]
     public void FluentField_HideFluentField()
     {
@@ -324,5 +440,10 @@
     private sealed class FluentFieldValidationModel
     {
         public string Name { get; set; } = string.Empty;
+
+        public int Number { get; set; }
     }
+
+    private static RenderFragment CreateContent(string content)
+        => builder => builder.AddContent(0, content);
 }

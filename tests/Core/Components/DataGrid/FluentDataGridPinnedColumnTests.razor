@@ -31,11 +31,11 @@
     }
 
     // -------------------------------------------------------------------------
-    // Single pinned-start column: correct CSS class and sticky style
+    // Single pinned-start column: correct pinned attribute and sticky style
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_Start_Has_Sticky_Class_And_Style()
+    public void FluentDataGrid_PinnedColumn_Start_Has_Sticky_Attribute_And_Style()
     {
         // Arrange && Act
         var cut = Render<FluentDataGrid<Customer>>(
@@ -45,22 +45,22 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        // Assert — every cell in the column carries col-pinned-start and a start offset of 0px
+        // Assert — every cell in the column carries col-pinned='start' and sticky positioning
         var cells = cut.FindAll("[col-index='1']");
         Assert.NotEmpty(cells);
         Assert.All(cells, cell =>
         {
-            Assert.Contains("col-pinned-start", cell.ClassName);
+            Assert.Equal("start", cell.GetAttribute("col-pinned"));
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
         });
     }
 
     // -------------------------------------------------------------------------
-    // Single pinned-end column: correct CSS class and sticky style
+    // Single pinned-end column: correct pinned attribute and sticky style
     // -------------------------------------------------------------------------
 
     [Fact]
-    public void FluentDataGrid_PinnedColumn_End_Has_Sticky_Class_And_Style()
+    public void FluentDataGrid_PinnedColumn_End_Has_Sticky_Attribute_And_Style()
     {
         // Arrange && Act
         var cut = Render<FluentDataGrid<Customer>>(
@@ -74,7 +74,7 @@
         Assert.NotEmpty(cells);
         Assert.All(cells, cell =>
         {
-            Assert.Contains("col-pinned-end", cell.ClassName);
+            Assert.Equal("end", cell.GetAttribute("col-pinned"));
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
         });
     }
@@ -107,7 +107,7 @@
                 </ChildContent>
             </FluentDataGrid>);
 
-        var titles = cut.FindAll("th .col-title-text").Select(x => x.TextContent.Trim()).ToArray();
+        var titles = cut.FindAll("th [col-title-text]").Select(x => x.TextContent.Trim()).ToArray();
 
         Assert.Equal(["Id", "City", "Name", "Action"], titles);
     }
@@ -148,7 +148,7 @@
         Assert.NotEmpty(cells);
         Assert.All(cells, cell =>
         {
-            Assert.Contains("col-pinned-start", cell.ClassName);
+            Assert.Equal("start", cell.GetAttribute("col-pinned"));
             Assert.Contains("position: sticky", cell.GetAttribute("style") ?? "");
         });
     }

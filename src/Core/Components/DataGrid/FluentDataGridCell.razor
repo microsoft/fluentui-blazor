@@ -2,19 +2,39 @@
 @inherits FluentComponentBase
 @typeparam TGridItem
 
-@if (CellType == DataGridCellType.Default)
+@if (CellType is DataGridCellType.Default or DataGridCellType.RowDetails)
 {
-    <td id="@Id"
-        col-index=@GridColumn
-        class="@ClassValue"
-        style="@StyleValue"
-        role="gridcell"
-        @onkeydown="@HandleOnCellKeyDownAsync"
-        @onclick="@HandleOnCellClickAsync"
-        @onfocus="@HandleOnCellFocusAsync"
-        @attributes="AdditionalAttributes">
-        @ChildContent
-    </td>
+    @if (WireCellEvents)
+    {
+        <td id="@Id"
+            col-index=@GridColumn
+            class="@ClassValue"
+            style="@StyleValue"
+            role="gridcell"
+            tabindex="@CellTabIndex"
+            title="@CellTitle"
+            aria-label="@CellTitle"
+            @onkeydown="@HandleOnCellKeyDownAsync"
+            @onclick="@HandleOnCellClickAsync"
+            @onfocus="@HandleOnCellFocusAsync"
+            @attributes="CombinedAttributes">
+            @ChildContent
+        </td>
+    }
+    else
+    {
+        <td id="@Id"
+            col-index=@GridColumn
+            class="@ClassValue"
+            style="@StyleValue"
+            role="gridcell"
+            tabindex="@CellTabIndex"
+            title="@CellTitle"
+            aria-label="@CellTitle"
+            @attributes="CombinedAttributes">
+            @ChildContent
+        </td>
+    }
 }
 else
 {
@@ -26,7 +46,7 @@ else
         @onkeydown="@HandleOnCellKeyDownAsync"
         @onclick="@HandleOnCellClickAsync"
         @onfocus="@HandleOnCellFocusAsync"
-        @attributes="AdditionalAttributes">
+        @attributes="CombinedAttributes">
         @ChildContent
     </th>
 }

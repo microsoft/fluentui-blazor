@@ -7,8 +7,23 @@ import type {
   Legend,
   TooltipProps,
   TooltipRenderer,
-} from './chart.options.js';
-import { getRTL } from './chart-helpers.js';
+} from './chart-options.js';
+import { escapeHtml, getRTL } from './chart-helpers.js';
+
+type TooltipVerticalPlacement = 'above' | 'below';
+type TooltipHorizontalAlign = 'start' | 'center' | 'end';
+
+interface TooltipPositionOptions {
+  preferredVertical?: TooltipVerticalPlacement;
+  horizontalAlign?: TooltipHorizontalAlign;
+  gap?: number;
+  padding?: number;
+  estimatedWidth?: number;
+  estimatedHeight?: number;
+  outputAnchorX?: boolean;
+  boundsWidth?: number;
+  boundsHeight?: number;
+}
 
 /**
  * Abstract base class shared by all chart web components.
@@ -149,15 +164,12 @@ export abstract class ChartBase extends FASTElement {
             return;
           }
 
+          el.innerHTML = '';
           if (result instanceof Promise) {
-            // Keep default tooltip content visible until the async result arrives.
-            // Clearing el.innerHTML immediately would make the tooltip appear blank
-            // for the full Blazor round-trip duration (100-300 ms).
             result.then(r => {
               if (!this.tooltipProps?.isVisible) return;
               const body = this.shadowRoot?.querySelector<HTMLElement>('.tooltip-body');
               if (!body) return;
-              body.innerHTML = '';
               if (typeof r === 'string') {
                 body.innerHTML = r;
               } else {
@@ -188,22 +200,11 @@ export abstract class ChartBase extends FASTElement {
   protected _buildDefaultTooltipHTML(_dataPoint: unknown): string {
     const p = this.tooltipProps;
     return [
-      `<div class="tooltip-inner" style="border-color: ${ChartBase._escapeHtml(p.color)};">`,
-      `<div class="tooltip-legend-text">${ChartBase._escapeHtml(p.legend)}</div>`,
-      `<div class="tooltip-content-y" style="color: ${ChartBase._escapeHtml(p.color)};">${ChartBase._escapeHtml(
-        p.yValue,
-      )}</div>`,
+      `<div class="tooltip-inner" style="border-color: ${escapeHtml(p.color)};">`,
+      `<div class="tooltip-legend-text">${escapeHtml(p.legend)}</div>`,
+      `<div class="tooltip-content-y" style="color: ${escapeHtml(p.color)};">${escapeHtml(p.yValue)}</div>`,
       `</div>`,
     ].join('');
-  }
-
-  private static _escapeHtml(str: string): string {
-    return str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
   }
 
   // ── Public refs ──────────────────────────────────────────────────
@@ -511,6 +512,13 @@ export abstract class ChartBase extends FASTElement {
 
   // ── Tooltip helpers ──────────────────────────────────────────────
 
+  private static _clamp(value: number, min: number, max: number): number {
+    if (max < min) {
+      return min;
+    }
+    return Math.min(Math.max(value, min), max);
+  }
+
   /**
    * Returns true when the tooltip should be shown for the given legend title.
    * Returns false when legend highlighting is active and excludes this legend.
@@ -526,6 +534,82 @@ export abstract class ChartBase extends FASTElement {
    */
   protected _clearTooltip(): void {
     this.tooltipProps = { isVisible: false, legend: '', yValue: '', color: '', xPos: 0, yPos: 0 };
+  }
+
+  /**
+   * Positions the tooltip around an anchor point and keeps it within the host bounds.
+   * `anchorX` / `anchorY` are physical host-relative coordinates (LTR geometry).
+   */
+  protected _positionTooltipFromAnchor(anchorX: number, anchorY: number, options: TooltipPositionOptions = {}): void {
+    if (!this.tooltipProps?.isVisible || this.hideTooltip) {
+      return;
+    }
+
+    this.tooltipProps = { ...this.tooltipProps, ...this._resolveTooltipPositionFromAnchor(anchorX, anchorY, options) };
+  }
+
+  /**
+   * Computes clamped tooltip position around an anchor point.
+   * `anchorX` / `anchorY` are physical host-relative coordinates (LTR geometry).
+   */
+  protected _resolveTooltipPositionFromAnchor(
+    anchorX: number,
+    anchorY: number,
+    options: TooltipPositionOptions = {},
+  ): Pick<TooltipProps, 'xPos' | 'yPos'> {
+    const hostWidth = this.offsetWidth;
+    const hostHeight = this.offsetHeight;
+    if (hostWidth <= 0 || hostHeight <= 0) {
+      return { xPos: 0, yPos: 0 };
+    }
+
+    const preferredVertical = options.preferredVertical ?? 'above';
+    const horizontalAlign = options.horizontalAlign ?? 'center';
+    const gap = options.gap ?? 8;
+    const padding = options.padding ?? 8;
+    const estimatedWidth = options.estimatedWidth ?? 176;
+    const estimatedHeight = options.estimatedHeight ?? 64;
+    const outputAnchorX = options.outputAnchorX ?? false;
+    const boundsWidth = Math.max(0, Math.min(options.boundsWidth ?? hostWidth, hostWidth));
+    const boundsHeight = Math.max(0, Math.min(options.boundsHeight ?? hostHeight, hostHeight));
+    const widthForClamp = boundsWidth || hostWidth;
+    const heightForClamp = boundsHeight || hostHeight;
+
+    let left = anchorX;
+    if (horizontalAlign === 'center') {
+      left = anchorX - estimatedWidth / 2;
+    } else if (horizontalAlign === 'end') {
+      left = anchorX - estimatedWidth;
+    }
+
+    const maxLeft = widthForClamp - estimatedWidth - padding;
+    left = ChartBase._clamp(left, padding, maxLeft);
+
+    const topAbove = anchorY - estimatedHeight - gap;
+    const topBelow = anchorY + gap;
+    let top = preferredVertical === 'below' ? topBelow : topAbove;
+
+    if (preferredVertical === 'above' && top < padding) {
+      top = topBelow;
+    } else if (preferredVertical === 'below' && top + estimatedHeight > heightForClamp - padding) {
+      top = topAbove;
+    }
+
+    const maxTop = heightForClamp - estimatedHeight - padding;
+    top = ChartBase._clamp(top, padding, maxTop);
+
+    if (outputAnchorX) {
+      const minAnchorX = padding + estimatedWidth / 2;
+      const maxAnchorX = widthForClamp - padding - estimatedWidth / 2;
+      const clampedAnchorX = ChartBase._clamp(anchorX, minAnchorX, maxAnchorX);
+      return {
+        xPos: this._isRTL ? Math.max(0, widthForClamp - clampedAnchorX) : Math.max(0, clampedAnchorX),
+        yPos: top,
+      };
+    }
+
+    const inlineStart = this._isRTL ? widthForClamp - left - estimatedWidth : left;
+    return { xPos: Math.max(0, inlineStart), yPos: top };
   }
   /**
    * Implements the roving tabindex keyboard pattern for a focusable group.
@@ -619,5 +703,21 @@ export abstract class ChartBase extends FASTElement {
 
   protected _toCssLength(value: number | string): string {
     return typeof value === 'number' || /^\d+(\.\d+)?$/.test(value as string) ? `${value}px` : `${value}`;
+  }
+
+  /**
+   * Returns a safe SVG width/height attribute value when host dimensions are also applied in CSS.
+   * Percentages are normalized to `100%` to avoid percentage-of-percentage double scaling.
+   */
+  public _toSvgLength(value: number | string | undefined, fallback: number | string): number | string {
+    if (value === undefined || value === null || value === '') {
+      return fallback;
+    }
+
+    if (typeof value === 'string' && value.trim().endsWith('%')) {
+      return '100%';
+    }
+
+    return value;
   }
 }

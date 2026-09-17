@@ -7,10 +7,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// Event arguments for the FluentTabs ActiveId changed event.
 /// </summary>
-internal class TabChangeEventArgs : EventArgs
+// This type is public because it is included in the public FluentUIJsonSerializerContext.
+// It can be made internal again if the serializer context can be made internal in the future.
+public class TabChangeEventArgs : EventArgs
 {
     /// <summary>
-    /// Gets or sets the ID of the dialog.
+    /// Gets or sets the ID of the tab list.
     /// </summary>
     public string? Id { get; set; }
 

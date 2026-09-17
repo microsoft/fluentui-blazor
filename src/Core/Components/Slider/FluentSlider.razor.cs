@@ -14,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// FluentSlider component, a slider control that allows users to select from a range of values.    
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class FluentSlider<TValue> : FluentInputBase<TValue>, ITooltipComponent
+public partial class FluentSlider<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, ITooltipComponent
     where TValue : struct, IComparable<TValue>
 {
     private readonly Debounce _debounce = new();

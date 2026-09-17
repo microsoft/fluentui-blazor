@@ -98,6 +98,8 @@
     </PackageReference>
     <ProjectReference Include="..\Charts.Scripts\Microsoft.FluentUI.AspNetCore.Components.Charts.Scripts.esproj" PrivateAssets="All" />
     <ProjectReference Include="..\Core\Microsoft.FluentUI.AspNetCore.Components.csproj" />
+    <ProjectReference Include="..\Core.Generators\Microsoft.FluentUI.AspNetCore.Components.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    <Using Include="Microsoft.FluentUI.AspNetCore.Components.Charts.Extensions" />
   </ItemGroup>
 
   <!-- Pin the minimum published Microsoft.FluentUI.AspNetCore.Components version in the produced nupkg dependencies -->

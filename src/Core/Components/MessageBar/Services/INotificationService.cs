@@ -49,19 +49,19 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     Task<MessageBarResult> ShowInfoBarAsync(string section, string? title = null, string? message = null);
 
     /// <summary>
-    /// Shows a message bar using the supplied options and waits for the close result.
+    /// Shows a message bar using the supplied options.
     /// </summary>
     /// <param name="options">Options to configure the message bar.</param>
     Task<MessageBarResult> ShowMessageBarAsync(MessageBarOptions options);
 
     /// <summary>
-    /// Shows a message bar by configuring an options object and waits for the close result.
+    /// Shows a message bar by configuring an options object.
     /// </summary>
     /// <param name="options">Action used to configure the message bar.</param>
     Task<MessageBarResult> ShowMessageBarAsync(Action<MessageBarOptions> options);
 
     /// <summary>
-    /// Shows a custom message bar component and waits for the close result.
+    /// Shows a custom message bar component.
     /// The component receives the current <see cref="IMessageBarInstance"/> through a cascading parameter.
     /// </summary>
     /// <typeparam name="TMessageBar">A Blazor component type used to render the message bar.</typeparam>
@@ -70,7 +70,7 @@ public partial interface INotificationService : IFluentServiceBase<INotification
         where TMessageBar : ComponentBase;
 
     /// <summary>
-    /// Shows a custom message bar component and waits for the close result.
+    /// Shows a custom message bar component.
     /// The component receives the current <see cref="IMessageBarInstance"/> through a cascading parameter.
     /// </summary>
     /// <typeparam name="TMessageBar">A Blazor component type used to render the message bar.</typeparam>

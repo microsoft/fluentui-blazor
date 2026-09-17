@@ -3,7 +3,7 @@
  *
  * @public
  */
-export interface FunnelSubValue {
+export interface FunnelChartSubValue {
   /** Category label for this sub-value. */
   category: string;
   /** Numeric value for this sub-value. */
@@ -18,7 +18,7 @@ export interface FunnelSubValue {
  *
  * @public
  */
-export interface FunnelDataPoint {
+export interface FunnelChartDataPoint {
   /**
    * Stage name or identifier, shown in legends and tooltips.
    */
@@ -37,7 +37,7 @@ export interface FunnelDataPoint {
   /**
    * Sub-values for a stacked funnel stage.
    */
-  subValues?: FunnelSubValue[];
+  subValues?: FunnelChartSubValue[];
 }
 
 /**
@@ -45,4 +45,4 @@ export interface FunnelDataPoint {
  *
  * @public
  */
-export type FunnelOrientation = 'vertical' | 'horizontal';
+export type FunnelChartOrientation = 'vertical' | 'horizontal';

@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -13,6 +14,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentPopover : FluentComponentBase
 {
     /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentPopover(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();

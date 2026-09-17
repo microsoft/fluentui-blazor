@@ -300,6 +300,13 @@ public abstract partial class ColumnBase<TGridItem>
     }
 
     /// <summary>
+    /// Gets whether this column's cells need the <see cref="FluentDataGridCell{TGridItem}"/> component rather
+    /// than a plain cell. Columns with cell-level interaction (e.g. <see cref="SelectColumn{TGridItem}"/>)
+    /// override this to return <see langword="true"/>.
+    /// </summary>
+    protected internal virtual bool RequiresCellComponent => false;
+
+    /// <summary>
     /// Event callback for when the cell is clicked.
     /// </summary>
     /// <param name="cell"></param>

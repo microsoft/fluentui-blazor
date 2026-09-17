@@ -220,7 +220,7 @@ public partial class DocumentationService
         // Remove headers and get first meaningful paragraph
         var lines = content.Split('\n')
             .Select(l => l.Trim())
-            .Where(l => !string.IsNullOrEmpty(l) && !l.StartsWith('#'))
+            .Where(l => !string.IsNullOrEmpty(l) && !l.StartsWith("#", StringComparison.Ordinal))
             .Take(3);
 
         var summary = string.Join(' ', lines);

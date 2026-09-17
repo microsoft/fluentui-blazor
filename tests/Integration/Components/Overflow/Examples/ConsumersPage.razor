@@ -1,0 +1,99 @@
+@page "/overflow/consumers"
+
+<HeadContent>
+    <link rel="stylesheet" href="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css" />
+</HeadContent>
+
+<button data-testid="toggle-tabs" @onclick="@(() => _tabsOverflow = !_tabsOverflow)">Toggle tabs overflow</button>
+<button data-testid="expand-appbar" @onclick="@(() => _expanded = !_expanded)">Resize app bar</button>
+<button data-testid="rotate-appbar" @onclick="@(() => _vertical = !_vertical)">Rotate app bar</button>
+
+<FluentOverflow TItem="string" Id="constrained-overflow"
+                Style="width: 100px; --fluent-overflow-gap: 0px;"
+                Selector=".constrained-item"
+                OnOverflowRaised="@(items => _constrainedOverflowCount = items.Count())"
+                data-overflow-count="@_constrainedOverflowCount">
+    <ChildContent>
+        <span id="constrained-fixed-item" class="constrained-item" behavior="fixed"
+              style="inline-size: 40px; overflow: hidden;">
+            <span style="display: block; inline-size: 200px;">Constrained fixed item</span>
+        </span>
+        <span class="constrained-item" style="inline-size: 40px;">Regular</span>
+    </ChildContent>
+</FluentOverflow>
+
+<FluentTabs Id="overflow-tabs" Width="280px" Overflow="@_tabsOverflow">
+    @foreach (var index in Enumerable.Range(0, 8))
+    {
+        <FluentTab Id="@($"tab-{index}")" Header="@($"Tab {index}")">Panel @index</FluentTab>
+    }
+</FluentTabs>
+
+<div style="@($"width: {(_vertical ? 80 : _expanded ? 2500 : 220)}px; height: {(_vertical ? _expanded ? 2500 : 200 : 80)}px;")">
+    <FluentAppBar Id="overflow-appbar" Orientation="@(_vertical ? Orientation.Vertical : Orientation.Horizontal)">
+        @foreach (var index in Enumerable.Range(0, 32))
+        {
+            <FluentAppBarItem Id="@($"app-{index}")" Text="@($"App {index}")" IconRest="@_icon">
+                <span>App @index</span>
+            </FluentAppBarItem>
+        }
+    </FluentAppBar>
+</div>
+
+<FluentOverflow TItem="string" Id="behavior-overflow" Style="width: 220px;" Selector=".managed">
+    <ChildContent>
+        <span id="fixed-item" class="managed" behavior="fixed">Fixed</span>
+        <span id="ellipsis-item" class="managed" behavior="ellipsis">A longer label that can shrink</span>
+        <span id="unmanaged-item">Other</span>
+        @for (var index = 0; index < 6; index++)
+        {
+            <span id="@($"behavior-item-{index}")" class="managed" style="width: 70px;">Item @index</span>
+        }
+    </ChildContent>
+    <MoreTemplate Context="overflow"><span id="custom-count">+@overflow.OverflowCount</span></MoreTemplate>
+</FluentOverflow>
+
+<FluentOverflow TItem="string" Id="priority-overflow"
+                Style="width: 330px; --fluent-overflow-gap: 0px;"
+                Selector=".priority-item">
+    <ChildContent>
+        <span class="priority-item priority-ellipsis" behavior="ellipsis" style="inline-size: 80px;">Aspire item</span>
+        <span class="priority-item priority-ellipsis" behavior="ellipsis" style="inline-size: 80px;">Blazor item</span>
+        <span class="priority-item" behavior="fixed" style="inline-size: 40px;">Fixed</span>
+        @for (var index = 0; index < 3; index++)
+        {
+            <FluentBadge Class="priority-item priority-badge"
+                         Style="inline-size: 60px;"
+                         Content="@($"Badge {index + 1}")" />
+        }
+    </ChildContent>
+</FluentOverflow>
+
+<button data-testid="resize-bounded" @onclick="@(() => _boundedNarrow = !_boundedNarrow)">Resize bounded overflow</button>
+<FluentOverflow TItem="int" Id="bounded-overflow" Items="@(Enumerable.Range(0, 100))" MaxRenderedItems="10"
+                OnMoreClick="@(() => _boundedOpened = !_boundedOpened)"
+                Style="@($"width: {(_boundedNarrow ? 180 : 400)}px; --fluent-overflow-gap: 0px;")">
+    <ItemTemplate Context="item"><span class="bounded-item" style="width: 40px; flex: none;">@item</span></ItemTemplate>
+    <OverflowTemplate Context="overflow">
+        <output id="bounded-count">@overflow.OverflowCount</output>
+        <FluentPopover AnchorId="@overflow.IdMoreButton" @bind-Opened="_boundedOpened">
+            @if (_boundedOpened)
+            {
+                @foreach (var item in overflow.Items)
+                {
+                    <span class="bounded-popup-item">@item</span>
+                }
+            }
+        </FluentPopover>
+    </OverflowTemplate>
+</FluentOverflow>
+
+@code {
+    private readonly Icon _icon = new("Test", IconVariant.Regular, IconSize.Size24, "<path d='M4 4h16v16H4z'/>");
+    private bool _tabsOverflow = true;
+    private bool _expanded;
+    private bool _vertical;
+    private bool _boundedNarrow;
+    private bool _boundedOpened;
+    private int _constrainedOverflowCount = -1;
+}

@@ -155,6 +155,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       return val !== null ? Number(val) : 0;
     }
 
+    private get isRtl(): boolean {
+      const anchorEl = this.anchorEl;
+      if (!anchorEl) {
+        return document.documentElement.dir === 'rtl';
+      }
+      return getComputedStyle(anchorEl).direction === 'rtl';
+    }
+
     private get nested(): boolean {
       const val = this.getAttribute('nested');
       return val !== null && val !== 'false';
@@ -173,7 +181,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       this.startAnchorPositionObserver();
       this.dialog.showPopover();
-      this.adjustDialogPosition();
+      requestAnimationFrame(() => {
+        this.adjustDialogPosition();
+      });
       setTimeout(() => this.addEventsAfterOpening(), 0);
 
       // Reflect opened property and attribute
@@ -205,14 +215,17 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     // Dispatch event when opened or closed
     private dispatchOpenedEvent(opened: boolean) {
-      this.dispatchEvent(new CustomEvent('toggle', {
+      const eventInit = {
         detail: {
           oldState: opened ? 'closed' : 'open',
           newState: opened ? 'open' : 'closed',
         },
         bubbles: true,
         composed: true
-      }));
+      };
+
+      this.dispatchEvent(new CustomEvent('toggle', eventInit));
+      this.dispatchEvent(new CustomEvent('fluentpopovertoggle', eventInit));
     }
 
     // Handles clicks outside the dialog to close it
@@ -297,43 +310,83 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
       if (this.anchorEl === null || this.dialog === null) return;
 
+      // getBoundingClientRect() is specified to return coordinates relative to the
+      // *visual* viewport. A popover uses `position: fixed`, whose containing block is the
+      // *layout* viewport. On mobile devices these two viewports can differ (e.g. while the
+      // on-screen keyboard is shown, or while the page is pinch-zoomed), and the difference is
+      // exposed via visualViewport.offsetTop / offsetLeft.
+      //
+      // To avoid mixing the two coordinate systems, all available-space calculations below are
+      // done entirely in visual-viewport-relative coordinates (i.e. as returned by
+      // getBoundingClientRect()). Only right before writing the final `top` / `left` style do we
+      // convert into layout-viewport coordinates by adding the visual viewport offset.
       const rect = this.anchorEl.getBoundingClientRect();
 
       const visualViewport = window.visualViewport;
       const viewportHeight = visualViewport?.height ?? window.innerHeight;
       const viewportWidth = visualViewport?.width ?? window.innerWidth;
-      const viewportTop = visualViewport?.offsetTop ?? 0;
-      const viewportLeft = visualViewport?.offsetLeft ?? 0;
+      // Offset between the layout viewport and the visual viewport (0 when they match).
+      const viewportOffsetTop = visualViewport?.offsetTop ?? 0;
+      const viewportOffsetLeft = visualViewport?.offsetLeft ?? 0;
 
       const dialogHeight = this.dialog.offsetHeight + this.offsetVertical;
       const dialogWidth = this.dialog.offsetWidth + this.offsetHorizontal;
 
-      const viewportBottom = viewportTop + viewportHeight;
-      const viewportRight = viewportLeft + viewportWidth;
-
-      const spaceAbove = rect.top - viewportTop;
-      const spaceBelow = viewportBottom - rect.bottom;
-      const spaceLeft = rect.right - viewportLeft;
-      const spaceRight = viewportRight - rect.left;
+      // Space available around the anchor within the currently visible (visual) viewport.
+      // The visual viewport's own top-left corner is (0, 0) in getBoundingClientRect() coordinates.
+      const spaceAbove = rect.top;
+      const spaceBelow = viewportHeight - rect.bottom;
+      const spaceLeft = rect.left;
+      const spaceRight = viewportWidth - rect.right;
 
       // Position dialog above the target
       const positionDialogAbove = () => {
-        this.dialog.style.top = `${rect.top - dialogHeight + viewportTop}px`;
+        const top = rect.top - dialogHeight;
+        this.dialog.style.top = `${top + viewportOffsetTop}px`;
+        this.dialog.style.bottom = 'auto';
       }
 
       // Position dialog below the target
       const positionDialogBelow = () => {
-        this.dialog.style.top = `${rect.bottom + this.offsetVertical + viewportTop}px`;
+        const top = rect.bottom + this.offsetVertical;
+        this.dialog.style.top = `${top + viewportOffsetTop}px`;
+        this.dialog.style.bottom = 'auto';
       }
 
-      // Position dialog aligned left with the target
-      const positionDialogLeft = () => {
-        this.dialog.style.left = `${rect.left + this.offsetHorizontal + viewportLeft}px`;
+      // Position dialog aligned to the start edge of the target (left in LTR, right in RTL)
+      const positionDialogStart = () => {
+        let left = this.isRtl
+          ? rect.right - this.dialog.offsetWidth + this.offsetHorizontal
+          : rect.left + this.offsetHorizontal;
+
+        // Clamp horizontally so the dialog stays inside the viewport
+        if (left < 0) {
+          left = 0;
+        }
+        if (left + dialogWidth > viewportWidth) {
+          left = Math.max(0, viewportWidth - this.dialog.offsetWidth);
+        }
+
+        this.dialog.style.left = `${left + viewportOffsetLeft}px`;
+        this.dialog.style.right = 'auto';
       }
 
-      // Position dialog aligned right with the target
-      const positionDialogRight = () => {
-        this.dialog.style.left = `${rect.left + rect.width - dialogWidth - this.offsetHorizontal + viewportLeft}px`;
+      // Position dialog aligned to the end edge of the target (right in LTR, left in RTL)
+      const positionDialogEnd = () => {
+        let left = this.isRtl
+          ? rect.left + this.offsetHorizontal
+          : rect.right - this.dialog.offsetWidth + this.offsetHorizontal;
+
+        // Clamp horizontally so the dialog stays inside the viewport
+        if (left < 0) {
+          left = 0;
+        }
+        if (left + dialogWidth > viewportWidth) {
+          left = Math.max(0, viewportWidth - this.dialog.offsetWidth);
+        }
+
+        this.dialog.style.left = `${left + viewportOffsetLeft}px`;
+        this.dialog.style.right = 'auto';
       }
 
       if (spaceBelow >= dialogHeight) {
@@ -346,14 +399,27 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
         positionDialogBelow();
       }
 
-      if (spaceRight >= dialogWidth) {
-        positionDialogLeft();
-      }
-      else if (spaceLeft >= dialogWidth) {
-        positionDialogRight();
+      if (this.isRtl) {
+        if (spaceLeft >= dialogWidth) {
+          positionDialogStart();
+        }
+        else if (spaceRight >= dialogWidth) {
+          positionDialogEnd();
+        }
+        else {
+          positionDialogStart();
+        }
       }
       else {
-        positionDialogLeft();
+        if (spaceLeft >= dialogWidth) {
+          positionDialogStart();
+        }
+        else if (spaceRight >= dialogWidth) {
+          positionDialogEnd();
+        }
+        else {
+          positionDialogStart();
+        }
       }
     };
   }

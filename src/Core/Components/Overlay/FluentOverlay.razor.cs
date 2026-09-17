@@ -15,6 +15,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentOverlay : FluentComponentBase
 {
     /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentOverlay(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();

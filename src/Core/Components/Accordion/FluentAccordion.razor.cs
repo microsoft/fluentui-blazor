@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAccordion : FluentComponentBase
 {
-    private readonly Dictionary<string, FluentAccordionItem> _items = [];
+    private readonly Dictionary<string, FluentAccordionItem> _items = new(StringComparer.Ordinal);
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder.Build();
@@ -21,6 +21,7 @@ public partial class FluentAccordion : FluentComponentBase
     protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary />
+    [DynamicDependency(nameof(HandleOnAccordionChangedAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(AccordionItemEventArgs))]
     public FluentAccordion(LibraryConfiguration configuration) : base(configuration)
     {

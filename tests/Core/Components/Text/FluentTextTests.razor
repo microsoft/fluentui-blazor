@@ -87,7 +87,7 @@
         var cut = Render(@<FluentText Align="@align">fluent text</FluentText>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"span\" align=\"{expectedAttribute}\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text align=\"{expectedAttribute}\">fluent text</fluent-text>");
     }
 
     [Theory]
@@ -99,7 +99,7 @@
         var cut = Render(@<FluentText Weight="@weight">fluent text</FluentText>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"span\" weight=\"{expectedAttribute}\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text weight=\"{expectedAttribute}\">fluent text</fluent-text>");
     }
 
     [Theory]
@@ -118,7 +118,7 @@
         var cut = Render(@<FluentText As="@tag">fluent text</FluentText>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"{expectedAttribute}\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text><{expectedAttribute}>fluent text</{expectedAttribute}></fluent-text>");
     }
 
     [Theory]
@@ -138,7 +138,7 @@
         var cut = Render(@<FluentText Size="@size">fluent text</FluentText>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"span\" size=\"{expectedAttribute}\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text size=\"{expectedAttribute}\">fluent text</fluent-text>");
     }
 
     [Theory]
@@ -151,7 +151,7 @@
         var cut = Render(@<FluentText Font="@font">fluent text</FluentText>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"span\" font=\"{expectedAttribute}\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text font=\"{expectedAttribute}\">fluent text</fluent-text>");
     }
 
     [Fact]
@@ -221,7 +221,7 @@
         var cut = Render(@<FluentText Color="@color">fluent text</FluentText>   );
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"span\" style=\"color: {expectedAttribute};\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text style=\"color: {expectedAttribute};\">fluent text</fluent-text>");
     }
 
     [Theory]
@@ -234,7 +234,7 @@
         var cut = Render(@<FluentText Color="Color.Custom" CustomColor="@customColor">fluent text</FluentText>);
 
         // Assert
-        cut.MarkupMatches($"<fluent-text as=\"span\" style=\"color: {customColor};\">fluent text</fluent-text>");
+        cut.MarkupMatches($"<fluent-text style=\"color: {customColor};\">fluent text</fluent-text>");
     }
 
     [Fact]

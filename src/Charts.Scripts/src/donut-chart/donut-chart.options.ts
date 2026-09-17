@@ -1,4 +1,4 @@
-export interface DonutDataPoint {
+export interface DonutChartDataPoint {
   /**
    * Legend text for the datapoint in the chart
    */

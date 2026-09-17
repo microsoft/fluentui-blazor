@@ -23,6 +23,7 @@
                    disabled-focusable="@(DisabledFocusable || Loading)"
                    name="@Name"
                    required="@Required"
+                   role="@(string.IsNullOrEmpty(Title) ? null : "button")"
                    aria-label="@Title"
                    title="@Title"
                    appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"

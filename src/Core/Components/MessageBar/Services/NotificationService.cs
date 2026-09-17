@@ -18,6 +18,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Success;
             options.Title = title;
             options.Message = message;
@@ -30,6 +31,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Warning;
             options.Title = title;
             options.Message = message;
@@ -42,6 +44,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Error;
             options.Title = title;
             options.Message = message;
@@ -54,6 +57,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         return ShowMessageBarAsync(options =>
         {
             options.Section = section;
+            options.ResultTiming = MessageBarResultTiming.Visible;
             options.Intent = MessageBarIntent.Info;
             options.Title = title;
             options.Message = message;
@@ -163,6 +167,9 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
         options.OnStatusChange?.Invoke(new MessageBarEventArgs(instance, MessageBarLifecycleStatus.Visible));
 
+        // Complete the result now if the caller requested completion when the message bar becomes visible.
+        instance.TryCompleteResultOnVisible();
+
         // Schedule the auto-dismiss when a lifetime is configured.
         if (options.Lifetime is TimeSpan lifetime && lifetime > TimeSpan.Zero)
         {
@@ -212,15 +219,8 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
 
         _ = Task.Run(async () =>
         {
-            try
-            {
-                await Task.Delay(lifetime, token);
-            }
-            catch (TaskCanceledException)
-            {
-                // The MessageBar was closed before the lifetime elapsed.
-                return;
-            }
+            await Task.Delay(lifetime, token)
+                .ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing);
 
             if (token.IsCancellationRequested)
             {

@@ -5,7 +5,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -14,7 +13,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A numeric input component that allows users to enter and edit numeric values.
 /// </summary>
-public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent
+public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue>, IFluentComponentElementBase, ITooltipComponent, IFluentControlStyle, IFluentControlAriaLabel
 {
     private static readonly Dictionary<Type, (object Zero, object Min, object Max, object Step)> TypeDefaults = new()
     {
@@ -163,6 +162,10 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     /// </summary>
     public bool IsDecimal => UnderlyingType == typeof(float) || UnderlyingType == typeof(double) || UnderlyingType == typeof(decimal);
 
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <summary />
     protected override async Task OnInitializedAsync()
     {
@@ -181,6 +184,11 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
             // Apply the number mask to the input element
             await ApplyNumberMaskAsync();
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
         }
     }
 
@@ -255,17 +263,6 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     protected override string? FormatValueAsString(TValue? value)
     {
         return string.Format(Culture, IsDecimal ? "{0:N}" : "{0:N0}", value);
-    }
-
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return Task.CompletedTask;
     }
 
     /// <summary>

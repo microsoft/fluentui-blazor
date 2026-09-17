@@ -1,0 +1,59 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+
+updates:
+  # NuGet - archive-v4
+  - package-ecosystem: "nuget"
+    directory: "/"
+    target-branch: "archive-v4"
+    groups:
+      all-nuget-dependencies:
+        patterns: ["*"]
+    schedule:
+      interval: "weekly"
+
+  # NuGet - dev
+  - package-ecosystem: "nuget"
+    directory: "/"
+    target-branch: "dev"
+    groups:
+      all-nuget-dependencies:
+        patterns: ["*"]
+    schedule:
+      interval: "weekly"
+
+  # npm - archive-v4
+  - package-ecosystem: "npm"
+    directories:
+      - "/src/Core.Assets"
+    target-branch: "archive-v4"
+    groups:
+      all-npm-dependencies:
+        patterns: ["*"]
+    schedule:
+      interval: "weekly"
+
+  # npm - dev
+  - package-ecosystem: "npm"
+    directories:
+      - "/src/Core.Scripts"
+      - "/src/Charts.Scripts"
+    target-branch: "dev"
+    groups:
+      all-npm-dependencies:
+        patterns: ["*"]
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    groups:
+      github-actions:
+        patterns: ["*"]
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7

@@ -33,6 +33,45 @@ Adding a `OnClick` handler to a card will make it clickable, which is useful for
 
 ## Examples
 
+### Default
+
+A card is composed of regular components, such as avatars, text and buttons, laid out inside a `FluentCard`.
+
+{{ CardExampleDefault }}
+
+### Composition
+
 Cards can be composed with other components to build rich elements for a page.
 
-{{ CardTemplatePowerpoint }}
+{{ CardExampleTemplatePowerpoint }}
+
+### Filled appearance
+
+{{ CardExampleFilledAppearance }}
+
+### Selectable
+
+Cards can be made selectable by toggling a local state on click and reflecting it visually, for example with a border and a checkmark indicator.
+
+To position the checkbox in the card's top-right corner, the `FluentCard` must have `position: relative;` so that it establishes the containing block 
+for the checkbox. The `FluentCheckbox` can then use `Style="position: absolute; top: 8px; right: 8px;"` to position itself 8 pixels 
+from the card's top and right edges.
+
+{{ CardExampleSelectable }}
+
+### Card with click event
+
+This card has a root click event that performs the `Open` action.
+
+{{ CardExampleWithAction }}
+
+### Linked Card
+
+When a card doesn't have a separate button within its contents, it usually makes the most sense for the card to become 
+the additional interactive element (a link in this example).
+
+{{ CardExampleWithLink }}
+
+## API FluentCard
+
+{{ API Type=FluentCard }}

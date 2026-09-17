@@ -219,6 +219,80 @@ public partial class CssBuilderTests
     }
 
     [Fact]
+    public void LibraryConfiguration_ValidateClassNames_DefaultsToTrue()
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+
+        // Act & Assert
+        Assert.True(configuration.ValidateClassNames);
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ValidateClassNames_DisablesCssBuilderValidation()
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+
+        try
+        {
+            // Act
+            configuration.ValidateClassNames = false;
+            var cssBuilder = new CssBuilder();
+            cssBuilder.AddClass("123-invalid-class");
+
+            // Assert
+            Assert.Equal("123-invalid-class", cssBuilder.Build());
+        }
+        finally
+        {
+            configuration.ValidateClassNames = true;
+        }
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ValidateClassNames_IsSharedAcrossInstances()
+    {
+        // Arrange: the setting is backed by a static field, so it is shared process-wide.
+        var configuration1 = new LibraryConfiguration();
+        var configuration2 = new LibraryConfiguration();
+
+        try
+        {
+            // Act
+            configuration1.ValidateClassNames = false;
+
+            // Assert
+            Assert.False(configuration2.ValidateClassNames);
+        }
+        finally
+        {
+            configuration1.ValidateClassNames = true;
+        }
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ShouldValidateClassNames_ReflectsValidateClassNames()
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+
+        try
+        {
+            // Act
+            configuration.ValidateClassNames = false;
+
+            // Assert
+            Assert.False(LibraryConfiguration.ShouldValidateClassNames);
+        }
+        finally
+        {
+            configuration.ValidateClassNames = true;
+            Assert.True(LibraryConfiguration.ShouldValidateClassNames);
+        }
+    }
+
+    [Fact]
     public void CssBuilder_MinifyCss()
     {
         // Arrange

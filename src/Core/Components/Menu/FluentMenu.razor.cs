@@ -13,6 +13,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMenu : FluentComponentBase, ITooltipComponent
 {
+    private DotNetObjectReference<FluentMenu>? _dotNetHelper;
+    private bool _openedChangedSubscribed;
+    private bool _renderMenu = true;
+    private bool _wasRendered;
+
     /// <summary>
     /// Constructs a new instance of <see cref="FluentMenu"/>.
     /// Sets the Id to a new random value
@@ -87,9 +92,24 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnCheckedChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the menu's open state changes.
+    /// </summary>
+    /// <remarks>
+    /// The callback receives <see langword="true"/> when the menu opens and <see langword="false"/> when it closes.
+    /// </remarks>
+    [Parameter]
+    public EventCallback<bool> OpenedChanged { get; set; }
+
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the condition that determines whether the menu is rendered.
+    /// </summary>
+    [Parameter]
+    public Func<bool>? RenderWhen { get; set; }
 
     /// <summary />
     protected override async Task OnInitializedAsync()
@@ -98,14 +118,45 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     }
 
     /// <summary />
+    protected override void OnParametersSet()
+    {
+        _renderMenu = RenderWhen?.Invoke() ?? true;
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        var subscribeToOpenedChanged = OpenedChanged.HasDelegate;
+
+        if (Trigger != null && _renderMenu && (firstRender || !_wasRendered || (subscribeToOpenedChanged && !_openedChangedSubscribed)))
         {
-            if (Trigger != null)
+            if (subscribeToOpenedChanged)
             {
-                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.Initialize", Id, Trigger);
+                _dotNetHelper ??= DotNetObjectReference.Create(this);
             }
+
+            await JSRuntime.InvokeFluentVoidAsync(
+                "Microsoft.FluentUI.Blazor.Components.Menu.Initialize",
+                Id,
+                Trigger,
+                RenderWhen is not null,
+                subscribeToOpenedChanged ? _dotNetHelper : null);
+        }
+
+        _openedChangedSubscribed = subscribeToOpenedChanged;
+        _wasRendered = _renderMenu;
+    }
+
+    /// <summary>
+    /// Called by JavaScript when the menu's open state changes.
+    /// </summary>
+    /// <param name="opened">A value indicating whether the menu is open.</param>
+    [JSInvokable("FluentMenu.OpenedChangedAsync")]
+    public async Task OnOpenedChangedAsync(bool opened)
+    {
+        if (OpenedChanged.HasDelegate)
+        {
+            await OpenedChanged.InvokeAsync(opened);
         }
     }
 
@@ -150,5 +201,17 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
         {
             await OnClick.InvokeAsync(args);
         }
+    }
+
+    /// <inheritdoc />
+    public override async ValueTask DisposeAsync()
+    {
+        if (_dotNetHelper is not null)
+        {
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.Dispose", Id);
+            _dotNetHelper.Dispose();
+        }
+
+        await base.DisposeAsync();
     }
 }

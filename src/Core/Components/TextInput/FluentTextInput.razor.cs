@@ -4,7 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -13,8 +12,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A text input component that allows users to enter and edit a single line of text.
 /// </summary>
-public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle, IFluentControlAriaLabel
 {
+    /// <summary>
+    /// Gets the CSS rules to hide browser-provided password reveal and credentials AutoFill buttons.
+    /// </summary>
+    public const string HidePasswordToggle = "::-ms-reveal { display: none !important; } ::-webkit-credentials-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
+    /// <summary>
+    /// Gets the CSS rule to hide the contacts AutoFill button in WebKit-based browsers.
+    /// </summary>
+    public const string HideContactsToggle = "::-webkit-contacts-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
     /// </summary>
@@ -139,6 +148,10 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     [Parameter]
     public string? Width { get; set; }
 
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <summary>
     /// Gets or sets the text input type. See <see cref="Components.TextInputType"/>
     /// This relies on browser support for different input types and can therefore vary between browsers.
@@ -222,6 +235,16 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
 
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
             }
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
+
+            if (!string.IsNullOrEmpty(DataList))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList", Element, DataList);
+            }
         }
     }
 
@@ -237,16 +260,5 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
         result = value;
         validationErrorMessage = null;
         return true;
-    }
-
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return Task.CompletedTask;
     }
 }

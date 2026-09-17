@@ -220,9 +220,9 @@
         // Arrange
         var accordion = new FluentAccordion(LibraryConfiguration.Empty);
 
-#pragma warning disable
+#pragma warning disable BL0005 // Component parameter should not be set outside of its component
         var item = new FluentAccordionItem(LibraryConfiguration.Empty) { Id = "item1" };
-#pragma warning enable
+#pragma warning restore BL0005 // Component parameter should not be set outside of its component
 
         // Act
         var cut = Render<FluentAccordion>(@<FluentAccordion @ref="@accordion">
@@ -246,7 +246,9 @@
     {
         // Arrange
         var accordion = new FluentAccordion(LibraryConfiguration.Empty);
+#pragma warning disable BL0005 // Component parameter should not be set outside of its component
         var item = new FluentAccordionItem(LibraryConfiguration.Empty) { Id = "item1" };
+#pragma warning restore BL0005 // Component parameter should not be set outside of its component
         accordion.Register(item);
 
         // Act

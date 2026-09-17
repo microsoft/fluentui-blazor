@@ -103,7 +103,7 @@ public static partial class EmojiExtensions
         {
             return AppDomain.CurrentDomain
                             .GetAssemblies()
-                            .FirstOrDefault(i => string.Equals(i.ManifestModule.Name, assemblyName + ".dll", StringComparison.Ordinal))
+                            .FirstOrDefault(i => string.Equals(i.GetName().Name, assemblyName, StringComparison.Ordinal))
                 ?? Assembly.Load(assemblyName);
 
         }

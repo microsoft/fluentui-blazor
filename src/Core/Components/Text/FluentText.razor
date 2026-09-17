@@ -5,7 +5,6 @@
 <fluent-text id="@Id"
              class="@ClassValue"
              style="@StyleValue"
-             as="@As.ToAttributeValue()"
              size="@Size.ToAttributeValue()"
              weight="@Weight.ToAttributeValue()"
              align="@Align.ToAttributeValue()"
@@ -17,5 +16,14 @@
              underline="@Underline"
              strikethrough="@Strikethrough"
              @attributes=AdditionalAttributes>
-    @ChildContent
+    @if (As is { } tag)
+    {
+        <AddTag Name="@tag.ToAttributeValue()">
+           @ChildContent
+        </AddTag>
+    }
+    else
+    {
+        @ChildContent
+    }
 </fluent-text>

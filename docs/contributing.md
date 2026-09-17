@@ -31,10 +31,11 @@ Cloning via SSH:
 git clone git@github.com:microsoft/fluentui-blazor.git
 ```
 
-Next, checkout the `dev-v5` branch:
+The default development branch is `dev`.
+Checkout the `dev` branch:
 
 ```shell
-git checkout dev-v5
+git checkout dev
 ```
 
 
@@ -89,7 +90,7 @@ Once running, open the URL displayed in the terminal output in your browser.
 
 ### Submitting a pull request
 
-If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from master. Do not use ``git merge`` or the *merge* button provided by GitHub; And run all Unit Tests fo validate your developments or your changes.
+If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from `dev`. Do not use ``git merge`` or the *merge* button provided by GitHub; and run all unit tests to validate your changes.
 
 ### Merging a pull request
 
@@ -125,7 +126,7 @@ The development, release, and work management processes must reflect this princi
 
 ### Code owners
 
-As subject matter experts, *code owners* approve pull requests on the packages they own. There is a required minimum of one code owner for each package. *Code owners* are listed in [CODEOWNERS](https://github.com/dotnet/blazor-fluentui/blob/master/.github/CODEOWNERS).
+As subject matter experts, *code owners* approve pull requests on the packages they own. There is a required minimum of one code owner for each package. *Code owners* are listed in [CODEOWNERS](https://github.com/microsoft/fluentui-blazor/blob/dev/.github/CODEOWNERS).
 
 ### Contributors
 
@@ -133,7 +134,7 @@ As subject matter experts, *code owners* approve pull requests on the packages t
 
 ### Nominations & appointments
 
-* To become a *contributor*, a community member must have a pull request approved and merged into the project master branch.
+* To become a *contributor*, a community member must have a pull request approved and merged into the project's `dev` branch.
 * To become a *collaborator*, a *contributor* will petition the *steering committee* who will approve or deny the request.
 * To become a *code owner*, a *collaborator* will be (a) nominated by a *steering committee* member or (b) petition the *steering committee* who will approve or deny the request.
 * To join the *steering committee*, a *collaborator* will be nominated by a *steering committee* member and the *steering committee* who will approve or deny the request.

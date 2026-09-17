@@ -15,8 +15,8 @@ export function funnelChartTemplate<T extends FunnelChart>(): ElementViewTemplat
         <svg
           ${ref('svgElement')}
           class="chart"
-          width="${x => x.width ?? 400}"
-          height="${x => x.height ?? 400}"
+          width="${x => x._toSvgLength(x.width, 400)}"
+          height="${x => x._toSvgLength(x.height, 400)}"
           role="none"
         >
           <g ${ref('group')}></g>
@@ -27,6 +27,7 @@ export function funnelChartTemplate<T extends FunnelChart>(): ElementViewTemplat
         label="${x => x.legendListLabel}"
         position="${x => x.legendPosition}"
         ?hidden="${x => x.hideLegends}"
+        :roundBoxes="${x => x.roundCorners}"
         @legend-click="${(x, c) => x.handleLegendClick((c.event as CustomEvent<string>).detail)}"
         @legend-mouseover="${(x, c) => x.handleLegendMouseoverAndFocus((c.event as CustomEvent<string>).detail)}"
         @legend-mouseout="${x => x.handleLegendMouseoutAndBlur()}"

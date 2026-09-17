@@ -17,7 +17,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 /// <typeparam name="TValue">The type of the value</typeparam>
 [CascadingTypeParameter(nameof(TValue))]
-public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluentComponentElementBase
+public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, IFluentComponentElementBase
 {
     internal ConcurrentDictionary<string, FluentRadio<TValue>> InternalRadios { get; } = new(StringComparer.Ordinal);
 
@@ -25,6 +25,8 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
     /// Initializes a new instance of the <see cref="FluentRadioGroup{TRadioValue}"/> class.
     /// </summary>
     /// <param name="configuration">The configuration settings used to initialize the radio group. This parameter cannot be null.</param>
+    [DynamicDependency(nameof(RadioChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(RadioEventArgs))]
     public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <inheritdoc />
@@ -120,6 +122,8 @@ public partial class FluentRadioGroup<TValue> : FluentInputBase<TValue>, IFluent
                 {
                     await ValueChanged.InvokeAsync(newValue);
                 }
+
+                EditContext?.NotifyFieldChanged(FieldIdentifier);
             }
         }
     }

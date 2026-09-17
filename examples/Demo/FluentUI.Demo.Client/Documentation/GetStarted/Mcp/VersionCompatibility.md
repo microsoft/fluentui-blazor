@@ -8,6 +8,13 @@ icon: ShieldCheckmark
 
 # Version Compatibility
 
+## MCP Protocol Version
+
+The server is built with the official [MCP C# SDK](https://github.com/modelcontextprotocol/csharp-sdk) **2.x**, which targets the MCP **2026-07-28** specification.
+The protocol version is **negotiated per connection**: clients using an earlier specification (2025-11-25 and before) automatically fall back to the legacy `initialize` handshake, so no specific MCP client version is required.
+
+## Component Library Version
+
 The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are **published together with the same version number** (e.g. `5.0.0-rc.1-26049.2`).
 Because the documentation served by the MCP server is generated from a specific version of the component library, your project **must** reference the matching version to ensure the documentation is accurate.
 

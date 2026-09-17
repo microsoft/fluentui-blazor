@@ -66,7 +66,9 @@
 
         // Act 2: make model valid, then finish again
         model.Name = "John";
+    #pragma warning disable CS0618
         await cut.InvokeAsync(() => editContext.Validate());
+    #pragma warning restore CS0618
         await cut.InvokeAsync(() => wizard.FinishAsync(validateEditContexts: true));
 
         // Assert 2
@@ -219,7 +221,9 @@
 
         // Act: valid model
         model.Name = "John";
+    #pragma warning disable CS0618
         await cut.InvokeAsync(() => editContext.Validate());
+    #pragma warning restore CS0618
         await cut.InvokeAsync(() => wizard.FinishAsync(validateEditContexts: true));
 
         // Assert valid path

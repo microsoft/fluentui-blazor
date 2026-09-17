@@ -147,7 +147,6 @@
     private async Task DownloadAllAsync()
     {
         _downloadingAll = true;
-        StateHasChanged();
 
         try
         {
@@ -161,7 +160,6 @@
         finally
         {
             _downloadingAll = false;
-            StateHasChanged();
         }
     }
 

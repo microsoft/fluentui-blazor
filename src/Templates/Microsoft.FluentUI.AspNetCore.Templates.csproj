@@ -129,8 +129,6 @@
       <!-- NOTE: These must be added in pairs, with text to replace first, then replacement text second -->
       <Replacements Include="!!REPLACE_WITH_LATEST_VERSION!!" />
       <Replacements Include="$(PackageVersion)" />
-      <Replacements Include="!!REPLACE_WITH_LATEST_ICONS_VERSION!!" />
-      <Replacements Include="$(IconsPackageVersion)" />
       <Replacements Include="!!REPLACE_WITH_LATEST_ASPIRE_VERSION!!" />
       <Replacements Include="$(AspirePackageVersion)" />
       <Replacements Include="!!REPLACE_WITH_ASPNETCORE_8_VERSION!!" />

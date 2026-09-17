@@ -13,7 +13,7 @@
 
 .PARAMETER packageSuffix
     Suffix to add to the computed version. Example "Preview", "RC.1", ...
-    This suffix overrides the one calculated for dev our main branches.
+    This suffix overrides the one calculated for dev or main branches.
     Default is "".
 
 .PARAMETER testProjects
@@ -60,11 +60,11 @@ $toTest = "true"
 if ($branchName -eq "main") {
     $branch = "main"
 }
-elseif ($branchName -eq "dev" -or $branchName -eq "dev-v5") {
+elseif ($branchName -eq "dev") {
     $branch = "dev"
 }
 # elseif ("$(Build.SourceBranch)" -like "refs/heads/archives/*")
-elseif ($branchName -like "*/archives/*") {
+elseif ($branchName -like "*/archives/*" -or $branchName -like "archive-*") {
     $branch = "archive"
 }
 else {

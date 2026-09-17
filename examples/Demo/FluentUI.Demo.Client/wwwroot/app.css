@@ -27,8 +27,12 @@ body {
     --demo-notification-height: 60px;
   }
 
+.demo-notification-section {
+  padding: 16px;
+}
+
 .demo-notification {
-  height: var(--demo-notification-height);
+  min-height: var(--demo-notification-height);
   font-size: var(--fontSizeBase300);
   overflow-y: auto;
 }

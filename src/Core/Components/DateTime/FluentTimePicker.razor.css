@@ -1,0 +1,3 @@
+.fluent-timepicker fluent-dropdown > input[slot="control"] {
+    width: 100%;
+}

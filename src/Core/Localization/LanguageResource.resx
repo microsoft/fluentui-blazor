@@ -363,6 +363,9 @@
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
   </data>
+  <data name="DataGrid_ToggleRowDetails" xml:space="preserve">
+    <value>Toggle row details</value>
+  </data>
   <data name="Paginator_SummaryItem" xml:space="preserve">
     <value>{0} item</value>
   </data>
@@ -389,5 +392,11 @@
   </data>
   <data name="LabelInfo_InfoText" xml:space="preserve">
     <value>More information</value>
+  </data>
+  <data name="DataGrid_LoadingContent" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Tabs_MoreItems" xml:space="preserve">
+    <value>View {0} more tabs</value>
   </data>
 </root>

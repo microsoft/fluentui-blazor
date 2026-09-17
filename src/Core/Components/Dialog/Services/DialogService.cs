@@ -23,8 +23,6 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
     /// <param name="serviceProvider">List of services available in the application.</param>
     /// <param name="localizer">Localizer for the application.</param>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogInstance))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogInstance))]
     public DialogService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
         _serviceProvider = serviceProvider;

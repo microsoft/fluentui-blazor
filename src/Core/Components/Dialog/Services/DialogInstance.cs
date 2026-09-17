@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -12,11 +13,12 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DialogInstance : IDialogInstance
 {
     private static long _counter;
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     private readonly Type _componentType;
     internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
 
     /// <summary />
-    internal DialogInstance(IDialogService dialogService, Type componentType, DialogOptions options)
+    internal DialogInstance(IDialogService dialogService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, DialogOptions options)
     {
         _componentType = componentType;
         Options = options;
@@ -33,6 +35,7 @@ public class DialogInstance : IDialogInstance
     }
 
     /// <summary />
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
     Type IDialogInstance.ComponentType => _componentType;
 
     /// <summary />

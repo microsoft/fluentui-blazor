@@ -19,7 +19,8 @@
 
                 if (!string.IsNullOrEmpty(anchorId))
                 {
-                    <FluentInputFile Id="@dialog.Id"
+                    <FluentInputFile @key="dialog.Id"
+                                     Id="@dialog.Id"
                                      DragDropZoneVisible="false"
                                      AnchorId="@anchorId"
                                      OnCompleted="@(e => onCompleted.Invoke(e))"
@@ -43,7 +44,8 @@
                     var overlayOptions = dialog.Options?.Parameters[Components.DialogService.GlobalOverlayOptionsKey] as OverlayOptions 
                                     ?? new OverlayOptions();
 
-                    <FluentOverlay Id="@Components.DialogService.GlobalOverlayId"
+                    <FluentOverlay @key="dialog.Id"
+                                   Id="@Components.DialogService.GlobalOverlayId"
                                    FullScreen="true"
                                    CloseMode="OverlayCloseMode.Manual">
                         <div class="@overlayOptions.ClassValue"
@@ -62,7 +64,8 @@
             @* FluentDialog *@
             else
             {
-                <FluentDialog Id="@dialog.Id"
+                <FluentDialog @key="dialog.Id"
+                              Id="@dialog.Id"
                               Class="@dialog.Options?.ClassValue"
                               Style="@dialog.Options?.StyleValue"
                               Data="@dialog.Options?.Data"
