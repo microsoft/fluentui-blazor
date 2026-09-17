@@ -3,279 +3,178 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
-public partial class FluentMessageBar : FluentComponentBase, IDisposable
+/// <summary>
+/// Component to communicate important information about the state of the entire application or surface
+/// </summary>
+public partial class FluentMessageBar : FluentComponentBase
 {
-    private CountdownTimer? _countdownTimer;
-    private Color? _color;
-
-    [Inject] private GlobalState GlobalState { get; set; } = default!;
+    private static readonly Icon IconInfo = new CoreIcons.Regular.Size20.Info().WithColor("var(--info)");
+    private static readonly Icon IconWarning = new CoreIcons.Filled.Size20.Warning().WithColor("var(--warning)");
+    private static readonly Icon IconSuccess = new CoreIcons.Filled.Size20.CheckmarkCircle().WithColor("var(--success)");
+    private static readonly Icon IconError = new CoreIcons.Filled.Size20.DismissCircle().WithColor("var(--error)");
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-messagebar", () => Type == MessageType.MessageBar)
-        .AddClass("dark", () => GlobalState.Luminance == StandardLuminance.DarkMode)
-        .AddClass("fluent-messagebar-notification", () => Type == MessageType.Notification)
-        .AddClass("intent-info", () => Intent == MessageIntent.Info)
-        .AddClass("intent-warning", () => Intent == MessageIntent.Warning)
-        .AddClass("intent-error", () => Intent == MessageIntent.Error)
-        .AddClass("intent-success", () => Intent == MessageIntent.Success)
-        .AddClass("intent-custom", () => Intent == MessageIntent.Custom)
+    public FluentMessageBar(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected virtual string? ClassValue => DefaultClassBuilder
+         .Build();
+
+    /// <summary />
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .Build();
 
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
+    /// <summary>
+    /// Gets the instance, if the message is rendered using the <see cref="INotificationService"/>. Otherwise, returns null.
+    /// </summary>
+    [CascadingParameter]
+    internal IMessageBarInstance? MessageBarInstance { get; set; }
 
     /// <summary>
-    /// Gets or sets the type of message bar. 
-    /// Default is MessageType.MessageBar. See <see cref="MessageType"/> for more details.
+    /// Gets or sets the intent of the message bar.
+    /// Default is <see cref="MessageBarIntent.Info"/>.
     /// </summary>
     [Parameter]
-    public MessageType Type { get; set; } = MessageType.MessageBar;
+    public MessageBarIntent? Intent { get; set; }
 
     /// <summary>
-    /// Gets or sets the actual message instance shown in the message bar.
+    /// Gets or sets the layout of the message bar.
+    /// Default is <see cref="MessageBarLayout.SingleLine"/>.
     /// </summary>
     [Parameter]
-    public Message Content { get; set; } = Message.Empty();
+    public MessageBarLayout? Layout { get; set; }
 
     /// <summary>
-    /// Gets or sets the message to be shown when not using the MessageService methods.
+    /// Gets or sets the shape of the message bar.
+    /// Default is <see cref="MessageBarShape.Rounded"/>.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public MessageBarShape? Shape { get; set; }
 
     /// <summary>
-    /// Gets or sets the intent of the message bar. 
-    /// Default is MessageIntent.Info. See <see cref="MessageIntent"/> for more details.
+    /// Gets or sets the fade in animation when the message bar is shown.
+    /// Default is none.
     /// </summary>
     [Parameter]
-    public MessageIntent? Intent
-    {
-        get
-        {
-            return Content.Intent;
-        }
-
-        set
-        {
-            Content.Options.Intent = value;
-        }
-    }
+    public MessageBarAnimation? Animation { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon to show in the message bar based on the intent of the message. See <see cref="Icon"/> for more details.
+    /// Gets or sets the `aria-live` attribute, to inform assistive technologies (like screen readers) about updates to dynamic content.
     /// </summary>
     [Parameter]
-    public Icon? Icon
-    {
-        get
-        {
-            if (Content.Options.Icon != null && Content.Intent == MessageIntent.Custom)
-            {
-                return Content.Options.Icon;
-            }
-            else
-            {
-                return Content.Intent switch
-                {
-                    MessageIntent.Info => new CoreIcons.Filled.Size20.Info(),
-                    MessageIntent.Warning => new CoreIcons.Filled.Size20.Warning(),
-                    MessageIntent.Error => new CoreIcons.Filled.Size20.DismissCircle(),
-                    MessageIntent.Success => new CoreIcons.Filled.Size20.CheckmarkCircle(),
-                    _ => null,
-                };
-            }
-        }
-
-        set
-        {
-            Content.Options.Icon = value;
-        }
-    }
+    public AriaLive? AriaLive { get; set; }
 
     /// <summary>
-    /// Gets or sets the visibility of the message bar. 
-    /// Default is true.
+    /// Gets or sets the icon to show in the message bar.
+    /// When set, overrides the default icon determined by <see cref="Intent"/>.
+    /// </summary>
+    [Parameter]
+    public Icon? Icon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the plain-text title displayed in the message bar (e.g., <code>Title="Action required"</code>).
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
+    /// For formatted content with markup, use <see cref="ChildContent"/> instead.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visibility of the message bar. Default is true.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the title. 
-    /// Most important info to be shown in the message bar.
-    /// </summary>
-    [Parameter]
-    public string? Title
-    {
-        get
-        {
-            return Content.Title;
-        }
-
-        set
-        {
-            Content.Title = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the time on which the message was created. 
-    /// Default is DateTime.Now. 
-    /// Only used when MessageType is Notification.
-    /// </summary>
-    [Parameter]
-    public DateTime? Timestamp
-    {
-        get
-        {
-            return Content.Options.Timestamp;
-        }
-
-        set
-        {
-            Content.Options.Timestamp = value;
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the color of the icon. 
-    /// Only applied when intent is MessageBarIntent.Custom.
-    /// Default is Color.Accent.
-    /// </summary>
-    [Parameter]
-    public Color? IconColor { get; set; } = Color.Accent;
-
-    /// <summary>
-    /// Gets or sets the ability to dismiss the notification.
-    /// Default is true.
+    /// Gets or sets a value indicating whether the message bar can be dismissed by the user. Default is <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool AllowDismiss { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the fade in animation for the MessageBar.
-    /// Default is true.
+    /// Gets or sets the rich content of the message bar.
+    /// Use this instead of <see cref="Title"/> when the message requires markup or custom formatting.
     /// </summary>
     [Parameter]
-    public bool FadeIn { get; set; } = true;
-
-    ///// <summary>
-    ///// On app and page level a Message bar should NOT have rounded corners. On component level it should.
-    ///// </summary>  
-    //[Parameter]
-    //public bool RoundedCorners { get; set; } = true;
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// A link can be shown after the message. 
+    /// Gets or sets the content to be displayed inline after the main content.
     /// </summary>
-    protected ActionLink<Message>? Link => Content.Options.Link;
+    [Parameter]
+    public RenderFragment? ActionsTemplate { get; set; }
 
     /// <summary>
-    /// Button to show as primary action.
+    /// Gets or sets the timestamp when the message was created.
+    /// Only displayed when <see cref="ActionsTemplate"/> is <see langword="null"/>.
     /// </summary>
-    protected ActionButton<Message>? PrimaryAction => Content.Options.PrimaryAction;
-
-    /// <summary>
-    /// Button to show as secondary action.
-    /// </summary>
-    protected ActionButton<Message>? SecondaryAction => Content.Options.SecondaryAction;
+    [Parameter]
+    public DateTime? TimeStamp { get; set; }
 
     /// <summary />
-    protected bool ShowPrimaryAction => !string.IsNullOrEmpty(Content.Options.PrimaryAction?.Text);
-
-    /// <summary />
-    protected bool ShowSecondaryAction => !string.IsNullOrEmpty(Content.Options.SecondaryAction?.Text);
-
-    protected override void OnInitialized()
+    protected virtual Task DismissClickAsync()
     {
-        GlobalState.OnChange += StateHasChanged;
-    }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        _color = Content.Intent switch
+        if (MessageBarInstance != null)
         {
-            MessageIntent.Info => Color.Info,
-            MessageIntent.Warning => Color.Warning,
-            MessageIntent.Error => Color.Error,
-            MessageIntent.Success => Color.Success,
-            _ => IconColor,
-        };
-
-        if (Content.Options.Timeout.HasValue)
-        {
-            if (Content.Options.Timeout == 0)
-            {
-                return;
-            }
-            else
-            {
-                _countdownTimer = new CountdownTimer(Content.Options.Timeout.Value).OnElapsed(DismissClicked);
-                await _countdownTimer!.StartAsync();
-            }
-        }
-    }
-
-    /// <summary />
-    protected Task LinkClickedAsync()
-    {
-        if (Link?.OnClick != null)
-        {
-            return Link.OnClick.Invoke(Content);
+            return MessageBarInstance.CloseAsync(MessageBarResult.OfDismissed());
         }
 
-        return Task.CompletedTask;
-    }
-
-    /// <summary />
-    protected Task PrimaryActionClickedAsync(MouseEventArgs e)
-    {
-        if (PrimaryAction?.OnClick != null)
-        {
-            return PrimaryAction.OnClick.Invoke(Content);
-        }
-
-        return Task.CompletedTask;
-    }
-
-    protected Task SecondaryActionClickedAsync(MouseEventArgs e)
-    {
-        if (SecondaryAction?.OnClick != null)
-        {
-            return SecondaryAction.OnClick.Invoke(Content);
-        }
-
-        return Task.CompletedTask;
-    }
-
-    /// <summary />
-    protected void DismissClicked()
-    {
         Visible = false;
-        Content.Close();
+        return Task.CompletedTask;
     }
 
-    protected void PauseTimeout()
+    /// <summary />
+    private string? GetIntentString()
     {
-        Console.WriteLine("[FluentMessageBar] Pause Timeout");
-        _countdownTimer?.Pause();
+        if (Intent == null || Intent == MessageBarIntent.Custom)
+        {
+            return null;
+        }
+
+        return Intent.ToAttributeValue();
     }
 
-    protected void ResumeTimeout()
+    /// <summary />
+    private Icon GetIcon()
     {
-        Console.WriteLine("[FluentMessageBar] Resume Timeout");
-        _countdownTimer?.Resume();
+        if (Icon is null)
+        {
+            return Intent switch
+            {
+                MessageBarIntent.Error => IconError,
+                MessageBarIntent.Warning => IconWarning,
+                MessageBarIntent.Success => IconSuccess,
+                MessageBarIntent.Info => IconInfo,
+                _ => IconInfo,
+            };
+        }
+
+        return Icon;
     }
 
-    public void Dispose()
+    /// <summary />
+    private string? GetAnimation()
     {
-        _countdownTimer?.Dispose();
-        _countdownTimer = null;
+        return Animation switch
+        {
+            MessageBarAnimation.FadeIn => "fade-in",
+            _ => null,
+        };
+    }
+
+    /// <summary />
+    internal string? GetTimeStamp()
+    {
+        if (TimeStamp is null)
+        {
+            return null;
+        }
+
+        var delay = DateTimeProvider.Now - TimeStamp.Value;
+        return delay.ToTimeAgo(Localizer);
     }
 }

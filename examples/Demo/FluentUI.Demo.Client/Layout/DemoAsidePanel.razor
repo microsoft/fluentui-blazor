@@ -1,0 +1,19 @@
+﻿@using FluentUI.Demo.DocViewer.Components
+@switch (Page)
+{
+    // Home page
+    case "":
+        <MarkdownViewer Route="file:HomeAside" />
+        break;
+
+    // All documentation pages
+    default:
+        if (Headers != null && Headers.Any(i => i.Level > 1))
+        {
+            <div class="demo-aside">
+                <h2>On this page</h2>
+                @GetHtmlHeaders()
+            </div>
+        }
+        break;
+}

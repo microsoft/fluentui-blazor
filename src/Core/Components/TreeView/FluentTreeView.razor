@@ -1,15 +1,16 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
-@{
-#pragma warning disable CS0618 // Disable CS0618 warning for obsolete "RenderCollapsedNodes"
-}
+
 <CascadingValue Value="this" IsFixed="true">
-    <fluent-tree-view @ref=Element
-                      class="@Class"
-                      style="@Style"
-                      render-collapsed-nodes="@RenderCollapsedNodes"
-                      @onselectedchange="@HandleCurrentSelectedChange"
-                      @attributes="AdditionalAttributes">
+    <fluent-tree id="@Id"
+                 class="@ClassValue"
+                 style="@StyleValue"
+                 appearance="@Appearance.ToAttributeValue(isNull: TreeAppearance.Subtle)"
+                 size="@Size.ToAttributeValue(isNull: TreeSize.Medium)"
+                 hide-selection="@HideSelection"
+                 @attributes="AdditionalAttributes">
+
         @ChildContent
 
         @if (Items != null)
@@ -19,5 +20,6 @@
                 @FluentTreeItem.GetFluentTreeItem(this, item)
             }
         }
-    </fluent-tree-view>
+
+    </fluent-tree>
 </CascadingValue>

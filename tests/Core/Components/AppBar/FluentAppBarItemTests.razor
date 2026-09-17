@@ -1,0 +1,174 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Xunit
+@inherits FluentUITestContext
+
+
+@code
+{
+    public FluentAppBarItemTests()
+    {
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentAppBarItem_ChildContent()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" IconRest="@(new Samples.Icons.Samples.Info())" Text="My item">
+                    <div>Child content</div>
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        var item = cut.Find(".fluent-appbar-item");
+        Assert.NotNull(item);
+        var child = cut.Find("div");
+        Assert.Equal("Child content", child.TextContent);
+    }
+
+    [Fact]
+    public void FluentAppBarItem_Default()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        var item = cut.Find(".fluent-appbar-item");
+        Assert.NotNull(item);
+        Assert.Equal("My item", item.GetInnerText());
+    }
+
+    [Fact]
+    public void FluentAppBarItem_NoText()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" IconRest="@(new Samples.Icons.Samples.Info())">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        var item = cut.Find(".fluent-appbar-item");
+        Assert.NotNull(item);
+        Assert.Equal("", item.GetInnerText() ?? "");
+    }
+
+    [Fact]
+    public void FluentAppBarItem_IconActive()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        var item = cut.Find(".fluent-appbar-item");
+        Assert.NotNull(item);
+        // Assuming icon is rendered as svg or something, but since IconActive is not directly in markup, perhaps just presence
+        Assert.NotNull(cut.Find("svg"));
+    }
+
+    [Fact]
+    public void FluentAppBarItem_Tooltip()
+    {
+        // Arrange
+
+        // Act
+        var cut = Render<FluentAppBarItem>(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        // Assert
+        var item = cut.Find(".fluent-appbar-item");
+        Assert.NotNull(item);
+        Assert.Equal("My item tooltip", item.GetAttribute("title") ?? item.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public async Task FluentAppBarItem_OnClick()
+    {
+        // Arrange
+        bool clicked = false;
+        void HandleClick(IAppBarItem item) => clicked = true;
+
+        // Act
+        var cut = Render(@<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" OnClick="@HandleClick">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+		// Assert
+		var item = cut.FindComponent<FluentAppBarItem>().Instance;
+		Assert.NotNull(item);
+		await item.OnClickHandlerAsync(new MouseEventArgs());
+		Assert.True(clicked);
+    }
+
+	[Fact]
+	public void FluentAppBarItem_Count()
+	{
+		// Arrange
+
+		// Act
+		var cut = Render<FluentAppBarItem>(
+			@<FluentAppBar>
+				<FluentAppBarItem Href="/" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" Count="2">
+				</FluentAppBarItem>
+			</FluentAppBar>);
+
+		// Assert
+		var item = cut.Find("fluent-counter-badge");
+		Assert.NotNull(item);
+		Assert.Equal("2", item.GetAttribute("count"));
+	}
+
+    [Fact]
+    public void FluentAppBarItem_Dispose()
+    {
+        // Arrange
+        var cut = Render(
+            @<FluentAppBar>
+                <FluentAppBarItem Href="/" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())">
+                </FluentAppBarItem>
+            </FluentAppBar>);
+
+        var appbar = cut.FindComponent<FluentAppBar>().Instance;
+        var context = GetPrivateField<InternalAppBarContext>(appbar, "_internalAppBarContext");
+        var item = cut.FindComponent<FluentAppBarItem>().Instance;
+
+        // Assert initially registered
+        Assert.True(context?.Apps.ContainsKey(item.Id!));
+
+        // Act
+        item.DisposeAsync();
+
+        // Assert unregistered
+        Assert.False(context?.Apps.ContainsKey(item.Id!));
+    }
+
+	private T? GetPrivateField<T>(object obj, string fieldName)
+    {
+		var field = obj.GetType().GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+		return (T?)field?.GetValue(obj);
+	}
+}

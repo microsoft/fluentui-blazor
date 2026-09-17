@@ -4,14 +4,18 @@
 
 ### Machine setup
 
-To begin you'll need Git, .NET, and NodeJS (v22.x or higher) setup on your machine.
+To begin you'll need **Git**, **.NET**, and **NodeJS** setup on your machine.
 
 The `fluentui-blazor` repository uses Git as its source control system. If you haven't already installed it, you can download it [here](https://git-scm.com/downloads) or if you prefer a GUI-based approach, try [GitHub Desktop](https://desktop.github.com/).
 
-Once Git is installed, you'll also need .NET and NodeJS. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 22.xx LTS version. 
+Once Git is installed, you'll also need **.NET** and **NodeJS**. Instructions and downloads for .NET on your preferred OS can be found [here](https://dotnet.microsoft.com/download). NodeJS can be found [here](https://nodejs.org). You need to install the 20.15+ LTS version. 
 
-> [!IMPORTANT]
-> The above steps are a one-time setup for your machine and do not need to be repeated after the initial configuration.
+On Windows, we prefere to develop using [Visual Studio 2022 Preview](https://visualstudio.microsoft.com/vs/preview/).
+
+> **&#x24D8; important**
+>
+> The above steps are a one-time setup for your machine and do not need to be repeated after the initial 
+> configuration.
 
 ### Cloning the repository
 
@@ -27,27 +31,70 @@ Cloning via SSH:
 git clone git@github.com:microsoft/fluentui-blazor.git
 ```
 
+The default development branch is `dev`.
+Checkout the `dev` branch:
+
+```shell
+git checkout dev
+```
+
+
+
 ### Installing and building
 
 From within the folder where you've cloned the repo, build the project with the following command.
 
 ```bash
-dotnet build
+dotnet build ./Microsoft.FluentUI-v5.slnx
 ```
+
+The **Components.Scripts** project uses several NPM packages.
+You should get them automatically the first time you compile this project from Visual Studio.
+
+In the event of an NPM authentication problem (E401), you will probably need to run these command from the `Core.Scripts` folder.
+
+1. Install the **vsts-npm-auth** command.
+   ```bash
+   npm install -g vsts-npm-auth --registry https://registry.npmjs.com --always-auth false
+   ```
+2. Execute this command to get an authentication token.
+   ```bash
+   vsts-npm-auth -config .npmrc -force
+   ```
+3. Download and install NPM packages manually.
+   ```bash
+   npm install
+   ```
+
+### Running the Demo project locally
+
+The demo application can be run in two modes: **Blazor Server** and **Blazor WebAssembly**.
+
+#### 1. Blazor Server
+
+From the root of the repository, run the following command:
+
+```bash
+dotnet run --project examples/Demo/FluentUI.Demo
+```
+
+#### 2. Blazor WebAssembly
+
+From the root of the repository, run the following command:
+
+```bash
+dotnet run --project examples/Demo/FluentUI.Demo.Client
+```
+
+Once running, open the URL displayed in the terminal output in your browser.
 
 ### Submitting a pull request
 
-If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll need to submit a pull request.
-Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from master. Do not use ``git merge`` or the *merge* button provided by GitHub.
+If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from `dev`. Do not use ``git merge`` or the *merge* button provided by GitHub; and run all unit tests to validate your changes.
 
-For PR naming use the following convention: `[component name] Description` (note no period at the end)
+### Merging a pull request
 
-- For the component name, leave out the Fluent part.
-- For the description, do not reference an issue number in there. Just a clear, short summary of what change entails is enough. There is enough room to elaborate in the description  .
-
-When a PR is related to an issue, use the 'fix #issuenumber' syntax to automatically link the issue to the PR. That way the issue gets closed when the PR is merged.
-
-For PR description use before and after images /screenshot when possible to make more clear what has changed. We link to the PRs from the what's new page so it helps to provide better context.
+If you are merging a pull request, be sure to use the pull request title as the commit title. The title should follow the [conventional commit guidelines](https://www.conventionalcommits.org/). It is recommended that if you are merging in pull requests regularly that you add a browser extension that will auto-correct the title for you. A few that should do this are [Refined GitHub](https://github.com/sindresorhus/refined-github) and [Squashed Merge Message](https://github.com/zachwhaley/squashed-merge-message).
 
 ## Contribution policy
 
@@ -79,7 +126,7 @@ The development, release, and work management processes must reflect this princi
 
 ### Code owners
 
-As subject matter experts, *code owners* approve pull requests on the packages they own. There is a required minimum of one code owner for each package. *Code owners* are listed in [CODEOWNERS](https://github.com/dotnet/blazor-fluentui/blob/master/.github/CODEOWNERS).
+As subject matter experts, *code owners* approve pull requests on the packages they own. There is a required minimum of one code owner for each package. *Code owners* are listed in [CODEOWNERS](https://github.com/microsoft/fluentui-blazor/blob/dev/.github/CODEOWNERS).
 
 ### Contributors
 
@@ -87,7 +134,7 @@ As subject matter experts, *code owners* approve pull requests on the packages t
 
 ### Nominations & appointments
 
-* To become a *contributor*, a community member must have a pull request approved and merged into the project master branch.
+* To become a *contributor*, a community member must have a pull request approved and merged into the project's `dev` branch.
 * To become a *collaborator*, a *contributor* will petition the *steering committee* who will approve or deny the request.
 * To become a *code owner*, a *collaborator* will be (a) nominated by a *steering committee* member or (b) petition the *steering committee* who will approve or deny the request.
 * To join the *steering committee*, a *collaborator* will be nominated by a *steering committee* member and the *steering committee* who will approve or deny the request.

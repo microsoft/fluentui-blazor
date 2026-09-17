@@ -1,58 +1,67 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
+
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
+/// <summary>
+/// Extension methods for <see cref="FluentInputBase{TValue}"/>.
+/// </summary>
 internal static class FluentInputExtensions
 {
-
-    public static bool TryParseSelectableValueFromString<TInput, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
-        this TInput input, string? value,
-        [MaybeNullWhen(false)] out TValue result,
-        [NotNullWhen(false)] out string? validationErrorMessage) where TInput : FluentInputBase<TValue>, IStringParsableComponent
+    public static bool TryParseSelectableValueFromString<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue>(
+      this FluentInputBase<TValue> input,
+      string? value,
+      [MaybeNullWhen(false)] out TValue result,
+      [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        try
+        if (typeof(TValue) == typeof(bool))
         {
-            var culture = (input as ICultureSensitiveComponent)?.Culture ?? CultureInfo.CurrentCulture;
-
-            // We special-case bool values because BindConverter reserves bool conversion for conditional attributes.
-            if (typeof(TValue) == typeof(bool))
+            if (TryConvertToBool(value, out result))
             {
-                if (TryConvertToBool(value, out result))
-                {
-                    validationErrorMessage = null;
-                    return true;
-                }
-            }
-            else if (typeof(TValue) == typeof(bool?))
-            {
-                if (TryConvertToNullableBool(value, out result))
-                {
-                    validationErrorMessage = null;
-                    return true;
-                }
-            }
-            else if (BindConverter.TryConvertTo<TValue>(value, culture, out var parsedValue))
-            {
-                result = parsedValue;
                 validationErrorMessage = null;
                 return true;
             }
-
-            result = default;
-            validationErrorMessage = string.Format(input.ParsingErrorMessage, input.FieldDisplayName);
-            return false;
         }
-        catch (InvalidOperationException ex)
+
+        else if (typeof(TValue) == typeof(bool?))
         {
-            throw new InvalidOperationException($"{input.GetType()} does not support the type '{typeof(TValue)}'.", ex);
+            if (TryConvertToNullableBool(value, out result))
+            {
+                validationErrorMessage = null;
+                return true;
+            }
+        }
+
+        else if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.CurrentCulture, out var parsedValue))
+        {
+            result = parsedValue;
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default;
+        validationErrorMessage = $"The '{input.DisplayName ?? "Unknown Bound Field"}' field is not valid.";
+        return false;
+    }
+
+    /// <summary />
+    internal static void ThrowNullableParameters(this ParameterView parameters, ComponentBase component, params string[] parameterNames)
+    {
+        foreach (var parameterName in parameterNames)
+        {
+            if (parameters.TryGetValue(parameterName, out object? value) && value is null)
+            {
+                throw new InvalidOperationException($"The '{parameterName}' parameter of '{component.GetType().Name}' cannot be null. Omit the parameter to use the component default value, or provide a non-null value.");
+            }
         }
     }
 
+    /// <summary />
     private static bool TryConvertToBool<TValue>(string? value, out TValue result)
     {
         if (bool.TryParse(value, out var @bool))
@@ -65,6 +74,7 @@ internal static class FluentInputExtensions
         return false;
     }
 
+    /// <summary />
     private static bool TryConvertToNullableBool<TValue>(string? value, out TValue result)
     {
         if (string.IsNullOrEmpty(value))

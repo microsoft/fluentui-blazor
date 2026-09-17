@@ -1,72 +1,68 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering;
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-@CustomStyle
-
-@if (LoadingOverlay)
-{
-    <span class="@($"{Class} loading-button")" style="@Style">
-        @_renderButton
-        <FluentProgressRing />
-    </span>
-}
-else
-{
-    @_renderButton
-}
-
-@code{
-    protected void RenderButton(RenderTreeBuilder __builder)
+<AddTag Name="span" TagWhen="@(() => LoadingOverlay)" class="@ClassValue" style="@StyleValue">
+    <fluent-button class="@(LoadingOverlay ? null : ClassValue)"
+                   style="@(LoadingOverlay ? null : StyleValue)"
+                   autofocus="@AutoFocus"
+                   form="@FormId"
+                   formaction="@FormAction"
+                   formenctype="@FormEncType"
+                   formmethod="@FormMethod"
+                   formnovalidate="@FormNoValidate"
+                   formtarget="@FormTarget"
+                   type="@Type.ToAttributeValue()"
+                   shape="@Shape.ToAttributeValue()"
+                   size="@Size.ToAttributeValue()"
+                   id="@Id"
+                   value="@Value"
+                   icon-only="@(IconOnly || (ChildContent is null && Label is null))"
+                   disabled="@(Disabled || Loading)"
+                   disabled-focusable="@(DisabledFocusable || Loading)"
+                   name="@Name"
+                   required="@Required"
+                   role="@(string.IsNullOrEmpty(Title) ? null : "button")"
+                   aria-label="@Title"
+                   title="@Title"
+                   appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
+                   @onclick="@OnClickHandlerAsync"
+                   @onclick:stopPropagation="@StopPropagation"
+                   @attributes="@AdditionalAttributes">
+        @if (IconStart != null)
+        {
+            if (Loading)
+            {
+                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? FluentSlot.Start : null)" style="@RingStyle(IconStart)" />
+            }
+            else
+            {
+                @if (IconStart != null)
+                {
+                    <FluentIcon Value="@IconStart" Slot="@((ChildContent is null && Label is null) ? null : FluentSlot.Start)" />
+                }
+            }
+        }
+        @Label
+        @ChildContent
+        @if (IconEnd != null)
+        {
+            if (Loading && IconStart == null)
+            {
+                <fluent-spinner size="tiny" slot="@((ChildContent is not null || Label is not null) ? FluentSlot.End : null)" style="@RingStyle(IconEnd)" />
+            }
+            else
+            {
+                @if (IconEnd != null)
+                {
+                    <FluentIcon Value="@IconEnd" Slot="@((ChildContent is null && Label is null) ? null : FluentSlot.End)" />
+                }
+            }
+        }
+    </fluent-button>
+    @if (LoadingOverlay)
     {
-        <fluent-button @ref=Element
-               class="@(LoadingOverlay ? string.Empty : Class)"
-               style="@Style"
-               autofocus=@Autofocus
-               form=@FormId
-               formaction=@Action
-               formenctype=@Enctype
-               formmethod=@Method
-               formnovalidate=@NoValidate
-               formtarget=@Target
-               type=@Type.ToAttributeValue()
-               id=@Id
-               value=@Value
-               current-value=@CurrentValue
-               disabled=@(Disabled || Loading)
-               name=@Name
-               required=@Required
-               aria-label=@Title
-               title=@Title
-               appearance=@Appearance.ToAttributeValue()
-               @onclick="@OnClickHandlerAsync"
-               @onclick:stopPropagation="@StopPropagation"
-               @attributes="AdditionalAttributes">
-            @if (IconStart != null)
-            {
-                if (Loading)
-                {
-                    <FluentProgressRing slot="@(ChildContent != null ? "start" : null)" Style="@RingStyle(IconStart)" />
-                }
-                else
-                {
-                    <FluentIcon Value="@(IconStart.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
-                                Slot="@(ChildContent != null ? "start" : null)" />
-                }
-            }
-            @ChildContent
-            @if (IconEnd != null)
-            {
-                if (Loading && IconStart == null)
-                {
-                    <FluentProgressRing slot="@(ChildContent != null ? "end" : null)" Style="@RingStyle(IconEnd)" />
-                }
-                else
-                {
-                    <FluentIcon Value="@(IconEnd.InverseColor(Appearance == AspNetCore.Components.Appearance.Accent))"
-                                Slot="@(ChildContent != null ? "end" : null)" />
-                }
-            }
-        </fluent-button>
+        <fluent-spinner size="tiny" />
     }
-}
+</AddTag>

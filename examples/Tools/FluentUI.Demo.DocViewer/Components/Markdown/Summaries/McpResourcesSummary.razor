@@ -1,0 +1,26 @@
+﻿@using FluentUI.Demo.DocViewer.Models.Mcp
+
+@if (Resources.Count == 0)
+{
+    <div class="mcp-empty-message">
+        <em>No resources available yet.</em>
+    </div>
+}
+else
+{
+    <div class="mcp-summary-container">
+        <div class="mcp-summary-header">
+            <div class="mcp-summary-col">URI</div>
+            <div class="mcp-summary-col">Description</div>
+        </div>
+        <div class="mcp-summary-body">
+            @foreach (var resource in Resources.OrderBy(r => r.UriTemplate))
+            {
+                <div class="mcp-summary-row">
+                    <div class="mcp-summary-col"><code class="mcp-uri">@resource.UriTemplate</code></div>
+                    <div class="mcp-summary-col">@((MarkupString)(resource.Description ?? resource.Summary ?? "-"))</div>
+                </div>
+            }
+        </div>
+    </div>
+}

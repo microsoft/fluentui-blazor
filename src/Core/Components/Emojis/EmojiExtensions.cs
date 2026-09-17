@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Reflection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -23,11 +24,12 @@ public static partial class EmojiExtensions
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Emoji.* DLLs here")]
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static CustomEmoji GetInstance(this EmojiInfo emoji)
     {
-        var group = emoji.Group.ToString().Replace("_", string.Empty);
-        var assemblyName = string.Format(LibraryName, group);
+        var group = emoji.Group.ToString().Replace("_", string.Empty, StringComparison.Ordinal);
+        var assemblyName = string.Format(CultureInfo.InvariantCulture, LibraryName, group);
         var assembly = GetAssembly(assemblyName);
 
         if (assembly != null)
@@ -37,7 +39,7 @@ public static partial class EmojiExtensions
 
             // Ex. Microsoft.FluentUI.AspNetCore.Components.Emojis.Activities.Color.Default+Baseball
             var emojiFullName = $"{Namespace}.Emojis.{group}.{emoji.Style}.{emoji.Skintone}+{emoji.Name}";
-            var emojiType = allEmojis.FirstOrDefault(i => i.FullName == emojiFullName);
+            var emojiType = allEmojis.FirstOrDefault(i => string.Equals(i.FullName, emojiFullName, StringComparison.Ordinal));
 
             if (emojiType != null)
             {
@@ -49,7 +51,7 @@ public static partial class EmojiExtensions
             }
         }
 
-        throw new ArgumentException($"Emoji 'Emojis.{group}.{emoji.Style}.{emoji.Skintone}.{emoji.Name}' not found.");
+        throw new ArgumentException($"Emoji 'Emojis.{group}.{emoji.Style}.{emoji.Skintone}.{emoji.Name}' not found.", nameof(emoji));
     }
 
     /// <summary>
@@ -60,21 +62,22 @@ public static partial class EmojiExtensions
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="EmojiInfo.Name"/> is not found in predefined emojis.</exception>
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Emoji.* DLLs here")]
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static IEnumerable<EmojiInfo> GetAllEmojis()
     {
         var allIcons = new List<EmojiInfo>();
 
-        foreach (var group in Enum.GetValues(typeof(EmojiGroup)).Cast<EmojiGroup>())
+        foreach (var group in Enum.GetValues<EmojiGroup>().Cast<EmojiGroup>())
         {
-            var assemblyName = string.Format(LibraryName, group.ToString().Replace("_", string.Empty));
+            var assemblyName = string.Format(CultureInfo.InvariantCulture, LibraryName, group.ToString().Replace("_", string.Empty, StringComparison.Ordinal));
             var assembly = GetAssembly(assemblyName);
 
             if (assembly != null)
             {
                 var allTypes = assembly.GetTypes()
                                        .Where(i => i.BaseType == typeof(Emoji)
-                                                && i.Name != nameof(CustomEmoji));
+                                                && !string.Equals(i.Name, nameof(CustomEmoji), StringComparison.Ordinal));
 
                 allIcons.AddRange(allTypes.Select(type => Activator.CreateInstance(type) as EmojiInfo ?? new EmojiInfo()));
             }
@@ -86,6 +89,7 @@ public static partial class EmojiExtensions
     /// <summary />
     public static IEnumerable<EmojiInfo> AllEmojis
     {
+        [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
         get
         {
             return GetAllEmojis();
@@ -99,7 +103,7 @@ public static partial class EmojiExtensions
         {
             return AppDomain.CurrentDomain
                             .GetAssemblies()
-                            .FirstOrDefault(i => i.ManifestModule.Name == assemblyName + ".dll")
+                            .FirstOrDefault(i => string.Equals(i.GetName().Name, assemblyName, StringComparison.Ordinal))
                 ?? Assembly.Load(assemblyName);
 
         }

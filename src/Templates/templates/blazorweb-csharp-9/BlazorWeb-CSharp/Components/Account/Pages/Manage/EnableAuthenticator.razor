@@ -51,9 +51,11 @@ else
 
                     <EditForm Model="Input" FormName="send-code" OnValidSubmit="OnValidSubmitAsync" method="post">
                         <DataAnnotationsValidator />
-                        <FluentTextField Name="Input.Code" @bind-Value="Input.Code" AutoComplete="off" Placeholder="Please enter the code." Style="width: 100%;" />
-                        <FluentValidationMessage For="() => Input.Code" class="text-danger" />
-                        <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Verify</FluentButton>
+                        <FluentTextInput Name="Input.Code" @bind-Value="Input.Code" AutoComplete="off" Placeholder="Please enter the code." Style="width: 100%;" />
+                        @* <FluentValidationMessage For="() => Input.Code" class="text-danger" /> *@
+                        <p style="margin-top: 10px; text-align: end;">
+                            <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Verify</FluentButton>
+                        </p>
                         <ValidationSummary class="text-danger" role="alert" />
                     </EditForm>
                 </li>

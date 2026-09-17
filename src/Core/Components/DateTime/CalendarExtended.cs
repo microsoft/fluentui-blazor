@@ -5,13 +5,19 @@
 using System.Globalization;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
+namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 /// <summary>
 /// Gets few calendar details in the right culture.
 /// </summary>
 internal struct CalendarExtended
 {
+
+    /// <summary>
+    /// Gets the number of year to add to the current year to center the current year in the list of years in the "Years" view.
+    /// </summary>
+    internal const int YearShiftCentered = 5; // Used in GetYearsRange()
+
     /// <summary>
     /// Initializes a new instance of the <see cref="CalendarExtended"/> class.
     /// </summary>
@@ -43,7 +49,7 @@ internal struct CalendarExtended
     {
         if (weekNumber is < 0 or > 5)
         {
-            throw new ArgumentException("Index must be between 0 and 5");
+            throw new ArgumentException("Index must be between 0 and 5", nameof(weekNumber));
         }
 
         var monthFirst = Date.AddMonths(monthOffset, Culture);
@@ -100,7 +106,12 @@ internal struct CalendarExtended
     {
         var maxCount = 12;
         var maxYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
-        var year = Date.GetYear(Culture);
+        var year = Date.GetYear(Culture) - YearShiftCentered;
+
+        if (year < Culture.Calendar.MinSupportedDateTime.GetYear(Culture))
+        {
+            year = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
+        }
 
         if (year + maxCount > maxYear)
         {
@@ -139,7 +150,7 @@ internal struct CalendarExtended
     /// <returns></returns>
     public string GetYear(DateTime date)
     {
-        return date.GetYear(Culture).ToString();
+        return date.GetYear(Culture).ToString(CultureInfo.InvariantCulture);
     }
 
     /// <summary>
@@ -149,15 +160,15 @@ internal struct CalendarExtended
     public string GetYearsRangeLabel(int fromYear)
     {
         var min = fromYear;
-        var max = fromYear + 11;
-
         var minSupportedYear = Culture.Calendar.MinSupportedDateTime.GetYear(Culture);
-        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
 
         if (min < minSupportedYear)
         {
             min = minSupportedYear;
         }
+
+        var max = min + 11;
+        var maxSupportedYear = Culture.Calendar.MaxSupportedDateTime.GetYear(Culture);
 
         if (max > maxSupportedYear)
         {

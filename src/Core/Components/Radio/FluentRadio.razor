@@ -1,20 +1,21 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 @typeparam TValue
-<fluent-radio @ref=Element
-              class="@Class"
-              style="@Style"
-              readonly="@ReadOnly"
-              id=@Id
-              disabled="@Disabled"
-              name=@Context!.GroupName
-              required="@Required"
-              aria-label="@(string.IsNullOrEmpty(AriaLabel) ? Label : AriaLabel)"
-              checked="@Context.CurrentValue?.Equals(Value)"
-              current-value="@BindConverter.FormatValue(Value?.ToString())"
-              @attributes="AdditionalAttributes">
-    @Label
-    @LabelTemplate
-    @ChildContent
-</fluent-radio>
 
+<FluentField ForId="@Id"
+             Class="@ClassValue"
+             Style="@StyleValue"
+             Label="@GetLabel()"
+             LabelTemplate="@LabelTemplate.CombinedWith(ChildContent)"
+             IncludeInputSlot="false"
+             LabelWidth="@LabelWidth"
+             Disabled="@GetDisabled()"
+             LabelPosition="@Components.LabelPosition.After">
+    <fluent-radio id="@Id"
+                  disabled="@GetDisabled()"
+                  slot="@FluentSlot.FieldInput"
+                  name="@Owner?.GetGroupName()"
+                  value="@GetValue()"
+                  @attributes="AdditionalAttributes">
+    </fluent-radio>
+</FluentField>

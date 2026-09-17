@@ -2,47 +2,218 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq.Expressions;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A base class for fluent ui form input components. This base class automatically
-/// integrates with an <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>, which must be supplied
+/// A base class for Fluent UI form input components. This base class automatically
+/// integrates with an <see cref="EditContext"/>, which must be supplied
 /// as a cascading parameter.
 /// </summary>
-public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDisposable
+/// <typeparam name="TValue">The type of the value to be edited.</typeparam>
+public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
 {
-    internal readonly string UnknownBoundField = "(unknown)";
-
-    private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
-
-    private bool _hasInitializedParameters;
-    private bool _parsingFailed;
-    private string? _incomingValueBeforeParsing;
-    private bool _previousParsingAttemptFailed;
-    private ValidationMessageStore? _parsingValidationMessages;
-    private Type? _nullableUnderlyingType;
-
-    [CascadingParameter]
-    private EditContext? CascadedEditContext { get; set; }
+    private bool _isDisposed;
+    private FluentJSModule? _jsModule;
+    private CachedServices? _cachedServices;
 
     /// <summary>
-    /// When true, the control will be immutable by user interaction. <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/readonly">readonly</see> HTML attribute for more information.
+    /// Initializes a new instance of the <see cref="FluentInputBase{TValue}"/> class.
     /// </summary>
-    [Parameter]
-    public bool ReadOnly { get; set; }
+    /// <param name="configuration">The configuration object used to apply default values to the component.</param>
+    protected FluentInputBase(LibraryConfiguration configuration)
+    {
+        ValueExpression = () => CurrentValueOrDefault;
+        configuration?.DefaultValues.ApplyDefaults(this);
+
+        // Apply the library configured default for using the native browser
+        // constraint validation UI. This value acts as the component default
+        // and can be overridden by setting the component parameter in markup.
+        if (configuration is not null)
+        {
+            UseNativeConstraintValidationUI = configuration.UseNativeConstraintValidationUI;
+        }
+    }
+
+    [Inject]
+    private IServiceProvider ServiceProvider { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; } = default!;
+
+    /// <summary />
+    [Inject]
+    protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
+
+    /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
+    bool IFluentComponentBase.IsDisposed => _isDisposed;
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission.
+    /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
+    /// </summary>
+    /// <remarks>
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
+    /// and check that it returns <see langword="true"/> before using the module.
+    /// </remarks>
+    internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
+
+    /// <summary>
+    /// Internal usage only: to define the default `ValueExpression`.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    internal TValue CurrentValueOrDefault { get => CurrentValue ?? default!; set => CurrentValue = value; }
+
+    #region IFluentComponentBase
+
+    /// <inheritdoc cref="IFluentComponentBase.Id" />
+    [Parameter]
+    public virtual string? Id { get; set; } = Identifier.NewId();
+
+    /// <inheritdoc cref="IFluentComponentBase.Class" />
+    [Parameter]
+    public virtual string? Class { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentBase.Style" />
+    [Parameter]
+    public virtual string? Style { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentBase.Margin" />
+    [Parameter]
+    public virtual string? Margin { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentBase.Padding" />
+    [Parameter]
+    public virtual string? Padding { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentBase.Data" />
+    [Parameter]
+    public virtual object? Data { get; set; }
+
+    #endregion
+
+    #region IFluentField
+
+    /// <inheritdoc cref="IFluentField.ValueExpression" />
+    LambdaExpression? IFluentField.ValueExpression => ValueExpression;
+
+    /// <inheritdoc cref="IFluentField.FocusLost" />
+    public virtual bool FocusLost { get; protected set; }
+
+    /// <inheritdoc cref="IFluentField.Disabled" />
+    [Parameter]
+    public virtual bool? Disabled { get; set; }
+
+    /// <inheritdoc cref="IFluentField.Label" />
+    [Parameter]
+    public virtual string? Label { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelTemplate" />
+    [Parameter]
+    public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldStartTemplate" />
+    [Parameter]
+    public virtual RenderFragment? FieldStartTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.FieldEndTemplate" />
+    [Parameter]
+    public virtual RenderFragment? FieldEndTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelPosition" />
+    [Parameter]
+    public virtual LabelPosition? LabelPosition { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelWidth" />
+    [Parameter]
+    public virtual string? LabelWidth { get; set; }
+
+    /// <inheritdoc cref="IFluentField.Required" />
+    [Parameter]
+    public virtual bool? Required { get; set; }
+
+    /// <inheritdoc cref="IFluentField.Message" />
+    [Parameter]
+    public virtual string? Message { get; set; }
+
+    /// <inheritdoc cref="IFluentField.MessageIcon" />
+    [Parameter]
+    public virtual Icon? MessageIcon { get; set; }
+
+    /// <inheritdoc cref="IFluentField.MessageTemplate" />
+    [Parameter]
+    public virtual RenderFragment? MessageTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.MessageCondition" />
+    [Parameter]
+    public virtual Func<IFluentField, bool>? MessageCondition { get; set; }
+
+    /// <inheritdoc cref="IFluentField.MessageState" />
+    [Parameter]
+    public virtual MessageState? MessageState { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelInfo" />
+    [Parameter]
+    public virtual ILabelInfo? LabelInfo { get; set; }
+
+    /// <summary>
+    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers
+    /// to retrieve validation messages when the component value binding differs from the input text binding.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; }
+    public virtual LambdaExpression? ValidationFieldFor { get; set; }
+
+    #endregion
+
+    #region FluentInputBase
+
+    /// <summary>
+    /// Gets the class builder, containing the default margin and padding values.
+    /// </summary>
+    protected virtual CssBuilder DefaultClassBuilder => new CssBuilder(Class)
+        .AddClass(Margin.ConvertSpacing().Class)
+        .AddClass(Padding.ConvertSpacing().Class);
+
+    /// <summary>
+    /// Gets the style builder, containing the default margin and padding values.
+    /// </summary>
+    protected virtual StyleBuilder DefaultStyleBuilder => new StyleBuilder(Style)
+        .AddStyle("margin", Margin.ConvertSpacing().Style)
+        .AddStyle("padding", Padding.ConvertSpacing().Style);
+
+    /// <summary>
+    /// Gets a CSS class string that combines the `Class` attribute and and a string indicating
+    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
+    /// Derived components should typically use this value for the primary HTML element class attribute.
+    /// </summary>
+    protected virtual string? ClassValue => DefaultClassBuilder
+        .AddClass(base.CssClass)
+        .Build();
+
+    /// <summary>
+    /// Gets the optional in-line styles. If given, these will be included in the style attribute of the component.
+    /// </summary>
+    protected virtual string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary>
+    /// Determines if the element should receive document focus on page load.
+    /// </summary>
+    [Parameter]
+    public virtual bool Autofocus { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text used on `aria-label` attribute.
+    /// </summary>
+    [Parameter]
+    public virtual string? AriaLabel { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the element.
@@ -50,453 +221,164 @@ public abstract partial class FluentInputBase<TValue> : FluentComponentBase, IDi
     /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
-    public string? Name { get; set; }
+    public virtual string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets the text to label the input.
-    /// This is usually displayed just above the input
+    /// Gets or sets whether the control will be immutable by user interaction.
     /// </summary>
     [Parameter]
-    public string? Label { get; set; }
+    public virtual bool ReadOnly { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to label the input component.
-    /// This is usually displayed just above the input
+    /// Gets or sets whether the control will use the native browser constraint validation UI.
     /// </summary>
     [Parameter]
-    public RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text used on aria-label attribute.
-    /// </summary>
-    [Parameter]
-    public virtual string? AriaLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the element needs to have a value.
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
-
-    /// <summary>
-    /// Gets or sets the value of the input. This should be used with two-way binding.
-    /// </summary>
-    /// <example>
-    /// @bind-Value="model.PropertyName"
-    /// </example>
-    [Parameter]
-    public virtual TValue? Value { get; set; }
-
-    /// <summary>
-    /// Gets or sets a callback that updates the bound value.
-    /// </summary>
-    [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets an expression that identifies the bound value.
-    /// </summary>
-    [Parameter]
-    public Expression<Func<TValue>>? ValueExpression { get; set; }
-
-    /// <summary>
-    /// Gets or sets the <see cref="FieldIdentifier"/> that identifies the bound value.
-    /// If set, this parameter takes precedence over <see cref="ValueExpression"/>.
-    /// </summary>
-    [Parameter]
-    public FieldIdentifier? Field { get; set; }
-
-    /// <summary>
-    /// Gets or sets the display name for this field.
-    /// <para>This value is used when generating error messages when the input value fails to parse correctly.</para>
-    /// </summary>
-    [Parameter]
-    public string? DisplayName { get; set; }
-
-    /// <summary>
-    /// Determines if the element should receive document focus on page load.
-    /// </summary>
-    [Parameter]
-    public virtual bool Autofocus { get; set; } = false;
-
-    /// <summary>
-    /// Gets or sets the short hint displayed in the input before the user enters a value.
-    /// </summary>
-    [Parameter]
-    public virtual string? Placeholder { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the derived component is embedded in another component.
-    /// If true, the ClassValue property will not include the EditContext's FieldCssClass.
-    /// </summary>
-    [Parameter]
-    public virtual bool Embedded { get; set; } = false;
-
-    /// <summary>
-    /// Gets the associated <see cref="Microsoft.AspNetCore.Components.Forms.EditContext"/>.
-    /// This property is uninitialized if the input does not have a parent <see cref="EditForm"/>.
-    /// </summary>
-    protected EditContext EditContext { get; set; } = default!;
-
-    /// <summary>
-    /// Gets the <see cref="FieldIdentifier"/> for the bound value.
-    /// </summary>
-    protected internal FieldIdentifier FieldIdentifier { get; set; }
-
-    internal virtual bool FieldBound => Field is not null || ValueExpression is not null || ValueChanged.HasDelegate;
-
-    /// <summary>
-    /// Gets the display name of the field, using the specified display name if set; otherwise, uses the field
-    /// identifier's name if the field is bound.
-    /// </summary>
-    internal string FieldDisplayName => DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : UnknownBoundField);
-
-    protected async Task SetCurrentValueAsync(TValue? value)
-    {
-        var hasChanged = !EqualityComparer<TValue>.Default.Equals(value, Value);
-        if (!hasChanged)
-        {
-            return;
-        }
-
-        _parsingFailed = false;
-
-        // If we don't do this, then when the user edits from A to B, we'd:
-        // - Do a render that changes back to A
-        // - Then send the updated value to the parent, which sends the B back to this component
-        // - Do another render that changes it to B again
-        // The unnecessary reversion from B to A can cause selection to be lost while typing
-        // A better solution would be somehow forcing the parent component's render to occur first,
-        // but that would involve a complex change in the renderer to keep the render queue sorted
-        // by component depth or similar.
-        Value = value;
-        if (ValueChanged.HasDelegate)
-        {
-            // Thread Safety: Force `ValueChanged` to be re-associated with the Dispatcher, prior to invocation.
-            await InvokeAsync(async () => await ValueChanged.InvokeAsync(value));
-        }
-        if (FieldBound)
-        {
-            // Thread Safety: Force `EditContext` to be re-associated with the Dispatcher
-            await InvokeAsync(() => EditContext?.NotifyFieldChanged(FieldIdentifier));
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the current value of the input.
-    /// </summary>
-    protected TValue? CurrentValue
-    {
-        get => Value;
-        set => _ = SetCurrentValueAsync(value);
-    }
-
-    /// <summary>
-    /// Gets or sets the current value of the input, represented as a string.
-    /// </summary>
-    protected string? CurrentValueAsString
-    {
-        // InputBase-derived components can hold invalid states (e.g., an InputNumber being blank even when bound
-        // to an int value). So, if parsing fails, we keep the rejected string in the UI even though it doesn't
-        // match what's on the .NET model. This avoids interfering with typing, but still notifies the EditContext
-        // about the validation error message.
-        get => _parsingFailed ? _incomingValueBeforeParsing : FormatValueAsString(CurrentValue);
-        set => _ = SetCurrentValueAsStringAsync(value);
-
-    }
-
-    /// <summary>
-    /// Attempts to set the current value of the input, represented as a string.
-    /// </summary>
-    /// <param name="value"></param>
-    protected async Task SetCurrentValueAsStringAsync(string? value)
-    {
-        _incomingValueBeforeParsing = value;
-        _parsingValidationMessages?.Clear();
-
-        if (_nullableUnderlyingType != null && string.IsNullOrEmpty(value))
-        {
-            // Assume if it's a nullable type, null/empty inputs should correspond to default(T)
-            // Then all subclasses get nullable support almost automatically (they just have to
-            // not reject Nullable<T> based on the type itself).
-            _parsingFailed = false;
-            CurrentValue = default!;
-        }
-        else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
-        {
-            _parsingFailed = false;
-            await SetCurrentValueAsync(parsedValue);
-        }
-        else
-        {
-            _parsingFailed = true;
-
-            // EditContext may be null if the input is not a child component of EditForm.
-            if (EditContext is not null && FieldBound)
-            {
-                _parsingValidationMessages ??= new ValidationMessageStore(EditContext);
-                _parsingValidationMessages.Add(FieldIdentifier, validationErrorMessage);
-
-                // Since we're not writing to CurrentValue, we'll need to notify about modification from here
-                EditContext.NotifyFieldChanged(FieldIdentifier);
-            }
-        }
-
-        // We can skip the validation notification if we were previously valid and still are
-        if (_parsingFailed || _previousParsingAttemptFailed)
-        {
-            EditContext?.NotifyValidationStateChanged();
-            _previousParsingAttemptFailed = _parsingFailed;
-        }
-    }
-
-    /// <summary>
-    /// Constructs an instance of <see cref="InputBase{TValue}"/>.
-    /// </summary>
-    protected FluentInputBase()
-    {
-        Id = Identifier.NewId();
-        _validationStateChangedHandler = OnValidateStateChanged;
-    }
-
-    /// <summary>
-    /// Formats the value as a string. Derived classes can override this to determine the formating used for <see cref="CurrentValueAsString"/>.
-    /// </summary>
-    /// <param name="value">The value to format.</param>
-    /// <returns>A string representation of the value.</returns>
-    protected virtual string? FormatValueAsString(TValue? value)
-        => value?.ToString();
-
-    /// <summary>
-    /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
-    /// <see cref="CurrentValueAsString"/> interprets incoming values.
-    /// </summary>
-    /// <param name="value">The string value to be parsed.</param>
-    /// <param name="result">An instance of <typeparamref name="TValue"/>.</param>
-    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
-    /// <returns>True if the value could be parsed; otherwise false.</returns>
-    protected abstract bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage);
-
-    /// <summary>
-    /// Gets a CSS class string that combines the <c>class</c> attribute and and a string indicating
-    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
-    /// Derived components should typically use this value for the primary HTML element class attribute.
-    /// </summary>
-    protected virtual string? ClassValue
-    {
-        get
-        {
-            var fieldClass = (FieldBound && !Embedded) ? EditContext?.FieldCssClass(FieldIdentifier) : null;
-
-            var cssClass = CombineClassNames(AdditionalAttributes, fieldClass);
-
-            if (!string.IsNullOrEmpty(cssClass) || !string.IsNullOrEmpty(Class))
-            {
-                return new CssBuilder(Class)
-                    .AddClass(cssClass)
-                    .Build();
-            }
-
-            return null;
-        }
-    }
+    public bool UseNativeConstraintValidationUI { get; set; }
 
     /// <summary />
-    protected virtual string? StyleValue => new StyleBuilder(Style).Build();
-
-    /// <inheritdoc />
-    public override Task SetParametersAsync(ParameterView parameters)
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
+    protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
-        parameters.SetParameterProperties(this);
+        var isValid = TryParseValueFromString(e.Value?.ToString(), out var result, out var validationErrorMessage);
 
-        if (!_hasInitializedParameters)
+        if (isValid)
         {
-            // This is the first run
-            // Could put this logic in OnInit, but its nice to avoid forcing people who override OnInit to call base.OnInit()
-
-            if (Field is not null)
-            {
-                FieldIdentifier = (FieldIdentifier)Field;
-            }
-            else if (ValueExpression is not null)
-            {
-                FieldIdentifier = FieldIdentifier.Create(ValueExpression);
-            }
-            else if (ValueChanged.HasDelegate)
-            {
-                FieldIdentifier = FieldIdentifier.Create(() => Value);
-            }
-
-            if (CascadedEditContext != null)
-            {
-                EditContext = CascadedEditContext;
-                EditContext.OnValidationStateChanged += _validationStateChangedHandler;
-            }
-
-            _nullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
-            _hasInitializedParameters = true;
+            await InvokeAsync(() => CurrentValue = result);
         }
-        else if (CascadedEditContext != EditContext)
+        else
         {
-            // Not the first run
-
-            // We don't support changing EditContext because it's messy to be clearing up state and event
-            // handlers for the previous one, and there's no strong use case. If a strong use case
-            // emerges, we can consider changing this.
-            throw new InvalidOperationException($"{GetType()} does not support changing the " +
-                $"{nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} dynamically.");
+            // TODO
         }
 
-        UpdateAdditionalValidationAttributes();
-
-        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
-        return base.SetParametersAsync(ParameterView.Empty);
+        await ReportValidityAsync();
     }
 
-    // TODO: #vNext: Make it proper async Task
     /// <summary>
-    /// Exposes the elements FocusAsync() method.
+    /// Requests the browser to report the current element validity state.
     /// </summary>
-    [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
-    public virtual async void FocusAsync()
+    protected virtual async Task ReportValidityAsync()
     {
-        await Element!.FocusAsync();
-    }
-
-    // TODO: #vNext: Make it proper async Task
-    /// <summary>
-    /// Exposes the elements FocusAsync(bool preventScroll) method.
-    /// </summary>
-    /// <param name="preventScroll">A Boolean value indicating whether or not the browser should scroll
-    /// the document to bring the newly-focused element into view. A value of false for preventScroll (the default)
-    /// means that the browser will scroll the element into view after focusing it.
-    /// If preventScroll is set to true, no scrolling will occur.</param>
-    [SuppressMessage("Style", "VSTHRD200:Use `Async` suffix for async methods", Justification = "#vNext: To update in the next version")]
-    public virtual async void FocusAsync(bool preventScroll)
-    {
-        await Element!.FocusAsync(preventScroll);
-    }
-
-    private void OnValidateStateChanged(object? sender, ValidationStateChangedEventArgs eventArgs)
-    {
-        UpdateAdditionalValidationAttributes();
-
-        InvokeAsync(StateHasChanged);
-    }
-
-    private void UpdateAdditionalValidationAttributes()
-    {
-        if (EditContext is null)
+        // Only call the browser native constraint validation UI when enabled.
+        // This behavior is opt-in via UseNativeConstraintValidationUi (default is false).
+        if (!UseNativeConstraintValidationUI)
         {
             return;
         }
 
-        var hasAriaInvalidAttribute = AdditionalAttributes != null && AdditionalAttributes.ContainsKey("aria-invalid");
-        if (FieldBound && EditContext.GetValidationMessages(FieldIdentifier).Any())
+        if (string.IsNullOrWhiteSpace(Id))
         {
-            if (hasAriaInvalidAttribute)
-            {
-                // Do not overwrite the attribute value
-                return;
-            }
-
-            if (ConvertToDictionary(AdditionalAttributes, out var additionalAttributes))
-            {
-                AdditionalAttributes = additionalAttributes;
-            }
-
-            // To make the `Input` components accessible by default
-            // we will automatically render the `aria-invalid` attribute when the validation fails
-            // value must be "true" see https://www.w3.org/TR/wai-aria-1.1/#aria-invalid
-            additionalAttributes["aria-invalid"] = "true";
+            return;
         }
-        else if (hasAriaInvalidAttribute)
+
+        try
         {
-            // No validation errors. Need to remove `aria-invalid` if it was rendered already
-
-            if (AdditionalAttributes!.Count == 1)
-            {
-                // Only aria-invalid argument is present which we don't need any more
-                AdditionalAttributes = null;
-            }
-            else
-            {
-                if (ConvertToDictionary(AdditionalAttributes, out var additionalAttributes))
-                {
-                    AdditionalAttributes = additionalAttributes;
-                }
-
-                additionalAttributes.Remove("aria-invalid");
-            }
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.reportValidity", Id);
+        }
+        catch (Exception ex) when (ex is JSDisconnectedException ||
+                                   ex is OperationCanceledException ||
+                                   ex is InvalidOperationException)
+        {
+            // The JSRuntime side may routinely be unavailable during lifecycle transitions.
+            // This is not an error.
         }
     }
 
     /// <summary>
-    /// Returns a dictionary with the same values as the specified <paramref name="source"/>.
+    /// Returns the aria-label attribute value with the label and required indicator.
     /// </summary>
-    /// <returns>true, if a new dictionary with copied values was created. false - otherwise.</returns>
-    private static bool ConvertToDictionary(IReadOnlyDictionary<string, object>? source, out Dictionary<string, object> result)
+    /// <returns></returns>
+    protected virtual string? GetAriaLabelWithRequired()
     {
-        var newDictionaryCreated = true;
-        if (source == null)
+        return (AriaLabel ?? Label ?? string.Empty) +
+               (Required == true ? $", {Localizer[Localization.LanguageResource.FluentInputBase_Required]}" : string.Empty);
+    }
+
+    /// <summary>
+    /// Dispose the <see cref="JSModule"/> object.
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    [ExcludeFromCodeCoverage]
+    public virtual async ValueTask DisposeAsync()
+    {
+        if (_isDisposed)
         {
-            result = [];
+            return;
         }
-        else if (source is Dictionary<string, object> currentDictionary)
+
+        _isDisposed = true;
+        var moduleToDispose = _jsModule?.TryClaimDisposal() == true ? _jsModule : null;
+        if (moduleToDispose is not null)
         {
-            result = currentDictionary;
-            newDictionaryCreated = false;
-        }
-        else
-        {
-            result = [];
-            foreach (var item in source)
+            try
             {
-                result.Add(item.Key, item.Value);
+                await DisposeAsync(moduleToDispose.ObjectReference);
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException ||
+                                       ex is InvalidOperationException)
+            {
+                // The JSRuntime side may routinely be gone already if the reason we're disposing is that
+                // the client disconnected. This is not an error.
             }
         }
 
-        return newDictionaryCreated;
+        _cachedServices?.DisposeTooltipAsync(this);
+        _cachedServices?.Dispose();
+        if (moduleToDispose is not null)
+        {
+            await moduleToDispose.DisposeAsync();
+        }
     }
 
-    /// <inheritdoc />
-
-    protected virtual void Dispose(bool disposing)
+    /// <summary>
+    /// Override this method to call your custom dispose logic, using the <see cref="IJSObjectReference"/> object.
+    /// </summary>
+    /// <param name="jsModule"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    protected virtual ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
+        return ValueTask.CompletedTask;
     }
 
-    void IDisposable.Dispose()
+    /// <summary>
+    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found.
+    /// Keep in mind that this method will cache the service in the component memory for future use.
+    /// </summary>
+    /// <typeparam name="T">The type of service object to get.</typeparam>
+    /// <returns></returns>
+    protected virtual T? GetCachedServiceOrNull<T>() => (_cachedServices ??= new CachedServices(ServiceProvider)).GetCachedServiceOrNull<T>();
+
+    /// <summary>
+    /// Renders the label in a FluentTooltipProvider.
+    /// </summary>
+    /// <param name="label"></param>
+    /// <returns></returns>
+    protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
+
+    #endregion
+
+    /// <summary>
+    /// Sets parameters supplied by the component's parent in the render tree.
+    /// </summary>
+    /// <param name="parameters">The parameters.</param>
+    /// <returns>A <see cref="Task"/> that completes when the component has finished updating and rendering itself.</returns>
+    /// <remarks>
+    /// <para>
+    /// Parameters are passed when <see cref="SetParametersAsync(ParameterView)"/> is called. It is not required that
+    /// the caller supply a parameter value for all of the parameters that are logically understood by the component.
+    /// </para>
+    /// <para>
+    /// The default implementation of <see cref="SetParametersAsync(ParameterView)"/> will set the value of each property
+    /// decorated with <see cref="ParameterAttribute" /> or <see cref="CascadingParameterAttribute" /> that has
+    /// a corresponding value in the <see cref="ParameterView" />. Parameters that do not have a corresponding value
+    /// will be unchanged.
+    /// </para>
+    /// </remarks>
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        // When initialization in the SetParametersAsync method fails, the EditContext property can remain equal to null
-        if (EditContext is not null)
-        {
-            EditContext.OnValidationStateChanged -= _validationStateChangedHandler;
-        }
-
-        _debounce.Dispose();
-
-        Dispose(disposing: true);
-    }
-
-    public static string? CombineClassNames(IReadOnlyDictionary<string, object>? additionalAttributes, string? classNames)
-    {
-        if (additionalAttributes is null || !additionalAttributes.TryGetValue("class", out var @class))
-        {
-            return classNames;
-        }
-
-        var classAttributeValue = Convert.ToString(@class, CultureInfo.InvariantCulture);
-
-        if (string.IsNullOrEmpty(classAttributeValue))
-        {
-            return classNames;
-        }
-
-        if (string.IsNullOrEmpty(classNames))
-        {
-            return classAttributeValue;
-        }
-
-        return $"{classAttributeValue} {classNames}";
+        parameters.ThrowNullableParameters(component: this, parameterNames: nameof(Id));
+        return base.SetParametersAsync(parameters);
     }
 }

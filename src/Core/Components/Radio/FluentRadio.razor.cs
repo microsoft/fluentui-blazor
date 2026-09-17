@@ -4,97 +4,131 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase
+/// <summary>
+/// A Fluent Radio button component.
+/// </summary>
+public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase, IDisposable
 {
-    /// <summary>
-    /// Gets context for this <see cref="FluentRadio{TValue}"/>.
-    /// </summary>
-    internal FluentRadioContext? Context { get; private set; }
+    private bool _disposedValue;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is readonly.
+    /// Initializes a new instance of the <see cref="FluentRadio{TRadioValue}"/> class with the specified library configuration.
     /// </summary>
-    [Parameter]
-    public bool ReadOnly { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text displayed just above the component.
-    /// </summary>
-    [Parameter]
-    public string? Label { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content displayed just above the component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? LabelTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the text used on aria-label attribute.
-    /// </summary>
-    [Parameter]
-    public virtual string? AriaLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets the value of the element.
-    /// </summary>
-    [Parameter]
-    public TValue? Value { get; set; }
-
-    /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name of the parent fluent radio group.
-    /// </summary>
-    [Parameter]
-    public string? Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the element needs to have a value.
-    /// </summary>
-    [Parameter]
-    public bool Required { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the element is checked.
-    /// </summary>
-    [Parameter]
-    public bool? Checked { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    [CascadingParameter] private FluentRadioContext? CascadedContext { get; set; }
-
-    public FluentRadio()
+    /// <param name="configuration">The configuration settings for the library. Cannot be null.</param>
+    public FluentRadio(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
-    /// <inheritdoc />
-    protected override void OnParametersSet()
+    /// <summary>
+    /// For unit testing purposes only.
+    /// </summary>
+    /// <param name="id"></param>
+    internal FluentRadio(string? id) : this(LibraryConfiguration.Empty)
     {
-        Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
+        Id = id;
+    }
 
-        if (Context == null)
+    /// <summary />
+    [CascadingParameter(Name = "RadioGroup")]
+    internal FluentRadioGroup<TValue> Owner { get; set; } = default!;
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder.Build();
+
+    /// <inheritdoc cref="IFluentField.Disabled" />
+    [Parameter]
+    public virtual bool? Disabled { get; set; }
+
+    /// <inheritdoc cref="IFluentField.Label" />
+    [Parameter]
+    public virtual string? Label { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelTemplate" />
+    [Parameter]
+    public virtual RenderFragment? LabelTemplate { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelTemplate" />
+    [Parameter]
+    public virtual RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc cref="IFluentField.LabelWidth" />
+    [Parameter]
+    public virtual string? LabelWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value of the radio element.
+    /// </summary>
+    [Parameter]
+    public TValue? Value { get; set; }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        if (Owner is null)
         {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
-                $"with a matching 'Name' property, if specified.");
+            throw new InvalidOperationException($"The {nameof(FluentRadio<TValue>)} must be included in a {nameof(FluentRadioGroup<TValue>)} component and must be of the same type.");
         }
 
-        if (Checked.HasValue && Checked == true)
+        Owner.AddRadio(this);
+    }
+
+    /// <summary />
+    internal string? GetValue()
+    {
+        return Owner.RadioValue?.Invoke(Value)
+            ?? Value?.ToString()
+            ?? Label
+            ?? Id;
+    }
+
+    /// <summary />
+    internal bool GetDisabled()
+    {
+        return Disabled is not null
+            ? Disabled == true
+            : Owner.RadioDisabled?.Invoke(Value) ?? false;
+    }
+
+    /// <summary />
+    internal string? GetLabel()
+    {
+        if (LabelTemplate is not null || ChildContent is not null)
         {
-            Context.CurrentValue = Value;
+            return null; // LabelTemplate will be rendered separately
         }
+
+        return Label
+            ?? Owner.RadioLabel?.Invoke(Value)
+            ?? Value?.ToString();
+    }
+
+    /// <summary />
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                // Dispose managed state (managed objects)
+                Owner.RemoveRadio(this);
+            }
+
+            _disposedValue = true;
+        }
+    }
+
+    /// <summary />
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
     }
 }

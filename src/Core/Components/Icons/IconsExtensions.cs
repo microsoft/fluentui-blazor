@@ -25,16 +25,16 @@ public static partial class IconsExtensions
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Icon.* DLLs here")]
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static CustomIcon GetInstance(this IconInfo icon, bool? throwOnError = true)
     {
-        var assemblyName = string.Format(LibraryName, icon.Variant);
+        var assemblyName = string.Format(System.Globalization.CultureInfo.InvariantCulture, LibraryName, icon.Variant);
         var assembly = GetAssembly(assemblyName);
 
         if (assembly != null)
         {
-            var allIcons = assembly.GetTypes()
-                                   .Where(i => i.BaseType == typeof(Icon));
+            var allIcons = assembly.GetTypes().Where(i => i.BaseType == typeof(Icon));
 
             // Ex. Microsoft.FluentUI.AspNetCore.Components.Icons.Filled.Size10+PresenceAvailable
             var iconFullName = $"{Namespace}.Icons.{icon.Variant}.Size{(int)icon.Size}+{icon.Name}";
@@ -52,7 +52,14 @@ public static partial class IconsExtensions
 
         if (throwOnError == true || throwOnError == null)
         {
-            throw new ArgumentException($"Icon 'Icons.{icon.Variant}.Size{(int)icon.Size}.{icon.Name}' not found.");
+            throw new ArgumentException(
+                string.Format(
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    "Icon 'Icons.{0}.Size{1}.{2}' not found.",
+                    icon.Variant.ToString(),
+                    ((int)icon.Size).ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    icon.Name),
+                nameof(icon));
         }
 
         return default!;
@@ -84,21 +91,20 @@ public static partial class IconsExtensions
     /// </remarks>
     /// <returns></returns>
     /// <exception cref="ArgumentException">Raised when the <see cref="IconInfo.Name"/> is not found in predefined icons.</exception>
+    [ExcludeFromCodeCoverage(Justification = "We can't test the Icon.* DLLs here.")]
     [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
     public static IEnumerable<IconInfo> GetAllIcons()
     {
         var allIcons = new List<IconInfo>();
 
-        foreach (var variant in Enum.GetValues(typeof(IconVariant)).Cast<IconVariant>())
+        foreach (var variant in Enum.GetValues<IconVariant>())
         {
-            var assemblyName = string.Format(LibraryName, variant);
+            var assemblyName = string.Format(System.Globalization.CultureInfo.InvariantCulture, LibraryName, variant);
             var assembly = GetAssembly(assemblyName);
 
             if (assembly != null)
             {
-                var allTypes = assembly.GetTypes()
-                                       .Where(i => i.BaseType == typeof(Icon)
-                                                && i.Name != nameof(CustomIcon));
+                var allTypes = assembly.GetTypes().Where(i => i.BaseType == typeof(Icon) && !string.Equals(i.Name, nameof(CustomIcon), StringComparison.OrdinalIgnoreCase));
 
                 allIcons.AddRange(allTypes.Select(type => Activator.CreateInstance(type) as IconInfo ?? new IconInfo()));
             }
@@ -110,6 +116,7 @@ public static partial class IconsExtensions
     /// <summary />
     public static IEnumerable<IconInfo> AllIcons
     {
+        [RequiresUnreferencedCode("This method requires dynamic access to code. This code may be removed by the trimmer.")]
         get
         {
             return GetAllIcons();
@@ -123,7 +130,7 @@ public static partial class IconsExtensions
         {
             return AppDomain.CurrentDomain
                             .GetAssemblies()
-                            .FirstOrDefault(i => i.ManifestModule.Name == assemblyName + ".dll")
+                            .FirstOrDefault(i => string.Equals(i.GetName().Name, assemblyName, StringComparison.OrdinalIgnoreCase))
                 ?? Assembly.Load(assemblyName);
 
         }

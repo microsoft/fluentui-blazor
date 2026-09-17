@@ -1,9 +1,0 @@
-﻿<FluentTimePicker @bind-Value="@SelectedValue" Label="Meeting time:" />
-<FluentTimePicker @bind-Value="@SelectedValue" Label="With seconds:" TimeDisplay="@TimeDisplay.HourMinuteSeconds" />
-
-<p>Selected Time: @(SelectedValue?.ToString("HH:mm:ss"))</p>
-
-@code
-{
-    private DateTime? SelectedValue = null;
-}

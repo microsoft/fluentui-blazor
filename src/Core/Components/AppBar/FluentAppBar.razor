@@ -1,64 +1,71 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 <CascadingValue TValue="InternalAppBarContext" Value="@_internalAppBarContext" IsFixed="true">
-    <nav @ref="@Element" id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()">
+	<nav id="@Id" @attributes="AdditionalAttributes" class="@ClassValue" style="@StyleValue" role="navigation" orientation="@Orientation.ToAttributeValue()" hide-bar="@(HideActiveIndicator)">
+		<fluent-overflow id="@OverflowElementId" style="@OverflowStyleValue" orientation="@Orientation.ToAttributeValue()" threshold="0" selector=".fluent-appbar-item" @onoverflowchange="@OnOverflowChangedAsync">
 
-            @if (Items is null)
-            {
-                @ChildContent
-            }
-            else
-            {
-                foreach (var item in Items)
-                {
-                    <FluentAppBarItem IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" OnClick="@item.OnClick" />
-                }
-            }
-            @if (AppsOverflow.Any())
-            {
-                <FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-            <div id="@($"appbar-more-{Id}")" class="fluent-appbar-item" style="min-width: calc(var(--appbar-item-size)* 1px);" tabindex="0" fixed title="View more apps" @onclick="@TogglePopoverAsync">
-                    <FluentStack Orientation="Orientation.Vertical"
-                                 HorizontalAlignment="HorizontalAlignment.Center"
-                                 VerticalAlignment="VerticalAlignment.Center"
-                                 VerticalGap="0"
-                                 Style="--appbar-active-indicator-width: calc(var(--design-unit)* 0.5px); height: 100%;">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" Color="Color.Neutral" part="icon-rest" />
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size24.MoreHorizontal())" part="icon-active" />
-                    </FluentStack>
-                </div>
-            }
+		@if (Items is null)
+		{
+			@ChildContent
+		}
+		else
+		{
+			foreach (var item in Items)
+			{
+				<FluentAppBarItem Id="@item.Id" IconRest="@item.IconRest" IconActive="@item.IconActive" Text="@item.Text" Href="@item.Href" Count="@item.Count" Tooltip="@item.Tooltip" Match="@item.Match" OnClick="@item.OnClick" />
+			}
+		}
+			<FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
+			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-more-item" style="min-width: var(--appbar-item-size);" tabindex="0" slot="trigger" title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
+				<FluentStack Orientation="Orientation.Vertical"
+							 HorizontalAlignment="HorizontalAlignment.Center"
+							 VerticalAlignment="VerticalAlignment.Center"
+							 VerticalGap="0"
+							 Style="height: calc(var(--appbar-item-size) - var(--appbar-item-height-adjustment));">
+					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Default" part="icon-rest" />
+					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Primary" part="icon-active" />
+				</FluentStack>
+			</div>
+		</fluent-overflow>
 
-        @if (AppsOverflow.Any())
-        {
-            @*ToDo: Make styling configurable *@
-            <FluentPopover @bind-Open="_showMoreItems" AnchorId="@($"appbar-more-{Id}")"
-                           HorizontalPosition="HorizontalPosition.End"
-                           HorizontalInset="false"
-                           VerticalPosition="VerticalPosition.Center"
-                           VerticalThreshold="25"
-                           Style="width: 320px; height: 200px; overflow-y: scroll; margin-top: 35px; ">
-                <Body>
-                    @if (PopoverShowSearch)
-                    {
-                        <FluentSearch @bind-Value="@_searchTerm"
-                                      @bind-Value:after=HandleSearch
-                                      Style="width: 100%;"
-                                      Immediate="true"
-                                      Placeholder="Search for apps"
-                                      Autofocus="true" tabindex="0" />
-                    }
-                    <FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: calc(var(--design-unit) * 0.5px)">
-                        @foreach (var item in _searchResults)
-                        {
-                            <FluentGridItem xs="4" Style="width: 100px; height: 85px; display: flex; height: 85px; align-content: center; flex-wrap: wrap; justify-content: center;">
-                                <FluentAppBarItem IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" inpopover="true" OnClick="@item.OnClick" />
-                            </FluentGridItem>
-                        }
-                    </FluentGrid>
-                </Body>
-            </FluentPopover>
-        }
-    </nav>
+		@if (AppsOverflow.Any())
+		{
+			@*ToDo: Make styling configurable *@
+			<FluentPopover @bind-Opened="_showMoreItems"
+						   AnchorId="@($"appbar-more-{Id}")"
+						   OffsetVertical="-48"
+						   OffsetHorizontal="320">
+				<ChildContent>
+					<div class="fluent-appbar-popover">
+						@if (PopoverShowSearch)
+						{
+							<FluentTextInput @bind-Value="@_searchTerm"
+											 @bind-Value:after="@HandleSearch"
+											 Width="100%"
+											 Style="width: 100%;"
+											 Immediate="true"
+											 Placeholder="Search for apps"
+											 Autofocus="true"
+                                             AutoComplete="off"
+											 tabindex="0">
+								<StartTemplate>
+									<FluentIcon Value="@(new CoreIcons.Regular.Size20.Search())" Color="Color.Primary" />
+								</StartTemplate>
+							</FluentTextInput>
+						}
+						<FluentGrid Justify="JustifyContent.FlexStart" Spacing="3" Style="margin-top: 2px; background-color: inherit;">
+							@foreach (var item in _searchResults)
+							{
+								<FluentGridItem xs="4" Style="width: 100px; height: 85px; display: flex; height: 85px; align-content: center; flex-wrap: wrap; justify-content: center;">
+									<FluentAppBarItem Id="@item.Id" IconRest="@item.IconRest" Text="@item.Text" Href="@item.Href" Count="@item.Count" Tooltip="@item.Tooltip" OnClick="@item.OnClick" inpopover="true" />
+								</FluentGridItem>
+							}
+						</FluentGrid>
+					</div>
+				</ChildContent>
+			</FluentPopover>
+		}
+	</nav>
 </CascadingValue>

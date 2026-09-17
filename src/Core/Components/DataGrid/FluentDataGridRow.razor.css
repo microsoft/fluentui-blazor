@@ -1,11 +1,10 @@
-.sticky-header {
-    z-index: 3;
+.fluent-data-grid [row-type='sticky-header'] {
+  z-index: 3;
 }
 
-.hover:not([row-type='header'],[row-type='sticky-header'],.loading-content-row):hover ::deep td:not(.empty-content-cell) {
-    cursor: pointer;
-    background-color: var(--datagrid-hover-color, var(--neutral-fill-stealth-hover));
+.fluent-data-grid tr[hover]:not([row-type='header'], [row-type='sticky-header'], [row-state='loading-content'], [row-state='detail-content'], [row-state='empty-content'], [row-state='error-content']):hover td {
+  cursor: pointer;
+  background-color: var(--datagrid-hover-color, var(--colorNeutralStroke2));
 }
-
 
 

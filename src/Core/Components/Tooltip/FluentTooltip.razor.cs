@@ -2,121 +2,105 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTooltip : FluentComponentBase, IDisposable
+/// <summary>
+/// A FluentTooltip displays additional information about another component.
+/// The information is displayed above and near the target component.
+/// </summary>
+public partial class FluentTooltip : FluentComponentBase
 {
-    private readonly Guid _guid = Guid.NewGuid();
-    private ITooltipService? _tooltipService = null;
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Tooltip/FluentTooltip.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Tooltip/FluentTooltip.razor.js";
 
-    private IJSObjectReference? JSModule { get; set; }
+    /// <summary />    
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
+    public FluentTooltip(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    /// <summary />
+    internal FluentTooltip(LibraryConfiguration configuration, string anchor, string? label) : this(configuration)
+    {
+        Anchor = anchor;
+        ChildContent = builder =>
+        {
+            builder.AddMarkupContent(0, label);
+        };
+    }
 
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    /// <summary />
+    internal string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    internal string? StyleValue => DefaultStyleBuilder
+        .AddStyle("max-width", MaxWidth, when: () => !string.IsNullOrWhiteSpace(MaxWidth))
+        .AddStyle("margin-inline", SpacingHorizontal, when: () => !string.IsNullOrWhiteSpace(SpacingHorizontal))
+        .AddStyle("margin-block", SpacingVertical, when: () => !string.IsNullOrWhiteSpace(SpacingVertical))
+        .AddStyle("position-anchor", $"--{Anchor}")
+        .Build();
 
     /// <summary>
-    /// Gets or sets a reference to the list of registered services.
+    /// Gets or sets the injected service provider.
     /// </summary>
     /// <remarks>
+    /// We cannot inject `ITooltipService` directly, as an exception will be thrown if the service is not injected.
     /// https://github.com/dotnet/aspnetcore/issues/24193
     /// </remarks>
-    [Inject]
-    internal IServiceProvider? ServiceProvider { get; set; }
+    private ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
 
     /// <summary>
-    /// Gets a reference to the tooltip service (if registered).
-    /// </summary>
-    protected virtual ITooltipService? TooltipService => _tooltipService;
-
-    /// <summary>
-    /// Gets the default tooltip options.
-    /// </summary>
-    protected virtual TooltipGlobalOptions? GlobalOptions => TooltipService?.GlobalOptions;
-
-    /// <summary>
-    /// Gets or sets the text used on aria-label attribute.
-    /// </summary>
-    [Parameter]
-    public virtual string? AriaLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.
-    /// By default, the tooltip closes if the cursor leaves the anchor, but not the tooltip itself.
-    /// You can configure this behavior globally using the <see cref="LibraryConfiguration.HideTooltipOnCursorLeave"/> property.
-    /// </summary>
-    [Parameter]
-    public bool? HideTooltipOnCursorLeave { get; set; }
-
-    /// <summary>
-    /// Use ITooltipService to create the tooltip, if this service was injected.
-    /// If the <see cref="ChildContent"/> is dynamic, set this to false.
-    /// Default, true.
+    /// Gets or sets a value indicating whether the <see cref="ITooltipService"/> is used to render the tooltip.
+    /// This parameter only has an effect when <see cref="ITooltipService"/> is registered in the DI container; the service is optional and may not be available.
+    /// Set this to <see langword="false"/> when <see cref="ChildContent"/> is dynamic (e.g., <c>UseTooltipService="false"</c>). Default is <see langword="true"/>.
     /// </summary>
     [Parameter]
     public bool UseTooltipService { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the tooltip is visible.
-    /// </summary>
-    [Parameter]
-    public bool Visible { get; set; }
-
-    /// <summary>
-    /// Required. Gets or sets the control identifier associated with the tooltip.
+    /// Gets or sets the component identifier associated with the tooltip (Required).
     /// </summary>
     [Parameter]
     [EditorRequired]
     public string Anchor { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the delay (in milliseconds).
-    /// Default is 300.
+    /// Gets or sets number of milliseconds to delay the tooltip from showing/hiding on hover.
+    /// The default value is `null`. Internally the component uses 250ms when no value is provided.
     /// </summary>
     [Parameter]
-    public int? Delay { get; set; } = TooltipGlobalOptions.DefaultDelay;
+    public int? Delay { get; set; }
 
     /// <summary>
-    /// Gets or sets the tooltip's position. See <see cref="AspNetCore.Components.TooltipPosition"/>.
-    /// Don't set this if you want the tooltip to use the best position.
+    /// Gets or sets the tooltip's position. See <see cref="Components.Positioning"/>.
     /// </summary>
     [Parameter]
-    public TooltipPosition? Position { get; set; }
+    public Positioning? Positioning { get; set; }
 
     /// <summary>
-    /// Gets or sets the maximum width of tooltip panel.
+    /// Gets or sets the maximum width of tooltip panel. Default is 240px.
     /// </summary>
     [Parameter]
     public string? MaxWidth { get; set; }
 
     /// <summary>
-    /// Controls when the tooltip updates its position, default is anchor which only updates when
-    /// the anchor is resized. Auto will update on scroll/resize events.
-    /// Corresponds to anchored-region auto-update-mode.
+    /// Gets or sets the tooltip's horizontal spacing. Default is 4px.
     /// </summary>
     [Parameter]
-    public AutoUpdateMode? AutoUpdateMode { get; set; }
+    public string? SpacingHorizontal { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the horizontal viewport is locked.
+    /// Gets or sets the tooltip's vertical spacing. Default is 4px.
     /// </summary>
     [Parameter]
-    public bool HorizontalViewportLock { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the vertical viewport is locked.
-    /// </summary>
-    [Parameter]
-    public bool VerticalViewportLock { get; set; }
+    public string? SpacingVertical { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -126,61 +110,79 @@ public partial class FluentTooltip : FluentComponentBase, IDisposable
 
     /// <summary>
     /// Callback for when the tooltip is dismissed.
-    /// </summary>
+    /// </summary>  
     [Parameter]
     public EventCallback<EventArgs> OnDismissed { get; set; }
 
-    /// <summary />
-    private bool DrawTooltip => TooltipService == null ||
-                                (TooltipService != null && !UseTooltipService);
+    /// <summary>
+    /// Callback for when the tooltip is opened or closed.
+    /// </summary>  
+    [Parameter]
+    public EventCallback<TooltipEventArgs> OnToggle { get; set; }
 
     /// <summary />
-    private void HandleDismissed()
+    private bool DrawTooltipWithService => TooltipService is not null && UseTooltipService;
+
+    /// <summary />
+    private bool DrawTooltipWithoutService => !DrawTooltipWithService;
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
     {
-        if (OnDismissed.HasDelegate)
-        {
-            OnDismissed.InvokeAsync(EventArgs.Empty);
-        }
-    }
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
 
-    /// <summary />
-    protected override void OnInitialized()
-    {
-        HideTooltipOnCursorLeave ??= LibraryConfiguration?.HideTooltipOnCursorLeave;
-        _tooltipService = ServiceProvider?.GetService<ITooltipService>();
-
-        if (TooltipService != null && UseTooltipService)
+        if (DrawTooltipWithService && TooltipService != null)
         {
-            TooltipService.Add(new TooltipOptions()
+            if (string.IsNullOrEmpty(TooltipService.ProviderId))
             {
-                Id = _guid,
-                Anchor = Anchor,
-                ChildContent = ChildContent,
-                MaxWidth = MaxWidth,
-                Delay = Delay,
-                Position = Position,
-                OnDismissed = OnDismissed,
-                Visible = Visible,
-                AdditionalAttributes = AdditionalAttributes,
-            });
+                throw new ArgumentNullException(nameof(UseTooltipService), "<FluentTooltipProvider /> needs to be added to the main layout of your application/site.");
+            }
+
+            TooltipService.Items.TryAdd(Id, this);
+            await TooltipService.OnUpdatedAsync.Invoke(this);
         }
+
+        await base.OnInitializedAsync();
     }
 
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && !string.IsNullOrEmpty(Anchor) && HideTooltipOnCursorLeave == true)
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
+        ArgumentNullException.ThrowIfNullOrEmpty(Anchor);
+
+        if (firstRender)
         {
-            JSModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            await JSModule.InvokeVoidAsync("tooltipHideOnCursorLeave", Anchor);
+            // FluentTooltipInitialize will be removed when the WebComponents Teams will be ready.
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Tooltip.FluentTooltipInitialize", Id);
         }
     }
 
     /// <summary />
-    public void Dispose()
+    internal async Task OnToggleAsync(DialogToggleEventArgs args)
     {
-        if (TooltipService != null)
+        ArgumentNullException.ThrowIfNullOrEmpty(Id);
+
+        if (string.CompareOrdinal(args.Id, Id) != 0)
         {
-            TooltipService?.Remove(_guid);
+            return;
+        }
+
+        var opened = string.CompareOrdinal(args.NewState, "open") == 0;
+
+        if (OnToggle.HasDelegate)
+        {
+            await OnToggle.InvokeAsync(new TooltipEventArgs(Id, opened));
+        }
+
+        if (OnDismissed.HasDelegate && !opened)
+        {
+            await OnDismissed.InvokeAsync(EventArgs.Empty);
         }
     }
 }

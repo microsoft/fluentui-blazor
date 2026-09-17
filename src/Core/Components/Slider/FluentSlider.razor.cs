@@ -3,159 +3,109 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities.InternalDebounce;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDisposable
-    where TValue : System.Numerics.INumber<TValue>
+/// <summary>
+/// FluentSlider component, a slider control that allows users to select from a range of values.    
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
+public partial class FluentSlider<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentInputBase<TValue>, ITooltipComponent
+    where TValue : struct, IComparable<TValue>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Slider/FluentSlider.razor.js";
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? Module { get; set; }
-
-    private TValue? max;
-    private TValue? min;
-    private bool updateSliderThumb = false;
-    private DebounceAction Debounce { get; init; }
-    public FluentSlider()
-    {
-        Debounce = new DebounceAction();
-    }
+    private readonly Debounce _debounce = new();
 
     /// <summary>
-    /// Gets or sets the slider's minimal value.
+    /// Initializes a new instance of the <see cref="FluentSlider{TValue}"/> class.
     /// </summary>
-    [Parameter, EditorRequired]
-    public TValue? Min
+    /// <exception cref="InvalidOperationException"></exception>
+    public FluentSlider(LibraryConfiguration configuration) : base(configuration)
     {
-        get => min;
-        set
+        if (typeof(TValue) != typeof(byte) &&
+            typeof(TValue) != typeof(sbyte) &&
+            typeof(TValue) != typeof(short) &&
+            typeof(TValue) != typeof(ushort) &&
+            typeof(TValue) != typeof(int) &&
+            typeof(TValue) != typeof(uint) &&
+            typeof(TValue) != typeof(long) &&
+            typeof(TValue) != typeof(ulong) &&
+            typeof(TValue) != typeof(float) &&
+            typeof(TValue) != typeof(double) &&
+            typeof(TValue) != typeof(decimal))
         {
-            if (min != value)
-            {
-                min = value;
-                updateSliderThumb = true;
-            }
+            throw new InvalidOperationException("FluentSlider only supports numeric types.");
         }
     }
 
-    /// <summary>
-    /// Gets or sets the slider's maximum value.
-    /// </summary>
-    [Parameter, EditorRequired]
-    public TValue? Max
-    {
-        get => max;
-        set
-        {
-            if (max != value)
-            {
-                max = value;
-                updateSliderThumb = true;
-            }
-        }
-    }
-
-    public override TValue? Value
-    {
-        get => base.Value;
-        set
-        {
-            if (base.Value != value)
-            {
-                base.Value = value;
-                updateSliderThumb = true;
-            }
-        }
-    }
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
 
     /// <summary>
-    /// Gets or sets the slider's step value.
+    /// Gets or sets the width of the slider (e.g., <c>Width="300px"</c>).
     /// </summary>
-    [Parameter, EditorRequired]
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size for the slider.
+    /// </summary>
+    [Parameter]
+    public SliderSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the slider's minimum value (e.g., <c>Min="0"</c>). Default is 0.
+    /// See also <see cref="Max"/>.
+    /// </summary>
+    [Parameter]
+    public TValue? Min { get; set; }
+
+    /// <summary>
+    /// Gets or sets the slider's maximum value (e.g., <c>Max="100"</c>). Default is 100.
+    /// See also <see cref="Min"/>.
+    /// </summary>
+    [Parameter]
+    public TValue? Max { get; set; }
+
+    /// <summary>
+    /// Gets or sets the slider's step value. Default is 1.
+    /// </summary>
+    [Parameter]
     public TValue? Step { get; set; }
 
     /// <summary>
-    /// Gets or sets the orientation of the slider. See <see cref="AspNetCore.Components.Orientation"/>
+    /// Gets or sets the orientation of the component.
+    /// Default is <see cref="Orientation.Horizontal"/>.
     /// </summary>
     [Parameter]
-    public Orientation? Orientation { get; set; }
-
-    /// <summary>
-    /// Gets or sets the selection mode.
-    /// </summary>
-    [Parameter]
-    public SliderMode? Mode { get; set; }
+    public Orientation Orientation { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
+    /// If you add content that is NOT part of `slot="@FluentSlot.Thumb"` section, it will be ignored.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-        }
-        else
-        {
-            if (updateSliderThumb)
-            {
-                updateSliderThumb = false;
-                if (Module is not null)
-                {
-                    Debounce.Run(100, async () =>
-                    {
-                        await Module!.InvokeVoidAsync("updateSlider", Element);
-                    });
-                }
-            }
-        }
-    }
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
 
-    protected override string? ClassValue
-    {
-        get
-        {
-            return new CssBuilder(base.ClassValue)
-                .AddClass(Orientation.ToAttributeValue() ?? "horizontal")
-                .Build();
-        }
-    }
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, before raising the change event (e.g., <c>ImmediateDelay="100"</c>).
+    /// </summary>
+    [Parameter]
+    public ushort ImmediateDelay { get; set; } = 60;
 
-    protected override void OnParametersSet()
+    /// <summary />
+    protected override async Task OnInitializedAsync()
     {
-        ArgumentNullException.ThrowIfNull(Min, nameof(Min));
-        ArgumentNullException.ThrowIfNull(Max, nameof(Max));
-        ArgumentNullException.ThrowIfNull(Step, nameof(Step));
-    }
-
-    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        if (BindConverter.TryConvertTo<TValue>(value, CultureInfo.InvariantCulture, out result))
-        {
-            validationErrorMessage = null;
-            return true;
-        }
-        else
-        {
-            validationErrorMessage = string.Format(CultureInfo.InvariantCulture, "The {0} field must be a number.", DisplayName ?? (FieldBound ? FieldIdentifier.FieldName : "(unknown)"));
-            return false;
-        }
+        await base.RenderTooltipAsync(Tooltip);
     }
 
     /// <summary>
@@ -163,37 +113,46 @@ public partial class FluentSlider<TValue> : FluentInputBase<TValue>, IAsyncDispo
     /// </summary>
     /// <param name = "value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue? value)
-
+    protected override string? FormatValueAsString(TValue value)
     {
-        // Avoiding a cast to IFormattable to avoid boxing.
-        return value switch
-        {
-            null => null,
-            int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
-            long @long => BindConverter.FormatValue(@long, CultureInfo.InvariantCulture),
-            short @short => BindConverter.FormatValue(@short, CultureInfo.InvariantCulture),
-            float @float => BindConverter.FormatValue(@float, CultureInfo.InvariantCulture),
-            double @double => BindConverter.FormatValue(@double, CultureInfo.InvariantCulture),
-            decimal @decimal => BindConverter.FormatValue(@decimal, CultureInfo.InvariantCulture),
-            _ => throw new InvalidOperationException($"Unsupported type {value.GetType()}"),
-        };
+        return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
     }
 
-    public async ValueTask DisposeAsync()
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
     {
-        try
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    protected override Task ChangeHandlerAsync(ChangeEventArgs e)
+    {
+        return _debounce.RunAsync(ImmediateDelay, () =>
         {
-            if (Module is not null)
-            {
-                await Module.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
+            return base.ChangeHandlerAsync(e);
+        });
+    }
+
+    /// <summary>
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return this.TryParseSelectableValueFromString(value, out result, out validationErrorMessage);
+    }
+
+    // Only for Unit Tests
+    internal string? FormatValueAsStringOrNull(TValue? value)
+    {
+        return value is null ? null : FormatValueAsString(value.Value);
     }
 }

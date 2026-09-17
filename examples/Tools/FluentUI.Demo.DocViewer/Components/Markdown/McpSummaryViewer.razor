@@ -1,0 +1,31 @@
+﻿@using FluentUI.Demo.DocViewer.Components.Markdown.Summaries
+@using FluentUI.Demo.DocViewer.Models.Mcp
+<div class="mcp-summary-viewer">
+    @if (!IsDocumentationLoaded)
+    {
+        <div class="component-not-found">&#9888; MCP documentation not loaded. Ensure the mcp-documentation.json file is available.</div>
+    }
+    else if (!IsValidMcpType)
+    {
+        <div class="mcp-empty-message">
+            <em>Unknown MCP type '@McpType'.</em>
+        </div>
+    }
+    else
+    {
+        @switch (McpType)
+        {
+            case McpType.Tools:
+                <McpToolsSummary Tools="@Tools" />
+                break;
+
+            case McpType.Resources:
+                <McpResourcesSummary Resources="@Resources" />
+                break;
+
+            case McpType.Prompts:
+                <McpPromptsSummary Prompts="@Prompts" />
+                break;
+        }
+    }
+</div>

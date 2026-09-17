@@ -1,96 +1,158 @@
 .fluent-data-grid {
-    --fluent-data-grid-resize-handle-color: var(--accent-fill-rest);
-    --fluent-data-grid-resize-handle-width: 1px;
-    --fluent-data-grid-header-opacity: 0.5;
-    width: auto;
-    flex: 1;
-    border-collapse: collapse;
-    align-items: center;
-    height: max-content;
-    margin-bottom: 0px;
+  --fluent-data-grid-pinned-background: var(--colorNeutralBackground2);
+  --fluent-data-grid-stripe-background-color: var(--colorNeutralBackground2);
+  --fluent-data-grid-resize-handle-color: var(--colorNeutralStroke2);
+  --fluent-data-grid-resize-handle-width: 1px;
+  --fluent-data-grid-header-opacity: 1;
+  width: auto;
+  flex: 1;
+  border-collapse: collapse;
+  align-items: center;
+  height: max-content;
+  margin-bottom: 0px;
 }
 
-    .fluent-data-grid.grid {
-        display: grid;
+  .fluent-data-grid[display-mode='grid'] {
+    display: grid;
+  }
+
+    .fluent-data-grid[display-mode='grid'] thead,
+    .fluent-data-grid[display-mode='grid'] tbody {
+      display: contents;
     }
 
-.grid thead,
-.grid tbody {
-    display: contents;
-}
+    /* Restricted to direct thead/tbody children so a nested FluentDataGrid (e.g. in RowDetails)
+       doesn't have its own rows absorbed into this grid's CSS Grid layout. */
+    .fluent-data-grid[display-mode='grid'] > thead > tr,
+    .fluent-data-grid[display-mode='grid'] > tbody > tr {
+      display: contents;
+    }
 
-.grid ::deep tr {
-    display: contents;
-}
-
-.fluent-data-grid tbody tr .hover {
-    background: var(--neutral-fill-stealth-hover);
-}
-
-.col-options, .col-resize {
+  .fluent-data-grid [col-header-ui] {
     position: absolute;
+    cursor: auto;
     min-width: 250px;
-    top: 2.7rem;
-    background: var(--neutral-layer-2);
-    border: 1px solid var(--neutral-layer-3);
+    top: 2.45rem;
+    inset-inline-start: 0;
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralBackground1Pressed);
     border-radius: 0.3rem;
-    box-shadow: 0 3px 8px 1px var(--neutral-layer-4);
-    padding: 1rem;
+    box-shadow: var(--shadow8);
+    padding: 12px;
     visibility: hidden;
     z-index: 1;
+  }
+
+.fluent-data-grid th[cell-type='columnheader']:has([col-header-ui]) {
+  overflow: visible;
 }
 
-[dir=rtl] .col-options {
-    left: unset;
+[dir=rtl] .fluent-data-grid [col-header-ui] {
+  left: unset;
 }
 
-.col-justify-end .col-options,
-.col-justify-right .col-options {
-    left: unset;
-    margin-right: 0.6rem;
+.fluent-data-grid [col-justify='end'] [col-header-ui] {
+  left: unset;
+  margin-right: 0.6rem;
 }
 
-[dir=rtl] .col-justify-end .col-options,
-[dir=rtl] .col-justify-right .col-options {
-    right: unset;
-    margin-left: 0.6rem;
+[dir=rtl] .fluent-data-grid [col-justify='end'] [col-header-ui] {
+  right: unset;
+  margin-left: 0.6rem;
 }
 
 
 
-.resize-options {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+.fluent-data-grid [resize-options] {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
-::deep .resize-handle {
-    position: absolute;
-    right: 0;
-    left: unset;
-    bottom: 0;
-    height: 30px;
-    cursor: col-resize;
-    width: 6px;
-    border-inline-end: var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color);
-    opacity: var(--fluent-data-grid-header-opacity);
+.fluent-data-grid th[reorderable='true'] {
+  cursor: grab;
 }
 
-[dir=rtl] * ::deep .resize-handle {
-    right: unset;
-    left: 0;
+.fluent-data-grid[col-reorder-active='true'] th[reorderable='true'] {
+  cursor: grabbing;
 }
 
-.header {
-    padding: 0;
-    z-index: 3;
+.fluent-data-grid [col-index][col-reorder-dragging='true'] {
+  background-color: var(--colorNeutralBackground4);
+  border-inline-start: 1px solid var(--fluent-data-grid-resize-handle-color);
+  border-inline-end: 1px solid var(--fluent-data-grid-resize-handle-color);
+  opacity: 0.4;
 }
 
-::deep tr[row-type='sticky-header'] > th {
-    position: sticky;
-    top: 0;
-    background-color: var(--neutral-fill-stealth-rest);
-    z-index: 2;
+.fluent-data-grid [col-index][col-reorder-drop-target='true'] {
+  background-color: var(--colorBrandBackground2);
 }
 
+.fluent-data-grid [resize-handle] {
+  position: absolute;
+  right: 0;
+  left: unset;
+  bottom: 0;
+  height: 80%;
+  cursor: col-resize;
+  width: 6px;
+  border-inline-end: var(--fluent-data-grid-resize-handle-width) solid var(--fluent-data-grid-resize-handle-color);
+  opacity: var(--fluent-data-grid-header-opacity);
+}
+
+[dir=rtl] .fluent-data-grid [resize-handle] {
+  right: unset;
+  left: 0;
+}
+
+.fluent-data-grid tr[row-type='sticky-header'] > th {
+  position: sticky;
+  top: 0;
+  background-color: var(--colorNeutralBackground4);
+  z-index: 2;
+}
+
+/* ---- Pinned (sticky) columns ---- */
+
+/* Background: keeps content from showing through when scrolling. Override --fluent-data-grid-pinned-background to theme. */
+.fluent-data-grid th[col-pinned='start'],
+.fluent-data-grid th[col-pinned='end'] {
+  background-color: var(--colorNeutralBackground1);
+}
+
+.fluent-data-grid td[col-pinned='start'],
+.fluent-data-grid td[col-pinned='end'] {
+  background-color: var(--fluent-data-grid-pinned-background);
+}
+
+  /* Visual separator on the trailing edge of the last start-pinned column */
+  .fluent-data-grid td:nth-last-child(1 of [col-pinned='start']),
+  .fluent-data-grid td[col-pinned='start']:last-child {
+    border-inline-end: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  }
+
+
+/* Visual separator on the leading edge of the first end-pinned column */
+.fluent-data-grid td:nth-child(1 of [col-pinned='end']),
+.fluent-data-grid td:first-child[col-pinned='end'] {
+  border-inline-start: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+}
+/* Pinned header cells must stack above pinned data cells (z-index: 1 applied inline by C#).
+   For UseMenuService=false the inline z-index: 5 is absent, so we provide a floor here.
+   The sticky-header row needs the highest value to beat both the sticky-header row z-index (2)
+   and the pinned data cell z-index (1). */
+.fluent-data-grid th[col-pinned='start'],
+.fluent-data-grid th[col-pinned='end'] {
+  z-index: 2;
+}
+
+.fluent-data-grid tr[row-type='sticky-header'] > th[col-pinned='start'],
+.fluent-data-grid tr[row-type='sticky-header'] > th[col-pinned='end'] {
+  background-color: var(--colorNeutralBackground4);
+  z-index: 4;
+}
+
+.fluent-data-grid[striped] tbody tr:nth-child(even) td {
+  background-color: var(--fluent-data-grid-stripe-background-color);
+}

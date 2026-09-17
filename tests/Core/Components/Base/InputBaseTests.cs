@@ -1,0 +1,175 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+/* ********************************************************
+ *  ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
+ * ********************************************************
+ */
+
+using System.Text;
+using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
+
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
+
+public class InputBaseTests : Bunit.BunitContext
+{
+    /// <summary>
+    /// List of components to exclude from the test.
+    /// </summary>
+    private static readonly Type[] Excluded =
+    [
+        typeof(AspNetCore.Components._Imports),
+        typeof(FluentRadio<>),
+        typeof(FluentAutocomplete<,>),
+        typeof(FluentDatePicker<>),
+    ];
+
+    /// <summary>
+    /// List of customized actions to initialize the component with a specific type.
+    /// </summary>
+    private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
+    {
+        // { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
+        { typeof(FluentSelect<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
+        { typeof(FluentCombobox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
+        { typeof(FluentListbox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
+        { typeof(FluentAutocomplete<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
+        { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
+        { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
+        { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentDatePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentTimePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
+        { typeof(FluentNumberInput<>), type => type.MakeGenericType(typeof(int)) },
+    };
+
+    /// <summary />
+    public InputBaseTests(ITestOutputHelper testOutputHelper)
+    {
+        Output = testOutputHelper;
+        Services.AddFluentUIComponents();
+    }
+
+    /// <summary>
+    /// Gets the test output helper.
+    /// </summary>
+    public ITestOutputHelper Output { get; }
+
+    /// <summary>
+    /// Test to verify that all FluentUI components implement the default properties (Label, Disabled, ReadOnly, ...)
+    /// from <see cref="FluentInputBase{TValue}"/>.
+    ///
+    /// ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
+    /// </summary>
+    /// <param name="attributeName">Blazor Component property name</param>
+    /// <param name="attributeValue">Blazor Component property htmlValue</param>
+    /// <param name="htmlAttribute">HTML attribute name (null to verify only if the `htmlValue` is included in the Markup</param>
+    /// <param name="htmlValue">HTML attribute Value (null to use the same `attributeValue` content</param>
+    /// <param name="extraCondition">Add a custom extra rules, hardcoded in the test</param>
+    [Theory]
+    [InlineData("Name", "my-name", "name")]
+    [InlineData("Disabled", true, "disabled")]
+    [InlineData("ReadOnly", true, "readonly")]
+    [InlineData("AriaLabel", "my-aria-label", "aria-label")]
+    [InlineData("Autofocus", true, "autofocus")]
+    [InlineData("Required", true, "required")]
+    [InlineData("Label", "my-label")]
+    [InlineData("LabelWidth", "150px", null, "width: 150px;", "Set_LabelPosition_Before")]
+    [InlineData("LabelPosition", LabelPosition.Before, "label-position", "before")]
+    [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
+    [InlineData("MessageState", MessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
+    [InlineData("InputSlot", "input", null, "slot=\"input\"")]
+    [InlineData("LostFocus", "input", null, null, "Check_LostFocus")]
+    public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var errors = new StringBuilder();
+        var localizer = Services.GetRequiredService<IFluentLocalizer>();
+
+        htmlValue ??= attributeValue;
+
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes(baseType: typeof(FluentInputBase<>), except: Excluded))
+        {
+            // Convert to generic type if needed
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value(componentType)
+                     : componentType;
+
+            // Arrange and Act
+            var renderedComponent = Render<DynamicComponent>(parameters =>
+            {
+                var attributes = new Dictionary<string, object>
+                {
+                    { attributeName, attributeValue },
+                };
+
+                // Extra conditions
+                switch (extraCondition)
+                {
+                    case "Set_LabelPosition_Before":
+                        attributes.Add("Label", "my-label");
+                        attributes.Add("LabelPosition", LabelPosition.Before);
+                        break;
+
+                    case "Add_MessageCondition_AlwaysTrue":
+                        attributes.Add("MessageCondition", (IFluentField e) => true);
+                        break;
+                }
+
+                parameters.Add(p => p.Type, type);
+                parameters.Add(p => p.Parameters, attributes);
+            });
+
+            // Assert
+            var isMatch = string.IsNullOrEmpty(htmlAttribute)
+                        ? renderedComponent.Markup.Contains(htmlValue.ToString() ?? "")
+                        : renderedComponent.Markup.ContainsAttribute(htmlAttribute, htmlValue);
+
+            // LostFocus
+            if (extraCondition == "Check_LostFocus")
+            {
+                isMatch = VerifyLostFocus(renderedComponent).After;
+            }
+
+            Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
+
+            if (!isMatch)
+            {
+                var error = $"\"{componentType.Name}\" does not use the \"{attributeName}\" attribute (missing HTML attribute {htmlAttribute}=\"{htmlValue}\").";
+                errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    private static (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
+    {
+        try
+        {
+            // Before
+            var fieldBefore = component.FindComponent<FluentField>();
+            var focusBefore = fieldBefore.Instance.InputComponent?.FocusLost ?? fieldBefore.Instance?.FocusLost ?? false;
+
+            // Focus out
+            var input = component.Find("[slot='input']");
+            input.FocusOut();
+
+            // After
+            var fieldAfter = component.FindComponent<FluentField>();
+            var focusAfter = fieldAfter.Instance.InputComponent?.FocusLost ?? fieldBefore.Instance?.FocusLost ?? false;
+
+            return (focusBefore, focusAfter);
+        }
+        catch (Exception)
+        {
+            return (false, false);
+        }
+    }
+}

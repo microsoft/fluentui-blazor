@@ -2,13 +2,41 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public abstract class FluentCalendarBase : FluentInputBase<DateTime?> , ICultureSensitiveComponent, IStringParsableComponent
+/// <summary>
+/// Provides a base class for building calendar components.
+/// </summary>
+/// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
+public abstract class FluentCalendarBase<TValue> : FluentInputBase<TValue>
 {
+    /* ************************************************************************************
+     * Dev Note: The TValue cannot be constrained to `where TValue : struct, IComparable`
+     * because it can be either a nullable or non-nullable value type.
+     * So, the CalendarTValue.IsNullOrDefault() extension method returns true if the value is null or equal to the default value (Date.Min).
+     * ************************************************************************************/
+
+    /// <summary />
+    protected FluentCalendarBase(LibraryConfiguration configuration) : base(configuration)
+    {
+        if (typeof(TValue).IsNotDateType())
+        {
+            throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, DateOnly, and DateOnly?.");
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the verification to do when the selected value has changed.
+    /// By default, ValueChanged is called only if the selected value has changed.
+    /// </summary>
+    [CascadingParameter(Name = "CheckIfSelectedValueHasChanged")]
+    internal bool? CheckIfSelectedValueHasChanged { get; set; }
+
     /// <summary>
     /// Gets or sets the culture of the component.
     /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
@@ -16,15 +44,11 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?> , ICulture
     [Parameter]
     public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
 
-    /// <inheritdoc/>
-    [Parameter]
-    public virtual string ParsingErrorMessage { get; set; } = "The {0} field must have a valid format.";
-
     /// <summary>
     /// Function to know if a specific day must be disabled.
     /// </summary>
     [Parameter]
-    public virtual Func<DateTime, bool>? DisabledDateFunc { get; set; }
+    public virtual Func<TValue, bool>? DisabledDateFunc { get; set; }
 
     /// <summary>
     /// By default, the <see cref="DisabledDateFunc" /> check only the first day of the month and the first day of the year for the Month and Year views.
@@ -44,40 +68,86 @@ public abstract class FluentCalendarBase : FluentInputBase<DateTime?> , ICulture
     /// Gets or sets the Type style for the day (numeric or 2-digits).
     /// </summary>
     [Parameter]
-    public DayFormat? DayFormat { get; set; } = AspNetCore.Components.DayFormat.Numeric;
+    public CalendarDayFormat? DayFormat { get; set; } = CalendarDayFormat.Numeric;
 
     /// <summary>
-    /// Gets or sets the verification to do when the selected value has changed.
-    /// By default, ValueChanged is called only if the selected value has changed.
-    /// </summary>
-    [Parameter]
-    public bool CheckIfSelectedValueHasChanged { get; set; } = true;
-
-    /// <summary>
-    /// Defines the appearance of the <see cref="FluentCalendar"/> component.
+    /// Defines the appearance of the <see cref="FluentCalendar{TValue}"/> component.
     /// </summary>
     [Parameter]
     public virtual CalendarViews View { get; set; } = CalendarViews.Days;
 
-    /// <summary />
-    protected virtual async Task OnSelectedDateHandlerAsync(DateTime? value)
+    /// <summary>
+    /// Gets or sets the minimum date that can be selected in the calendar. If not set, there is no minimum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MinDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum date that can be selected in the calendar. If not set, there is no maximum date.
+    /// </summary>
+    [Parameter]
+    public TValue? MaxDate { get; set; }
+
+    /// <summary>
+    /// Gets whether the date is out of the range defined by <see cref="MinDate"/> and <see cref="MaxDate"/>,
+    /// or if it is disabled by the <see cref="DisabledDateFunc"/>.
+    /// </summary>
+    internal Func<TValue, bool>? DisabledDateMinMaxFunc => (date) =>
     {
-        if (CheckIfSelectedValueHasChanged && Value == value)
+        if (DisabledDateFunc is null && MinDate is null && MaxDate is null)
         {
-            return;
+            return false;
         }
 
-        if (!ReadOnly)
+        var dateTime = date.ConvertToDateTime()?.Date;
+        if (dateTime is null)
         {
-            Value = value;
-            if (ValueChanged.HasDelegate)
-            {
-                await ValueChanged.InvokeAsync(value);
-            }
-            if (FieldBound)
-            {
-                EditContext?.NotifyFieldChanged(FieldIdentifier);
-            }
+            return false;
         }
+
+        if (MinDate.IsNotNull() && dateTime < MinDate.ConvertToDateTime()?.Date)
+        {
+            return true;
+        }
+
+        if (MaxDate.IsNotNull() && dateTime > MaxDate.ConvertToDateTime()?.Date)
+        {
+            return true;
+        }
+
+        return DisabledDateFunc?.Invoke(date) ?? false;
+    };
+
+    /// <summary />
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (DateTime.TryParse(value, Culture, out var dateTime))
+        {
+            result = dateTime.ConvertToTValue<TValue>();
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default!;
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+        return false;
+    }
+
+    /// <summary />
+    protected virtual Task OnSelectedDateHandlerAsync(TValue? value)
+    {
+        if (ReadOnly || Disabled == true)
+        {
+            return Task.CompletedTask;
+        }
+
+        var dateTime = value.ConvertToDateTime();
+        if ((CheckIfSelectedValueHasChanged ?? true) && CurrentValue.ConvertToDateTime() == dateTime)
+        {
+            return Task.CompletedTask;
+        }
+
+        CurrentValue = value;
+        return Task.CompletedTask;
     }
 }

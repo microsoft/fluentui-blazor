@@ -4,6 +4,9 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Specifies the selection mode for a calendar control.
+/// </summary>
 public enum CalendarSelectMode
 {
     /// <summary>

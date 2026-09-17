@@ -2,39 +2,29 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
+/// <summary>
+/// Represents a builder for creating CSS classes used in a component.
+/// </summary>
+[DebuggerDisplay("{Build()}")]
 public readonly partial struct CssBuilder
 {
     private readonly HashSet<string> _classes;
     private readonly string[]? _userClasses;
-    private static readonly Regex ValidClassNameRegex = GenerateValidClassNameRegex();
-
-    /// <summary>
-    /// Validate CSS class, which must respect the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
-    /// Default is true.
-    /// </summary>
-    public static bool ValidateClassNames = true;
-
-    private readonly bool _validateClassNames = ValidateClassNames;
+    private readonly bool _validateClassNames = LibraryConfiguration.ShouldValidateClassNames;
+    private static readonly Regex s_validClassNameRegex = GenerateValidClassNameRegex();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
     public CssBuilder()
     {
-        _classes = [];
+        _classes = new(StringComparer.Ordinal);
         _userClasses = null;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CssBuilder"/> class.
-    /// </summary>
-    internal CssBuilder(bool validateClassNames, string? userClasses) : this(userClasses)
-    {
-        _validateClassNames = validateClassNames;
     }
 
     /// <summary>
@@ -43,10 +33,19 @@ public readonly partial struct CssBuilder
     /// <param name="userClasses">The user classes to include at the end.</param>
     public CssBuilder(string? userClasses)
     {
-        _classes = [];
+        _classes = new(StringComparer.Ordinal);
         _userClasses = string.IsNullOrWhiteSpace(userClasses)
                      ? null
                      : SplitAndValidate(userClasses).ToArray();
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CssBuilder"/> class.
+    /// Internal, to be used with Unit Tests.
+    /// </summary>
+    internal CssBuilder(bool validateClassNames, string? userClasses) : this(userClasses)
+    {
+        _validateClassNames = validateClassNames;
     }
 
     /// <summary>
@@ -60,6 +59,7 @@ public readonly partial struct CssBuilder
         {
             _classes.UnionWith(SplitAndValidate(values));
         }
+
         return this;
     }
 
@@ -87,16 +87,16 @@ public readonly partial struct CssBuilder
     {
         var allClasses = _userClasses == null
             ? _classes
-            : _classes.Union(_userClasses);
+            : _classes.Union(_userClasses, StringComparer.Ordinal);
 
-        var result = string.Join(" ", allClasses);
+        var result = string.Join(' ', allClasses);
         return string.IsNullOrWhiteSpace(result) ? null : result;
     }
 
     /// <summary>
     /// ToString should only and always call Build to finalize the rendered string.
     /// </summary>
-    /// <returns>string</returns>
+    /// <returns></returns>
     public override string? ToString() => Build();
 
     /// <summary>
@@ -106,7 +106,12 @@ public readonly partial struct CssBuilder
     /// <returns>True if valid, otherwise false</returns>
     private bool IsValidClassName(string className)
     {
-        return _validateClassNames ? ValidClassNameRegex.IsMatch(className) : true;
+        if (_validateClassNames)
+        {
+            return s_validClassNameRegex.IsMatch(className);
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -123,6 +128,35 @@ public readonly partial struct CssBuilder
     /// Generates the regex used to validate CSS class names.
     /// </summary>
     /// <returns>A compiled regex for validating CSS class names</returns>
-    [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled, matchTimeoutMilliseconds: 1000)] //Add timeout to prevent ReDoS
+    [GeneratedRegex(@"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", RegexOptions.Compiled, matchTimeoutMilliseconds: 1000)]
     private static partial Regex GenerateValidClassNameRegex();
+
+    /// <summary>
+    /// Minifies the provided CSS content by removing comments, whitespace, and unnecessary semicolons.
+    /// </summary>
+    /// <param name="cssContent"></param>
+    /// <returns></returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "MA0009:Add regex evaluation timeout", Justification = "TODO")]
+    public static string MinifyCss(string cssContent)
+    {
+        if (string.IsNullOrWhiteSpace(cssContent))
+        {
+            return string.Empty;
+        }
+
+        // Remove comments
+        cssContent = Regex.Replace(cssContent, @"/\*[^*]*\*+([^/*][^*]*\*+)*/", string.Empty);
+
+        // Remove whitespace around symbols
+        cssContent = Regex.Replace(cssContent, @"\s*([{}:;,])\s*", "$1");
+
+        // Remove unnecessary semicolons
+        cssContent = Regex.Replace(cssContent, @";+\}", "}");
+
+        // Collapse multiple spaces into one
+        cssContent = Regex.Replace(cssContent, @"\s+", " ");
+
+        // Trim the result
+        return cssContent.Trim();
+    }
 }

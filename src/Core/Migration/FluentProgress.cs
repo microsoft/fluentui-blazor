@@ -1,0 +1,16 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// Visual representation of content being loaded or processed.
+/// This component is renamed to <see cref="FluentProgressBar"/> and will be removed in a future release.
+/// </summary>
+[Obsolete("This component is renamed to FluentProgressBar and will be removed in a future release.")]
+public class FluentProgress : FluentProgressBar
+{
+    /// <summary />
+    public FluentProgress(LibraryConfiguration configuration) : base(configuration) { }
+}

@@ -1,29 +1,41 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@inherits ListComponentBase<TOption>
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentListBase<TOption, TValue>
 @typeparam TOption
-@if (!String.IsNullOrEmpty(Height))
-{
-    <style>
-        @($"#{Id}:focus-within:not([disabled]) {{outline: none; }}")
-    </style>
-}
-<CascadingValue Value="@_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
-    <div style="@BorderStyle.Build()">
-        <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" Required="@Required" ChildContent="@LabelTemplate" />
-        <fluent-listbox @ref="Element"
-                        id="@Id"
-                        class="@ClassValue"
-                        style="@($"{StyleValue} border: none; width: 100%;")"
-                        disabled="@Disabled"
-                        size="@Size"
-                        multiple="@Multiple"
-                        required="@Required"
-                        name="@Name"
-                        selectedOptions="@(SelectedOptions != null && SelectedOptions.Any() ? string.Join(',', SelectedOptions.Select(i => GetOptionValue(i))) : null)"
-                        @onchange="@ChangeHandlerAsync"
-                        @onkeydown="@OnKeydownHandlerAsync"
-                        @attributes="AdditionalAttributes">
-                @_renderOptions
-        </fluent-listbox>
-    </div>
+@typeparam TValue
+
+<CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TValue>" IsFixed="true">
+    <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
+        <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+            <div id="@Id"
+                 class="fluent-listbox"
+                 appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
+                 slot="@FluentSlot.FieldInput"
+                 aria-label="@AriaLabel"
+                 autofocus="@Autofocus"
+                 disabled="@Disabled"
+                 multiple="@Multiple"
+                 name="@Name"
+                 readonly="@ReadOnly"
+                 required="@Required"
+                 @onlistchange="@OnDropdownChangeHandlerAsync"
+                 @onfocusout="@FocusOutHandlerAsync"
+                 @attributes="@AdditionalAttributes">
+                <fluent-listbox style="@ListStyle" no-wrap="@OptionNoWrapMaxWidth">
+                    @if (ChildContent is null && (Items is null || !Items.Any()))
+                    {
+                        @* The web component requires at least one option *@
+                        <fluent-option disabled></fluent-option>
+                    }
+                    else
+                    {
+                        @RenderOptions()
+                    }
+                </fluent-listbox>
+
+                @RenderExtraFragment()
+
+            </div>
+        </FluentField>
+    </CascadingValue>
 </CascadingValue>

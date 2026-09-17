@@ -20,19 +20,19 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
         => queryable.Provider is IAsyncQueryProvider;
 
     /// <inheritdoc />
+    /// <inheritdoc />
     public Task<int> CountAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
-        => ExecuteAsync(() => queryable.CountAsync(cancellationToken));
+        => ExecuteAsync(() => queryable.CountAsync(cancellationToken), cancellationToken);
 
     /// <inheritdoc />
     public Task<T[]> ToArrayAsync<T>(IQueryable<T> queryable, CancellationToken cancellationToken)
-        => ExecuteAsync(() => queryable.ToArrayAsync(cancellationToken));
+        => ExecuteAsync(() => queryable.ToArrayAsync(cancellationToken), cancellationToken);
 
-    private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation)
+    private async Task<TResult> ExecuteAsync<TResult>(Func<Task<TResult>> operation, CancellationToken cancellationToken)
     {
         try
         {
-            await _lock.WaitAsync();
-
+            await _lock.WaitAsync(cancellationToken);
             try
             {
                 return await operation();
@@ -44,11 +44,15 @@ internal class EntityFrameworkAsyncQueryExecutor(Func<Exception, bool>? ignoreEx
         }
         catch (ObjectDisposedException)
         {
-            return default!;
+            return typeof(TResult).IsArray
+                 ? (TResult)(object)Array.CreateInstance(typeof(TResult).GetElementType()!, 0)
+                 : default!;
         }
         catch (Exception ex) when (ignoreException?.Invoke(ex) == true)
         {
-            return default!;
+            return typeof(TResult).IsArray
+                 ? (TResult)(object)Array.CreateInstance(typeof(TResult).GetElementType()!, 0)
+                 : default!;
         }
     }
 

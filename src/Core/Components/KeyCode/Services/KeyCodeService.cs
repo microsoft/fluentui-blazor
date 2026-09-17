@@ -9,7 +9,7 @@ public class KeyCodeService : IKeyCodeService
 {
     private ReaderWriterLockSlim ServiceLock { get; } = new ReaderWriterLockSlim();
 
-    private IList<(Guid, IKeyCodeListener)> ListenerList { get; } = new List<(Guid, IKeyCodeListener)>();
+    private IList<(Guid, IKeyCodeListener)> ListenerList { get; } = [];
 
     /// <inheritdoc cref="IKeyCodeService.Listeners" />
     public IEnumerable<IKeyCodeListener> Listeners
@@ -51,7 +51,7 @@ public class KeyCodeService : IKeyCodeService
         try
         {
             var id = Guid.NewGuid();
-            var listener = new KeyCodeListener(handler, null);
+            var listener = new KeyCodeListener(handler, handlerKeyUp: null);
             ListenerList.Add((id, listener));
             return id;
         }
@@ -62,13 +62,13 @@ public class KeyCodeService : IKeyCodeService
     }
 
     /// <inheritdoc cref="IKeyCodeService.RegisterListener(Func{FluentKeyCodeEventArgs, Task}, Func{FluentKeyCodeEventArgs, Task})" />
-    public Guid RegisterListener(Func<FluentKeyCodeEventArgs, Task> keyDownHandler, Func<FluentKeyCodeEventArgs, Task> keyUpHandler)
+    public Guid RegisterListener(Func<FluentKeyCodeEventArgs, Task> handlerKeyDown, Func<FluentKeyCodeEventArgs, Task> handlerKeyUp)
     {
         ServiceLock.EnterWriteLock();
         try
         {
             var id = Guid.NewGuid();
-            var listener = new KeyCodeListener(keyDownHandler, keyUpHandler);
+            var listener = new KeyCodeListener(handlerKeyDown, handlerKeyUp);
             ListenerList.Add((id, listener));
             return id;
         }
@@ -101,9 +101,9 @@ public class KeyCodeService : IKeyCodeService
     }
 
     /// <inheritdoc cref="IKeyCodeService.UnregisterListener(Func{FluentKeyCodeEventArgs, Task}, Func{FluentKeyCodeEventArgs, Task})" />
-    public void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> keyDownHandler, Func<FluentKeyCodeEventArgs, Task> keyUpHandler)
+    public void UnregisterListener(Func<FluentKeyCodeEventArgs, Task> handlerKeyDown, Func<FluentKeyCodeEventArgs, Task> handlerKeyUp)
     {
-        var item = ListenerList.FirstOrDefault(i => (i.Item2 as KeyCodeListener)?.HandlerKeyDown == keyDownHandler);
+        var item = ListenerList.FirstOrDefault(i => (i.Item2 as KeyCodeListener)?.HandlerKeyDown == handlerKeyDown);
 
         if (item.Item1 != Guid.Empty)
         {
@@ -121,7 +121,7 @@ public class KeyCodeService : IKeyCodeService
     /// Dispose the service and unregister all listeners.
     /// </summary>
     public void Dispose()
-    {        
+    {
         Clear();
     }
 

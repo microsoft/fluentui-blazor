@@ -1,138 +1,226 @@
 #!/usr/bin/env pwsh
 
+# ###########################################
+# Requires PowerShell Version 7.0+
+# ###########################################
+
+# Script to generate documentation and publish the FluentUI Demo locally
+
 # Ask user for configuration
 Write-Host "👉 Configuration setup..." -ForegroundColor Cyan
 Write-Host ""
 
 # Ask for .NET version
-$dotnetVersionChoice = Read-Host "❓ Which .NET version do you want to use? (9 for net9.0, 10 for net10.0) [default: 9]"
-if ($dotnetVersionChoice -eq "" -or $dotnetVersionChoice -eq "9") {
-    $dotnetVersion = "net9.0"
-} elseif ($dotnetVersionChoice -eq "10") {
-    $dotnetVersion = "net10.0"
+$dotnetVersionChoice = Read-Host "❓ Which .NET version do you want to use? (9 for net9.0, 10 for net10.0) [default: 10]"
+if ($dotnetVersionChoice -eq "9") {
+    $NetVersion = "net9.0"
+} elseif ($dotnetVersionChoice -eq "" -or $dotnetVersionChoice -eq "10") {
+    $NetVersion = "net10.0"
 } else {
     Write-Host "⛔ Invalid choice." -ForegroundColor Red
     exit 1
 }
 
-# Ask for build number
-# Get the version number from the eng/pipelines/version.yml file if it exists
-$versionFilePath = "./eng/pipelines/version.yml"
-if (Test-Path $versionFilePath) {
-    $versionFileContent = Get-Content $versionFilePath -Raw
-    $versionMatch = $versionFileContent -match "FileVersion:\s*'([0-9]+\.[0-9]+\.[0-9]+)'"
-    if ($versionMatch) {
-        $pipelineVersion = $Matches[1]
-        Write-Host "ℹ️ Found version in version.yml: $pipelineVersion" -ForegroundColor Cyan
-        $buildNumber = $pipelineVersion
-    } else {
-        Write-Host "⚠️ Could not find a version in version.yml." -ForegroundColor Yellow
-    }
+# Show build number
+$path = "./Directory.Build.props"
+$propsContent = Get-Content $path -Raw
+
+$versionPrefix = $propsContent -match "<VersionPrefix>([0-9]+\.[0-9]+\.[0-9]+)</VersionPrefix>"
+$pipelineVersion = $Matches[1]
+
+$versionSuffix = $propsContent -match "<VersionSuffix>([0-9A-Za-z\.-]+)</VersionSuffix>"
+if ($versionSuffix) {
+    $pipelineSuffix = $Matches[1]
+}
+if ($pipelineSuffix) {
+    $version = "$pipelineVersion-$pipelineSuffix"
 } else {
-    Write-Host "⚠️ version.yml file not found at $versionFilePath." -ForegroundColor Yellow
-    $buildNumber = Read-Host "❓ What is the BuildNumber version to use? (e.g., 4.13.2)"
-    if ([string]::IsNullOrWhiteSpace($buildNumber)) {
-        Write-Host "⛔ Build number cannot be empty." -ForegroundColor Red
-        exit 1
-    }
+    $version = $pipelineVersion
 }
 
 Write-Host ""
 Write-Host "Configuration:" -ForegroundColor Green
-Write-Host "  .NET Version: $dotnetVersion" -ForegroundColor White
-Write-Host "  Build Number: $buildNumber" -ForegroundColor White
+Write-Host "     .NET Version: $NetVersion" -ForegroundColor White
+Write-Host "  Package version: $version" -ForegroundColor White
 Write-Host ""
+
+# Ask for doing quick of full publish
+$publishChoice = Read-Host "❓ Do you want to do a full publish (skip API documentation generation, MCP Server build)? (y/n) [default: y]"
+if ($publishChoice -eq "n") {
+    $fullBuild = $false
+} elseif ($publishChoice -eq "" -or $publishChoice -eq "y") {
+    $fullBuild = $true
+} else {
+    Write-Host "⛔ Invalid choice." -ForegroundColor Red
+    exit 1
+}
 
 # Clean previous build artifacts
 Write-Host "👉 Cleaning previous build artifacts (bin and obj)..." -ForegroundColor Yellow
 
-if (Test-Path "./examples/Demo/Client/bin") {
-    Remove-Item -Path "./examples/Demo/Client/bin" -Recurse -Force
-}
+# Remove bin/obj folders directly instead of running 'dotnet clean'.
+# A solution-level 'dotnet clean' requires a valid restore (project.assets.json) that
+# matches the current target frameworks; if a previous build restored a different set
+# of frameworks it fails with NETSDK1005. Deleting the folders is deterministic and
+# immune to restore-state mismatches.
+$artifactPaths = @(
+    "./examples/Demo/FluentUI.Demo/bin",
+    "./examples/Demo/FluentUI.Demo/obj",
+    "./examples/Demo/FluentUI.Demo.Client/bin",
+    "./examples/Demo/FluentUI.Demo.Client/obj",
+    "./examples/Tools/FluentUI.Demo.DocApiGen/bin",
+    "./examples/Tools/FluentUI.Demo.DocApiGen/obj",
+    "./src/Core/bin",
+    "./src/Core/obj",
+    "./src/Charts/bin",
+    "./src/Charts/obj",
+    "./src/Tools/McpServer/bin",
+    "./src/Tools/McpServer/obj"
+)
 
-if (Test-Path "./examples/Demo/Client/obj") {
-    Remove-Item -Path "./examples/Demo/Client/obj" -Recurse -Force
-}
-
-if (Test-Path "./src/Core/bin/") {
-    Remove-Item -Path "./src/Core/bin" -Recurse -Force
-}
-
-if (Test-Path "./src/Core/obj/") {
-    Remove-Item -Path "./src/Core/obj" -Recurse -Force
-}
-
-if (Test-Path "./src/Extensions/DesignToken.Generator/bin/") {
-    Remove-Item -Path "./src/Extensions/DesignToken.Generator/bin" -Recurse -Force
-}
-
-if (Test-Path "./src/Extensions/DesignToken.Generator/obj/") {
-    Remove-Item -Path "./src/Extensions/DesignToken.Generator/obj" -Recurse -Force
-}
-
-# If a 'global.json' file exists, back it up
-$globalJsonPath = "./global.json"
-$globalJsonBackupPath = "./global.json.localpublishbackup"
-if (Test-Path $globalJsonPath) {
-    Write-Host "👉 Backing up existing global.json file..." -ForegroundColor Yellow
-    Copy-Item -Path $globalJsonPath -Destination $globalJsonBackupPath -Force
-    Remove-Item -Path $globalJsonPath -Force
-    $restoreGlobalJson = $true
-}
-
-# If a 'global.json.local' file exists, copy it to 'global.json'
-$globalJsonLocalPath = "./global.json.local"
-if (Test-Path $globalJsonLocalPath) {
-    Write-Host "👉 Using specific global.json for publish..." -ForegroundColor Yellow
-    Copy-Item -Path $globalJsonLocalPath -Destination "./global.json" -Force
-    $deleteLocalGlobalJson = $true
-}
-
-#search through all .csproj files and replace <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks> with <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-#Write-Host "👉 Adjusting TargetFrameworks in project files..." -ForegroundColor Yellow
-#$csprojFiles = Get-ChildItem -Path "." -Recurse -Filter "*.csproj"
-#foreach ($file in $csprojFiles) {
-#    #if the project file is in the Templates folder, skip it
-#    if ($file.PSPath -like "*Templates*") {
-#        continue
-#    }
-#    $originalContent = Get-Content $file.PSPath -Raw
-#    $newContent = $originalContent -replace '<TargetFrameworks>(.*?);net10.0</TargetFrameworks>', '<TargetFrameworks>$1</TargetFrameworks>'
-#    if ($originalContent -ne $newContent) {
-#        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
-#    }
-#    $newContent = $originalContent -replace '<TargetFramework>net10.0</TargetFramework>', '<TargetFramework>net9.0</TargetFramework>'
-#    if ($originalContent -ne $newContent) {
-#        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
-#    }
-#}
-
-# Search through Directory.Packages.props and replace the following package version from 4.14.0 to 4.13.0 for the following packages:
-# - Microsoft.CodeAnalysis.Analyzers
-# - Microsoft.CodeAnalysis.CSharp
-Write-Host "👉 Setting CodeAnalysis packages versions to 4.13.0..." -ForegroundColor Yellow
-$directoryPackagesFile = "./Directory.Packages.props"
-if (Test-Path $directoryPackagesFile) {
-    $originalContent = Get-Content $directoryPackagesFile -Raw
-    $newContent = $originalContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.13.0" />'
-    $newContent = $newContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />'
-    if ($originalContent -ne $newContent) {
-        Set-Content $directoryPackagesFile ($newContent.TrimEnd("`r", "`n"))
+foreach ($artifactPath in $artifactPaths) {
+    if (Test-Path $artifactPath) {
+        Remove-Item -Path $artifactPath -Recurse -Force
     }
-} else {
-    Write-Host "⚠️ Directory.Packages.props file not found at $directoryPackagesFile." -ForegroundColor Red
 }
 
+# Remove generated MCP documentation JSON files so they are regenerated during the build
+Remove-Item -Path "./src/Tools/McpServer/FluentUIComponentsDocumentation.json", `
+    "./src/Tools/McpServer/all-icons.json", `
+    "./src/Tools/McpServer/chart-comments.json" -Force -ErrorAction SilentlyContinue
+
+$RootDir = $PSScriptRoot
+
+# Update the Directory.Build.props file with the correct .NET version
+Write-Host "👉 Updating Directory.Build.props with .NET version: $NetVersion..." -ForegroundColor Yellow
+
+$conditionValue = '''$(Configuration)'' == ''Release'''
+$resolvedPath = (Resolve-Path $path).Path
+
+# Create a backup of the original Directory.Build.props
+$backupPath = "$path.bak"
+Copy-Item $path $backupPath -Force
+
+$xml = New-Object System.Xml.XmlDocument
+$xml.PreserveWhitespace = $true
+$xml.Load($resolvedPath)
+
+# Process NetVersion
+$node = $xml.SelectSingleNode("//NetVersion")
+if ($null -eq $node) {
+    throw "Matching NetVersion element not found."
+}
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated NetVersion temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
+}
+
+# Process ExampleNetVersion
+$node = $xml.SelectSingleNode("//ExampleNetVersion")
+if ($null -eq $node) {
+    throw "Matching ExampleNetVersion element not found."
+}
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated ExampleNetVersion temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
+}
+
+# Process TargetNetVersions
+$nodes = $xml.SelectNodes("//TargetNetVersions")
+$node = $nodes |
+    Where-Object { $_.GetAttribute("Condition") -eq $conditionValue } |
+    Select-Object -First 1
+
+if ($null -eq $node) {
+    throw "Matching TargetNetVersions element not found."
+}
+
+if ($node.InnerText -ne $NetVersion) {
+    $node.InnerText = $NetVersion
+    Write-Host "Updated TargetNetVersions temporarily." -ForegroundColor Cyan
+    $xml.Save($resolvedPath)
+}
+
+if ($fullBuild) {
+    # Build the Core and Charts projects to their DEFAULT output locations.
+    # The MCP Server build runs a documentation-generation target that loads these
+    # assemblies via an AssemblyDependencyResolver, so it requires the assembly,
+    # its .deps.json and its .xml files to exist at bin/<Configuration>/<NetVersion>.
+    Write-Host "👉 Building Core project..." -ForegroundColor Yellow
+    dotnet build "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" -c Release -f $NetVersion
+
+    Write-Host "👉 Building Charts project..." -ForegroundColor Yellow
+    dotnet build "./src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj" -c Release -f $NetVersion
+
+    # Build the DocApiGen project (must exist for the MCP Server build to run it with --no-build)
+    Write-Host "👉 Building DocApiGen project..." -ForegroundColor Yellow
+    dotnet build ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" -c Release -f $NetVersion
+
+    # Build the MCP Server project
+    Write-Host "👉 Building MCP Server project..." -ForegroundColor Yellow
+    dotnet build "./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj" -c Release -o "./src/Tools/McpServer/bin/Publish" -f $NetVersion
+
+    # Location of the Core build output used by the documentation generator
+    $coreOutput = "$RootDir/src/Core/bin/Release/$NetVersion"
+
+    # Generate API documentation file
+    Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$coreOutput/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$coreOutput/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json -f $NetVersion
+
+    # Generate MCP documentation file
+    Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp -f $NetVersion
+}
 
 # Publish the demo
-Write-Host ""
 Write-Host "👉 Publishing demo..." -ForegroundColor Yellow
-dotnet publish "./examples/Demo/Client/FluentUI.Demo.Client.csproj" -c Release -o "./examples/Demo/Client/bin/Publish" -f $dotnetVersion -r linux-x64 --self-contained=true -p:BuildNumber=$buildNumber
+dotnet publish "./examples/Demo/FluentUI.Demo/FluentUI.Demo.csproj" -c Release -o "./examples/Demo/FluentUI.Demo/bin/Publish" -f $NetVersion
+
+# Fix the static assets manifest to match actual file sizes on disk.
+# Brotli compression is non-deterministic, so the manifest Content-Length values
+# recorded during publish may not match the final compressed files.
+$fixManifest = Read-Host "❓ Do you want to fix the static assets manifest (Content-Length mismatches)? (y/n) [default: y]"
+if ($fixManifest -eq "n") {
+    Write-Host "⏩ Skipping static assets manifest fix." -ForegroundColor Yellow
+} else {
+    Write-Host "👉 Fixing static assets manifest..." -ForegroundColor Yellow
+    $publishDir = "./examples/Demo/FluentUI.Demo/bin/Publish"
+    $manifestPath = "$publishDir/FluentUI.Demo.staticwebassets.endpoints.json"
+
+    if (Test-Path $manifestPath) {
+        $manifest = Get-Content $manifestPath -Raw | ConvertFrom-Json
+        $fixedCount = 0
+
+        foreach ($endpoint in $manifest.endpoints) {
+            $assetPath = Join-Path $publishDir "wwwroot" $endpoint.AssetFile
+            if (Test-Path $assetPath) {
+                $actualSize = (Get-Item $assetPath).Length
+                $clHeader = $endpoint.ResponseHeaders | Where-Object { $_.Name -eq "Content-Length" }
+                if ($null -ne $clHeader -and [long]$clHeader.Value -ne $actualSize) {
+                    Write-Host "   Fixed: $($endpoint.AssetFile) ($($clHeader.Value) -> $actualSize)" -ForegroundColor Cyan
+                    $clHeader.Value = "$actualSize"
+                    $fixedCount++
+                }
+            }
+        }
+
+        if ($fixedCount -gt 0) {
+            $manifest | ConvertTo-Json -Depth 10 | Set-Content $manifestPath -Encoding UTF8
+            Write-Host "☑️ Fixed $fixedCount Content-Length mismatches in the manifest." -ForegroundColor Green
+        } else {
+            Write-Host "☑️ No Content-Length mismatches found." -ForegroundColor Green
+        }
+    } else {
+        Write-Host "⚠️ Static assets manifest not found, skipping fix." -ForegroundColor Yellow
+    }
+}
 
 # Verify that the bundle JS file has the expected size
 Write-Host ""
 Write-Host "👉 Verifying bundle JS file size..." -ForegroundColor Yellow
-$bundleFilePath = "./examples/Demo/Client/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js.br"
+$bundleFilePath = "./examples/Demo/FluentUI.Demo/bin/Publish/wwwroot/_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js.br"
 
 if (Test-Path $bundleFilePath) {
     $fileSize = (Get-Item $bundleFilePath).Length
@@ -151,62 +239,36 @@ if (Test-Path $bundleFilePath) {
     Write-Host "⛔ This may indicate a build issue with the JS bundle generation." -ForegroundColor Red
     exit 1
 }
+# Create deployment archive
+Write-Host "👉 Creating deployment archive..." -ForegroundColor Yellow
+if (Test-Path "./examples/Demo/FluentUI.Demo/bin/Publish") {
+    Compress-Archive -Path ./examples/Demo/FluentUI.Demo/bin/Publish/* -DestinationPath ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip -Force
+    Write-Host "☑️ Archive created: ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip" -ForegroundColor Green
+} else {
+    Write-Host "⛔Publish directory not found!" -ForegroundColor Red
+    exit 1
+}
+
+# Restore previous Directory.Build.props
+if (Test-Path $backupPath) {
+    Move-Item $backupPath $path -Force
+    Write-Host "'Directory.Build.props' restored." -ForegroundColor Cyan
+}
+
 Write-Host ""
 Write-Host "✅ Demo publish process completed successfully!" -ForegroundColor Green
 Write-Host ""
 
-# Delete the local global.json.local file if it was used
-if ($deleteLocalGlobalJson) {
-    Write-Host "👉 Delete the publish specific global.json file..." -ForegroundColor Yellow
-    Remove-Item -Path $globalJsonPath -Force
-}
-
-# Restore the original global.json file if it was backed up
-if ($restoreGlobalJson) {
-    Write-Host "👉 Restoring original global.json file..." -ForegroundColor Yellow
-    Move-Item -Path $globalJsonBackupPath -Destination $globalJsonPath -Force
-}
-
-# Undo the TargetFrameworks changes
-Write-Host "👉 Restoring TargetFrameworks in project files..." -ForegroundColor Yellow
-foreach ($file in $csprojFiles) {
-    #if the project file is in the Templates folder, skip it
-    if ($file.PSPath -like "*Templates*") {
-        continue
-    }
-    $originalContent = Get-Content $file.PSPath -Raw
-    $newContent = $originalContent -replace '<TargetFrameworks>net8.0;net9.0</TargetFrameworks>', '<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>'
-    if ($originalContent -ne $newContent) {
-        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
-    }
-    $newContent = $originalContent -replace '<TargetFramework>net9.0</TargetFramework>', '<TargetFramework>net10.0</TargetFramework>'
-    if ($originalContent -ne $newContent) {
-        Set-Content $file.PSPath ($newContent.TrimEnd("`r", "`n"))
-    }
-}
-
-# Undo the CodeAnalysis package version changes
-Write-Host "👉 Restoring CodeAnalysis packages versions to 4.14.0..." -ForegroundColor Yellow
-if (Test-Path $directoryPackagesFile) {
-    $originalContent = Get-Content $directoryPackagesFile -Raw
-    $newContent = $originalContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.13.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />'
-    $newContent = $newContent -replace '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />', '<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />'
-    if ($originalContent -ne $newContent) {
-        Set-Content $directoryPackagesFile ($newContent.TrimEnd("`r", "`n"))
-    }
-}
-
 Write-Host ""
 Write-Host "----------------------------------------------------"
 Write-Host "👉 You can deploy to Azure using a command like:" -ForegroundColor Green
-Write-Host "▶️ swa deploy --output-location ./examples/Demo/Client/bin/Publish/wwwroot --env production --deployment-token <TOKEN>" -ForegroundColor Green
+Write-Host "▶️ az webapp deploy --resource-group FluentUI --name fluentui-blazor-v5 --src-path ./examples/Demo/FluentUI.Demo/bin/FluentUI-Blazor.zip --type zip" -ForegroundColor Green
 Write-Host "----------------------------------------------------"
 
 # Ask user if they want to run the website
-# Require 'dotnet tool install --global dotnet-serve'
 Write-Host ""
-$runWebsite = Read-Host "Do you want to run the local website now? (Y/n) ... using `dotnet serve` "
+$runWebsite = Read-Host "Do you want to run the local website now? (y/n) [default: y]"
 if ($runWebsite -eq "" -or $runWebsite -eq "Y" -or $runWebsite -eq "y") {
     Write-Host "👉 Starting the website..." -ForegroundColor Green
-    dotnet serve --directory "./examples/Demo/Client/bin/Publish/wwwroot" --brotli  --gzip --open-browser
+    Start-Process -FilePath "./examples/Demo/FluentUI.Demo/bin/Publish/FluentUI.Demo.exe" -WorkingDirectory "./examples/Demo/FluentUI.Demo/bin/Publish"
 }

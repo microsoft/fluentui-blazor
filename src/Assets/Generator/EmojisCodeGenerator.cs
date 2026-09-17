@@ -1,10 +1,15 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Globalization;
 using System.Text;
 using Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator;
 
 internal class EmojisCodeGenerator
-{    
+{
     /// <summary>
     /// Initializes a new instance of the <see cref="EmojisCodeGenerator"/> class.
     /// </summary>
@@ -141,17 +146,26 @@ internal class EmojisCodeGenerator
         return builder.ToString();
     }
 
-    private void AddProperties(StringBuilder builder, EmojiFileData file, int indentation = 16)
+    private static void AddProperties(StringBuilder builder, EmojiFileData file, int indentation = 16)
     {
-        string indentationString = new string(' ', indentation);
+        var indentationString = new string(' ', indentation);
 
         var content = file.GetContent(removeSvgRoot: true);
         var size = content.Size.Width;
         var svgContent = content.Content;
         var group = Tools.ToPascalCase(file.Emoji.Meta.Group, "_");
-        var svgZipped = string.Join(", ", Tools.Zip(svgContent).Select(i => Convert.ToString(i)));
+        var svgZipped = string.Join(", ", Tools.Zip(svgContent).Select(i => Convert.ToString(i, CultureInfo.InvariantCulture)));
         var svgBytes = $"new byte [] {{ {svgZipped} }}";
 
-        builder.AppendLine($"{indentationString}public class {file.Emoji.Name} : Emoji {{ public {file.Emoji.Name}() : base(\"{file.Emoji.Name}\", EmojiSize.Size{size}, EmojiGroup.{group}, EmojiSkintone.{file.SkinTone}, EmojiStyle.{file.Style}, {svgBytes}) {{ }} }}");
+        builder.AppendLine(indentationString
+                           + "public class " + file.Emoji.Name
+                           + " : Emoji { public " + file.Emoji.Name
+                           + "() : base(\"" + file.Emoji.Name
+                           + "\", EmojiSize.Size" + size.ToString(CultureInfo.InvariantCulture)
+                           + ", EmojiGroup." + group
+                           + ", EmojiSkintone." + file.SkinTone
+                           + ", EmojiStyle." + file.Style
+                           + ", " + svgBytes
+                           + ") { } }");
     }
 }

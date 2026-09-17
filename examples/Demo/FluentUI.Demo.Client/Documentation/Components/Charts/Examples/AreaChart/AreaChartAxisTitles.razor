@@ -1,0 +1,33 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentAreaChart ChartData="data"
+                 ChartTitle="Area chart axis titles example"
+                 Width="700px"
+                 XAxisTitle="Number of days"
+                 YAxisTitle="Variation of stock market prices" />
+
+@code {
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 7000 },
+                new AreaChartDataPoint { X = 25, Y = 9000 },
+                new AreaChartDataPoint { X = 30, Y = 13000 },
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 12000 },
+                new AreaChartDataPoint { X = 25, Y = 14000 },
+                new AreaChartDataPoint { X = 30, Y = 18000 },
+            }
+        }
+    };
+}

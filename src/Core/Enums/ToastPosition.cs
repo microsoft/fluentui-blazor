@@ -6,65 +6,32 @@ using System.ComponentModel;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// The position of the toast on the screen.
+/// </summary>
 public enum ToastPosition
 {
-    /// <summary>
-    /// Toasts are displayed in the bottom-left corner of the screen
-    /// </summary>
-    [Description("fluent-toast-bottom-left")]
-    BottomLeft,
+    /// <summary />
+    [Description("top-end")]
+    TopEnd,
 
-    /// <summary>
-    /// Toasts are displayed in the bottom-start corner of the screen
-    /// </summary>
-    [Description("fluent-toast-bottom-start")]
-    BottomStart,
-    /// <summary>
-    /// Toasts are displayed in the bottom-center of the screen
-    /// </summary>
-    [Description("fluent-toast-bottom-center")]
-    BottomCenter,
-
-    /// <summary>
-    /// Toasts are displayed in the bottom-right corner of the screen
-    /// </summary>
-    [Description("fluent-toast-bottom-right")]
-    BottomRight,
-
-    /// <summary>
-    /// Toasts are displayed in the bottom-end corner of the screen
-    /// </summary>
-    [Description("fluent-toast-bottom-end")]
-    BottomEnd,
-
-    /// <summary>
-    /// Toasts are displayed in the top-left corner of the screen
-    /// </summary>
-    [Description("fluent-toast-top-left")]
-    TopLeft,
-
-    /// <summary>
-    /// Toasts are displayed in the top-left corner of the screen
-    /// </summary>
-    [Description("fluent-toast-top-start")]
+    /// <summary />
+    [Description("top-start")]
     TopStart,
 
-    /// <summary>
-    /// Toasts are displayed in the top-center of the screen
-    /// </summary>
-    [Description("fluent-toast-top-center")]
+    /// <summary />
+    [Description("top-center")]
     TopCenter,
 
-    /// <summary>
-    /// Toasts are displayed in the top-right corner of the screen
-    /// </summary>
-    [Description("fluent-toast-top-right")]
-    TopRight,
+    /// <summary />
+    [Description("bottom-end")]
+    BottomEnd,
 
-    /// <summary>
-    /// Toasts are displayed in the top-end corner of the screen
-    /// </summary>
-    [Description("fluent-toast-top-end")]
-    TopEnd,
+    /// <summary />
+    [Description("bottom-start")]
+    BottomStart,
+
+    /// <summary />
+    [Description("bottom-center")]
+    BottomCenter,
 }

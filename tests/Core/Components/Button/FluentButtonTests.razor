@@ -1,0 +1,506 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits FluentUITestContext
+@code
+{
+    public FluentButtonTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentButton_Default()
+    {
+        // Arrange
+        using var id = Identifier.SequentialContext();
+
+        // Act
+        var cut = Render(@<FluentButton>fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_AutofocusAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton AutoFocus="true">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("form-id-attribute")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormIdAttribute(string? formId)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton FormId="@formId">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: formId);
+    }
+
+    [Theory]
+    [InlineData("submit")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormActionAttribute(string? formAction)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton FormAction="@formAction">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: formAction);
+    }
+
+    [Theory]
+    [InlineData("multipart/form-data")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormEnctypeAttribute(string? formEnctype)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton FormEncType="@formEnctype">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: formEnctype);
+    }
+
+    [Theory]
+    [InlineData("post")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_FormMethodAttribute(string? formMethod)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton FormMethod="@formMethod">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: formMethod);
+    }
+
+    [Fact]
+    public void FluentButton_FormNovalidateAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton FormNoValidate="true">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData("_self")]
+    [InlineData("_blank")]
+    [InlineData("_parent")]
+    [InlineData("_top")]
+    [InlineData("")]
+    public void FluentButton_FormTargetAttribute(string? formTarget)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton FormTarget="@formTarget">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: formTarget);
+    }
+
+    [Theory]
+    [InlineData(" ")]
+    [InlineData("_funky")]
+    public void Throw_ArgumentException_When_FormTargetAttribute_IsInvalid(string? formTarget)
+    {
+        // Arrange && Act
+        Assert.Throws<ArgumentException>(() =>
+        {
+            var cut = Render(@<FluentButton FormTarget="@formTarget">fluent-button</FluentButton>);
+        });
+    }
+
+    [Theory]
+    [InlineData(ButtonType.Button, "button")]
+    [InlineData(ButtonType.Reset, "reset")]
+    [InlineData(ButtonType.Submit, "submit")]
+    [InlineData(null, "")]
+    [InlineData((ButtonType)99, "")]
+    public void FluentButton_TypeAttribute(ButtonType? buttonType, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Type="@buttonType">fluent-button</FluentButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("type") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData("id-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_IdAttribute(string? id)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="@id">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: id);
+    }
+
+    [Theory]
+    [InlineData("some-value")]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentButton_ValueAttribute(string? value)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Value="@value">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify(suffix: value);
+    }
+
+    [Fact]
+    public void FluentButton_DisabledAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Disabled="true">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_NameAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Name="name-value">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_RequiredAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Required="true">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(ButtonAppearance.Default, "")]
+    [InlineData(ButtonAppearance.Primary, "primary")]
+    [InlineData(ButtonAppearance.Outline, "outline")]
+    [InlineData(ButtonAppearance.Transparent, "transparent")]
+    [InlineData(ButtonAppearance.Subtle, "subtle")]
+    [InlineData(null, "")]
+    [InlineData((ButtonAppearance)99, "")]
+    public void FluentButton_AppearanceAttribute(ButtonAppearance? appearance, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Appearance="@appearance">fluent-button</FluentButton>);
+
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("appearance") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(ButtonShape.Rounded, "rounded")]
+    [InlineData(ButtonShape.Circular, "circular")]
+    [InlineData(ButtonShape.Square, "square")]
+    [InlineData(null, "")]
+    [InlineData((ButtonShape)99, "")]
+    public void FluentButton_ShapeAttribute(ButtonShape? shape, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Shape="@shape">fluent-button</FluentButton>);
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("shape") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Theory]
+    [InlineData(ButtonSize.Large, "large")]
+    [InlineData(ButtonSize.Medium, "medium")]
+    [InlineData(ButtonSize.Small, "small")]
+    [InlineData(null, "")]
+    [InlineData((ButtonSize)99, "")]
+    public void FluentButton_SizeAttribute(ButtonSize? size, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Size="@size">fluent-button</FluentButton>);
+        // Assert
+        var attribute = cut.Find("fluent-button").GetAttribute("size") ?? string.Empty;
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentButton_ClassAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Class="additional-class">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_StyleAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Style="background-color: green;">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_AdditionalAttribute()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton additional-attribute-name="additional-attribute-value">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton additional-attribute1-name="additional-attribute1-value" additional-attribute2-name="additional-attribute2-value">fluent-button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconStart="@Samples.Icons.Info">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconEnd="@Samples.Icons.Info">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_IconStartNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconStart="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_IconEndNoContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconEnd="@Samples.Icons.Info" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_OnClick_Disabled()
+    {
+        var clicked = false;
+
+        // Arrange
+        var cut = Render<FluentButton>(@<FluentButton OnClick="@(e => { clicked = true; })">My button</FluentButton>);
+
+        // Act - `InvokeAsync` to avoid "The current thread is not associated with the Dispatcher" error.
+        cut.InvokeAsync(() => cut.Instance.SetDisabled(true));
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.False(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_Title()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Title="My Title">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_BackgroundColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="MyButton" BackgroundColor="#ff0000">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Color()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="MyButton" Color="#00ff00">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_BackgroundColorColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Id="MyButton" BackgroundColor="#ff0000" Color="#00ff00">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_OnClick()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentButton OnClick="@(e => { clicked = true; })">My button</FluentButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_Loading()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Loading="true">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Loading_IconStart()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Loading="true" IconStart="@Samples.Icons.Info">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Loading_IconEnd()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Loading="true" IconEnd="@Samples.Icons.Info">My button</FluentButton>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_StopPropagationFalse()
+    {
+        bool clickedondiv = false;
+        bool clicked = false;
+
+        // Arrange
+        // Not adding StopPropagation here explicitly because it is false by default
+        var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
+            <FluentButton OnClick="@(e => { clicked = true; })">
+                My button
+            </FluentButton>
+        </div>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clickedondiv);
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_StopPropagationTrue()
+    {
+        bool clickedondiv = false;
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<div @onclick="@(e => {clickedondiv = true; })">
+            <FluentButton StopPropagation="true" OnClick="@(e => { clicked = true; })">
+                My button
+            </FluentButton>
+        </div>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.False(clickedondiv);
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconOnly="true">
+            <svg viewBox="0 0 20 20">
+                <path fill="currentColor" d="M7.851 3.146a.5.5 0 0 1 0 .707L4.706 7H10c2.932 0 5.593 1.64 6.936 4.043a.5.5 0 1 1-.872.488C14.894 9.439 12.564 8 10 8H4.707l3.144 3.145a.5.5 0 0 1-.707.707L3.161 7.867a.5.5 0 0 1-.014-.721l3.997-4a.5.5 0 0 1 .707 0M8 15a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-1a1 1 0 1 0 0 2a1 1 0 0 0 0-2"></path>
+            </svg>
+        </FluentButton>);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_Label()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Label="Label" />);
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentButton_LabelChildContent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Label="Label">Child content</FluentButton>);
+        // Assert
+        cut.Verify();
+    }
+}
+

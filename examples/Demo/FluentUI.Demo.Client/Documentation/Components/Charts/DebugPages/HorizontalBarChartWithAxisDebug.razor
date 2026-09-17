@@ -1,0 +1,94 @@
+﻿@page "/Charts/HorizontalBarChartWithAxis/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentCheckbox Label="Use single color" @bind-Value="singleColor"></FluentCheckbox>
+    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    <FluentSwitch Label="Rounded corners" @bind-Value="roundCorners"></FluentSwitch>
+    <FluentSwitch Label="Select multiple legend" @bind-Value="allowMultipleLegendSelection"></FluentSwitch>
+</div>
+
+<div style="width:650px;height:350px;margin-top:20px;">
+    <FluentHorizontalBarChartWithAxis Style="width:650px;height:350px"
+                                      ChartTitle="Horizontal bar chart basic example"
+                                      ChartData="@ChartData"
+                                      Width="@($"{width}px")"
+                                      Height="@($"{height}px")"
+                                      UseSingleColor="@singleColor"
+                                      EnableGradient="@gradient"
+                                      RoundedCorners="@roundCorners"
+                                      AllowMultipleLegendSelection="@allowMultipleLegendSelection"
+                                      y-axis-category-order="default"></FluentHorizontalBarChartWithAxis>
+</div>
+
+@code {
+
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+       new HorizontalBarChartWithAxisDataPoint {
+          X = 10000,
+          Y = "5000",
+          Legend = "Oranges",
+          Color = DataVizPalette.Color1,
+          YAxisCalloutData = "5K",
+          XAxisCalloutData = "10K",
+      },
+      new HorizontalBarChartWithAxisDataPoint {
+          X = 20000,
+          Y = "50000",
+          Legend = "Dogs",
+          Color = DataVizPalette.Color2,
+          YAxisCalloutData = "50K",
+          XAxisCalloutData = "20K",
+        },
+      new HorizontalBarChartWithAxisDataPoint {
+          X = 25000,
+          Y = "30000",
+          Legend = "Apples",
+          Color = DataVizPalette.Color3,
+          YAxisCalloutData = "30K",
+          XAxisCalloutData = "25K",
+      },
+      new HorizontalBarChartWithAxisDataPoint {
+          X = 40000,
+          Y = "13000",
+          Legend = "Bananas",
+          Color = DataVizPalette.Color4,
+          YAxisCalloutData = "13K",
+          XAxisCalloutData = "40K",
+      },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private bool singleColor = false;
+    private bool gradient = false;
+    private bool roundCorners = false;
+    private bool allowMultipleLegendSelection = false;
+}

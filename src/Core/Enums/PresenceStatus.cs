@@ -2,35 +2,50 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.ComponentModel;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Represents the presence status.
+/// Represents the presence status of a user.
 /// </summary>
 public enum PresenceStatus
 {
-    /// <summary />
-    Busy,
-
-    /// <summary />
-    [Description("OOF")]
-    OutOfOffice,
-
-    /// <summary />
-    Away,
-
-    /// <summary />
+    /// <summary>
+    /// Available
+    /// </summary>
     Available,
 
-    /// <summary />
+    /// <summary>
+    /// Busy
+    /// </summary>
+    Busy,
+
+    /// <summary>
+    /// Away
+    /// </summary>
+    Away,
+
+    /// <summary>
+    /// Out of office
+    /// </summary>
+    OutOfOffice,
+
+    /// <summary>
+    /// Offline
+    /// </summary>
     Offline,
 
-    /// <summary />
-    [Description("DND")]
+    /// <summary>
+    /// Do not disturb
+    /// </summary>
     DoNotDisturb,
 
-    /// <summary />
-    Unknown
+    /// <summary>
+    /// Unknown
+    /// </summary>
+    Unknown,
+
+    /// <summary>
+    /// Blocked
+    /// </summary>
+    Blocked,
 }

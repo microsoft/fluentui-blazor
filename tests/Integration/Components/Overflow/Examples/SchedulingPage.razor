@@ -1,0 +1,41 @@
+@page "/overflow/scheduling"
+
+<style>
+    #overflow-test-host {
+        width: 720px;
+    }
+</style>
+
+<button data-testid="render-overflows" @onclick="RenderOverflows">Render</button>
+<button data-testid="narrow-first" @onclick="NarrowFirst" disabled="@(!_renderOverflows)">Narrow</button>
+<button data-testid="restore-first" @onclick="RestoreFirst" disabled="@(!_renderOverflows)">Restore</button>
+
+@if (_renderOverflows)
+{
+    <div id="overflow-test-host">
+        <SchedulingOverflow Index="0"
+                            Narrow="@_firstIsNarrow"
+                            Threshold="@_firstThreshold" />
+        @for (var index = 1; index < ElementCount; index++)
+        {
+            <SchedulingOverflow @key="index"
+                                Index="@index"
+                                Threshold="@(20 + index % 3)" />
+        }
+    </div>
+}
+
+@code
+{
+    public const int ElementCount = 220;
+
+    private bool _firstIsNarrow;
+    private int _firstThreshold = 20;
+    private bool _renderOverflows;
+
+    private void RenderOverflows() => _renderOverflows = true;
+
+    private void NarrowFirst() => _firstIsNarrow = true;
+
+    private void RestoreFirst() => _firstIsNarrow = false;
+}

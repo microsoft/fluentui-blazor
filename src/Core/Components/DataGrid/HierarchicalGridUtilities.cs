@@ -19,8 +19,8 @@ public static class HierarchicalGridUtilities
     /// <param name="getParentId">Function to get the parent identifier of an item.</param>
     /// <param name="isCollapsed">Function to determine if an item is initially collapsed.</param>
     /// <returns>A list of items ordered hierarchically, including child relationships.</returns>
-    public static List<TGridItem> OrderHierarchically<TGridItem, TItem>(
-        List<TGridItem> initialItems,
+    public static IList<TGridItem> OrderHierarchically<TGridItem, TItem>(
+        IList<TGridItem> initialItems,
         Func<TItem, string> getId,
         Func<TItem, string?> getParentId,
         Func<TItem, bool> isCollapsed)
@@ -45,7 +45,7 @@ public static class HierarchicalGridUtilities
         void AddChildViewModel(TItem parentItem, TGridItem parentWrapper, int depth, bool hidden)
         {
             var parentId = getId(parentItem);
-            foreach (var child in initialItems.Where(it => getParentId(it.Item) == parentId))
+            foreach (var child in initialItems.Where(it => string.Equals(getParentId(it.Item), parentId, StringComparison.OrdinalIgnoreCase)))
             {
                 child.Depth = depth;
                 child.IsCollapsed = isCollapsed(child.Item);
@@ -66,7 +66,7 @@ public static class HierarchicalGridUtilities
                 return false;
             }
 
-            return initialItems.Any(other => getId(other.Item) == parentId);
+            return initialItems.Any(other => string.Equals(getId(other.Item), parentId, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

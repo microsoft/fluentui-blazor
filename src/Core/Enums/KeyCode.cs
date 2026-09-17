@@ -4,6 +4,12 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CA1069 // Enums values should not be duplicated
+
+/// <summary>
+/// Represents a set of key codes corresponding to keyboard keys and other input controls.
+/// </summary>
 public enum KeyCode
 {
     Unknown = 0,
@@ -180,3 +186,6 @@ public enum KeyCode
         for (i = 0; i < 10; i++) codes['numpad '+i] = i + 96
      */
 }
+
+#pragma warning restore CA1069 // Enums values should not be duplicated
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

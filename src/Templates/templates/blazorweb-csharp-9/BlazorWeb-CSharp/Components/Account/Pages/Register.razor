@@ -25,22 +25,20 @@
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
             <h2>Create a new account.</h2>
-            <hr />
             <FluentValidationSummary class="text-danger" role="alert" />
             <FluentStack Orientation="Orientation.Vertical">
-                <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="email" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
-                <FluentValidationMessage For="() => Input.Email" class="text-danger" />
-                <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
-                <FluentValidationMessage For="() => Input.Password" class="text-danger" />
-                <FluentTextField type="password" Name="Input.ConfirmPassword" @bind-Value="Input.ConfirmPassword" AutoComplete="new-password" Required="true" Placeholder="password" Label="Confirm Password" Style="width: 100%" />
-                <FluentValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>
+                <FluentTextInput Name="Input.Email" @bind-Value="Input.Email" AutoComplete="email" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
+                @* <FluentValidationMessage For="() => Input.Email" class="text-danger" /> *@
+                <FluentTextInput type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="new-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
+                @* <FluentValidationMessage For="() => Input.Password" class="text-danger" /> *@
+                <FluentTextInput type="password" Name="Input.ConfirmPassword" @bind-Value="Input.ConfirmPassword" AutoComplete="new-password" Required="true" Placeholder="password" Label="Confirm Password" Style="width: 100%" />
+                @* <FluentValidationMessage For="() => Input.ConfirmPassword" class="text-danger" /> *@
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Style="width: 100%">Register</FluentButton>
             </FluentStack>
         </EditForm>
     </FluentGridItem>
     <FluentGridItem xs="12" sm="8">
         <h3>Use another service to log in.</h3>
-        <hr />
         <ExternalLoginPicker />
     </FluentGridItem>
 </FluentGrid>

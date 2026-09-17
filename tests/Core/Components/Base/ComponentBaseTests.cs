@@ -1,0 +1,792 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Globalization;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using Bunit;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.JSInterop;
+using Xunit;
+
+namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Base;
+
+public class ComponentBaseTests : Bunit.BunitContext
+{
+    /// <summary>
+    /// List of components to exclude from the test.
+    /// </summary>
+    private static readonly Type[] Excluded =
+    [
+        typeof(AspNetCore.Components._Imports),
+        typeof(DialogOptions),
+        typeof(ToastOptions),
+        typeof(MessageBarOptions),
+        typeof(FluentRadio<>),  // TODO: To update
+        typeof(FluentTab),      // Excluded because the Tab content is rendered in the parent FluentTabs component
+        typeof(FluentValidationMessage<>), // Excluded because it requires an EditContext and FieldIdentifier to be rendered without errors, which is complex to set up. Besides, it only renders (tested elsewhere) fluent-text elements 
+    ];
+
+    /// <summary>
+    /// List of components to exclude from the test.
+    /// </summary>
+    private static readonly Type[] ExcludedTooltip =
+    [
+        typeof(FluentNavCategory),
+        typeof(FluentNavItem),
+        typeof(FluentAppBarItem),
+    ];
+
+    /// <summary>
+    /// List of customized actions to initialize the component with a specific type and optional required parameters.
+    /// </summary>
+    private static readonly Dictionary<Type, Loader> ComponentInitializer = new()
+    {
+        { typeof(FluentIcon<>), Loader.MakeGenericType(typeof(Samples.Icons.Samples.Info))},
+        { typeof(FluentEmoji<>), Loader.MakeGenericType(typeof(Samples.Emojis.Samples.Hamburger))},
+        { typeof(FluentSelect<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentCombobox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentListbox<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentAutocomplete<,>), Loader.MakeGenericType(typeof(int), typeof(int))},
+        { typeof(FluentOption<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentSlider<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentRadioGroup<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentOverflow<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentTooltip), Loader.Default.WithRequiredParameter("Anchor", "MyButton").WithRequiredParameter("UseTooltipService", false)},
+        { typeof(FluentHighlighter), Loader.Default.WithRequiredParameter("HighlightedText", "AB").WithRequiredParameter("Text", "ABCDEF")},
+        { typeof(FluentKeyCode), Loader.Default.WithRequiredParameter("ChildContent", (RenderFragment)(builder => builder.AddContent(0, "MyContent"))) },
+        { typeof(FluentPaginator), Loader.Default.WithRequiredParameter("State", new PaginationState()) },
+        { typeof(FluentDataGrid<>), Loader.MakeGenericType(typeof(string)) },
+        { typeof(FluentDataGridRow<>), Loader.MakeGenericType(typeof(string)).WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration()))) },
+        { typeof(FluentDataGridCell<>), Loader.MakeGenericType(typeof(string))
+                                       .WithCascadingValue(new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())))
+                                       .WithCascadingValue("OwningRow", new FluentDataGridRow<string>(new LibraryConfiguration()) { InternalGridContext = new InternalGridContext<string>(new FluentDataGrid<string>(new LibraryConfiguration())) }) },
+        { typeof(FluentCalendar<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentDatePicker<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentDragContainer<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentDropZone<>), Loader.MakeGenericType(typeof(int))},
+        { typeof(FluentTimePicker<>), Loader.MakeGenericType(typeof(DateTime))},
+        { typeof(FluentNavItem), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavCategory), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentNavSectionHeader), Loader.Default.WithCascadingValue(new FluentNav(new LibraryConfiguration())) },
+        { typeof(FluentAppBarItem), Loader.Default.WithCascadingValue(new InternalAppBarContext(new FluentAppBar(new LibraryConfiguration()))) },
+        { typeof(FluentSortableList<>), Loader.MakeGenericType(typeof(string)).WithRequiredParameter("ItemTemplate", (RenderFragment<string>)(p => builder => builder.AddContent(0, "MyItemTemplate")))},
+        { typeof(FluentNumberInput<>), Loader.MakeGenericType(typeof(int)) },
+        { typeof(FluentWizardStep), Loader.Default.WithCascadingValue(new FluentWizard(new LibraryConfiguration())) },
+    };
+
+    /// <summary />
+    public ComponentBaseTests(ITestOutputHelper testOutputHelper)
+    {
+        Output = testOutputHelper;
+        Services.AddFluentUIComponents();
+    }
+
+    /// <summary>
+    /// Gets the test output helper.
+    /// </summary>
+    public ITestOutputHelper Output { get; }
+
+    /// <summary>
+    /// Test to verify that all FluentUI components implement the default properties (Id, Class, Style)
+    /// from <see cref="FluentComponentBase"/>.
+    ///
+    /// ⚠️ DO NOT CHANGE THE FOLLOWING TEST.
+    /// </summary>
+    /// <param name="blazor">Blazor Component property name/value</param>
+    /// <param name="html">Expected HTML attribute name/value</param>
+    [Theory]
+    [InlineData("Id='id='My-Specific-ID'", "id='My-Specific-ID'")]
+    [InlineData("Class='My-Specific-Item'", "class='My-Specific-Item'")]
+    [InlineData("Style='My-Specific-Style'", "style='My-Specific-Style'")]
+    [InlineData("Margin='10px'", "style='margin: 10px;*'")]                                                 // `*` is required to accept `;` in the Regex
+    [InlineData("Padding='10px'", "style='padding: 10px;*'")]                                               // `*` is required to accept `;` in the Regex
+    [InlineData("Margin='my-margin'", "class='my-margin'")]
+    [InlineData("Padding='my-padding'", "class='my-padding'")]
+    [InlineData("extra-attribute='My-Specific-Attribute'", "extra-attribute='My-Specific-Attribute'")]      // AdditionalAttributes
+    public void ComponentBase_DefaultProperties(string blazor, string html)
+    {
+        var errors = new StringBuilder();
+        var blazorAttribute = ParseHtmlAttribute(blazor);
+        var htmlAttribute = ParseHtmlAttribute(html);
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded))
+        {
+            // Convert to generic type if needed
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value.ComponentType(componentType)
+                     : componentType;
+
+            // Arrange and Act
+            try
+            {
+                var renderedComponent = Render<DynamicComponent>(parameters =>
+                {
+                    parameters.Add(p => p.Type, type);
+
+                    // Required parameters
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        new Dictionary<string, object>
+                        {
+                            { blazorAttribute.Name, blazorAttribute.Value }
+                        },
+                        ComponentInitializer.TryGetValue(componentType, out var valueRequired) ? valueRequired.RequiredParameters : null
+                    ));
+
+                    // Cascading values
+                    if (ComponentInitializer.TryGetValue(componentType, out var valueCascading))
+                    {
+                        foreach (var (Name, Value) in valueCascading.CascadingValues)
+                        {
+                            if (string.IsNullOrEmpty(Name))
+                            {
+                                parameters.AddCascadingValue(Value);
+                            }
+                            else
+                            {
+                                parameters.AddCascadingValue(Name, Value);
+                            }
+                        }
+                    }
+                });
+
+                // Assert
+                var isMatch = renderedComponent.Markup.ContainsAttribute(htmlAttribute.Name, htmlAttribute.Value);
+
+                Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
+
+                if (!isMatch)
+                {
+                    var error = $"\"{componentType.Name}\" does not use the \"{blazorAttribute.Name}\" property/attribute (missing HTML attribute {htmlAttribute.Name}=\"{htmlAttribute.Value}\").";
+                    errors.AppendLine(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                var error = $"Error rendering component {componentType?.Name}. Update the `ComponentInitializer` dictionary: {Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{Environment.NewLine}{ex.InnerException?.Message}";
+                errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_CorrectRendering()
+    {
+        var errors = new StringBuilder();
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<ITooltipComponent>(except: Excluded.Union(ExcludedTooltip)))
+        {
+            // Convert to generic type if needed
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value.ComponentType(componentType)
+                     : componentType;
+
+            // Arrange and Act
+            var renderedComponent = Render<FluentStack>(stack =>
+            {
+                stack.AddChildContent<DynamicComponent>(parameters =>
+                {
+                    parameters.Add(p => p.Type, type);
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        new Dictionary<string, object>
+                        {
+                            { "Id", $"id-{type.Name}" },
+                            { "Tooltip", $"My tooltip {type.Name}" },
+                        },
+                        ComponentInitializer.TryGetValue(componentType, out var valueRequired) ? valueRequired.RequiredParameters : null
+                    ));
+                });
+                stack.AddChildContent<FluentTooltipProvider>();
+            });
+
+            // Assert
+
+            var isMatch = Regex.IsMatch(renderedComponent.Markup, $"<fluent-tooltip .+><text>My tooltip {type.Name}<\\/text><\\/fluent-tooltip>");
+
+            Output.WriteLine($"{(isMatch ? "✅" : "❌")} {componentType.Name}");
+
+            if (!isMatch)
+            {
+                var error = $"\"{componentType.Name}\" does not correctly implement the \"Tooltip\" parameter.";
+                errors.AppendLine(error);
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_FluentFieldInterface_CorrectRendering()
+    {
+        var errors = new StringBuilder();
+        var fieldParameters = typeof(IFluentField)
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(property => property.SetMethod is not null)
+            .ToArray();
+        var fieldParameterValues = fieldParameters.ToDictionary(
+            property => property.Name,
+            CreateFieldParameterValue);
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentField>(except: [])
+                     .Where(type => typeof(IComponent).IsAssignableFrom(type)))
+        {
+            var type = ComponentInitializer.TryGetValue(componentType, out var value)
+                     ? value.ComponentType(componentType)
+                     : componentType;
+
+            try
+            {
+                var renderedComponent = Render<DynamicComponent>(parameters =>
+                {
+                    parameters.Add(p => p.Type, type);
+                    parameters.Add(p => p.Parameters, DictionaryExtensions.Union(
+                        fieldParameterValues,
+                        ComponentInitializer.TryGetValue(componentType, out var valueRequired) ? valueRequired.RequiredParameters : null
+                    ));
+
+                    if (ComponentInitializer.TryGetValue(componentType, out var valueCascading))
+                    {
+                        foreach (var (Name, Value) in valueCascading.CascadingValues)
+                        {
+                            if (string.IsNullOrEmpty(Name))
+                            {
+                                parameters.AddCascadingValue(Value);
+                            }
+                            else
+                            {
+                                parameters.AddCascadingValue(Name, Value);
+                            }
+                        }
+                    }
+                });
+
+                var renderedField = renderedComponent.FindComponent<FluentField>().Instance;
+                var effectiveField = renderedField.InputComponent ?? renderedField;
+                var incorrectlyRenderedParameters = fieldParameters
+                    .Where(property => !Equals(fieldParameterValues[property.Name], property.GetValue(effectiveField)))
+                    .Select(property => property.Name)
+                    .ToArray();
+
+                var isValid = incorrectlyRenderedParameters.Length == 0;
+                Output.WriteLine($"{(isValid ? "✅" : "❌")} {componentType.Name}");
+
+                if (!isValid)
+                {
+                    errors.AppendLine(CultureInfo.InvariantCulture, $"\"{componentType.Name}\" does not correctly render the following \"IFluentField\" parameters: {string.Join(", ", incorrectlyRenderedParameters)}.");
+                }
+            }
+            catch (Exception ex)
+            {
+                errors.AppendLine(CultureInfo.InvariantCulture, $"Error rendering component {componentType.Name}: {ex.Message}");
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_TooltipInterface_NotImplemented()
+    {
+        var errors = new StringBuilder();
+
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes<IFluentComponentBase>(except: Excluded.Union(ExcludedTooltip)))
+        {
+            // Check if the component contains a Tooltip property but without implementing the ITooltipComponent interface
+            var hasTooltipProperty = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance) != null;
+            var isImplementingTooltipComponent = typeof(ITooltipComponent).IsAssignableFrom(componentType);
+            var hasTooltipParameterAttribute = componentType.GetProperty("Tooltip", BindingFlags.Public | BindingFlags.Instance)?.GetCustomAttribute<ParameterAttribute>() != null;
+
+            if (hasTooltipProperty && !isImplementingTooltipComponent)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}\" contains the \"Tooltip\" property but does not implement the \"ITooltipComponent\" interface.";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty && !hasTooltipParameterAttribute)
+            {
+                Output.WriteLine($"❌ {componentType.Name}");
+
+                var error = $"\"{componentType.Name}.Tooltip\" property is not a Blazor [Parameter].";
+                errors.AppendLine(error);
+            }
+
+            else if (hasTooltipProperty)
+            {
+                Output.WriteLine($"✅ {componentType.Name}");
+            }
+        }
+
+        Assert.True(errors.Length == 0, errors.ToString());
+    }
+
+    [Fact]
+    public void ComponentBase_JsModule()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Strict;
+        Services.AddSingleton<LibraryConfiguration>();
+
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(i => i?.ToString()?.EndsWith(MyComponent.JAVASCRIPT_FILENAME) == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Act
+        var cut = Render<MyComponent>(parameter =>
+        {
+            parameter.Add(p => p.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, e => { }));
+        });
+
+        // Assert
+        Assert.NotNull(cut.Instance.GetJSModule());
+    }
+
+    [Fact]
+    public void ComponentBase_JsModule_Undefined()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        JSInterop.Mode = JSRuntimeMode.Strict;
+        Services.AddSingleton<LibraryConfiguration>();
+
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(i => i?.ToString()?.EndsWith(MyComponent.JAVASCRIPT_FILENAME) == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            // Act: no OnBreakpointEnter
+            var cut = Render<MyComponent>((Action<ComponentParameterCollectionBuilder<MyComponent>>)(parameter =>
+            {
+            }));
+
+            var module = cut.Instance.GetJSModule();
+        });
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_ActiveComponent_ReturnsTrue()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        await using var component = new ImportingComponent(runtime);
+        runtime.Completion.SetResult(module);
+
+        var imported = await component.TryImportAsync();
+
+        Assert.True(imported);
+        Assert.Same(module, component.Module);
+        Assert.Equal(0, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_DisposedDuringImport_DisposesModuleAndReturnsFalse()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingComponent(runtime);
+        var importTask = component.TryImportAsync();
+        Assert.False(importTask.IsCompleted);
+
+        await component.DisposeAsync();
+        runtime.Completion.SetResult(module);
+        var imported = await importTask;
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_AlreadyDisposed_DisposesModuleAndReturnsFalse()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingComponent(runtime);
+        await component.DisposeAsync();
+        runtime.Completion.SetResult(module);
+
+        var imported = await component.TryImportAsync();
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task FluentGrid_DisposedDuringImport_SkipsJavaScriptInitialization()
+    {
+        var runtime = new DeferredImportJSRuntime
+        {
+            ModulePath = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Grid/FluentGrid.razor.js"
+        };
+        var module = new TrackingJSObjectReference();
+        Services.AddSingleton<IJSRuntime>(runtime);
+        Services.AddSingleton<LibraryConfiguration>();
+        var cut = Render<MyComponent>(parameters => parameters
+            .Add(component => component.OnBreakpointEnter, EventCallback.Factory.Create<GridItemSize>(this, _ => { })));
+        var afterRenderTask = cut.Instance.AfterRenderTask;
+        Assert.False(afterRenderTask.IsCompleted);
+
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        runtime.Completion.SetResult(module);
+        await afterRenderTask;
+
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_DuringComponentCleanup_LeavesModuleForCleanup()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var cleanupCompletion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cleanupFinished = false;
+        var component = new ImportingComponent(runtime)
+        {
+            CleanupAsync = async reference =>
+            {
+                await cleanupCompletion.Task;
+                Assert.Same(module, reference);
+                Assert.Equal(0, module.DisposeCount);
+                cleanupFinished = true;
+            }
+        };
+        runtime.Completion.SetResult(module);
+        Assert.True(await component.TryImportAsync());
+        var disposalTask = component.DisposeAsync().AsTask();
+        Assert.False(disposalTask.IsCompleted);
+
+        var imported = await component.TryImportAsync();
+        cleanupCompletion.SetResult();
+        await disposalTask;
+
+        Assert.False(imported);
+        Assert.True(cleanupFinished);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task TryImportJavaScriptModuleAsync_AfterModuleDisposal_DoesNotDisposeAgain(bool importBeforeDisposal)
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingComponent(runtime);
+        var importTask = component.TryImportAsync();
+
+        if (importBeforeDisposal)
+        {
+            runtime.Completion.SetResult(module);
+            Assert.True(await importTask);
+            await component.DisposeAsync();
+        }
+        else
+        {
+            await component.DisposeAsync();
+            runtime.Completion.SetResult(module);
+            Assert.False(await importTask);
+        }
+
+        var imported = await component.TryImportAsync();
+        await component.DisposeAsync();
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_InputDisposedDuringImport_DisposesModuleAndReturnsFalse()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var component = new ImportingCalendar(runtime);
+        IFluentComponentBase owner = component;
+        Assert.False(owner.IsDisposed);
+        var importTask = component.TryImportAsync();
+        Assert.False(importTask.IsCompleted);
+
+        await component.DisposeAsync();
+        Assert.True(owner.IsDisposed);
+        runtime.Completion.SetResult(module);
+        var imported = await importTask;
+        Assert.False(await component.TryImportAsync());
+        await component.DisposeAsync();
+
+        Assert.False(imported);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task TryImportJavaScriptModuleAsync_DuringInputCleanup_LeavesModuleForCleanup()
+    {
+        var runtime = new DeferredImportJSRuntime();
+        var module = new TrackingJSObjectReference();
+        var cleanupCompletion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cleanupFinished = false;
+        var component = new ImportingCalendar(runtime)
+        {
+            CleanupAsync = async reference =>
+            {
+                await cleanupCompletion.Task;
+                Assert.Same(module, reference);
+                Assert.Equal(0, module.DisposeCount);
+                cleanupFinished = true;
+            }
+        };
+        runtime.Completion.SetResult(module);
+        Assert.True(await component.TryImportAsync());
+        var disposalTask = component.DisposeAsync().AsTask();
+        Assert.False(disposalTask.IsCompleted);
+
+        var imported = await component.TryImportAsync();
+        cleanupCompletion.SetResult();
+        await disposalTask;
+        Assert.False(await component.TryImportAsync());
+        await component.DisposeAsync();
+
+        Assert.False(imported);
+        Assert.True(cleanupFinished);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    [Fact]
+    public async Task FluentCalendar_DisposedDuringImport_SkipsJavaScriptInitialization()
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2026, 9, 7));
+        var runtime = new DeferredImportJSRuntime
+        {
+            ModulePath = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DateTime/FluentCalendar.razor.js"
+        };
+        var module = new TrackingJSObjectReference();
+        Services.AddSingleton<IJSRuntime>(runtime);
+        var cut = Render<ImportingCalendar>();
+        var afterRenderTask = cut.Instance.AfterRenderTask;
+        Assert.False(afterRenderTask.IsCompleted);
+
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        runtime.Completion.SetResult(module);
+        await afterRenderTask;
+
+        Assert.True(((IFluentComponentBase)cut.Instance).IsDisposed);
+        Assert.Equal(1, module.DisposeCount);
+    }
+
+    // Helper method to parse HTML attributes
+    private static (string Name, string Value) ParseHtmlAttribute(string attributeString)
+    {
+        var parts = attributeString.Split(['='], 2);
+        if (parts.Length != 2)
+        {
+            throw new ArgumentException("Invalid attribute string format.", nameof(attributeString));
+        }
+
+        var name = parts[0].Trim();
+        var value = parts[1].Trim(' ', '"', '\'');
+
+        return (name, value);
+    }
+
+    private static object CreateFieldParameterValue(PropertyInfo property)
+    {
+        var propertyType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+
+        if (propertyType == typeof(string))
+        {
+            return $"field-{property.Name}";
+        }
+
+        if (propertyType == typeof(bool))
+        {
+            return true;
+        }
+
+        if (propertyType == typeof(RenderFragment))
+        {
+            return (RenderFragment)(builder => builder.AddContent(0, $"field-{property.Name}"));
+        }
+
+        if (propertyType == typeof(Func<IFluentField, bool>))
+        {
+            return (Func<IFluentField, bool>)(_ => true);
+        }
+
+        if (propertyType == typeof(Icon))
+        {
+            return FluentStatus.InfoIcon;
+        }
+
+        if (propertyType == typeof(ILabelInfo))
+        {
+            return new LabelInfo($"field-{property.Name}");
+        }
+
+        if (propertyType.IsEnum)
+        {
+            var defaultValue = Activator.CreateInstance(propertyType);
+            return Enum.GetValues(propertyType)
+                .Cast<object>()
+                .FirstOrDefault(value => !Equals(value, defaultValue))
+                ?? throw new InvalidOperationException($"The enum parameter {property.Name} must define a non-default value for this test.");
+        }
+
+        throw new NotSupportedException($"No test value can be created for the {property.Name} parameter of type {property.PropertyType}.");
+    }
+
+    // Class used by the "ComponentBase_JsModule" test
+    private class MyComponent : FluentGrid
+    {
+        public MyComponent() : base(LibraryConfiguration.Empty) { }
+
+        public const string JAVASCRIPT_FILENAME = "FluentGrid.razor.js";
+        public IJSObjectReference GetJSModule() => base.JSModule.ObjectReference;
+
+        public Task AfterRenderTask { get; private set; } = Task.CompletedTask;
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+            => AfterRenderTask = base.OnAfterRenderAsync(firstRender);
+    }
+
+    private sealed class ImportingComponent : FluentComponentBase
+    {
+        public ImportingComponent(IJSRuntime runtime) : base(LibraryConfiguration.Empty)
+        {
+            JSRuntime = runtime;
+        }
+
+        public IJSObjectReference Module => JSModule.ObjectReference;
+
+        public Func<IJSObjectReference, Task>? CleanupAsync { get; init; }
+
+        public Task<bool> TryImportAsync() => JSModule.TryImportJavaScriptModuleAsync("./test-module.js");
+
+        protected override ValueTask DisposeAsync(IJSObjectReference jsModule)
+            => new(CleanupAsync?.Invoke(jsModule) ?? Task.CompletedTask);
+    }
+
+    private sealed class ImportingCalendar : FluentCalendar<DateTime>
+    {
+        public ImportingCalendar(IJSRuntime runtime) : base(LibraryConfiguration.Empty)
+        {
+            JSRuntime = runtime;
+        }
+
+        public Func<IJSObjectReference, Task>? CleanupAsync { get; init; }
+
+        public Task AfterRenderTask { get; private set; } = Task.CompletedTask;
+
+        public Task<bool> TryImportAsync() => JSModule.TryImportJavaScriptModuleAsync("./test-module.js");
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+            => AfterRenderTask = base.OnAfterRenderAsync(firstRender);
+
+        protected override ValueTask DisposeAsync(IJSObjectReference jsModule)
+            => new(CleanupAsync?.Invoke(jsModule) ?? Task.CompletedTask);
+    }
+
+    private sealed class DeferredImportJSRuntime : IJSRuntime
+    {
+        public string ModulePath { get; init; } = "./test-module.js";
+
+        public TaskCompletionSource<IJSObjectReference> Completion { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
+            => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+
+        public async ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+        {
+            Assert.Equal("import", identifier);
+            Assert.Equal(ModulePath, Assert.Single(args!));
+            return (TValue)await Completion.Task;
+        }
+    }
+
+    private sealed class TrackingJSObjectReference : IJSObjectReference
+    {
+        public int DisposeCount { get; private set; }
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
+            => throw new InvalidOperationException($"Unexpected JavaScript invocation '{identifier}'.");
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+            => throw new InvalidOperationException($"Unexpected JavaScript invocation '{identifier}'.");
+
+        public ValueTask DisposeAsync()
+        {
+            DisposeCount++;
+            return ValueTask.CompletedTask;
+        }
+    }
+
+    private class Loader
+    {
+        public static Loader MakeGenericType(Type type) => new()
+        {
+            ComponentType = t => t.MakeGenericType(type)
+        };
+        public static Loader MakeGenericType(Type type1, Type type2) => new()
+        {
+            ComponentType = t => t.MakeGenericType(type1, type2)
+        };
+
+        public static Loader Default => new();
+
+        private Loader() { }
+
+        public Func<Type, Type> ComponentType { get; private set; } = t => t;
+
+        public Dictionary<string, object> RequiredParameters { get; } = [];
+
+        public List<(string? Name, object Value)> CascadingValues { get; } = [];
+
+        public Loader WithRequiredParameter(string key, object value)
+        {
+            RequiredParameters.Add(key, value);
+            return this;
+        }
+
+        public Loader WithCascadingValue<TValue>(string? name, TValue cascadingValue) where TValue : notnull
+        {
+            CascadingValues.Add((name, cascadingValue));
+            return this;
+        }
+
+        public Loader WithCascadingValue<TValue>(TValue cascadingValue) where TValue : notnull
+        {
+            return WithCascadingValue(null, cascadingValue);
+        }
+    }
+
+    private static class DictionaryExtensions
+    {
+        public static Dictionary<string, object> Union(Dictionary<string, object> first, Dictionary<string, object>? second)
+        {
+            if (second == null)
+            {
+                return first;
+            }
+
+            return first.Concat(second)
+                .GroupBy(kvp => kvp.Key)
+                .ToDictionary(g => g.Key, g => g.Last().Value);
+        }
+    }
+}

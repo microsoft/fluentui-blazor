@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// <see cref="FluentAutocomplete{TOption}"/> uses this event to return the list of items to display.
+/// <see cref="FluentAutocomplete{TOption, TValue}"/> uses this event to return the list of items to display.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class OptionsSearchEventArgs<T>

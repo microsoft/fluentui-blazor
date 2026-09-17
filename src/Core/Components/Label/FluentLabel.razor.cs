@@ -1,92 +1,64 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
-public partial class FluentLabel : FluentComponentBase
+/// <summary>
+/// The FluentLabel component is used to display a label for an input component. Normally it is positioned above the component
+/// </summary>
+public partial class FluentLabel : FluentComponentBase, ITooltipComponent
 {
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass($"fluent-typography")
-        .AddClass("fluent-typo-left", () => Alignment == HorizontalAlignment.Left || Alignment == HorizontalAlignment.Start)
-        .AddClass("fluent-typo-center", () => Alignment == HorizontalAlignment.Center)
-        .AddClass("fluent-typo-right", () => Alignment == HorizontalAlignment.Right || Alignment == HorizontalAlignment.End)
+    /// <summary />
+    public FluentLabel(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected virtual string? ClassValue => DefaultClassBuilder
         .Build();
 
-    protected string? StyleValue => new StyleBuilder()
-        .AddStyle("color", Color.ToAttributeValue(), () => Color != null && Color != AspNetCore.Components.Color.Custom)
-        .AddStyle("color", CustomColor, () => Color == AspNetCore.Components.Color.Custom)
-        .AddStyle("margin-block", MarginBlock, () => !string.IsNullOrEmpty(MarginBlock) && !DefaultMarginBlock)
-        .AddStyle(Style)
+    /// <summary />
+    protected virtual string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary>
-    /// Applies the theme typography styles.
+    /// Gets or sets whether the label show a required marking (red star).
     /// </summary>
     [Parameter]
-    public Typography Typo { get; set; } = Typography.Body;
+    public bool Required { get; set; }
 
     /// <summary>
-    /// Activates or deactivates the component (changes the color).
+    /// Gets or sets the size of the label.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; } = false;
+    public LabelSize? Size { get; set; }
 
     /// <summary>
-    /// Gets or sets the text-align on the component.
+    /// Gets or sets the weight of the label text.
     /// </summary>
     [Parameter]
-    public HorizontalAlignment? Alignment { get; set; }
+    public LabelWeight? Weight { get; set; }
 
     /// <summary>
-    /// Gets or sets the color of the component. It supports the theme colors.
+    /// Gets or sets the disabled state of the label.
     /// </summary>
     [Parameter]
-    public Color? Color { get; set; }
+    public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the color of the label to a custom value.
-    /// Needs to be formatted as a valid CSS color value (HTML hex color string (#rrggbb or #rgb), CSS variable or named color).
-    /// ⚠️ Only available when Color is set to Color.Custom.
-    /// </summary>
-    [Parameter]
-    public string? CustomColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the font weight of the component:
-    /// Normal (400), Bold (600) or Bolder (800).
-    /// </summary>
-    [Parameter]
-    public FontWeight Weight { get; set; } = FontWeight.Normal;
-
-    /// <summary>
-    /// Gets or sets the margin block of the component.
-    /// "default" to use the margin-block prefefined by browser.
-    /// If not set, the MarginBlock will be 0px.
-    /// </summary>
-    [Parameter]
-    public string? MarginBlock { get; set; }
-
-    /// <summary>
-    /// Gets or sets the child content of component.
+    /// Gets or sets the content to be rendered inside the component.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private bool? Bold => Weight == FontWeight.Bold;
-
-    private bool? Bolder => Weight == FontWeight.Bolder;
-
-    private bool DefaultMarginBlock => string.Compare(MarginBlock, "default", StringComparison.OrdinalIgnoreCase) == 0;
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
 
     /// <summary />
-    protected override void OnParametersSet()
+    protected override async Task OnInitializedAsync()
     {
-
-        if (!string.IsNullOrEmpty(CustomColor) && Color != AspNetCore.Components.Color.Custom)
-        {
-            throw new ArgumentException("CustomColor can only be used when Color is set to Color.Custom.");
-        }
+        await base.RenderTooltipAsync(Tooltip);
     }
 }

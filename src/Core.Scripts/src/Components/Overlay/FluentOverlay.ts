@@ -1,0 +1,441 @@
+import { StartedMode } from "../../d-ts/StartedMode";
+import { fluentOverlayStyles } from "./FluentOverlay-Styles";
+
+export namespace Microsoft.FluentUI.Blazor.Components.Overlay {
+
+  /**
+   * CloseMode type
+   * - manual: Do not close automatically
+   * - all: Close on any click
+   * - inside: Close on click inside the dialog
+   * - outside: Close on click outside the dialog
+   */
+  export type CloseMode = 'manual' | 'all' | 'inside' | 'outside' | null;
+
+  /**
+   * FluentOverlay web component
+   */
+  class FluentOverlay extends HTMLElement {
+
+    private readonly DEFAULT_BACKGROUND: string = 'color-mix(in srgb, var(--colorBackgroundOverlay) 40%, transparent)';
+    private container: HTMLElement | null = null;
+    private dialog: HTMLDialogElement | null = null;
+    private resizeObserver: ResizeObserver | null = null;
+    private clickHandler: ((ev: MouseEvent) => any) | null = null;
+    private showFrame: number | null = null;
+
+    // Records the requested visibility before the internal dialog exists and while opening is deferred.
+    private _opened: boolean = false;
+
+    /************************
+      Initialization
+     ************************/
+    constructor() {
+      super();
+    }
+
+    // Delay initialization to ensure child content is parsed
+    connectedCallback() {
+      setTimeout(() => {
+        this.initialize();
+      }, 0);
+    }
+
+    private initialize() {
+      this.container = this.parentElement;
+      const shadow = this.attachShadow({ mode: 'open' });
+
+      // Create the dialog element
+      this.dialog = document.createElement('dialog') as HTMLDialogElement;
+      this.dialog.setAttribute('fuib', '');
+      this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-overlay::part(dialog)`
+
+      this.dialog.addEventListener('toggle', (e) => {
+        // Dispatch event when closed
+        this.dispatchOpenedEvent(e.newState === 'open');
+      });
+
+      // Set initial styles for the dialog
+      const sheet = new CSSStyleSheet();
+      sheet.replaceSync(fluentOverlayStyles);
+      this.shadowRoot!.adoptedStyleSheets = [
+        ...(this.shadowRoot!.adoptedStyleSheets || []),
+        sheet
+      ];
+
+      // Slot for user content. Children stay in the light DOM and are
+      // projected through the slot, so document-level CSS can style them.
+      const contentSlot = document.createElement('slot');
+      this.dialog.appendChild(contentSlot);
+      shadow.appendChild(this.dialog);
+
+      if (this._opened) {
+        this.show();
+      }
+    }
+
+    /*************** 
+      Attributes
+    ****************/
+
+    static get observedAttributes() { return ['background', 'dialogStyle', 'dialogClass', 'visible']; }
+
+    // Handles attribute changes to update references and listeners.
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+      if (oldValue !== newValue) {
+
+        if (name === 'background') {
+          if (this.hasAttribute('background')) {
+            this.background = this.getAttribute('background')!;
+          }
+        }
+
+        if (name === 'dialogStyle') {
+          if (this.hasAttribute('dialogStyle')) {
+            this.dialogStyle = this.getAttribute('dialogStyle')!;
+          }
+        }
+
+        if (name === 'dialogClass') {
+          if (this.hasAttribute('dialogClass')) {
+            this.dialogClass = this.getAttribute('dialogClass')!;
+          }
+        }
+
+        if (name === 'visible') {
+          const isVisible = this.hasAttribute('visible')
+            && (this.getAttribute('visible') === 'true' || this.getAttribute('visible') === '');
+          this.visible = isVisible;
+        }
+      }
+    }
+
+    /************************
+       Public Properties
+    ************************/
+
+    // Property getter/setter for fullscreen
+    public get fullscreen(): boolean {
+      return this.hasAttribute('fullscreen');
+    }
+
+    public set fullscreen(value: boolean) {
+      if (value) {
+        this.setAttribute('fullscreen', '');
+      } else {
+        this.removeAttribute('fullscreen');
+      }
+    }
+
+    // Property getter/setter for interactive
+    public get interactive(): boolean {
+      return this.hasAttribute('interactive');
+    }
+
+    public set interactive(value: boolean) {
+      if (value) {
+        this.setAttribute('interactive', '');
+      } else {
+        this.removeAttribute('interactive');
+      }
+    }
+
+    // Property getter/setter for interactive-outside
+    public get closeMode(): CloseMode {
+      return this.getAttribute('close-mode') as CloseMode;
+    }
+
+    public set closeMode(value: CloseMode) {
+      if (value) {
+        this.setAttribute('close-mode', value);
+      } else {
+        this.removeAttribute('close-mode');
+      }
+    }
+
+    // Property getter/setter for background-color
+    public get background(): string {
+      return this.getAttribute('background') ?? this.DEFAULT_BACKGROUND;
+    }
+
+    public set background(value: string) {
+      if (value) {
+        this.setAttribute('background', '');
+      } else {
+        this.removeAttribute('background');
+      }
+    }
+
+    // Property getter/setter for dialog-style
+    public get dialogStyle(): string {
+      return this.getAttribute('dialog-style') ?? '';
+    }
+
+    public set dialogStyle(value: string) {
+      if (value) {
+        this.setAttribute('dialog-style', value);
+      } else {
+        this.removeAttribute('dialog-style');
+      }
+    }
+
+    // Property getter/setter for dialog-class
+    public get dialogClass(): string {
+      return this.getAttribute('dialog-class') ?? '';
+    }
+
+    public set dialogClass(value: string) {
+      if (value) {
+        this.setAttribute('dialog-class', value);
+      } else {
+        this.removeAttribute('dialog-class');
+      }
+    }
+
+    // Property getter/setter for visible
+    public get visible(): boolean {
+      return this.dialog?.open ?? false;
+    }
+
+    public set visible(value: boolean) {
+      if (value) {
+        this.show();
+      } else {
+        this.close();
+      }
+    }
+
+    /************************
+      Public methods
+    ************************/
+
+    // Public method to open the dialog
+    public show() {
+      this._opened = true;
+
+      if (this.dialog && !this.dialog.open && this.showFrame === null) {
+        // Defer opening for two frames so an immediate close can cancel it before the dialog is painted.
+        this.showFrame = requestAnimationFrame(() => {
+          this.showFrame = requestAnimationFrame(() => {
+            this.showFrame = null;
+
+            if (!this._opened || !this.dialog || this.dialog.open) {
+              return;
+            }
+
+            this.dialog.setAttribute('style', this.dialogStyle);
+            this.dialog.setAttribute('class', this.dialogClass);
+
+            // Prevent to use ESC key to close the dialog
+            // https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/closedBy#browser_compatibility
+            if (this.closeMode === 'manual') {
+              this.dialog.setAttribute('closedBy', 'none');
+            }
+
+            if (this.fullscreen === false) {
+              this.ensureParentPositioning();
+              this.createResizeObserver();
+              this.positionDialogInContainer();
+            }
+            else {
+              this.positionDialogClear();
+            }
+
+            if (this.background) {
+              this.style.setProperty('--overlayBackground', this.background);
+            }
+
+            if (this.interactive || !this.fullscreen) {
+              this.dialog.show();
+            } else {
+              this.dialog.showModal();
+            }
+
+            if (!this.clickHandler) {
+              this.clickHandler = (e) => this.onClick(e);
+
+              // Use capture phase and delay listener registration to avoid capturing the current click
+              setTimeout(() => {
+                if (this.clickHandler) {
+                  document.addEventListener('click', this.clickHandler);
+                }
+              }, 0);
+            }
+          });
+        });
+      }
+    }
+
+    // Public method to close the dialog
+    public close() {
+      this._opened = false;
+
+      if (this.showFrame !== null) {
+        cancelAnimationFrame(this.showFrame);
+        this.showFrame = null;
+      }
+
+      if (this.dialog && this.dialog.open) {
+        this.dialog.close();
+
+        // Remove the click event listener if it exists
+        if (this.clickHandler) {
+          document.removeEventListener('click', this.clickHandler);
+          this.clickHandler = null;
+        }
+      }
+    }
+
+    /************************
+      Private methods
+    ************************/
+
+    // Private method to handle click events
+    private onClick(event: MouseEvent): void {
+      if (this.dialog && this.dialog.open) {
+        const insideOverlay = this.isClickInsideOverlay(event);
+        event.stopPropagation();
+
+        if (this.closeMode === `all` || this.closeMode === null) {
+          this.close();
+          return;
+        }
+        if (this.closeMode === `inside` && insideOverlay) {
+          this.close();
+          return;
+        }
+        if (this.closeMode === `outside` && !insideOverlay) {
+          this.close();
+          return;
+        }
+      }
+    }
+
+    // Private method to check if a click event is inside the dialog
+    private isClickInsideOverlay(event: MouseEvent): boolean {
+
+      if (!this.dialog) {
+        return false;
+      }
+
+      const overlayRect = this.getBoundingClientRect();
+      const clickX = event.clientX;
+      const clickY = event.clientY;
+
+      return clickX >= overlayRect.left &&
+        clickX <= overlayRect.right &&
+        clickY >= overlayRect.top &&
+        clickY <= overlayRect.bottom;
+    }
+
+    // Private method to ensure parent has proper positioning
+    private ensureParentPositioning(): void {
+      const parent = this.parentElement;
+      if (parent) {
+        const computedStyle = window.getComputedStyle(parent);
+        const position = computedStyle.position;
+
+        // Check if position is one of the required values
+        if (position !== 'relative' && position !== 'absolute' && position !== 'fixed' && position !== 'sticky') {
+          parent.style.position = 'relative';
+        }
+      }
+    }
+
+    // Private method to position the dialog in the container
+    private positionDialogInContainer(): void {
+      if (this.container && this.dialog && this.fullscreen === false) {
+        const containerRect = this.container.getBoundingClientRect();
+        this.dialog.style.top = `${containerRect.top + containerRect.height / 2}px`;
+        this.dialog.style.left = `${containerRect.left + containerRect.width / 2}px`;
+      }
+    }
+
+    // Private method to clear the dialog position
+    private positionDialogClear(): void {
+      if (this.dialog) {
+        this.dialog.style.top = '';
+        this.dialog.style.left = '';
+      }
+    }
+
+    // Subscribe to container size changes
+    private createResizeObserver(): void {
+      if (!this.resizeObserver && this.container) {
+        this.resizeObserver = new ResizeObserver(() => {
+          this.positionDialogInContainer();
+        });
+        this.resizeObserver.observe(this.container);
+      }
+    }
+
+    // Private method to clean up the resize observer
+    private cleanResizeObserver(): void {
+      if (this.dialog) {
+        this.dialog.style.top = '';
+        this.dialog.style.left = '';
+      }
+
+      this.resizeObserver?.disconnect();
+      this.resizeObserver = null;
+    }
+
+    // Cleanup when element is removed from DOM
+    disconnectedCallback() {
+      this.cleanResizeObserver();
+
+      if (this.showFrame !== null) {
+        cancelAnimationFrame(this.showFrame);
+        this.showFrame = null;
+      }
+
+      // Remove the click event listener if it exists
+      if (this.clickHandler) {
+        document.removeEventListener('click', this.clickHandler);
+        this.clickHandler = null;
+      }
+    }
+
+    // Dispatch event when opened or closed
+    private dispatchOpenedEvent(opened: boolean) {
+      this.dispatchEvent(new CustomEvent('toggle', {
+        detail: {
+          oldState: opened ? 'closed' : 'open',
+          newState: opened ? 'open' : 'closed',
+        },
+        bubbles: true,
+        composed: true
+      }));
+    }
+
+  }
+
+  /**
+   * Display the fluent-overlay with the given id
+   * @param id The id of the fluent-overlay to display
+   */
+  export function Show(id: string): void {
+    const element = document.getElementById(id) as FluentOverlay | null;
+    element?.show();
+  }
+
+  /**
+   * Close the fluent-overlay with the given id
+   * @param id The id of the fluent-overlay to close
+   */
+  export function Close(id: string): void {
+    const element = document.getElementById(id) as FluentOverlay | null;
+    element?.close();
+  }
+
+  /**
+  * Register the FluentOverlay component
+  * @param blazor
+  * @param mode
+  */
+  export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
+    if (typeof customElements !== 'undefined' && !customElements.get('fluent-overlay')) {
+      customElements.define('fluent-overlay', FluentOverlay);
+    }
+  };
+}

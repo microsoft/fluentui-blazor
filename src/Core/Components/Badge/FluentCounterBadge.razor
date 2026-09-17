@@ -1,0 +1,40 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentBadge
+<AddTag Name="fluent-counter-badge-container" TagWhen="@(() => _isAttached && _render)" style="@_containerStyle">
+	@AnchorContent
+	@if (_render)
+	{
+		<fluent-counter-badge id="@Id"
+							  fuib
+							  class="@ClassValue"
+							  style="@StyleValue"
+							  appearance="@Appearance.ToAttributeValue()"
+							  color="@Color.ToAttributeValue()"
+							  shape="@Shape.ToAttributeValue()"
+							  size="@Size.ToAttributeValue()"
+							  positioning="@Positioning.ToAttributeValue()"
+							  count="@GetCount()"
+							  overflow-count="@OverflowCount"
+							  show-zero="@ShowZero"
+							  dot="@Dot"
+							  @attributes="@AdditionalAttributes">
+			@if (IconStart != null)
+			{
+				<FluentIcon Value="@IconStart" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+			}
+
+
+			@if (ChildContent is not null || !string.IsNullOrEmpty(Content))
+			{
+				<span>@Content @ChildContent</span>
+			}
+			
+			@if (IconEnd != null)
+			{
+				<FluentIcon Value="@IconEnd" Slot="@FluentSlot.End" Color="Components.Color.Custom" CustomColor="@GetIconColor()" aria-label="@IconLabel" />
+			}
+		</fluent-counter-badge>
+	}
+</AddTag>
+

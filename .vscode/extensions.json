@@ -1,6 +1,6 @@
 {
-    "recommendations": [
-        "editorconfig.editorconfig",
-        "ms-dotnettools.csdevkit"
-    ]
+  "recommendations": [
+    "dvoituron.dotnet-pulse",
+    "GitHub.vscode-pull-request-github"
+  ]
 }

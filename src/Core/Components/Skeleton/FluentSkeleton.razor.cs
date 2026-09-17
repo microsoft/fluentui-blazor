@@ -7,61 +7,143 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Represents a skeleton loading component that provides visual placeholders for content while it is being loaded.
+/// </summary>
+/// <remarks>The <see cref="FluentSkeleton"/> class is designed to display skeleton shapes, such as rectangles or
+/// circles,  to indicate loading states in a user interface. It supports customization of size, shape, and shimmer
+/// effects. Use this component to improve perceived performance by showing placeholders for content that is being
+/// fetched or processed.
+/// </remarks>
 public partial class FluentSkeleton : FluentComponentBase
 {
-    protected string? ClassValue => new CssBuilder(Class)
+    /// <summary />
+    public FluentSkeleton(LibraryConfiguration configuration) : base(configuration)
+    {
+
+    }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-skeleton")
         .Build();
 
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width, () => !string.IsNullOrWhiteSpace(Width))
-        .AddStyle("height", Height, () => !string.IsNullOrWhiteSpace(Height))
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("background-color", "transparent", when: ChildContent is not null || Pattern is not null)
+        .AddStyle("width", Width, when: Circular == false)
+        .AddStyle("height", Height, when: Circular == false)
+        .AddStyle("width", GetCircularSize(), when: Circular == true)
+        .AddStyle("height", GetCircularSize(), when: Circular == true)
         .Build();
 
     /// <summary>
-    /// Indicates the Skeleton should have a filled style.
+    /// Gets or sets the content to be rendered inside the skeleton component.
     /// </summary>
     [Parameter]
-    public string? Fill { get; set; }
+    public RenderFragment<FluentSkeleton>? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the shape of the skeleton. See <see cref="AspNetCore.Components.SkeletonShape"/>
-    /// </summary>
-    [Parameter]
-    public SkeletonShape? Shape { get; set; } = SkeletonShape.Rect;
-
-    /// <summary>
-    /// Gets or sets the skeleton pattern.
-    /// </summary>
-    [Parameter]
-    public string? Pattern { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the skeleton is shimmered.
-    /// </summary>
-    [Parameter]
-    public bool? Shimmer { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width of the skeleton.
-    /// </summary>
-    [Parameter]
-    public string Width { get; set; } = "50px";
-
-    /// <summary>
-    /// Gets or sets the height of the skeleton.
-    /// </summary>
-    [Parameter]
-    public string Height { get; set; } = "50px";
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the skeleton is visible.
+    /// Gets or sets a value indicating whether the component is visible.
     /// </summary>
     [Parameter]
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets a value indicating whether the shimmer animation (loading wave effect) is shown.
+    /// Distinct from <see cref="Visible"/>, which controls component visibility entirely.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public bool Shimmer { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the skeleton is displayed as a circle.
+    /// When <see langword="true"/>, the component renders with equal width and height styles to form a circle (the parameter values themselves are not mutated).
+    /// </summary>
+    [Parameter]
+    public bool Circular { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the element. Default is "100%".
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; } = "100%";
+
+    /// <summary>
+    /// Gets or sets the height of the component. Default is "48px".
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; } = "48px";
+
+    /// <summary>
+    /// Gets or sets the predefined skeleton pattern used to define the structure or layout of the component.
+    /// (e.g., <c>Pattern="SkeletonPattern.Article"</c>).
+    /// For custom layouts, use <see cref="ChildContent"/> instead.
+    /// </summary>
+    [Parameter]
+    public SkeletonPattern? Pattern { get; set; }
+
+    /// <summary>
+    /// Generates a circular element with the specified radius.
+    /// </summary>
+    /// <returns>A <see cref="MarkupStringSanitized"/> containing the HTML markup for a styled circular element.</returns>
+    public MarkupStringSanitized DrawCircle(string radius)
+    {
+        var style = new StyleBuilder()
+            .AddStyle("background-color", "var(--fluentSkeletonBackground)")
+            .AddStyle("border-radius", "50%")
+            .AddStyle("min-width", radius)
+            .AddStyle("min-height", radius)
+            .AddStyle("max-width", radius)
+            .AddStyle("max-height", radius)
+            .AddStyle("margin", "var(--spacingVerticalXS) var(--spacingHorizontalXS)")
+            .Build();
+
+        return new MarkupStringSanitized($"<div style=\"{style}\" />", LibraryConfiguration);
+    }
+
+    /// <summary>
+    /// Generates a rectangle element with the specified width and height.
+    /// </summary>
+    /// <param name="width">The width of the rectangle, specified as a CSS-compatible value (e.g., "100px", "50%").</param>
+    /// <param name="height">The height of the rectangle, specified as a CSS-compatible value (e.g., "100px", "50%").</param>
+    /// <returns>A <see cref="MarkupStringSanitized"/> containing the HTML representation of a rectangle styled with the specified dimensions.</returns>
+    public MarkupStringSanitized DrawRectangle(string width, string height)
+    {
+        var style = new StyleBuilder()
+           .AddStyle("background-color", "var(--fluentSkeletonBackground)")
+           .AddStyle("border-radius", "var(--borderRadiusMedium);")
+           .AddStyle("width", width)
+           .AddStyle("height", height)
+           .AddStyle("margin", "var(--spacingVerticalXS) var(--spacingHorizontalXS)")
+           .Build();
+
+        return new MarkupStringSanitized($"<div style=\"{style}\" />", LibraryConfiguration);
+    }
+
+    /// <summary />
+    private string GetCircularSize()
+    {
+        if (!Circular)
+        {
+            return string.Empty;
+        }
+
+        if (string.IsNullOrEmpty(Width) && !string.IsNullOrEmpty(Height))
+        {
+            return Height;
+        }
+
+        if (!string.IsNullOrEmpty(Width) && string.IsNullOrEmpty(Height))
+        {
+            return Width;
+        }
+
+        if (!string.IsNullOrEmpty(Width) && !string.IsNullOrEmpty(Height))
+        {
+            return $"min({Width}, {Height})";
+        }
+
+        return "48px"; // Default size for circular skeleton
+    }
 }

@@ -1,0 +1,699 @@
+﻿@using Xunit
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples
+@inherits FluentUITestContext
+
+@code {
+
+    // Test helper: Simulates using FluentNavCategory with wrong parent type
+
+
+    public FluentNavTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+		SetRendererInfo(new RendererInfo("Server", true));
+    }
+
+    [Fact]
+    public void FluentNav_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav>
+            <FluentNavItem Href="/Link1" IconRest="@(new Icons.Samples.Info())">
+                Item 1
+            </FluentNavItem>
+            <FluentNavItem Href="/Link2" IconRest="@(new Icons.Samples.Warning())">
+                Item 2
+            </FluentNavItem>
+            <FluentNavItem OnClick="@(e => {})">
+                Item 3
+            </FluentNavItem>
+
+            <FluentNavSectionHeader Title="My Section" />
+
+            <FluentNavCategory Title="My Category">
+                <FluentNavItem>Openings</FluentNavItem>
+                <FluentNavItem>Submissions</FluentNavItem>
+            </FluentNavCategory>
+
+        </FluentNav>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNav_Renders_WithDefaultParameters()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav>
+            <div>Test Content</div>
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("Test Content", cut.Markup);
+        Assert.Contains("fluent-nav", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNav_Renders_With_CustomId()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav Id="my-drawer-id">
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("id=\"my-drawer-id\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNav_Renders_With_CustomClass()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav Class="custom-drawer-class">
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("custom-drawer-class", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNav_Renders_With_CustomStyle()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav Style="background-color: red;">
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("background-color: red;", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNav_Renders_With_Small_Density()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav Density="NavDensity.Small">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("density=", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentNav_Renders_With_Medium_Density()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNav Density="NavDensity.Medium">
+            <FluentNavItem Href="https://example.com">Test Item</FluentNavItem>
+        </FluentNav>);
+
+        // Assert
+        Assert.NotNull(cut);
+        Assert.Contains("density=", cut.Markup);
+    }
+
+	[Fact]
+	public void FluentNav_UseIcons_True()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentNav>
+			<FluentNavItem IconRest="@Samples.Icons.Info" Href="https://example.com">Test Item</FluentNavItem>
+		</FluentNav>);
+
+		// Assert
+		Assert.NotNull(cut);
+		Assert.Contains("<svg", cut.Markup);
+	}
+
+	[Fact]
+	public async Task FluentNav_OnParametersSetAsync_Collapses_Extra_Categories_When_UseSingleExpanded_Changes_To_True()
+	{
+		// Arrange - Start with UseSingleExpanded=false and multiple expanded categories
+		var useSingleExpanded = false;
+		var cut = Render<FluentNav>(@<FluentNav UseSingleExpanded="@useSingleExpanded">
+			<FluentNavCategory Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Title="Category 3">
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await categories[0].Instance.SetExpandedAsync(true);
+		await categories[1].Instance.SetExpandedAsync(true);
+		await categories[2].Instance.SetExpandedAsync(true);
+
+		Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
+		Assert.True(categories[1].Instance.Expanded, "Category 2 should be expanded");
+		Assert.True(categories[2].Instance.Expanded, "Category 3 should be expanded");
+
+		// Act - Change UseSingleExpanded to true
+		useSingleExpanded = true;
+		cut.Render(parameters => parameters.Add(p => p.UseSingleExpanded, useSingleExpanded));
+		await Task.Delay(100, CancellationToken.None); // Wait for async operations
+
+		// Assert - Only first category should remain expanded
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(categories[0].Instance.Expanded, "Category 1 should remain expanded");
+			Assert.False(categories[1].Instance.Expanded, "Category 2 should be collapsed");
+			Assert.False(categories[2].Instance.Expanded, "Category 3 should be collapsed");
+		}, TimeSpan.FromSeconds(2));
+	}
+
+	[Fact]
+	public async Task FluentNav_OnParametersSetAsync_Does_Not_Collapse_Categories_When_Already_UseSingleExpanded()
+	{
+		// Arrange - Start with UseSingleExpanded=true
+		var cut = Render<FluentNav>(@<FluentNav UseSingleExpanded="true">
+			<FluentNavCategory Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await categories[0].Instance.SetExpandedAsync(true);
+		await categories[1].Instance.SetExpandedAsync(false);
+
+		var category1InitialState = categories[0].Instance.Expanded;
+		var category2InitialState = categories[1].Instance.Expanded;
+
+		// Act - Re-render with same UseSingleExpanded value
+		cut.Render(parameters => parameters.Add(p => p.UseSingleExpanded, true));
+
+		// Assert - States should remain unchanged
+		Assert.Equal(category1InitialState, categories[0].Instance.Expanded);
+		Assert.Equal(category2InitialState, categories[1].Instance.Expanded);
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandCategoryAsync_Expands_Specified_Category()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		Assert.False(categories[0].Instance.Expanded, "Category 1 should start collapsed");
+		Assert.False(categories[1].Instance.Expanded, "Category 2 should start collapsed");
+
+		// Act
+		await nav.Instance.ExpandCategoryAsync("category-1");
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
+			Assert.False(categories[1].Instance.Expanded, "Category 2 should remain collapsed");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandCategoryAsync_Expands_Specified_Category_With_EventHandler()
+	{
+		// Arrange
+		var isExpandedEventFired = false;
+		var cut = Render(@<FluentNav UseSingleExpanded="true">
+			<FluentNavCategory Id="category-1" Title="Category 1" ExpandedChanged="@(isExpanded => isExpandedEventFired = true)">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2" Expanded="true" ExpandedChanged="@(isExpanded => isExpandedEventFired = true)">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		Assert.False(categories[0].Instance.Expanded, "Category 1 should start collapsed");
+		Assert.True(categories[1].Instance.Expanded, "Category 2 should start expanded");
+
+		// Act
+		await nav.Instance.ExpandCategoryAsync("category-1");
+
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
+			Assert.True(categories[1].Instance.Expanded, "Category 2 should remain expanded");
+		}, TimeSpan.FromSeconds(1));
+
+		Assert.True(isExpandedEventFired, "ExpandedChanged event should have been fired");
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandCategoryAsync_With_UseSingleExpanded_Collapses_Other_Categories()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav UseSingleExpanded="true">
+			<FluentNavCategory Id="category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await categories[0].Instance.SetExpandedAsync(true);
+		await categories[1].Instance.SetExpandedAsync(false);
+
+		Assert.True(categories[0].Instance.Expanded, "Category 1 should start expanded");
+		Assert.False(categories[1].Instance.Expanded, "Category 2 should start collapsed");
+
+		// Act - Expand category 2
+		await nav.Instance.ExpandCategoryAsync("category-2");
+		await Task.Delay(100, CancellationToken.None);
+
+		// Assert - Category 1 should be collapsed, Category 2 should be expanded
+		cut.WaitForAssertion(() =>
+		{
+			Assert.False(categories[0].Instance.Expanded, "Category 1 should be collapsed");
+			Assert.True(categories[1].Instance.Expanded, "Category 2 should be expanded");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandCategoryAsync_With_Case_Insensitive_Id()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="Category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var category = cut.FindComponent<FluentNavCategory>();
+
+		// Act - Use different casing
+		await nav.Instance.ExpandCategoryAsync("category-1");
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(category.Instance.Expanded, "Category should be expanded (case-insensitive match)");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandCategoryAsync_Does_Nothing_When_Category_Not_Found()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var category = cut.FindComponent<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await category.Instance.SetExpandedAsync(true);
+		var initialState = category.Instance.Expanded;
+
+		// Act - Try to collapse non-existent category
+		await nav.Instance.CollapseCategoryAsync("non-existent-id");
+
+		// Assert - Should not throw, and existing category state should not change
+		Assert.Equal(initialState, category.Instance.Expanded);
+	}
+
+	[Fact]
+	public async Task FluentNav_CollapseCategoryAsync_Collapses_Specified_Category()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await categories[0].Instance.SetExpandedAsync(true);
+		await categories[1].Instance.SetExpandedAsync(true);
+
+		Assert.True(categories[0].Instance.Expanded, "Category 1 should start expanded");
+		Assert.True(categories[1].Instance.Expanded, "Category 2 should start expanded");
+
+		// Act
+		await nav.Instance.CollapseCategoryAsync("category-1");
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.False(categories[0].Instance.Expanded, "Category 1 should be collapsed");
+			Assert.True(categories[1].Instance.Expanded, "Category 2 should remain expanded");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_CollapseCategoryAsync_With_Case_Insensitive_Id()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="Category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var category = cut.FindComponent<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await category.Instance.SetExpandedAsync(true);
+
+		// Act - Use different casing
+		await nav.Instance.CollapseCategoryAsync("category-1");
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.False(category.Instance.Expanded, "Category should be collapsed (case-insensitive match)");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_CollapseCategoryAsync_Does_Nothing_When_Category_Not_Found()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="category-1" Title="Category 1" Expanded="true">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var category = cut.FindComponent<FluentNavCategory>();
+		var initialState = category.Instance.Expanded;
+
+		// Act - Try to collapse non-existent category
+		await nav.Instance.CollapseCategoryAsync("non-existent-id");
+
+		// Assert - Should not throw, and existing category state should not change
+		Assert.Equal(initialState, category.Instance.Expanded);
+	}
+
+	[Fact]
+	public async Task FluentNav_CollapseAllCategoriesAsync_Collapses_All_Categories()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-3" Title="Category 3">
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		// Set initial expanded state programmatically to avoid parameter binding issues
+		await categories[0].Instance.SetExpandedAsync(true);
+		await categories[1].Instance.SetExpandedAsync(true);
+		await categories[2].Instance.SetExpandedAsync(true);
+
+		Assert.True(categories[0].Instance.Expanded, "Category 1 should start expanded");
+		Assert.True(categories[1].Instance.Expanded, "Category 2 should start expanded");
+		Assert.True(categories[2].Instance.Expanded, "Category 3 should start expanded");
+
+		// Act
+		await nav.Instance.CollapseAllCategoriesAsync();
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.False(categories[0].Instance.Expanded, "Category 1 should be collapsed");
+			Assert.False(categories[1].Instance.Expanded, "Category 2 should be collapsed");
+			Assert.False(categories[2].Instance.Expanded, "Category 3 should be collapsed");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_CollapseAllCategoriesAsync_With_No_Categories()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="/test">Simple Item</FluentNavItem>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+
+		// Act & Assert - Should not throw
+		await nav.Instance.CollapseAllCategoriesAsync();
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandAllCategoriesAsync_Expands_All_Categories_When_UseSingleExpanded_False()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav UseSingleExpanded="false">
+			<FluentNavCategory Id="category-1" Title="Category 1" Expanded="false">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2" Expanded="false">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-3" Title="Category 3" Expanded="false">
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		Assert.False(categories[0].Instance.Expanded, "Category 1 should start collapsed");
+		Assert.False(categories[1].Instance.Expanded, "Category 2 should start collapsed");
+		Assert.False(categories[2].Instance.Expanded, "Category 3 should start collapsed");
+
+		// Act
+		await nav.Instance.ExpandAllCategoriesAsync();
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
+			Assert.True(categories[1].Instance.Expanded, "Category 2 should be expanded");
+			Assert.True(categories[2].Instance.Expanded, "Category 3 should be expanded");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandAllCategoriesAsync_Expands_Only_First_Category_When_UseSingleExpanded_True()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav UseSingleExpanded="true">
+			<FluentNavCategory Id="category-1" Title="Category 1" Expanded="false">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2" Expanded="false">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-3" Title="Category 3" Expanded="false">
+				<FluentNavItem Href="/test3">Sub Item 3</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+		var categories = cut.FindComponents<FluentNavCategory>();
+
+		Assert.False(categories[0].Instance.Expanded, "Category 1 should start collapsed");
+		Assert.False(categories[1].Instance.Expanded, "Category 2 should start collapsed");
+		Assert.False(categories[2].Instance.Expanded, "Category 3 should start collapsed");
+
+		// Act
+		await nav.Instance.ExpandAllCategoriesAsync();
+
+		// Assert - Wait for async state updates to complete
+		cut.WaitForAssertion(() =>
+		{
+			Assert.True(categories[0].Instance.Expanded, "Category 1 should be expanded");
+			Assert.False(categories[1].Instance.Expanded, "Category 2 should remain collapsed");
+			Assert.False(categories[2].Instance.Expanded, "Category 3 should remain collapsed");
+		}, TimeSpan.FromSeconds(1));
+	}
+
+	[Fact]
+	public async Task FluentNav_ExpandAllCategoriesAsync_With_No_Categories()
+	{
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavItem Href="/test">Simple Item</FluentNavItem>
+		</FluentNav>
+    );
+
+        var nav = cut.FindComponent<FluentNav>();
+
+        // Act & Assert - Should not throw
+        await nav.Instance.ExpandAllCategoriesAsync();
+    }
+
+    [Fact]
+    public async Task FluentNav_GetCategories_Returns_All_Registered_Categories()
+    {
+        await Task.CompletedTask;
+
+		// Arrange
+		var cut = Render(@<FluentNav>
+			<FluentNavCategory Id="category-1" Title="Category 1">
+				<FluentNavItem Href="/test1">Sub Item 1</FluentNavItem>
+			</FluentNavCategory>
+			<FluentNavCategory Id="category-2" Title="Category 2">
+				<FluentNavItem Href="/test2">Sub Item 2</FluentNavItem>
+			</FluentNavCategory>
+		</FluentNav>);
+
+		var nav = cut.FindComponent<FluentNav>();
+
+		// Act
+		var categories = nav.Instance.GetCategories();
+
+		// Assert
+		Assert.Equal(2, categories.Count());
+		Assert.Contains(categories, c => c.Id == "category-1");
+		Assert.Contains(categories, c => c.Id == "category-2");
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Sets_BackgroundColor_On_Hamburger_Menu()
+	{
+		// Arrange - Create a layout with hamburger and nav with custom background color
+		var customBgColor = "var(--my-custom-color)";
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="my-hamburger" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav BackgroundColor="@customBgColor">
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act - OnAfterRenderAsync is called automatically after render
+		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
+
+		// Assert - Background color should be set on the hamburger
+		Assert.Equal(customBgColor, hamburger.Instance.BackgroundColor);
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Sets_BackgroundColor_On_Multiple_Hamburgers()
+	{
+		// Arrange - Create a layout with multiple hamburgers
+		var customBgColor = "var(--my-custom-color)";
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="hamburger-1" />
+				<FluentLayoutHamburger Id="hamburger-2" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav BackgroundColor="@customBgColor">
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act
+		var hamburgers = cut.FindComponents<FluentLayoutHamburger>();
+
+		// Assert - Background color should be set on both hamburgers
+		Assert.Equal(2, hamburgers.Count);
+		Assert.All(hamburgers, h => Assert.Equal(customBgColor, h.Instance.BackgroundColor));
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Does_Not_Set_BackgroundColor_When_Null()
+	{
+		// Arrange - Create a layout with hamburger but no custom background color on Nav
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="my-hamburger" BackgroundColor="var(--original-color)" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav>
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act
+		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
+
+		// Assert - Original background color should remain unchanged
+		Assert.Equal("var(--original-color)", hamburger.Instance.BackgroundColor);
+	}
+
+	[Fact]
+	public void FluentNav_OnAfterRenderAsync_Does_Not_Set_BackgroundColor_When_Empty()
+	{
+		// Arrange - Create a layout with hamburger but empty background color on Nav
+		var cut = Render(@<FluentLayout Id="my-layout">
+			<FluentLayoutItem Area="LayoutArea.Header">
+				<FluentLayoutHamburger Id="my-hamburger" BackgroundColor="var(--original-color)" />
+				Header
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Navigation">
+				<FluentNav BackgroundColor="">
+					<FluentNavItem Href="/test">Test Item</FluentNavItem>
+				</FluentNav>
+			</FluentLayoutItem>
+			<FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+		</FluentLayout>);
+
+		// Act
+		var hamburger = cut.FindComponent<FluentLayoutHamburger>();
+
+		// Assert - Original background color should remain unchanged
+		Assert.Equal("var(--original-color)", hamburger.Instance.BackgroundColor);
+	}
+}

@@ -1,0 +1,99 @@
+﻿<div id="clipboard-menu-id" style="display: none; position: fixed; z-index: 9999;">
+    <FluentMenuList Style="width: 240px;">
+        <FluentMenuItem OnClick="@(e => ItemToCopyAsync("name"))">
+            Copy name
+        </FluentMenuItem>
+        <FluentMenuItem OnClick="@(e => ItemToCopyAsync("simplified"))">
+            Copy component
+        </FluentMenuItem>
+        <FluentMenuItem OnClick="@(e => ItemToCopyAsync("full"))">
+            Copy component (full namespace)
+        </FluentMenuItem>
+    </FluentMenuList>
+</div>
+
+<script>
+    window.copyToClipboard = function(text, element) {
+        navigator.clipboard.writeText(text).then(function () {
+            // Add animation class
+            element.classList.add('copied');
+
+            // Remove the animation class after animation completes
+            setTimeout(function() {
+                element.classList.remove('copied');
+            }, 600); // Match the animation duration
+
+            return "";
+        }).catch(function (error) {
+            return error;
+        });
+    }
+
+    window.itemToClipboard = function(name) {
+        const menu = document.getElementById('clipboard-menu-id');
+        if (menu && menu.data) {
+            switch (name)
+            {
+                case "name":
+                    copyToClipboard(menu.data.name, menu.data.element);
+                    break;
+
+                case "simplified":
+                    copyToClipboard(menu.data.simplified, menu.data.element);
+                    break;
+
+               case "full":
+                    copyToClipboard(menu.data.full, menu.data.element);
+                    break;
+            }
+
+        }
+    }
+
+    window.nameToClipboard = function() {
+        const menu = document.getElementById('clipboard-menu-id');
+        if (menu && menu.data) {
+            copyToClipboard(menu.data.name, menu.data.element);
+        }
+    }
+
+    window.showContextMenu = function(x, y, data) {
+        const menu = document.getElementById('clipboard-menu-id');
+        if (menu) {
+            // Position the menu at mouse coordinates
+            menu.style.position = 'fixed';
+            menu.style.top = (y - 100) + 'px';
+            menu.style.display = 'block';
+            menu.style.zIndex = '9999';
+
+            // Check if menu is too close to the right edge (< 250px)
+            const windowWidth = window.innerWidth;
+            const spaceOnRight = windowWidth - x;
+
+            if (spaceOnRight < 240) {
+                // Display on the left
+                menu.style.left = 'auto';
+                menu.style.right = (windowWidth - x) + 'px';
+            } else {
+                // Display on the right (default)
+                menu.style.left = x + 'px';
+                menu.style.right = 'auto';
+            }
+
+            menu.data = data;
+
+            // Add click listener to hide menu when clicking elsewhere
+            setTimeout(function() {
+                document.addEventListener('click', hideContextMenu);
+            }, 0);
+        }
+    }
+
+    window.hideContextMenu = function() {
+        const menu = document.getElementById('clipboard-menu-id');
+        if (menu) {
+            menu.style.display = 'none';
+        }
+        document.removeEventListener('click', hideContextMenu);
+    }
+</script>

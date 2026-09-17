@@ -1,79 +1,130 @@
-.fluent-autocomplete-multiselect div[role=listbox] {
-    overflow-y: auto;
-    max-height: 300px;
-    outline: none;
-    padding: 2px;
-    display: inline-flex;
-    flex-direction: column;
+fluent-text-input[auto-complete] {
+  --max-selected-width: unset;
+  --min-input-width: 48px;
 }
 
-    .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option {
-        min-height: 32px;
-    }
-
-        /* This first fluent-option will be selected when user presses Enter */
-        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled])[selectable] {
-            border: var(--neutral-fill-strong-hover) solid 1px;
-        }
-
-        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable]::before {
-            background: unset !important;
-        }
-
-.fluent-autocomplete-multiselect ::deep fluent-text-field::part(start) {
-    max-width: calc(100% - 80px);
+.fluent-listbox[auto-complete] {
+  border-radius: unset;
+  border: unset;
+  box-shadow: unset;
+  padding: unset;
+  max-height: 400px;
 }
 
-.fluent-autocomplete-next {
-    height: 25px;
+fluent-text-input[auto-complete] div[slot="start"] div {
+  display: flex;
 }
 
-.fluent-autocomplete-previous {
-    height: 25px;
+.fluent-listbox[auto-complete] fluent-option[hovered] {
+  background-color: var(--colorNeutralBackground1Hover);
+  color: var(--colorNeutralForeground2Hover);
 }
 
-/* Auto-height */
-.fluent-autocomplete-multiselect[auto-height] ::deep .auto-height {
-    width: max-content;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px;
-    overflow-x: hidden;
-    overflow-y: auto;
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] {
+  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+  border-radius: var(--borderRadiusMedium);
+  margin-right: var(--spacingHorizontalS);
+  align-items: center;
+  white-space: nowrap;
 }
 
-.fluent-autocomplete-multiselect[auto-height] ::deep fluent-text-field::part(root) {
-    min-height: calc((var(--base-height-multiplier) + var(--density)) * var(--design-unit) * 1px);
-    height: auto;
-    padding: 4px 0;
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] > svg {
+  margin-left: var(--spacingHorizontalXS);
 }
 
-
-.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(control) {
-    display: none;
+fluent-text-input[auto-complete] .fluent-badge[auto-complete] > span {
+  display: inline-block;
+  max-width: var(--max-selected-width, unset);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field:not([disabled]):active::after {
-    width: 100%;
+/* Single selection - 'alone' attribute */
+fluent-text-input[auto-complete] .fluent-badge[auto-complete][alone] {
+  background: unset;
+  border: unset;
+  margin-right: 0;
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
 }
 
-.fluent-autocomplete-multiselect[single-select] ::deep fluent-text-field::part(start) {
-    max-width: calc(100% - 40px);
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+fluent-text-input:has(span[auto-complete][alone])::part(control) {
+  display: none;
 }
 
-@media (forced-colors: active) {
+fluent-text-input:has(span[auto-complete][alone]) div[slot="start"] {
+  width: calc(100% - 24px);
+  justify-content: start;
+}
 
-    .fluent-autocomplete-multiselect div[role=listbox] {
-        border: calc(var(--stroke-width)* 1px) solid transparent;
-    }
+/* MaxAutoHeight */
 
-        .fluent-autocomplete-multiselect div[role=listbox] ::deep fluent-option:not([disabled]):not([selected])[selectable] {
-            forced-color-adjust: none;
-            background: highlight;
-            color: highlighttext;
-        }
+fluent-text-input[auto-complete]:not([items-wrapped]):not([dismiss]):has(div[slot="start"] div[style*="max-height"])::part(root) {
+  height: unset;
+  min-height: 32px;
+  display: grid;
+  grid-template-columns: auto minmax(var(--min-input-width, 48px), 1fr) 24px; /* Selected items, input (min-width: 48px), clear button (24px) */
+}
+
+fluent-text-input[auto-complete] div[slot="start"] div[style*="max-height"] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacingVerticalXS) 0;
+  padding: var(--spacingVerticalXS) 0;
+}
+
+/* MaxAutoHeight - Items wrapped - Show Dismiss */
+
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss])::part(root) {
+  height: unset;
+  min-height: 32px;
+  display: grid;
+  grid-template-columns: 1fr 24px;
+  grid-template-rows: auto auto;
+}
+
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss]) div[slot="start"] {
+  grid-column: 1 / -1;
+}
+
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss]) div[slot="start"] div[style*="max-height"] {
+  width: 100%;
+}
+
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss])::part(control) {
+  grid-column: 1;
+  width: 100%;
+  padding: var(--spacingVerticalS) 0;
+}
+
+fluent-text-input[auto-complete][items-wrapped]:not([dismiss]) div[slot="end"] {
+  grid-column: 2;
+}
+
+/* MaxAutoHeight - Items wrapped - Hide Dismiss */
+
+fluent-text-input[auto-complete][dismiss=hidden]::part(root) {
+  height: unset;
+  min-height: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+fluent-text-input[auto-complete][dismiss=hidden] div[slot="start"] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: fit-content;
+}
+
+fluent-text-input[auto-complete][dismiss=hidden]::part(control) {
+  flex: 1;
+  flex-shrink: 0;
+  min-width: var(--min-input-width, 48px);
+  padding: var(--spacingVerticalXS) 0;
 }

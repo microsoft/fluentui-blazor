@@ -16,7 +16,7 @@ public class CustomEmoji : Emoji
     /// Initializes a new instance of the <see cref="CustomEmoji"/> class.
     /// </summary>
     public CustomEmoji()
-        : base(string.Empty, EmojiSize.Size32, EmojiGroup.Objects, EmojiSkintone.Default, EmojiStyle.Color, Array.Empty<byte>())
+        : base(string.Empty, EmojiSize.Size32, EmojiGroup.Objects, EmojiSkintone.Default, EmojiStyle.Color, [])
     { }
 
     /// <summary>
@@ -45,7 +45,7 @@ public class CustomEmoji : Emoji
     /// <summary />
     private static void CopyTo(Stream src, Stream dest)
     {
-        byte[] bytes = new byte[4096];
+        var bytes = new byte[4096];
 
         int cnt;
 
@@ -54,5 +54,4 @@ public class CustomEmoji : Emoji
             dest.Write(bytes, 0, cnt);
         }
     }
-
 }

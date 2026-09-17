@@ -2,9 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,12 +17,15 @@ public partial class FluentEmoji<Emoji> : FluentComponentBase
     private Emoji _emoji = default!;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    public FluentEmoji(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width ?? $"{_emoji.Width}px")
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width ?? string.Create(CultureInfo.InvariantCulture, $"{_emoji.Width}px"))
         .AddStyle("cursor", "pointer", OnClick.HasDelegate)
         .AddStyle("display", "inline-block", !ContainsSVG())
         .Build();
@@ -89,11 +92,11 @@ public partial class FluentEmoji<Emoji> : FluentComponentBase
     private bool ContainsSVG()
     {
         return !string.IsNullOrEmpty(_emoji.Content) &&
-               (_emoji.Content.StartsWith("<path ") ||
-                _emoji.Content.StartsWith("<rect ") ||
-                _emoji.Content.StartsWith("<g ") ||
-                _emoji.Content.StartsWith("<circle ") ||
-                _emoji.Content.StartsWith("<mark "));
+               (_emoji.Content.StartsWith("<path ", StringComparison.Ordinal) ||
+                _emoji.Content.StartsWith("<rect ", StringComparison.Ordinal) ||
+                _emoji.Content.StartsWith("<g ", StringComparison.Ordinal) ||
+                _emoji.Content.StartsWith("<circle ", StringComparison.Ordinal) ||
+                _emoji.Content.StartsWith("<mark ", StringComparison.Ordinal));
 
     }
 }

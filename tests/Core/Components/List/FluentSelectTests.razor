@@ -1,0 +1,662 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
+@inherits FluentUITestContext
+@code
+{
+    private readonly IEnumerable<string?> Digits = new[] { null, "One", "Two", "Three" };
+
+    private enum MyDigitsEnum
+    {
+        One,
+        Two,
+        Three
+    }
+
+    public FluentSelectTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSelect_Default()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Placeholder="Select a digit" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Label()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Label="List of digits" Required="true" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Manual()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect TOption="string" TValue="string">
+    <FluentOptionString Value="One">One</FluentOptionString>
+    <FluentOptionString Value="Two">Two</FluentOptionString>
+    <FluentOptionString Value="Three">Three</FluentOptionString>
+</FluentSelect>
+    );
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Template()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" TOption="string" TValue="string">
+            <OptionTemplate>
+                @if (!String.IsNullOrEmpty(context))
+                {
+                    <span>[</span>
+                    @context
+                    <span>]</span>
+                }
+            </OptionTemplate>
+        </FluentSelect>);
+
+        // Assert
+        var two = cut.Find("fluent-option[value='Two']");
+        Assert.Equal("[Two]", two.GetInnerText());
+    }
+
+    [Fact]
+    public void FluentSelect_Enum()
+    {
+        MyDigitsEnum selectedColor = MyDigitsEnum.One;
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@GetEnumValues()" @bind-Value="@selectedColor" />);
+
+        // Assert
+        cut.Verify();
+
+        // Local function
+        IEnumerable<MyDigitsEnum> GetEnumValues() => Enum.GetValues(typeof(MyDigitsEnum)).Cast<MyDigitsEnum>();
+    }
+
+    [Fact]
+    public void FluentSelect_OptionFunctions()
+    {
+        // Arrange && Act
+        //  - Disable the "Two" option
+        //  - Uppercase the text
+        //  - Add a prefix to the value
+        //  - Select the "One" option
+        var cut = Render(@<FluentSelect Items="@Digits"
+                      OptionDisabled="@(item => item == "Two")"
+                      OptionText="@(item => item?.ToUpper())"
+                      OptionValue="@(item => $"value-{item}")" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_OptionClass()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" OptionClass="my-option" TOption="string" TValue="string" />);
+
+        // Assert - the custom CSS class is applied to every rendered option
+        var options = cut.FindAll("fluent-option");
+
+        Assert.NotEmpty(options);
+        Assert.All(options, option => Assert.Contains("my-option", option.GetAttribute("class")));
+    }
+
+    [Fact]
+    public void FluentSelect_OptionNoWrapMaxWidth()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" OptionNoWrapMaxWidth="200px" TOption="string" TValue="string" />);
+
+        // Assert - the no-wrap attribute is applied to the listbox with the provided max width
+        var listbox = cut.Find("fluent-listbox");
+
+        Assert.True(listbox.HasAttribute("no-wrap"));
+        Assert.Equal("200px", listbox.GetAttribute("no-wrap"));
+    }
+
+    [Fact]
+    public void FluentSelect_Default_InitialSelection()
+    {
+        string? value = "Two";
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" Value="@value" />);
+        var two = cut.Find("fluent-option[value='Two']");
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public void FluentSelect_Binding_InitialSelection()
+    {
+        string? value = "Two";
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
+        var two = cut.Find("fluent-option[value='Two']");
+
+        // Assert
+        Assert.True(two.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public void FluentSelect_Binding_Updated()
+    {
+        string? value = "Two";
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
+
+        // Act and re-render
+        cut.FindComponent<FluentSelect<string, string>>().Render(parameters => parameters.Add(p => p.Value, "One"));
+        var one = cut.Find("fluent-option[value='One']");
+
+        // Assert
+        Assert.True(one.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public async Task FluentSelect_Multiple()
+    {
+        string value = "One";
+        IEnumerable<string> selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentSelect Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "One" || i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal("One", value);
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData("InvalidId1;InvalidId2")]
+    [InlineData("InvalidId1;    InvalidId2")]
+    [InlineData("InvalidId1")]
+    public async Task FluentSelect_Multiple_Unselect(string? selectedOptions)
+    {
+        string? value = "One";
+        IEnumerable<string>? selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentSelect Id="MyList" Multiple="true" Items="@Digits" @bind-Value="@value" @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            Id = "MyList",
+            Type = "",
+            SelectedOptions = selectedOptions,
+        });
+
+        // Assert
+        Assert.Null(value);
+        Assert.Empty(selectedItems);
+    }
+
+    [Fact]
+    public async Task FluentSelect_Multiple_OptionSelectedComparer()
+    {
+        string? value = "One";
+        IEnumerable<string>? selectedItems = ["One",];
+
+        // Arrange
+        var cut = Render(@<FluentSelect
+            Id="MyList"
+            Multiple="true"
+            Items="@Digits"
+            OptionSelectedComparer="@(StringComparer.InvariantCultureIgnoreCase)"
+            @bind-Value="@value"
+            @bind-SelectedItems="@selectedItems" />);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            Id = "MyList",
+            Type = "",
+            SelectedOptions = "ONE",    // Upper case to validate the "Ignore case"
+        });
+
+        // Assert
+        Assert.Null(value);
+        Assert.Empty(selectedItems);
+    }
+
+    [Fact]
+    public void FluentSelect_Data()
+    {
+        // Arrange
+        var myData = "MyData";
+        var cut = Render(@<FluentSelect Items="@Digits" Data="@myData" TOption="string" TValue="string" />);
+
+        // Assert
+        var component = cut.FindComponent<FluentSelect<string, string>>();
+        Assert.Equal("MyData", component.Instance.Data);
+    }
+
+    [Fact]
+    public async Task FluentSelect_Option_Clicked()
+    {
+        string? value = "One";
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@Digits" @bind-Value="@value" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal("Two", value);
+    }
+
+    [Theory]
+    [InlineData(ListAppearance.Outline, null)]
+    [InlineData(ListAppearance.FilledLighter, "filled-lighter")]
+    [InlineData(ListAppearance.FilledDarker, "filled-darker")]
+    [InlineData(ListAppearance.Transparent, "transparent")]
+    [InlineData((ListAppearance)999, null)]
+    [InlineData(null, null)]
+    public void FluentSelect_Appearance(ListAppearance? appearance, string? expected)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Appearance="@appearance" Items="@Digits" TOption="string" TValue="string" />);
+        var attribute = cut.Find("fluent-dropdown").GetAttribute("appearance");
+
+        // Assert
+        Assert.Equal(expected, attribute);
+    }
+
+    [Theory]
+    [InlineData(ListSize.Medium, null)]
+    [InlineData(ListSize.Large, "large")]
+    [InlineData(ListSize.Small, "small")]
+    [InlineData((ListSize)999, null)]
+    [InlineData(null, null)]
+    public void FluentSelect_Size(ListSize? size, string? expected)
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Size="@size" Items="@Digits" TOption="string" TValue="string" />);
+        var attribute = cut.Find("fluent-dropdown").GetAttribute("size");
+
+        // Assert
+        Assert.Equal(expected, attribute);
+    }
+
+    [Fact]
+    public void FluentSelect_ControlStyle_AppliesStyleToInternalControl()
+    {
+        // Arrange and Act
+        Render(@<FluentSelect ControlStyle="color: red;" Items="@Digits" TOption="string" TValue="string" />);
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle");
+        Assert.Equal(3, invocation.Arguments.Count);
+        Assert.IsType<ElementReference>(invocation.Arguments[0]);
+        Assert.Equal(":host .control", invocation.Arguments[1]);
+        Assert.Equal("color: red;", invocation.Arguments[2]);
+    }
+
+    [Theory]
+    [InlineData("1", 1, null)]
+    [InlineData("abc", 0, "The 'Unknown Bound Field' field is not valid.")]
+    public void FluentSelect_TryParseValueFromString(string? value, int? expectedParsedValue, string? expectedValidationErrorMessage)
+    {
+        // Arrange
+        var fluentSelect = new FluentSelect<int, int>(LibraryConfiguration.Empty);
+
+        // Act
+        fluentSelect.InternalTryParseValueFromString(value, out var parsedValue, out var validationErrorMessage);
+
+        // Assert
+        Assert.Equal(expectedParsedValue, parsedValue);
+        Assert.Equal(expectedValidationErrorMessage, validationErrorMessage);
+    }
+
+    [Fact]
+    public async Task FluentSelect_ClearAsync()
+    {
+        var value = "Two";
+        IEnumerable<string> selectedItems = ["Two"];
+        IEnumerable<string>? capturedSelectedItems = null;
+        var selectedItemsChangedCalled = false;
+
+        // Arrange
+        var cut = Render(@<FluentSelect
+            TOption="string"
+            TValue="string"
+            Items="@Digits"
+            Value="@value" 
+            SelectedItems="@selectedItems"
+            SelectedItemsChanged="@(items => { capturedSelectedItems = items; selectedItemsChangedCalled = true; })" />);
+
+        // Verify initial state
+        var two = cut.Find("fluent-option[value='Two']");
+        Assert.True(two.HasAttribute("selected"));
+        Assert.Equal(new[] { "Two" }, selectedItems);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.ClearAsync();
+
+        // Assert
+        Assert.True(selectedItemsChangedCalled, "SelectedItemsChanged should have been invoked");
+        Assert.NotNull(capturedSelectedItems);
+        Assert.Empty(capturedSelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentSelect_ClearAsync_Multiple()
+    {
+        var value = "One";
+        IEnumerable<string>? selectedItems = ["One", "Two"];
+        IEnumerable<string>? capturedSelectedItems = null;
+        var selectedItemsChangedCalled = false;
+
+        // Arrange
+        var cut = Render(@<FluentSelect
+            TOption="string"
+            TValue="string"
+            Multiple="true"
+            Items="@Digits" 
+            Value="@value" 
+            SelectedItems="@selectedItems"
+            SelectedItemsChanged="@(items => { capturedSelectedItems = items; selectedItemsChangedCalled = true; })" />);
+
+        // Verify initial state
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.ClearAsync();
+
+        // Assert
+        Assert.True(selectedItemsChangedCalled, "SelectedItemsChanged should have been invoked");
+        Assert.NotNull(capturedSelectedItems);
+        Assert.Empty(capturedSelectedItems);
+    }
+
+    [Fact]
+    public async Task FluentSelect_Manual_OnDropdownChange()
+    {
+        string? selectedValue = null;
+        var valueChangedCalled = false;
+
+        // Arrange - Using manual FluentOptionString elements (no Items collection)
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" ValueChanged="@(v => { selectedValue = v; valueChangedCalled = true; })">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+            <FluentOptionString Value="Three">Three</FluentOptionString>
+        </FluentSelect>);
+
+        // Get the ID of the "Two" option to simulate selection
+        var twoOption = cut.Find("fluent-option[value='Two']");
+        var twoId = twoOption.GetAttribute("id");
+
+        // Act - Simulate dropdown change with the ID of the "Two" option
+        await cut.FindComponent<FluentSelect<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = twoId,
+        });
+
+        // Assert
+        Assert.True(valueChangedCalled, "ValueChanged should have been invoked");
+        Assert.Equal("Two", selectedValue);
+    }
+
+    [Fact]
+    public async Task FluentSelect_Manual_Multiple_OnDropdownChange()
+    {
+        IEnumerable<string> selectedItems = [];
+
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" Multiple="true" @bind-SelectedItems="@selectedItems">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+            <FluentOptionString Value="Three">Three</FluentOptionString>
+        </FluentSelect>);
+        var selectedIds = cut.FindAll("fluent-option")
+                             .Where(option => option.GetAttribute("value") is "One" or "Two")
+                             .Select(option => option.GetAttribute("id"));
+
+        await cut.FindComponent<FluentSelect<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', selectedIds),
+        });
+
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Fact]
+    public async Task FluentSelect_Manual_OnDropdownChange_EmptySelection()
+    {
+        string? selectedValue = "One";
+        var valueChangedCalled = false;
+
+        // Arrange - Using manual FluentOptionString elements (no Items collection)
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" Value="@selectedValue" ValueChanged="@(v => { selectedValue = v; valueChangedCalled = true; })">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+        </FluentSelect>);
+
+        // Act - Simulate dropdown change with empty selection
+        await cut.FindComponent<FluentSelect<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = "",
+        });
+
+        // Assert - Value should be cleared to default
+        Assert.True(valueChangedCalled, "ValueChanged should have been invoked");
+        Assert.Null(selectedValue);
+    }
+
+    [Fact]
+    public void FluentSelect_GetOptionValue_DefaultWhenTypesAreDifferent()
+    {
+        // Arrange - Create a scenario where TOption != TValue and no OptionValue function
+        // Using a Person object as TOption and int as TValue
+        var people = new[]
+        {
+            new Person { Id = 1, Name = "Alice" },
+            new Person { Id = 2, Name = "Bob" }
+        };
+
+        // Act - This tests the GetOptionValue method path where typeof(TOption) != typeof(TValue)
+        // and OptionValue is null, which should return default (0 for int)
+        var cut = Render(@<FluentSelect Items="@people" TOption="Person" TValue="int" />);
+
+        // Assert - No exception should be thrown, component renders correctly
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_GetOptionValue_WithOptionValueFunc()
+    {
+        // Arrange - Create a scenario where TOption != TValue but OptionValue is provided
+        var people = new[]
+        {
+            new Person { Id = 1, Name = "Alice" },
+            new Person { Id = 2, Name = "Bob" }
+        };
+
+        int? selectedId = 1;
+
+        // Act - This uses the OptionValue function to extract the value
+        var cut = Render(@<FluentSelect 
+            Items="@people" 
+            TOption="Person" 
+            TValue="int?" 
+            Value="@selectedId"
+            OptionValue="@(p => p?.Id)"
+            OptionText="@(p => p?.Name)" />);
+
+        // Assert - Alice should be selected
+        var selectedOption = cut.Find("fluent-option[selected]");
+        Assert.Equal("Alice", selectedOption.GetInnerText());
+    }
+
+    [Fact]
+    public void FluentSelect_Width_And_Height()
+    {
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@Digits" TOption="string" TValue="string" Width="200px" Height="300px" />);
+
+        // Assert - Width is applied to the dropdown, Height to the listbox
+        var field = cut.Find("fluent-field");
+        var dropdown = cut.Find("fluent-dropdown");
+        var dropdownStyle = dropdown.GetAttribute("style");
+        var fieldStyle = field.GetAttribute("style");
+        
+        Assert.Contains("width: 200px", fieldStyle);
+
+        var listbox = cut.Find("fluent-listbox");
+        var listboxStyle = listbox.GetAttribute("style");
+        Assert.Contains("max-height: 300px", listboxStyle);
+
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_NullableEnum_InitialSelection()
+    {
+        MyDigitsEnum? value = MyDigitsEnum.Two;
+        var items = Enum.GetValues<MyDigitsEnum>();
+
+        // Arrange and Act
+        var cut = Render(@<FluentSelect Items="@items" @bind-Value="@value" />);
+        var two = cut.Find("fluent-option[value='Two']");
+
+        // Assert - The nullable enum value should be correctly selected
+        Assert.True(two.HasAttribute("selected"));
+    }
+
+    [Fact]
+    public async Task FluentSelect_NullableEnum_OnDropdownChange()
+    {
+        MyDigitsEnum? value = MyDigitsEnum.One;
+        var items = Enum.GetValues<MyDigitsEnum>();
+
+        // Arrange
+        var cut = Render(@<FluentSelect Items="@items" @bind-Value="@value" />);
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "Three")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<MyDigitsEnum, MyDigitsEnum?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal(MyDigitsEnum.Three, value);
+    }
+
+    [Fact]
+    public void FluentSelect_SelectedItemsExpression_DefaultIsNotNull()
+    {
+        IEnumerable<string> selectedItems = ["Two"];
+
+        // Arrange - Render without supplying SelectedItemsExpression (manual one-way binding scenario)
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Multiple="true"
+                                        Items="@Digits"
+                                        SelectedItems="@selectedItems"
+                                        SelectedItemsChanged="@((IEnumerable<string> v) => selectedItems = v)" />);
+
+        // Assert - The constructor sets a default expression so consumers using manual
+        // one-way binding (SelectedItems + SelectedItemsChanged only) still get a non-null expression.
+        var instance = cut.FindComponent<FluentSelect<string, string>>().Instance;
+        Assert.NotNull(instance.SelectedItemsExpression);
+        Assert.Equal(new[] { "Two" }, instance.SelectedItemsExpression!.Compile().Invoke());
+    }
+
+    [Fact]
+    public async Task FluentSelect_SelectedItemsExpression_ManualOneWayBinding()
+    {
+        // This test compiles ONLY because SelectedItemsExpression exists as a [Parameter].
+        // Razor's @bind-SelectedItems:get/:set syntax emits SelectedItems, SelectedItemsChanged
+        // AND SelectedItemsExpression on the component.
+        IEnumerable<string> selectedItems = ["One"];
+
+        // Arrange
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Multiple="true"
+                                        Items="@Digits"
+                                        @bind-SelectedItems:get="selectedItems"
+                                        @bind-SelectedItems:set="@((IEnumerable<string> v) => { selectedItems = v; return Task.CompletedTask; })" />);
+
+        var ids = cut.FindAll("fluent-option")
+                     .Where(i => i.GetAttribute("value") == "One" || i.GetAttribute("value") == "Two")
+                     .Select(i => i.GetAttribute("id"));
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = string.Join(';', ids),
+        });
+
+        // Assert
+        Assert.Equal(new[] { "One", "Two" }, selectedItems);
+    }
+
+    [Fact]
+    public void FluentSelect_SelectedItemsExpression_ExplicitlyProvided()
+    {
+        IEnumerable<string> selectedItems = ["Three"];
+        System.Linq.Expressions.Expression<Func<IEnumerable<string>>> expression = () => selectedItems;
+
+        // Arrange - Explicitly provide SelectedItemsExpression
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Multiple="true"
+                                        Items="@Digits"
+                                        SelectedItems="@selectedItems"
+                                        SelectedItemsChanged="@((IEnumerable<string> v) => selectedItems = v)"
+                                        SelectedItemsExpression="@expression" />);
+
+        // Assert - The supplied expression overrides the default set in the constructor
+        var instance = cut.FindComponent<FluentSelect<string, string>>().Instance;
+        Assert.Same(expression, instance.SelectedItemsExpression);
+    }
+
+    public record Person
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+    }
+}

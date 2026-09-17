@@ -3,27 +3,38 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// A container-type component that can be used to arrange its child components in a horizontal or vertical stack.
+/// </summary>
 public partial class FluentStack : FluentComponentBase
 {
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("stack-horizontal", () => Orientation == Orientation.Horizontal)
-        .AddClass("stack-vertical", () => Orientation == Orientation.Vertical)
+    /// <summary />
+    public FluentStack(LibraryConfiguration configuration) : base(configuration) { }
+
+    [Inject]
+    private LibraryConfiguration Configuration { get; set; } = default!;
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-stack-horizontal", () => Orientation == Orientation.Horizontal)
+        .AddClass("fluent-stack-vertical", () => Orientation == Orientation.Vertical)
         .Build();
 
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
         .AddStyle("justify-content", GetVerticalAlignment(), () => Orientation == Orientation.Vertical)
+        .AddStyle("align-items", GetHorizontalAlignment(), () => Orientation == Orientation.Vertical)
 
         .AddStyle("justify-content", GetHorizontalAlignment(), () => Orientation == Orientation.Horizontal)
         .AddStyle("align-items", GetVerticalAlignment(), () => Orientation == Orientation.Horizontal)
 
-        .AddStyle("column-gap", $"{HorizontalGap}px", () => HorizontalGap.HasValue)
-        .AddStyle("row-gap", $"{VerticalGap}px", () => VerticalGap.HasValue)
+        .AddStyle("column-gap", HorizontalGap.AddMissingPx(), () => !string.IsNullOrEmpty(HorizontalGap))
+        .AddStyle("row-gap", VerticalGap.AddMissingPx(), () => !string.IsNullOrEmpty(VerticalGap))
         .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
         .AddStyle("flex-wrap", "wrap", () => Wrap)
 
         .Build();
@@ -50,16 +61,16 @@ public partial class FluentStack : FluentComponentBase
     public Orientation Orientation { get; set; } = Orientation.Horizontal;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the stack is reversed.
-    /// </summary>
-    [Parameter]
-    public bool? Reversed { get; set; }
-
-    /// <summary>
     /// Gets or sets the width of the stack as a percentage string (default = 100%).
     /// </summary>
     [Parameter]
     public string? Width { get; set; } = "100%";
+
+    /// <summary>
+    /// Gets or sets the height of the stack.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the stack wraps.
@@ -68,18 +79,28 @@ public partial class FluentStack : FluentComponentBase
     public bool Wrap { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the gap between horizontally stacked components (in pixels).
-    /// Default is 10 pixels.
+    /// Gets or sets the gap between horizontally stacked components (e.g., <c>HorizontalGap="8px"</c>).
+    /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
+    /// Use <see cref="VerticalGap"/> to set the vertical gap.
+    /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/column-gap">column-gap</see> property.
     /// </summary>
     [Parameter]
-    public int? HorizontalGap { get; set; } = 10;
+    public string? HorizontalGap { get; set; }
 
     /// <summary>
-    /// Gets or sets the gap between vertically stacked components (in pixels).
-    /// Default is 10 pixels.
+    /// Gets or sets the gap between vertically stacked components (e.g., <c>VerticalGap="8px"</c>).
+    /// Default is undefined. You can define the default value in the <see cref="LibraryConfiguration.DefaultStyles"/>.
+    /// Use <see cref="HorizontalGap"/> to set the horizontal gap.
+    /// See the CSS <see href="https://developer.mozilla.org/docs/Web/CSS/row-gap">row-gap</see> property.
     /// </summary>
     [Parameter]
-    public int? VerticalGap { get; set; } = 10;
+    public string? VerticalGap { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the stack is reversed.
+    /// </summary>
+    [Parameter]
+    public bool? Reversed { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -87,6 +108,16 @@ public partial class FluentStack : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        HorizontalGap ??= Configuration.DefaultStyles.FluentStackHorizontalGap;
+        VerticalGap ??= Configuration.DefaultStyles.FluentStackVerticalGap;
+    }
+
+    /// <summary />
     private string GetHorizontalAlignment()
     {
         return HorizontalAlignment switch
@@ -102,6 +133,7 @@ public partial class FluentStack : FluentComponentBase
         };
     }
 
+    /// <summary />
     private string GetVerticalAlignment()
     {
         return VerticalAlignment switch

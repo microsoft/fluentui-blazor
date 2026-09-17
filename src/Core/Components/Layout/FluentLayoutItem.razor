@@ -1,0 +1,10 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+@if (RenderThisArea())
+{
+    <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes" area="@Area.ToAttributeValue()" sticky="@Sticky" inside-layout="@(LayoutContainer is not null)">
+        @ChildContent
+    </div>
+}

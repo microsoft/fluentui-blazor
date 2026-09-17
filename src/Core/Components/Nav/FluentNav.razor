@@ -1,0 +1,14 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<CascadingValue Value="this" IsFixed="true">
+    <nav id="@Id"
+         role="navigation"
+         class="@ClassValue"
+         style="@StyleValue"
+         density="@Density.ToAttributeValue()"
+         @attributes="@AdditionalAttributes">
+        @ChildContent
+    </nav>
+</CascadingValue>

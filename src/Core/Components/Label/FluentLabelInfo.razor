@@ -1,0 +1,64 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentLabel
+
+<span id="@Id"
+      class="@ClassValue"
+      style="@StyleValue"
+      @attributes="AdditionalAttributes">
+
+    @if (FluentField is null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        <fluent-label size="@Size.ToAttributeValue()"
+                      weight="@Weight.ToAttributeValue()"
+                      disabled="@Disabled"
+                      required="@Required">
+            @ChildContent
+        </fluent-label>
+    }
+
+    @if (HasInfoContent)
+    {
+        <button id="@_infoButtonId"
+                type="button"
+                aria-label="@(string.IsNullOrEmpty(InfoText) ? Localizer[Localization.LanguageResource.LabelInfo_InfoText] : InfoText)"
+                aria-expanded="@(_infoOpened ? "true" : "false")"
+                @onclick="OnInfoToggleAsync">
+            <FluentIcon Value="@InfoIcon"
+                        part="rest" />
+            <FluentIcon Value="@InfoIconActive"
+                        part="active" />
+        </button>
+
+        <FluentPopover AnchorId="@_infoButtonId"
+                       Opened="@_infoOpened"
+                       OpenedChanged="@(value => _infoOpened = value)">
+            @if (InfoTemplate is not null)
+            {
+                @InfoTemplate
+            }
+            else
+            {
+                @if (!string.IsNullOrEmpty(InfoText))
+                {
+                    <FluentText part="info-text">
+                        @InfoText
+                    </FluentText>
+                }
+
+                @if (!string.IsNullOrEmpty(InfoActionLink))
+                {
+                    <FluentLink Href="@InfoActionLink"
+                                part="info-link"
+                                Target="@InfoActionTarget">
+                        @(InfoActionText ?? Localizer[Localization.LanguageResource.LabelInfo_InfoActionText])
+                    </FluentLink>
+                }
+            }
+        </FluentPopover>
+    }
+</span>

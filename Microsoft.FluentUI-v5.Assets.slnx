@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/Emoji/">
+    <Project Path="src/Assets/FluentUI.Emojis/Components.Emoji.Package.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/Activities/Emoji.Activities.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/AnimalsNature/Emoji.AnimalsNature.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/Flags/Emoji.Flags.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/FoodDrink/Emoji.FoodDrink.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/Objects/Emoji.Objects.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/PeopleBody/Emoji.PeopleBody.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/SmileysEmotion/Emoji.SmileysEmotion.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/Symbols/Emoji.Symbols.csproj" />
+    <Project Path="src/Assets/FluentUI.Emojis/Emojis/TravelPlaces/Emoji.TravelPlaces.csproj" />
+  </Folder>
+  <Folder Name="/Icons/">
+    <Project Path="src/Assets/FluentUI.Icons/Components.Icons.Package.csproj" />
+    <Project Path="src/Assets/FluentUI.Icons/Icons/Color/Icons.Color.csproj" />
+    <Project Path="src/Assets/FluentUI.Icons/Icons/Filled/Icons.Filled.csproj" />
+    <Project Path="src/Assets/FluentUI.Icons/Icons/Light/Icons.Light.csproj" />
+    <Project Path="src/Assets/FluentUI.Icons/Icons/Regular/Icons.Regular.csproj" />
+  </Folder>
+  <Project Path="src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj" />
+  <Project Path="src/Assets/Generator/AssetsGenerator.csproj" />
+</Solution>

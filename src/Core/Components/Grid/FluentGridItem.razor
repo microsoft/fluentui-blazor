@@ -1,7 +1,10 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-<div class="@ClassValue" style="@StyleValue" xs="@(NoBreakpointsDefined() ? 0 : xs)" sm=@sm md=@md lg=@lg xl=@xl xxl=@xxl hidden-when="@HiddenAttribute" @attributes="AdditionalAttributes">
+<div id="@Id" class="@ClassValue"
+     style="@StyleValue"
+     hidden-when="@HiddenAttribute" @attributes="AdditionalAttributes"
+     xs="@(NoBreakpointsDefined() ? 0 : Xs)" sm="@Sm" md="@Md" lg="@Lg" xl="@Xl" xxl="@Xxl">
     @if (RenderChildContent())
     {
         @ChildContent

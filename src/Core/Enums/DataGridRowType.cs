@@ -25,5 +25,5 @@ public enum DataGridRowType
     /// A sticky header row.
     /// </summary>
     [Description("sticky-header")]
-    StickyHeader
+    StickyHeader,
 }

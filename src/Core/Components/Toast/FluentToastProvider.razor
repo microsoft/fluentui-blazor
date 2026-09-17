@@ -1,22 +1,41 @@
-﻿@using Microsoft.AspNetCore.Components.Rendering
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
 
-@if (_toastList.Any())
-{
-    <div class="fluent-toast-provider @_positionClass">
-        <CascadingValue TValue="InternalToastContext" IsFixed="true" Value="@_internalToastContext">
-            @_renderToasts
-        </CascadingValue>
-    </div>
-
-}
-
-@code {
-    protected void RenderToasts(RenderTreeBuilder __builder)
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="AdditionalAttributes">
+    @if (NotificationService != null)
     {
-        @foreach (ToastInstance toast in _toastList.OrderBy(x => x.Parameters.Timestamp))
+        @foreach (var toast in GetRenderedToasts())
         {
-            <FluentToast @key="@toast" Id="@toast.Id" Instance="@toast"  Data="@toast.Content"/>
+            <CascadingValue @key="toast.Id"
+                            Value="toast"
+                            IsFixed="true">
+                <FluentToast Id="@toast.Id"
+                             Class="@toast.Options.ClassValue"
+                             Style="@toast.Options.StyleValue"
+                             Data="@toast.Options.Data"
+                             Lifetime="@(GetLifetime(toast))"
+                             Position="@(toast.Options.Position ?? configuration.Toast.Position)"
+                             VerticalOffset="@(toast.Options.VerticalOffset ?? configuration.Toast.VerticalOffset)"
+                             HorizontalOffset="@(toast.Options.HorizontalOffset ?? configuration.Toast.HorizontalOffset)"
+                             Inverted="@(toast.Options.Inverted ?? configuration.Toast.Inverted)"
+                             Intent="@toast.Options.Intent"
+                             Politeness="@toast.Options.Politeness"
+                             PauseOnHover="@(toast.Options.PauseOnHover ?? configuration.Toast.PauseOnHover)"
+                             PauseOnWindowBlur="@(toast.Options.PauseOnWindowBlur ?? configuration.Toast.PauseOnWindowBlur)"
+                             OnStatusChange="@GetOnStatusChangeCallback(toast)"
+                             Icon="@toast.Options.Icon"
+                             Title="@toast.Options.Title"
+                             Subtitle="@toast.Options.Subtitle"
+                             ChildContent="@RenderToastContent(toast)"
+                             AllowDismiss="@(toast.Options.AllowDismiss ?? configuration.Toast.AllowDismiss)"
+                             DismissAction="@toast.Options.DismissAction"
+                             FooterTemplate="@RenderFooterContent(toast)"
+                             Width="@(toast.Options.Width ?? configuration.Toast.Width)"
+                             AdditionalAttributes="@toast.Options.AdditionalAttributes" />                
+            </CascadingValue>
         }
     }
-}
+</div>

@@ -1,33 +1,71 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
+@typeparam TItem
 
-<CascadingValue Value="this">
-    <div id="@Id" class="@ClassValue" style="@StyleValue" orientation="@(Orientation.ToAttributeValue())">
-        @ChildContent
-        <div id="@IdMoreButton" class="fluent-overflow-more" style="@(ItemsOverflow.Count() <= 0 ? "display: none;" : "")" fixed>
-            @if (MoreButtonTemplate != null)
-            {
-                @MoreButtonTemplate(this)
-            }
-            else
-            {
-                <FluentBadge Appearance="Appearance.Neutral" Style="min-width: 32px; max-width:32px;">
-                    @($"+{ItemsOverflow.Count()}")
-                </FluentBadge>
-            }
-        </div>
-    </div>
-    @if (OverflowTemplate != null)
+<fluent-overflow id="@Id"
+                 class="@ClassValue"
+                 style="@StyleValue"
+                 orientation="@(Orientation.ToAttributeValue())"
+                 selector="@(Items is null ? Selector : null)"
+                 visible-on-load="@(VisibleOnLoad ? "true" : "false")"
+                 pre-overflow-count="@(Items is null ? null : PreOverflowCount)"
+                 @onoverflowchange="@OnOverflowChangedAsync"
+                 @attributes="@AdditionalAttributes">
+    @if (Items is null)
     {
-        @OverflowTemplate(this)
+        @ChildContent
     }
     else
     {
-        <FluentTooltip UseTooltipService="false" Anchor="@IdMoreButton">
+        @foreach (var item in _sourceItems.Take(RenderedItemCount))
+        {
+            @ItemTemplate?.Invoke(item)
+        }
+    }
+    <div id="@IdMoreButton"
+         class="fluent-overflow-more"
+         style="@MoreButtonStyleValue"
+         slot="trigger"
+         role="@(HasDefaultMoreAction ? "button" : null)"
+         tabindex="@(MoreTemplate is null ? "0" : null)"
+         @onclick="@(HasDefaultMoreAction ? OnMoreClick : default)"
+         @onkeydown="OnMoreKeyDownAsync">
+        @if (MoreTemplate != null)
+        {
+            @MoreTemplate(OverflowContext)
+        }
+        else
+        {
+            <FluentBadge Appearance="BadgeAppearance.Filled"
+                         Style="min-width: 32px; max-width:32px;"
+                         Content="@($"+{OverflowCount}")" />
+        }
+    </div>
+</fluent-overflow>
+@if (OverflowTemplate != null)
+{
+    @OverflowTemplate(OverflowContext)
+}
+else
+{
+    <FluentTooltip UseTooltipService="@UseTooltipService"
+                   Anchor="@IdMoreButton"
+                   Positioning="Positioning.BelowStart"
+                   Style="flex-direction: column; row-gap: 4px;">
+        @if (Items is null)
+        {
             @foreach (var item in ItemsOverflow)
             {
-                <div style="margin: 5px;">@item.Text</div>
+                <div>@item.Text</div>
             }
-        </FluentTooltip>
-    }
-</CascadingValue>
+        }
+        else
+        {
+            @foreach (var item in _overflowItems)
+            {
+                <div>@(ItemText is null ? $"{item}" : ItemText(item))</div>
+            }
+        }
+    </FluentTooltip>
+}

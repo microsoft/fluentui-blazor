@@ -1,0 +1,21 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChart ChartTitle="Horizontal bar chart hide ratio example"
+                          Variant="@HorizontalBarChartVariant.SingleBar"
+                          HideRatio="true"
+                          ChartData="@ChartData">
+</FluentHorizontalBarChart>
+
+@code {
+    private IReadOnlyList<HorizontalBarChartSeries> ChartData =
+    [
+        new HorizontalBarChartSeries { ChartSeriesTitle = "one",   ChartData = [ new HorizontalBarChartDataPoint { Legend = "one",   Data = 1543,  Total = 15000, Color = DataVizPalette.Color1 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "two",   ChartData = [ new HorizontalBarChartDataPoint { Legend = "two",   Data = 800,   Total = 15000, Color = DataVizPalette.Color2 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "three", ChartData = [ new HorizontalBarChartDataPoint { Legend = "three", Data = 8888,  Total = 15000, Color = DataVizPalette.Color3 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "four",  ChartData = [ new HorizontalBarChartDataPoint { Legend = "four",  Data = 15888, Total = 15000, Color = DataVizPalette.Color4 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "five",  ChartData = [ new HorizontalBarChartDataPoint { Legend = "five",  Data = 11444, Total = 15000, Color = DataVizPalette.Color5 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "six",   ChartData = [ new HorizontalBarChartDataPoint { Legend = "six",   Data = 14000, Total = 15000, Color = DataVizPalette.Color6 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "seven", ChartData = [ new HorizontalBarChartDataPoint { Legend = "seven", Data = 9855,  Total = 15000, Color = DataVizPalette.Color7 } ] },
+        new HorizontalBarChartSeries { ChartSeriesTitle = "eight", ChartData = [ new HorizontalBarChartDataPoint { Legend = "eight", Data = 4250,  Total = 15000, Color = DataVizPalette.Color8 } ] },
+    ];
+}

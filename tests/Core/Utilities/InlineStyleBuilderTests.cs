@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public class InlineStyleBuilderTests : TestBase
+public class InlineStyleBuilderTests
 {
     [Fact]
     public void InlineStyleBuilder_Default()
@@ -35,6 +35,16 @@ public class InlineStyleBuilderTests : TestBase
 
         // Assert - Values are sorted
         Assert.Equal(@"<style> div { color: red; } </style>", styleBuilder.Build(newLineSeparator: false));
+    }
+
+    [Fact]
+    public void InlineStyleBuilder_EmptyValue()
+    {
+        // Assert
+        var styleBuilder = new InlineStyleBuilder();
+
+        // Assert - Values are sorted
+        Assert.Null(styleBuilder.Build());
     }
 
     [Fact]
@@ -74,7 +84,6 @@ public class InlineStyleBuilderTests : TestBase
 
         // Assert - Values are sorted
         Assert.Null(styleBuilder.Build(newLineSeparator: false));
-        Assert.Equal(string.Empty, styleBuilder.BuildMarkupString().Value);
     }
 
     [Fact]
@@ -87,8 +96,7 @@ public class InlineStyleBuilderTests : TestBase
         styleBuilder.AddStyle("div", "color", "red", true);
         styleBuilder.AddStyle("div", "color", "green", false);
 
-        // Assert
-        Assert.Equal("<style>\r\ndiv { color: red; }\r\n</style>", styleBuilder.BuildMarkupString().Value);
+        // Assert 
         Assert.Equal(@"<style> div { color: red; } </style>", styleBuilder.Build(newLineSeparator: false));
     }
 
@@ -102,7 +110,21 @@ public class InlineStyleBuilderTests : TestBase
         styleBuilder.AddStyle("test1", "test", "", true);
         styleBuilder.AddStyle("test2", "", "", false);
 
-        // Assert
+        // Assert 
         Assert.Null(styleBuilder.Build());
+    }
+
+    [Fact]
+    public void InlineStyleBuilder_ToString()
+    {
+        // Assert
+        var styleBuilder = new InlineStyleBuilder();
+
+        // Act
+        styleBuilder.AddStyle("test1", "test", "", true);
+        styleBuilder.AddStyle("test2", "", "", false);
+
+        // Assert 
+        Assert.Null(styleBuilder.ToString());
     }
 }

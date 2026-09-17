@@ -1,0 +1,260 @@
+.doc-viewer ::deep .component-not-found {
+  padding: 12px;
+  border: 1px dashed red;
+  background-color: lightyellow;
+  color: red;
+  font-weight: bold;
+}
+
+/* Default documentation styles */
+
+.doc-viewer {
+  padding: 16px;
+}
+
+  .doc-viewer ::deep p {
+    line-height: 180%;
+  }
+
+  /* blockquote */
+
+  .doc-viewer ::deep blockquote {
+    padding: 1px 12px 1px 12px;
+    margin-inline-end: 0px;
+    margin-inline-start: 15px;
+    background-color: var(--colorBrandBackground2);
+    border-left: 6px solid var(--colorBrandBackground);
+  }
+
+  /* Keywords */
+  .doc-viewer ::deep span[keyword] {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+  }
+
+  .doc-viewer ::deep blockquote:has(span[keyword="note"]) {
+    background-color: var(--colorBrandBackground2);
+    border-left: 6px solid var(--colorBrandBackground);
+  }
+
+  .doc-viewer ::deep blockquote:has(span[keyword="tip"]) {
+    background-color: var(--colorPaletteDarkGreenBackground2);
+    border-left: 6px solid var(--colorPaletteDarkGreenBorderActive);
+  }
+
+  .doc-viewer ::deep blockquote:has(span[keyword="warn"]) {
+    background-color: var(--colorPaletteGoldBackground2);
+    border-left: 6px solid var(--colorPaletteGoldBorderActive);
+  }
+
+  .doc-viewer ::deep span[keyword] svg {
+    fill: var(--colorNeutralForeground1);
+    width: 20px;
+    height: 20px;
+  }
+  /* Code */
+  .doc-viewer ::deep code,
+  .doc-viewer ::deep c {
+    font-weight: 500;
+    background-color: var(--colorNeutralBackground3);
+    padding: 0px 4px;
+    overflow-wrap: anywhere;
+    font-family: var(--fontFamilyMonospace);
+  }
+
+  .doc-viewer ::deep pre {
+    max-width: 100%;
+    overflow: auto;
+  }
+
+    .doc-viewer ::deep pre code {
+      overflow-x: auto;
+      display: block;
+      padding: 1em;
+      background-color: var(--colorNeutralBackground3);
+      border: 1px solid silver;
+      font-size: 13px;
+      font-weight: bold;
+      transition: opacity 0.2s ease-in-out;
+      opacity: 0.2;
+    }
+
+      .doc-viewer ::deep pre code[class*="hljs"] {
+        opacity: 1;
+      }
+
+      .doc-viewer ::deep pre code[source] {
+        display: none;
+      }
+
+        .doc-viewer ::deep pre code[source][class*="hljs"] {
+          display: block;
+        }
+  /* Demo Section */
+  .doc-viewer ::deep .demo-tabs {
+    min-height: 100px;
+  }
+
+  .doc-viewer ::deep .demo-section-example {
+    border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    border-radius: var(--borderRadiusMedium);
+    padding: 16px 16px;
+    margin: 8px 0px;
+    overflow: auto;
+  }
+  /* API Summary */
+  .doc-viewer ::deep .api-summary {
+    background-color: var(--colorNeutralBackground4);
+    max-width: calc(100vw - 32px);
+    padding: 8px;
+  }
+
+    .doc-viewer ::deep .api-summary * {
+      margin: 0px;
+    }
+  /* API table */
+
+  .doc-viewer ::deep .api-table th {
+    text-align: start;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  .doc-viewer ::deep .api-table tr {
+    border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+    vertical-align: top;
+  }
+
+  .doc-viewer ::deep .api-table td {
+    padding: 8px 12px 8px 0px;
+  }
+
+  .doc-viewer ::deep .api-table {
+    width: 100%;
+    max-width: calc(100dvw - 32px);
+    overflow: auto;
+    display: block;
+    border-collapse: collapse;
+  }
+
+    .doc-viewer ::deep .api-table[no-col] {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .doc-viewer ::deep .api-table th {
+      text-align: start;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .doc-viewer ::deep .api-table tr {
+      border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+      vertical-align: top;
+    }
+
+    .doc-viewer ::deep .api-table td {
+      padding: 8px 12px 8px 0px;
+      white-space: nowrap;
+    }
+
+      .doc-viewer ::deep .api-table td:last-child {
+        white-space: normal;
+        width: 100%;
+      }
+
+      .doc-viewer ::deep .api-table td code {
+        font-weight: 600;
+        background-color: var(--colorNeutralBackground4);
+      }
+
+      .doc-viewer ::deep .api-table td p {
+        margin: 0;
+      }
+
+    .doc-viewer ::deep .api-table .api-enum-tooltip {
+      margin-left: 4px;
+      cursor: pointer;
+      fill: var(--colorBrandBackgroundHover);
+    }
+
+      .doc-viewer ::deep .api-table .api-enum-tooltip::before {
+        content: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path d='M10.5 8.91a.5.5 0 0 0-1 .09v4.6a.5.5 0 0 0 1-.1V8.91Zm.3-2.16a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0ZM18 10a8 8 0 1 0-16 0 8 8 0 0 0 16 0ZM3 10a7 7 0 1 1 14 0 7 7 0 0 1-14 0Z'></path></svg>");
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+      }
+    /* No Columns, for Methods view (same styles as Mobile */
+    .doc-viewer ::deep .api-table[no-col] tr {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .doc-viewer ::deep .api-table[no-col] td, .doc-viewer ::deep .api-table[no-col] th {
+      display: none;
+      flex-wrap: wrap;
+      white-space: normal;
+    }
+
+      .doc-viewer ::deep .api-table[no-col] td:first-child {
+        display: block;
+        flex-grow: 1;
+      }
+
+        .doc-viewer ::deep .api-table[no-col] td:first-child code {
+          font-weight: bold;
+        }
+
+      .doc-viewer ::deep .api-table[no-col] td:nth-child(2) {
+        display: block;
+      }
+
+      .doc-viewer ::deep .api-table[no-col] td:last-child {
+        flex-basis: 100%;
+        display: block;
+        margin-left: 24px;
+      }
+
+/* Mobile */
+@media(max-width: 768px) {
+
+  .doc-viewer ::deep .api-table tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .doc-viewer ::deep .api-table td,
+  .doc-viewer ::deep .api-table th {
+    display: none;
+    flex-wrap: wrap;
+  }
+
+    .doc-viewer ::deep .api-table td:first-child {
+      display: block;
+      flex-grow: 1;
+    }
+
+      .doc-viewer ::deep .api-table td:first-child code {
+        font-weight: bold;
+      }
+
+    .doc-viewer ::deep .api-table td:nth-child(2) {
+      display: block;
+    }
+
+    .doc-viewer ::deep .api-table td:last-child {
+      flex-basis: 100%;
+      display: block;
+      margin-left: 24px;
+    }
+}

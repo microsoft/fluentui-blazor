@@ -1,0 +1,445 @@
+import { StartedMode } from "../../d-ts/StartedMode";
+
+export namespace Microsoft.FluentUI.Blazor.Components.Popover {
+
+  class FluentPopover extends HTMLElement {
+    private anchorPositionObserverInterval: number = 100; // ms
+    private dialog: PopoverElement;
+    private handleOutsideClick = this.onOutsideClick.bind(this);
+    private handleCloseKeydown = this.onCloseKeydown.bind(this);
+    private lastAnchorRect: DOMRect | null = null;
+    private positionObserverInterval: number | null = null;
+    private positionUpdateFrame: number | null = null;
+
+    // Add backing field for opened property
+    private _opened: boolean = false;
+
+    // Creates a new FluentPopover element.
+    constructor() {
+      super();
+
+      const shadow = this.attachShadow({ mode: 'open' });
+
+      // Create the dialog element
+      this.dialog = document.createElement('div') as PopoverElement;
+      this.dialog.setAttribute('fuib', '');
+      this.dialog.setAttribute('popover', '');
+      this.dialog.setAttribute('part', 'dialog');    // To allow styling using `fluent-popover-b::part(dialog)`
+
+      // Dispatch the toggle event when the popover is opened or closed
+      // For nested popovers, the event is dispatched during showPopover/closePopover methods
+      this.dialog.addEventListener('toggle', (e) => {
+        if (!this.nested) {
+          this.dispatchOpenedEvent(e.newState === 'open');
+        }
+      });
+
+      // Set initial styles for the dialog
+      const sheet = new CSSStyleSheet();
+      sheet.replaceSync(`
+            :host(:not([opened='true'])) {
+                display: none;
+            }
+
+            :host div[fuib][popover] {
+                position: fixed;
+                margin: 0;
+                z-index: 2000;
+                color: var(--colorNeutralForeground1);
+                background-color: var(--colorNeutralBackground1);
+                border: 1px solid var(--colorTransparentStroke);
+                border-radius: var(--borderRadiusMedium);
+                box-shadow: var(--shadow16);
+            }
+        `);
+      this.shadowRoot!.adoptedStyleSheets = [
+        ...(this.shadowRoot!.adoptedStyleSheets || []),
+        sheet
+      ];
+
+      // Slot for user content
+      const slot = document.createElement('slot');
+      this.dialog.appendChild(slot);
+      shadow.appendChild(this.dialog);
+    }
+
+    // Initializes the popover by setting up event listeners and updating references.
+    connectedCallback() {
+      window.addEventListener('scroll', this.handleWindowChange, true);
+      window.addEventListener('resize', this.handleWindowChange, true);
+    }
+
+    // Disposes the popover by removing event listeners and stopping observers.
+    disconnectedCallback() {
+      this.removeEventsAfterClosing();
+      this.stopAnchorPositionObserver();
+      if (this.positionUpdateFrame !== null) {
+        cancelAnimationFrame(this.positionUpdateFrame);
+        this.positionUpdateFrame = null;
+      }
+      window.removeEventListener('scroll', this.handleWindowChange, true);
+      window.removeEventListener('resize', this.handleWindowChange, true);
+    }
+
+    private get dialogIsOpen(): boolean {
+      return this.dialog.matches(':popover-open');
+    }
+
+    // Getter and setter for the opened property
+    public get opened(): boolean {
+      return this._opened;
+    }
+
+    public set opened(value: boolean) {
+      if (this._opened !== value) {
+        this._opened = value;
+        this.setAttribute('opened', String(value));
+      }
+
+      if (value && !this.dialogIsOpen) {
+        window.visualViewport?.addEventListener('scroll', this.handleWindowChange);
+        window.visualViewport?.addEventListener('resize', this.handleWindowChange);
+        this.showPopover();
+        return;
+      }
+
+      if (!value && this.dialogIsOpen) {
+        window.visualViewport?.removeEventListener('scroll', this.handleWindowChange);
+        window.visualViewport?.removeEventListener('resize', this.handleWindowChange);
+        this.closePopover();
+        return;
+      }
+    }
+
+    /* ****************/
+    /* Attributes     */
+    /* ****************/
+
+    static get observedAttributes() { return ['style', 'class', 'opened']; }
+
+    // Handles attribute changes to update references and listeners.
+    attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+      if (oldValue !== newValue) {
+
+        if (name === 'style') {
+          if (this.dialog && this.hasAttribute('style')) {
+            this.dialog.setAttribute('style', this.getAttribute('style')!);
+          }
+        }
+
+        if (name === 'class') {
+          if (this.dialog && this.hasAttribute('class')) {
+            this.dialog.setAttribute('class', this.getAttribute('class')!);
+          }
+        }
+
+        // Sync property if 'opened' attribute changes externally
+        if (name === 'opened') {
+          this.opened = newValue === 'true';
+        }
+      }
+    }
+
+    private get anchorEl(): HTMLElement | null {
+      const anchorId = this.getAttribute('anchor-id');
+      return anchorId ? document.getElementById(anchorId) : null;
+    }
+
+    private get offsetVertical(): number {
+      const val = this.getAttribute('offset-vertical');
+      return val !== null ? Number(val) : 0;
+    }
+
+    private get offsetHorizontal(): number {
+      const val = this.getAttribute('offset-horizontal');
+      return val !== null ? Number(val) : 0;
+    }
+
+    private get isRtl(): boolean {
+      const anchorEl = this.anchorEl;
+      if (!anchorEl) {
+        return document.documentElement.dir === 'rtl';
+      }
+      return getComputedStyle(anchorEl).direction === 'rtl';
+    }
+
+    private get nested(): boolean {
+      const val = this.getAttribute('nested');
+      return val !== null && val !== 'false';
+    }
+
+    /* ****************/
+    /* Show or Close  */
+    /* ****************/
+
+    public showPopover() {
+      if (!this.dialog || !this.anchorEl) return;
+
+      if (this.dialogIsOpen) {
+        this.closePopover();
+      }
+
+      this.startAnchorPositionObserver();
+      this.dialog.showPopover();
+      requestAnimationFrame(() => {
+        this.adjustDialogPosition();
+      });
+      setTimeout(() => this.addEventsAfterOpening(), 0);
+
+      // Reflect opened property and attribute
+      this.opened = true;
+
+      // Dispatch event when shown.
+      // For non-nested popovers, the event is dispatched by the Popover component itself.
+      if (this.nested) {
+        this.dispatchOpenedEvent(true);
+      }
+    }
+
+    public closePopover() {
+      if (this.dialogIsOpen) {
+        this.dialog.hidePopover();
+        this.stopAnchorPositionObserver();
+        this.removeEventsAfterClosing();
+
+        // Reflect opened property and attribute
+        this.opened = false;
+
+        // Dispatch event when closed
+        // For non-nested popovers, the event is dispatched by the Popover component itself.
+        if (this.nested) {
+          this.dispatchOpenedEvent(false);
+        }
+      }
+    }
+
+    // Dispatch event when opened or closed
+    private dispatchOpenedEvent(opened: boolean) {
+      const eventInit = {
+        detail: {
+          oldState: opened ? 'closed' : 'open',
+          newState: opened ? 'open' : 'closed',
+        },
+        bubbles: true,
+        composed: true
+      };
+
+      this.dispatchEvent(new CustomEvent('toggle', eventInit));
+      this.dispatchEvent(new CustomEvent('fluentpopovertoggle', eventInit));
+    }
+
+    // Handles clicks outside the dialog to close it
+    private onOutsideClick(event: MouseEvent | TouchEvent) {
+      if (this.dialogIsOpen && !this.contains(event.target as Node) && !this.anchorEl?.contains(event.target as Node)) {
+        this.closePopover();
+      }
+    }
+
+    // Handles the keydown to close it
+    private onCloseKeydown(event: KeyboardEvent) {
+      // ESCAPE is already handled by the Popover component
+      // Add other key handling logic here if needed
+
+      // if (event.key === 'Escape' && this.dialogIsOpen) {
+      //     this.closePopover();
+      // }
+    }
+
+    /* ****************/
+    /* Event Handlers */
+    /* ****************/
+
+    private addEventsAfterOpening() {
+      document.addEventListener('mousedown', this.handleOutsideClick);
+      document.addEventListener('keydown', this.handleCloseKeydown);
+    }
+
+    private removeEventsAfterClosing() {
+      document.removeEventListener('mousedown', this.handleOutsideClick);
+      document.removeEventListener('keydown', this.handleCloseKeydown);
+    }
+
+    /* ****************************************************** */
+    /* Detect Anchor movement and update the popover position */
+    /* ****************************************************** */
+
+    private handleWindowChange = () => {
+      if (!this.dialogIsOpen) {
+        return;
+      }
+
+      // On iOS, showing/hiding the keyboard changes the visual viewport.
+      // Schedule the update in the next frame so visualViewport has its latest values.
+      if (this.positionUpdateFrame !== null) {
+        cancelAnimationFrame(this.positionUpdateFrame);
+      }
+
+      this.positionUpdateFrame = requestAnimationFrame(() => {
+        this.positionUpdateFrame = null;
+        this.adjustDialogPosition();
+      });
+    };
+
+    private startAnchorPositionObserver() {
+      this.stopAnchorPositionObserver();
+      this.positionObserverInterval = window.setInterval(() => {
+        if (this.dialogIsOpen && this.anchorEl) {
+          const rect = this.anchorEl.getBoundingClientRect();
+          if (
+            !this.lastAnchorRect ||
+            rect.left !== this.lastAnchorRect.left ||
+            rect.top !== this.lastAnchorRect.top ||
+            rect.width !== this.lastAnchorRect.width ||
+            rect.height !== this.lastAnchorRect.height
+          ) {
+            this.adjustDialogPosition();
+            this.lastAnchorRect = rect;
+          }
+        }
+      }, this.anchorPositionObserverInterval);
+    }
+
+    private stopAnchorPositionObserver() {
+      if (this.positionObserverInterval !== null) {
+        clearInterval(this.positionObserverInterval);
+        this.positionObserverInterval = null;
+      }
+    }
+
+    private adjustDialogPosition() {
+
+      if (this.anchorEl === null || this.dialog === null) return;
+
+      // getBoundingClientRect() is specified to return coordinates relative to the
+      // *visual* viewport. A popover uses `position: fixed`, whose containing block is the
+      // *layout* viewport. On mobile devices these two viewports can differ (e.g. while the
+      // on-screen keyboard is shown, or while the page is pinch-zoomed), and the difference is
+      // exposed via visualViewport.offsetTop / offsetLeft.
+      //
+      // To avoid mixing the two coordinate systems, all available-space calculations below are
+      // done entirely in visual-viewport-relative coordinates (i.e. as returned by
+      // getBoundingClientRect()). Only right before writing the final `top` / `left` style do we
+      // convert into layout-viewport coordinates by adding the visual viewport offset.
+      const rect = this.anchorEl.getBoundingClientRect();
+
+      const visualViewport = window.visualViewport;
+      const viewportHeight = visualViewport?.height ?? window.innerHeight;
+      const viewportWidth = visualViewport?.width ?? window.innerWidth;
+      // Offset between the layout viewport and the visual viewport (0 when they match).
+      const viewportOffsetTop = visualViewport?.offsetTop ?? 0;
+      const viewportOffsetLeft = visualViewport?.offsetLeft ?? 0;
+
+      const dialogHeight = this.dialog.offsetHeight + this.offsetVertical;
+      const dialogWidth = this.dialog.offsetWidth + this.offsetHorizontal;
+
+      // Space available around the anchor within the currently visible (visual) viewport.
+      // The visual viewport's own top-left corner is (0, 0) in getBoundingClientRect() coordinates.
+      const spaceAbove = rect.top;
+      const spaceBelow = viewportHeight - rect.bottom;
+      const spaceLeft = rect.left;
+      const spaceRight = viewportWidth - rect.right;
+
+      // Position dialog above the target
+      const positionDialogAbove = () => {
+        const top = rect.top - dialogHeight;
+        this.dialog.style.top = `${top + viewportOffsetTop}px`;
+        this.dialog.style.bottom = 'auto';
+      }
+
+      // Position dialog below the target
+      const positionDialogBelow = () => {
+        const top = rect.bottom + this.offsetVertical;
+        this.dialog.style.top = `${top + viewportOffsetTop}px`;
+        this.dialog.style.bottom = 'auto';
+      }
+
+      // Position dialog aligned to the start edge of the target (left in LTR, right in RTL)
+      const positionDialogStart = () => {
+        let left = this.isRtl
+          ? rect.right - this.dialog.offsetWidth + this.offsetHorizontal
+          : rect.left + this.offsetHorizontal;
+
+        // Clamp horizontally so the dialog stays inside the viewport
+        if (left < 0) {
+          left = 0;
+        }
+        if (left + dialogWidth > viewportWidth) {
+          left = Math.max(0, viewportWidth - this.dialog.offsetWidth);
+        }
+
+        this.dialog.style.left = `${left + viewportOffsetLeft}px`;
+        this.dialog.style.right = 'auto';
+      }
+
+      // Position dialog aligned to the end edge of the target (right in LTR, left in RTL)
+      const positionDialogEnd = () => {
+        let left = this.isRtl
+          ? rect.left + this.offsetHorizontal
+          : rect.right - this.dialog.offsetWidth + this.offsetHorizontal;
+
+        // Clamp horizontally so the dialog stays inside the viewport
+        if (left < 0) {
+          left = 0;
+        }
+        if (left + dialogWidth > viewportWidth) {
+          left = Math.max(0, viewportWidth - this.dialog.offsetWidth);
+        }
+
+        this.dialog.style.left = `${left + viewportOffsetLeft}px`;
+        this.dialog.style.right = 'auto';
+      }
+
+      if (spaceBelow >= dialogHeight) {
+        positionDialogBelow();
+      }
+      else if (spaceAbove >= dialogHeight) {
+        positionDialogAbove();
+      }
+      else {
+        positionDialogBelow();
+      }
+
+      if (this.isRtl) {
+        if (spaceLeft >= dialogWidth) {
+          positionDialogStart();
+        }
+        else if (spaceRight >= dialogWidth) {
+          positionDialogEnd();
+        }
+        else {
+          positionDialogStart();
+        }
+      }
+      else {
+        if (spaceLeft >= dialogWidth) {
+          positionDialogStart();
+        }
+        else if (spaceRight >= dialogWidth) {
+          positionDialogEnd();
+        }
+        else {
+          positionDialogStart();
+        }
+      }
+    };
+  }
+
+  // TypeScript doesn't recognize showPopover() as a valid method on a standard HTMLDivElement.
+  // This method is part of the https://developer.mozilla.org/en-US/docs/Web/API/Popover_API, which is relatively new
+  // and not yet included in all TypeScript DOM type definitions.
+  interface PopoverElement extends HTMLDivElement {
+    showPopover: () => void;
+    hidePopover: () => void;
+  }
+
+  /**
+    * Register the FluentPopover component
+    * @param blazor
+    * @param mode
+    */
+  export const registerComponent = (blazor: Blazor, mode: StartedMode): void => {
+    if (typeof customElements !== 'undefined' && !customElements.get('fluent-popover-b')) {
+      customElements.define('fluent-popover-b', FluentPopover);
+    }
+  };
+}

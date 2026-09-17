@@ -2,8 +2,14 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics;
+
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
+/// <summary>
+/// Represents a builder for creating CSS styles used in a component.
+/// </summary>
+[DebuggerDisplay("{Build()}")]
 public readonly struct StyleBuilder
 {
     private readonly HashSet<string> _styles;
@@ -14,7 +20,7 @@ public readonly struct StyleBuilder
     /// </summary>
     public StyleBuilder()
     {
-        _styles = [];
+        _styles = new(StringComparer.Ordinal);
         _userStyles = null;
     }
 
@@ -24,7 +30,7 @@ public readonly struct StyleBuilder
     /// <param name="userStyles">The user styles to include at the end.</param>
     public StyleBuilder(string? userStyles)
     {
-        _styles = [];
+        _styles = new(StringComparer.Ordinal);
         _userStyles = string.IsNullOrWhiteSpace(userStyles)
                     ? null
                     : string.Join("; ", userStyles.Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
@@ -43,7 +49,7 @@ public readonly struct StyleBuilder
     /// <param name="prop"></param>
     /// <param name="value">Style to add</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value) => AddRaw($"{prop}: {value}");
+    public StyleBuilder AddStyle(string prop, string? value) => string.IsNullOrEmpty(value) ? this : AddRaw($"{prop}: {value}");
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -52,7 +58,7 @@ public readonly struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value, bool when = true) => when ? AddStyle(prop, value) : this;
+    public StyleBuilder AddStyle(string prop, string? value, bool when) => AddStyle(prop, value, () => when);
 
     /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
@@ -61,7 +67,16 @@ public readonly struct StyleBuilder
     /// <param name="value">Style to conditionally add.</param>
     /// <param name="when">Condition in which the style is added.</param>
     /// <returns>StyleBuilder</returns>
-    public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => AddStyle(prop, value, when != null && when());
+    public StyleBuilder AddStyle(string prop, string? value, Func<bool> when) => when != null && when() ? AddStyle(prop, value) : this;
+
+    /// <summary>
+    /// Adds a conditional in-line style to the builder with space separator and closing semicolon..
+    /// </summary>
+    /// <param name="prop"></param>
+    /// <param name="value">Style to conditionally add.</param>
+    /// <param name="when">Condition in which the style is added.</param>
+    /// <returns>StyleBuilder</returns>
+    public StyleBuilder AddStyle(string prop, string? value, Func<string?, bool> when) => when != null && when(value) ? AddStyle(prop, value) : this;
 
     /// <summary>
     /// Finalize the completed Style as a string.
@@ -71,7 +86,7 @@ public readonly struct StyleBuilder
     {
         var allStyles = string.IsNullOrWhiteSpace(_userStyles)
                       ? _styles
-                      : _styles.Union(new[] { _userStyles });
+                      : _styles.Union([_userStyles], StringComparer.Ordinal);
 
         if (!allStyles.Any())
         {
@@ -80,12 +95,6 @@ public readonly struct StyleBuilder
 
         return string.Concat(allStyles.Select(s => $"{s}; ")).TrimEnd();
     }
-
-    /// <summary>
-    /// ToString should only and always call Build to finalize the rendered string.
-    /// </summary>
-    /// <returns></returns>
-    public override string? ToString() => Build();
 
     /// <summary>
     /// Adds a raw string to the builder that will be concatenated with the next style or value added to the builder.
@@ -101,4 +110,10 @@ public readonly struct StyleBuilder
 
         return this;
     }
+
+    /// <summary>
+    /// ToString should only and always call Build to finalize the rendered string.
+    /// </summary>
+    /// <returns></returns>
+    public override string? ToString() => Build();
 }

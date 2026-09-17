@@ -1,0 +1,45 @@
+﻿@using FluentUI.Demo.DocViewer.Models.Mcp
+
+@if (Resources.Count == 0)
+{
+    <div class="component-not-found">&#9888; No MCP resources found@(string.IsNullOrEmpty(Filter) ? "" : $" matching '{Filter}'").</div>
+}
+else
+{
+    var groupedResources = Resources.GroupBy(r => r.ClassName).OrderBy(g => g.Key);
+
+    foreach (var group in groupedResources)
+    {
+        <h4>📄 @group.Key</h4>
+
+        <div class="mcp-detail-container">
+            <div class="mcp-detail-header">
+                <div class="mcp-detail-col">Resource</div>
+                <div class="mcp-detail-col">URI Template</div>
+                <div class="mcp-detail-col">Description</div>
+            </div>
+            <div class="mcp-detail-body">
+                @foreach (var resource in group.OrderBy(r => r.Name))
+                {
+                    <div class="mcp-detail-row">
+                        <div class="mcp-detail-col">
+                            <code>@resource.Name</code>
+                            @if (!string.IsNullOrEmpty(resource.Title))
+                            {
+                                <br /><small>@resource.Title</small>
+                            }
+                        </div>
+                        <div class="mcp-detail-col">
+                            <code class="mcp-uri">@resource.UriTemplate</code>
+                            @if (!string.IsNullOrEmpty(resource.MimeType))
+                            {
+                                <br /><small>@resource.MimeType</small>
+                            }
+                        </div>
+                        <div class="mcp-detail-col">@((MarkupString)(resource.Description ?? resource.Summary ?? "-"))</div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

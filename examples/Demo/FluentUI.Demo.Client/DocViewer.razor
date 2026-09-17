@@ -1,0 +1,14 @@
+﻿@page "/{*Path:nonfile}"
+@using FluentUI.Demo.DocViewer.Components
+
+<MarkdownViewer Route="@Path" @key="@Path" />
+
+@code
+{
+    [Parameter]
+    public string Path { get; set; } = string.Empty;
+}
+
+<script @key="@($"scroll-top-{Path}")">
+    document.querySelector(".fluent-layout")?.scroll(0,0);
+</script>

@@ -15,7 +15,6 @@ public class RangeOf<T> where T : struct, IComparable
     /// </summary>
     public RangeOf()
     {
-
     }
 
     /// <summary>
@@ -57,7 +56,7 @@ public class RangeOf<T> where T : struct, IComparable
     /// <summary>
     /// Clear the range: <see cref="Start"/> and <see cref="End"/> are set to null.
     /// </summary>
-    public virtual void Clear() => Start = End = null;    
+    public virtual void Clear() => Start = End = null;
 
     /// <summary>
     /// Returns whether the range includes the specified value.
@@ -92,11 +91,13 @@ public class RangeOf<T> where T : struct, IComparable
         {
             return allBetweenMinAndMax.Invoke(min.Value, max.Value);
         }
-        else if (min.HasValue)
+
+        if (min.HasValue)
         {
             return new[] { min.Value };
         }
-        else if (max.HasValue)
+
+        if (max.HasValue)
         {
             return new[] { max.Value };
         }
@@ -113,6 +114,9 @@ public class RangeOf<T> where T : struct, IComparable
     /// <summary />
     private bool IsStartLowerThanEnd() => Start.HasValue && End.HasValue && Start.Value.CompareTo(End.Value) < 0;
 
+    /// <summary>
+    /// Returns a string representation of the range, including the start and end values.
+    /// </summary>
     public override string ToString()
     {
         return $"From {Start} to {End}.";

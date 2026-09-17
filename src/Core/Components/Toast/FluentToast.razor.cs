@@ -2,95 +2,334 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentToast : FluentComponentBase, IDisposable
+/// <summary>
+/// The FluentToast component represents a transient message that appears on the screen to provide feedback or
+/// information to the user. It is typically used for displaying notifications, alerts, or status messages in a
+/// non-intrusive manner. The FluentToast component can be customized with various options such as position, intent,
+/// timeout duration, and actions, allowing developers to create engaging and informative user experiences.
+/// </summary>
+public partial class FluentToast : FluentComponentBase
 {
-    private CountdownTimer? _countdownTimer;
-    private ToastParameters _parameters = default!;
+    /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
+    public FluentToast(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
-    [CascadingParameter]
-    private InternalToastContext ToastContext { get; set; } = default!;
+    [Inject]
+    private INotificationService? NotificationService { get; set; } = default!;
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("--toast-width", Width)
+        .Build();
 
     /// <summary>
-    /// Gets or sets the instance containing the programmatic API for the toast.
+    /// Gets the instance, if the toast is rendered using the <see cref="INotificationService"/>. Otherwise, returns null.
+    /// </summary>
+    [CascadingParameter]
+    internal IToastInstance? ToastInstance { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the component is currently open.
     /// </summary>
     [Parameter]
-    public ToastInstance Instance { get; set; } = default!;
+    public bool Opened { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the open state changes.
+    /// </summary>
+    /// <remarks>
+    /// Use this event to respond to changes in the component's open or closed state. The callback receives a value
+    /// indicating the new open state: <see langword="true"/> if the component is open; otherwise,
+    /// <see langword="false"/>.
+    /// </remarks>
+    [Parameter]
+    public EventCallback<bool> OpenedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the lifetime of the toast.
+    /// When set to a positive value, the toast is automatically dismissed after this duration elapses, 
+    /// triggering the appropriate lifecycle events.
+    /// When `null`, the toast stays visible until it is dismissed programmatically or by the user.
+    /// </summary>
+    [Parameter]
+    public TimeSpan? Lifetime { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="ToastPosition"/> on the screen where the toast notification is displayed.
+    /// </summary>
+    [Parameter]
+    public ToastPosition? Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets the vertical offset, in pixels, applied to the component's position.
+    /// </summary>
+    [Parameter]
+    public int VerticalOffset { get; set; } = 16;
+
+    /// <summary>
+    /// Gets or sets the horizontal offset, in pixels, applied to the component's content.
+    /// </summary>
+    [Parameter]
+    public int HorizontalOffset { get; set; } = 20;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the toast uses inverted colors.
+    /// </summary>
+    [Parameter]
+    public bool Inverted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="ToastIntent"/> intent of the toast notification, indicating its purpose or severity.
+    /// </summary>
+    /// <remarks>
+    /// The intent determines the visual styling and icon used for the toast notification. Common intents include
+    /// informational, success, warning, and error. Setting the appropriate intent helps users quickly understand the
+    /// nature of the message.
+    /// </remarks>
+    [Parameter]
+    public ToastIntent? Intent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the level of notification politeness for assistive technologies.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to control how screen readers announce the toast notification. Setting an appropriate
+    /// politeness level can help ensure that important messages are delivered to users without unnecessary
+    /// interruption.
+    /// </remarks>
+    [Parameter]
+    public ToastPoliteness? Politeness { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the <see cref="Lifetime"/> pauses when the user hovers over the component.
+    /// </summary>
+    [Parameter]
+    public bool PauseOnHover { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the <see cref="Lifetime"/> pauses when the browser window loses focus.
+    /// </summary>
+    [Parameter]
+    public bool PauseOnWindowBlur { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the toast status changes.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to handle status updates for the toast component, such as when it is shown, hidden, or
+    /// dismissed. The callback receives a <see cref="ToastEventArgs"/> instance containing details about the status
+    /// change.
+    /// </remarks>
+    [Parameter]
+    public EventCallback<ToastEventArgs> OnStatusChange { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon rendered in the toast header.
+    /// When set, this overrides the default icon determined by the <see cref="Intent" />
+    /// (Warning, Error, Success, Info) of the toast.
+    /// </summary>
+    [Parameter]
+    public Icon? Icon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title displayed in the toast header.
+    /// For security reasons, the content is sanitized using the configured <see cref="LibraryConfiguration.MarkupSanitized"/> before rendering.
+    /// For formatted content with markup, use <see cref="ChildContent"/> instead.    
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the subtitle displayed in the toast, below the <see cref="ChildContent"/>.
+    /// </summary>
+    [Parameter]
+    public string? Subtitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the toast can be dismissed by the user. Default is <see langword="true"/>.
+    /// When <see langword="true"/>, a dismiss button is rendered;
+    /// Use <see cref="DismissAction"/> to customize its label and action.
+    /// </summary>
+    [Parameter]
+    public bool AllowDismiss { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the dismiss link and action button (e.g., `DismissLabel="Close"`).
+    /// Only relevant when <see cref="AllowDismiss"/> is <see langword="true"/>.
+    /// </summary>
+    [Parameter]
+    public ToastOptionsAction DismissAction { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the content rendered in the toast body.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content rendered in the toast footer section, typically used for displaying additional information or actions.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FooterTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the toast.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary />
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        _parameters = Instance.Parameters;
+        if (firstRender && ToastInstance is ToastInstance instance)
+        {
+            instance.UpdateOpenedAsync = async e =>
+            {
+                Opened = e;
+                await InvokeAsync(StateHasChanged);
+            };
 
-        Class = new CssBuilder("fluent-toast").AddClass(_parameters.Class).Build();
-        Style = new StyleBuilder(_parameters.Style).Build();
+            if (!Opened)
+            {
+                Opened = true;
+                return InvokeAsync(StateHasChanged);
+            }
+        }
 
-        ToastContext!.Register(this);
+        return Task.CompletedTask;
+    }
 
-        if (_parameters.Timeout.HasValue && _parameters.Timeout == 0)
+    /// <summary>
+    /// Handles the toggle event for the toast component.
+    /// </summary>
+    /// <param name="args">The event data associated with the dialog toggle action.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    private async Task OnToggleAsync(DialogToggleEventArgs args)
+    {
+        // Ensure that the event is for the current toast instance by comparing the IDs.
+        var expectedId = ToastInstance?.Id ?? Id;
+        if (string.CompareOrdinal(args.Id, expectedId) != 0)
         {
             return;
         }
-        _countdownTimer = new CountdownTimer(_parameters.Timeout ?? ToastContext!.ToastProvider.Timeout).OnElapsed(Close);
-        await _countdownTimer.StartAsync();
-    }
 
-    protected override void OnParametersSet()
-    {
-        if (Instance.ContentType == typeof(CommunicationToast) && _parameters.TopCTAType == ToastTopCTAType.Action)
+        var toast = ToastInstance as ToastInstance;
+        var state = DialogEventArgs.GetDialogState(args.Type, args.OldState, args.NewState);
+
+        // If the toast state is either Open or Closed,
+        // update the Opened property
+        // and invoke the OpenedChanged callback if necessary.
+        if (state == DialogState.Open || state == DialogState.Closed)
         {
-            throw new InvalidOperationException("ToastTopCTAType.Action is not supported for a CommunicationToast  ");
+            var isOpen = state == DialogState.Open;
+
+            if (Opened != isOpen)
+            {
+                Opened = isOpen;
+
+                if (OpenedChanged.HasDelegate)
+                {
+                    await OpenedChanged.InvokeAsync(isOpen);
+                }
+            }
         }
-        if (Instance.ContentType != typeof(CommunicationToast) && _parameters.TopCTAType == ToastTopCTAType.Timestamp)
+
+        if (toast is not null && state == DialogState.Open)
         {
-            throw new InvalidOperationException("ToastTopCTAType.Timestamp is not supported for a this type of toast");
+            toast.SetStatus(ToastLifecycleStatus.Visible);
+        }
+
+        // If the toast instance is defined and the toast state is Closed,
+        // set the result of the ResultCompletion task
+        if (toast is not null && state == DialogState.Closed)
+        {
+            toast.SetStatus(ToastLifecycleStatus.Dismissed);
+
+            if (NotificationService is NotificationService notificationService)
+            {
+                await notificationService.RemoveToastFromProviderAsync(toast);
+            }
+
+            // Set the result of the toast to TimedOut.
+            toast.ResultCompletion.TrySetResult(ToastResult.OfTimedOut(instance: toast));
         }
     }
 
     /// <summary>
-    /// Closes the toast
+    /// Determines the appropriate icon to display based on the current <see cref="Intent"/> of the toast.
+    /// If the <see cref="Intent"/> is not set or is <see cref="ToastIntent.Progress"/>, no icon is displayed.
     /// </summary>
-    public void Close()
-        => ToastContext?.ToastProvider.RemoveToast(Id!);
-
-    public void HandleTopActionClick()
+    /// <returns>The icon to display, or null if no icon should be displayed.</returns>
+    protected virtual Icon? GetIntentIcon()
     {
-        _parameters.OnTopAction?.InvokeAsync(ToastResult.Ok<object?>(null));
-        Close();
+        if (Intent is null || Intent == ToastIntent.Progress)
+        {
+            return null;
+        }
+
+        var iconColor = Intent switch
+        {
+            ToastIntent.Success => Inverted ? Color.SuccessInverted : Color.Success,
+            ToastIntent.Warning => Inverted ? Color.WarningInverted : Color.Warning,
+            ToastIntent.Error => Inverted ? Color.ErrorInverted : Color.Error,
+            _ => Inverted ? Color.InfoInverted : Color.Info,
+        };
+
+        return Intent switch
+        {
+            ToastIntent.Success => new CoreIcons.Filled.Size20.CheckmarkCircle().WithColor(iconColor),
+            ToastIntent.Warning => new CoreIcons.Filled.Size20.Warning().WithColor(iconColor),
+            ToastIntent.Error => new CoreIcons.Filled.Size20.DismissCircle().WithColor(iconColor),
+            _ => new CoreIcons.Filled.Size20.Info().WithColor(iconColor),
+        };
     }
 
-    public void PauseTimeout()
+    /// <summary>
+    /// Closes the toast component.
+    /// </summary>
+    private Task CloseAsync()
     {
-        Console.WriteLine("[FluentToast] Pause Timeout");
-        _countdownTimer?.Pause();
+        if (!Opened)
+        {
+            return Task.CompletedTask;
+        }
+
+        Opened = false;
+        return InvokeAsync(StateHasChanged);
     }
 
-    public void ResumeTimeout()
+    /// <summary>
+    /// Handles the ToastAction click event, dismissing the toast.
+    /// </summary>
+    private async Task DismissClickAsync()
     {
-        Console.WriteLine("[FluentToast] Resume Timeout");
-        _countdownTimer?.Resume();
-    }
+        if (ToastInstance is null)
+        {
+            await CloseAsync();
+            return;
+        }
 
-    public void HandlePrimaryActionClick()
-    {
-        _parameters.OnPrimaryAction?.InvokeAsync();
-        Close();
-    }
+        if (DismissAction.OnClickAsync is not null)
+        {
+            // The current status is still Visible.
+            var args = new ToastEventArgs(ToastInstance, ToastLifecycleStatus.Visible);
+            await DismissAction.OnClickAsync.Invoke(args);
+            return;
+        }
 
-    public void HandleSecondaryActionClick()
-    {
-        _parameters.OnSecondaryAction?.InvokeAsync();
-        Close();
-    }
-
-    public void Dispose()
-    {
-        _countdownTimer?.Dispose();
-        _countdownTimer = null;
-
-        ToastContext?.Unregister(this);
+        await ToastInstance.CloseAsync(ToastCloseReason.Dismissed);
     }
 }

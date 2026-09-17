@@ -2,22 +2,24 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+namespace Microsoft.FluentUI.AspNetCore.Components.Calendar;
 
-namespace Microsoft.FluentUI.AspNetCore.Components;
-
-internal class CalendarTitles
+/// <summary>
+/// Provides titles and navigation-related properties for a calendar,  based on the current view and culture settings.
+/// </summary>
+/// <typeparam name="TValue">The type of value handled by the calendar.</typeparam>
+internal class CalendarTitles<TValue>
 {
-    private readonly FluentCalendar _calendar;
+    private readonly FluentCalendar<TValue> _calendar;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CalendarTitles"/> class.
+    /// Initializes a new instance of the <see cref="CalendarTitles{TValue}"/> class.
     /// </summary>
     /// <param name="calendar"></param>
-    public CalendarTitles(FluentCalendar calendar)
+    public CalendarTitles(FluentCalendar<TValue> calendar)
     {
         _calendar = calendar;
-        CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth);
+        CalendarExtended = new CalendarExtended(calendar.Culture, calendar.PickerMonth.ConvertToRequiredDateTime());
         View = calendar.View;
     }
 
@@ -43,7 +45,12 @@ internal class CalendarTitles
     {
         get
         {
-            if (_calendar.ReadOnly)
+            if (_calendar.IsReadOnlyOrDisabled)
+            {
+                return true;
+            }
+
+            if (PreviousDisabled && NextDisabled)
             {
                 return true;
             }
@@ -67,14 +74,19 @@ internal class CalendarTitles
         {
             return View switch
             {
+#pragma warning disable MA0011
                 CalendarViews.Days => CalendarExtended.GetMonthNameAndYear(),
                 CalendarViews.Months => CalendarExtended.GetYear(),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture)),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - CalendarExtended.YearShiftCentered),
+#pragma warning restore MA0011
                 _ => string.Empty
             };
         }
     }
 
+    /// <summary>
+    /// Gets the title representing the previous period based on the current calendar view.
+    /// </summary>
     public string PreviousTitle
     {
         get
@@ -83,28 +95,37 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(-1, _calendar.Culture)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(-1, _calendar.Culture)),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - 12),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) - 12 - CalendarExtended.YearShiftCentered),
                 _ => string.Empty
             };
         }
     }
 
+    /// <summary>
+    /// Gets a value indicating whether the "Previous" navigation button is disabled.
+    /// </summary>
     public bool PreviousDisabled
     {
         get
         {
-            var minDate = _calendar.Culture.Calendar.MinSupportedDateTime;
+#pragma warning disable MA0011
+            var userMinDate = _calendar.MinDate.ConvertToDateTime();
+            var minDate = userMinDate ?? _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
+#pragma warning restore MA0011
 
             return View switch
             {
                 CalendarViews.Days => Date.Year == minDate.Year && Date.Month == minDate.Month,
                 CalendarViews.Months => Date.Year == minDate.Year,
-                CalendarViews.Years => Date.Year == minDate.Year,
+                CalendarViews.Years => Date.Year - CalendarExtended.YearShiftCentered <= minDate.Year + 12,
                 _ => false
             };
         }
     }
 
+    /// <summary>
+    /// Gets the title representing the next time period based on the current calendar view.
+    /// </summary>
     public string NextTitle
     {
         get
@@ -113,23 +134,27 @@ internal class CalendarTitles
             {
                 CalendarViews.Days => CalendarExtended.GetMonthName(Date.AddMonths(+1, _calendar.Culture)),
                 CalendarViews.Months => CalendarExtended.GetYear(Date.AddYears(+1, _calendar.Culture)),
-                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) + 12),
+                CalendarViews.Years => CalendarExtended.GetYearsRangeLabel(Date.GetYear(_calendar.Culture) + 12 - CalendarExtended.YearShiftCentered),
                 _ => string.Empty
             };
         }
     }
 
+    /// <summary>
+    /// Gets a value indicating whether the "Next" navigation option is disabled.
+    /// </summary>
     public bool NextDisabled
     {
         get
         {
-            var maxDate = _calendar.Culture.Calendar.MaxSupportedDateTime;
+            var userMaxDate = _calendar.MaxDate.ConvertToDateTime();
+            var maxDate = userMaxDate ?? _calendar.Culture.Calendar.MaxSupportedDateTime;
 
             return View switch
             {
                 CalendarViews.Days => Date.Year == maxDate.Year && Date.Month == maxDate.Month,
                 CalendarViews.Months => Date.Year == maxDate.Year,
-                CalendarViews.Years => Date.Year == maxDate.Year,
+                CalendarViews.Years => Date.Year + 12 - CalendarExtended.YearShiftCentered >= maxDate.Year,
                 _ => false
             };
         }

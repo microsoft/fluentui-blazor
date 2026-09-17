@@ -1,0 +1,264 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// A text input component that allows users to enter and edit a single line of text.
+/// </summary>
+public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle, IFluentControlAriaLabel
+{
+    /// <summary>
+    /// Gets the CSS rules to hide browser-provided password reveal and credentials AutoFill buttons.
+    /// </summary>
+    public const string HidePasswordToggle = "::-ms-reveal { display: none !important; } ::-webkit-credentials-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
+    /// <summary>
+    /// Gets the CSS rule to hide the contacts AutoFill button in WebKit-based browsers.
+    /// </summary>
+    public const string HideContactsToggle = "::-webkit-contacts-auto-fill-button { display: none !important; visibility: hidden; pointer-events: none; }";
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTextInput"/> class.
+    /// </summary>
+    public FluentTextInput(LibraryConfiguration configuration) : base(configuration)
+    {
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && string.IsNullOrEmpty(CurrentValueAsString);
+        };
+
+    }
+
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets the CSS class to apply to the internal web-component.
+    /// </summary>
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
+        .Build();
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual appearance.
+    /// </summary>
+    [Parameter]
+    public TextInputAppearance Appearance { get; set; } = TextInputAppearance.Outline;
+
+    /// <summary>
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets custom content rendered before the text input (e.g., a prefix icon or label).
+    /// See also <see cref="EndTemplate"/> for content placed after the input.
+    /// </summary>
+    [Parameter]
+    public virtual RenderFragment? StartTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets custom content rendered after the text input (e.g., a suffix icon or unit label).
+    /// See also <see cref="StartTemplate"/> for content placed before the input.
+    /// </summary>
+    [Parameter]
+    public virtual RenderFragment? EndTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the id of a datalist element that provides a list of suggested values.
+    /// <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see>.
+    /// </summary>
+    [Parameter]
+    public string? DataList { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of characters allowed in the input
+    /// </summary>
+    [Parameter]
+    public int? MaxLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets the minimum number of characters allowed in the input
+    /// </summary>
+    [Parameter]
+    public int? MinLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets a regular expression that the value must match to pass validation.
+    /// </summary>
+    [Parameter]
+    public string? Pattern { get; set; }
+
+    /// <summary>
+    /// Gets or sets the input mask pattern that defines the allowed format for user input.
+    /// </summary>
+    [Parameter]
+    public string? MaskPattern { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the mask should be applied lazily (only when the user types).
+    /// The default is false, meaning the <see cref="MaskPattern"/> is always visible.
+    /// </summary>
+    [Parameter]
+    public bool MaskLazy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the character used to represent unfilled positions in the input mask.
+    /// The default is "_". Only the first character is used.
+    /// </summary>
+    [Parameter]
+    public string MaskPlaceholder { get; set; } = "_";
+
+    /// <summary>
+    /// Gets or sets the autocomplete hint for the input (e.g., <c>AutoComplete="email"</c>).
+    /// Specifies whether the browser should offer autocomplete suggestions. An Id value must be set to use this property.
+    /// </summary>
+    [Parameter]
+    public string? AutoComplete { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the input field.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text input type. See <see cref="Components.TextInputType"/>
+    /// This relies on browser support for different input types and can therefore vary between browsers.
+    /// </summary>
+    [Parameter]
+    public TextInputType? TextInputType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the input. See <see cref="Components.TextInputSize"/>
+    /// </summary>
+    [Parameter]
+    public TextInputSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether spellcheck should be used.
+    /// </summary>
+    [Parameter]
+    public bool? Spellcheck { get; set; }           // TODO: To verify if this is supported by the component
+
+    /// <summary>
+    /// Gets or sets the type of data that can be entered by the user when editing the element or its content.
+    /// This allows a browser to display an appropriate virtual keyboard. Not supported by Safari.
+    /// </summary>
+    [Parameter]
+    public TextInputMode? InputMode { get; set; }   // TODO: To verify if this is supported by the component
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPress" />
+    [Parameter]
+    public KeyPress[]? ChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.OnChangeAfterKeyPress" />
+    [Parameter]
+    public EventCallback<FluentKeyPressEventArgs> OnChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPressHandlerAsync(string, KeyPress)" />
+    [JSInvokable]
+    public async Task ChangeAfterKeyPressHandlerAsync(string value, KeyPress key)
+    {
+        await ChangeHandlerAsync(new ChangeEventArgs()
+        {
+            Value = value,
+        });
+
+        if (OnChangeAfterKeyPress.HasDelegate)
+        {
+            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs()
+            {
+                Value = value,
+                KeyPress = key,
+            });
+        }
+    }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
+
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
+
+            // Initialize the change after key press event
+            await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
+
+            // Set the mask pattern if defined
+            if (!string.IsNullOrEmpty(MaskPattern))
+            {
+                var placeholder = MaskPlaceholder.Length > 0 ? MaskPlaceholder[0] : '_';
+
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextMasked.applyPatternMask", Id, MaskPattern, MaskLazy, placeholder);
+            }
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
+
+            if (!string.IsNullOrEmpty(DataList))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList", Element, DataList);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
+}

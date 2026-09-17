@@ -1,0 +1,408 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<DonutDataPoint> DefaultDonutData =
+    [
+        new DonutDataPoint { Legend = "A", Data = 50 },
+        new DonutDataPoint { Legend = "B", Data = 50 },
+    ];
+
+    private static readonly IReadOnlyList<GanttChartDataPoint> DefaultGanttData =
+    [
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange
+            {
+                Start = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                End   = new DateTime(2024, 1, 31, 0, 0, 0, DateTimeKind.Utc),
+            },
+            Y      = "Task A",
+            Legend = "Phase 1",
+        },
+    ];
+
+    public FluentChartBaseTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    // ── BuildTooltipContext (base – FluentChartBase) ─────────────────────────
+
+    // Access the protected method through a thin concrete subclass.
+    private sealed class TestableDonutChart : FluentDonutChart
+    {
+        public TestableDonutChart(LibraryConfiguration cfg) : base(cfg) { }
+
+        public TooltipContext CallBuild(
+            string? legend, string? yValue, string? xValue,
+            string? color, string? rawJson,
+            string? xStart, string? xEnd)
+            => BuildTooltipContext(legend, yValue, xValue, color, rawJson, xStart, xEnd);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_MapsAllStringFields()
+    {
+        var chart = new TestableDonutChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild("My Legend", "42", "x-val", null, """{"data":42}""", null, null);
+
+        Assert.Equal("My Legend",   ctx.Legend);
+        Assert.Equal("42",          ctx.YValue);
+        Assert.Equal("x-val",       ctx.XValue);
+        Assert.Equal("""{"data":42}""", ctx.RawJson);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_RecognizedPaletteToken_SetsColorAndNullsCustomColor()
+    {
+        var chart = new TestableDonutChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, "color3", null, null, null);
+
+        Assert.Equal(DataVizPalette.Color3, ctx.Color);
+        Assert.Null(ctx.CustomColor);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_UnrecognizedColorString_SetsNullColorAndCustomColor()
+    {
+        var chart = new TestableDonutChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, "#FF5733", null, null, null);
+
+        Assert.Null(ctx.Color);
+        Assert.Equal("#FF5733", ctx.CustomColor);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_NullColor_LeavesColorAndCustomColorNull()
+    {
+        var chart = new TestableDonutChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, null, null, null, null);
+
+        Assert.Null(ctx.Color);
+        Assert.Null(ctx.CustomColor);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_AllNullArguments_ReturnsEmptyContext()
+    {
+        var chart = new TestableDonutChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, null, null, null, null);
+
+        Assert.Null(ctx.Legend);
+        Assert.Null(ctx.YValue);
+        Assert.Null(ctx.XValue);
+        Assert.Null(ctx.Color);
+        Assert.Null(ctx.CustomColor);
+        Assert.Null(ctx.RawJson);
+    }
+
+    // ── BuildTooltipContext override – FluentCartesianChartBase ──────────────
+
+    private sealed class TestableGanttChart : FluentGanttChart
+    {
+        public TestableGanttChart(LibraryConfiguration cfg) : base(cfg) { }
+
+        public TooltipContext CallBuild(
+            string? legend, string? yValue, string? xValue,
+            string? color, string? rawJson,
+            string? xStart, string? xEnd)
+            => BuildTooltipContext(legend, yValue, xValue, color, rawJson, xStart, xEnd);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_ReturnsCartesianTooltipContext()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild("Task A", "30", null, "color1",
+            null, "2024-01-01T00:00:00.000Z", "2024-01-31T00:00:00.000Z");
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Equal("Task A",                    cartesian.Legend);
+        Assert.Equal(DataVizPalette.Color1,        cartesian.Color);
+        Assert.Equal("2024-01-01T00:00:00.000Z",  cartesian.XStart);
+        Assert.Equal("2024-01-31T00:00:00.000Z",  cartesian.XEnd);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_CustomColor_SetsNullColorAndCustomColor()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, "#0099BC", null, null, null);
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Null(cartesian.Color);
+        Assert.Equal("#0099BC", cartesian.CustomColor);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_MapsAllStringFields()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(
+            "Task B", "Phase 2", "x-axis-val", null,
+            """{"extra":true}""",
+            "2024-03-01T00:00:00.000Z", "2024-03-31T00:00:00.000Z");
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Equal("Task B",                    cartesian.Legend);
+        Assert.Equal("Phase 2",                   cartesian.YValue);
+        Assert.Equal("x-axis-val",                cartesian.XValue);
+        Assert.Equal("""{"extra":true}""",        cartesian.RawJson);
+        Assert.Equal("2024-03-01T00:00:00.000Z",  cartesian.XStart);
+        Assert.Equal("2024-03-31T00:00:00.000Z",  cartesian.XEnd);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_AllNullArguments_ReturnsEmptyCartesianContext()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, null, null, null, null);
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Null(cartesian.Legend);
+        Assert.Null(cartesian.YValue);
+        Assert.Null(cartesian.XValue);
+        Assert.Null(cartesian.Color);
+        Assert.Null(cartesian.CustomColor);
+        Assert.Null(cartesian.RawJson);
+        Assert.Null(cartesian.XStart);
+        Assert.Null(cartesian.XEnd);
+    }
+
+    [Theory]
+    [InlineData("color1",  DataVizPalette.Color1)]
+    [InlineData("color5",  DataVizPalette.Color5)]
+    [InlineData("color10", DataVizPalette.Color10)]
+    [InlineData("info",    DataVizPalette.Info)]
+    [InlineData("success", DataVizPalette.Success)]
+    [InlineData("warning", DataVizPalette.Warning)]
+    [InlineData("error",   DataVizPalette.Error)]
+    public void BuildTooltipContext_CartesianOverride_RecognizedPaletteToken_SetsColorAndNullsCustomColor(
+        string token, DataVizPalette expected)
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, token, null, null, null);
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Equal(expected, cartesian.Color);
+        Assert.Null(cartesian.CustomColor);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_NullColor_LeavesColorAndCustomColorNull()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, null, null, null, null);
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Null(cartesian.Color);
+        Assert.Null(cartesian.CustomColor);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_XStartAndXEnd_PopulatedIndependentlyOfColor()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, null, null,
+            "2024-06-01T00:00:00.000Z", "2024-06-30T00:00:00.000Z");
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Equal("2024-06-01T00:00:00.000Z", cartesian.XStart);
+        Assert.Equal("2024-06-30T00:00:00.000Z", cartesian.XEnd);
+        Assert.Null(cartesian.Color);
+    }
+
+    [Fact]
+    public void BuildTooltipContext_CartesianOverride_CssVariableCustomColor_IsPreserved()
+    {
+        var chart = new TestableGanttChart(new LibraryConfiguration());
+
+        var ctx = chart.CallBuild(null, null, null, "var(--custom-brand)", null, null, null);
+
+        var cartesian = Assert.IsType<CartesianTooltipContext>(ctx);
+        Assert.Null(cartesian.Color);
+        Assert.Equal("var(--custom-brand)", cartesian.CustomColor);
+    }
+
+
+
+    [Fact]
+    public async Task UpdateTooltipContextAsync_UpdatesTooltipContext()
+    {
+        // Arrange — render a chart so the component has a live Blazor renderer
+        var cut = Render<FluentDonutChart>(@<FluentDonutChart ChartData="@DefaultDonutData" />);
+
+        // Act — call the JS-invokable method through bUnit's InvokeAsync dispatcher
+        await cut.InvokeAsync(() =>
+            cut.Instance.UpdateTooltipContextAsync(
+                "Category A", "40", null, "color5", """{"data":40}""", null, null));
+
+        // Assert
+        var ctx = cut.Instance._tooltipContext;
+        Assert.Equal("Category A",          ctx.Legend);
+        Assert.Equal("40",                  ctx.YValue);
+        Assert.Equal(DataVizPalette.Color5, ctx.Color);
+        Assert.Null(ctx.CustomColor);
+        Assert.Equal("""{"data":40}""",     ctx.RawJson);
+    }
+
+    [Fact]
+    public async Task UpdateTooltipContextAsync_WithCustomColor_SetsCustomColor()
+    {
+        var cut = Render<FluentDonutChart>(@<FluentDonutChart ChartData="@DefaultDonutData" />);
+
+        await cut.InvokeAsync(() =>
+            cut.Instance.UpdateTooltipContextAsync(
+                "Custom", "99", null, "#A23B72", null, null, null));
+
+        var ctx = cut.Instance._tooltipContext;
+        Assert.Null(ctx.Color);
+        Assert.Equal("#A23B72", ctx.CustomColor);
+    }
+
+    [Fact]
+    public async Task UpdateTooltipContextAsync_AllNulls_ResetsContext()
+    {
+        var cut = Render<FluentDonutChart>(@<FluentDonutChart ChartData="@DefaultDonutData" />);
+
+        // Prime the context with a value first
+        await cut.InvokeAsync(() =>
+            cut.Instance.UpdateTooltipContextAsync(
+                "Old", "1", null, "color1", null, null, null));
+
+        // Reset with all nulls
+        await cut.InvokeAsync(() =>
+            cut.Instance.UpdateTooltipContextAsync(null, null, null, null, null, null, null));
+
+        var ctx = cut.Instance._tooltipContext;
+        Assert.Null(ctx.Legend);
+        Assert.Null(ctx.YValue);
+        Assert.Null(ctx.Color);
+        Assert.Null(ctx.CustomColor);
+    }
+
+    [Fact]
+    public async Task UpdateTooltipContextAsync_GanttChart_SetsCartesianContext()
+    {
+        var cut = Render<FluentGanttChart>(@<FluentGanttChart ChartData="@DefaultGanttData" />);
+
+        await cut.InvokeAsync(() =>
+            cut.Instance.UpdateTooltipContextAsync(
+                "Task A", "Phase 1", null, "color2", null,
+                "2024-01-01T00:00:00.000Z", "2024-01-31T00:00:00.000Z"));
+
+        var ctx = Assert.IsType<CartesianTooltipContext>(cut.Instance._tooltipContext);
+        Assert.Equal("Task A",                   ctx.Legend);
+        Assert.Equal(DataVizPalette.Color2,       ctx.Color);
+        Assert.Equal("2024-01-01T00:00:00.000Z", ctx.XStart);
+        Assert.Equal("2024-01-31T00:00:00.000Z", ctx.XEnd);
+    }
+
+    // ── DisposeAsync ─────────────────────────────────────────────────────────
+
+    [Fact]
+    public async Task DisposeAsync_NoJsModule_CompletesWithoutThrowing()
+    {
+        // A chart that never rendered its tooltip bridge (no TooltipTemplate set)
+        // has _jsModule == null. DisposeAsync should be a no-op.
+        var cut = Render<FluentDonutChart>(@<FluentDonutChart ChartData="@DefaultDonutData" />);
+
+        var exception = await Record.ExceptionAsync(() => cut.Instance.DisposeAsync().AsTask());
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_CalledTwice_DoesNotThrow()
+    {
+        var cut = Render<FluentDonutChart>(@<FluentDonutChart ChartData="@DefaultDonutData" />);
+
+        await cut.Instance.DisposeAsync();
+        var exception = await Record.ExceptionAsync(() => cut.Instance.DisposeAsync().AsTask());
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_WithJsModule_InvokesDestroyAndDisposesModule()
+    {
+        // Arrange — register a JS module handler so OnAfterRenderAsync initialises the bridge
+        var module = JSInterop.SetupModule(
+            matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("chart-tooltip-bridge.js") == true));
+        module.SetupVoid("initTooltipBridge",     _ => true).SetVoidResult();
+        module.SetupVoid("destroyTooltipBridge",  _ => true).SetVoidResult();
+
+        // Render with a TooltipTemplate so HasTooltipTemplate == true and the bridge is initialized
+        var cut = Render<FluentDonutChart>(
+            @<FluentDonutChart ChartData="@DefaultDonutData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend</span>
+                </TooltipTemplate>
+            </FluentDonutChart>
+        );
+
+        var exception = await Record.ExceptionAsync(() => cut.Instance.DisposeAsync().AsTask());
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_WhenDestroyThrowsJsDisconnectedException_IsSwallowed()
+    {
+        // Arrange — trigger the JSDisconnectedException catch path in DisposeAsync
+        var module = JSInterop.SetupModule(
+            matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("chart-tooltip-bridge.js") == true));
+        module.SetupVoid("initTooltipBridge", _ => true).SetVoidResult();
+        module.SetupVoid("destroyTooltipBridge", _ => true).SetException(new JSDisconnectedException("Disconnected"));
+
+        var cut = Render<FluentDonutChart>(
+            @<FluentDonutChart ChartData="@DefaultDonutData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend</span>
+                </TooltipTemplate>
+            </FluentDonutChart>
+        );
+
+        // Assert — JSDisconnectedException is explicitly caught and ignored
+        var exception = await Record.ExceptionAsync(() => cut.Instance.DisposeAsync().AsTask());
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_WhenDestroyThrowsOperationCanceledException_IsSwallowed()
+    {
+        // Arrange — trigger the OperationCanceledException catch path in DisposeAsync
+        var module = JSInterop.SetupModule(
+            matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("chart-tooltip-bridge.js") == true));
+        module.SetupVoid("initTooltipBridge", _ => true).SetVoidResult();
+        module.SetupVoid("destroyTooltipBridge", _ => true).SetException(new OperationCanceledException("Cancelled"));
+
+        var cut = Render<FluentDonutChart>(
+            @<FluentDonutChart ChartData="@DefaultDonutData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend</span>
+                </TooltipTemplate>
+            </FluentDonutChart>
+        );
+
+        // Assert — OperationCanceledException is explicitly caught and ignored
+        var exception = await Record.ExceptionAsync(() => cut.Instance.DisposeAsync().AsTask());
+        Assert.Null(exception);
+    }
+}

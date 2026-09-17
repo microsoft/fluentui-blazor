@@ -1,0 +1,542 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly DateTime Start1 = new DateTime(2024, 1, 1);
+    private static readonly DateTime End1   = new DateTime(2024, 1, 15);
+    private static readonly DateTime Start2 = new DateTime(2024, 1, 10);
+    private static readonly DateTime End2   = new DateTime(2024, 1, 25);
+
+    private static readonly IReadOnlyList<GanttChartDataPoint> DefaultData =
+    [
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = Start1, End = End1 },
+            Y = "Task A",
+            Legend = "Phase 1",
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = Start2, End = End2 },
+            Y = "Task B",
+            Legend = "Phase 2",
+        },
+    ];
+
+    public FluentGanttChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentGanttChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentGanttChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" ChartTitle="Project Timeline" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("chart-title");
+        Assert.Equal("Project Timeline", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_HideTooltip_False()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" HideTooltip="false" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("hide-tooltip");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_RoundedCorners()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" RoundedCorners="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("round-corners");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_UseSingleColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" UseSingleColor="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("use-single-color");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_ShowYAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" ShowYAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("show-y-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_ShowYAxisLabelsTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" ShowYAxisLabelsTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("show-y-axis-labels-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_AllowMultipleLegendSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" AllowMultipleLegendSelection="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("allow-multiple-legend-selection");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_LegendListLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" LegendListLabel="Tasks" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("legend-list-label");
+        Assert.Equal("Tasks", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_BarHeight()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" BarHeight="32" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("bar-height");
+        Assert.Equal("32", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_XAxisTickCount()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" XAxisTickCount="5" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("x-axis-tick-count");
+        Assert.Equal("5", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_YAxisPadding()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" YAxisPadding="1" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("y-axis-padding");
+        Assert.Equal("1", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_XAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" XAxisTitle="Timeline" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("x-axis-title");
+        Assert.Equal("Timeline", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_YAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" YAxisTitle="Tasks" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("y-axis-title");
+        Assert.Equal("Tasks", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_SupportNegativeData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" SupportNegativeData="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("support-negative-data");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_RoundedTicks()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" RoundedTicks="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("rounded-ticks");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_WrapXAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" WrapXAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("wrap-x-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_RotateXAxisLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" RotateXAxisLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("rotate-x-axis-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_StrokeWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" StrokeWidth="2" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("stroke-width");
+        Assert.Equal("2", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("en-GB");
+
+        // Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("culture");
+        Assert.Equal("en-GB", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_Culture_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" Culture="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("culture");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" Width="800px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("width");
+        Assert.Equal("800px", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" Height="500px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("height");
+        Assert.Equal("500px", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" Class="my-gantt" />);
+
+        // Assert
+        var element = cut.Find("fluent-gantt-chart");
+        Assert.Contains("my-gantt", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-gantt-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentGanttChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@DefaultData" aria-label="Project schedule" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gantt-chart").GetAttribute("aria-label");
+        Assert.Equal("Project schedule", attribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<GanttChartDataPoint>
+        {
+            new GanttChartDataPoint
+            {
+                X = new GanttChartXRange { Start = Start1, End = End1 },
+                Y = "My Task",
+                Legend = "Sprint 1",
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentGanttChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-gantt-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("My Task", dataAttribute);
+        Assert.Contains("Sprint 1", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_DataPoint_WithColor()
+    {
+        // Arrange
+        var data = new List<GanttChartDataPoint>
+        {
+            new GanttChartDataPoint
+            {
+                X = new GanttChartXRange { Start = Start1, End = End1 },
+                Y = "Task A",
+                Legend = "Phase 1",
+                Color = DataVizPalette.Color2,
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentGanttChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-gantt-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("color2", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<GanttChartDataPoint>
+        {
+            new GanttChartDataPoint
+            {
+                X = new GanttChartXRange { Start = Start1, End = End1 },
+                Y = "Task A",
+                Legend = "Phase 1",
+                Color = DataVizPalette.Custom,
+                CustomColor = "#C19A6B",
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentGanttChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-gantt-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("#C19A6B", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentGanttChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentGanttChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentGanttChart>
+        );
+
+        // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentGanttChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentGanttChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.XStart – @ctx.XEnd</span>
+                </CartesianTooltipTemplate>
+            </FluentGanttChart>
+        );
+
+        // Assert — portal div is present when CartesianTooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentGanttChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGanttChart ChartData="@(Array.Empty<GanttChartDataPoint>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-gantt-chart");
+        Assert.NotNull(element);
+    }
+
+    // TickValuesJson is internal override, so a thin subclass exposes it for unit testing.
+    private sealed class TestableFluentGanttChart : FluentGanttChart
+    {
+        public TestableFluentGanttChart(LibraryConfiguration configuration) : base(configuration) { }
+        public string? TickValuesJsonPublic => TickValuesJson;
+    }
+
+    [Fact]
+    public void FluentGanttChart_TickValuesJson_Null_WhenNeitherTickValuesNorDateTickValuesSet()
+    {
+        // Arrange
+#pragma warning disable BL0005
+        var chart = new TestableFluentGanttChart(new LibraryConfiguration());
+#pragma warning restore BL0005
+
+        // Assert
+        Assert.Null(chart.TickValuesJsonPublic);
+    }
+
+    [Fact]
+    public void FluentGanttChart_TickValuesJson_SerializesNumericTickValues()
+    {
+        // Arrange
+#pragma warning disable BL0005
+        var chart = new TestableFluentGanttChart(new LibraryConfiguration())
+        {
+            TickValues = [100.0, 200.0, 300.0],
+        };
+#pragma warning restore BL0005
+
+        // Assert
+        Assert.Equal("[100,200,300]", chart.TickValuesJsonPublic);
+    }
+
+    [Fact]
+    public void FluentGanttChart_TickValuesJson_SerializesDateTickValuesAsUnixMilliseconds()
+    {
+        // Arrange — use a fixed UTC date so the assertion is timezone-independent
+        var date = new DateTime(2024, 1, 15, 0, 0, 0, DateTimeKind.Utc);
+        var expectedMs = new DateTimeOffset(date).ToUnixTimeMilliseconds();
+
+#pragma warning disable BL0005
+        var chart = new TestableFluentGanttChart(new LibraryConfiguration())
+        {
+            DateTickValues = [date],
+        };
+#pragma warning restore BL0005
+
+        // Assert
+        Assert.Equal($"[{expectedMs}]", chart.TickValuesJsonPublic);
+    }
+
+    [Fact]
+    public void FluentGanttChart_TickValuesJson_DateTickValues_TakesPriorityOverTickValues()
+    {
+        // Arrange — when both are set, DateTickValues wins (overriding base.TickValuesJson)
+        var date = new DateTime(2024, 3, 1, 0, 0, 0, DateTimeKind.Utc);
+        var expectedMs = new DateTimeOffset(date).ToUnixTimeMilliseconds();
+
+#pragma warning disable BL0005
+        var chart = new TestableFluentGanttChart(new LibraryConfiguration())
+        {
+            TickValues = [999.0],
+            DateTickValues = [date],
+        };
+#pragma warning restore BL0005
+
+        // Assert — the JSON should contain the date timestamp, not the numeric tick value
+        Assert.Equal($"[{expectedMs}]", chart.TickValuesJsonPublic);
+    }
+}

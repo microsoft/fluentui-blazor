@@ -2,442 +2,216 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMenu : FluentComponentBase, IAsyncDisposable
+/// <summary>
+/// A Menu component for handling menus and menu items in a user interface.
+/// </summary>
+public partial class FluentMenu : FluentComponentBase, ITooltipComponent
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Menu/FluentMenu.razor.js";
-    private const string ANCHORED_REGION_JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/AnchoredRegion/FluentAnchoredRegion.razor.js";
-
-    private bool _reinitializeEventListeners = false;
-    private bool _opened = false;
-    private DotNetObjectReference<FluentMenu>? _dotNetHelper = null;
-
-    private bool _contextMenu = false;
-    private readonly Dictionary<string, FluentMenuItem> items = [];
-    private IMenuService? _menuService = null;
-    private IMenuService? _registeredMenuService;
-    private IJSObjectReference _jsModule = default!;
-    private IJSObjectReference _anchoredRegionModule = default!;
-    private bool _disposed;
-
-    private (int top, int right, int bottom, int left) _stylePositions;
-
-    /// <summary />
-    internal string? ClassValue => new CssBuilder(Class)
-        .Build();
-
-    /// <summary />
-    internal string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("min-width: max-content")
-        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-        .AddStyle("border-radius: calc(var(--layer-corner-radius) * 1px)")
-
-        // For Anchored == false
-        .AddStyle("z-index", $"{ZIndex.Menu}", () => !Anchored)
-        .AddStyle("position", "fixed", () => !Anchored && !string.IsNullOrEmpty(Anchor))
-        .AddStyle("width", "unset", () => !Anchored)
-        .AddStyle("height", "unset", () => !Anchored)
-
-        .AddStyle("top", $"{_stylePositions.top}px", () => !Anchored && _stylePositions.top != 0)
-        .AddStyle("right", $"{_stylePositions.right}px", () => !Anchored && _stylePositions.right != 0)
-        .AddStyle("bottom", $"{_stylePositions.bottom}px", () => !Anchored && _stylePositions.bottom != 0)
-        .AddStyle("left", $"{_stylePositions.left}px", () => !Anchored && _stylePositions.left != 0)
-        .Build();
-
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    public IServiceProvider? ServiceProvider { get; set; } // https://github.com/dotnet/aspnetcore/issues/24193
-
-    /// <summary />
-    protected virtual IMenuService? MenuService => _menuService;
+    private DotNetObjectReference<FluentMenu>? _dotNetHelper;
+    private bool _openedChangedSubscribed;
+    private bool _renderMenu = true;
+    private bool _wasRendered;
 
     /// <summary>
-    /// Use IMenuService to create the menu, if this service was injected.
-    /// This value must be defined before the component is rendered (you can't change it during the component lifecycle).
-    /// Default, true.
+    /// Constructs a new instance of <see cref="FluentMenu"/>.
+    /// Sets the Id to a new random value
     /// </summary>
-    [Parameter]
-    public bool UseMenuService { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets the identifier of the source component clickable by the end user.
-    /// </summary>
-    [Parameter]
-    public string Anchor { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the automatic trigger. See <seealso cref="MouseButton"/>
-    /// Possible values are None (default), Left, Middle, Right, Back, Forward
-    /// </summary>
-    [Parameter]
-    public MouseButton Trigger { get; set; } = MouseButton.None;
-
-    /// <summary>
-    /// Gets or sets the Menu status.
-    /// </summary>
-    [Parameter]
-    public bool Open
+    public FluentMenu(LibraryConfiguration configuration) : base(configuration)
     {
-        get
-        {
-            return _opened;
-        }
-
-        set
-        {
-            if (_opened != value)
-            {
-                _opened = value;
-                _reinitializeEventListeners = true;
-                if (DrawMenuWithService)
-                {
-                    UpdateMenuProviderAsync().ConfigureAwait(true);
-                }
-            }
-        }
+        Id = Identifier.NewId();
     }
 
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("--menu-max-height", Height, when: !string.IsNullOrEmpty(Height))
+        .Build();
+
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets whether the menu opens on hover.
+    /// </summary>
+    [Parameter]
+    public bool? OpenOnHover { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the menu opens on right click.
+    /// Removes all other menu open interactions.
+    /// </summary>
+    [Parameter]
+    public bool? OpenOnContext { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the menu closes automatically when the user scrolls outside of it.
+    /// </summary>
+    [Parameter]
+    public bool? CloseOnScroll { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the menu stays open when an item is clicked.
+    /// </summary>
+    [Parameter]
+    public bool? PersistOnItemClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets the HTML element ID of the trigger element that opens this menu (e.g., <c>Trigger="my-button-id"</c>).
+    /// When set, clicking the referenced element toggles the menu open or closed.
+    /// </summary>
+    [Parameter]
+    public string? Trigger { get; set; }
+
+    /// <summary>
+    /// Gets or sets the max height of the menu, e.g. 300px
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets the child content rendered inside the menu, typically <see cref="FluentMenuItem"/> elements.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the horizontal menu position.
+    /// Raised when a FluentMenuItem is clicked.
     /// </summary>
     [Parameter]
-    public HorizontalPosition HorizontalPosition { get; set; } = HorizontalPosition.Unset;
+    public EventCallback<MenuItemEventArgs> OnClick { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the region overlaps the anchor on the horizontal axis.
-    /// Default is false which places the region adjacent to the anchor element.
+    /// Raised when a FluentMenuItem's Checked state changes.
     /// </summary>
     [Parameter]
-    public bool HorizontalInset { get; set; } = true;
+    public EventCallback<MenuItemEventArgs> OnCheckedChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the vertical menu position.
+    /// Gets or sets the callback that is invoked when the menu's open state changes.
     /// </summary>
+    /// <remarks>
+    /// The callback receives <see langword="true"/> when the menu opens and <see langword="false"/> when it closes.
+    /// </remarks>
     [Parameter]
-    public VerticalPosition VerticalPosition { get; set; } = VerticalPosition.Bottom;
+    public EventCallback<bool> OpenedChanged { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the region overlaps the anchor on the vertical axis.
+    /// Gets or sets the condition that determines whether the menu is rendered.
     /// </summary>
     [Parameter]
-    public bool VerticalInset { get; set; } = false;
+    public Func<bool>? RenderWhen { get; set; }
 
-    /// <summary>
-    /// Gets or sets the width of this menu.
-    /// </summary>
-    [Parameter]
-    public string? Width { get; set; }
-
-    /// <summary>
-    /// Raised when the <see cref="Open"/> property changed.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> OpenChanged { get; set; }
-
-    /// <summary>
-    /// Draw the menu below the component clicked (true) or
-    /// using the mouse coordinates (false).
-    /// </summary>
-    [Parameter]
-    public bool Anchored { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets how short the space allocated to the default position has to be before the tallest area is selected for layout.
-    /// </summary>
-    [Parameter]
-    public int VerticalThreshold { get; set; } = 200;
-
-    /// <summary>
-    /// Gets or sets how narrow the space allocated to the default position has to be before the widest area is selected for layout.
-    /// </summary>
-    [Parameter]
-    public int HorizontalThreshold { get; set; } = 200;
-
-    /// <summary>
-    /// Gets or sets the Horizontal viewport lock.
-    /// </summary>
-    [Parameter]
-    public bool HorizontalViewportLock { get; set; }
-
-    /// <summary>
-    /// Gets or sets the horizontal scaling mode.
-    /// </summary>
-    [Parameter]
-    public AxisScalingMode? HorizontalScaling { get; set; }
-
-    /// <summary>
-    /// Raised when FluentMenuItem Checked changed.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentMenuItem> OnCheckedChanged { get; set; }
-
-    protected override void OnInitialized()
+    /// <summary />
+    protected override async Task OnInitializedAsync()
     {
-        if (Anchored && string.IsNullOrEmpty(Anchor))
-        {
-            Anchored = false;
-        }
+        await base.RenderTooltipAsync(Tooltip);
+    }
 
-        _menuService = ServiceProvider?.GetService<IMenuService>();
-        var menuService = MenuService;
-        if (menuService != null && DrawMenuWithService)
-        {
-            if (string.IsNullOrEmpty(menuService.ProviderId))
-            {
-                throw new ArgumentNullException(nameof(UseMenuService), "<FluentMenuProvider /> needs to be added to the main layout of your application/site.");
-            }
-
-            menuService.Add(this);
-            _registeredMenuService = menuService;
-        }
-
-        base.OnInitialized();
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        _renderMenu = RenderWhen?.Invoke() ?? true;
     }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        var subscribeToOpenedChanged = OpenedChanged.HasDelegate;
+
+        if (Trigger != null && _renderMenu && (firstRender || !_wasRendered || (subscribeToOpenedChanged && !_openedChangedSubscribed)))
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            _anchoredRegionModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", ANCHORED_REGION_JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            _dotNetHelper = DotNetObjectReference.Create(this);
-
-            if (Trigger != MouseButton.None)
+            if (subscribeToOpenedChanged)
             {
-                if (!_disposed && Anchor is not null)
-                {
-                    // Add LeftClick event
-                    if (Trigger == MouseButton.Left)
-                    {
-                        await _jsModule.InvokeVoidAsync("addEventLeftClick", Anchor, _dotNetHelper);
-                    }
-
-                    // Add RightClick event
-                    if (Trigger == MouseButton.Right)
-                    {
-                        _contextMenu = true;
-                        await _jsModule.InvokeVoidAsync("addEventRightClick", Anchor, _dotNetHelper);
-                    }
-                }
+                _dotNetHelper ??= DotNetObjectReference.Create(this);
             }
 
-            if (!_disposed)
-            {
-                await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
-            }
-        }
-        else
-        {
-            if (!_disposed && _reinitializeEventListeners)
-            {
-                // If the menu was closed, remove its set event listeners. If it opened (ie if the menu starts out closed),
-                // we should set them now.
-                _reinitializeEventListeners = false;
-                await _jsModule.InvokeVoidAsync("initialize", Anchor, Id, Open, _anchoredRegionModule, _dotNetHelper);
-            }
+            await JSRuntime.InvokeFluentVoidAsync(
+                "Microsoft.FluentUI.Blazor.Components.Menu.Initialize",
+                Id,
+                Trigger,
+                RenderWhen is not null,
+                subscribeToOpenedChanged ? _dotNetHelper : null);
         }
 
-        await base.OnAfterRenderAsync(firstRender);
+        _openedChangedSubscribed = subscribeToOpenedChanged;
+        _wasRendered = _renderMenu;
     }
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MenuChangeEventArgs))]
-    public FluentMenu()
+    /// <summary>
+    /// Called by JavaScript when the menu's open state changes.
+    /// </summary>
+    /// <param name="opened">A value indicating whether the menu is open.</param>
+    [JSInvokable("FluentMenu.OpenedChangedAsync")]
+    public async Task OnOpenedChangedAsync(bool opened)
     {
-        Id = Identifier.NewId();
+        if (OpenedChanged.HasDelegate)
+        {
+            await OpenedChanged.InvokeAsync(opened);
+        }
     }
 
     /// <summary>
     /// Close the menu.
     /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task CloseAsync()
+    public async Task CloseMenuAsync()
     {
-        Open = false;
-
-        await OpenChanged.InvokeAsync(Open);
-
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu", Id);
     }
 
     /// <summary>
-    /// Method called from JavaScript to get the current mouse coordinates.
+    /// Open the menu.
     /// </summary>
-    /// <param name="x">x-coordinate of point clicked on</param>
-    /// <param name="y">y-coordinate of point clicked on</param>
-    /// <param name="screenWidth">width of the screen</param>
-    /// <param name="screenHeight">height of the screen</param>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task OpenAsync(int screenWidth, int screenHeight, int x, int y)
+    public Task OpenMenuAsync()
     {
-
-        // Calculate the position to display the context menu using the cursor position (x, y)
-        // together with the screen width and height.
-        // The menu may need to be displayed above or left of the cursor to fit in the screen.
-        var left = 0;
-        var right = 0;
-        var top = 0;
-        var bottom = 0;
-
-        if (x + HorizontalThreshold > screenWidth)
-        {
-            right = screenWidth - x;
-        }
-        else
-        {
-            left = x;
-        }
-
-        if (y + VerticalThreshold > screenHeight)
-        {
-            bottom = screenHeight - y;
-        }
-        else
-        {
-            top = y;
-        }
-
-        _stylePositions = (top, right, bottom, left);
-
-        Open = true;
-        if (OpenChanged.HasDelegate)
-        {
-            await OpenChanged.InvokeAsync(Open);
-        }
-
-        StateHasChanged();
-
-    }
-
-    internal void Register(FluentMenuItem item)
-    {
-        items.Add(item.Id!, item);
-    }
-
-    internal void Unregister(FluentMenuItem item)
-    {
-        items.Remove(item.Id!);
-    }
-
-    /// <summary />
-    private bool DrawMenuWithoutService
-    {
-        get
-        {
-            return MenuService is null || UseMenuService != true || string.IsNullOrEmpty(Id) || string.IsNullOrEmpty(Anchor) || Anchored != true;     // Use the default way to draw the menu
-        }
-    }
-
-    /// <summary />
-    private bool DrawMenuWithService => !DrawMenuWithoutService;
-
-    /// <summary />
-    private async Task UpdateMenuProviderAsync()
-    {
-        if (MenuService == null || DrawMenuWithoutService)
-        {
-            return;
-        }
-
-        if (string.IsNullOrEmpty(Id))
-        {
-            throw new ArgumentNullException(nameof(Id), $"The {nameof(Id)} attribute is required.");
-        }
-
-        await MenuService.RefreshMenuAsync(Id, Open);
-    }
-
-    /// <summary />
-    internal async Task SetOpenAsync(bool value)
-    {
-        Open = value;
-        StateHasChanged();
-
-        if (OpenChanged.HasDelegate)
-        {
-            await OpenChanged.InvokeAsync(Open);
-        }
-    }
-
-    internal async Task NotifyCheckedChangedAsync(FluentMenuItem fluentMenuItem)
-    {
-        await OnCheckedChanged.InvokeAsync(fluentMenuItem);
-    }
-
-    internal async Task<bool> IsCheckedAsync(FluentMenuItem item)
-    {
-        if (_jsModule is null)
-        {
-            return false;
-        }
-        return await _jsModule.InvokeAsync<bool>("isChecked", item.Id);
+        return OpenMenuAsync(targetId: null, targetOffsetLeft: 0, targetOffsetTop: 0);
     }
 
     /// <summary>
-    /// Dispose this menu.
+    /// Open the menu.
     /// </summary>
-    public async ValueTask DisposeAsync()
+    /// <param name="targetId">The id of the element to anchor the menu to. If null, it will open relative to the trigger.</param>
+    /// <param name="targetOffsetLeft">The left offset from the target element to open the menu. Default is 0.</param>
+    /// <param name="targetOffsetTop">The top offset from the target element to open the menu. Default is 0.</param>
+    public Task OpenMenuAsync(string? targetId = null, int targetOffsetLeft = 0, int targetOffsetTop = 0)
     {
-        if (_registeredMenuService is not null)
+        return JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.OpenMenu", Id, targetId, targetOffsetLeft, targetOffsetTop).AsTask();
+    }
+
+    internal async Task NotifyCheckedChangedAsync(MenuItemEventArgs args)
+    {
+        if (OnCheckedChanged.HasDelegate)
         {
-            var menuService = _registeredMenuService;
-            _registeredMenuService = null;
-            menuService.Remove(this);
+            await OnCheckedChanged.InvokeAsync(args);
+        }
+    }
+
+    internal async Task NotifyClickedAsync(MenuItemEventArgs args)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+
+    /// <inheritdoc />
+    public override async ValueTask DisposeAsync()
+    {
+        if (_dotNetHelper is not null)
+        {
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.Dispose", Id);
+            _dotNetHelper.Dispose();
         }
 
-        if (_disposed)
-        {
-            return;
-        }
-
-        _disposed = true;
-        _dotNetHelper?.Dispose();
-
-        try
-        {
-            if (_jsModule is not null)
-            {
-                await _jsModule.InvokeVoidAsync("dispose", Anchor);
-                await _jsModule.DisposeAsync();
-            }
-
-            if (_anchoredRegionModule is not null)
-            {
-                await _anchoredRegionModule.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
-        finally
-        {
-            GC.SuppressFinalize(this);
-        }
+        await base.DisposeAsync();
     }
 }

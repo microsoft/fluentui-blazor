@@ -1,0 +1,473 @@
+@using System.Linq
+@using System.Reflection
+@using Xunit
+@using Microsoft.Extensions.DependencyInjection
+@inherits FluentUITestContext
+
+@code
+{
+    // A timeout used when a toast is opened but not explicitly closed.
+    private const int TEST_TIMEOUT = 3000;
+
+    public FluentToastProviderTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+
+        NotificationService = Services.GetRequiredService<INotificationService>();
+    }
+
+    /// <summary>
+    /// Gets the notification service.
+    /// </summary>
+    public INotificationService NotificationService { get; }
+
+    [Fact]
+    public void FluentToastProvider_RendersEmpty()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToastProvider />);
+
+        // Assert
+        Assert.DoesNotContain("<fluent-toast-b", cut.Markup);
+        Assert.Contains("fluent-toast-provider", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToastProvider_HasZIndexStyle()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToastProvider />);
+
+        // Assert
+        Assert.Contains("z-index", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GeneratesId()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentToastProvider />);
+
+        // Assert
+        Assert.False(string.IsNullOrEmpty(cut.FindComponent<FluentToastProvider>().Instance.Id));
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_ShowInfo_RendersToast()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowInfoToastAsync("Info title", "Info message", lifetime: null);
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("<fluent-toast-b", cut.Markup);
+            Assert.Contains("Info title", cut.Markup);
+            Assert.Contains("Info message", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_ShowToast_RendersTitle()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(new ToastOptions
+        {
+            Title = "Direct options",
+            Intent = ToastIntent.Success,
+        });
+        await Task.CompletedTask.WaitAsync(Xunit.TestContext.Current.CancellationToken);
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Contains("Direct options", cut.Markup));
+    }
+
+    [Fact]
+    public void FluentToastProvider_Dispose_DoesNotThrow()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+
+        // Act & Assert
+        var exception = Record.Exception(() => provider.Dispose());
+        Assert.Null(exception);
+    }
+
+    // The inverted CSS variable applied to footer quick action links when the toast is inverted.
+    private const string INVERTED_LINK_COLOR = "color: var(--colorBrandForegroundInverted);";
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_NotInverted_RendersLinkWithoutInvertedColor()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Not inverted";
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.DoesNotContain(INVERTED_LINK_COLOR, cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_InvertedFromOptions_RendersLinkWithInvertedColor()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Inverted from options";
+            options.Inverted = true;
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.Contains(INVERTED_LINK_COLOR, cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_InvertedFromConfiguration_RendersLinkWithInvertedColor()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.Inverted = true;
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Inverted from configuration";
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.Contains(INVERTED_LINK_COLOR, cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_PrimaryAndSecondaryActions_RendersBothLinks()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Both actions";
+            options.QuickAction1.Label = "Action 1";
+            options.QuickAction2.Label = "Action 2";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("slot=\"footer\"", cut.Markup);
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.Contains("Action 2", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_PrimaryActionOnly_RendersPrimaryLink()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Primary action only";
+            options.QuickAction1.Label = "Action 1";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("slot=\"footer\"", cut.Markup);
+            Assert.Contains("Action 1", cut.Markup);
+            Assert.DoesNotContain("Action 2", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_SecondaryActionOnly_RendersSecondaryLink()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Secondary action only";
+            options.QuickAction2.Label = "Action 2";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("slot=\"footer\"", cut.Markup);
+            Assert.Contains("Action 2", cut.Markup);
+            Assert.DoesNotContain("Action 1", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_NoActions_RendersNoFooter()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "No actions";
+        });
+        await Task.CompletedTask;
+
+        // Assert
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Contains("No actions", cut.Markup);
+            Assert.DoesNotContain("slot=\"footer\"", cut.Markup);
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_FooterContent_QuickActionClicked_InvokesOnClickAsync()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var invoked = false;
+        var cut = Render(@<FluentToastProvider />);
+
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Title = "Quick action click";
+            options.QuickAction1.Label = "Action 1";
+            options.QuickAction1.OnClickAsync = _ =>
+            {
+                invoked = true;
+                return Task.CompletedTask;
+            };
+        });
+        await Task.CompletedTask;
+
+        cut.WaitForAssertion(() => Assert.Contains("Action 1", cut.Markup));
+
+        // Act
+        var link = cut.FindAll("fluent-link").First(element => element.TextContent.Contains("Action 1"));
+        await cut.InvokeAsync(() => link.Click());
+
+        // Assert
+        Assert.True(invoked);
+    }
+
+    [Fact]
+    public void FluentToastProvider_RenderToastContent_NullToast_ReturnsNull()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var method = typeof(FluentToastProvider).GetMethod("RenderToastContent", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        // Act
+        var result = method!.Invoke(provider, new object?[] { null });
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_SynchronizeToastQueue_PromotesQueuedToastsUpToMaxCount()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.MaxToastCount = 2;
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        for (var i = 1; i <= 4; i++)
+        {
+            _ = NotificationService.ShowToastAsync(new ToastOptions { Title = $"Queued toast {i}" });
+        }
+        await Task.CompletedTask;
+
+        // Assert
+        var items = ((IFluentServiceBase<INotificationInstance>)NotificationService).Items;
+        cut.WaitForAssertion(() =>
+        {
+            var toasts = items.Values.OfType<IToastInstance>().ToList();
+            Assert.Equal(2, toasts.Count(toast => toast.LifecycleStatus == ToastLifecycleStatus.Visible));
+            Assert.Equal(2, toasts.Count(toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued));
+        });
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentToastProvider_SynchronizeToastQueue_PromotesAllQueuedToasts_WhenUnderMaxCount()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.MaxToastCount = 5;
+        var cut = Render(@<FluentToastProvider />);
+
+        // Act
+        for (var i = 1; i <= 3; i++)
+        {
+            _ = NotificationService.ShowToastAsync(new ToastOptions { Title = $"Visible toast {i}" });
+        }
+        await Task.CompletedTask;
+
+        // Assert
+        var items = ((IFluentServiceBase<INotificationInstance>)NotificationService).Items;
+        cut.WaitForAssertion(() =>
+        {
+            var toasts = items.Values.OfType<IToastInstance>().ToList();
+            Assert.Equal(3, toasts.Count(toast => toast.LifecycleStatus == ToastLifecycleStatus.Visible));
+            Assert.DoesNotContain(toasts, toast => toast.LifecycleStatus == ToastLifecycleStatus.Queued);
+        });
+    }
+
+    /// <summary>
+    /// Invokes the private <c>GetLifetime</c> method on the provider for the given toast.
+    /// </summary>
+    private static TimeSpan InvokeGetLifetime(FluentToastProvider provider, IToastInstance toast)
+    {
+        var method = typeof(FluentToastProvider).GetMethod("GetLifetime", BindingFlags.NonPublic | BindingFlags.Instance);
+        return (TimeSpan)method!.Invoke(provider, new object?[] { toast })!;
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_OptionsLifetimeDefined_ReturnsOptionsLifetime()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var options = new ToastOptions { Lifetime = TimeSpan.FromSeconds(12) };
+        var toast = new ToastInstance((NotificationService)NotificationService, options);
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.FromSeconds(12), lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_PrimaryActionDefined_ReturnsZero()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var options = new ToastOptions();
+        options.QuickAction1.Label = "Action 1";
+        var toast = new ToastInstance((NotificationService)NotificationService, options);
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.Zero, lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_SecondaryActionDefined_ReturnsZero()
+    {
+        // Arrange
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var options = new ToastOptions();
+        options.QuickAction2.Label = "Action 2";
+        var toast = new ToastInstance((NotificationService)NotificationService, options);
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.Zero, lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_NoLifetimeNoActions_ReturnsConfigurationLifetime()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.Lifetime = TimeSpan.FromSeconds(5);
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var toast = new ToastInstance((NotificationService)NotificationService, new ToastOptions());
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.FromSeconds(5), lifetime);
+    }
+
+    [Fact]
+    public void FluentToastProvider_GetLifetime_NoLifetimeNoActionsNoConfiguration_ReturnsZero()
+    {
+        // Arrange
+        Services.GetRequiredService<LibraryConfiguration>().Toast.Lifetime = null;
+        var cut = Render(@<FluentToastProvider />);
+        var provider = cut.FindComponent<FluentToastProvider>().Instance;
+        var toast = new ToastInstance((NotificationService)NotificationService, new ToastOptions());
+
+        // Act
+        var lifetime = InvokeGetLifetime(provider, toast);
+
+        // Assert
+        Assert.Equal(TimeSpan.Zero, lifetime);
+    }
+}

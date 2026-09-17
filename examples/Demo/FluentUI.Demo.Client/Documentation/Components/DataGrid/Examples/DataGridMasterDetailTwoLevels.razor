@@ -1,0 +1,80 @@
+<style>
+    .two-levels .row-details-cell {
+        padding: 0.5rem 1rem 1rem 2.5rem;
+        background: var(--colorNeutralBackground2);
+    }
+
+        /* Second level of details, nested inside the first one */
+        .two-levels .row-details-cell .row-details-cell {
+            background: var(--colorNeutralBackground3);
+        }
+
+    .two-levels .detail-heading {
+        margin: 0 0 10px 20px;
+    }
+</style>
+
+<div class="two-levels">
+    <FluentDataGrid Items="@customers" ShowHover="true">
+        <ChildContent>
+            <PropertyColumn Title="Customer" Property="@(c => c.Name)" Sortable="true" />
+            <PropertyColumn Title="City" Property="@(c => c.City)" Sortable="true" />
+            <PropertyColumn Title="Orders" Property="@(c => OrdersOf(c.Id).Count())" Align="DataGridCellAlignment.End" />
+        </ChildContent>
+        <RowDetails Context="customer">
+            <h5 class="detail-heading">Orders of @customer.Name</h5>
+            <FluentDataGrid Items="@OrdersOf(customer.Id)" ShowHover="true">
+                <ChildContent>
+                    <PropertyColumn Title="Order #" Property="@(o => o.OrderNumber)" />
+                    <PropertyColumn Title="Date" Property="@(o => o.OrderDate)" Format="yyyy-MM-dd" Sortable="true" InitialSortDirection="DataGridSortDirection.Descending" IsDefaultSortColumn="true" />
+                    <PropertyColumn Title="Amount" Property="@(o => LinesOf(o.OrderNumber).Sum(l => l.Quantity * l.UnitPrice))" Format="c" Align="DataGridCellAlignment.End" />
+                </ChildContent>
+                <RowDetails Context="order">
+                    <h5 class="detail-heading">Lines of order @order.OrderNumber</h5>
+                    <FluentDataGrid Items="@LinesOf(order.OrderNumber)" ShowHover="true">
+                        <PropertyColumn Title="Product" Property="@(l => l.Product)" />
+                        <PropertyColumn Title="Quantity" Property="@(l => l.Quantity)" Align="DataGridCellAlignment.End" />
+                        <PropertyColumn Title="Unit price" Property="@(l => l.UnitPrice)" Format="c" Align="DataGridCellAlignment.End" />
+                        <PropertyColumn Title="Line total" Property="@(l => l.Quantity * l.UnitPrice)" Format="c" Align="DataGridCellAlignment.End" />
+                    </FluentDataGrid>
+                </RowDetails>
+            </FluentDataGrid>
+        </RowDetails>
+    </FluentDataGrid>
+</div>
+
+@code {
+    private record Customer(int Id, string Name, string City);
+    private record Order(string OrderNumber, int CustomerId, DateTime OrderDate);
+    private record OrderLine(string OrderNumber, string Product, int Quantity, decimal UnitPrice);
+
+    private IQueryable<Customer> customers = new List<Customer>
+    {
+        new(1, "Contoso Ltd.", "Seattle"),
+        new(2, "Fabrikam, Inc.", "Paris"),
+    }.AsQueryable();
+
+    private List<Order> orders = new()
+    {
+        new("ORD-1001", 1, new DateTime(2026, 5, 12)),
+        new("ORD-1002", 1, new DateTime(2026, 6, 3)),
+        new("ORD-1004", 2, new DateTime(2026, 4, 21)),
+    };
+
+    private List<OrderLine> lines = new()
+    {
+        new("ORD-1001", "Standing desk", 2, 450.00m),
+        new("ORD-1001", "Office chair", 2, 175.00m),
+        new("ORD-1002", "Monitor 27\"", 1, 320.50m),
+        new("ORD-1002", "HDMI cable", 4, 40.00m),
+        new("ORD-1004", "Laptop docking station", 10, 220.00m),
+        new("ORD-1004", "Wireless keyboard", 10, 100.00m),
+    };
+
+    // Each level filters its child grid with its own row item
+    private IQueryable<Order> OrdersOf(int customerId)
+        => orders.Where(o => o.CustomerId == customerId).AsQueryable();
+
+    private IQueryable<OrderLine> LinesOf(string orderNumber)
+        => lines.Where(l => l.OrderNumber == orderNumber).AsQueryable();
+}

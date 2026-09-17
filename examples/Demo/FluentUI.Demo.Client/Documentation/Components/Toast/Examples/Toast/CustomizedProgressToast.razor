@@ -1,0 +1,38 @@
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentProgressBar Min="0"
+                       Max="100"
+                       Value="@ProgressValue"
+                       Width="100%" />
+    <FluentText>@(ProgressValue)% completed</FluentText>
+</FluentStack>
+
+@code {
+
+    // If you want to use this razor component in standalone mode,
+    // you can use a nullable IToastInstance property.
+    // If the value is not null, the component is running using the NotificationService.
+    // `public IToastInstance? ToastInstance { get; set; }`
+    [CascadingParameter]
+    public required IToastInstance ToastInstance { get; set; }
+
+    [Parameter]
+    public int ProgressValue { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Simulate work being done
+            for (int i = 0; i <= 100; i += 10)
+            {
+                await Task.Delay(500);
+                ProgressValue = i;
+                StateHasChanged();
+            }
+
+            // Close the toast after the progress is complete
+            await Task.Delay(1000);
+            await ToastInstance.CloseAsync(ToastCloseReason.Programmatic, "Finished");
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<FluentStack>
+    <!-- Differ the menu rendering and keep the menu in the DOM -->
+    <FluentButton Id="btnMenu1"
+                  OnClick="@(() => RenderMenu1 = true)"
+                  Margin="@Margin.All2">
+        Open Menu 1
+    </FluentButton>
+
+    <FluentMenu Trigger="btnMenu1"
+                RenderWhen="@(() => RenderMenu1)">
+        <FluentMenuList>
+            <FluentMenuItem>Action 1</FluentMenuItem>
+            <FluentMenuItem>Action 2</FluentMenuItem>
+        </FluentMenuList>
+    </FluentMenu>
+
+    <!-- Differ the menu rendering and remove the menu from the DOM when closed -->
+    <FluentButton Id="btnMenu2"
+                  OnClick="@(() => RenderMenu2 = true)"
+                  Margin="@Margin.All2">
+        Open Menu 2
+    </FluentButton>
+
+    <FluentMenu Trigger="btnMenu2"
+                RenderWhen="@(() => RenderMenu2)"
+                OpenedChanged="@(opened => RenderMenu2 = opened)">
+        <FluentMenuList>
+            <FluentMenuItem>Action 1</FluentMenuItem>
+            <FluentMenuItem>Action 2</FluentMenuItem>
+        </FluentMenuList>
+    </FluentMenu>
+</FluentStack>
+
+@code {
+    bool RenderMenu1;
+    bool RenderMenu2;
+}

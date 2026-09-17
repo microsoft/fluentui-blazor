@@ -4,6 +4,9 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Event arguments for the <see cref="FluentKeyCode.OnKeyDown" /> and <see cref="FluentKeyCode.OnKeyUp" /> events.
+/// </summary>
 public class FluentKeyCodeEventArgs
 {
     internal static FluentKeyCodeEventArgs Instance(string name, int keyCode, string value, bool ctrlKey, bool shiftKey, bool altKey, bool metaKey, int location, string targetId, bool repeat)
@@ -20,7 +23,7 @@ public class FluentKeyCodeEventArgs
             AltKey = altKey,
             MetaKey = metaKey,
             TargetId = targetId,
-            Repeat = repeat
+            Repeat = repeat,
         };
     }
 
@@ -79,7 +82,7 @@ public class FluentKeyCodeEventArgs
     /// <summary>
     /// Gets a boolean value that is true if the given key is being held down such that it is automatically repeating.
     /// </summary>
-    public bool Repeat { get; init; } = false;
+    public bool Repeat { get; init; }
 
     /// <summary>
     /// Returns a string that represents the key pressed.
@@ -94,7 +97,7 @@ public class FluentKeyCodeEventArgs
                 ShiftKey ? "Shift" : string.Empty,
                 AltKey ? "Alt" : string.Empty,
                 MetaKey ? "Meta" : string.Empty,
-                Value.Length == 1 ? (Value == " " ? "Space" :Value.ToUpper()) : Value
+                Value.Length == 1 ? (string.Equals(Value, " ", StringComparison.Ordinal) ? "Space" :Value.ToUpper()) : Value,
             };
 
         return string.Join(" + ", keys.Where(i => !string.IsNullOrEmpty(i)));

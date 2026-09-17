@@ -1,0 +1,60 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentAreaChart ChartData="data"
+                 ChartTitle="Area chart secondary axis example"
+                 Width="700px"
+                 YAxisTitle="Prices"
+                 SecondaryYAxisTitle="Gains"
+                 SecondaryYAxisTickLabelMaxWidth="120" />
+
+@code {
+
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "Prices",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 7000 },
+                new AreaChartDataPoint { X = 25, Y = 9000 },
+                new AreaChartDataPoint { X = 30, Y = 13000 },
+                new AreaChartDataPoint { X = 35, Y = 15000 },
+                new AreaChartDataPoint { X = 40, Y = 11000 },
+                new AreaChartDataPoint { X = 45, Y = 8760 },
+                new AreaChartDataPoint { X = 50, Y = 3500 },
+                new AreaChartDataPoint { X = 55, Y = 20000 },
+                new AreaChartDataPoint { X = 60, Y = 17000 },
+                new AreaChartDataPoint { X = 65, Y = 1000 },
+                new AreaChartDataPoint { X = 70, Y = 12000 },
+                new AreaChartDataPoint { X = 75, Y = 6876 },
+                new AreaChartDataPoint { X = 80, Y = 12000 },
+                new AreaChartDataPoint { X = 85, Y = 7000 },
+                new AreaChartDataPoint { X = 90, Y = 10000 },
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "Gains",
+            UseSecondaryYScale = true,
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 240 },
+                new AreaChartDataPoint { X = 25, Y = 280 },
+                new AreaChartDataPoint { X = 30, Y = 360 },
+                new AreaChartDataPoint { X = 35, Y = 400 },
+                new AreaChartDataPoint { X = 40, Y = 320 },
+                new AreaChartDataPoint { X = 45, Y = 275 },
+                new AreaChartDataPoint { X = 50, Y = 170 },
+                new AreaChartDataPoint { X = 55, Y = 500 },
+                new AreaChartDataPoint { X = 60, Y = 440 },
+                new AreaChartDataPoint { X = 65, Y = 120 },
+                new AreaChartDataPoint { X = 70, Y = 340 },
+                new AreaChartDataPoint { X = 75, Y = 238 },
+                new AreaChartDataPoint { X = 80, Y = 340 },
+                new AreaChartDataPoint { X = 85, Y = 240 },
+                new AreaChartDataPoint { X = 90, Y = 300 },
+            }
+        }
+    };
+}

@@ -1,3 +1,7 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.IO.Compression;
 using System.Text;
 
@@ -17,9 +21,9 @@ internal static class Tools
     /// <summary />
     public static string ToPascalCase(string[] words, string separator = "")
     {
-        for (int i = 0; i < words.Length; i++)
+        for (var i = 0; i < words.Length; i++)
         {
-            string word = words[i];
+            var word = words[i];
             if (word.Length > 0)
             {
                 words[i] = char.ToUpper(word[0]) + word.Substring(1).ToLower();
@@ -60,7 +64,7 @@ internal static class Tools
     /// <summary />
     private static void CopyTo(Stream src, Stream dest)
     {
-        byte[] bytes = new byte[4096];
+        var bytes = new byte[4096];
 
         int cnt;
 

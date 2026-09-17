@@ -12,7 +12,6 @@
 <PageTitle>Recovery code verification</PageTitle>
 
 <h1>Recovery code verification</h1>
-<hr />
 <StatusMessage Message="@message" />
 <p>
     You have requested to log in with a recovery code. This login will not be remembered until you provide
@@ -23,9 +22,9 @@
         <EditForm Model="Input" FormName="login-with-recovery-code" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <FluentValidationSummary class="text-danger" role="alert" />
-            <FluentTextField Name="Input.RecoveryCode" @bind-Value="Input.RecoveryCode" class="form-control" AutoComplete="off" Placeholder="Recovery code" Label="Recovery code" Style="width: 100%;" />
-            <FluentValidationMessage For="() => Input.RecoveryCode" class="text-danger" />
-            <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%;">Log in</FluentButton>
+            <FluentTextInput Name="Input.RecoveryCode" @bind-Value="Input.RecoveryCode" class="form-control" AutoComplete="off" Placeholder="Recovery code" Label="Recovery code" Style="width: 100%;" />
+            @* <FluentValidationMessage For="() => Input.RecoveryCode" class="text-danger" /> *@
+            <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Style="width: 100%;">Log in</FluentButton>
         </EditForm>
     </FluentGridItem>
 </FluentGrid>

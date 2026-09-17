@@ -3,118 +3,133 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Each tab typically contains a text header and often includes an icon.
+/// </summary>
 public partial class FluentTabs : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Overflow/FluentOverflow.razor.js";
+    private string? _clientActiveTabId;
+    private bool _overflowInitialized;
+    private bool? _previousOverflowValue;
+    private bool _refreshOverflowAfterRender;
+    private bool _tabsObserverInitialized;
 
-    private const string FLUENT_TAB_TAG = "fluent-tab";
-    private readonly List<FluentTab> _tabs = [];
-    //private string _activeId = string.Empty;
-    private DotNetObjectReference<FluentTabs>? _dotNetHelper = null;
-    private IJSObjectReference _jsModuleOverflow = default!;
+    private List<FluentTab> Tabs { get; } = [];
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass(Size.ToAttributeValue(), Size != TabSize.Small)
-        .AddClass(Orientation.ToAttributeValue(), Orientation == Orientation.Vertical)
+    [DynamicDependency(nameof(TabChangeHandlerAsync))]
+    [DynamicDependency(nameof(OverflowChangedHandler))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowChangedEventArgs))]
+    public FluentTabs(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary />
+    internal string TabListId => $"{Id}-tablist";
+
+    /// <summary />
+    internal string IdMoreButton => $"{Id}-more";
+
+    /// <summary />
+    private string? ActiveTabIdAttribute { get; set; }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-tabs")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("--density", "2", () => Size == TabSize.Medium)
-        .AddStyle("--density", "4", () => Size == TabSize.Large)
-        .AddStyle("width", Width, () => !string.IsNullOrEmpty(Width))
-        .AddStyle("height", Height, () => !string.IsNullOrEmpty(Height))
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary />
-    protected string? StyleMoreValues => new StyleBuilder()
-        .AddStyle("min-width: 32px")
-        .AddStyle("max-width: 32px")
-        .AddStyle("cursor: pointer")
-        .AddStyle("display", "none", () => !TabsOverflow.Any())
+    protected string? MoreButtonStyleValue => new StyleBuilder()
+        .AddStyle("visibility", "hidden", when: OverflowCount == 0)
         .Build();
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    protected string MoreButtonLabel => Localizer[Localization.LanguageResource.Tabs_MoreItems, OverflowCount];
 
     /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    protected string OverflowMenuId => $"{Id}-overflow-menu";
 
     /// <summary>
-    /// Gets or sets the tab's orentation. See <see cref="AspNetCore.Components.Orientation"/>
+    /// Gets or sets the visual appearance applied to each contained tab (e.g., <c>Appearance="TabsAppearance.Subtle"</c>).
     /// </summary>
     [Parameter]
-    public Orientation Orientation { get; set; } = Orientation.Horizontal;
+    public TabsAppearance? Appearance { get; set; }
 
     /// <summary>
-    /// Raised when a tab is selected.
+    /// Gets or sets whether the tabs are disabled.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentTab> OnTabSelect { get; set; }
+    public bool Disabled { get; set; }
 
     /// <summary>
-    /// Raised when a tab is closed.
+    /// Gets or sets the size of the tabs. The default is medium.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentTab> OnTabClose { get; set; }
+    public TabsSize? Size { get; set; }
 
     /// <summary>
-    /// Determines if a dismiss icon is shown.
-    /// When clicked the <see cref="OnTabClose"/> event is raised to remove this tab from the list.
+    /// Gets or sets the orientation of the tabs. The default is horizontal.
     /// </summary>
     [Parameter]
-    public bool ShowClose { get; set; } = false;
+    public Orientation? Orientation { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the tab items.
+    /// Gets or sets whether tabs that do not fit in the available space are displayed in an overflow menu.
     /// </summary>
     [Parameter]
-    public TabSize? Size { get; set; } = TabSize.Small;
+    public bool Overflow { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the tabs component.
-    /// Needs to be a valid CSS value (e.g. 100px, 50%).
-    /// </summary>
-    [Parameter]
-    public string? Width { get; set; }
-
-    /// <summary>
-    /// Gets or sets the height of the tabs component.
-    /// Needs to be a valid CSS value (e.g. 100px, 50%).
+    /// Gets or sets the height of the tabs.
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
     /// <summary>
-    /// Gets the active selected tab.
+    /// Gets or sets the width of the tabs.
     /// </summary>
-    public FluentTab ActiveTab => _tabs.FirstOrDefault(t => t.Id == ActiveTabId) ?? _tabs.First();
-
     [Parameter]
-    public string ActiveTabId { get; set; } = default!;
+    public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when the bound value is changed.
+    /// Gets or sets the ID of the currently active tab. Use <c>@bind-ActiveTabId</c> for two-way binding.
+    /// See also <see cref="ActiveTab"/> to work with the <see cref="FluentTab"/> instance directly.
     /// </summary>
     [Parameter]
-    public EventCallback<string> ActiveTabIdChanged { get; set; }
+    public string? ActiveTabId { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the active indicator is displayed.
+    /// Represents a callback for when the active tab id changes. It can handle a nullable FluentTab parameter.
     /// </summary>
     [Parameter]
-    public bool ShowActiveIndicator { get; set; } = true;
+    public EventCallback<string?> ActiveTabIdChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the currently active <see cref="FluentTab"/> instance. Use <c>@bind-ActiveTab</c> for two-way binding.
+    /// See also <see cref="ActiveTabId"/> to work with the tab ID string directly.
+    /// </summary>
+    [Parameter]
+    public FluentTab? ActiveTab { get; set; }
+
+    /// <summary>
+    /// Represents a callback for when the active tab changes. It can handle a nullable FluentTab parameter.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTab?> ActiveTabChanged { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -123,163 +138,288 @@ public partial class FluentTabs : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a callback when a tab is changed.
+    /// Gets or sets the content rendered inside the overflow menu trigger.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentTab> OnTabChange { get; set; }
+    public RenderFragment<FluentTabs>? MoreTemplate { get; set; }
 
     /// <summary>
-    /// Gets the unique identifier associated to the more button ([Id]-more).
+    /// Gets or sets the content rendered in place of the default overflow menu.
     /// </summary>
-    public string IdMoreButton => $"{Id}-more";
+    [Parameter]
+    public RenderFragment<FluentTabs>? OverflowTemplate { get; set; }
 
     /// <summary>
-    /// Gets all tabs with <see cref="FluentTab.Overflow"/> assigned to True.
+    /// Gets the tabs that are currently displayed in the overflow menu.
     /// </summary>
-    public IEnumerable<FluentTab> TabsOverflow => _tabs.Where(i => i.Overflow == true);
+    public IReadOnlyList<FluentTab> OverflowTabs { get; private set; } = [];
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowItem))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TabChangeEventArgs))]
+    /// <summary>
+    /// Gets the number of tabs that are currently displayed in the overflow menu.
+    /// </summary>
+    public int OverflowCount => OverflowTabs.Count;
 
-    public FluentTabs()
+    /// <summary />
+    protected override void OnParametersSet()
     {
-        Id = Identifier.NewId();
+        var activeTabId = ActiveTabId ?? ActiveTab?.Id;
+        if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        ActiveTabIdAttribute = activeTabId;
+        _clientActiveTabId = null;
     }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        // Check if the overflow mode has changed since the last render
+        var overflowModeChanged = _previousOverflowValue != Overflow;
+
+        // Dispose the overflow observer if the Overflow property is false and it was previously initialized
+        if (!Overflow && _overflowInitialized)
         {
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            // Overflow
-            _jsModuleOverflow = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-
-            var horizontal = Orientation == Orientation.Horizontal;
-            await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowInitialize", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG, 25);
-
-            if (ActiveTabId is not null)
-            {
-                await HandleOnTabChangedAsync(new TabChangeEventArgs() { ActiveId = ActiveTabId });
-            }
-        }
-    }
-
-    private async Task HandleOnTabChangedAsync(TabChangeEventArgs args)
-    {
-        var tabId = args?.ActiveId;
-        var tab = _tabs.FirstOrDefault(i => i.Id == tabId);
-
-        if (tab is not null && _tabs.Contains(tab))
-        {
-            await OnTabChange.InvokeAsync(tab);
-            if (tabId != null)
-            {
-                ActiveTabId = tabId;
-                await ActiveTabIdChanged.InvokeAsync(tabId);
-            }
-        }
-    }
-
-    internal int RegisterTab(FluentTab tab)
-    {
-        _tabs.Add(tab);
-        return _tabs.Count - 1;
-    }
-
-    internal async Task UnregisterTabAsync(string id)
-    {
-        if (OnTabClose.HasDelegate)
-        {
-            var tab = _tabs.FirstOrDefault(t => t.Id == id);
-            await OnTabClose.InvokeAsync(tab);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.DisposeOverflow", TabListId);
+            _overflowInitialized = false;
+            OverflowTabs = [];
         }
 
-        if (_tabs.Count > 0)
+        // Observe the tabs for changes
+        if (firstRender || overflowModeChanged)
         {
-            _tabs.RemoveAt(_tabs.Count - 1);
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.ObserveTabsChanged", Id);
+            _tabsObserverInitialized = true;
         }
 
-        // Set the first tab active
-        var firstTab = _tabs.FirstOrDefault();
-        if (firstTab is not null)
+        // Initialize the overflow observer
+        if (Overflow && !_overflowInitialized)
         {
-            await ResizeTabsForOverflowButtonAsync();
-
-            await OnTabChangeHandlerAsync(new TabChangeEventArgs()
-            {
-                ActiveId = firstTab.Id,
-            });
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.InitializeOverflow", TabListId);
+            _overflowInitialized = true;
         }
+
+        // Refresh the overflow after render if needed
+        if (_overflowInitialized && _refreshOverflowAfterRender)
+        {
+            _refreshOverflowAfterRender = false;
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow", TabListId);
+        }
+
+        _previousOverflowValue = Overflow;
     }
 
     /// <summary />
-    internal async Task OnTabChangeHandlerAsync(TabChangeEventArgs e)
+    internal async Task<int> AddTabAsync(FluentTab? tab)
     {
-        ActiveTabId = e.ActiveId!;
-
-        if (ActiveTabIdChanged.HasDelegate)
+        if (tab is not null && !string.IsNullOrEmpty(tab.Id))
         {
-            await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
+            Tabs.Add(tab);
+
+            // Set the default ActiveTab
+            if (!string.IsNullOrEmpty(ActiveTabId) && string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal))
+            {
+                ActiveTab = tab;
+
+                if (ActiveTabChanged.HasDelegate)
+                {
+                    await ActiveTabChanged.InvokeAsync(ActiveTab);
+                }
+            }
+
+            // Set the default ActiveTabId
+            else if (ActiveTabId is null && string.Equals(ActiveTab?.Id, tab.Id, StringComparison.Ordinal))
+            {
+                ActiveTabId = tab.Id;
+
+                if (ActiveTabIdChanged.HasDelegate)
+                {
+                    await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
+                }
+            }
+
+            await InvokeAsync(StateHasChanged);
+
+            return Tabs.Count;
         }
 
-        if (OnTabSelect.HasDelegate)
-        {
-            await OnTabSelect.InvokeAsync(ActiveTab);
-        }
-
-        await HandleOnTabChangedAsync(e);
+        return 0;
     }
 
     /// <summary />
-    [JSInvokable]
-    public async Task OverflowRaisedAsync(string value)
+    internal async Task<int> RemoveTabAsync(FluentTab? tab)
     {
-        var items = JsonSerializer.Deserialize<OverflowItem[]>(value);
+        if (tab is not null && !string.IsNullOrEmpty(tab.Id))
+        {
+            if (Tabs.Remove(tab))
+            {
+                var firstTab = Tabs.FirstOrDefault();
+                var firstTabId = firstTab?.Id;
 
-        if (items == null)
+                // Set the first ActiveTab and ActiveTabId
+                if (!string.Equals(firstTabId, tab.Id, StringComparison.Ordinal))
+                {
+                    ActiveTab = firstTab;
+                    ActiveTabId = firstTabId;
+                    ActiveTabIdAttribute = firstTabId;
+                    _clientActiveTabId = null;
+
+                    if (ActiveTabChanged.HasDelegate)
+                    {
+                        await ActiveTabChanged.InvokeAsync(firstTab);
+                    }
+
+                    if (ActiveTabIdChanged.HasDelegate)
+                    {
+                        await ActiveTabIdChanged.InvokeAsync(firstTabId);
+                    }
+                }
+
+                await InvokeAsync(StateHasChanged);
+
+                return Tabs.Count;
+            }
+        }
+
+        return 0;
+    }
+
+    /// <summary />
+    internal async Task TabChangeHandlerAsync(TabChangeEventArgs args)
+    {
+        // Only for the current FluentTabs
+        if (!string.Equals(args.Id, TabListId, StringComparison.Ordinal))
         {
             return;
         }
 
-        // Update Item components
-        foreach (var item in items)
-        {
-            var tab = _tabs.FirstOrDefault(i => i.Id == item.Id);
-            tab?.SetProperties(item.Overflow);
-        }
-
-        // Raise event
-        await InvokeAsync(() => StateHasChanged());
-    }
-
-    /// <summary />
-    private async Task ResizeTabsForOverflowButtonAsync()
-    {
-        var horizontal = Orientation == Orientation.Horizontal;
-        await _jsModuleOverflow.InvokeVoidAsync("fluentOverflowRefresh", _dotNetHelper, Id, horizontal, FLUENT_TAB_TAG);
-    }
-
-    /// <summary />
-    private async Task DisplayMoreTabAsync(FluentTab tab)
-    {
-        await OnTabChangeHandlerAsync(new TabChangeEventArgs
-        {
-            ActiveId = tab.Id,
-        });
+        // Search for the tab
+        var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
+        await SetActiveTabAsync(tab, updateActiveIdAttribute: false);
     }
 
     /// <summary>
-    /// Go to a specific tab by specifying an id
+    /// Selects a tab by its identifier.
     /// </summary>
-    /// <param name="TabId">Id of the tab to goto</param>
-    /// <returns></returns>
-    public async Task GoToTabAsync(string TabId)
+    /// <param name="tabId">The identifier of the tab to select.</param>
+    public async Task SelectTabAsync(string tabId)
     {
-        await OnTabChangeHandlerAsync(new TabChangeEventArgs()
+        var tab = Tabs.FirstOrDefault(t => t.Visible && !t.Disabled && string.Equals(t.Id, tabId, StringComparison.Ordinal));
+        if (await SetActiveTabAsync(tab))
         {
-            ActiveId = TabId,
-        });
+            await InvokeAsync(StateHasChanged);
+        }
+    }
 
+    /// <summary>
+    /// Recalculates which tabs fit in the available space.
+    /// </summary>
+    public async Task RefreshOverflowAsync()
+    {
+        if (_overflowInitialized)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.RefreshOverflow", TabListId);
+        }
+        else if (Overflow)
+        {
+            _refreshOverflowAfterRender = true;
+        }
+    }
+
+    /// <inheritdoc />
+    public override async ValueTask DisposeAsync()
+    {
+        if (_overflowInitialized)
+        {
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.DisposeOverflow", TabListId);
+            _overflowInitialized = false;
+        }
+
+        if (_tabsObserverInitialized)
+        {
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Tabs.Dispose", Id);
+            _tabsObserverInitialized = false;
+        }
+
+        await base.DisposeAsync();
+    }
+
+    /// <summary>
+    /// Sets the specified tab as the active tab.
+    /// </summary>
+    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool updateActiveIdAttribute = true)
+    {
+        if (tab is null || Disabled || tab.Disabled || !tab.Visible)
+        {
+            return false;
+        }
+
+        var activeTabIdChanged = !string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal);
+        var activeTabChanged = !ReferenceEquals(ActiveTab, tab);
+        if (!activeTabIdChanged && !activeTabChanged)
+        {
+            return false;
+        }
+
+        ActiveTabId = tab.Id;
+        ActiveTab = tab;
+        _refreshOverflowAfterRender = Overflow;
+
+        if (updateActiveIdAttribute)
+        {
+            ActiveTabIdAttribute = tab.Id;
+            _clientActiveTabId = null;
+        }
+        else
+        {
+            _clientActiveTabId = tab.Id;
+        }
+
+        if (activeTabIdChanged && ActiveTabIdChanged.HasDelegate)
+        {
+            await ActiveTabIdChanged.InvokeAsync(ActiveTabId);
+        }
+
+        if (activeTabChanged && ActiveTabChanged.HasDelegate)
+        {
+            await ActiveTabChanged.InvokeAsync(ActiveTab);
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// Handles the event when the overflow state of the tabs changes.
+    /// </summary>
+    /// <param name="args"></param>
+    private void OverflowChangedHandler(OverflowChangedEventArgs args)
+    {
+        if (Overflow is false)
+        {
+            return;
+        }
+
+        if (!string.Equals(args.Id, TabListId, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        var overflowTabIds = args.Items?
+            .Where(item => !string.IsNullOrEmpty(item.Id))
+            .Select(item => item.Id!)
+            .ToHashSet(StringComparer.Ordinal) ?? new HashSet<string>(StringComparer.Ordinal);
+
+        var overflowTabs = Tabs
+            .OrderBy(tab => tab.Index)
+            .Where(tab => tab.Id is not null && overflowTabIds.Contains(tab.Id))
+            .ToArray();
+
+        if (OverflowTabs.SequenceEqual(overflowTabs))
+        {
+            return;
+        }
+
+        OverflowTabs = overflowTabs;
     }
 }

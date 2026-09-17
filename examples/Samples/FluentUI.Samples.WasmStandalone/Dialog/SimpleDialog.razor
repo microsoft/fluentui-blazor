@@ -1,0 +1,13 @@
+﻿@inherits FluentDialogInstance
+
+<FluentDialogBody>
+    Content dialog
+</FluentDialogBody>
+
+@code
+{
+    protected override async Task OnActionClickedAsync(bool primary)
+    {
+        await DialogInstance.CloseAsync();
+    }
+}

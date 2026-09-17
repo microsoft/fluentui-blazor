@@ -2,324 +2,349 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentDialog : FluentComponentBase
+/// <summary>
+/// The dialog component is a window overlaid on either the primary window or another dialog window.
+/// Windows under a modal dialog are inert.
+/// </summary>
+public partial class FluentDialog : FluentComponentBase, IHandleEvent
 {
-    private const string DEFAULT_DIALOG_WIDTH = "500px";
-    private const string DEFAULT_PANEL_WIDTH = "340px";
-    private const string DEFAULT_HEIGHT = "unset";
-    private DialogParameters _parameters = default!;
-    private bool _hidden;
-    private FluentDialogHeader? _dialogHeader;
-    private FluentDialogFooter? _dialogFooter;
+    private string? _shownInstanceId;
+
+    private static RenderFragment RenderDialogContent(IDialogInstance instance) => builder =>
+        builder.RenderDynamicComponent(0, instance.ComponentType, instance.Options.Parameters);
 
     /// <summary />
-    [CascadingParameter]
-    private InternalDialogContext? DialogContext { get; set; } = default!;
-
-    /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-dialog-main")
-        .AddClass("right", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Right)
-        .AddClass("left", () => _parameters.DialogType == DialogType.Panel && _parameters.Alignment == HorizontalAlignment.Left)
-        .AddClass("prevent-scroll", () => Instance is null ? (PreventScroll && !Hidden) : _parameters.PreventScroll)
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("position", "absolute")
-        .AddStyle("z-index", $"{ZIndex.Dialog}")
-        .AddStyle("top", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("left", "50%", () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_DIALOG_WIDTH, () => _parameters.Alignment == HorizontalAlignment.Center)
-        .AddStyle("--dialog-width", _parameters.Width ?? DEFAULT_PANEL_WIDTH, () => _parameters.DialogType == DialogType.Panel)
-        .AddStyle("--dialog-height", _parameters.Height ?? DEFAULT_HEIGHT, () => _parameters.Alignment == HorizontalAlignment.Center)
-        .Build();
-
-    /// <summary>
-    /// Prevents scrolling outside of the dialog while it is shown.
-    /// </summary>
-    [Parameter]
-    public bool PreventScroll { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the element is modal. When modal, user mouse interaction will be limited to the contents of the element by a modal
-    /// overlay. Clicks on the overlay will cause the dialog to emit a "dismiss" event.
-    /// </summary>
-    [Parameter]
-    public bool? Modal { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the dialog is hidden.
-    /// </summary>
-    [Parameter]
-    public bool Hidden
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
+    public FluentDialog(LibraryConfiguration configuration) : base(configuration)
     {
-        get => _hidden;
-        set
-        {
-            if (value == _hidden)
-            {
-                return;
-            }
-
-            _hidden = value;
-            HiddenChanged.InvokeAsync(value);
-        }
+        Id = Identifier.NewId();
     }
 
-    /// <summary>
-    /// The event callback invoked when <see cref="Hidden"/> change.
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> HiddenChanged { get; set; }
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("height", Instance?.Options.Height, when: IsDialog())
+        .AddStyle("width", Instance?.Options.Width, when: !string.IsNullOrEmpty(Instance?.Options.Width))
+        .AddStyle("max-width", "calc(-48px + 100vw)", when: !string.IsNullOrEmpty(Instance?.Options.Width)) // By default the fluent-dialog.max-width is "600px".
+        .AddStyle("width", "100%", when: IsDrawer() && string.IsNullOrEmpty(Instance?.Options.Width))
+        .Build();
+
+    /// <summary />
+    [Inject]
+    private IDialogService? DialogService { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether that the dialog should trap focus.
+    /// Gets or sets the instance used by the <see cref="DialogService" />.
     /// </summary>
     [Parameter]
-    public bool? TrapFocus { get; set; }
+    public IDialogInstance? Instance { get; set; }
 
     /// <summary>
-    /// Gets or sets the id of the element describing the dialog.
-    /// </summary>
-    [Parameter]
-    public string? AriaDescribedby { get; set; }
-
-    /// <summary>
-    /// Gets or sets the id of the element labeling the dialog.
-    /// </summary>
-    [Parameter]
-    public string? AriaLabelledby { get; set; }
-
-    /// <summary>
-    /// Gets or sets the label surfaced to assistive technologies.
-    /// </summary>
-    [Parameter]
-    public string? AriaLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets the instance containing the programmatic API for the dialog.
-    /// </summary>
-    [Parameter]
-    public DialogInstance Instance { get; set; } = default!;
-
-    /// <summary>
-    /// Used when not calling the <see cref="DialogService" /> to show a dialog.
+    /// Gets or sets the child content rendered directly inside the dialog.
+    /// Use this when displaying the dialog declaratively in Razor without the <see cref="DialogService"/>.
+    /// When using <see cref="DialogService"/> to show dialogs, content is provided through the dialog component class, not via this parameter.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// The event callback invoked to return the dialog result.
+    /// Gets or sets the alignment of the dialog (center, left, right).
     /// </summary>
     [Parameter]
-    public EventCallback<DialogResult> OnDialogResult { get; set; }
+    public DialogAlignment Alignment { get; set; } = DialogAlignment.Default;
 
     /// <summary>
-    /// Gets True if the Dialog was called from the DialogService.
+    /// Gets or sets a value indicating whether this dialog is displayed modally.
+    /// By default, the dialog is displayed modally (Modal = true).
     /// </summary>
-    private bool CallingFromDialogService => ChildContent is null;
+    /// <remarks>
+    /// When a dialog is displayed modally, no input (keyboard or mouse click) can occur except to objects on the modal dialog.
+    /// The program must hide or close a modal dialog (usually in response to some user action) before input to another dialog can occur.
+    /// </remarks>
+    [Parameter]
+    public bool Modal { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether pressing the ESC key should be prevented from closing the dialog.
+    /// By default, the ESC key closes the dialog (<langword>false</langword>).
+    /// When using the <see cref="IDialogService"/>, set <see cref="DialogOptions.PreventDismissOnEscape"/> instead.
+    /// </summary>
+    [Parameter]
+    public bool PreventDismissOnEscape { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the dialog state changes (e.g., opening or closing).
+    /// </summary>
+    [Parameter]
+    public EventCallback<DialogEventArgs> OnStateChange { get; set; }
 
     /// <summary />
-    protected override void OnInitialized()
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        var shouldShowDialog = string.CompareOrdinal(_shownInstanceId, Instance?.Id) != 0;
+        if (shouldShowDialog && LaunchedFromService)
+        {
+            _shownInstanceId = Instance?.Id;
+            var instance = Instance as DialogInstance;
+            if (instance is not null)
+            {
+                instance.FluentDialog = this;
+            }
+
+            return ShowAsync();
+        }
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary />
+    internal async Task OnToggleAsync(DialogToggleEventArgs args)
+    {
+        // The 'beforetoggle'/'toggle' DOM events are shared by the native <dialog> element and the
+        // Popover API. Any popover rendered inside the dialog/drawer content (e.g. fluent-menu-list,
+        // select listbox, tooltip) also raises these events. Blazor's event delegation attributes
+        // them to this dialog's @ondialogtoggle handler. We must ignore events that don't target
+        // this dialog instance; otherwise the IHandleEvent implementation below would re-render the
+        // whole dialog subtree and detach any open popover content.
+        if (string.CompareOrdinal(args.Id, Instance?.Id) != 0)
+        {
+            return;
+        }
+
+        // Raise the event received from the Web Component
+        var dialogEventArgs = await RaiseOnStateChangeAsync(args);
+
+        if (LaunchedFromService)
+        {
+            switch (dialogEventArgs.State)
+            {
+                // Set the result of the dialog
+                case DialogState.Closing:
+                    (Instance as DialogInstance)?.ResultCompletion.TrySetResult(DialogResult.Cancel());
+                    break;
+
+                // Remove the dialog from the DialogProvider
+                case DialogState.Closed:
+                    (DialogService as DialogService)?.RemoveDialogFromProviderAsync(Instance);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handles UI events for this component.
+    /// </summary>
+    /// <remarks>
+    /// The dialog's content is supplied by the consumer (declaratively or through the
+    /// <see cref="DialogService"/>) and is re-rendered on its own. The dialog's own event handlers
+    /// (<see cref="OnKeyDownHandlerAsync"/> and <see cref="OnToggleAsync"/>) only forward to dialog
+    /// actions/state callbacks that already request their own renders, so they don't need the
+    /// automatic <c>StateHasChanged</c> that the default <see cref="IHandleEvent"/> implementation
+    /// performs after every callback.
+    /// <para>
+    /// Suppressing that automatic render is important because the 'beforetoggle'/'toggle' and
+    /// 'keydown' DOM events also bubble from content rendered inside the dialog/drawer (for example a
+    /// <c>fluent-menu-list</c> popover, a select listbox or a DataGrid header). Blazor's event
+    /// delegation attributes those to this dialog's handlers, and an unnecessary re-render of the
+    /// dialog subtree would recreate keyed child content (e.g. DataGrid header cells) and detach any
+    /// open popover.
+    /// </para>
+    /// </remarks>
+    [ExcludeFromCodeCoverage(Justification = "Tested in aspnetcore code")]
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        => callback.InvokeAsync(arg);
+
+    /// <summary />
+    private async Task<DialogEventArgs> RaiseOnStateChangeAsync(DialogEventArgs args)
+    {
+        if (OnStateChange.HasDelegate)
+        {
+            await InvokeAsync(() => OnStateChange.InvokeAsync(args));
+        }
+
+        return args;
+    }
+
+    /// <summary />
+    private Task<DialogEventArgs> RaiseOnStateChangeAsync(DialogToggleEventArgs args) => RaiseOnStateChangeAsync(new DialogEventArgs(this, args));
+
+    /// <summary />
+    internal Task<DialogEventArgs> RaiseOnStateChangeAsync(IDialogInstance instance, DialogState state) => RaiseOnStateChangeAsync(new DialogEventArgs(instance, state));
+
+    /// <summary>
+    /// Displays the dialog.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public async Task ShowAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Show", Id);
+        var preventEscape = Instance?.Options.PreventDismissOnEscape ?? PreventDismissOnEscape;
+        if (preventEscape)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", Id, preventEscape);
+        }
+    }
+
+    /// <summary>
+    /// Hide the dialog.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public async Task HideAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.Hide", Id);
+    }
+
+    /// <summary />
+    private bool LaunchedFromService => Instance is not null;
+
+    /// <summary />
+    private async Task OnKeyDownHandlerAsync(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs e)
     {
         if (Instance is null)
         {
-            _parameters = new()
-            {
-                Alignment = HorizontalAlignment.Center,
-                ShowTitle = false,
-                PrimaryAction = string.Empty,
-                SecondaryAction = string.Empty
-            };
-            Modal = true;
-            TrapFocus = true;
+            return;
         }
-        else
+
+        var shouldHandleShortcut = await JSRuntime.InvokeAsync<bool>("Microsoft.FluentUI.Blazor.Components.Dialog.ShouldHandleShortcut", Id);
+        if (!shouldHandleShortcut)
         {
-            _parameters = Instance.Parameters;
+            return;
         }
-    }
 
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
+        var shortCut = $"{(e.CtrlKey ? "Ctrl+" : string.Empty)}{(e.AltKey ? "Alt+" : string.Empty)}{(e.ShiftKey ? "Shift+" : string.Empty)}{e.Key}";
+
+        // OK button
+        var primaryPressed = await ShortCutPressedAsync(Instance.Options.Footer.PrimaryAction, shortCut, Instance.CloseAsync);
+        if (primaryPressed)
         {
-            await Element.FocusAsync();
+            return;
+        }
 
-            if (Instance is not null)
+        // Cancel button
+        var secondaryPressed = await ShortCutPressedAsync(Instance.Options.Footer.SecondaryAction, shortCut, Instance.CancelAsync);
+        if (secondaryPressed)
+        {
+            return;
+        }
+
+        // Call the OnClickAsync or defaultAction if the shortcut is the button.ShortCut.
+        async Task<bool> ShortCutPressedAsync(DialogOptionsFooterAction button, string shortCut, Func<Task> defaultAction)
+        {
+            if (string.IsNullOrEmpty(button.ShortCut) || Instance is null || !button.ToDisplay)
             {
-                if (Instance.Parameters.OnDialogOpened.HasDelegate)
+                return false;
+            }
+
+            var buttonShortcuts = button.ShortCut.Split(";");
+            foreach (var buttonShortcut in buttonShortcuts)
+            {
+
+                if (string.Equals(buttonShortcut.Trim(), shortCut, StringComparison.OrdinalIgnoreCase))
                 {
-                    await Instance.Parameters.OnDialogOpened.InvokeAsync(Instance);
+                    if (button.OnClickAsync is not null)
+                    {
+                        await button.OnClickAsync.Invoke(Instance);
+                    }
+                    else
+                    {
+                        await defaultAction.Invoke();
+                    }
+
+                    return true;
                 }
             }
-        }
-    }
 
-    /// <summary>
-    /// Shows the dialog
-    /// </summary>
-    public void Show()
-    {
-        Hidden = false;
-        if (Instance is not null)
-        {
-            Instance.Parameters.Visible = true;
-        }
-        RefreshHeaderFooter();
-    }
-
-    /// <summary>
-    /// Hides the dialog
-    /// </summary>
-    public void Hide()
-    {
-        Hidden = true;
-        if (Instance is not null)
-        {
-            Instance.Parameters.Visible = false;
-        }
-    }
-
-    /// <summary>
-    /// Toggle the primary action button
-    /// </summary>
-    /// <param name="isEnabled"></param>
-    public void TogglePrimaryActionButton(bool isEnabled)
-    {
-        _parameters.PrimaryActionEnabled = isEnabled;
-        RefreshHeaderFooter();
-    }
-
-    /// <summary>
-    /// Toggle the secondary action button
-    /// </summary>
-    /// <param name="isEnabled"></param>
-    public void ToggleSecondaryActionButton(bool isEnabled)
-    {
-        _parameters.SecondaryActionEnabled = isEnabled;
-        RefreshHeaderFooter();
-    }
-
-    /// <summary>
-    /// Closes the dialog with a cancel result.
-    /// </summary>
-    /// <returns></returns>
-    public async Task CancelAsync() => await CloseAsync(DialogResult.Cancel());
-
-    /// <summary>
-    /// Closes the dialog with a cancel result.
-    /// </summary>
-    /// <param name="returnValue"></param>
-    /// <returns></returns>
-    public async Task CancelAsync<T>(T returnValue) => await CloseAsync(DialogResult.Cancel(returnValue));
-
-    /// <summary>
-    /// Closes the dialog with a OK result.
-    /// </summary>
-    /// <returns></returns>
-    public async Task CloseAsync() => await CloseAsync(DialogResult.Ok<object?>(null));
-
-    /// <summary>
-    /// Closes the dialog with a OK result.
-    /// </summary>
-    /// <param name="returnValue"></param>
-    /// <returns></returns>
-    public async Task CloseAsync<T>(T returnValue) => await CloseAsync(DialogResult.Ok(returnValue));
-
-    /// <summary>
-    /// Closes the dialog
-    /// </summary>
-    public async Task CloseAsync(DialogResult dialogResult)
-    {
-        if (Instance is not null)
-        {
-            if (Instance.Parameters.OnDialogClosing.HasDelegate)
-            {
-                await Instance.Parameters.OnDialogClosing.InvokeAsync(Instance);
-            }
-
-            if (Instance.Parameters.ValidateDialogAsync != null && !dialogResult.Cancelled)
-            {
-                var isValid = await Instance.Parameters.ValidateDialogAsync();
-
-                if (!isValid)
-                {
-                    return;
-                }
-            }
-        }
-        DialogContext?.DialogContainer.DismissInstance(Id!, dialogResult);
-        if (Instance is not null)
-        {
-            if (Instance.Parameters.OnDialogResult.HasDelegate)
-            {
-                await Instance.Parameters.OnDialogResult.InvokeAsync(dialogResult);
-            }
-
-            if (DialogContext is not null && Instance.PreviouslyFocusedElement is not null)
-            {
-                // Dialog does not close instantly, wait a little while to ensure that it has closed
-                // before trying to set focus. If dialog is not closed, focus cannot be set.
-                await Task.Delay(50);
-                await DialogContext.DialogContainer.ReturnFocusAsync(Instance.PreviouslyFocusedElement);
-            }
-        }
-        else
-        {
-            Hide();
+            return false;
         }
     }
 
     /// <summary />
-    internal void SetDialogHeader(FluentDialogHeader header)
+    private string? GetAlignmentAttribute()
     {
-        if (_dialogHeader != null && !HasDefaultDialogHeader)
+        // Get the alignment from the DialogService (if used) or the Alignment property.
+        var alignment = Instance?.Options.Alignment ?? Alignment;
+
+        return alignment switch
         {
-            throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogHeader)}");
+            DialogAlignment.Start => FluentSlot.Start,
+            DialogAlignment.End => FluentSlot.End,
+            _ => null,
+        };
+    }
+
+    /// <summary />
+    private string? GetModalAttribute()
+    {
+        // In Web Components, the type="modal" has the opposite function to that generally used by Windows (WPP or WinForms).
+        // See https://learn.microsoft.com/en-us/windows/apps/design/controls/dialogs-and-flyouts/dialogs
+        // See https://www.telerik.com/blazor-ui/documentation/components/window/modal
+
+        var isModal = Instance?.Options?.Modal ?? Modal;
+
+        switch (IsDrawer())
+        {
+            // Dialog
+            case false:
+                return isModal ? "alert" : "modal";
+
+            // Drawers / Panels
+            case true:
+                return isModal ? "modal" : "non-modal";
+
+        }
+    }
+
+    /// <summary />
+    private string? GetSizeAttribute()
+    {
+        return Instance?.Options?.Size.ToAttributeValue();
+    }
+
+    /// <summary />
+    private bool IsDrawer() => IsDrawer(Instance, this);
+
+    /// <summary />
+    private bool IsDialog() => !IsDrawer();
+
+    /// <summary />
+    private MarkupStringSanitized? GetDialogStyle()
+    {
+        if (string.IsNullOrEmpty(StyleValue))
+        {
+            return null;
         }
 
-        _dialogHeader = header;
-        StateHasChanged();
+        return new MarkupStringSanitized($"<style>#{Id}::part(dialog) {{ {StyleValue} }}</style>", LibraryConfiguration);
     }
 
-    /// <summary />
-    internal void SetDialogFooter(FluentDialogFooter footer)
+    /// <summary>
+    /// Returns true if the dialog is a drawer (panel).
+    /// </summary>
+    /// <param name="instance">The dialog instance.</param>
+    /// <param name="dialog">The fluent dialog.</param>
+    /// <returns>True if the dialog is a drawer, otherwise false.</returns>
+    internal static bool IsDrawer(IDialogInstance? instance, FluentDialog? dialog = null)
     {
-        if (_dialogFooter != null && !HasDefaultDialogFooter)
+        var alignment = instance?.Options.Alignment ?? dialog?.Alignment;
+        var isDrawer = instance?.Options.IsDrawer ?? dialog?.Instance?.Options.IsDrawer;
+
+        if (isDrawer.HasValue)
         {
-            throw new InvalidOperationException($"This {nameof(FluentDialog)} already contains a {nameof(FluentDialogFooter)}");
+            return isDrawer.Value;
         }
 
-        _dialogFooter = footer;
-        StateHasChanged();
+        return alignment == DialogAlignment.Start || alignment == DialogAlignment.End;
     }
-
-    /// <summary />
-    private void RefreshHeaderFooter()
-    {
-        StateHasChanged();
-
-        _dialogHeader?.Refresh();
-
-        _dialogFooter?.Refresh();
-    }
-
-    /// <summary />
-    private bool HasDefaultDialogHeader => (_dialogHeader == null && CallingFromDialogService) ||
-                                           _dialogHeader?.Data?.ToString() == FluentDialogHeader.DefaultDialogHeaderIdentifier;
-
-    /// <summary />
-    private bool HasDefaultDialogFooter => (_dialogFooter == null && CallingFromDialogService) ||
-                                           _dialogFooter?.Data?.ToString() == FluentDialogFooter.DefaultDialogFooterIdentifier;
-
-    /// <summary />
-    private bool IsCustomized => !HasDefaultDialogFooter && !HasDefaultDialogHeader;
 }

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:65511;http://localhost:65512"
+    }
+  }
+}

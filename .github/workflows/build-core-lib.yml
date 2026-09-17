@@ -9,7 +9,7 @@ on:
 
   push:
     branches:
-      - archive-v4
+      - dev
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
@@ -17,21 +17,31 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - archive-v4
+      - dev
     paths-ignore:
       - '**/*.gitignore'
       - '**/*.gitattributes'
 
 env:
-  PROJECTS: "./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj"
-  TESTS: "./tests/Core/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj"
-  DOTNET_VERSION: "net10.0"
+  PROJECTS: >
+    ./src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj
+    ./src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
+    ./src/Tools/McpServer/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+    ./src/Extensions/DataGrid.ODataAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj
+    ./src/Extensions/DataGrid.EntityFrameworkAdapter/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+    ./src/Templates/Microsoft.FluentUI.AspNetCore.Templates.csproj
+  TESTS: >
+    ./tests/Core/Components.Tests.csproj
+    ./tests/Charts/Components.Charts.Tests.csproj
+    ./tests/McpServer/McpServer.Tests.csproj
+  INTEGRATION_TEST: "" # DISABLING: ./tests/Integration/Components.IntegrationTests.csproj
+  MIN_COVERAGE: "98"
 
 jobs:
   Build:
 
     name: Build and Test Core Lib
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     permissions:
       checks: write
@@ -40,39 +50,61 @@ jobs:
 
     steps:
      - name: Checkout source
-       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+       uses: actions/checkout@v4
 
-     # - name: Setup .NET 9.0
-     #   uses: actions/setup-dotnet@v4
-     #   with:
-     #    dotnet-version: 9.0.x
-     #    dotnet-quality: ga
+     - name: Setup .NET 9.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 9.0.305
+        dotnet-quality: ga
 
      - name: Setup .NET 10.0
-       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+       uses: actions/setup-dotnet@v4
        with:
         dotnet-version: 10.0.x
-        dotnet-quality: ga
+        dotnet-quality: preview
+
+     - name: Setup .NET 11.0
+       uses: actions/setup-dotnet@v4
+       with:
+        dotnet-version: 11.0.100-rc.1.26425.128
 
      # Build
 
      - name: Restore
-       run: dotnet restore -p:TargetFramework=${{ env.DOTNET_VERSION }}
+       run: dotnet restore Microsoft.FluentUI-v5.slnx
 
      - name: Build
-       run: dotnet build ${{ env.PROJECTS }} -c Release -f ${{ env.DOTNET_VERSION }}
+       run: |
+         PROJECTS="${{ env.PROJECTS }}"
+         for project in $PROJECTS; do
+           dotnet build "$project" --configuration Release -warnaserror
+         done
        working-directory: ${{ github.workspace }}
 
      # Unit Tests
 
      - name: Tests
-       run: dotnet test ${{ env.TESTS }} -f ${{ env.DOTNET_VERSION }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full
+       run: |
+         TESTS="${{ env.TESTS }}"
+         for test in $TESTS; do
+           runsettings="$(dirname "$test")/coverage.runsettings"
+           if [ -f "$runsettings" ]; then
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings "$runsettings"
+           else
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura
+           fi
+         done
+       working-directory: ${{ github.workspace }}
+
+     - name: Tests .NET 11.0
+       run: dotnet test ./tests/Core/Components.Tests.csproj --report-trx --results-directory ./TestResults --verbosity normal --configuration Release /p:ExampleNetVersion=net11.0
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
        if: success() || failure()
        continue-on-error: true
-       uses: dorny/test-reporter@a53e41438c2381e621dc719a47a57180e30c7075 # v1
+       uses: dorny/test-reporter@v3
        with:
          name: Core Tests
          path: '**/*.trx'
@@ -119,30 +151,110 @@ jobs:
      - name: Publish unit tests summary
        if: success() || failure()
        continue-on-error: true
-       uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+       uses: marocchino/sticky-pull-request-comment@v3.0.5
        with:
          header: Test Results
          path: ./TestResults/ExtractedTests.md
 
      # Test Coverage
+
      - name: Report Generator
-       uses: danielpalme/ReportGenerator-GitHub-Action@d3ebf1f760f7d8ab92cc44d9bcfee7ad73722a31 # 5.5.11
+       uses: danielpalme/ReportGenerator-GitHub-Action@5.5.11
        with:
-         reports: '**/coverage.cobertura.xml;**/coverage.*.cobertura.xml'
+         reports: '**/*.cobertura.xml'
          targetdir: 'CoverageReports'
          title: 'Unit Tests Code Coverage'
+         assemblyfilters: '-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools;-McpServer.Tests'
          classfilters: '-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*'
+         filefilters: '-*.g.cs'
+         customSettings: 'minimumCoverageThresholds:lineCoverage=${{ env.MIN_COVERAGE }};riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30;riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30'
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
-       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+       uses: actions/upload-artifact@v4
        with:
          name: CoverageReports
          path: CoverageReports
 
      - name: Publish coverage summary
-       uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
+       uses: marocchino/sticky-pull-request-comment@v3.0.5
        continue-on-error: true
        with:
          path: CoverageReports/SummaryGithub.md
 
+   # Integration Tests
+
+     - name: Build Integration Tests
+       if: env.INTEGRATION_TEST != ''
+       run: dotnet build ${{ env.INTEGRATION_TEST }} --verbosity normal --configuration Release
+       working-directory: ${{ github.workspace }}
+
+     - name: Install Playwright
+       if: env.INTEGRATION_TEST != ''
+       shell: pwsh
+       working-directory: ${{ github.workspace }}
+       run: |
+         # Use the NetVersion from Directory.Build.props (currently net9.0)
+         ./tests/Integration/bin/Release/net9.0/playwright.ps1 install
+
+     - name: Run Integration Tests
+       if: env.INTEGRATION_TEST != ''
+       run: dotnet test ${{ env.INTEGRATION_TEST }} --logger:trx --results-directory ./TestResults --verbosity normal --configuration Release
+       working-directory: ${{ github.workspace }}
+
+     - name: Handle Test Failure
+       if: env.INTEGRATION_TEST != '' && failure()
+       run: echo "Integration tests failed. Taking necessary actions..."
+       working-directory: ${{ github.workspace }}
+
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    if: github.event_name != 'pull_request'  # Not analyzing PRs
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 9.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.305
+        dotnet-quality: ga
+
+    - name: Setup .NET 10.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+        dotnet-quality: preview
+
+    - name: Setup .NET 11.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 11.0.100-rc.1.26425.128
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+
+    - if: matrix.language == 'csharp'
+      name: Manually build CSharp on .NET
+      run: |
+        PROJECTS="${{ env.PROJECTS }}"
+        for project in $PROJECTS; do
+          dotnet build "$project"
+        done
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3

@@ -22,9 +22,10 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     private Expression<Func<TGridItem, TProp>>? _lastAssignedProperty;
     private Func<TGridItem, string?>? _cellTextFunc;
     private Func<TGridItem, string?>? _cellTooltipTextFunc;
-    private IGridSort<TGridItem>? _sortBuilder;
-    private IGridSort<TGridItem>? _customSortBy;
 
+    /// <summary>
+    /// Gets the property info for the property this column binds to.
+    /// </summary>
     public PropertyInfo? PropertyInfo { get; private set; }
 
     /// <summary>
@@ -46,12 +47,11 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     /// </summary>
     [Parameter] public IComparer<TProp>? Comparer { get; set; } = null;
 
+    /// <summary>
+    /// Gets or sets the sorting behavior for this column.
+    ///</summary>
     [Parameter]
-    public override IGridSort<TGridItem>? SortBy
-    {
-        get => _customSortBy ?? _sortBuilder;
-        set => _customSortBy = value;
-    }
+    public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <inheritdoc />
     protected override void OnParametersSet()
@@ -74,15 +74,16 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
                     if (typeof(TProp).IsEnum || typeof(TProp).IsNullableEnum())
                     {
-                        return (value as Enum)?.GetDisplayName();
+                        return (value as Enum)?.GetDisplay();
                     }
 
                     return value?.ToString();
                 };
             }
+
             if (Sortable.HasValue)
             {
-                _sortBuilder = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
+                SortBy = Comparer is not null ? GridSort<TGridItem>.ByAscending(Property, Comparer) : GridSort<TGridItem>.ByAscending(Property);
             }
         }
 
@@ -92,7 +93,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
             if (Title is null)
             {
                 PropertyInfo = memberExpression.Member as PropertyInfo;
-                var daText = memberExpression.Member.DeclaringType?.GetDisplayAttributeString(memberExpression.Member.Name);
+                var daText = PropertyInfo?.GetDisplayAttributeString();
                 if (!string.IsNullOrEmpty(daText))
                 {
                     Title = daText;
@@ -107,61 +108,26 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
 
     private static Func<TGridItem, string?> CreateFormatter(Func<TGridItem, TProp> getter, string format)
     {
-        var closedType = typeof(PropertyColumn<,>).MakeGenericType(typeof(TGridItem), typeof(TProp));
-
-        //Nullable struct
-        if (Nullable.GetUnderlyingType(typeof(TProp)) is Type underlying &&
-            typeof(IFormattable).IsAssignableFrom(underlying))
+        var propertyType = Nullable.GetUnderlyingType(typeof(TProp)) ?? typeof(TProp);
+        if (typeof(IFormattable).IsAssignableFrom(propertyType))
         {
-            var method = closedType
-                .GetMethod(nameof(CreateNullableValueTypeFormatter), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(underlying);
-            return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
-        }
-
-        if (typeof(IFormattable).IsAssignableFrom(typeof(TProp)))
-        {
-            //Struct
-            if (typeof(TProp).IsValueType)
-            {
-                var method = closedType
-                    .GetMethod(nameof(CreateValueTypeFormatter), BindingFlags.NonPublic | BindingFlags.Static)!
-                    .MakeGenericMethod(typeof(TProp));
-                return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
-            }
-
-            //Double cast required because CreateReferenceTypeFormatter required the TProp to be a reference type which implements IFormattable.
-            return CreateReferenceTypeFormatter((Func<TGridItem, IFormattable?>)(object)getter, format);
+            return item => getter(item) is IFormattable value
+                ? value.ToString(format, formatProvider: null)
+                : null;
         }
 
         throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
-    }
-
-    private static Func<TGridItem, string?> CreateReferenceTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
-        where T : class, IFormattable
-    {
-        return item => getter(item)?.ToString(format, null);
-    }
-
-    private static Func<TGridItem, string?> CreateValueTypeFormatter<T>(Func<TGridItem, T> getter, string format)
-        where T : struct, IFormattable
-    {
-        return item => getter(item).ToString(format, null);
-    }
-
-    private static Func<TGridItem, string?> CreateNullableValueTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
-        where T : struct, IFormattable
-    {
-        return item => getter(item)?.ToString(format, null);
     }
 
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, _cellTextFunc?.Invoke(item));
 
+    /// <inheritdoc />
     protected internal override string? RawCellContent(TGridItem item)
         => _cellTooltipTextFunc?.Invoke(item);
 
+    /// <inheritdoc />
     protected override bool IsSortableByDefault()
-        => _customSortBy is not null;
+        => SortBy is not null;
 }

@@ -2,27 +2,111 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public sealed class ToastInstance
+/// <summary>
+/// Represents a toast instance used with the <see cref="INotificationService"/>.
+/// </summary>
+public class ToastInstance : IToastInstance
 {
-    public ToastInstance(Type? type, ToastParameters parameters, object content)
+    private static long _counter;
+    internal readonly TaskCompletionSource<ToastResult> ResultCompletion = new();
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    private readonly Type? _componentType;
+
+    /// <summary />
+    internal ToastInstance(INotificationService notificationService, ToastOptions options)
+        : this(notificationService, componentType: null, options)
     {
-        ContentType = type;
-        Parameters = parameters;
-        Content = content;
-        Id = Parameters.Id ?? Identifier.NewId();
     }
+
+    /// <summary />
+    internal ToastInstance(INotificationService notificationService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type? componentType, ToastOptions options)
+    {
+        Options = options;
+        NotificationService = notificationService;
+        _componentType = componentType;
+        Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
+        Index = Interlocked.Increment(ref _counter);
+    }
+
+    /// <summary>
+    /// Gets or sets a callback that is invoked when the toast's opened state changes.
+    /// </summary>
+    internal Func<bool, Task> UpdateOpenedAsync { get; set; } = _ => Task.CompletedTask;
+
+    /// <summary />
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    Type? INotificationInstance.ComponentType => _componentType;
+
+    /// <summary />
+    internal INotificationService NotificationService { get; }
+
+    /// <inheritdoc cref="IToastInstance.Options"/>
+    public ToastOptions Options { get; internal set; }
+
+    /// <inheritdoc cref="IToastInstance.Result"/>
+    public Task<ToastResult> Result => ResultCompletion.Task;
+
+    /// <inheritdoc cref="IToastInstance.LifecycleStatus"/>
+    public ToastLifecycleStatus LifecycleStatus { get; internal set; } = ToastLifecycleStatus.Unmounted;
+
+    /// <inheritdoc cref="INotificationInstance.Id"/>
     public string Id { get; }
 
-    public Type? ContentType { get; set; }
+    /// <inheritdoc cref="INotificationInstance.Index"/>
+    public long Index { get; }
 
-    public object Content { get; set; } = default!;
-
-    public ToastParameters Parameters { get; set; } = default!;
-
-    public Dictionary<string, object> GetParameterDictionary()
+    /// <inheritdoc cref="INotificationInstance.CloseAsync()"/>
+    public Task CloseAsync()
     {
-        return new Dictionary<string, object> { { "Content", Content } };
+        return NotificationService.CloseAsync(this);
+    }
+
+    /// <inheritdoc cref="IToastInstance.CloseAsync(ToastCloseReason, object?)"/>
+    public Task CloseAsync(ToastCloseReason reason, object? data = null)
+    {
+        return NotificationService.CloseAsync(this, new ToastResult(this, reason, data));
+    }
+
+    /// <summary>
+    /// Sets the lifecycle status of the toast 
+    /// and invokes the <see cref="ToastOptions.OnStatusChange"/> callback if provided.
+    /// </summary>
+    /// <param name="status">The new lifecycle status of the toast.</param>
+    internal void SetStatus(ToastLifecycleStatus status)
+    {
+        if (LifecycleStatus == status)
+        {
+            return;
+        }
+
+        LifecycleStatus = status;
+
+        if (Options.OnStatusChange is not null)
+        {
+            var args = new ToastEventArgs(this, status);
+            Options.OnStatusChange.Invoke(args);
+        }
+
+        TryCompleteResultOnStatus(status);
+    }
+
+    /// <summary />
+    private void TryCompleteResultOnStatus(ToastLifecycleStatus status)
+    {
+        if (Options.ResultTiming == ToastResultTiming.Queued && status == ToastLifecycleStatus.Queued)
+        {
+            ResultCompletion.TrySetResult(ToastResult.OfQueued(this));
+            return;
+        }
+
+        if (Options.ResultTiming == ToastResultTiming.Visible && status == ToastLifecycleStatus.Visible)
+        {
+            ResultCompletion.TrySetResult(ToastResult.OfVisible(this));
+        }
     }
 }

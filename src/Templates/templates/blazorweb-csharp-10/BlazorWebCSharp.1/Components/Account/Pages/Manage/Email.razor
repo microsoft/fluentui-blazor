@@ -27,19 +27,19 @@
             <FluentValidationSummary class="text-danger" role="alert" />
             @if (isEmailConfirmed)
             {
-                <FluentTextField Value="@email" Placeholder="Enter your email." Disabled Label="Email" Appearance=FluentInputAppearance.Filled Style="width: 100%">
+                <FluentTextInput Value="@email" Placeholder="Enter your email." Disabled="true" Label="Email" Appearance="TextInputAppearance.FilledDarker" Style="width: 100%">
                     <span slot="end">✓</span>
-                </FluentTextField>
+                </FluentTextInput>
             }
             else
             {
-                <FluentTextField value="@email" Placeholder="Please enter your email." Disabled Label="Email" Appearance=FluentInputAppearance.Filled Style="width: 100%" />
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Form="send-verification-form" Style="width: 100%">Send verification email</FluentButton>
+                <FluentTextInput value="@email" Placeholder="Please enter your email." Disabled="true" Label="Email" Appearance="TextInputAppearance.FilledDarker" Style="width: 100%" />
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Form="send-verification-form" Style="width: 100%">Send verification email</FluentButton>
             }
-            <FluentTextField Name="Input.NewEmail" @bind-Value="Input.NewEmail" AutoComplete="email" Required="true" Placeholder="Please enter new email." Label="New email" Style="width: 100%" />
-            <FluentValidationMessage For="() => Input.NewEmail" class="text-danger" />
+            <FluentTextInput Name="Input.NewEmail" @bind-Value="Input.NewEmail" AutoComplete="email" Required="true" Placeholder="Please enter new email." Label="New email" Style="width: 100%" />
+            @* <FluentValidationMessage For="() => Input.NewEmail" class="text-danger" /> *@
             <p style="margin-top: 10px; text-align: end;">
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Change email</FluentButton>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Change email</FluentButton>
             </p>
         </EditForm>
     </FluentGridItem>

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -34,12 +35,14 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 /// For internal use only. Do not use.
 /// </summary>
 /// <typeparam name="TGridItem">For internal use only. Do not use.</typeparam>
+[ExcludeFromCodeCoverage(Justification = "The return in SetParametersAsync can't be invoked because of the way this component gets rendered by the DataGrid. ")]
 [EditorBrowsable(EditorBrowsableState.Never)]
 public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.Components.IComponent
 {
     private bool _isFirstRender = true;
 
-    [CascadingParameter] internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
+    [CascadingParameter]
+    internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
 
     /// <inheritdoc/>
     public void Attach(RenderHandle renderHandle)
@@ -54,11 +57,9 @@ public sealed class ColumnsCollectedNotifier<TGridItem> : Microsoft.AspNetCore.C
         {
             _isFirstRender = false;
             parameters.SetParameterProperties(this);
-            return InternalGridContext.ColumnsFirstCollected.InvokeCallbacksAsync(null);
+            return InternalGridContext.ColumnsFirstCollected.InvokeCallbacksAsync(eventArg: null);
         }
-        else
-        {
-            return Task.CompletedTask;
-        }
+
+        return Task.CompletedTask;
     }
 }

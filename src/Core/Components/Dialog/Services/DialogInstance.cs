@@ -2,40 +2,81 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public sealed class DialogInstance
+/// <summary>
+/// Represents a dialog instance used with the <see cref="IDialogService"/>.
+/// </summary>
+public class DialogInstance : IDialogInstance
 {
-    public DialogInstance(Type? type, DialogParameters parameters, object content, IJSObjectReference? previouslyFocusedElement)
+    private static long _counter;
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    private readonly Type _componentType;
+    internal readonly TaskCompletionSource<DialogResult> ResultCompletion = new();
+
+    /// <summary />
+    internal DialogInstance(IDialogService dialogService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, DialogOptions options)
     {
-        ContentType = type;
-        Parameters = parameters;
-        Content = content;
-        Id = Parameters.Id ?? Identifier.NewId();
-        PreviouslyFocusedElement = previouslyFocusedElement;
+        _componentType = componentType;
+        Options = options;
+        DialogService = dialogService;
+        Id = string.IsNullOrEmpty(options.Id) ? Identifier.NewId() : options.Id;
+        Index = Interlocked.Increment(ref _counter);
+
+        if (string.Equals(options.Id, Components.DialogService.GlobalOverlayId, StringComparison.Ordinal))
+        {
+            // The global overlay must always have the highest index,
+            // so that it is displayed on top of all other dialog boxes.
+            Index = long.MaxValue;
+        }
     }
 
+    /// <summary />
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+    Type IDialogInstance.ComponentType => _componentType;
+
+    /// <summary />
+    internal IDialogService DialogService { get; }
+
+    /// <summary />
+    internal FluentDialog? FluentDialog { get; set; }
+
+    /// <inheritdoc cref="IDialogInstance.Options"/>
+    public DialogOptions Options { get; internal set; }
+
+    /// <inheritdoc cref="IDialogInstance.Result"/>
+    public Task<DialogResult> Result => ResultCompletion.Task;
+
+    /// <inheritdoc cref="IDialogInstance.Id"/>"
     public string Id { get; }
 
-    public Type? ContentType { get; }
+    /// <inheritdoc cref="IDialogInstance.Index"/>"
+    public long Index { get; }
 
-    public object Content { get; internal set; } = default!;
-
-    public DialogParameters Parameters { get; internal set; }
-
-    internal IJSObjectReference? PreviouslyFocusedElement { get; }
-
-    internal Dictionary<string, object>? GetParameterDictionary()
+    /// <inheritdoc cref="IDialogInstance.CancelAsync()"/>
+    public Task CancelAsync()
     {
-        if (Content is null)
-        {
-            return null;
-        }
-        else
-        {
-            return new Dictionary<string, object> { { "Content", Content } };
-        }
+        return DialogService.CloseAsync(this, DialogResult.Cancel());
+    }
+
+    /// <inheritdoc cref="IDialogInstance.CloseAsync()"/>
+    public Task CloseAsync()
+    {
+        return DialogService.CloseAsync(this, DialogResult.Ok());
+    }
+
+    /// <inheritdoc cref="IDialogInstance.CloseAsync{T}(T)"/>
+    public Task CloseAsync<T>(T result)
+    {
+        return DialogService.CloseAsync(this, DialogResult.Ok(result));
+    }
+
+    /// <inheritdoc cref="IDialogInstance.CloseAsync(DialogResult)"/>
+    public Task CloseAsync(DialogResult result)
+    {
+        return DialogService.CloseAsync(this, result);
     }
 }

@@ -2,10 +2,14 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
+using System.Diagnostics;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
+/// <summary>
+/// Represents a builder for creating CSS styles used in HTML, between &lt;style&gt;&lt;/style&gt; tags.
+/// </summary>
+[DebuggerDisplay("{Build(false)}")]
 public readonly struct InlineStyleBuilder
 {
     private readonly Dictionary<string, StyleBuilder> _styles;
@@ -15,7 +19,7 @@ public readonly struct InlineStyleBuilder
     /// </summary>
     public InlineStyleBuilder()
     {
-        _styles = [];
+        _styles = new(StringComparer.Ordinal);
     }
 
     /// <summary>
@@ -60,12 +64,6 @@ public readonly struct InlineStyleBuilder
 
         var styles = _styles.Select(item =>
         {
-            var style = item.Value.Build();
-            if (string.IsNullOrWhiteSpace(style))
-            {
-                return string.Empty;
-            }
-
             return $"{item.Key} {{ {item.Value.Build()} }}";
         });
 
@@ -77,16 +75,6 @@ public readonly struct InlineStyleBuilder
         }
 
         return $"<style>{separator}{result}{separator}</style>";
-    }
-
-    /// <summary>
-    /// Finalize the completed Style as a string.
-    /// </summary>
-    /// <returns>string</returns>
-    public MarkupString BuildMarkupString()
-    {
-        var styles = Build();
-        return styles != null ? (MarkupString)styles : (MarkupString)string.Empty;
     }
 
     /// <summary>
@@ -111,4 +99,10 @@ public readonly struct InlineStyleBuilder
 
         return this;
     }
+
+    /// <summary>
+    /// ToString should only and always call Build to finalize the rendered string.
+    /// </summary>
+    /// <returns></returns>
+    public override string? ToString() => Build();
 }

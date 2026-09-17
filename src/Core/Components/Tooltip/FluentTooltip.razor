@@ -1,29 +1,17 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-@if (DrawTooltip)
+@if (DrawTooltipWithoutService)
 {
-    <fluent-tooltip @ref=Element
-                    class="@Class"
-                    style="@Style"
-                    visible="@Visible"
+    <fluent-tooltip id="@Id"
+                    class="@ClassValue"
+                    style="@StyleValue"
                     anchor="@Anchor"
-                    delay="@Delay"
-                    aria-label="@(string.IsNullOrEmpty(AriaLabel) ? "Tooltip" : AriaLabel)"
-                    position="@Position.ToAttributeValue()"
-                    auto-update-mode="@AutoUpdateMode"
-                    horizontal-viewport-lock="@HorizontalViewportLock"
-                    vertical-viewport-lock="@VerticalViewportLock"
-                    role="tooltip"
-                    @ontooltipdismiss="HandleDismissed"
-                    @attributes="@AdditionalAttributes">
-        @if (string.IsNullOrWhiteSpace(MaxWidth ?? GlobalOptions?.MaxWidth))
-        {
-            @ChildContent
-        }
-        else
-        {
-            <div style="max-width: @(MaxWidth ?? GlobalOptions?.MaxWidth); text-wrap: wrap;">@ChildContent</div>
-        }
+                    delay="@(Delay ?? LibraryConfiguration?.Tooltip.Delay)"
+                    positioning="@((Positioning ?? LibraryConfiguration?.Tooltip.Positioning).ToAttributeValue())"
+                    @ondialogtoggle="@OnToggleAsync"
+                    @attributes="AdditionalAttributes">
+        @ChildContent
     </fluent-tooltip>
 }

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public class StyleBuilderTests : TestBase
+public class StyleBuilderTests
 {
     [Fact]
     public void StyleBuilder_Raw()
@@ -96,7 +96,7 @@ public class StyleBuilderTests : TestBase
         var styleBuilder = new StyleBuilder();
 
         // Act
-        styleBuilder.AddStyle("color", "red", when: true);
+        styleBuilder.AddStyle("color", "red", when: () => true);
 
         // Assert
         Assert.Equal("color: red;", styleBuilder.Build());
@@ -109,7 +109,7 @@ public class StyleBuilderTests : TestBase
         var styleBuilder = new StyleBuilder();
 
         // Act
-        styleBuilder.AddStyle("color", "red", when: false);
+        styleBuilder.AddStyle("color", "red", when: () => false);
 
         // Assert
         Assert.Null(styleBuilder.Build());

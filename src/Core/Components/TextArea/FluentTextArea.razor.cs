@@ -3,78 +3,209 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTextArea : FluentInputBase<string?>
+/// <summary>
+/// A textarea component that allows users to enter and edit multiple lines of text.
+/// </summary>
+public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle, IFluentControlAriaLabel
 {
+
     /// <summary>
-    /// Gets or sets a value indicating whether the text area is resizeable. See <see cref="AspNetCore.Components.TextAreaResize"/>
+    /// Initializes a new instance of the <see cref="FluentTextArea"/> class.
+    /// </summary>
+    public FluentTextArea(LibraryConfiguration configuration) : base(configuration)
+    {
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && string.IsNullOrEmpty(CurrentValueAsString);
+        };
+    }
+
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets the CSS class to apply to the internal web-component.
+    /// </summary>
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
+        .AddStyle("height", Height)
+        .Build();
+
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual appearance.
+    /// </summary>
+    [Parameter]
+    public TextAreaAppearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the short hint displayed in the textarea before the user enters a value.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of characters allowed in the textarea
+    /// </summary>
+    [Parameter]
+    public int? MaxLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets the minimum number of characters allowed in the textarea
+    /// </summary>
+    [Parameter]
+    public int? MinLength { get; set; }
+
+    /// <summary>
+    /// Gets or sets the autocomplete hint for the textarea (e.g., <c>AutoComplete="on"</c> or <c>AutoComplete="off"</c>).
+    /// An Id value must be set to use this property.
+    /// </summary>
+    [Parameter]
+    public string? AutoComplete { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the textarea height adjusts automatically to fit its content.
+    /// </summary>
+    [Parameter]
+    public bool? AutoResize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the textarea. See <see cref="Components.TextAreaSize"/>
+    /// </summary>
+    [Parameter]
+    public TextAreaSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the textarea (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the textarea (e.g., <c>Height="150px"</c>). See also <see cref="AutoResize"/>.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets how the textarea can be resized by the user. See <see cref="TextAreaResize"/>.
     /// </summary>
     [Parameter]
     public TextAreaResize? Resize { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id">id</see> the <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">form</see> the element is associated to.
-    /// </summary>
-    [Parameter]
-    public string? Form { get; set; }
-
-    /// <summary>
-    /// Allows associating a <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/datalist">datalist</see> to the element by <see href="https://developer.mozilla.org/en-US/docs/Web/API/Element/id">id</see>.
-    /// </summary>
-    [Parameter]
-    public string? DataList { get; set; }
-
-    /// <summary>
-    /// Gets or sets the maximum number of characters a user can enter.
-    /// </summary>
-    [Parameter]
-    public int? Maxlength { get; set; }
-
-    /// <summary>
-    /// Gets or sets the minimum number of characters a user can enter.
-    /// </summary>
-    [Parameter]
-    public int? Minlength { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size the element horizontally by a number of character columns.
-    /// </summary>
-    [Parameter]
-    public int? Cols { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size the element vertically by a number of character rows.
-    /// </summary>
-    [Parameter]
-    public int? Rows { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the element is eligible for spell checking
-    /// but the UA.
+    /// Gets or sets a value indicating whether spellcheck should be used.
     /// </summary>
     [Parameter]
     public bool? Spellcheck { get; set; }
 
-    /// <summary>
-    /// Gets or sets the visual appearance. See <see cref="AspNetCore.Components.FluentInputAppearance"/>
-    /// </summary>
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
     [Parameter]
-    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
+    public string? ControlStyle { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPress" />
+    [Parameter]
+    public KeyPress[]? ChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.OnChangeAfterKeyPress" />
+    [Parameter]
+    public EventCallback<FluentKeyPressEventArgs> OnChangeAfterKeyPress { get; set; }
+
+    /// <inheritdoc cref="IFluentComponentChangeAfterKeyPress.ChangeAfterKeyPressHandlerAsync(string, KeyPress)" />
+    [JSInvokable]
+    public async Task ChangeAfterKeyPressHandlerAsync(string value, KeyPress key)
+    {
+        await ChangeHandlerAsync(new ChangeEventArgs()
+        {
+            Value = value,
+        });
+
+        if (OnChangeAfterKeyPress.HasDelegate)
+        {
+            await OnChangeAfterKeyPress.InvokeAsync(new FluentKeyPressEventArgs()
+            {
+                Value = value,
+                KeyPress = key,
+            });
+        }
+    }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.RenderTooltipAsync(Tooltip);
+    }
+
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
+
+            // Initialize the 'immediate' custom event for the immediate mode
+            await InitializeImmediateAsync();
+
+            // Initialize the change after key press event
+            await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
+        }
+    }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
     /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    protected override bool TryParseValueFromString(string? value, out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string? result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
         result = value;
         validationErrorMessage = null;
         return true;
     }
+
+    private string? DisplayShadow
+        => Appearance == TextAreaAppearance.FilledDarkerShadow || Appearance == TextAreaAppearance.FilledLighterShadow
+            ? "true"
+            : null;
+
+    private string? SpellCheckValue
+        => Spellcheck.HasValue
+            ? Spellcheck.Value
+                ? "true"
+                : "false"
+            : null;
 }

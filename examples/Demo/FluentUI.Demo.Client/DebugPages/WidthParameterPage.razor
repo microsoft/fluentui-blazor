@@ -1,0 +1,326 @@
+﻿@page "/Debug/Width"
+@using System.ComponentModel
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+
+<FluentCard>
+    <FluentTextInput @bind-Value="@Width"
+                     Label="Width"
+                     LabelPosition="LabelPosition.Before" />
+    <FluentTextInput @bind-Value="@LabelWidth"
+                     Label="LabelWidth"
+                     LabelPosition="LabelPosition.Before" />
+    <FluentCheckbox @bind-Value="@showLabelBorder"
+                    Label="Show label border" />
+
+    <FluentStack HorizontalGap="20px">
+        <FluentStack Orientation="Orientation.Vertical">
+            <FluentLink OnClick="@(e => Width = null)">Width: unset</FluentLink>
+            <FluentLink OnClick="@(e => Width = "100%")">Width: 100%</FluentLink>
+            <FluentLink OnClick="@(e => Width = "50%")">Width: 50%</FluentLink>
+            <FluentLink OnClick="@(e => Width = "500px")">Width: 500px</FluentLink>
+        </FluentStack>
+        <FluentStack Orientation="Orientation.Vertical">
+            <FluentLink OnClick="@(e => LabelWidth = null)">LabelWidth: unset</FluentLink>
+            <FluentLink OnClick="@(e => LabelWidth = "50%")">LabelWidth: 50%</FluentLink>
+            <FluentLink OnClick="@(e => LabelWidth = "150px")">LabelWidth: 150px</FluentLink>
+        </FluentStack>
+    </FluentStack>
+</FluentCard>
+
+<div show-label-border="@showLabelBorder" style="overflow-y: auto; height: calc(100vh - 250px)">
+
+    @foreach (var renderer in LabelRenderers)
+    {
+        <div class="panel-resizable">
+            <h2>@renderer.Title</h2>
+            @renderer.Render(SampleLabelUsage.NoLabelNoLabelPosition)
+            @renderer.Render(SampleLabelUsage.WithLabelNoLabelPosition)
+            @renderer.Render(SampleLabelUsage.WithLabelAndLabelPosition)
+        </div>
+    }
+</div
+
+@code
+{
+    LabelRenderer[] LabelRenderers =>
+    [
+        new("Text Inputs", RenderTextInput),
+        new("Text Areas", RenderTextArea),
+        new("Text Areas Resizable", RenderTextAreaResizable),
+        new("Autocomplete", RenderAutocomplete),
+        new("Number Inputs", RenderNumberInput),
+        new("Selects", RenderSelect),
+        new("Listboxes", RenderListbox),
+        new("Comboboxes", RenderCombobox),
+        new("Calendars", RenderCalendar),
+        new("Date Pickers", RenderDatePicker),
+        new("Time Pickers", RenderTimePicker),
+        new("Color Picker Inputs", RenderColorPickerInput),
+        new("Radio Groups", RenderRadioGroup),
+        new("Sliders", RenderSlider),
+        new("Checkboxes", RenderCheckbox),
+        new("Switches", RenderSwitch),
+    ];
+
+    /* FluentTextInput */
+    RenderFragment RenderTextInput(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentTextInput Width="@Width"
+                                 Placeholder="@(sampleLabelUsage.GetDescription())"
+                                 LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                 LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                 Label="@(GetLabel(sampleLabelUsage))" />;
+    }
+
+    /* FluentTextArea */
+    RenderFragment RenderTextArea(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentTextArea Width="@Width"
+                                Placeholder="@(sampleLabelUsage.GetDescription())"
+                                LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))" />;
+    }
+
+    /* FluentTextArea */
+    RenderFragment RenderTextAreaResizable(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentTextArea Width="@Width"
+                                Resize="TextAreaResize.Both"
+                                Placeholder="@(sampleLabelUsage.GetDescription())"
+                                LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))" />;
+    }
+
+    /* FluentCheckbox */
+    RenderFragment RenderCheckbox(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentCheckbox LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))"
+                                Width="@Width"
+                                @bind-Value="@checkboxValue" />;
+    }
+
+    /* FluentNumberInput */
+    RenderFragment RenderNumberInput(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentNumberInput Width="@Width"
+                                   TValue="int?"
+                                   Placeholder="@(sampleLabelUsage.GetDescription())"
+                                   LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                   LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                   Label="@(GetLabel(sampleLabelUsage))" />;
+    }
+
+    /* FluentRadioGroup */
+    RenderFragment RenderRadioGroup(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentRadioGroup TValue="string"
+                                  LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                  LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                  Label="@(GetLabel(sampleLabelUsage))"
+                                  Width="@Width"
+                                  Items="Colors"
+                                  Orientation="Orientation.Vertical"
+                                  @bind-Value="@SelectedRadioValue" />;
+    }
+
+    /* FluentAutocomplete */
+    RenderFragment RenderAutocomplete(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentAutocomplete Width="@Width"
+                                    Placeholder="@(sampleLabelUsage.GetDescription())"
+                                    LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                    LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                    Label="@(GetLabel(sampleLabelUsage))"
+                                    OptionText="@(i => i?.Name)"
+                                    OptionValue="@(i => i?.Code)"
+                                    Items="@Countries"
+                                    @bind-SelectedItems="@SelectedCountries" />;
+    }
+
+    /* FluentColorPickerInput */
+    RenderFragment RenderColorPickerInput(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentColorPickerInput Width="@Width"
+                                        Placeholder="#000000"
+                                        LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                        LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                        Label="@(GetLabel(sampleLabelUsage))"
+                                        @bind-Value="@SelectedColor" />;
+    }
+
+    /* FluentSelect */
+    RenderFragment RenderSelect(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentSelect Width="@Width"
+                              Placeholder="@(sampleLabelUsage.GetDescription())"
+                              LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                              LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                              Label="@(GetLabel(sampleLabelUsage))"
+                              Items="Colors"
+                              @bind-Value="Value" />;
+    }
+
+    /* FluentListbox */
+    RenderFragment RenderListbox(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentListbox Width="@Width"
+                               Height="200px"
+                               Placeholder="@(sampleLabelUsage.GetDescription())"
+                               LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                               LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                               Label="@(GetLabel(sampleLabelUsage))"
+                               Items="Colors"
+                               @bind-Value="Value" />;
+    }
+
+    /* FluentCombobox */
+    RenderFragment RenderCombobox(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentCombobox Width="@Width"
+                                Placeholder="@(sampleLabelUsage.GetDescription())"
+                                LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))"
+                                OptionText="@(i => i?.Name)"
+                                OptionValue="@(i => i?.Code)"
+                                Items="@Countries"
+                                @bind-SelectedItems="@SelectedCountries">
+                    <FreeOption>
+                        Search for '
+                        <FreeOptionOutput />
+                        '
+                    </FreeOption>
+                </FluentCombobox>;
+    }
+
+    /* FluentSlider */
+    RenderFragment RenderSlider(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentSlider TValue="int"
+                              Width="@Width"
+                              LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                              LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                              Label="@(GetLabel(sampleLabelUsage))"
+                              Min="0"
+                              Max="100"
+                              Step="5"
+                              @bind-Value="@SliderValue" />;
+    }
+
+    /* FluentCalendar */
+    RenderFragment RenderCalendar(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentCalendar TValue="DateOnly?"
+                                LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                Label="@(GetLabel(sampleLabelUsage))"
+                                @bind-Value="@SelectedCalendarValue" />;
+    }
+
+    /* FluentDadePicker */
+    RenderFragment RenderDatePicker(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentDatePicker Width="@Width"
+                                  Placeholder="@(sampleLabelUsage.GetDescription())"
+                                  LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                  LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                  Label="@(GetLabel(sampleLabelUsage))"
+                                  @bind-Value="@SelectedValue" />;
+    }
+
+    /* FluentTimePicker */
+    RenderFragment RenderTimePicker(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentTimePicker Width="@Width"
+                                  Placeholder="@(sampleLabelUsage.GetDescription())"
+                                  LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                                  LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                                  Label="@(GetLabel(sampleLabelUsage))"
+                                  @bind-Value="@SelectedTime" />;
+    }
+
+    /* FluentSwitch */
+    RenderFragment RenderSwitch(SampleLabelUsage sampleLabelUsage)
+    {
+        return @<FluentSwitch LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
+                              LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
+                              Label="@(GetLabel(sampleLabelUsage))"
+                              Width="@Width"
+                              @bind-Value="@value" />;
+    }
+
+    readonly record struct LabelRenderer(string Title, Func<SampleLabelUsage, RenderFragment> Render);
+
+    string? GetLabelWidth(SampleLabelUsage sampleLabelUsage) => sampleLabelUsage switch
+    {
+        SampleLabelUsage.NoLabelNoLabelPosition => null,
+        SampleLabelUsage.WithLabelNoLabelPosition => LabelWidth,
+        SampleLabelUsage.WithLabelAndLabelPosition => LabelWidth,
+        _ => throw new NotImplementedException(),
+    };
+
+    string? GetLabel(SampleLabelUsage sampleLabelUsage) => sampleLabelUsage switch
+    {
+        SampleLabelUsage.NoLabelNoLabelPosition => null,
+        SampleLabelUsage.WithLabelNoLabelPosition => "Label",
+        SampleLabelUsage.WithLabelAndLabelPosition => "Label",
+        _ => throw new NotImplementedException(),
+    };
+
+    LabelPosition? GetLabelPosition(SampleLabelUsage sampleLabelUsage) => sampleLabelUsage switch
+    {
+        SampleLabelUsage.NoLabelNoLabelPosition => null,
+        SampleLabelUsage.WithLabelNoLabelPosition => null,
+        SampleLabelUsage.WithLabelAndLabelPosition => LabelPosition.Before,
+        _ => throw new NotImplementedException(),
+    };
+
+    enum SampleLabelUsage
+    {
+        [Description("No label, no LabelPosition")]
+        NoLabelNoLabelPosition,
+        [Description("With label, no LabelPosition")]
+        WithLabelNoLabelPosition,
+        [Description("With label and LabelPosition")]
+        WithLabelAndLabelPosition,
+    }
+
+    string? Width = "50%";
+    string? LabelWidth = "";
+    bool showLabelBorder = true;
+
+    IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
+    IEnumerable<SampleData.Olympics2024.Country> SelectedCountries = [];
+
+    DateOnly? SelectedValue = null;
+    DateOnly? SelectedCalendarValue = null;
+    string? SelectedColor = "#FF0000";
+    string? SelectedRadioValue = "Red";
+    int SliderValue = 50;
+    TimeOnly? SelectedTime = null;
+    static string[] Colors = ["Red", "Green", "Blue"];
+    string? Value;
+    bool checkboxValue = false;
+    bool value = false;
+}
+
+<style>
+    .panel-resizable {
+        padding: 1rem;
+        overflow: hidden;
+        resize: horizontal;
+        border: 1px solid var(--colorNeutralStroke1);
+    }
+
+    div[show-label-border] fluent-field {
+        border: 1px dashed var(--error);
+    }
+
+    div[show-label-border] fluent-field label {
+        background-color: var(--colorNeutralStroke1);
+    }
+</style>

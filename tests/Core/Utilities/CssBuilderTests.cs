@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
-public class CssBuilderTests : TestBase
+public partial class CssBuilderTests
 {
     [Fact]
     public void CssBuilder_AddSingleClasses()
@@ -111,8 +111,21 @@ public class CssBuilderTests : TestBase
         var cssBuilder = new CssBuilder();
 
         // Act
-        cssBuilder.AddClass("my-class-1", when: true);
-        cssBuilder.AddClass("my-class-2", when: false);
+        cssBuilder.AddClass("my-class-1", when: () => true);
+        cssBuilder.AddClass("my-class-2", when: () => false);
+
+        // Assert
+        Assert.Equal("my-class-1", cssBuilder.Build());
+    }
+
+    [Fact]
+    public void CssBuilder_AddClassesBasedOnTrue()
+    {
+        // Arrange
+        var cssBuilder = new CssBuilder();
+
+        // Act
+        cssBuilder.AddClass("my-class-1", true);
 
         // Assert
         Assert.Equal("my-class-1", cssBuilder.Build());
@@ -203,5 +216,114 @@ public class CssBuilderTests : TestBase
 
         // Assert
         Assert.Equal(expected, cssBuilder.Build());
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ValidateClassNames_DefaultsToTrue()
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+
+        // Act & Assert
+        Assert.True(configuration.ValidateClassNames);
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ValidateClassNames_DisablesCssBuilderValidation()
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+
+        try
+        {
+            // Act
+            configuration.ValidateClassNames = false;
+            var cssBuilder = new CssBuilder();
+            cssBuilder.AddClass("123-invalid-class");
+
+            // Assert
+            Assert.Equal("123-invalid-class", cssBuilder.Build());
+        }
+        finally
+        {
+            configuration.ValidateClassNames = true;
+        }
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ValidateClassNames_IsSharedAcrossInstances()
+    {
+        // Arrange: the setting is backed by a static field, so it is shared process-wide.
+        var configuration1 = new LibraryConfiguration();
+        var configuration2 = new LibraryConfiguration();
+
+        try
+        {
+            // Act
+            configuration1.ValidateClassNames = false;
+
+            // Assert
+            Assert.False(configuration2.ValidateClassNames);
+        }
+        finally
+        {
+            configuration1.ValidateClassNames = true;
+        }
+    }
+
+    [Fact]
+    public void LibraryConfiguration_ShouldValidateClassNames_ReflectsValidateClassNames()
+    {
+        // Arrange
+        var configuration = new LibraryConfiguration();
+
+        try
+        {
+            // Act
+            configuration.ValidateClassNames = false;
+
+            // Assert
+            Assert.False(LibraryConfiguration.ShouldValidateClassNames);
+        }
+        finally
+        {
+            configuration.ValidateClassNames = true;
+            Assert.True(LibraryConfiguration.ShouldValidateClassNames);
+        }
+    }
+
+    [Fact]
+    public void CssBuilder_MinifyCss()
+    {
+        // Arrange
+        var originalCss = @"
+            body {
+                margin: 0;
+                padding: 0; /* Remove padding */
+            }
+
+            h1 {
+                color: blue;
+            }
+        ";
+
+        // Act
+        var minified = CssBuilder.MinifyCss(originalCss);
+
+        // Assert
+        Assert.Equal("body{margin:0;padding:0}h1{color:blue}", minified);
+    }
+
+    [Fact]
+    public void CssBuilder_MinifyCss_Empty()
+    {
+        // Arrange
+        var originalCss = "   ";
+
+        // Act
+        var minified = CssBuilder.MinifyCss(originalCss);
+
+        // Assert
+        Assert.Equal("", minified);
     }
 }

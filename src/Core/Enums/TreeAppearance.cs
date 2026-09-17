@@ -1,0 +1,31 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.ComponentModel;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// Sets the visual appearance of the <see cref="FluentTreeView"/> or the <see cref="FluentTreeItem"/>
+/// </summary>
+public enum TreeAppearance
+{
+    /// <summary>
+    /// Sublte appearance
+    /// </summary>
+    [Description("subtle")]
+    Subtle,
+
+    /// <summary>
+    /// Subtle appearance with alpha
+    /// </summary>
+    [Description("subtle-alpha")]
+    SubtleAlpha,
+
+    /// <summary>
+    /// Transparent appearance
+    /// </summary>
+    [Description("transparant")]
+    Transparent,
+}

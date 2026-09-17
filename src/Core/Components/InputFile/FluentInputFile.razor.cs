@@ -2,65 +2,73 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
-public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
+/// <summary>
+/// Represents a component for handling file uploads with support for drag-and-drop, progress tracking, and file
+/// validation.
+/// </summary>
+/// <remarks>The <see cref="FluentInputFile"/> component provides a flexible and customizable way to upload files
+/// in Blazor applications.  It supports multiple file uploads, file size and type validation, and progress tracking.
+/// The component also includes events  for handling file upload progress, completion, and errors.  Use the <see
+/// cref="Mode"/> property to specify the file reading mode, such as buffering, saving to a temporary folder, or
+/// streaming. The <see cref="OnFileUploaded"/> and <see cref="OnCompleted"/> events can be used to handle file upload
+/// completion.</remarks>
+public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, IInputFileOptions
 {
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "InputFile/FluentInputFile.razor.js";
     private ElementReference? _containerElement;
     private InputFile? _inputFile;
     private IJSObjectReference? _containerInstance;
 
-    public static string ResourceLoadingBefore = "Loading...";
-    public static string ResourceLoadingCompleted = "Completed";
-    public static string ResourceLoadingCanceled = "Canceled";
-    public static string ResourceLoadingInProgress = "Loading {0}/{1} - {2}";
-
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/InputFile/FluentInputFile.razor.js";
-
     /// <summary />
-    public FluentInputFile()
+    public FluentInputFile(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? Module { get; set; }
-
-    /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-inputfile-container")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("display", "none", () => !DragDropZoneVisible)
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("display", "none", when: () => !DragDropZoneVisible)
+        .AddStyle("width", Width, when: () => !string.IsNullOrEmpty(Width))
+        .AddStyle("height", Height, when: () => !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary>
-    /// To enable multiple file selection and upload, set the Multiple property to true.
-    /// Set <see cref="MaximumFileCount"/> to change the number of allowed files.
+    /// Gets or sets the component width.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the component height.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether multiple file selection is enabled.
+    /// Set <see cref="MaximumFileCount"/> to change the maximum number of allowed files.
     /// </summary>
     [Parameter]
     public bool Multiple { get; set; } = false;
 
     /// <summary>
-    /// To select multiple files, set the maximum number of files allowed to be uploaded.
-    /// Default value is 10.
+    /// Gets or sets the maximum number of files allowed to be uploaded (e.g., <c>MaximumFileCount="5"</c>).
+    /// Default value is 10. Requires <see cref="Multiple"/> to be true.
     /// </summary>
     [Parameter]
     public int MaximumFileCount { get; set; } = 10;
@@ -73,7 +81,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     public long MaximumFileSize { get; set; } = 10 * 1024 * 1024;
 
     /// <summary>
-    /// Gets or sets the sze of buffer to read bytes from uploaded file (in bytes).
+    /// Gets or sets the size of the buffer used to read bytes from an uploaded file (in bytes).
     /// Default value is 10 KiB.
     /// </summary>
     [Parameter]
@@ -89,7 +97,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     public string Accept { get; set; } = string.Empty;
 
     /// <summary>
-    /// Disables the form control, ensuring it doesn't participate in form submission.
+    /// Gets or sets a value indicating whether the form control is disabled and doesn't participate in form submission.
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
@@ -143,17 +151,10 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     public EventCallback<FluentInputFileEventArgs> OnProgressChange { get; set; }
 
     /// <summary>
-    /// Raise when a file raised an error. Not yet used.
+    /// Raise when a file raised an error.
     /// </summary>
     [Parameter]
-    public EventCallback<FluentInputFileEventArgs> OnFileError { get; set; }
-
-    /// <summary>
-    /// Raised when the <see cref="MaximumFileCount"/> is exceeded.
-    /// The return parameter specifies the total number of files that were attempted for upload.
-    /// </summary>
-    [Parameter]
-    public EventCallback<int> OnFileCountExceeded { get; set; }
+    public EventCallback<FluentInputFileErrorEventArgs> OnFileError { get; set; }
 
     /// <summary>
     /// Raise when all files are completely uploaded.
@@ -165,18 +166,18 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     /// Gets or sets the identifier of the source component clickable by the end user.
     /// </summary>
     [Parameter]
-    public string AnchorId { get; set; } = string.Empty;
+    public string? AnchorId { get; set; }
 
     /// <summary>
     /// Gets the current label display when an upload is in progress.
     /// </summary>
-    public string ProgressTitle { get; private set; } = string.Empty;
+    public string? ProgressTitle { get; private set; }
 
     /// <summary>
     /// Gets or sets the current global value of the percentage of a current upload.
     /// </summary>
     [Parameter]
-    public int ProgressPercent { get; set; } = 0;
+    public int ProgressPercent { get; set; }
 
     /// <summary>
     /// Gets or sets a callback that updates the <see cref="ProgressPercent"/>.
@@ -198,9 +199,12 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     /// <returns></returns>
     public async Task ShowFilesDialogAsync()
     {
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+        if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+        {
+            return;
+        }
 
-        await Module.InvokeVoidAsync("raiseFluentInputFile", Id);
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.InputFile.RaiseFluentInputFile", Id);
     }
 
     /// <summary />
@@ -208,26 +212,29 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
     {
         if (firstRender)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
+            // Import the JavaScript module
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
 
-            _containerInstance = await Module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", _containerElement, _inputFile!.Element);
+            _containerInstance = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.InputFile.InitializeFileDropZone", _containerElement, _inputFile?.Element);
         }
 
-        if (!string.IsNullOrEmpty(AnchorId) && Module is not null)
+        if (!string.IsNullOrEmpty(AnchorId) && _containerInstance is not null)
         {
-            await Module.InvokeVoidAsync("attachClickHandler", AnchorId, Id);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.InputFile.AttachClickHandler", AnchorId, Id);
         }
     }
 
     /// <summary />
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "MA0051:Method is too long", Justification = "<Pending>")]
     protected async Task OnUploadFilesHandlerAsync(InputFileChangeEventArgs e)
     {
-        if (e.FileCount > MaximumFileCount)
+        if (e.FileCount > MaximumFileCount && OnFileError.HasDelegate)
         {
-            if (OnFileCountExceeded.HasDelegate)
-            {
-                await OnFileCountExceeded.InvokeAsync(e.FileCount);
-            }
+            var err = FluentInputFileErrorEventArgs.FileCountExceeded;
+            await OnFileError.InvokeAsync(new(err.Code, err.Message, fileCount: e.FileCount));
             return;
         }
 
@@ -239,16 +246,16 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
         }
 
         // Start
-        await UpdateProgressAsync(0, ResourceLoadingBefore);
+        await UpdateProgressAsync(0, Localizer[LanguageResource.FluentInputFile_LoadingBefore]);
 
-        List<FluentInputFileEventArgs>? uploadedFiles = [];
-        IReadOnlyList<IBrowserFile>? allFiles = e.GetMultipleFiles(MaximumFileCount);
+        var uploadedFiles = new List<FluentInputFileEventArgs>();
+        var allFiles = e.GetMultipleFiles(MaximumFileCount);
         var allFilesSummary = allFiles.Select(i => new UploadedFileDetails(i.Name, i.Size, i.ContentType)).ToList();
         var totalFileSizes = allFiles.Sum(i => i.Size);
         var totalRead = 0L;
         var fileNumber = 0;
 
-        foreach (IBrowserFile file in allFiles)
+        foreach (var file in allFiles)
         {
             ProgressFileDetails = new ProgressFileDetails(fileNumber, file.Name, 0);
             // Keep a trace of this file
@@ -268,11 +275,19 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
             if (file.Size > MaximumFileSize)
             {
                 fileDetails.ErrorMessage = "The maximum size allowed is reached";
+
+                if (OnFileError.HasDelegate)
+                {
+                    var err = FluentInputFileErrorEventArgs.MaximumSizeReached;
+                    await OnFileError.InvokeAsync(new(err.Code, err.Message, fileName: file.Name));
+                }
+
                 continue;
             }
 
             // Progress
-            var title = string.Format(ResourceLoadingInProgress, fileNumber + 1, allFiles.Count, file.Name) ?? string.Empty;
+            var title = string.Format(CultureInfo.InvariantCulture, Localizer[LanguageResource.FluentInputFile_LoadingInProgress], fileNumber + 1, allFiles.Count, file.Name)
+                     ?? string.Empty;
             fileDetails.ProgressTitle = title;
 
             switch (Mode)
@@ -352,11 +367,11 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
         // Canceled or Completed
         if (uploadedFiles.Any(i => i.IsCancelled))
         {
-            await UpdateProgressAsync(100, ResourceLoadingCanceled);
+            await UpdateProgressAsync(100, Localizer[LanguageResource.FluentInputFile_LoadingCanceled]);
         }
         else
         {
-            await UpdateProgressAsync(100, ResourceLoadingCompleted);
+            await UpdateProgressAsync(100, Localizer[LanguageResource.FluentInputFile_LoadingCompleted]);
         }
 
         if (OnCompleted.HasDelegate)
@@ -367,7 +382,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
 
     private async Task ReadFileToBufferAndRaiseProgressEventAsync(IBrowserFile file, FluentInputFileEventArgs fileDetails, Func<byte[], int, Task> action)
     {
-        using Stream readStream = file.OpenReadStream(MaximumFileSize);
+        using var readStream = file.OpenReadStream(MaximumFileSize);
         var bytesRead = 0;
         var buffer = new byte[BufferSize];
 
@@ -403,11 +418,13 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
         }
     }
 
+    /// <summary />
     private Task UpdateProgressAsync(long current, long size, string title)
     {
         return UpdateProgressAsync(Convert.ToInt32(decimal.Divide(current, size <= 0 ? 1 : size) * 100), title);
     }
 
+    /// <summary />
     private async Task UpdateProgressAsync(int percent, string title)
     {
         if (ProgressPercent != percent)
@@ -420,33 +437,24 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable
             }
         }
 
-        if (ProgressTitle != title)
+        if (!string.Equals(ProgressTitle, title, StringComparison.Ordinal))
         {
             ProgressTitle = title;
         }
     }
 
-    // Unregister the drop zone events
-    public async ValueTask DisposeAsync()
+    /// <summary>
+    /// Unregister the drop zone events
+    /// </summary>
+    /// <param name="jsModule"></param>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage]
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        try
+        if (_containerInstance is not null)
         {
-            if (_containerInstance is not null)
-            {
-                await _containerInstance.InvokeVoidAsync("dispose");
-                await _containerInstance.DisposeAsync().ConfigureAwait(false);
-            }
-
-            if (Module != null)
-            {
-                await Module.DisposeAsync().ConfigureAwait(false);
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
+            await _containerInstance.InvokeVoidAsync("dispose");
+            await _containerInstance.DisposeAsync();
         }
     }
 }

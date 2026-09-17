@@ -1,12 +1,23 @@
 # How to create Unit Tests for the FluentUI Blazor project?
 
+- [Overview](#overview)
+- [Unit Tests](#unit-tests)
+- [Why unit test?](#why-unit-test)
+- [Six Best practices](#six-best-practices)
+- [Code Coverage](#code-coverage)
+- [FluentUI Blazor Unit Tests](#fluentui-blazor-unit-tests)
+   - [Test File Template](#test-file-template)
+   - [Example with a simple property](#example-with-a-simple-property)
+   - [Example with an event handler](#example-with-an-event-handler)
+   - [Example with parameters](#example-with-parameters)
+
 ## Overview
 
 In the dynamic field of Blazor web development, creating applications that are both innovative and reliable is a top priority.
 As the complexity of our projects increases, so does the risk of bugs and malfunctions.
 This is where the importance of unit testing comes into its own.
 
-Unit testing offers a systematic approach to the verification of small individual units of code.
+**Unit testing** offers a systematic approach to the verification of small individual units of code.
 By subjecting these units to a variety of scenarios and inputs, developers can ensure that their code behaves as expected, 
 identify weaknesses and detect problems early in the development cycle. In the context of Blazor, 
 where backend and frontend logic converge, unit testing plays a central role in maintaining stability and performance.
@@ -14,12 +25,6 @@ where backend and frontend logic converge, unit testing plays a central role in 
 In this article, we explore the world of unit testing used in the FluentUI Blazor projects.
 We'll dive into the basic concepts, understand its importance in maintaining code quality,
 and discover best practices for creating tests quickly and efficiently.
-
-<!--more-->
-
-## Demo
-
-[Live demo link](https://youtu.be/a5zkV8bUbLQ)
 
 ## Unit Tests
 
@@ -228,8 +233,8 @@ This chapter discusses the usage of code coverage for unit testing with **Coverl
    Include the NuGet Packages `coverlet.msbuild` and `coverlet.collector` in your Unit Tests Project (csproj).
 
    ```xml
-   <PackageReference Include="coverlet.msbuild" Version="3.2.0" />
-   <PackageReference Include="coverlet.collector" Version="3.2.0" />
+   <PackageReference Include="coverlet.msbuild" />
+   <PackageReference Include="coverlet.collector" />
    ```
 
 2. **Tools**
@@ -237,8 +242,8 @@ This chapter discusses the usage of code coverage for unit testing with **Coverl
    To generate a code coverage report **locally**, install these tools: [Coverlet](https://dotnetfoundation.org/projects/coverlet) and [ReportGenerator](https://reportgenerator.io).
 
    ```
-   dotnet tool install --global coverlet.console --version 3.2.0
-   dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.1.20
+   dotnet tool install --global coverlet.console --version 6.0.2
+   dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.3.7
    ```
    
    Use this command to list and verify existing installed tools:
@@ -263,8 +268,9 @@ This chapter discusses the usage of code coverage for unit testing with **Coverl
    reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:C:\Temp\FluentUI\Coverage" -reporttypes:HtmlInline_AzurePipelines -classfilters:"-Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*"
    ```
 
-> **Note:** The `_StartCodeCoverage.cmd` file contains these two command lines.
-> Using this [Mads Kristensen's VS extension](https://github.com/madskristensen/OpenCommandLine), you can easily execute this .cmd file.
+> **⚠️ Note:** The `_StartCodeCoverage.cmd` file contains these two command lines.
+> Using this [Mads Kristensen's VS extension](https://github.com/madskristensen/OpenCommandLine), you can easily execute this .cmd file
+> from Visual Studio 2022.
 
 <br /><br />
 
@@ -279,41 +285,113 @@ With bUnit, you can:
 - Verify outcomes using semantic HTML comparer
 - Interact with and inspect components as well as trigger event handlers
 - Pass parameters, cascading values and inject services into components under test
-- Mock IJSRuntime, Blazor authentication and authorization, and others
+- Mock `IJSRuntime`, Blazor authentication and authorization, and others
 
 bUnit builds on top of existing unit testing frameworks such as xUnit, NUnit, and MSTest
 
-Example with a **simple parameter**:
+### Test File Template
 
-   ```csharp
-   [Fact]
-   public void MyButton_Basic_Width()
-   {
-       // Arrange
-       using var ctx = new Bunit.TestContext();
+To create a unit test in **FluentUI Blazor**, you need to create a file
+`<ComponentName>Tests.razor` containing this.
 
-       // Act
-       var button = ctx.RenderComponent<MyButton>(parameters =>
-       {
-           parameters.Add(p => p.Width, "100px")
-       });
+```csharp
+@using Xunit;
+@inherits TestContext
+@code
+{
+    public <ComponentName>Tests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddSingleton<LibraryConfiguration>();
+    }
 
-       // Assert
-       button.MarkupMatches(@"<fluent-button appearance=""neutral"" style=""width: 100px;"" />");
-   }
-   ```
+    [Fact]
+    public void <ComponentName>_Default()
+    {
+        ...
+    }
+}
+```
+
+### Example with a simple property
 
 In the [FluentUI.Blazor](https://github.com/microsoft/fluentui-blazor) project, we added a `Verify` method to 
-generate a **.received.html** file which will be compared to a predefined **.verified.html** file.
+generate a **.received.html** or **.received.razor.html** file which will be compared
+to a predefined **.verified.html** or **.verified.razor.html** file.
 
-   ```html
-   <!-- MyToolbar_Render_TwoButtons.verified.html -->
-   <div class="stack-horizontal">
-       <div class="my-toolbar">
-           <fluent-button appearance="neutral">Button 1</fluent-button>
-           <fluent-button appearance="neutral">Button 2</fluent-button>
-       </div>
-   </div>
-   ```
+```csharp
+[Fact]
+public void FluentButton_Color()
+{
+    // Arrange && Act
+    var cut = Render(@<FluentButton Id="MyButton" Color="#00ff00">
+                          My button
+                      </FluentButton>);
 
-Watch [this video for a live demonstration](https://youtu.be/a5zkV8bUbLQ)
+    // Assert
+    cut.Verify();
+}
+```
+
+```html
+<!-- FluentButton_Color.verified.razor.html -->
+<fluent-button style="color: #00ff00;"
+               id="xxx">
+   My button
+</fluent-button>
+```
+
+> **⚠️ Note:** When modifying components, it's easy to
+> check where the modifications are located: using a file comparison tool.
+
+### Example with an event handler
+
+In this example, a FluentButton component is tested to verify that the `OnClick` event is triggered.
+
+```csharp
+[Fact]
+public void FluentButton_OnClick()
+{
+    bool clicked = false;
+
+    // Arrange
+    var cut = Render(@<FluentButton OnClick="@(e => { clicked = true; } )">
+                          My button
+                      </FluentButton>);
+
+    // Act
+    cut.Find("fluent-button").Click();
+
+    // Assert
+    Assert.True(clicked);
+}
+```
+
+### Example with parameters
+
+You can use the xUnit `[InlineData]` attribute to test several scenarios.  
+In this case, we suggest you to use the `suffix` parameter of the `Verify` method to generate multiple files for each test:
+
+  - `FluentButtonTests.FluentButton_FormIdAttribute-form-id-attribute.verified.razor.html`
+  - `FluentButtonTests.FluentButton_FormIdAttribute-[null].received.razor.html`
+  - `FluentButtonTests.FluentButton_FormIdAttribute-[empty].verified.razor.html`
+  - `FluentButtonTests.FluentButton_FormIdAttribute-[space].received.razor.html`
+
+```csharp
+[Theory]
+[InlineData("form-id-attribute")]
+[InlineData(null)]
+[InlineData("")]
+[InlineData(" ")]
+public void FluentButton_FormIdAttribute(string? formId)
+{
+    // Arrange && Act
+    var cut = Render(@<FluentButton FormId="@formId">
+                         fluent-button
+                      </FluentButton>);
+
+    // Assert
+    cut.Verify(suffix: formId);
+}
+```
+

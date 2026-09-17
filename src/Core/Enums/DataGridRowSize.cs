@@ -29,9 +29,4 @@ public enum DataGridRowSize
     /// Large row height
     /// </summary>
     Large = 58,
-
-    ///// <summary>
-    ///// Dynamic row height
-    ///// </summary>
-    //Dynamic
 }

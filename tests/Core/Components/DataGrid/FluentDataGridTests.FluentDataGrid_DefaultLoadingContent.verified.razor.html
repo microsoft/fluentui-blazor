@@ -1,0 +1,28 @@
+<html>
+    <head></head>
+    <body>
+        <table id="xxx" class="fluent-data-grid" style="grid-template-columns: 1fr; grid-template-rows: auto 1fr; height: 100%;" aria-rowcount="1" display-mode="grid" blazor:onclosecolumnheaderui="1" blazor:elementreference="xxx">
+            <thead>
+                <tr class="fluent-data-grid-row" data-row-index="0" role="row" row-type="header" blazor:onkeydown="x" blazor:onclick="x" blazor:ondblclick="4" blazor:onfocus="5">
+                    <th col-index="1" style="min-height: 40px;" blazor:oncontextmenu:preventdefault="" blazor:onkeydown="x" blazor:onclick="x" blazor:onfocus="24" cell-type="columnheader" col-justify="start" scope="col" aria-sort="none">
+                        <div style="display: flex; justify-content: flex-start; padding: 0 6px; ">
+                            <div col-title="">
+                                <div col-title-text="">Name</div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="fluent-data-grid-row" data-row-index="1" role="row" row-state="loading-content" blazor:onkeydown="x" blazor:onclick="x" blazor:ondblclick="8" blazor:onfocus="9">
+                    <td col-index="0" style="grid-column: 1 / 2;" role="gridcell">
+                        <div class="fluent-stack-horizontal" style="justify-content: center; align-items: center; column-gap: 6px; width: 100%;">
+                            <fluent-spinner size="medium"></fluent-spinner>
+                            <div>Loading...</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

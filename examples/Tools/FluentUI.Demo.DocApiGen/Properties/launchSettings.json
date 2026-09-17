@@ -1,0 +1,29 @@
+{
+  "__NOTE__": "Update net9.0 references below to match the NetVersion in Directory.Build.props (net8.0, net9.0, or net10.0)",
+  "profiles": {
+    "FluentUI.Demo.DocApiGen": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json\" --format json"
+    },
+    "FluentUI.Demo.DocApiGen charts": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.Charts.xml\" --dll \"$(SolutionDir)src/Charts/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.Charts.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/chart-comments.json\" --format json"
+    },
+    "FluentUI.Demo.DocApiGen all": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments-all.json\" --format json --mode all"
+    },
+    "FluentUI.Demo.DocApiGen mcp": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.McpServer.xml\" --dll \"$(SolutionDir)src/Tools/McpServer/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.McpServer.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json\" --format json --mode mcp"
+    },
+    "FluentUI.Demo.DocApiGen icons": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/all-icons.json\" --mode icons"
+    },
+    "FluentUI.Demo.DocApiGen emojis": {
+      "commandName": "Project",
+      "commandLineArgs": "--xml \"$(MSBuildProjectDirectory)/Microsoft.FluentUI.AspNetCore.Components.xml\" --dll \"$(SolutionDir)src/Core/bin/$(Configuration)/net9.0/Microsoft.FluentUI.AspNetCore.Components.dll\" --output \"$(SolutionDir)examples/Demo/FluentUI.Demo.Client/wwwroot/all-emojis.json\" --mode emojis"
+    }
+  }
+}

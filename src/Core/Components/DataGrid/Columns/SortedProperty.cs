@@ -12,10 +12,10 @@ public readonly struct SortedProperty
     /// <summary>
     /// Gets or sets the property name for the sorting rule.
     /// </summary>
-    public /*required*/ string PropertyName { get; init; }
+    public string PropertyName { get; init; }
 
     /// <summary>
     /// Gets or sets the direction to sort by.
     /// </summary>
-    public SortDirection Direction { get; init; }
+    public DataGridSortDirection Direction { get; init; }
 }

@@ -8,26 +8,19 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// A wizard component that provides a step-by-step user interface.
+/// </summary>
 public partial class FluentWizard : FluentComponentBase
 {
-    public static string LabelButtonPrevious = "Previous";
-    public static string LabelButtonNext = "Next";
-    public static string LabelButtonDone = "Done";
-
-    private readonly List<FluentWizardStep> _steps = new();
-    private int _value = 0;
-    internal int _maxStepVisited = 0;
+    private readonly List<FluentWizardStep> _steps = [];
+    internal int _maxStepVisited;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-wizard")
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("width", Width)
-        .AddStyle("height", Height)
-        .Build();
+    public FluentWizard(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary>
     /// Gets or sets the height of the wizard.
@@ -67,13 +60,14 @@ public partial class FluentWizard : FluentComponentBase
     public string? StepperBulletSpace { get; set; }
 
     /// <summary>
-    /// Display a border of the Wizard.
+    /// Gets or sets whether and how a border is displayed around the wizard (e.g., <c>Border="WizardBorder.Outside"</c>).
     /// </summary>
     [Parameter]
     public WizardBorder Border { get; set; } = WizardBorder.None;
 
     /// <summary>
-    /// Display a number on each step icon. Can be overridden by the step <see cref="FluentWizardStep.DisplayStepNumber"/> property.
+    /// Gets or sets when to display a step number on each step icon.
+    /// Can be overridden per step via <see cref="FluentWizardStep.DisplayStepNumber"/>.
     /// </summary>
     [Parameter]
     public WizardStepStatus DisplayStepNumber { get; set; } = WizardStepStatus.None;
@@ -83,33 +77,7 @@ public partial class FluentWizard : FluentComponentBase
     /// This value is bindable.
     /// </summary>
     [Parameter]
-    public int Value
-    {
-        get
-        {
-            return _value;
-        }
-
-        set
-        {
-            if (value < 0 || _steps.Count <= 0)
-            {
-                _value = 0;
-            }
-            else if (value > _steps.Count - 1)
-            {
-                _value = _steps.Count - 1;
-            }
-            else
-            {
-                _value = value;
-            }
-
-            _maxStepVisited = Math.Max(_value, _maxStepVisited);
-
-            SetCurrentStatusToStep(_value);
-        }
-    }
+    public int Value { get; set; }
 
     /// <summary>
     /// Triggers when the value has changed.
@@ -148,97 +116,32 @@ public partial class FluentWizard : FluentComponentBase
     public WizardStepSequence StepSequence { get; set; } = WizardStepSequence.Linear;
 
     /// <summary />
-    protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
-    {
-        // Target step index
-        var targetIndex = Value;
-        do
-        {
-            targetIndex++;
-        }
-        while (_steps[targetIndex].Disabled && targetIndex < _steps.Count - 1);
-
-        // StepChange event
-        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, true);
-        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
-
-        if (!isCanceled)
-        {
-            Value = targetIndex;
-            await ValueChanged.InvokeAsync(targetIndex);
-            StateHasChanged();
-        }
-    }
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-wizard")
+        .Build();
 
     /// <summary />
-    protected virtual async Task OnPreviousHandlerAsync(MouseEventArgs e)
-    {
-        // Target step index
-        var targetIndex = Value;
-        do
-        {
-            targetIndex--;
-        }
-        while (_steps[targetIndex].Disabled && targetIndex > 0);
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
+        .Build();
 
-        // StepChange event
-        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, false);
-        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
+    internal int StepCount => _steps.Count;
 
-        if (!isCanceled)
-        {
-            Value = targetIndex;
-            await ValueChanged.InvokeAsync(targetIndex);
-            StateHasChanged();
-        }
-    }
+    private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
+
+    private bool DisplayNextButton => Value < _steps.Count - 1 && _steps[(Value + 1)..].Any(i => !i.Disabled);
 
     /// <summary />
-    protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
+    public override Task SetParametersAsync(ParameterView parameters)
     {
-        var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
-
-        if (validateEditContexts)
+        // If Value parameter changes, we need to switch to the new step.
+        if (parameters.TryGetValue<int>(nameof(Value), out var newValue) && !Equals(newValue, Value))
         {
-            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
-            stepChangeArgs.IsCancelled = !allEditContextsAreValid;
-
-            if (!allEditContextsAreValid)
-            {
-                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
-            }
-            if (!stepChangeArgs.IsCancelled && allEditContextsAreValid)
-            {
-                // Invoke the 'OnValidSubmit' handlers for the Edit Forms
-                await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
-            }
-
-            await _steps[Value].InvokeOnSubmitForEditFormsAsync();
+            SetCurrentValue(newValue);
         }
 
-        return await OnStepChangeHandlerAsync(stepChangeArgs);
-    }
-
-    /// <summary />
-    protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(FluentWizardStepChangeEventArgs args)
-    {
-        if (_steps[Value].OnChange.HasDelegate)
-        {
-            await _steps[Value].OnChange.InvokeAsync(args);
-        }
-
-        if (_steps[Value].DeferredLoading && !args.IsCancelled)
-        {
-            _steps[Value].ClearEditFormAndContext();
-        }
-
-        return args;
-    }
-
-    /// <summary />
-    protected virtual async Task OnFinishHandlerAsync(MouseEventArgs e)
-    {
-        await FinishAsync(true);
+        return base.SetParametersAsync(parameters);
     }
 
     /// <summary>
@@ -283,6 +186,105 @@ public partial class FluentWizard : FluentComponentBase
         return ValidateAndGoToStepAsync(step, validateEditContexts);
     }
 
+    /// <summary />
+    protected virtual async Task OnNextHandlerAsync(MouseEventArgs e)
+    {
+        // Target step index
+        var targetIndex = Value;
+        do
+        {
+            targetIndex++;
+        }
+        while (_steps[targetIndex].Disabled && targetIndex < _steps.Count - 1);
+
+        // StepChange event
+        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, true);
+        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
+
+        if (!isCanceled)
+        {
+            SetCurrentValue(targetIndex);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+        }
+    }
+
+    /// <summary />
+    protected virtual async Task OnPreviousHandlerAsync(MouseEventArgs e)
+    {
+        // Target step index
+        var targetIndex = Value;
+        do
+        {
+            targetIndex--;
+        }
+        while (_steps[targetIndex].Disabled && targetIndex > 0);
+
+        // StepChange event
+        var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, false);
+        var isCanceled = stepChangeArgs?.IsCancelled ?? false;
+
+        if (!isCanceled)
+        {
+            SetCurrentValue(targetIndex);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+        }
+    }
+
+    /// <summary />
+    protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(int targetIndex, bool validateEditContexts)
+    {
+        var stepChangeArgs = new FluentWizardStepChangeEventArgs(targetIndex, _steps[targetIndex].Label);
+
+        if (validateEditContexts)
+        {
+            var allEditContextsAreValid = _steps[Value].ValidateEditContexts();
+            stepChangeArgs.IsCancelled = !allEditContextsAreValid;
+
+            if (!allEditContextsAreValid)
+            {
+                await _steps[Value].InvokeOnInValidSubmitForEditFormsAsync();
+            }
+
+            if (!stepChangeArgs.IsCancelled && allEditContextsAreValid)
+            {
+                // Invoke the 'OnValidSubmit' handlers for the Edit Forms
+                await _steps[Value].InvokeOnValidSubmitForEditFormsAsync();
+            }
+
+            await _steps[Value].InvokeOnSubmitForEditFormsAsync();
+        }
+
+        return await OnStepChangeHandlerAsync(stepChangeArgs);
+    }
+
+    /// <summary />
+    protected virtual async Task<FluentWizardStepChangeEventArgs> OnStepChangeHandlerAsync(FluentWizardStepChangeEventArgs args)
+    {
+        if (_steps[Value].OnChange.HasDelegate)
+        {
+            await _steps[Value].OnChange.InvokeAsync(args);
+        }
+
+        if (_steps[Value].DeferredLoading && !args.IsCancelled)
+        {
+            _steps[Value].ClearEditFormAndContext();
+        }
+
+        return args;
+    }
+
+    /// <summary />
+    protected virtual Task OnFinishHandlerAsync(MouseEventArgs e)
+    {
+        return FinishAsync(validateEditContexts: true);
+    }
+
     internal async Task ValidateAndGoToStepAsync(int targetIndex, bool validateEditContexts)
     {
         var stepChangeArgs = await OnStepChangeHandlerAsync(targetIndex, validateEditContexts);
@@ -290,8 +292,12 @@ public partial class FluentWizard : FluentComponentBase
 
         if (!isCanceled)
         {
-            Value = targetIndex;
-            await ValueChanged.InvokeAsync(targetIndex);
+            SetCurrentValue(targetIndex);
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+
             StateHasChanged();
         }
     }
@@ -306,9 +312,43 @@ public partial class FluentWizard : FluentComponentBase
             SetCurrentStatusToStep(index);
         }
 
-        StateHasChanged();
+        try
+        {
+            StateHasChanged();
+        }
+        catch (InvalidOperationException ex) when (ex.Message.Contains("render handle is not yet assigned", StringComparison.OrdinalIgnoreCase))
+        {
+        }
 
         return index;
+    }
+
+    internal void RemoveStep(FluentWizardStep step)
+    {
+        _steps.Remove(step);
+    }
+
+    private void SetCurrentValue(int value)
+    {
+        Value = NormalizeValue(value);
+        _maxStepVisited = Math.Max(Value, _maxStepVisited);
+
+        SetCurrentStatusToStep(Value);
+    }
+
+    private int NormalizeValue(int value)
+    {
+        if (value < 0 || _steps.Count <= 0)
+        {
+            return 0;
+        }
+
+        if (value > _steps.Count - 1)
+        {
+            return _steps.Count - 1;
+        }
+
+        return value;
     }
 
     private void SetCurrentStatusToStep(int stepIndex)
@@ -347,19 +387,11 @@ public partial class FluentWizard : FluentComponentBase
             return null;
         }
 
-        switch (StepperPosition)
+        return StepperPosition switch
         {
-            case StepperPosition.Top:
-                return $"height: {StepperSize}";
-
-            case StepperPosition.Left:
-                return $"width: {StepperSize}";
-        }
-
-        return null;
+            StepperPosition.Top => $"height: {StepperSize}",
+            StepperPosition.Left => $"width: {StepperSize}",
+            _ => null,
+        };
     }
-
-    private bool DisplayPreviousButton => Value > 0 && _steps[..Value].Any(i => !i.Disabled);
-
-    private bool DisplayNextButton => Value < _steps.Count - 1 && _steps[(Value + 1)..].Any(i => !i.Disabled);
 }

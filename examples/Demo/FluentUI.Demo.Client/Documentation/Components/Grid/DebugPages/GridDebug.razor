@@ -1,0 +1,368 @@
+@page "/Grid/Debug"
+
+@*
+    Debug / validation page for FluentGrid CSS rules.
+
+    Goal: exercise every "extreme" combination that the percentage-based
+    column rules (flex-basis / max-width = max(0px, calc(...% - N/12 * gap))) must handle.
+
+    Verify visually that:
+      - No item overflows its container (no horizontal scrollbar on grid rows).
+      - No item collapses unexpectedly (other than intentional Spacing="10" + narrow container cases).
+      - Rows correctly wrap when total spans > 12.
+      - Gaps between items are visually consistent with the requested Spacing.
+*@
+
+<style>
+    .debug-section {
+        margin-block: 24px;
+        padding: 12px;
+        border: 1px dashed var(--colorNeutralStroke2);
+        border-radius: 4px;
+    }
+
+    .debug-section > h3 {
+        margin: 0 0 8px 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .debug-section > p.hint {
+        margin: 0 0 12px 0;
+        font-size: 12px;
+        color: var(--colorNeutralForeground3);
+    }
+
+    .fluent-grid {
+        background: var(--colorNeutralBackground4);
+    }
+
+    .fluent-grid .card {
+        border: 1px solid var(--colorNeutralStroke1);
+        background: var(--colorNeutralBackground2);
+        color: var(--colorNeutralForeground1);
+        min-height: 36px;
+        padding: 4px 8px;
+        font-family: var(--fontFamilyMonospace);
+        font-size: 11px;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        word-break: break-word;
+        overflow: hidden;
+    }
+
+    .narrow-280 { width: 280px; }
+    .narrow-200 { width: 200px; }
+    .narrow-400 { width: 400px; }
+
+    .ruler {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: var(--colorNeutralBackground1);
+        padding: 8px 0;
+        border-bottom: 1px solid var(--colorNeutralStroke2);
+        font-size: 13px;
+    }
+</style>
+
+<div class="ruler">
+    <strong>Current breakpoint:</strong> @(_pageSize?.ToString() ?? "(unknown — resize window once)")
+</div>
+
+@*
+============================================================
+SECTION A — Every single span 1..12 at maximum Spacing (10).
+
+  Validates: max(0px, calc(...)) protects against negative
+  flex-basis/max-width on small spans + large gap.
+============================================================
+*@
+<div class="debug-section">
+    <h3>A — All spans (Xs=1..12) with Spacing="10" (gap = 80px)</h3>
+    <p class="hint">
+        Each row contains a single item. At Spacing="10", small spans like Xs="1" can compute to a negative
+        length — the `max(0px, …)` floor must keep them at 0 instead of falling back to <code>auto</code>.
+    </p>
+
+    <FluentGrid Spacing="10"
+                OnBreakpointEnter="@OnBreakpointEnterHandler">
+        @for (var i = 1; i <= 12; i++)
+        {
+            var span = i;
+            <FluentGridItem Xs="span">
+                <div class="card">Xs=@span</div>
+            </FluentGridItem>
+        }
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION B — Full rows summing to 12 at Spacing="10".
+
+  Validates: items + gaps fit exactly on one row without
+  horizontal overflow (issue #4920).
+============================================================
+*@
+<div class="debug-section">
+    <h3>B — Full 12-column rows at Spacing="10"</h3>
+    <p class="hint">
+        Each row should fit on a single line (no wrapping, no horizontal scrollbar).
+    </p>
+
+    <FluentGrid Spacing="10">
+        @* 12 × Xs=1 *@
+        @for (var i = 0; i < 12; i++)
+        {
+            <FluentGridItem Xs="1"><div class="card">1</div></FluentGridItem>
+        }
+        @* 6 × Xs=2 *@
+        @for (var i = 0; i < 6; i++)
+        {
+            <FluentGridItem Xs="2"><div class="card">2</div></FluentGridItem>
+        }
+        @* 4 × Xs=3 *@
+        @for (var i = 0; i < 4; i++)
+        {
+            <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+        }
+        @* 3 × Xs=4 *@
+        @for (var i = 0; i < 3; i++)
+        {
+            <FluentGridItem Xs="4"><div class="card">4</div></FluentGridItem>
+        }
+        @* 2 × Xs=6 *@
+        @for (var i = 0; i < 2; i++)
+        {
+            <FluentGridItem Xs="6"><div class="card">6</div></FluentGridItem>
+        }
+        @* 1 × Xs=12 *@
+        <FluentGridItem Xs="12"><div class="card">12</div></FluentGridItem>
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION C — Spacing sweep (0..10) on a fixed 4+4+4 layout.
+
+  Validates: gap scales linearly, items stay aligned, no
+  overflow at any spacing level.
+============================================================
+*@
+<div class="debug-section">
+    <h3>C — Spacing sweep (0..10), three Xs="4" items per row</h3>
+    <p class="hint">Gap should grow from 0px to 80px in 8px increments; row stays single-line.</p>
+
+    @for (var s = 0; s <= 10; s++)
+    {
+        var spacing = s;
+        <div style="margin-bottom: 6px; font-size: 11px; color: var(--colorNeutralForeground3);">
+            Spacing=@spacing (gap = @(spacing * 8)px)
+        </div>
+        <FluentGrid Spacing="spacing" Style="margin-bottom: 12px;">
+            <FluentGridItem Xs="4"><div class="card">Xs=4</div></FluentGridItem>
+            <FluentGridItem Xs="4"><div class="card">Xs=4</div></FluentGridItem>
+            <FluentGridItem Xs="4"><div class="card">Xs=4</div></FluentGridItem>
+        </FluentGrid>
+    }
+</div>
+
+@*
+============================================================
+SECTION D — Narrow container stress test.
+
+  This is the bug scenario from the PR review:
+    Xs="1" at Spacing="10" in a small container would compute
+    to a negative length (~−6.67px at 800px width).
+  The `max(0px, …)` floor must clamp to 0 cleanly.
+============================================================
+*@
+<div class="debug-section">
+    <h3>D — Narrow containers + Spacing="10"</h3>
+    <p class="hint">
+        Items may visually collapse (basis = 0) which is correct — flex-grow=0 means they don't grow.
+        Importantly: NO horizontal scrollbar and NO fallback to <code>auto</code> sizing.
+    </p>
+
+    <div style="margin-bottom: 6px; font-size: 11px;">280px container, Xs="1" × 12:</div>
+    <div class="narrow-280">
+        <FluentGrid Spacing="10">
+            @for (var i = 0; i < 12; i++)
+            {
+                <FluentGridItem Xs="1"><div class="card">1</div></FluentGridItem>
+            }
+        </FluentGrid>
+    </div>
+
+    <div style="margin-top: 12px; margin-bottom: 6px; font-size: 11px;">200px container, Xs="2" × 6:</div>
+    <div class="narrow-200">
+        <FluentGrid Spacing="10">
+            @for (var i = 0; i < 6; i++)
+            {
+                <FluentGridItem Xs="2"><div class="card">2</div></FluentGridItem>
+            }
+        </FluentGrid>
+    </div>
+
+    <div style="margin-top: 12px; margin-bottom: 6px; font-size: 11px;">400px container, Xs="3" × 4:</div>
+    <div class="narrow-400">
+        <FluentGrid Spacing="10">
+            @for (var i = 0; i < 4; i++)
+            {
+                <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+            }
+        </FluentGrid>
+    </div>
+</div>
+
+@*
+============================================================
+SECTION E — Asymmetric pairs summing to 12.
+============================================================
+*@
+<div class="debug-section">
+    <h3>E — Asymmetric pairs (a + b = 12) at Spacing="6"</h3>
+    <p class="hint">Both items should fit on one line at every breakpoint, with a single 48px gap between them.</p>
+
+    <FluentGrid Spacing="6">
+        <FluentGridItem Xs="1"><div class="card">1</div></FluentGridItem>
+        <FluentGridItem Xs="11"><div class="card">11</div></FluentGridItem>
+
+        <FluentGridItem Xs="2"><div class="card">2</div></FluentGridItem>
+        <FluentGridItem Xs="10"><div class="card">10</div></FluentGridItem>
+
+        <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+        <FluentGridItem Xs="9"><div class="card">9</div></FluentGridItem>
+
+        <FluentGridItem Xs="4"><div class="card">4</div></FluentGridItem>
+        <FluentGridItem Xs="8"><div class="card">8</div></FluentGridItem>
+
+        <FluentGridItem Xs="5"><div class="card">5</div></FluentGridItem>
+        <FluentGridItem Xs="7"><div class="card">7</div></FluentGridItem>
+
+        <FluentGridItem Xs="6"><div class="card">6</div></FluentGridItem>
+        <FluentGridItem Xs="6"><div class="card">6</div></FluentGridItem>
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION F — Overflow > 12: wrapping behavior.
+============================================================
+*@
+<div class="debug-section">
+    <h3>F — Wrapping (total spans &gt; 12) at Spacing="4"</h3>
+    <p class="hint">Items must wrap to the next line cleanly; gaps between wrapped rows should match column gaps.</p>
+
+    <FluentGrid Spacing="4">
+        <FluentGridItem Xs="7"><div class="card">7</div></FluentGridItem>
+        <FluentGridItem Xs="6"><div class="card">6 (wraps)</div></FluentGridItem>
+        <FluentGridItem Xs="5"><div class="card">5</div></FluentGridItem>
+        <FluentGridItem Xs="8"><div class="card">8 (wraps)</div></FluentGridItem>
+        <FluentGridItem Xs="4"><div class="card">4</div></FluentGridItem>
+        <FluentGridItem Xs="4"><div class="card">4</div></FluentGridItem>
+        <FluentGridItem Xs="4"><div class="card">4</div></FluentGridItem>
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION G — Responsive (every breakpoint exercised).
+============================================================
+*@
+<div class="debug-section">
+    <h3>G — Responsive: Xs=12 / Sm=6 / Md=4 / Lg=3 / Xl=2 / Xxl=1</h3>
+    <p class="hint">
+        Resize the window through all 6 breakpoints (&lt;600 / 600 / 960 / 1280 / 1920 / 2560).
+        The item count per row should change accordingly with no overflow.
+    </p>
+
+    <FluentGrid Spacing="3">
+        @for (var i = 0; i < 12; i++)
+        {
+            <FluentGridItem Xs="12" Sm="6" Md="4" Lg="3" Xl="2" Xxl="1">
+                <div class="card">@(i + 1)</div>
+            </FluentGridItem>
+        }
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION H — No breakpoint defined: xs="0" path.
+
+  When no Xs/Sm/Md/... is set, FluentGridItem renders xs="0",
+  which maps to `flex: 1; max-width: fit-content;`.
+============================================================
+*@
+<div class="debug-section">
+    <h3>H — No breakpoint defined (xs="0" path) at Spacing="5"</h3>
+    <p class="hint">Items should size to content and share remaining space equally.</p>
+
+    <FluentGrid Spacing="5">
+        <FluentGridItem><div class="card">short</div></FluentGridItem>
+        <FluentGridItem><div class="card">a bit longer label</div></FluentGridItem>
+        <FluentGridItem><div class="card">x</div></FluentGridItem>
+        <FluentGridItem><div class="card">medium label here</div></FluentGridItem>
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION I — HiddenWhen flags.
+============================================================
+*@
+<div class="debug-section">
+    <h3>I — HiddenWhen at each breakpoint</h3>
+    <p class="hint">
+        Each item is hidden only at one breakpoint. Resize the window — exactly one item should disappear
+        per breakpoint range. Remaining items must still tile correctly (no orphaned gaps).
+    </p>
+
+    <FluentGrid Spacing="3">
+        <FluentGridItem Xs="2" HiddenWhen="GridItemHidden.Xs"><div class="card">hide @@ Xs</div></FluentGridItem>
+        <FluentGridItem Xs="2" HiddenWhen="GridItemHidden.Sm"><div class="card">hide @@ Sm</div></FluentGridItem>
+        <FluentGridItem Xs="2" HiddenWhen="GridItemHidden.Md"><div class="card">hide @@ Md</div></FluentGridItem>
+        <FluentGridItem Xs="2" HiddenWhen="GridItemHidden.Lg"><div class="card">hide @@ Lg</div></FluentGridItem>
+        <FluentGridItem Xs="2" HiddenWhen="GridItemHidden.Xl"><div class="card">hide @@ Xl</div></FluentGridItem>
+        <FluentGridItem Xs="2" HiddenWhen="GridItemHidden.Xxl"><div class="card">hide @@ Xxl</div></FluentGridItem>
+    </FluentGrid>
+</div>
+
+@*
+============================================================
+SECTION J — Spacing=0 (gap disabled).
+
+  Validates: gap-based layout still works when --fluent-grid-gap is 0px;
+  percentages should compute exactly to fractions of 100%.
+============================================================
+*@
+<div class="debug-section">
+    <h3>J — Spacing="0" (no gap)</h3>
+    <p class="hint">Items should touch with no space between them; full row uses 100% width exactly.</p>
+
+    <FluentGrid Spacing="0">
+        @for (var i = 0; i < 12; i++)
+        {
+            <FluentGridItem Xs="1"><div class="card">1</div></FluentGridItem>
+        }
+        <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+        <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+        <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+        <FluentGridItem Xs="3"><div class="card">3</div></FluentGridItem>
+    </FluentGrid>
+</div>
+
+@code
+{
+    private GridItemSize? _pageSize;
+
+    private void OnBreakpointEnterHandler(GridItemSize size)
+    {
+        _pageSize = size;
+    }
+}

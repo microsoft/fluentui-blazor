@@ -1,32 +1,85 @@
-# Set up your machine to use the latest Fluent UI Blazor package
+# Set up your machine to use the latest FluentUI-Blazor package
 
-These instructions will get you set up with the **newest (potentially unstable!)** version of the Fluent UI Blazor package.
+These instructions will get you set up with the latest build of **FluentUI-Blazor**.
 
-Each time a commit is pushed into the `main` or `dev` branches, the **Core** package is published to a special NuGet feed (not hosted on NuGet).
-
+Each time a commit is pushed to `dev`, the **Core** package is published on a special NuGet repository.
+Install the latest [Visual Studio 2022 Preview version](https://visualstudio.microsoft.com/vs/preview/)
+or [Visual Studio 2026 Insider edition](https://visualstudio.microsoft.com/insiders/) for the tooling.
 
 **This package is a preliminary version and are not intended for production use.
-It is intended to be used to test the latest feature and bug fix.** 
+It is intended to be used to test the latest feature and bug fix.**
 
-If you just want the latest **released** version, the packages are on [NuGet.org](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components).
+If you just want the last final release of **FluentUI-Blazor**, the packages are on [NuGet.org](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components).
 
 ## Add necessary NuGet feed
 
-The newest builds are pushed to a special feed, which you need to add in Visual Studio or through:
+The latest builds are pushed to a special feed, which you need to add:
 ```sh
 dotnet nuget add source --name dotnet9 https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json
 ```
 
-This will add the feed to any existing NuGet.config in the current directory or above, or else
-in the global NuGet.config. See [configuring NuGet behavior](https://learn.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior) to read more about that.
+As usual this will add the feed to any existing NuGet.config in the directory or above,
+or else in the global NuGet.config. See [configuring NuGet behavior](https://learn.microsoft.com/en-us/nuget/consume-packages/configuring-nuget-behavior) to read more about that.
 
-If you are using Visual Studio, you can [Install and manage packages in Visual Studio](https://learn.microsoft.com/nuget/consume-packages/install-use-packages-visual-studio#package-sources)
+Alternatively, if you are using Visual Studio, you can [Install and manage packages in Visual Studio](https://learn.microsoft.com/nuget/consume-packages/install-use-packages-visual-studio#package-sources)
 and add the feed `https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json` there.
 
-**Although the feed name is dotnet9, the package still contains .NET 8 DLL and can be used in projects targeting that version.**
+Example `nuget.config` file (adapt to your environment):
+```json
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="preview" value="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json" />
+  </packageSources>
+
+  <packageSourceMapping>
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components.Emoji" />
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+    </packageSource>
+
+    <packageSource key="preview">
+      <package pattern="Microsoft.FluentUI.AspNetCore.Components" />
+    </packageSource>
+  </packageSourceMapping>
+</configuration>
+```
+
+## Restore error
+
+If you get the error **NU3018** `The author primary signature's signing certificate is not trusted by the trust provider`
+or **NU3027** `The signature should be timestamped to enable long-term signature validity after the certificate has expired`,
+you can work around it by adding the following to your project file:
+
+```xml
+<PropertyGroup>
+  <NoWarn>NU3018;NU3027</NoWarn>
+</PropertyGroup>
+```
+
+## NuGet’s Central Package Management (CPM)
+
+If you are using the NuGet’s Central Package Management (CPM) feature, you probably need to set `ManagePackageVersionsCentrally=false`
+
+Example (update the version number with the lastest values):
+
+```xml
+<PropertyGroup>
+  <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+</PropertyGroup>
+
+ <ItemGroup>
+  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-preview.25286.1" />
+  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.13.0" />
+</ItemGroup>
+```
+
 ## Documentation
 
-Documentation and examples for this preliminary version are available at [https://preview.fluentui-blazor.net/](https://preview.fluentui-blazor.net/).
+The documentation for this preliminary version is available at [https://fluentui-blazor-v5.azurewebsites.net/](https://fluentui-blazor-v5.azurewebsites.net/).
 
 ## Contributing
 

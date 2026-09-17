@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Fake_Hello" xml:space="preserve">
+    <value>Hello {0}</value>
+  </data>
+  <data name="LayoutHamburger_Title" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="FluentInputBase_Required" xml:space="preserve">
+    <value>Required</value>
+  </data>
+  <data name="MessageBox_ButtonYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="MessageBox_ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="MessageBox_ButtonNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MessageBox_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="MessageBox_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MessageBox_Information" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="MessageBox_Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="MessageBox_ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="TextInput_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="ColorPickerInput_InvalidHexMessage" xml:space="preserve">
+    <value>Invalid hexadecimal color value</value>
+  </data>
+  <data name="ColorPickerInput_OpenPickerTitle" xml:space="preserve">
+    <value>Open color picker</value>
+  </data>
+  <data name="Field_ErrorMessage" xml:space="preserve">
+    <value>An error occurred</value>
+  </data>
+  <data name="Field_SuccessMessage" xml:space="preserve">
+    <value>Valid data</value>
+  </data>
+  <data name="Field_WarningMessage" xml:space="preserve">
+    <value>Please, check this value</value>
+  </data>
+  <data name="TimeAgo_DayAgo" xml:space="preserve">
+    <value>{0} day ago</value>
+  </data>
+  <data name="TimeAgo_DaysAgo" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="TimeAgo_HourAgo" xml:space="preserve">
+    <value>{0} hour ago</value>
+  </data>
+  <data name="TimeAgo_HoursAgo" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="TimeAgo_MinuteAgo" xml:space="preserve">
+    <value>{0} minute ago</value>
+  </data>
+  <data name="TimeAgo_MinutesAgo" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="TimeAgo_MonthAgo" xml:space="preserve">
+    <value>{0} month ago</value>
+  </data>
+  <data name="TimeAgo_MonthsAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="TimeAgo_SecondAgo" xml:space="preserve">
+    <value>Just now</value>
+  </data>
+  <data name="TimeAgo_SecondsAgo" xml:space="preserve">
+    <value>{0} seconds ago</value>
+  </data>
+  <data name="TimeAgo_YearAgo" xml:space="preserve">
+    <value>{0} year ago</value>
+  </data>
+  <data name="TimeAgo_YearsAgo" xml:space="preserve">
+    <value>{0} years ago</value>
+  </data>
+  <data name="FluentInputFile_LoadingBefore" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="FluentInputFile_LoadingCompleted" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="FluentInputFile_LoadingCanceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="FluentInputFile_LoadingInProgress" xml:space="preserve">
+    <value>Loading {0}/{1} - {2}</value>
+  </data>
+  <data name="LayoutHamburger_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="TreeItem_LoadingMessage" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="ErrorBoundary_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ErrorBoundary_Title" xml:space="preserve">
+    <value>An error occured</value>
+  </data>
+  <data name="ErrorBoundary_Message" xml:space="preserve">
+    <value>An unhandled error has occurred. Please, contact your IT support.</value>
+  </data>
+  <data name="Paginator_GoFirstPage" xml:space="preserve">
+    <value>Go to first page</value>
+  </data>
+  <data name="Paginator_GoPreviousPage" xml:space="preserve">
+    <value>Go to previous page</value>
+  </data>
+  <data name="Paginator_GoNextPage" xml:space="preserve">
+    <value>Go to next page</value>
+  </data>
+  <data name="Paginator_GoLastPage" xml:space="preserve">
+    <value>Go to last page</value>
+  </data>
+  <data name="Paginator_Status" xml:space="preserve">
+    <value>Page {0} of {1}</value>
+  </data>
+  <data name="DataGrid_SortMenuAscending" xml:space="preserve">
+    <value>Sort (ascending)</value>
+  </data>
+  <data name="DataGrid_SortMenuDescending" xml:space="preserve">
+    <value>Sort (descending)</value>
+  </data>
+  <data name="DataGrid_SortMenu" xml:space="preserve">
+    <value>Sort</value>
+  </data>
+  <data name="DataGrid_ResizeMenu" xml:space="preserve">
+    <value>Resize</value>
+  </data>
+  <data name="DataGrid_OptionsMenu" xml:space="preserve">
+    <value>Column options</value>
+  </data>
+  <data name="DataGrid_ReorderMenu" xml:space="preserve">
+    <value>Reorder columns</value>
+  </data>
+  <data name="DataGrid_ReorderMoveToStart" xml:space="preserve">
+    <value>Move to start</value>
+  </data>
+  <data name="DataGrid_ReorderMoveLeft" xml:space="preserve">
+    <value>Move left</value>
+  </data>
+  <data name="DataGrid_ReorderMoveRight" xml:space="preserve">
+    <value>Move right</value>
+  </data>
+  <data name="DataGrid_ReorderMoveToEnd" xml:space="preserve">
+    <value>Move to end</value>
+  </data>
+  <data name="DataGrid_ResizeDiscrete" xml:space="preserve">
+    <value>Column width</value>
+  </data>
+  <data name="DataGrid_ResizeExact" xml:space="preserve">
+    <value>Column width (in pixels)</value>
+  </data>
+  <data name="DataGrid_ResizeGrow" xml:space="preserve">
+    <value>Grow column width</value>
+  </data>
+  <data name="DataGrid_ResizeShrink" xml:space="preserve">
+    <value>Shrink column width</value>
+  </data>
+  <data name="DataGrid_ResizeReset" xml:space="preserve">
+    <value>Reset column widths</value>
+  </data>
+  <data name="DataGrid_ResizeSubmit" xml:space="preserve">
+    <value>Set column widths</value>
+  </data>
+  <data name="MessageBar_Dismiss" xml:space="preserve">
+    <value>Hide this message</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllChecked" xml:space="preserve">
+    <value>All rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllUnchecked" xml:space="preserve">
+    <value>No rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_AllIndeterminate" xml:space="preserve">
+    <value>Some rows are selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowChecked" xml:space="preserve">
+    <value>Row selected</value>
+  </data>
+  <data name="DataGrid_SelectColumn_RowUnchecked" xml:space="preserve">
+    <value>Row not selected</value>
+  </data>
+  <data name="Calendar_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="DatePicker_ButtonTitle" xml:space="preserve">
+    <value>Show date picker</value>
+  </data>
+  <data name="DataGrid_EmptyContent" xml:space="preserve">
+    <value>No data to show.</value>
+  </data>
+  <data name="Calendar_FieldMustBeADate" xml:space="preserve">
+    <value>The {0} field must be a date.</value>
+  </data>
+  <data name="DataGrid_ErrorContent" xml:space="preserve">
+    <value>An error occurred while retrieving data.</value>
+  </data>
+  <data name="Nav_ToggleTitle" xml:space="preserve">
+    <value>Toggle navigation</value>
+  </data>
+  <data name="AppBar_MoreItems" xml:space="preserve">
+    <value>View more apps</value>
+  </data>
+  <data name="PresenceStatus_Available" xml:space="preserve">
+    <value>available</value>
+  </data>
+  <data name="PresenceStatus_Away" xml:space="preserve">
+    <value>away</value>
+  </data>
+  <data name="PresenceStatus_Busy" xml:space="preserve">
+    <value>busy</value>
+  </data>
+  <data name="PresenceStatus_Unknown" xml:space="preserve">
+    <value>unknown</value>
+  </data>
+  <data name="PresenceStatus_OutOfOffice" xml:space="preserve">
+    <value>out of office</value>
+  </data>
+  <data name="PresenceStatus_Offline" xml:space="preserve">
+    <value>offline</value>
+  </data>
+  <data name="PresenceStatus_DoNotDisturb" xml:space="preserve">
+    <value>do not disturb</value>
+  </data>
+  <data name="PresenceStatus_Blocked" xml:space="preserve">
+    <value>blocked</value>
+  </data>
+  <data name="DataGrid_ToggleNesting" xml:space="preserve">
+    <value>Toggle nesting</value>
+  </data>
+  <data name="DataGrid_ToggleRowDetails" xml:space="preserve">
+    <value>Toggle row details</value>
+  </data>
+  <data name="Paginator_SummaryItem" xml:space="preserve">
+    <value>{0} item</value>
+  </data>
+  <data name="Paginator_SummaryItems" xml:space="preserve">
+    <value>{0} items</value>
+  </data>
+  <data name="Paginator_SummaryNoItems" xml:space="preserve">
+    <value>No items</value>
+  </data>
+  <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
+    <value>The maximum number of {0} selected items has been reached.</value>
+  </data>
+  <data name="Wizard_LabelButtonPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Wizard_LabelButtonNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Wizard_LabelButtonDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="LabelInfo_InfoActionText" xml:space="preserve">
+    <value>Learn more</value>
+  </data>
+  <data name="LabelInfo_InfoText" xml:space="preserve">
+    <value>More information</value>
+  </data>
+  <data name="DataGrid_LoadingContent" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Tabs_MoreItems" xml:space="preserve">
+    <value>View {0} more tabs</value>
+  </data>
+</root>

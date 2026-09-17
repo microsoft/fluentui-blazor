@@ -1,14 +1,19 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<li id="@Id" status="@Status.ToAttributeValue()"
+<li id="@Id"
+	status="@Status.ToAttributeValue()"
     @onclick="@OnClickHandlerAsync"
     disabled="@Disabled"
-    class="@ClassValue" style="@StyleValue" @attributes="@AdditionalAttributes">
+    class="@ClassValue"
+	style="@StyleValue"
+	@attributes="@AdditionalAttributes">
     @if (StepTemplate is null)
     {
         <div class="fluent-wizard-icon">
             <FluentIcon Value="@StepIcon"
+                        Color="Color.Primary"
                         Style="@IconStyle" />
 
             @if (DisplayStepNumber ?? FluentWizard.DisplayStepNumber.HasFlag(Status))
@@ -18,13 +23,23 @@
                 </div>
             }
         </div>
-        <div hidden-when="@FluentGridItem.GetHiddenAttribute(FluentWizard.StepTitleHiddenWhen)">
-            <FluentLabel Class="fluent-wizard-title" Typo="Typography.Body" Disabled="@Disabled">@Label</FluentLabel>
-            <FluentLabel Class="fluent-wizard-summary" Typo="Typography.Body" Disabled="@Disabled">@Summary</FluentLabel>
+        <div class="fluent-wizard-step-labels" hidden-when="@FluentGridItem.GetHiddenAttribute(FluentWizard.StepTitleHiddenWhen)">
+            <FluentLabel Style="display: block" Class="fluent-wizard-title" Disabled="@Disabled">@Label</FluentLabel>
+            @if (!string.IsNullOrEmpty(Summary))
+            {
+                <FluentLabel Style="display: block" Class="fluent-wizard-summary" Size="LabelSize.Small" Disabled="@Disabled">@Summary</FluentLabel>
+            }
         </div>
     }
     else
     {
         @StepTemplate(new FluentWizardStepArgs(Index, FluentWizard.Value))
+    }
+
+    @if (!IsLastStep)
+    {
+        <div class="fluent-wizard-step-connector"
+             position="@(FluentWizard.StepperPosition == StepperPosition.Top ? "top" : "left")">
+        </div>
     }
 </li>

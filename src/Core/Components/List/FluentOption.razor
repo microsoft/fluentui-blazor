@@ -1,16 +1,25 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@typeparam TOption
-<fluent-option @ref=Element
-               id="@Id"
-               class="@Class"
-               style="@Style"
+@typeparam TValue
+
+<fluent-option id="@Id"
+               class="@DefaultClassBuilder.Build()"
+               style="@DefaultStyleBuilder.Build()"
                disabled="@Disabled"
-               value="@Value"
-               title="@Title"
+               name="@Name"
+               text="@Text"
+               value="@ValueFormatted"
                selected="@Selected"
-               aria-selected="@(Selected ? "true" : "false")"
-               @onclick="@OnClickHandlerAsync"
-               @attributes="AdditionalAttributes">
+               @attributes="@AdditionalAttributes">
     @ChildContent
+
+    @if (ChildContent is null && !string.IsNullOrEmpty(Text))
+    {
+        @Text
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Description))
+    {
+        <span slot="@FluentSlot.Description">@Description</span>
+    }
 </fluent-option>

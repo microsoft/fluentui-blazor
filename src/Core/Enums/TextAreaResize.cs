@@ -2,25 +2,33 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Describes the direction in which a <see cref="FluentTextArea"/> can resize.
+/// Whether and how a user can resize the element. <see cref="TextAreaResize" />.
 /// </summary>
 public enum TextAreaResize
 {
     /// <summary>
-    /// The textarea can only resize horizontally.
+    /// The default appearance.
     /// </summary>
+    [Description("none")]
+    None,
+    /// <summary>
+    /// The appearance where the borders are filled with a lighter color.
+    /// </summary>
+    [Description("both")]
+    Both,
+    /// <summary>
+    /// The appearance where the borders are filled with a darker color.
+    /// </summary>
+    [Description("horizontal")]
     Horizontal,
-
     /// <summary>
-    /// The textarea can only resize vertically.
+    /// The appearance where the borders are filled with a darker color.
     /// </summary>
+    [Description("vertical")]
     Vertical,
-
-    /// <summary>
-    /// The textarea can resize both horizontally and vertically.
-    /// </summary>
-    Both
 }

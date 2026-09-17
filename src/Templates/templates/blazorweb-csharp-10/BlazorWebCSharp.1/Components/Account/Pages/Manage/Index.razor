@@ -18,11 +18,11 @@
         <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
             <DataAnnotationsValidator />
             <FluentValidationSummary class="text-danger" role="alert" />
-            <FluentTextField Value="@username" Placeholder="Please choose your username." Disabled Label="Username" Appearance=FluentInputAppearance.Filled Style="width: 100%" />
-            <FluentTextField Name="Input.PhoneNumber" @bind-Value="Input.PhoneNumber" Placeholder="Please enter your phone number." Label="Phone number" Style="width: 100%" />
-            <FluentValidationMessage For="() => Input.PhoneNumber" class="text-danger" />
+            <FluentTextInput Value="@username" Placeholder="Please choose your username." Disabled="true" Label="Username" Appearance="TextInputAppearance.FilledDarker" Style="width: 100%" />
+            <FluentTextInput Name="Input.PhoneNumber" @bind-Value="Input.PhoneNumber" Placeholder="Please enter your phone number." Label="Phone number" Style="width: 100%" />
+            @* <FluentValidationMessage For="() => Input.PhoneNumber" class="text-danger" /> *@
             <p style="margin-top: 10px; text-align: end;">
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent">Save</FluentButton>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Save</FluentButton>
             </p>
         </EditForm>
     </FluentGridItem>

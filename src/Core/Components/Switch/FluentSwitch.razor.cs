@@ -4,46 +4,105 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSwitch : FluentInputBase<bool>
+/// <summary>
+/// A FluentSwitch component represents a physical switch that allows a choice between two mutually exclusive options.
+/// </summary>
+public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IFluentComponentElementBase
 {
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Initializes a new instance of the <see cref="FluentSwitch"/> class.
+    /// </summary>
+    public FluentSwitch(LibraryConfiguration configuration) : base(configuration)
+    {
+        LabelPosition ??= Components.LabelPosition.After;
+    }
+
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the width of the switch (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+    
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary>
+    /// The content to be rendered inside the switch component.
+    /// This is similar to set the <c>Label</c> or <c>LabelTemplate</c> parameter.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// Gets or sets the checked message
-    /// </summary>
-    [Parameter]
-    public string? CheckedMessage { get; set; }
-
-    /// <summary>
-    /// Gets or sets the unchecked message
-    /// </summary>
-    [Parameter]
-    public string? UncheckedMessage { get; set; }
-
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
-
-    public FluentSwitch()
+    /// <summary />
+    protected override async Task OnInitializedAsync()
     {
-
+        await base.RenderTooltipAsync(Tooltip);
     }
 
-    protected override string? ClassValue
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
     {
-        get
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
+
+    private async Task OnSwitchChangedHandlerAsync(ChangeEventArgs e)
+    {
+        ArgumentNullException.ThrowIfNull(e);
+
+        CurrentValue = !CurrentValue;
+
+        await ReportValidityAsync();
+    }
+
+    /// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            return new CssBuilder(base.ClassValue)
-                .AddClass("checked", Value)
-                .Build();
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "checked", "boolean");
         }
     }
 
-    protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) => throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
+    /// <summary>
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        // Overriding mandatory because the parent method is abstract and called via the OnChanged.
+        throw new NotSupportedException();
+    }
+
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return TryParseValueFromString(value, out result, out validationErrorMessage);
+    }
+
+#pragma warning disable CS0618
+    private string? GetLabel =>
+        (!string.IsNullOrEmpty(CheckedMessage) && CurrentValue) ? CheckedMessage : (!string.IsNullOrEmpty(UncheckedMessage) && !CurrentValue ? UncheckedMessage : Label);
+#pragma warning restore
 }

@@ -3,53 +3,50 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+///  Represents an item in a Fluent Accordion component, allowing for customization of its heading, expanded state, and
+///  content. It also manages its registration with the owning FluentTreeView and handles state changes.
+/// </summary>
 public partial class FluentAccordionItem : FluentComponentBase, IDisposable
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Accordion/FluentAccordionItem.razor.js";
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    protected string? StyleValue => DefaultStyleBuilder.Build();
 
     /// <summary>
-    /// Gets or sets the owning FluentTreeView.
+    /// Gets the parent <see cref="FluentAccordion"/> that owns this item, provided via cascading parameter.
     /// </summary>
     [CascadingParameter]
-    public FluentAccordion Owner { get; set; } = default!;
+    public FluentAccordion? Owner { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the heading of the accordion item.
-    /// Use either this or the <see cref="HeadingTemplate"/> parameter."/>
-    /// If both are set, this parameter will be used.
+    /// Gets or sets the plain-text heading of the accordion item (e.g., <c>Header="Section Title"</c>).
+    /// Use either this or the <see cref="HeaderTemplate"/> parameter.
+    /// If both are set, this parameter takes precedence.
     /// </summary>
     [Parameter]
-    public string? Heading { get; set; }
+    public string? Header { get; set; }
 
     /// <summary>
     /// Gets or sets the heading content of the accordion item.
-    /// Use either this or the <see cref="Heading"/> parameter."/>
+    /// Use either this or the <see cref="Header"/> parameter."/>
     /// If both are set, this parameter will not be used.
     /// </summary>
     [Parameter]
-    public RenderFragment? HeadingTemplate { get; set; }
+    public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the tooltip for the heading of the accordion item.
+    /// Gets or sets the heading tooltip of the accordion item.
     /// </summary>
     [Parameter]
-    public string? HeadingTooltip { get; set; }
+    public string? HeaderTooltip { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the item is expanded or collapsed.
@@ -68,7 +65,32 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     /// Possible values: 1 | 2 | 3 | 4 | 5 | 6
     /// </summary>
     [Parameter]
-    public string? HeadingLevel { get; set; }
+    public int? HeadingLevel { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the accordion item is disabled.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the accordion item.
+    /// </summary>
+    [Parameter]
+    public AccordionItemSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the position of the expand/collapse marker.
+    /// </summary>
+    [Parameter]
+    public AccordionItemMarkerPosition? MarkerPosition { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether this accordion item expands to fill the full available width (block-level display).
+    /// When <see langword="null"/>, the value is inherited from the parent <see cref="FluentAccordion.Block"/> setting.
+    /// </summary>
+    [Parameter]
+    public bool? Block { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -76,39 +98,64 @@ public partial class FluentAccordionItem : FluentComponentBase, IDisposable
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    public FluentAccordionItem()
+    /// <summary />
+    public FluentAccordionItem(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
+    /// <summary />
     protected override void OnInitialized()
     {
         Owner?.Register(this);
+
     }
 
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        HeadingLevel = Owner?.HeadingLevel;
+        MarkerPosition = Owner?.MarkerPosition;
+        Block = Owner?.Block;
+        Size = Owner?.Size;
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && !string.IsNullOrEmpty(HeaderTooltip))
         {
-            if (HeadingTooltip != null && !string.IsNullOrEmpty(Id))
-            {
-                Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-                await Module.InvokeVoidAsync("setControlAttribute", Id, "title", HeadingTooltip);
-            }
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='button']",
+                "title", HeaderTooltip);
         }
     }
-
-    private async Task HandleOnAccordionItemChangedAsync(AccordionChangeEventArgs args)
+    /// <summary>
+    /// Sets the expanded state of the accordion item.
+    /// </summary>
+    public async Task SetExpandedAsync(bool expanded)
     {
-        if (args is not null)
+        Expanded = expanded;
+        if (ExpandedChanged.HasDelegate)
         {
-            var id = args.ActiveId;
-            if (id is not null && Id == id && ExpandedChanged.HasDelegate)
-            {
-                await ExpandedChanged.InvokeAsync(args.Expanded);
-            }
+            await ExpandedChanged.InvokeAsync(Expanded);
         }
     }
 
-    public void Dispose() => Owner?.Unregister(this);
+    /// <summary />
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            Owner?.Unregister(this);
+        }
+    }
+
+    /// <summary />
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+    }
 }
