@@ -1,172 +1,61 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
-@if (ChildContent == null || Visible)
+
+@if (Visible)
 {
-    @* Default *@
+    <fluent-message-bar id="@Id"
+                        class="@ClassValue"
+                        style="@StyleValue"
+                        shape="@Shape.ToAttributeValue()"
+                        layout="@Layout.ToAttributeValue()"
+                        intent="@GetIntentString()"
+                        animation="@GetAnimation()"
+                        aria-live="@AriaLive.ToAttributeValue()"
+                        @attributes="@AdditionalAttributes">
 
-    @if (Type == MessageType.MessageBar)
-    {
-        <div id="@Id" class="@ClassValue" style="@StyleValue" animation="@(FadeIn ? "fadein" : null)" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
-
-            @* Icon *@
-            <div class="fluent-messagebar-icon">
-                <FluentIcon Value="@Icon" Title="@(Content?.Intent.ToAttributeValue())" Color="@_color" />
-            </div>
-
-            @* Message *@
-            <div class="fluent-messagebar-message">
-                @if (!String.IsNullOrEmpty(Title))
-                {
-                    <span class="title">
-                        @if (Content?.UseMarkupString == true)
-                        {
-                            @((MarkupString)Title)
-                        }
-                        else
-                        {
-                            @Title
-                        }
-                    </span>
-                }
-                @if (ChildContent is not null)
-                {
-                    @ChildContent
-                }
-                else
-                {
-                    @if (Content?.UseMarkupString == true)
-                    {
-                        @((MarkupString)Content!.Body!)
-                    }
-                    else
-                    {
-                        @(Content!.Body)
-                    }
-                }
-                @if (Link is not null)
-                {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
-                                  Appearance="Appearance.Hypertext"
-                                  Target="@(Link?.Target ?? "_blank")"
-                                  OnClick="@LinkClickedAsync"
-                                  title="Link">
-                        @Link?.Text
-                    </FluentAnchor>
-                }
-            </div>
-            <div class="fluent-messagebar-container-action">
-                @if (ShowPrimaryAction)
-                {
-                    <FluentButton Appearance="@Appearance.Neutral"
-                                  OnClick="@PrimaryActionClickedAsync"
-                                  title="Alert action"
-                                  Class="fluent-messagebar-action">
-                        @PrimaryAction?.Text
-                    </FluentButton>
-                }
-                @if (ShowSecondaryAction)
-                {
-                    <FluentButton Appearance="@Appearance.Neutral"
-                                  OnClick="@SecondaryActionClickedAsync"
-                                  title="Alert action"
-                                  Class="fluent-messagebar-action">
-                        @SecondaryAction?.Text
-                    </FluentButton>
-                }
-                @if (AllowDismiss)
-                {
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
-                                Color=@Color.Neutral
-                                Class="fluent-messagebar-close"
-                                OnClick="DismissClicked" />
-                }
-            </div>
-        </div>
-    }
-
-    @* Notification *@
-    @if (Type == MessageType.Notification)
-    {
-        <div id="@Id" class="@ClassValue" style="@StyleValue" @onfocusin="@PauseTimeout" @onfocusout="@ResumeTimeout">
-
-            @* Icon *@
-            <div class="fluent-messagebar-notification-icon">
-                <FluentIcon Value="@Icon"
-                            Color="@_color"
-                            Title="@(Content?.Intent?.ToAttributeValue())" />
-            </div>
-
-            @* Message *@
-            @if (!String.IsNullOrEmpty(Title))
+        <AddTag Name="span" slot="@FluentSlot.Icon" TagWhen="@(() => Layout == MessageBarLayout.Notification)" class="notification-title">
+            @if (Icon is not null || Intent is not null)
             {
-                <div class="fluent-messagebar-notification-message" title="@Title">
-                    @if (Content?.UseMarkupString == true)
-                    {
-                        @((MarkupString)Title)
-                    }
-                    else
-                    {
-                        @Title
-                    }
-                </div>
+                <FluentIcon Value="@GetIcon()" Slot="@FluentSlot.Icon" />
             }
 
-            @* Close *@
-
-            @if (AllowDismiss)
+            @if (!string.IsNullOrEmpty(Title))
             {
-                <div class="fluent-messagebar-notification-close">
-                    <FluentIcon Value="@(new CoreIcons.Regular.Size16.Dismiss())"
-                                Color=@Color.Neutral
-                                Class="fluent-messagebar-notification-close"
-                                OnClick="DismissClicked" />
-                </div>
+                <span class="title">
+                    @(new MarkupStringSanitized(Title, MarkupStringSanitized.Formats.Html, LibraryConfiguration))
+                </span>
             }
+        </AddTag>
 
-            @* Detailed content *@
-            <div class="fluent-messagebar-notification-content">
-                @ChildContent
-                @if (!String.IsNullOrEmpty(Content?.Body))
-                {
-                    @if (Content?.UseMarkupString == true)
-                    {
-                        @((MarkupString)Content.Body)
-                    }
-                    else
-                    {
-                        @Content?.Body
-                    }
-                }
-                @if (Link is not null)
-                {
-                    <FluentAnchor Href="@(String.IsNullOrEmpty(Link?.Href) ? "#" : Link?.Href)"
-                                  Appearance="Appearance.Hypertext"
-                                  Target="@(Link?.Target ?? "_blank")"
-                                  OnClick="@LinkClickedAsync"
-                                  title="Link">
-                        @Link?.Text
-                    </FluentAnchor>
-                }
-                @if (ShowPrimaryAction)
-                {
-                    <FluentButton Appearance="Appearance.Neutral"
-                                  OnClick="@PrimaryActionClickedAsync"
-                                  title="Notification action"
-                                  Class="fluent-messagebar-action">
-                        @PrimaryAction?.Text
-                    </FluentButton>
-                }
+        @if (@ChildContent is not null)
+        {
+            <span class="content">@ChildContent</span>
+        }
 
-            </div>
+        @if (AllowDismiss)
+        {
+            <FluentButton Appearance="ButtonAppearance.Transparent"
+                          IconStart="@(new CoreIcons.Regular.Size20.Dismiss().WithColor("currentColor"))"
+                          IconOnly="true"
+                          Title="@Localizer[Localization.LanguageResource.MessageBar_Dismiss]"
+                          Size="ButtonSize.Small"
+                          slot="@FluentSlot.Dismiss"
+                          OnClick="DismissClickAsync" />
+        }
 
-            @* Recorded time *@
-            @if (Timestamp != null)
-            {
-                <div class="fluent-messagebar-notification-time">
-                    @((DateTime.Now - Timestamp)?.ToTimeAgo())
-                </div>
-            }
+        @if (ActionsTemplate is not null)
+        {
+            <span class="actions" slot="@FluentSlot.Actions">
+                @ActionsTemplate
+            </span>
+        }
+        else if (TimeStamp is not null)
+        {
+            <span class="actions" slot="@FluentSlot.Actions">
+                @GetTimeStamp()
+            </span>
+        }
 
-        </div>
-    }
+    </fluent-message-bar>
 }

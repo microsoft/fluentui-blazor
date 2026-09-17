@@ -57,5 +57,4 @@ internal static class EmojiCompress
             dest.Write(bytes, 0, cnt);
         }
     }
-
 }

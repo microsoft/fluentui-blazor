@@ -11,7 +11,7 @@ public enum DataGridDisplayMode
 {
     /// <summary>
     /// Uses display:grid with HTML table elements to render the DataGrid.
-    /// With this mode fr units canbe used to set the column widths.
+    /// With this mode fr units can be used to set the column widths.
     /// </summary>
     Grid,
 
@@ -20,5 +20,5 @@ public enum DataGridDisplayMode
     /// With this mode fr units cannot be used to set the column widths.
     /// </summary>
     Table,
-
 }
+

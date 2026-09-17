@@ -4,19 +4,29 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Defines the border display options for the <see cref="FluentWizard"/> component.
+/// </summary>
 [Flags]
 public enum WizardBorder
 {
-    /// <summary />
+    /// <summary>
+    /// No border.
+    /// </summary>
     None = 0,
 
-    /// <summary />
+    /// <summary>
+    /// Border inside (between sections).
+    /// </summary>
     Inside = 1,
 
-    /// <summary />
+    /// <summary>
+    /// Border outside (around the wizard).
+    /// </summary>
     Outside = 2,
 
-    /// <summary />
+    /// <summary>
+    /// Both inside and outside borders.
+    /// </summary>
     All = Inside | Outside,
 }

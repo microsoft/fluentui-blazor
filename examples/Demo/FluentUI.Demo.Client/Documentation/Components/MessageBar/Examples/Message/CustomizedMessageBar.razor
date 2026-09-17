@@ -1,0 +1,20 @@
+<FluentMessageBar Intent="@MessageBar.Options.Intent"
+                  Title="@MessageBar.Options.Title">
+    <ChildContent>
+        This is a message bar that provides information to the user.
+    </ChildContent>
+    <ActionsTemplate>
+        <FluentButton Size="ButtonSize.Small" OnClick="@(e => MessageBar.CloseAsync())">
+            Close
+        </FluentButton>
+    </ActionsTemplate>
+</FluentMessageBar>
+
+@code {
+    // If you want to use this razor component in standalone mode,
+    // you can use a nullable IMessageBarInstance property.
+    // If the value is not null, the component is running using the NotificationService.
+    // `public IMessageBarInstance? MessageBar { get; set; }`
+    [CascadingParameter]
+    public required IMessageBarInstance MessageBar { get; set; }
+}

@@ -1,0 +1,691 @@
+﻿@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+    // A timeout can be set when you open a dialog box and do not close it.
+    private const int TEST_TIMEOUT = 13000;
+
+    public FluentDialogTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        JSInterop.Setup<bool>("Microsoft.FluentUI.Blazor.Components.Dialog.ShouldHandleShortcut", _ => true).SetResult(true);
+        Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
+
+        DialogService = Services.GetRequiredService<IDialogService>();
+        DialogProvider = Render<FluentDialogProvider>();
+    }
+
+    /// <summary>
+    /// Gets the dialog service.
+    /// </summary>
+    public IDialogService DialogService { get; }
+
+    /// <summary>
+    /// Gets the dialog provider.
+    /// </summary>
+    public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_Render()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(DialogAlignment.Start, "start")]
+    [InlineData(DialogAlignment.End, "end")]
+    [InlineData(DialogAlignment.Default, null)]
+    [InlineData(null, null)]
+    public async Task FluentDialog_Alignment(DialogAlignment? alignment, string? expectedPosition)
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Alignment = alignment;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-dialog");
+
+        if (expectedPosition is null)
+        {
+            Assert.False(dialog.HasAttribute("position"));
+        }
+        else
+        {
+            Assert.Equal(expectedPosition, dialog.GetAttribute("position"));
+        }
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("position=\"start\"", DialogAlignment.Start)]
+    [InlineData("position=\"end\"", DialogAlignment.End)]
+    [InlineData("", (DialogAlignment)999)]
+    public async Task FluentDialog_Drawer(string expectedContains, DialogAlignment alignment)
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Alignment = alignment;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(DialogState.Closed, "unknown", "any-old", "any-new")]
+    [InlineData(DialogState.Open, "toggle", "any-old", "open")]
+    [InlineData(DialogState.Closed, "toggle", "any-old", "closed")]
+    [InlineData(DialogState.Opening, "beforetoggle", "closed", "any-new")]
+    [InlineData(DialogState.Closing, "beforetoggle", "open", "any-new")]
+    public async Task FluentDialog_Toggle(DialogState state, string eventType, string oldState, string newState)
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+        var toggleArgs = new DialogToggleEventArgs()
+        {
+            Id = "my-id",
+            Type = eventType,
+            OldState = oldState,
+            NewState = newState,
+        };
+
+        DialogEventArgs? dialogEventArgs = null;
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Id = "my-id";
+
+                   options.OnStateChange = (args) =>
+                   {
+                       dialogEventArgs = args;
+                   };
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Find the dialog and close it
+        var dialog = DialogProvider.FindComponent<FluentDialog>();
+        await dialog.Instance.OnToggleAsync(new() { Id = "NotCorrectId" });    // Incorrect dialog instance
+        await dialog.Instance.OnToggleAsync(toggleArgs);                       // Correct dialog instance
+
+        // Assert
+        Assert.NotNull(dialogEventArgs?.Instance);
+        Assert.Equal("my-id", dialogEventArgs?.Id);
+        Assert.Equal(state, dialogEventArgs?.State);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_OpenClose()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions()
+        {
+            AutoClose = true,
+        };
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+                {
+                    options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                    options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                });
+
+        // Wait for the dialog to be closed (auto-closed)
+        var result = await dialogTask;
+
+        // Assert
+        Assert.Equal(1, renderOptions.OnInitializedCount);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ActionToClose()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        var dialogOptions = new DialogOptions();
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        dialogOptions.Footer.PrimaryAction.Label = "OK";
+        dialogOptions.Footer.SecondaryAction.Label = "Cancel";
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(dialogOptions);
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Click the primary action to close the dialog
+        DialogProvider.Find("fluent-button").Click();
+
+        // Assert
+        Assert.DoesNotContain("<fluent-dialog ", DialogProvider.Markup);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [ClassData(typeof(Data.ShortcutData))]
+    public async Task FluentDialog_ShortcutToClose(Data.ShortcutDataItem item)
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = item.RenderOptions ?? new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                   options.Footer.PrimaryAction.Label = "OK";
+                   options.Footer.PrimaryAction.OnClickAsync = item.PrimaryClickAsync;
+                   if (item.PrimaryShortcut is not null)
+                   {
+                       options.Footer.PrimaryAction.ShortCut = item.PrimaryShortcut;
+                   }
+
+                   options.Footer.SecondaryAction.Label = "Cancel";
+                   options.Footer.SecondaryAction.OnClickAsync = item.SecondaryClickAsync;
+                   if (item.SecondaryShortcut is not null)
+                   {
+                       options.Footer.SecondaryAction.ShortCut = item.SecondaryShortcut;
+                   }
+               });
+
+        // Send a shortcut to close the dialog
+        if (item.Pressed is not null)
+        {
+            DialogProvider.Find("fluent-dialog").KeyDown(item.Pressed);
+        }
+
+        var result = await dialogTask;
+
+        // Assert
+        Assert.Equal(item.ExpectedCancelled, result.Cancelled);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ShortcutInvalid()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions()
+        {
+            AutoClose = true,
+            AutoCloseDelay = 200,
+            AutoCloseResult = DialogResult.Ok("AUTO_CLOSED"),
+        };
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   options.Footer.PrimaryAction.Label = "OK";
+                   options.Footer.SecondaryAction.Label = "Cancel";
+               });
+
+        // Send a shortcut to close the dialog
+        DialogProvider.Find("fluent-dialog").KeyDown("A");
+
+        var result = await dialogTask;
+
+        // Assert
+        Assert.False(result.Cancelled);
+        Assert.Equal("AUTO_CLOSED", result.Value);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_WithInstance()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogWithInstance>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        DialogProvider.Verify();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ComponentRule()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var ex = await Assert.ThrowsAsync<ArgumentException>(async () =>
+        {
+            var dialogTask = await DialogService.ShowDialogAsync(typeof(string), new DialogOptions());
+        });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Equal("System.String must be a Blazor Component (Parameter 'componentType')", ex.Message);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_ProviderRequired()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+        DialogProvider.Instance.UpdateId(null);
+
+        // Act
+        var ex = await Assert.ThrowsAsync<FluentServiceProviderException<FluentDialogProvider>>(async () =>
+        {
+            var dialogTask = await DialogService.ShowDialogAsync<Templates.DialogWithInstance>(options =>
+                   {
+                       options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                       options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   });
+        });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Equal("FluentDialogProvider needs to be added to the page/component hierarchy of your application/site. Usually this will be 'MainLayout' but depending on your setup it could be at a different location.", ex.Message);
+    }
+
+    [Fact]
+    public void FluentDialog_DialogResult()
+    {
+        // Arrange
+        var result = new DialogResult(content: "OK", cancelled: false);
+
+        // Assert
+        Assert.Equal("OK", result.Value);
+        Assert.Equal("OK", result.GetValue<string>());
+        Assert.Equal(0, result.GetValue<int>());
+
+        Assert.False(result.Cancelled);
+    }
+
+    [Fact]
+    public void FluentDialog_DialogResult_Ok()
+    {
+        // Arrange
+        var result = DialogResult.Ok("My content");
+
+        // Assert
+        Assert.Equal("My content", result.Value);
+        Assert.False(result.Cancelled);
+    }
+
+    [Fact]
+    public void FluentDialog_DialogResult_Cancel()
+    {
+        // Arrange
+        var result = DialogResult.Cancel("My content");
+
+        // Assert
+        Assert.Equal("My content", result.Value);
+        Assert.True(result.Cancelled);
+    }
+
+    [Fact]
+    public async Task FluentDialog_Instance()
+    {
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Id = "my-dialog";
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+                   options.AdditionalAttributes = new Dictionary<string, object> { { "data-test", "my-dialog" } };
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Find the dialog and close it
+        var dialog = DialogProvider.FindComponent<FluentDialog>();
+        var instanceId = dialog.Instance.Instance?.Id;
+        var instanceIndex = dialog.Instance.Instance?.Index;
+        await dialog.Instance.Instance!.CloseAsync<int>(42);
+
+        // Wait for the dialog to be closed (auto-closed)
+        var result = await dialogTask;
+
+        // Assert
+        Assert.Equal("my-dialog", instanceId);
+        Assert.Equal(42, result.Value);
+        Assert.True(instanceIndex > 0);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData("type=\"alert\"", null)]
+    [InlineData("type=\"alert\"", true)]
+    [InlineData("type=\"modal\"", false)]
+    public async Task FluentDialog_Modal(string expectedContains, bool? modal)
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Modal = modal;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains(expectedContains, DialogProvider.Markup);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_InverseActions()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+                   options.Footer.PrimaryAction.Label = "Primary";
+                   options.Footer.SecondaryAction.Label = "Secondary";
+                   options.Footer.PrimaryFirst = false;
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        var buttons = DialogProvider.FindAll("fluent-button");
+
+        // Assert: Verify that the "Primary" button appears AFTER the "Secondary" button
+        Assert.Collection(buttons,
+            button => Assert.Contains("Secondary", button.InnerHtml),
+            button => Assert.Contains("Primary", button.InnerHtml));
+    }
+
+    [Fact]
+    public void FluentDialog_Options_Ctor()
+    {
+        // Arrange
+        var options = new DialogOptions() { Data = "My data" };
+        var header = new DialogOptionsHeader() { Title = "My title" };
+        var footer = new DialogOptionsFooter() { PrimaryFirst = false };
+        var action = new DialogOptionsFooterAction() { Label = "My action" };
+
+        // Assert
+        Assert.Equal("My data", options.Data);
+        Assert.Equal("My title", header.Title);
+        Assert.Equal("My action", action.Label);
+        Assert.False(footer.PrimaryFirst);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_Default_DoesNotCallJs()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open dialog with default PreventDismissOnEscape (null / false)
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+
+        await Task.CompletedTask;
+
+        // Assert: JS interceptor must not have been called
+        Assert.Empty(preventEscapeSetup.Invocations);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_True_CallsJs()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open dialog with PreventDismissOnEscape = true
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = true;
+
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+
+        await Task.CompletedTask;
+
+        // Assert: JS interceptor called once with (dialogId, true)
+        var invocation = Assert.Single(preventEscapeSetup.Invocations);
+        Assert.Equal(true, invocation.Arguments[1]);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_False_DoesNotCallJs()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open dialog with PreventDismissOnEscape explicitly set to false
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = false;
+
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+
+        await Task.CompletedTask;
+
+        // Assert: JS interceptor must not have been called
+        Assert.Empty(preventEscapeSetup.Invocations);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_PreventDismissOnEscape_TrueThenFalse_OnlyFirstDialogCallsJs()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+        var firstRenderOptions = new Templates.DialogRenderOptions() { AutoClose = true };
+        var secondRenderOptions = new Templates.DialogRenderOptions();
+
+        // Act: open first dialog with PreventDismissOnEscape = true; it auto-closes immediately
+        var firstDialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = true;
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), firstRenderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+        });
+        await firstDialogTask;
+
+        // Assert: JS interceptor was called once with (id, true) for the first dialog
+        var firstInvocation = Assert.Single(preventEscapeSetup.Invocations);
+        Assert.Equal(true, firstInvocation.Arguments[1]);
+
+        // Act: open second dialog with PreventDismissOnEscape = false (default)
+        var secondDialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+        {
+            options.PreventDismissOnEscape = false;
+            options.Parameters.Add(nameof(Templates.DialogRender.Options), secondRenderOptions);
+            options.Parameters.Add(nameof(Templates.DialogRender.Name), "Jane");
+        });
+        await Task.CompletedTask;
+
+        // Assert: no additional JS call was made for the second dialog (false does not trigger JS)
+        Assert.Single(preventEscapeSetup.Invocations);
+    }
+
+    [Fact]
+    public void FluentDialog_PreventDismissOnEscape_StandaloneParameter()
+    {
+        // Arrange: render a standalone FluentDialog (no DialogService) with the parameter set
+        var preventEscapeSetup = JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Dialog.SetPreventEscapeClose", _ => true);
+
+        // Act
+        var cut = Render(@<FluentDialog PreventDismissOnEscape="true">
+            <p>Content</p>
+        </FluentDialog>);
+
+        // Assert: the parameter was accepted (component rendered without error)
+        var dialog = cut.FindComponent<FluentDialog>();
+        Assert.True(dialog.Instance.PreventDismissOnEscape);
+    }
+
+    [Theory(Timeout = TEST_TIMEOUT)]
+    [InlineData(null, null)]
+    [InlineData("small", DialogSize.Small)]
+    [InlineData("medium", DialogSize.Medium)]
+    [InlineData("large", DialogSize.Large)]
+    [InlineData("full", DialogSize.Full)]
+    public async Task FluentDialog_Size(string? expected, DialogSize? size)
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(options =>
+               {
+                   options.Size = size;
+
+                   options.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+                   options.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+               });
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        var dialog = DialogProvider.Find("fluent-dialog");
+
+        if (expected is null)
+        {
+            Assert.False(dialog.HasAttribute("size"));
+        }
+        else
+        {
+            Assert.Equal(expected, dialog.GetAttribute("size"));
+        }
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_MarginPadding()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var renderOptions = new Templates.DialogRenderOptions();
+
+        var dialogOptions = new DialogOptions()
+        {
+            Class = "my-class",
+            Style = "border: 1px solid red;",
+            Margin = "10px",
+            Padding = "20px",
+        };
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Options), renderOptions);
+        dialogOptions.Parameters.Add(nameof(Templates.DialogRender.Name), "John");
+
+        // Act
+        var dialogTask = DialogService.ShowDialogAsync<Templates.DialogRender>(dialogOptions);
+
+        // Don't wait for the dialog to be closed
+        await Task.CompletedTask;
+
+        // Assert
+        Assert.Contains("class=\"my-class\"", DialogProvider.Markup);
+        Assert.Contains("style=\"margin: 10px; padding: 20px; border: 1px solid red;\"", DialogProvider.Markup);
+        Assert.Contains("{ margin: 10px; padding: 20px; border: 1px solid red; }", DialogProvider.Markup);
+    }
+}

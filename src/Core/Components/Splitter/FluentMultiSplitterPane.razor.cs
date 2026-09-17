@@ -1,104 +1,87 @@
-// --------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// --------------------------------------------------------------
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
+/// <summary>
+/// Represents a pane in a multi-splitter layout, allowing for child content, resizing, and collapsing behavior.
+/// It manages its size and state within a splitter.
+/// </summary>
+public partial class FluentMultiSplitterPane : FluentComponentBase
 {
-    private string _size = string.Empty;
-
-    private FluentMultiSplitter _splitter = default!;
-
     /// <summary />
-    public FluentMultiSplitterPane()
+    public FluentMultiSplitterPane(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
-    /// <summary>
-    /// Gets or sets the child content.
-    /// </summary>
-    /// <value>The child content.</value>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-multi-splitter-pane")
+        .Build();
 
-    /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsed.
-    /// </summary>
-    /// <value><c>true</c> if collapsed; otherwise, <c>false</c>.</value>
-    [Parameter]
-    public bool Collapsed { get; set; } = false;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is collapsible.
-    /// </summary>
-    /// <value><c>true</c> if collapsible; otherwise, <c>false</c>.</value>
-    [Parameter]
-    public bool Collapsible { get; set; } = false;
-
-    /// <summary>
-    /// Determines the maximum value.
-    /// </summary>
-    /// <value>The maximum value.</value>
-    [Parameter]
-    public string Max { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Determines the minimum value.
-    /// </summary>
-    /// <value>The minimum value.</value>
-    [Parameter]
-    public string Min { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="FluentMultiSplitterPane"/> is resizable.
-    /// </summary>
-    /// <value><c>true</c> if resizable; otherwise, <c>false</c>.</value>
-    [Parameter]
-    public bool Resizable { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets the size.
-    /// </summary>
-    /// <value>The size.</value>
-    [Parameter]
-    public string Size
-    {
-        get
-        {
-            return string.IsNullOrWhiteSpace(SizeRuntime) ? _size : SizeRuntime;
-        }
-
-        set
-        {
-            _size = value;
-        }
-    }
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("flex-basis", string.IsNullOrWhiteSpace(SizeRuntime) ? Size : SizeRuntime)
+        .Build();
 
     /// <summary>
     /// Gets or sets the splitter.
     /// </summary>
-    /// <value>The splitter.</value>
     [CascadingParameter]
-    public FluentMultiSplitter Splitter
-    {
-        get => _splitter;
-        set
-        {
-            if (_splitter != value)
-            {
-                _splitter = value;
-                _splitter.AddPane(this);
-            }
-        }
-    }
+    internal FluentMultiSplitter? Splitter { get; set; }
+
+    /// <summary>
+    /// Gets or sets the child content.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether this pane is currently collapsed.
+    /// </summary>
+    [Parameter]
+    public bool Collapsed { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets whether this pane can be collapsed by the user.
+    /// </summary>
+    [Parameter]
+    public bool Collapsible { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the maximum size of the pane as a CSS value (e.g., <c>Max="80%"</c>).
+    /// An empty string (the default) means no maximum constraint is applied.
+    /// </summary>
+    [Parameter]
+    public string Max { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the minimum size of the pane as a CSS value (e.g., <c>Min="100px"</c>).
+    /// An empty string (the default) means no minimum constraint is applied.
+    /// </summary>
+    [Parameter]
+    public string Min { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets whether the user can resize this pane by dragging its splitter bar. Default is <c>true</c>.
+    /// </summary>
+    [Parameter]
+    public bool Resizable { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the initial size of the pane as a CSS value (e.g., <c>Size="200px"</c> or <c>Size="30%"</c>).
+    /// When omitted, remaining space is distributed equally among unsized panes.
+    /// </summary>
+    [Parameter]
+    public string? Size { get; set; }
 
     /// <summary />
-    internal int Index { get; set; } = 0;
+    internal int Index { get; set; }
 
     /// <summary />
     internal bool IsCollapsible
@@ -141,12 +124,12 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    internal bool IsLast => Splitter.Panes.Count - 1 == Index;
+    internal bool IsLast => Splitter?.Panes.Count - 1 == Index;
 
     /// <summary />
     internal bool IsLastResizable
     {
-        get => Splitter.Panes.LastOrDefault(o => o.Resizable && !o.Collapsed) == this;
+        get => Splitter?.Panes.LastOrDefault(o => o.Resizable && !o.Collapsed) == this;
     }
 
     /// <summary />
@@ -157,45 +140,44 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
             var paneNext = Next();
 
             if (Collapsed ||
-                (Index == Splitter.Panes.Count - 2 && paneNext?.IsResizable == false) ||
+                (Index == Splitter?.Panes.Count - 2 && paneNext?.IsResizable == false) ||
                 (IsLastResizable && paneNext?.Collapsed == true))
             {
                 return false;
             }
-            else
-            {
-                return Resizable;
-            }
+
+            return Resizable;
         }
     }
 
     /// <summary />
-    internal bool SizeAuto => string.IsNullOrWhiteSpace(_size);
+    internal bool SizeAuto => string.IsNullOrWhiteSpace(Size);
 
     /// <summary />
     internal string SizeRuntime { get; set; } = string.Empty;
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-multi-splitter-pane")
-        .Build();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Splitter?.AddPane(this);
+    }
 
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("flex-basis", Size)
-        .Build();
-
-    /// <summary />
-    public void Dispose()
+    /// <summary>
+    /// Disposes the component and removes it from the splitter.
+    /// </summary>
+    /// <returns></returns>
+    public override ValueTask DisposeAsync()
     {
         Splitter?.RemovePane(this);
+        return base.DisposeAsync();
     }
 
     /// <summary />
     internal FluentMultiSplitterPane? Next()
     {
-        return Index <= Splitter.Panes.Count - 2
-            ? Splitter.Panes[Index + 1]
+        return Index <= Splitter?.Panes.Count - 2
+            ? Splitter?.Panes[Index + 1]
             : null;
     }
 
@@ -206,9 +188,9 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
     }
 
     /// <summary />
-    internal void SetCollapsed(bool value)
+    internal void SetCollapsed(bool collapsed)
     {
-        Collapsed = value;
+        Collapsed = collapsed;
     }
 
     /// <summary />
@@ -221,7 +203,7 @@ public partial class FluentMultiSplitterPane : FluentComponentBase, IDisposable
 
         if (IsLastResizable)
         {
-            return "lastresizable";
+            return "last-resizable";
         }
 
         if (IsResizable)

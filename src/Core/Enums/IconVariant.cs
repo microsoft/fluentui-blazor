@@ -25,8 +25,6 @@ public enum IconVariant
 
     /// <summary>
     /// Color variant of FluentUI System Icons
-    /// > Note: FOR TESTING PURPOSES ONLY. Not yet fully supported.
     /// </summary>
-    Color
-
+    Color,
 }

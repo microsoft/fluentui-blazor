@@ -1,0 +1,206 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// Area of the layout where the item is placed.
+/// </summary>
+public partial class FluentLayoutItem : FluentComponentBase
+{
+    private readonly Dictionary<string, string> _extraStyles = new(StringComparer.Ordinal);
+
+    /// <summary />
+    public FluentLayoutItem(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary>
+    /// Gets or sets the Scrollbar Width to compute the correct Aside position.
+    /// </summary>
+    public static string SCROLLBAR_WIDTH { get; set; } = "14px";
+
+    /// <summary>
+    /// <inheritdoc cref="FluentComponentBase.Class"/>
+    /// </summary>
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-layout-item")
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc cref="FluentComponentBase.Style"/>
+    /// </summary>
+    protected string? StyleValue
+    {
+        get
+        {
+            // User styles
+            var styles = DefaultStyleBuilder;
+
+            // Grid Area
+            AddGridAreaStyles(styles);
+
+            // Width and Height
+            AddWidthHeightStyles(styles);
+
+            // Top when PanelHeader is sticky
+            AddStickyStyle(styles);
+
+            // Extra styles
+            foreach (var item in _extraStyles)
+            {
+                styles.AddStyle(item.Key, item.Value);
+            }
+
+            return styles.Build();
+        }
+    }
+
+    /// <summary />
+    internal void AddExtraStyles(string key, string value) => _extraStyles[key] = value;
+
+    /// <summary>
+    /// Gets or sets the parent layout component.
+    /// </summary>
+    [CascadingParameter]
+    private FluentLayout? LayoutContainer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the type of area where the item is placed.
+    /// </summary>
+    [Parameter]
+    public LayoutArea Area { get; set; } = LayoutArea.Content;
+
+    /// <summary>
+    /// Gets or sets the width of the item (e.g., <c>Width="300px"</c>).
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height of the item.
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the item is sticky.
+    /// </summary>
+    [Parameter]
+    public bool Sticky { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        LayoutContainer?.AddItem(this);
+    }
+
+    /// <summary>
+    /// Asynchronously refreshes the current state of the component.
+    /// </summary>
+    public Task RefreshAsync()
+    {
+        return InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Add the "grid-area" value
+    /// </summary>
+    /// <param name="styles"></param>
+    private void AddGridAreaStyles(StyleBuilder styles)
+    {
+        var startAreaName = Area.ToAttributeValue();
+        var endAreaName = Area.ToAttributeValue();
+        var contentArea = LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Content);
+        var asideArea = LayoutContainer?.Areas.Find(i => i.Area == LayoutArea.Aside);
+
+        // Aside
+        if (asideArea != null && Area == LayoutArea.Content)
+        {
+            if (asideArea.Sticky)
+            {
+                endAreaName = null;
+                asideArea.AddExtraStyles("margin-right", LayoutContainer?.GlobalScrollbar == true ? "0" : SCROLLBAR_WIDTH);
+            }
+            else
+            {
+                endAreaName = null;
+                asideArea.AddExtraStyles("margin-right", "0");
+            }
+        }
+
+        // Grid Area
+        var noChange = string.Equals(startAreaName, endAreaName, StringComparison.CurrentCultureIgnoreCase) || string.IsNullOrEmpty(endAreaName);
+        styles.AddStyle("grid-area", noChange
+                                   ? startAreaName
+                                   //   row-start      / column-start    / row-end       / column-end
+                                   : $"{startAreaName} / {startAreaName} / {endAreaName} / {endAreaName}"
+                       );
+    }
+
+    /// <summary>
+    /// Add the "width" and "height" values
+    /// </summary>
+    /// <param name="styles"></param>
+    private void AddWidthHeightStyles(StyleBuilder styles)
+    {
+        // Width
+        styles.AddStyle("width", Width, when: !string.IsNullOrEmpty(Width));
+
+        // Height
+        var height = Height ?? Area switch
+        {
+            LayoutArea.Header => "var(--layout-header-height)",
+            LayoutArea.Footer => "var(--layout-footer-height)",
+            _ => Height
+        };
+
+        styles.AddStyle("height", height, when: !string.IsNullOrEmpty(height));
+    }
+
+    /// <summary>
+    /// Add the "top" value when PanelHeader is sticky
+    /// </summary>
+    /// <param name="styles"></param>
+    private void AddStickyStyle(StyleBuilder styles)
+    {
+        var isMiddleArea = Area == LayoutArea.Aside || Area == LayoutArea.Navigation || Area == LayoutArea.Content;
+        if (isMiddleArea && LayoutContainer != null && LayoutContainer.HasHeader && LayoutContainer.HeaderSticky)
+        {
+            styles.AddStyle("top", LayoutContainer?.HeaderHeight ?? "0");
+        }
+    }
+
+    /// <summary />
+    private bool RenderThisArea()
+    {
+        if (LayoutContainer == null)
+        {
+            return true;
+        }
+
+        // For the Menu area, if the Native view is active
+        if (Area == LayoutArea.Navigation && LayoutContainer.NavigationDeferredLoading && LayoutContainer.IsMobile)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
+    {
+        LayoutContainer?.RemoveItem(this);
+        return base.DisposeAsync();
+    }
+}

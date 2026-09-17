@@ -3,242 +3,249 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
-public partial class FluentCheckbox : FluentInputBase<bool>
-{
-    private const bool VALUE_FOR_INDETERMINATE = false;
-    private bool _intermediate = false;
-    private bool? _checkState = false;
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Checkbox/FluentCheckbox.razor.js";
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(CheckboxChangeEventArgs))]
-    public FluentCheckbox()
+/// <summary>
+/// The FluentCheckbox component is used to render a checkbox input
+/// </summary>
+public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentElementBase, ITooltipComponent
+{
+    /// <summary>
+    /// Initializes a new instance of <see cref="FluentCheckbox"/>.
+    /// </summary>
+    public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
-        Id = Identifier.NewId();
+        LabelPosition = Components.LabelPosition.After;
     }
 
-    /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    /// <inheritdoc />
+    protected override string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .Build();
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets the width of the checkbox (e.g., <c>Width="300px"</c>).
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public string? Width { get; set; }
+    
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
+    [Parameter]
+    public ElementReference Element { get; set; }
+
+    /// <summary>
+    /// Gets or sets the three-state value of the checkbox: <see langword="true"/> (checked), <see langword="false"/> (unchecked), or <see langword="null"/> (indeterminate).
+    /// Used when <see cref="ThreeState"/> is enabled.
+    /// </summary>
+    [Parameter]
+    public bool? CheckState { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shape of the checkbox. See <see cref="CheckboxShape"/>
+    /// The default value is `null`. Internally the component uses CheckboxShape.Square.
+    /// </summary>
+    [Parameter]
+    public CheckboxShape? Shape { get; set; }
+
+    /// <summary>
+    /// Gets or sets the size of the checkbox. See <see cref="CheckboxSize"/>
+    /// The default value is `null`. Internally the component uses CheckboxSize.Medium.
+    /// </summary>
+    [Parameter]
+    public CheckboxSize? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
+    /// </summary>
+    /// <remarks>If this is not the case, the checkbox can be started in the indeterminate state, but the user cannot activate it with the mouse.</remarks>
+    /// <value>true</value>
+    [Parameter]
+    public bool ShowIndeterminate { get; set; } = true;
 
     /// <summary>
     /// Gets or sets a value indicating whether the CheckBox will allow three check states rather than two.
     /// </summary>
     [Parameter]
-    public bool ThreeState { get; set; } = false;
+    public bool ThreeState { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating the order of the three states of the CheckBox.
-    /// False (by default), the order is Unchecked -> Checked -> Intermediate.
-    /// True: the order is Unchecked -> Intermediate -> Checked.
+    /// <see langword="false"/> (by default), the order is Unchecked -> Checked -> Intermediate.
+    /// <see langword="true"/>: the order is Unchecked -> Intermediate -> Checked.
     /// </summary>
     [Parameter]
-    public bool ThreeStateOrderUncheckToIntermediate { get; set; } = false;
+    public bool ThreeStateOrderUncheckToIntermediate { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the user can display the indeterminate state by clicking the CheckBox.
-    /// If this is not the case, the checkbox can be started in the indeterminate state, but the user cannot activate it with the mouse.
-    /// Default is true.
-    /// </summary>
-    [Parameter]
-    public bool ShowIndeterminate { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets the state of the CheckBox: true, false or null.
-    /// </summary>
-    [Parameter]
-    public bool? CheckState
-    {
-        get => _checkState;
-        set
-        {
-            if (!ThreeState)
-            {
-                throw new ArgumentException("Set the `ThreeState` attribute to True to use this `CheckState` property.");
-            }
-
-            if (_checkState != value)
-            {
-                _checkState = value;
-                _ = SetCurrentAndIntermediateAsync(value);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets a callback that updates the <see cref="CheckState"/>.
+    /// Action to be called when the CheckBox state changes.
     /// </summary>
     [Parameter]
     public EventCallback<bool?> CheckStateChanged { get; set; }
 
-    protected override string? ClassValue
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary>
+    /// The content to be rendered inside the checkbox component.
+    /// This is similar to set the <c>Label</c> or <c>LabelTemplate</c> parameter.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
     {
-        get
+        FocusLost = true;
+        return Task.CompletedTask;
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await base.RenderTooltipAsync(Tooltip);
+
+        if (ThreeState && CheckState.HasValue)
         {
-            return new CssBuilder(base.ClassValue)
-                .AddClass("disabled", when: Disabled)
-                .AddClass("checked", when: Value)
-                .AddClass("indeterminate", when: ThreeState && CheckState is null)
-                .Build();
+            await SetValueChangedAsync(CheckState.Value);
         }
     }
 
-    /// <summary />
-    private async Task SetCurrentAndIntermediateAsync(bool? value)
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        switch (value)
+        if (firstRender)
         {
-            // Checked
-            case true:
-                await SetCurrentValueAsync(true);
-                await SetIntermediateAsync(false);
-                break;
-
-            // Unchecked
-            case false:
-                await SetCurrentValueAsync(false);
-                await SetIntermediateAsync(false);
-                break;
-
-            // Indeterminate
-            default:
-                await SetCurrentValueAsync(VALUE_FOR_INDETERMINATE);
-                await SetIntermediateAsync(true);
-                break;
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "checked", "boolean");
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "indeterminate", "boolean", "", true);
         }
     }
 
-    /// <summary />
-    private async Task SetIntermediateAsync(bool intermediate)
+    private bool _checked => ThreeState ? CheckState ?? Value : Value;
+
+    private bool _indeterminate => ThreeState
+        ? !CheckState.HasValue
+        : !ShowIndeterminate && !CheckState.HasValue;
+
+    private async Task SetValueChangedAsync(bool newValue)
     {
-        // Force the Indeterminate state to be set.
-        // Each time the user clicks the checkbox, the Indeterminate state is reset to false.
-        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-        await Module.InvokeVoidAsync("setFluentCheckBoxIndeterminate", Id, intermediate, Value);
-
-        _intermediate = intermediate;
-    }
-
-    /// <summary />
-    private async Task SetCurrentCheckStateAsync(bool newChecked)
-    {
-        bool? newState = null;
-
-        // Uncheck -> Indeterminate -> Check
-        if (ThreeStateOrderUncheckToIntermediate)
-        {
-            // NewChecked  |  Intermediate  |  NewState
-            //   True             False          [-]
-            //   True             True           [x]
-            //   False            False          [ ]
-
-            // Uncheck -> Intermediate (or Check is ShowIndeterminate is false)
-            if (newChecked && !_intermediate)
-            {
-                newState = ShowIndeterminate ? null : true;
-            }
-
-            // Indeterminate -> Checked
-            else if (newChecked && _intermediate)
-            {
-                newState = true;
-            }
-
-            // Checked -> Uncheck
-            else
-            {
-                newState = false;
-            }
-        }
-
-        // Uncheck -> Check -> Indeterminate
-        else
-        {
-            // NewChecked  |  Intermediate  |  NewState
-            //   True             False          [x]
-            //   False            False          [-]
-            //   True             true           [ ]
-
-            // Uncheck -> Check
-            if (newChecked && !_intermediate)
-            {
-                newState = true;
-            }
-
-            // Check -> Indeterminate (or Uncheck is ShowIndeterminate is false)
-            else if (!newChecked && !_intermediate)
-            {
-                newState = ShowIndeterminate ? null : false;
-            }
-
-            // Indeterminate -> Uncheck
-            else
-            {
-                newState = false;
-            }
-        }
-
-        await SetCurrentAndIntermediateAsync(newState);
-        await UpdateAndRaiseCheckStateEventAsync(newState);
-    }
-
-    /// <summary />
-    private async Task OnCheckedChangeHandlerAsync(CheckboxChangeEventArgs e)
-    {
-        if (!ThreeState)
-        {
-            await Task.Delay(1);
-        }
-        if (e.Checked == null && e.Indeterminate == null)
+        if (Value == newValue)
         {
             return;
         }
 
+        Value = newValue;
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(newValue);
+        }
+    }
+
+    private async Task SetCheckStateChangedAsync(bool? newValue)
+    {
+        CheckState = newValue;
+
+        await SetValueChangedAsync(newValue ?? false);
+
+        if (CheckStateChanged.HasDelegate)
+        {
+            await CheckStateChanged.InvokeAsync(newValue);
+        }
+
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+    }
+
+    private async Task OnCheckChangedHandlerAsync(ChangeEventArgs e)
+    {
+        ArgumentNullException.ThrowIfNull(e);
+
         if (ThreeState)
         {
-            await SetCurrentCheckStateAsync(e.Checked ?? false);
+            if (_checked)
+            {
+                // Current Check
+                if (ThreeStateOrderUncheckToIntermediate)
+                {
+                    await SetToUncheckedAsync();
+                }
+                else
+                {
+                    await SetToIndeterminateAsync();
+                }
+            }
+            else if (_indeterminate)
+            {
+                // Current _indeterminate
+                if (ThreeStateOrderUncheckToIntermediate)
+                {
+                    await SetToCheckedAsync();
+                }
+                else
+                {
+                    await SetToUncheckedAsync();
+                }
+            }
+            else
+            {
+                // Current Uncheck
+                if (ThreeStateOrderUncheckToIntermediate && ShowIndeterminate)
+                {
+                    await SetToIndeterminateAsync();
+                }
+                else
+                {
+                    await SetToCheckedAsync();
+                }
+            }
         }
         else
         {
-            await SetCurrentValueAsync(e.Checked ?? false);
-            await SetIntermediateAsync(false);
-            await UpdateAndRaiseCheckStateEventAsync(e.Checked ?? false);
+            await SetCheckStateChangedAsync(!_checked);
         }
     }
 
-    /// <summary />
-    private async Task UpdateAndRaiseCheckStateEventAsync(bool? value)
+    private async Task SetToIndeterminateAsync()
     {
-        if (_checkState != value)
-        {
-            _checkState = value;
-
-            if (CheckStateChanged.HasDelegate)
-            {
-                await CheckStateChanged.InvokeAsync(value);
-            }
-        }
+        await SetCheckStateChangedAsync(ShowIndeterminate ? null : false);
     }
 
-    /// <summary />
-    protected override bool TryParseValueFromString(string? value, out bool result, [NotNullWhen(false)] out string? validationErrorMessage) => throw new NotSupportedException($"This component does not parse string inputs. Bind to the '{nameof(CurrentValue)}' property, not '{nameof(CurrentValueAsString)}'.");
+    private async Task SetToCheckedAsync()
+    {
+        await SetCheckStateChangedAsync(newValue: true);
+    }
 
+    private async Task SetToUncheckedAsync()
+    {
+        await SetCheckStateChangedAsync(newValue: false);
+    }
+
+    /// <summary>
+    /// Parses a string to create the <see cref="Microsoft.AspNetCore.Components.Forms.InputBase{TValue}.Value"/>.
+    /// </summary>
+    /// <param name="value">The string value to be parsed.</param>
+    /// <param name="result">The result to inject into the Value.</param>
+    /// <param name="validationErrorMessage">If the value could not be parsed, provides a validation error message.</param>
+    /// <returns>True if the value could be parsed; otherwise false.</returns>
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        // Overriding mandatory because the parent method is abstract and called via the OnChanged.
+        // However, this method is not used in this component because we need to manage the CheckState.
+        throw new NotSupportedException();
+    }
+
+    internal bool InternalTryParseValueFromString(string? value, [MaybeNullWhen(false)] out bool result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        return TryParseValueFromString(value, out result, out validationErrorMessage);
+    }
 }

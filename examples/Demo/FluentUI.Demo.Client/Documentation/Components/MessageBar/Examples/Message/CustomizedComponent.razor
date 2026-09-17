@@ -1,0 +1,14 @@
+<FluentCard Padding="@Padding.All2">
+    <FluentStack>
+        <FluentIcon Value="@(new Icons.Regular.Size20.Accessibility().WithColor("currentColor"))" />
+        <FluentText Margin="@Margin.Horizontal2">
+            @MessageBar?.Options.Title
+        </FluentText>
+    </FluentStack>
+</FluentCard>
+
+@code
+{
+    [CascadingParameter]
+    public IMessageBarInstance? MessageBar { get; set; }
+}

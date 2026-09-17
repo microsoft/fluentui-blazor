@@ -1,7 +1,0 @@
-﻿fluent-breadcrumb-item::part(content) *::after {
-    content: ' '
-}
-
-fluent-breadcrumb-item::part(content) *::before {
-    content: ' '
-}

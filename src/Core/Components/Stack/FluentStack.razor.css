@@ -1,19 +1,19 @@
-.stack-vertical {
-    display: flex;
-    flex-direction: column;
+.fluent-stack-vertical {
+  display: flex;
+  flex-direction: column;
 }
 
-.stack-horizontal {
-    display: flex;
-    flex-direction: row;
+.fluent-stack-horizontal {
+  display: flex;
+  flex-direction: row;
 }
 
-.stack-vertical[reverse] {
-    display: flex;
-    flex-direction: column-reverse;
+.fluent-stack-vertical[reverse] {
+  display: flex;
+  flex-direction: column-reverse;
 }
 
-.stack-horizontal[reverse] {
-    display: flex;
-    flex-direction: row-reverse;
+.fluent-stack-horizontal[reverse] {
+  display: flex;
+  flex-direction: row-reverse;
 }

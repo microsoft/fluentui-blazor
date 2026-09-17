@@ -1,0 +1,54 @@
+﻿@inject INotificationService NotificationService
+
+<FluentStack Wrap="true" HorizontalGap="12px">
+    <FluentButton OnClick="@StartProgressAsync"
+                  Disabled="@InProgress">
+        Start Progress
+    </FluentButton>
+    <FluentButton OnClick="@FinishProgressAsync"
+                  Disabled="@(ProgressToast is null)">
+        Finish Progress
+    </FluentButton>
+</FluentStack>
+
+@code {
+
+    IToastInstance? ProgressToast;
+    bool InProgress = false;
+
+    // Show a Toast and keep a reference to the instance.
+    async Task StartProgressAsync()
+    {
+        InProgress = true;
+
+        _ = NotificationService.ShowToastAsync(options =>
+        {
+            options.Id = "my-progress-toast";
+            options.Intent = ToastIntent.Progress;
+            options.Title = "Task in progress";
+            options.Lifetime = TimeSpan.Zero; // Keep the toast open until closed programmatically
+            options.Message = "No idea when this will be finished...";
+            options.AllowDismiss = false;
+            options.OnStatusChange = (e) =>
+            {
+                ProgressToast = e.Instance;
+            };
+        });
+
+        // Another way to get the instance of the Toast
+        // ProgressToast = NotificationService.GetToastInstance("my-progress-toast");
+    }
+
+    // Close the Toast instance.
+    async Task FinishProgressAsync()
+    {
+        if (ProgressToast is not null)
+        {
+            await ProgressToast.CloseAsync();
+            ProgressToast = null;
+        }
+
+        InProgress = false;
+    }
+}
+

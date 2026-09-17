@@ -1,0 +1,49 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<string?>
+
+<FluentField InputComponent="@this" ValueExpression="@ValidationFieldFor" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()">
+    <fluent-text-input @ref="@Element"
+                       style="@ComponentStyleValue"
+                       appearance="@Appearance.ToAttributeValue()"
+                       autocomplete="@AutoComplete"
+                       autofocus="@Autofocus"
+                       aria-label="@AriaLabel"
+                       disabled="@Disabled"
+                       id="@Id"
+                       inputmode="@InputMode.ToAttributeValue()"
+                       list=@DataList
+                       maxlength="@MaxLength"
+                       minlength="@MinLength"
+                       name="@Name"
+                       pattern="@Pattern"
+                       placeholder="@Placeholder"
+                       readonly="@ReadOnly"
+                       required="@Required"
+                       slot="@FluentSlot.FieldInput"
+                       spellcheck="@Spellcheck"
+                       control-size="@Size.ToAttributeValue()"
+                       type="@TextInputType.ToAttributeValue()"
+                       value="@ImmediateValueAsString"
+                       @onfocusin="@FocusInHandlerAsync"
+                       @onfocusout="@FocusOutHandlerAsync"
+                       @onchange="@ChangeHandlerAsync"
+                       @ontextimmediate="@InputHandlerAsync"
+                       @attributes="AdditionalAttributes">
+
+        @if (StartTemplate != null)
+        {
+            <div slot="@FluentSlot.Start">
+                @StartTemplate
+            </div>
+        }
+
+        @if (EndTemplate != null)
+        {
+            <div slot="@FluentSlot.End">
+                @EndTemplate
+            </div>
+        }
+
+    </fluent-text-input>
+</FluentField>

@@ -1,0 +1,17 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGanttChart Style="width: 600px; height: 350px"
+                  ChartTitle="Negative numeric x-axis"
+                  ShowYAxisLabels="true"
+                  SupportNegativeData="true"
+                  ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+    private IReadOnlyList<GanttChartDataPoint> ChartData =
+    [
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = -10, End =  0  }, Y = "5",  Legend = "Past",    Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start =  -5, End = 10  }, Y = "10", Legend = "Current", Color = DataVizPalette.Color2 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start =   0, End = 20  }, Y = "15", Legend = "Future",  Color = DataVizPalette.Color3 },
+    ];
+}

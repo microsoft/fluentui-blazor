@@ -1,0 +1,48 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Rendering
+@inherits FluentInputBase<TValue>
+@typeparam TOption
+@typeparam TValue
+
+@code
+{
+    /// <summary>
+    /// Internal method to render the options.
+    /// See the <see cref="RenderOptions"/> method for the public API.
+    /// </summary>
+    /// <param name="__builder"></param>
+    private void InternalRenderOptions(RenderTreeBuilder __builder)
+    {
+        if (Items is null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            if (RenderFreeFormOption() is not null)
+            {
+                <fluent-option freeform>@RenderFreeFormOption()</fluent-option>
+            }
+
+            foreach (var item in Items)
+            {
+                <FluentOption TValue="TValue"
+                              Data="@item"
+                              Text="@GetOptionText(item)"
+                              Value="@GetOptionValue(item)"
+                              Selected="@(GetOptionSelected(item))"
+                              Class="@OptionClass"
+                              Disabled="@(GetOptionDisabled(item))">
+                    @if (OptionTemplate is not null)
+                    {
+                        @OptionTemplate(item)
+                    }
+                    else
+                    {
+                        @GetOptionText(item)
+                    }
+                </FluentOption>
+            }
+        }
+    }
+}

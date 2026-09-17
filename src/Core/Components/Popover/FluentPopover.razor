@@ -1,37 +1,15 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
 
-@if (Open)
-{
-    <FluentOverlay @bind-Visible="@Open" OnClose="@CloseOverlayAsync" Transparent=true FullScreen=true />
-    <FluentAnchoredRegion @ref="AnchoredRegion"
-                          Id="@Id"
-                          Anchor="@AnchorId"
-                          HorizontalInset="@HorizontalInset"
-                          HorizontalDefaultPosition="@HorizontalPosition"
-                          VerticalDefaultPosition="@VerticalPosition"
-                          VerticalThreshold="@VerticalThreshold"
-                          HorizontalThreshold="@HorizontalThreshold"
-                          FixedPlacement="@FixedPlacement"
-                          AutoFocus="@AutoFocus"
-                          Shadow="@ElevationShadow.Flyout"
-                          Class="@ClassValue"
-                          Style="@StyleValue">
-        <FluentStack Orientation="Orientation.Vertical">
-            <div class="fluent-popover-content">
-                @if (Header is not null)
-                {
-                    <div part="header">@Header</div>
-                }
-                @if (Body is not null)
-                {
-                    <div part="body">@Body</div>
-                }
-                @if (Footer is not null)
-                {
-                    <div part="footer">@Footer</div>
-                }
-            </div>
-        </FluentStack>
-    </FluentAnchoredRegion>
-}
+<fluent-popover-b id="@Id"
+                  class="@ClassValue"
+                  style="@StyleValue"
+                  anchor-id="@AnchorId"
+                  offset-vertical="@(OffsetVertical != 0 ? OffsetVertical : null)"
+                  offset-horizontal="@(OffsetHorizontal != 0 ? OffsetHorizontal : null)"
+                  opened="@(Opened ? "true" : "false")"
+                  nested="@(Nested ? "true" : null)"
+                  @attributes="@AdditionalAttributes"
+                  @onpopovertoggle="@OnToggleAsync">
+    @ChildContent
+</fluent-popover-b>

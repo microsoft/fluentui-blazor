@@ -1,0 +1,31 @@
+﻿@inject INotificationService NotificationService
+
+<FluentButton OnClick="@OpenProgressToastAsync"
+              Disabled="@InProgress">
+    Show Toast
+</FluentButton>
+
+@code {
+
+    bool InProgress = false;
+
+    async Task OpenProgressToastAsync()
+    {
+        InProgress = true;
+
+        // Show the "CustomizedProgressToast" razor component
+        var result = await NotificationService.ShowToastAsync<Toast.CustomizedProgressToast>(options =>
+        {
+            options.Title = "Downloading file";
+            options.Lifetime = TimeSpan.Zero; // Keep the toast open until closed after the progress is complete
+            options.Icon = new Icons.Regular.Size24.ArrowDownload();
+            options.AllowDismiss = false;
+            options.Width = "400px";
+            options.Parameters.Add("ProgressValue", 0);
+        });
+
+        // Completed
+        InProgress = false;
+        Console.WriteLine($"'Progress toast' closed with Reason: {result.Reason} and Data: {result.Data}");
+    }
+}

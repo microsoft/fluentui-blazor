@@ -1,0 +1,6 @@
+@FluentUI.Demo.SampleData_HostAddress = http://localhost:5028
+
+GET {{FluentUI.Demo.SampleData_HostAddress}}/olympics/countries/
+Accept: application/json
+
+###

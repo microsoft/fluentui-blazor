@@ -1,56 +1,8 @@
 fluent-tab {
-    -webkit-user-select: none;
-    user-select: none;
-    font-weight: 400;
+  white-space: nowrap;
 }
 
-    fluent-tab[aria-selected="true"] {
-        font-weight: 600;
-        z-index: 1;
-    }
-
-    fluent-tab[overflow] {
-        display: none;
-    }
-
-    fluent-tab[disabled] {
-        cursor: not-allowed;
-        color: var(--neutral-foreground-hint)
-    }
-
-::deep .fluent-tab-icon {
-    fill: var(--neutral-fill-strong-active);
-    min-width: 18px;
-    max-width: 18px;
-}
-
-::deep .fluent-tab-close {
-    fill: var(--neutral-fill-strong-active) !important;
-    cursor: pointer;
-    max-width: 12px;
-    max-height: 12px;
-    margin-left: 6px;
-}
-
-    ::deep .fluent-tab-close:hover {
-        fill: var(--neutral-fill-strong-hover) !important;
-    }
-
-::deep fluent-tab[aria-selected="true"] {
-    font-variation-settings: normal;
-}
-
-fluent-tabs fluent-tab-panel {
-    --density: 0;
-}
-
-
-fluent-tabs.medium fluent-tab {
-    font-size: var(--type-ramp-base-font-size);
-    padding: 0 10px;
-}
-
-fluent-tabs.large fluent-tab {
-    font-size: var(--type-ramp-plus-1-font-size);
-    padding: 0 16px;
+fluent-tab > span {
+    display: flex;
+    column-gap: 2px;
 }

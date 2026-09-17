@@ -1,0 +1,38 @@
+﻿@inherits LayoutComponentBase
+
+<div class="container">
+    <div class="header">
+        <FluentStack Wrap="true" HorizontalGap="12px" Margin="@Margin.Vertical2" VerticalAlignment="VerticalAlignment.Center">
+            <SectionOutlet SectionName="SearchBar" />
+
+            <FluentSpacer />
+
+            @* DarkTheme *@
+            <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme())"
+                          OnClick="@SwitchThemeAsync"
+                          Appearance="ButtonAppearance.Transparent"
+                          Title="Switch to Light/Dark theme" />
+
+        </FluentStack>
+    </div>
+
+    <div class="body">
+        <SectionOutlet SectionName="SearchResult" />
+        @Body
+    </div>
+
+    <div class="footer">
+        <SectionOutlet SectionName="SearchFooter" />
+    </div>
+</div>
+
+<ClipboardFeature />
+
+@* Add all FluentUI Blazor Providers *@
+<FluentProviders />
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>

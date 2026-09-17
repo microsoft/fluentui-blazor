@@ -19,24 +19,23 @@
         <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
             <DataAnnotationsValidator />
             <h2>Use a local account to log in.</h2>
-            <hr />
             <FluentValidationSummary class="text-danger" role="alert" />
             <FluentStack Orientation="Orientation.Vertical">
-                <FluentTextField Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
-                <FluentValidationMessage For="() => Input.Email" class="text-danger" />
-                <FluentTextField type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
-                <FluentValidationMessage For="() => Input.Password" class="text-danger" />
+                <FluentTextInput Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
+                @* <FluentValidationMessage For="() => Input.Email" class="text-danger" /> *@
+                <FluentTextInput type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
+                @* <FluentValidationMessage For="() => Input.Password" class="text-danger" /> *@
                 <FluentCheckbox Name="Input.RememberMe" @bind-Value="Input.RememberMe" Label="Remember me" />
-                <FluentButton Type="ButtonType.Submit" Appearance="Appearance.Accent" Style="width: 100%">Log in</FluentButton>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Style="width: 100%">Log in</FluentButton>
                 <div>
                     <p>
-                        <FluentAnchor Appearance="Appearance.Hypertext" Href="Account/ForgotPassword">Forgot your password?</FluentAnchor>
+                        <FluentLink Href="Account/ForgotPassword">Forgot your password?</FluentLink>
                     </p>
                     <p>
-                        <FluentAnchor Appearance="Appearance.Hypertext" Href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</FluentAnchor>
+                        <FluentLink Href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</FluentLink>
                     </p>
                     <p>
-                        <FluentAnchor Appearance="Appearance.Hypertext" Href="Account/ResendEmailConfirmation">Resend email confirmation</FluentAnchor>
+                        <FluentLink Href="Account/ResendEmailConfirmation">Resend email confirmation</FluentLink>
                     </p>
                 </div>
             </FluentStack>
@@ -44,7 +43,6 @@
     </FluentGridItem>
     <FluentGridItem xs="12" sm="8">
         <h3>Use another service to log in.</h3>
-        <hr />
         <ExternalLoginPicker />
     </FluentGridItem>
 </FluentGrid>

@@ -1,0 +1,136 @@
+/* Selector Indicator */
+.fluent-color-picker div[part="indicator"] {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 0 1px #0000004d, inset 0 0 0 5px #0000004d;
+}
+
+/* Swatch Palette view */
+.fluent-color-picker[view="swatch-palette"] {
+    --color-picker-selected-border: var(--strokeWidthThin) solid var(--colorBrandStroke1);
+    --color-picker-selected-border-radius: var(--borderRadiusMedium);
+    display: grid;
+}
+
+.fluent-color-picker[view="swatch-palette"][orientation="horizontal"] {
+    grid-auto-flow: column;
+    grid-template-columns: repeat(19, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.fluent-color-picker[view="swatch-palette"][orientation="vertical"] {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(19, 1fr);
+}
+
+.fluent-color-picker[view="swatch-palette"]>div {
+    min-width: 18px;
+    min-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Color Wheel view */
+.fluent-color-picker[view="color-wheel"] {
+    align-content: center;
+}
+
+.fluent-color-picker[view="color-wheel"] polygon {
+    cursor: pointer;
+    transition: stroke-width 0.1s;
+}
+
+.fluent-color-picker[view="color-wheel"] polygon:hover {
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+.fluent-color-picker[view="color-wheel"] polygon[selected] {
+    stroke: #ffffff;
+    stroke-width: 3;
+}
+
+.fluent-color-picker[view="color-wheel"] circle[part="indicator"] {
+    fill: #b2b2b2;
+    stroke: #ffffff;
+    stroke-width: 2px;
+    pointer-events: none;
+    border: 3px solid #ffffff;
+}
+
+/* HSV Square view */
+.fluent-color-picker[view="hsv-square"] {
+    display: flex;
+    gap: 8px;
+    user-select: none;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="square"] {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="square"]>div[part="canvas"] {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: crosshair;
+    border-radius: var(--borderRadiusMedium);
+    overflow: hidden;
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="square"]>div[part="canvas"]>div[part="gradient-white"] {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #ffffff, transparent);
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="square"]>div[part="canvas"]>div[part="gradient-black"] {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, #000000);
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="square"]>div[part="canvas"]>div[part="indicator"] {
+    position: absolute;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="hue-bar"] {
+    width: 24px;
+    position: relative;
+    cursor: pointer;
+    border-radius: var(--borderRadiusMedium);
+    background: linear-gradient(to bottom,
+            hsl(0, 100%, 50%),
+            hsl(60, 100%, 50%),
+            hsl(120, 100%, 50%),
+            hsl(180, 100%, 50%),
+            hsl(240, 100%, 50%),
+            hsl(300, 100%, 50%),
+            hsl(360, 100%, 50%));
+}
+
+.fluent-color-picker[view="hsv-square"]>div[part="hue-bar"]>div[part="hue-indicator"] {
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    height: 6px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    border: 2px solid #ffffff;
+    border-radius: var(--borderRadiusSmall);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+}

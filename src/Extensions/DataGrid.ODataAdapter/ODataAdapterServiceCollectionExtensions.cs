@@ -18,8 +18,9 @@ public static class ODataAdapterServiceCollectionExtensions
     /// Registers an OData aware implementation of <see cref="IAsyncQueryExecutor"/>.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/>.</param>
-    public static void AddDataGridODataAdapter(this IServiceCollection services)
+    public static IServiceCollection AddDataGridODataAdapter(this IServiceCollection services)
     {
         services.AddScoped<IAsyncQueryExecutor, ODataAsyncQueryExecutor>();
+        return services;
     }
 }

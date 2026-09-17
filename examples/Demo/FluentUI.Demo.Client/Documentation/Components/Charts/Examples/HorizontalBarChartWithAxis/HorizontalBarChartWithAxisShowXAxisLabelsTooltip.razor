@@ -1,0 +1,26 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+@*
+    ShowXAxisLabelsTooltip truncates x-axis tick labels longer than 10 characters and shows
+    the full label in a tooltip on hover. XAxisTickFormat ",.2f" formats the numeric ticks
+    with comma separators and two decimal places (e.g. "1,000,000.00"), producing labels
+    that exceed the 10-character limit and demonstrate the tooltip behaviour.
+*@
+
+<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px" ChartTitle="Tooltip on truncated x-axis labels"
+                                  XAxisTickFormat=",.2f" ShowXAxisLabelsTooltip="true" ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+  private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+  [
+      new HorizontalBarChartWithAxisDataPoint { Y = "Category A", X = 1_500_000, Legend = "Sales", Color =
+DataVizPalette.Color1, XAxisCalloutData = "1.5M", YAxisCalloutData = "Category A" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "Category B", X = 3_200_000, Legend = "Marketing", Color =
+DataVizPalette.Color2, XAxisCalloutData = "3.2M", YAxisCalloutData = "Category B" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "Category C", X = 2_800_000, Legend = "Operations",Color =
+DataVizPalette.Color3, XAxisCalloutData = "2.8M", YAxisCalloutData = "Category C" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "Category D", X = 4_100_000, Legend = "Finance", Color =
+DataVizPalette.Color4, XAxisCalloutData = "4.1M", YAxisCalloutData = "Category D" },
+    ];
+}

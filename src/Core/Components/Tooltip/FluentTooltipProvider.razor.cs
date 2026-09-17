@@ -2,43 +2,51 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
+using System.Globalization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTooltipProvider : FluentComponentBase, IDisposable
+/// <summary />
+public partial class FluentTooltipProvider : FluentComponentBase
 {
     /// <summary />
-    protected string? ClassValue
-        => new CssBuilder(Class).AddClass("fluent-tooltip-provider")
-                                 .Build();
+    public FluentTooltipProvider(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
-    internal string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("position", "fixed")   // To prevent the tooltip from displaying a scrollbar in body
-        .AddStyle("z-index", ZIndex.Menu.ToString())
+    internal string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-tooltip-provider")
         .Build();
 
-    [Inject]
-    private ITooltipService TooltipService { get; set; } = default!;
+    /// <summary />
+    internal string? StyleValue => DefaultStyleBuilder
+        .AddStyle("z-index", ZIndex.Tooltip.ToString(CultureInfo.InvariantCulture))
+        .Build();
 
-    protected IEnumerable<TooltipOptions> Tooltips => TooltipService.Tooltips;
+    /// <summary>
+    /// Gets or sets the injected service provider.
+    /// </summary>
+    /// <remarks>
+    /// We cannot inject `ITooltipService` directly, as an exception will be thrown if the service is not injected.
+    /// https://github.com/dotnet/aspnetcore/issues/24193
+    /// </remarks>
+    private ITooltipService? TooltipService => GetCachedServiceOrNull<ITooltipService>();
 
+    /// <summary />
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        TooltipService.OnTooltipUpdated += OnTooltipUpdated;
-    }
 
-    private void OnTooltipUpdated()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-
-    public void Dispose()
-    {
-        TooltipService.OnTooltipUpdated -= OnTooltipUpdated;
+        if (TooltipService is not null)
+        {
+            TooltipService.ProviderId = Id;
+            TooltipService.OnUpdatedAsync = async (item) =>
+            {
+                await InvokeAsync(StateHasChanged);
+            };
+        }
     }
 }

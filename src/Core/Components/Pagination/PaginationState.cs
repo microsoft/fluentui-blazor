@@ -36,7 +36,7 @@ public class PaginationState
     /// <summary>
     /// An event that is raised when the total item count has changed.
     /// </summary>
-    public event EventHandler<int?>? TotalItemCountChanged;
+    public event EventHandler<TotalItemCountChangedEventArgs>? TotalItemCountChanged;
 
     internal EventCallbackSubscribable<PaginationState> CurrentPageItemsChanged { get; } = new();
     internal EventCallbackSubscribable<PaginationState> TotalItemCountChangedSubscribable { get; } = new();
@@ -70,22 +70,23 @@ public class PaginationState
         await CurrentPageItemsChanged.InvokeCallbacksAsync(this);
         if (TotalItemCount.HasValue)
         {
-            await SetTotalItemCountAsync(TotalItemCount.Value, true);
+            await SetTotalItemCountAsync(TotalItemCount.Value, force: true);
         }
+
         return;
     }
 
     /// <summary>
-    /// Sets the total number of items nd makes sure the current page index stays valid.
+    /// Sets the total number of items and makes sure the current page index stays valid.
     /// </summary>
     /// <param name="totalItemCount">The total number of items</param>
     /// <param name="force">If true, the total item count will be updated even if it is the same as the current value.</param>
     /// <returns></returns>
-    public Task SetTotalItemCountAsync(int totalItemCount, bool force = false)
+    public async Task SetTotalItemCountAsync(int totalItemCount, bool force = false)
     {
         if (totalItemCount == TotalItemCount && !force)
         {
-            return Task.CompletedTask;
+            return;
         }
 
         TotalItemCount = totalItemCount;
@@ -94,11 +95,11 @@ public class PaginationState
         {
             // If the number of items has reduced such that the current page index is no longer valid, move
             // automatically to the final valid page index and trigger a further data load.
-            SetCurrentPageIndexAsync(LastPageIndex.Value);
+            await SetCurrentPageIndexAsync(LastPageIndex.Value);
         }
 
         // Under normal circumstances, we just want any associated pagination UI to update
-        TotalItemCountChanged?.Invoke(this, TotalItemCount);
-        return TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
+        TotalItemCountChanged?.Invoke(this, new TotalItemCountChangedEventArgs(TotalItemCount));
+        await TotalItemCountChangedSubscribable.InvokeCallbacksAsync(this);
     }
 }

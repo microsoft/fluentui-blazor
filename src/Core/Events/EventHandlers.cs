@@ -1,29 +1,46 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[EventHandler("oncheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onswitchcheckedchange", typeof(CheckboxChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onradiogroupchange", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onsliderchange", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+/* Blazor supports custom event arguments, which enable you to pass arbitrary data to .NET event handlers with custom events.
+ * https://learn.microsoft.com/aspnet/core/blazor/components/event-handling#custom-event-arguments
+ *
+ *  In the Components C# project
+ *  ----------------------------
+ *    1. In this `Events` folder, create a class that derives from `EventArgs`.                            Ex. DialogToggleEventArgs.cs
+ *    2. Add the `EventHandler` attribute (prefixed by "on") to the `EventHandlers` class in this file.    Ex. "ondialogtoggle"
+ *
+ *  In the Components.Scripts project
+ *  ---------------------------------
+ *    3. Define a registering method the Custom Event Type in the `FluentUICustomEvents.ts` file.          Ex. "dialogtoggle"
+ *    4. Call the Registering method in the `Startup.ts` file.
+ *
+ *  In the C# component
+ *  -------------------
+ *    5. Use this new event in the component: `@ondialogtoggle="@(e => ...)"`
+ */
+
+/// <summary>
+/// List of custom events to associate an event argument type with an event attribute name.
+/// </summary>
+[EventHandler("onaccordionchange", typeof(AccordionItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ondialogbeforetoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ondialogtoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onpopovertoggle", typeof(DialogToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onmenuitemchange", typeof(MenuItemEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 [EventHandler("ontabchange", typeof(TabChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onselectedchange", typeof(TreeChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onexpandedchange", typeof(TreeChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onaccordionchange", typeof(AccordionChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("ondialogdismiss", typeof(DialogEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onmenuchange", typeof(MenuChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onfluentscrollstart", typeof(HorizontalScrollEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onfluentscrollend", typeof(HorizontalScrollEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onclosecolumnoptions", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onclosecolumnresize", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("ontooltipdismiss", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onfluentsplitterresized", typeof(SplitterResizedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("onfluentsplittercollapsed", typeof(SplitterCollapsedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("oncontrolinput", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
-[EventHandler("oncomboboxchange", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ondropdownchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onlistchange", typeof(DropdownEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ontreechanged", typeof(TreeItemChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ontreetoggle", typeof(TreeItemToggleEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onclosecolumnheaderui", typeof(EventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onradiochange", typeof(RadioEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("ontextimmediate", typeof(ChangeEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
+[EventHandler("onoverflowchange", typeof(OverflowChangedEventArgs), enableStopPropagation: true, enablePreventDefault: true)]
 public static class EventHandlers
 {
 }

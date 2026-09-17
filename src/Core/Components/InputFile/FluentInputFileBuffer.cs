@@ -4,23 +4,25 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Represents a buffer containing data read from an input source, along with the number of bytes read.
+/// </summary>
 public class FluentInputFileBuffer
 {
     /// <summary />
-    public FluentInputFileBuffer(byte[] data, int bytesRead)
+    internal FluentInputFileBuffer(byte[] data, int bytesRead)
     {
         Data = data;
         BytesRead = bytesRead;
     }
 
     /// <summary>
-    /// Buffer data read.
+    /// Gets the buffer data read.
     /// </summary>
     public byte[] Data { get; }
 
     /// <summary>
-    /// Number of bytes read.
+    /// Gets the number of bytes read.
     /// </summary>
     public int BytesRead { get; }
 

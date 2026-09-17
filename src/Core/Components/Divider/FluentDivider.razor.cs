@@ -3,68 +3,71 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentDivider : FluentComponentBase, IAsyncDisposable
+/// <summary>
+/// A horizontal or vertical rule used to visually separate content.
+/// </summary>
+public partial class FluentDivider : FluentComponentBase, ITooltipComponent
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Divider/FluentDivider.razor.js";
-
-    private IJSObjectReference _jsModule = default!;
+    /// <summary />
+    public FluentDivider(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
 
     /// <summary />
-    [Inject]
-    protected IJSRuntime JSRuntime { get; set; } = default!;
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
-    /// Gets or sets the role of the element.
+    /// Gets or sets the alignment of any child content within the divider (e.g., <c>AlignContent="DividerAlignContent.Center"</c>).
+    /// See <see cref="DividerAlignContent"/> for available values.
     /// </summary>
     [Parameter]
-    public DividerRole? Role { get; set; }
+    public DividerAlignContent? AlignContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the orientation of the divider.
+    /// Gets or sets the visual appearance of the divider (e.g., <c>Appearance="DividerAppearance.Strong"</c>).
+    /// See <see cref="DividerAppearance"/> for available values.
     /// </summary>
     [Parameter]
-    public Orientation? Orientation { get; set; } = AspNetCore.Components.Orientation.Horizontal;
+    public DividerAppearance? Appearance { get; set; }
 
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Gets or sets whether padding is added to the beginning and end of the divider (e.g., <c>Inset="true"</c>).
+    /// </summary>
+    [Parameter]
+    public bool? Inset { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the divider is vertical (<c>true</c>) or horizontal (<c>false</c>, default).
+    /// </summary>
+    [Parameter]
+    public bool? Vertical { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be shown.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
+
+    /// <summary />
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
-        {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            await _jsModule.InvokeVoidAsync("setDividerAriaOrientation");
-        }
+        await base.RenderTooltipAsync(Tooltip);
     }
 
-    /// <inheritdoc />
-    public async ValueTask DisposeAsync()
-    {
-        try
-        {
-            if (_jsModule is not null)
-            {
-                await _jsModule.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
-    }
+    private string? Orientation
+        => Vertical.HasValue
+            ? Vertical.Value
+                ? "vertical"
+                : "horizontal"
+            : null;
 }
-

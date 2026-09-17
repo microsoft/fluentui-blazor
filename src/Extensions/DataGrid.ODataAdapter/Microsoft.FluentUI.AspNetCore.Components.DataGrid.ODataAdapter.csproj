@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>$(TargetNetVersions)</TargetFrameworks>
     <PackageId>Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter</PackageId>
     <Authors>Microsoft</Authors>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
@@ -9,8 +9,8 @@
     <PackageProjectUrl>https://github.com/microsoft/fluentui-blazor</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Summary>An adapter for using the Fluent UI Blazor DataGrid with OData Client.</Summary>
-    <PackageTags>Fluent UI, Blazor, DataGrid</PackageTags>
-    <Title>Microsoft Fluent UI DataGrid adapter for Entity Framework</Title>
+    <PackageTags>Fluent;FluentUI;fluent-ui;Blazor;DataGrid</PackageTags>
+    <Title>Microsoft Fluent UI DataGrid adapter for OData</Title>
     <Description>An adapter for using the Fluent UI Blazor DataGrid with OData Client.</Description>
     <SignAssembly>false</SignAssembly>
     <Nullable>enable</Nullable>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <IsShipping>true</IsShipping>
     <Optimize>True</Optimize>
-    <NoWarn>1701;1702;8669;1591</NoWarn>
+    <NoWarn>1701;1702;</NoWarn>
     <DebuggerSupport>false</DebuggerSupport>
     <TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

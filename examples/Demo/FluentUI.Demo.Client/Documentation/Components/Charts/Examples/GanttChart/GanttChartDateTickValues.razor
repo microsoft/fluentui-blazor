@@ -1,0 +1,28 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGanttChart Style="width: 600px; height: 350px" ChartTitle="Explicit date tick values on date x-axis"
+                  ShowYAxisLabels="true" DateTickValues="@_tickDates" ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+  // Show only quarterly tick marks on the x-axis.
+  private IEnumerable<DateTime> _tickDates =
+  [
+      new DateTime(2009, 1, 1),
+        new DateTime(2009, 4, 1),
+        new DateTime(2009, 7, 1),
+        new DateTime(2009, 10, 1),
+    ];
+
+  private IReadOnlyList<GanttChartDataPoint> ChartData =
+  [
+      new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 1, 1), End = new DateTime(2009, 3, 31)
+}, Y = "Job A", Legend = "Alex", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 4, 1), End = new DateTime(2009, 6, 30)
+}, Y = "Job B", Legend = "Alex", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 3, 1), End = new DateTime(2009, 8, 31)
+}, Y = "Job C", Legend = "Max", Color = DataVizPalette.Color2 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2009, 7, 1), End = new DateTime(2009, 12, 31)
+}, Y = "Job D", Legend = "Max", Color = DataVizPalette.Color2 },
+    ];
+}

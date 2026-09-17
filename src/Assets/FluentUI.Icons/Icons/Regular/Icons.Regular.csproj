@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>$(AssetsNetVersion)</TargetFrameworks>
 		<AssemblyName>Microsoft.FluentUI.AspNetCore.Components.Icons.Regular</AssemblyName>
 		<RootNamespace>Microsoft.FluentUI.AspNetCore.Components.Icons.Regular</RootNamespace>
 		<IsTrimmable>true</IsTrimmable>
+		<IsAotCompatible>true</IsAotCompatible>
 		<SignAssembly>false</SignAssembly>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>

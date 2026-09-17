@@ -1,0 +1,39 @@
+﻿@using Xunit
+@inherits FluentUITestContext
+@code
+{
+    public OverlayServiceDisabledTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents(options => options.UseGlobalOverlay = false);
+
+        DialogService = Services.GetRequiredService<IDialogService>();
+        DialogProvider = Render<FluentDialogProvider>();
+    }
+
+    public IDialogService DialogService { get; }
+
+    public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
+
+    [Fact]
+    public async Task DialogService_ShowOverlayAsync_WhenGlobalOverlayDisabled_ThrowsInvalidOperationException()
+    {
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        {
+            await DialogService.ShowOverlayAsync(options => options.Text = "Should fail");
+        });
+
+        Assert.Contains("global overlay is disabled", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task DialogService_HideOverlayAsync_WhenGlobalOverlayDisabled_ThrowsInvalidOperationException()
+    {
+        var ex = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        {
+            await DialogService.HideOverlayAsync();
+        });
+
+        Assert.Contains("global overlay is disabled", ex.Message, StringComparison.OrdinalIgnoreCase);
+    }
+}

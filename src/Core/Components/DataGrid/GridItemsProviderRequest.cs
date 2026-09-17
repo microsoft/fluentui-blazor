@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -29,7 +31,7 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     public ColumnBase<TGridItem>? SortByColumn { get; init; }
 
     /// <summary>
-    /// Gets or sets thecurrent sort direction.
+    /// Gets or sets the current sort direction.
     ///
     /// Rather than inferring the sort rules manually, you should normally call either <see cref="ApplySorting(IQueryable{TGridItem})"/>
     /// or <see cref="GetSortByProperties"/>, since they also account for <see cref="SortByColumn" /> and <see cref="SortByAscending" /> automatically.
@@ -64,9 +66,17 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     /// Produces a collection of (property name, direction) pairs representing the sorting rules.
     /// </summary>
     /// <returns>A collection of (property name, direction) pairs representing the sorting rules</returns>
+    [ExcludeFromCodeCoverage(Justification = "This is a not reachable in a unit test scenario.")]
     public IReadOnlyCollection<SortedProperty> GetSortByProperties() =>
-        SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? Array.Empty<SortedProperty>();
+        SortByColumn?.SortBy?.ToPropertyList(SortByAscending) ?? [];
 
+    /// <summary>
+    /// Determines whether the specified request is equivalent to the current request.
+    /// </summary>
+    /// <param name="req">The <see cref="GridItemsProviderRequest{TGridItem}"/> to compare with the current request.</param>
+    /// <returns><see langword="true"/> if the specified request has the same start index, count, sort column, and sort order as
+    /// the current request; otherwise, <see langword="false"/>.</returns>
+    [ExcludeFromCodeCoverage(Justification = "This is a not reachable in a unit test scenario.")]
     public bool IsSameRequest(GridItemsProviderRequest<TGridItem> req)
     {
         if (StartIndex != req.StartIndex)

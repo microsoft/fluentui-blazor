@@ -1,14 +1,22 @@
 #Requires -Version 7.0
 <#
 .SYNOPSIS
-    Lists all outdated NuGet and npm packages for the solution, across every supported target framework.
+    Lists all outdated NuGet and npm packages for the solution, across every supported .NET target version.
+
+    running: 
+      ncu --packageFile ./src/Core.Scripts/package.json
+      ncu --packageFile ./src/Charts.Scripts/package.json
+      dotnet outdated ./Microsoft.FluentUI-v5.slnx --version-lock Major --pre-release Never
 
 .DESCRIPTION
-    Runs `dotnet outdated` for the solution (projects already multi-target
-    net8.0/net9.0/net10.0 via <TargetFrameworks>) and groups the results by
-    $(TargetFramework).
-    Also lists outdated npm packages (via npm-check-updates) for the Core.Assets project,
-    without changing any package.json or lock file.
+    Temporarily switches the <NetVersion> property in Directory.Build.props to each of
+    net8.0, net9.0, net10.0 and net11.0, runs `dotnet outdated` for the solution, and
+    aggregates the results into a single de-duplicated summary list.
+    Also lists outdated npm packages (via npm-check-updates) for the Core.Scripts and
+    Charts.Scripts projects, without changing any package.json or lock file.
+
+    Directory.Build.props is restored to its original content when the script finishes
+    (even if an error occurs).
 
 .NOTES
     Requires the dotnet-outdated-tool and npm-check-updates:
@@ -19,57 +27,88 @@
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = $PSScriptRoot
-$slnPath = Join-Path $repoRoot 'Microsoft.FluentUI.sln'
-$npmProjects = @('src/Core.Assets')
+$propsPath = Join-Path $repoRoot 'Directory.Build.props'
+$slnPath = Join-Path $repoRoot 'Microsoft.FluentUI-v5.slnx'
+$netVersions = @('net8.0', 'net9.0', 'net10.0', 'net11.0')
+$netVersionPattern = '<NetVersion>net\d+\.\d+</NetVersion>'
+$exampleVersionPattern = '<ExampleNetVersion>net\d+\.\d+</ExampleNetVersion>'
+# Demo/Samples/Tests projects require net9.0+ (see ExampleNetVersion comment in Directory.Build.props).
+$minExampleVersion = 9
+$npmProjects = @('src/Core.Scripts', 'src/Charts.Scripts')
 
-# Key = "TargetFramework|Name|OldVersion|NewVersion", used to avoid duplicate rows across projects.
-$updates = [ordered]@{}
-
-Write-Host "`n=== Checking outdated NuGet packages ===" -ForegroundColor Cyan
-
-$reportPath = Join-Path $repoRoot 'outdated.json'
-if (Test-Path $reportPath) {
-    Remove-Item $reportPath -Force
+$originalContent = Get-Content -Path $propsPath -Raw
+if ($originalContent -notmatch $netVersionPattern) {
+    throw "Could not find a <NetVersion> element in $propsPath"
+}
+if ($originalContent -notmatch $exampleVersionPattern) {
+    throw "Could not find an <ExampleNetVersion> element in $propsPath"
 }
 
+# Key = "NetVersion|Name|OldVersion|NewVersion", used to avoid duplicate rows across projects.
+$updates = [ordered]@{}
+
 try {
-    dotnet outdated $slnPath --version-lock Major --pre-release Never -o $reportPath -of json
+    foreach ($netVersion in $netVersions) {
+        Write-Host "`n=== Checking outdated NuGet packages for $netVersion ===" -ForegroundColor Cyan
 
-    if (-not (Test-Path $reportPath)) {
-        throw "No report generated (dotnet-outdated-tool might not be installed)."
-    }
+        # Example projects can't target lower than net9.0, and can't reference a library built for a higher TFM,
+        # so ExampleNetVersion must track NetVersion once NetVersion reaches net9.0+.
+        $netMajor = [int]($netVersion -replace '^net(\d+)\.\d+$', '$1')
+        $exampleVersion = if ($netMajor -ge $minExampleVersion) { $netVersion } else { "net$minExampleVersion.0" }
 
-    $report = Get-Content -Path $reportPath -Raw | ConvertFrom-Json
-    foreach ($project in $report.Projects) {
-        foreach ($targetFramework in $project.TargetFrameworks) {
-            foreach ($dependency in $targetFramework.Dependencies) {
-                $key = "$($targetFramework.Name)|$($dependency.Name)|$($dependency.ResolvedVersion)|$($dependency.LatestVersion)"
-                if (-not $updates.Contains($key)) {
-                    $updates[$key] = [pscustomobject]@{
-                        TargetFramework = $targetFramework.Name
-                        Package         = $dependency.Name
-                        OldVersion      = $dependency.ResolvedVersion
-                        NewVersion      = $dependency.LatestVersion
+        $updatedContent = $originalContent -replace $netVersionPattern, "<NetVersion>$netVersion</NetVersion>"
+        $updatedContent = $updatedContent -replace $exampleVersionPattern, "<ExampleNetVersion>$exampleVersion</ExampleNetVersion>"
+        Set-Content -Path $propsPath -Value $updatedContent -NoNewline
+
+        $reportPath = Join-Path $repoRoot "outdated-$netVersion.json"
+        if (Test-Path $reportPath) {
+            Remove-Item $reportPath -Force
+        }
+
+        try {
+            dotnet outdated $slnPath --version-lock Major --pre-release Never -o $reportPath -of json
+        }
+        catch {
+            Write-Warning "dotnet outdated failed for ${netVersion}: $_"
+            continue
+        }
+
+        if (-not (Test-Path $reportPath)) {
+            Write-Warning "No report generated for $netVersion (SDK might not be installed). Skipping."
+            continue
+        }
+
+        $report = Get-Content -Path $reportPath -Raw | ConvertFrom-Json
+        foreach ($project in $report.Projects) {
+            foreach ($targetFramework in $project.TargetFrameworks) {
+                foreach ($dependency in $targetFramework.Dependencies) {
+                    $key = "$netVersion|$($dependency.Name)|$($dependency.ResolvedVersion)|$($dependency.LatestVersion)"
+                    if (-not $updates.Contains($key)) {
+                        $updates[$key] = [pscustomobject]@{
+                            NetVersion = $netVersion
+                            Package    = $dependency.Name
+                            OldVersion = $dependency.ResolvedVersion
+                            NewVersion = $dependency.LatestVersion
+                        }
                     }
                 }
             }
         }
-    }
-}
-finally {
-    if (Test-Path $reportPath) {
+
         Remove-Item $reportPath -Force
     }
 }
+finally {
+    Set-Content -Path $propsPath -Value $originalContent -NoNewline
+}
 
-$targetFrameworks = $updates.Values | Select-Object -ExpandProperty TargetFramework -Unique | Sort-Object
-$summary = $updates.Values | Sort-Object TargetFramework, Package, OldVersion
+$summary = $updates.Values | Sort-Object @{Expression = { $netVersions.IndexOf($_.NetVersion) } }, Package, OldVersion
 
-Write-Host "`n=== Summary of outdated NuGet packages (grouped by target framework) ===" -ForegroundColor Green
-foreach ($targetFramework in $targetFrameworks) {
-    $group = $summary | Where-Object { $_.TargetFramework -eq $targetFramework }
+Write-Host "`n=== Summary of outdated NuGet packages (grouped by .NET version) ===" -ForegroundColor Green
+foreach ($netVersion in $netVersions) {
+    $group = $summary | Where-Object { $_.NetVersion -eq $netVersion }
     if ($group) {
-        Write-Host "`n-- $targetFramework --" -ForegroundColor Yellow
+        Write-Host "`n-- $netVersion --" -ForegroundColor Yellow
         $group | Select-Object Package, OldVersion, NewVersion | Format-Table -AutoSize
     }
 }
@@ -133,11 +172,13 @@ NuGet packages:
   2. Review shared version properties (RuntimeVersion*, AspNetCoreVersion*, EfCoreVersion*) so packages
      that reference them stay aligned for each target framework.
   3. Restore and build the solution:
-       dotnet restore ./Microsoft.FluentUI.sln
-       dotnet build ./Microsoft.FluentUI.sln --configuration Release
+       dotnet restore ./Microsoft.FluentUI-v5.slnx
+       dotnet build ./Microsoft.FluentUI-v5.slnx --configuration Release
 
 npm packages:
-  1. Update the versions listed above in src/Core.Assets/package.json.
+  1. Update the versions listed above in src/Core.Scripts/package.json and src/Charts.Scripts/package.json.
   2. Reinstall to regenerate the lock files:
-       npm install --prefix ./src/Core.Assets
+       npm install --prefix ./src/Core.Scripts
+       npm install --prefix ./src/Charts.Scripts
 '@
+

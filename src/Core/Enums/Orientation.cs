@@ -21,5 +21,5 @@ public enum Orientation
     /// The component is oriented vertically.
     /// </summary>
     [Description("vertical")]
-    Vertical
+    Vertical,
 }

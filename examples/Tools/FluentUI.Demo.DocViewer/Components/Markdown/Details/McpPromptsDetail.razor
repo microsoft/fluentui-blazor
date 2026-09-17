@@ -1,0 +1,54 @@
+﻿@using FluentUI.Demo.DocViewer.Models.Mcp
+
+@if (Prompts.Count == 0)
+{
+    <div class="component-not-found">&#9888; No MCP prompts found@(string.IsNullOrEmpty(Filter) ? "" : $" matching '{Filter}'").</div>
+}
+else
+{
+    var groupedPrompts = Prompts.GroupBy(p => p.ClassName).OrderBy(g => g.Key);
+
+    foreach (var group in groupedPrompts)
+    {
+        <h4>💬 @group.Key</h4>
+
+        <div class="mcp-detail-container">
+            <div class="mcp-detail-header">
+                <div class="mcp-detail-col">Prompt</div>
+                <div class="mcp-detail-col">Description</div>
+                <div class="mcp-detail-col">Parameters</div>
+            </div>
+            <div class="mcp-detail-body">
+                @foreach (var prompt in group.OrderBy(p => p.Name))
+                {
+                    <div class="mcp-detail-row">
+                        <div class="mcp-detail-col"><code>@prompt.Name</code></div>
+                        <div class="mcp-detail-col">@((MarkupString)(prompt.Description ?? prompt.Summary ?? "-"))</div>
+                        <div class="mcp-detail-col">
+                            @if (prompt.Parameters?.Count > 0)
+                            {
+                                <ul class="mcp-params">
+                                    @foreach (var param in prompt.Parameters)
+                                    {
+                                        <li>
+                                            <code>@param.Name</code>
+                                            <span class="mcp-param-type">(@param.Type)</span>
+                                            @if (param.IsRequired)
+                                            {
+                                                <span class="mcp-required">*</span>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

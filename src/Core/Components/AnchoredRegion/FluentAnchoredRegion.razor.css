@@ -1,7 +1,0 @@
-﻿fluent-anchored-region {
-    pointer-events: none;
-}
-
-    fluent-anchored-region > * {
-        pointer-events: all;
-    }

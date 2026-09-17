@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -37,6 +38,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     /// <typeparam name="U">The type of the expression's value.</typeparam>
     /// <param name="expression">An expression defining how a set of <typeparamref name="TGridItem"/> instances are to be sorted.</param>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
+#pragma warning disable MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
     public static GridSort<TGridItem> ByAscending<U>(Expression<Func<TGridItem, U>> expression)
         => new((queryable, asc) => asc ? queryable.OrderBy(expression) : queryable.OrderByDescending(expression),
             (expression, true));
@@ -72,6 +74,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     /// <param name="comparer">Defines how a items in a set of <typeparamref name="TGridItem"/> instances are to be compared.</param>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public static GridSort<TGridItem> ByDescending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
+#pragma warning restore MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
         => new((queryable, asc) => asc ? queryable.OrderByDescending(expression, comparer) : queryable.OrderBy(expression, comparer),
             (expression, false));
 
@@ -200,7 +203,27 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
         return this;
     }
 
+    /// <summary>
+    /// Apply the sort function to the collection
+    /// </summary>
+    /// <param name="queryable">The collection to sort</param>
+    /// <param name="ascending">Sort ascending (true) or descending (false)</param>
+    /// <returns>The ordered collection</returns>
     public IOrderedQueryable<TGridItem> Apply(IQueryable<TGridItem> queryable, bool ascending)
+    {
+        if (IsHierarchicalInMemoryQueryable(queryable))
+        {
+            return ApplyHierarchicalSorting(queryable, ascending);
+        }
+
+        return ApplyStandardSorting(queryable, ascending);
+    }
+
+    private static bool IsHierarchicalInMemoryQueryable(IQueryable<TGridItem> queryable)
+        => typeof(IHierarchicalGridItem).IsAssignableFrom(typeof(TGridItem))
+            && queryable.Provider is EnumerableQuery<TGridItem>;
+
+    private IOrderedQueryable<TGridItem> ApplyStandardSorting(IQueryable<TGridItem> queryable, bool ascending)
     {
         var orderedQueryable = _first(queryable, ascending);
 
@@ -215,6 +238,88 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
         return orderedQueryable;
     }
 
+    private IOrderedQueryable<TGridItem> ApplyHierarchicalSorting(IQueryable<TGridItem> queryable, bool ascending)
+    {
+        var standardSortedQueryable = ApplyStandardSorting(queryable, ascending);
+        var sortedItems = standardSortedQueryable.ToList();
+        if (sortedItems.Count == 0)
+        {
+            return standardSortedQueryable;
+        }
+
+        var itemOrder = sortedItems
+            .Select((item, index) => (Item: (object)item!, Index: index))
+            .ToDictionary(x => x.Item, x => x.Index, ReferenceEqualityComparer.Instance);
+
+        var visibleItemsSet = new HashSet<object>(sortedItems.Select(item => (object)item!), ReferenceEqualityComparer.Instance);
+        var rootItems = sortedItems
+            .Where(item => item is IHierarchicalGridItem { Depth: 0 })
+            .ToList();
+
+        if (rootItems.Count == 0)
+        {
+            return standardSortedQueryable;
+        }
+
+        var orderedItems = new List<TGridItem>(sortedItems.Count);
+        var orderedItemsSet = new HashSet<object>(ReferenceEqualityComparer.Instance);
+
+        AppendSortedHierarchy(rootItems, visibleItemsSet, orderedItems, orderedItemsSet, itemOrder);
+
+        var remainingItems = sortedItems.Where(item => !orderedItemsSet.Contains((object)item!));
+        foreach (var item in remainingItems)
+        {
+            if (orderedItemsSet.Add((object)item!))
+            {
+                orderedItems.Add(item);
+            }
+        }
+
+        var hierarchyOrder = orderedItems
+            .Select((item, index) => (Item: (object)item!, Index: index))
+            .ToDictionary(x => x.Item, x => x.Index, ReferenceEqualityComparer.Instance);
+
+        return queryable.OrderBy(item => hierarchyOrder[(object)item!]);
+    }
+
+    private static void AppendSortedHierarchy(
+        IReadOnlyList<TGridItem> siblings,
+        HashSet<object> visibleItemsSet,
+        List<TGridItem> orderedItems,
+        HashSet<object> orderedItemsSet,
+        IReadOnlyDictionary<object, int> itemOrder)
+    {
+        foreach (var item in siblings.OrderBy(item => itemOrder[(object)item!]))
+        {
+            if (!orderedItemsSet.Add((object)item!))
+            {
+                continue;
+            }
+
+            orderedItems.Add(item);
+
+            if (item is not IHierarchicalGridItem hierarchicalItem)
+            {
+                continue;
+            }
+
+            var visibleChildren = hierarchicalItem.Children
+                .OfType<TGridItem>()
+                .Where(child => visibleItemsSet.Contains((object)child!))
+                .ToList();
+
+            if (visibleChildren.Count > 0)
+            {
+                AppendSortedHierarchy(visibleChildren, visibleItemsSet, orderedItems, orderedItemsSet, itemOrder);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Produces a readonly collection of (property name, direction) pairs representing the sorting rules.
+    /// </summary>
+    /// <param name="ascending"></param>
+    /// <returns>The readonly collection of properties that can be sorted on</returns>
     public IReadOnlyCollection<SortedProperty> ToPropertyList(bool ascending)
     {
         if (ascending)
@@ -222,25 +327,23 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
             _cachedPropertyListAscending ??= BuildPropertyList(ascending: true);
             return _cachedPropertyListAscending;
         }
-        else
-        {
-            _cachedPropertyListDescending ??= BuildPropertyList(ascending: false);
-            return _cachedPropertyListDescending;
-        }
+
+        _cachedPropertyListDescending ??= BuildPropertyList(ascending: false);
+        return _cachedPropertyListDescending;
     }
 
     private List<SortedProperty> BuildPropertyList(bool ascending)
     {
         var result = new List<SortedProperty>
         {
-            new() { PropertyName = ToPropertyName(_firstExpression.Item1), Direction = (_firstExpression.Item2 ^ ascending) ? SortDirection.Descending : SortDirection.Ascending }
+            new() { PropertyName = ToPropertyName(_firstExpression.Item1), Direction = (_firstExpression.Item2 ^ ascending) ? DataGridSortDirection.Descending : DataGridSortDirection.Ascending },
         };
 
         if (_thenExpressions is not null)
         {
             foreach (var (thenLambda, thenAscending) in _thenExpressions)
             {
-                result.Add(new SortedProperty { PropertyName = ToPropertyName(thenLambda), Direction = (thenAscending ^ ascending) ? SortDirection.Descending : SortDirection.Ascending });
+                result.Add(new SortedProperty { PropertyName = ToPropertyName(thenLambda), Direction = (thenAscending ^ ascending) ? DataGridSortDirection.Descending : DataGridSortDirection.Ascending });
             }
         }
 
@@ -248,6 +351,9 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     }
 
     // Not sure we really want this level of complexity, but it converts expressions like @(c => c.Medals.Gold) to "Medals.Gold"
+    // Makes it too complex to test, so we exclude from coverage
+    [ExcludeFromCodeCoverage(Justification = "Find a way to test this at a later date.")]
+#pragma warning disable MA0015 // Specify the parameter name in ArgumentException
     private static string ToPropertyName(LambdaExpression expression)
     {
         if (expression.Body is not MemberExpression body)
@@ -271,30 +377,36 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
                 length += parentMember.Member.Name.Length + 1;
                 node = parentMember;
             }
-            else if (node.Expression is ParameterExpression)
-            {
-                break;
-            }
             else
             {
+                if (node.Expression is ParameterExpression)
+                {
+                    break;
+                }
+
                 throw new ArgumentException(ExpressionNotRepresentableMessage);
             }
         }
 
-        // Now construct the string
-        return string.Create(length, body, (chars, body) =>
+        return string.Create(length, body, action);
+    }
+
+    [ExcludeFromCodeCoverage(Justification = "Find a way to test this at a later date.")]
+    private static void action(Span<char> chars, MemberExpression body)
+    {
+
+        var nextPos = chars.Length;
+        while (body is not null)
         {
-            var nextPos = chars.Length;
-            while (body is not null)
+            nextPos -= body.Member.Name.Length;
+            body.Member.Name.CopyTo(chars[nextPos..]);
+            if (nextPos > 0)
             {
-                nextPos -= body.Member.Name.Length;
-                body.Member.Name.CopyTo(chars[nextPos..]);
-                if (nextPos > 0)
-                {
-                    chars[--nextPos] = '.';
-                }
-                body = (body.Expression as MemberExpression)!;
+                chars[--nextPos] = '.';
             }
-        });
+
+            body = (body.Expression as MemberExpression)!;
+        }
     }
 }
+#pragma warning restore MA0015 // Specify the parameter name in ArgumentException

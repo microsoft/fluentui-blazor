@@ -1,26 +1,27 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
 @inherits FluentInputBase<bool>
-<fluent-switch @ref=Element
-               class="@ClassValue"
-               style="@StyleValue"
-               readonly=@ReadOnly
-               id=@Id
-               disabled=@Disabled
-               name=@Name
-               aria-label="@(string.IsNullOrEmpty(AriaLabel) ? Label : AriaLabel)"
-               required=@Required
-               current-checked="@CurrentValue"
-               @onswitchcheckedchange="@((e) => CurrentValue = e.Checked ?? false)"
-               @attributes="@AdditionalAttributes">
-    @Label
-    @LabelTemplate
-    @ChildContent
-    @if (!string.IsNullOrEmpty(CheckedMessage))
-    {
-        <span slot="checked-message">@CheckedMessage</span>
-    }
-    @if (!string.IsNullOrEmpty(UncheckedMessage))
-    {
-        <span slot="unchecked-message">@UncheckedMessage</span>
-    }
-</fluent-switch>
+
+<FluentField InputComponent="@this"
+             ForId="@Id"
+             Class="@ClassValue"
+             Style="@StyleValue"
+             Label="@GetLabel"
+             LabelTemplate="@LabelTemplate.CombinedWith(ChildContent)"
+             tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)">
+    <fluent-switch @ref="@Element"
+                   aria-label="@AriaLabel"
+                   autofocus="@Autofocus"
+                   checked="@CurrentValue"
+                   disabled="@Disabled"
+                   id="@Id"
+                   value="@bool.TrueString"
+                   name="@Name"
+                   readonly="@ReadOnly"
+                   required="@Required"
+                   @onfocusout="@FocusOutHandlerAsync"
+                   @attributes="AdditionalAttributes"
+                   @onchange="@OnSwitchChangedHandlerAsync"
+                   slot="@FluentSlot.FieldInput"
+                   tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)" />
+</FluentField>

@@ -1,0 +1,380 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+	public FluentWizardTests()
+	{
+		JSInterop.Mode = JSRuntimeMode.Loose;
+		Services.AddFluentUIComponents();
+	}
+
+	[Fact]
+	public void FluentWizard_Default()
+	{
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_WithSteps()
+	{
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_NextButton()
+	{
+		// Arrange
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act
+		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+		nextButton.Click();
+		Assert.Equal(1, value);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_PreviousButton()
+	{
+		// Arrange
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act - click Next then Previous
+		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+		nextButton.Click();
+		Assert.Equal(1, value);
+
+		var prevButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Previous");
+		prevButton.Click();
+		Assert.Equal(0, value);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_DisabledStep()
+	{
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Disabled" Disabled="true">Disabled content</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_OnFinish()
+	{
+		// Arrange
+		var finishCalled = false;
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value" OnFinish="@(() => { finishCalled = true; })">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act - navigate to last step, click Done
+		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+		nextButton.Click();
+		Assert.Equal(1, value);
+
+		var doneButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Done");
+		doneButton.Click();
+		Assert.True(finishCalled);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_ValueBinding()
+	{
+		// Arrange
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act
+		Assert.Equal(0, value);
+		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+		nextButton.Click();
+		Assert.Equal(1, value);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Theory]
+	[InlineData(StepperPosition.Top, "top")]
+	[InlineData(StepperPosition.Left, "left")]
+	public void FluentWizard_StepperPosition(StepperPosition position, string expectedValue)
+	{
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard StepperPosition="position">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		var attribute = cut.Find("div").GetAttribute("position") ?? string.Empty;
+		Assert.Equal(expectedValue, attribute); ;
+	}
+
+	[Fact]
+	public void FluentWizard_Border()
+	{
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard Border="WizardBorder.Outside">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_DeferredLoading()
+	{
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2" DeferredLoading="true">Deferred content</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_CancelStepChange()
+	{
+		// Arrange
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value">
+				<Steps>
+					<FluentWizardStep Label="Step 1" OnChange="@((e) => e.IsCancelled = true)">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act - try to click next
+		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+		nextButton.Click();
+		Assert.Equal(0, value);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_ButtonTemplate()
+	{
+		FluentWizard wizard = default!;
+		int Value = 0;
+
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard @ref="wizard" @bind-Value="@Value">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+				<ButtonTemplate>
+					@{
+						var index = context;
+						var lastStepIndex = 3;
+
+						<div>
+							@if (index > 0)
+							{
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(0))">Go to first page</FluentButton>
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(Value - 1))">Previous</FluentButton>
+							}
+						</div>
+						<FluentSpacer />
+						<div>
+							@if (index != lastStepIndex)
+							{
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(Value + 1))">Next</FluentButton>
+								<FluentButton OnClick="@(() => wizard.GoToStepAsync(lastStepIndex))">Go to last page</FluentButton>
+							}
+							else
+							{
+								<FluentButton OnClick="@(() => wizard.FinishAsync())">Finish</FluentButton>
+							}
+						</div>
+					}
+				</ButtonTemplate>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_StepSequenceAny()
+	{
+		// Arrange
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value" StepSequence="WizardStepSequence.Any">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act - click on step 3 directly
+		var steps = cut.FindAll("li");
+		steps[2].Click();
+		Assert.Equal(2, value);
+
+		// Assert
+		cut.Verify();
+	}
+
+	[Fact]
+	public void FluentWizard_ChangeEventArgs()
+	{
+		// Arrange
+		FluentWizardStepChangeEventArgs? eventArgs = null;
+
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1" OnChange="(e) => eventArgs = e">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2" OnChange="(e) => eventArgs = e">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Step 3" OnChange="(e) => eventArgs = e">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>
+	);
+
+		// Act
+		var nextButton = cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next");
+		nextButton.Click();
+
+		// Assert
+		Assert.NotNull(eventArgs);
+		Assert.Equal(1, eventArgs.TargetIndex);
+		Assert.Equal("Step 2", eventArgs.TargetLabel);
+		Assert.False(eventArgs.IsCancelled);
+	}
+
+
+	[Fact]
+	public void FluentWizard_StepTemplate()
+	{
+		
+		// Arrange && Act
+		var cut = Render(
+			@<FluentWizard>
+				<Steps>
+					<FluentWizardStep Label="Step 1">
+						<StepTemplate>
+							<div active="@context.Active" step-index="@context.Index">
+								Intro
+							</div>
+						</StepTemplate>
+						<ChildContent>
+							Content 1
+						</ChildContent>
+					</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">
+						<StepTemplate>
+							<div active="@context.Active" step-index="@context.Index">
+								Details
+							</div>
+						</StepTemplate>
+						<ChildContent>
+							Content 2
+						</ChildContent>
+					</FluentWizardStep>
+					<FluentWizardStep Label="Step 3">
+						<StepTemplate>
+							<div active="@context.Active" step-index="@context.Index">
+								Conclusion
+							</div>
+						</StepTemplate>
+						<ChildContent>
+							Content 3
+						</ChildContent>
+					</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Assert
+		cut.Verify();
+	}
+}

@@ -1,0 +1,54 @@
+<FluentOverflow TItem="string" @ref="_overflow"
+                Id="@($"test-overflow-{Index}")"
+                Class="@OverflowClass"
+                Style="@OverflowStyle"
+                Selector=".managed-item"
+                VisibleOnLoad="false"
+                OnOverflowRaised="HandleOverflowRaised"
+                threshold="@Threshold"
+                data-overflow-count="@_overflowCount"
+                data-payload-count="@_payloadCount"
+                data-event-count="@_eventCount">
+    <ChildContent>
+        @for (var itemIndex = 0; itemIndex < ManagedItemCount; itemIndex++)
+        {
+            <span id="@($"test-item-{Index}-{itemIndex}")"
+                  class="managed-item"
+                  style="flex: none; padding: 2px 7px; white-space: nowrap;">Item @(itemIndex + 1)</span>
+        }
+    </ChildContent>
+    <MoreTemplate Context="overflow">
+        <span class="overflow-indicator">+@overflow.OverflowCount</span>
+    </MoreTemplate>
+    <OverflowTemplate Context="overflow" />
+</FluentOverflow>
+
+@code
+{
+    public const int ManagedItemCount = 6;
+
+    private FluentOverflow<string>? _overflow;
+    private int _eventCount;
+    private int _overflowCount;
+    private int _payloadCount;
+
+    [Parameter]
+    public int Index { get; set; }
+
+    [Parameter]
+    public bool Narrow { get; set; }
+
+    [Parameter]
+    public int Threshold { get; set; }
+
+    private string OverflowClass => $"test-overflow{(Narrow ? " narrow" : string.Empty)}";
+
+    private string OverflowStyle => $"width: {(Narrow ? 104 : 700)}px; height: 32px; --fluent-overflow-gap: 4px;";
+
+    private void HandleOverflowRaised(IEnumerable<OverflowItem> items)
+    {
+        _eventCount++;
+        _overflowCount = _overflow?.OverflowCount ?? 0;
+        _payloadCount = items.Count();
+    }
+}

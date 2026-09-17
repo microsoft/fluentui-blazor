@@ -3,15 +3,27 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
-// Remember to replace the namespace below with your own project's namespace
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// A component which highlights words or phrases within text.
+/// </summary>
 public partial class FluentHighlighter : FluentComponentBase
 {
     private Memory<string> _fragments;
     private string _regex = string.Empty;
+
+    /// <summary />
+    public FluentHighlighter(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
 
     /// <summary>
     /// Gets or sets a value indicating whether the highlighted text is case sensitive.
@@ -20,7 +32,8 @@ public partial class FluentHighlighter : FluentComponentBase
     public bool CaseSensitive { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the fragment of text to be highlighted.
+    /// Gets or sets the search term to highlight within <see cref="Text"/> (e.g., <c>HighlightedText="blazor"</c>).
+    /// Use <see cref="CaseSensitive"/> to control case sensitivity and <see cref="Delimiters"/> to split the term.
     /// </summary>
     [Parameter]
     public string HighlightedText { get; set; } = string.Empty;
@@ -38,17 +51,18 @@ public partial class FluentHighlighter : FluentComponentBase
     public string Delimiters { get; set; } = string.Empty;
 
     /// <summary>
-    /// If true, highlights the text until the next regex boundary.
+    /// Gets or sets whether the <see cref="HighlightedText"/> match should extend until the next regex word boundary.
     /// </summary>
     [Parameter]
     public bool UntilNextBoundary { get; set; }
 
+    /// <summary />
     protected override void OnParametersSet()
     {
         var highlightedTexts = string.IsNullOrEmpty(Delimiters)
-                             ? new string[] { HighlightedText }
+                             ? [HighlightedText]
                              : HighlightedText.Split(Delimiters.ToCharArray());
 
-        _fragments = Splitter.GetFragments(Text, highlightedTexts, out _regex, CaseSensitive, UntilNextBoundary);
+        _fragments = HighlighterSplitter.GetFragments(Text, highlightedTexts, out _regex, CaseSensitive, UntilNextBoundary);
     }
 }

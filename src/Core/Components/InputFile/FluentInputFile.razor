@@ -14,7 +14,8 @@
         <div class="inputfile-progress" style="@ProgressStyle">
             @if (ProgressTemplate == null)
             {
-                <FluentProgress Min="0" Max="100" Value="@ProgressPercent" /><br />
+                <FluentProgressBar Min="0" Max="100" Value="@ProgressPercent" />
+                <br />
                 @ProgressTitle
             }
             else
@@ -31,6 +32,6 @@
                    id="@Id"
                    multiple=@Multiple
                    accept="@Accept"
-                   disabled="@Disabled"/>
+                   disabled="@Disabled" />
     </div>
 </div>

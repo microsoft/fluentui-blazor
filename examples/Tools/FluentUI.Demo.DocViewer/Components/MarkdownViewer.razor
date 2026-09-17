@@ -1,0 +1,222 @@
+﻿@using FluentUI.Demo.DocViewer.Components.Markdown
+@using FluentUI.Demo.DocViewer.Models
+@using FluentUI.Demo.DocViewer.Services
+@using Microsoft.AspNetCore.Components.Web
+
+<PageTitle>@string.Format(DocViewerService.Options.PageTitle, PageTitle)</PageTitle>
+
+<div class="doc-viewer">
+    @if (_isPageNotFound)
+    {
+        <Markdown404 Route="@Route" />
+    }
+    else
+    {
+        @* @RenderHtmlContent() *@
+
+        foreach (var section in Sections)
+        {
+            switch (section.Type)
+            {
+                case SectionType.Html:
+                    @((MarkupString)section.Value)
+                    break;
+
+                case SectionType.Code:
+
+                    var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
+
+                    <pre><code id="@(section.Id)" class="language-@language">@((MarkupString)section.Value)</code></pre>
+
+                    break;
+
+                case SectionType.Component:
+                    var component = GetComponentFromName(section.Value);
+
+                    if (component == null)
+                    {
+                        <div class="component-not-found">&#9888; The component {{ @(section.Value) }} was not found.</div>
+                    }
+                    else if (section.NoCode)
+                    {
+                        <DynamicComponent Type="@component" />
+                    }
+                    else if (section.ExtraFiles.Count > 0)
+                    {
+                        var id = $"f{section.Id}";
+                        <div class="demo-tabs">
+                            <fluent-tablist>
+                                <fluent-tab id="@($"{id}-example")" aria-controls="@($"{id}-example-panel")">Example</fluent-tab>
+                                @foreach (var tabName in section.ExtraFiles.Keys)
+                                {
+                                    <fluent-tab id="@($"{id}-{tabName}")" aria-controls="@($"{id}-{tabName}-panel")">@tabName</fluent-tab>
+                                }
+                            </fluent-tablist>
+
+                            <div id="@($"{id}-example-panel")" role="tabpanel" class="demo-section-example">
+                                <DynamicComponent Type="@component" />
+                            </div>
+                            @foreach (var item in section.ExtraFiles)
+                            {
+                                <div id="@($"{id}-{item.Key}-panel")" role="tabpanel">
+                                    <pre><code id="@($"{section.Id}-{item.Key}")" class="@GetLanguageClassName(item.Value)" source>Loading...</code></pre>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        var id = $"f{section.Id}";
+                        <div class="demo-tabs">
+                            <fluent-tablist>
+                                <fluent-tab id="@($"{id}-example")" aria-controls="@($"{id}-example-panel")">
+                                    Example
+                                </fluent-tab>
+                                <fluent-tab id="@($"{id}-code")" aria-controls="@($"{id}-code-panel")">
+                                    Code
+                                </fluent-tab>
+                            </fluent-tablist>
+
+                            <div id="@($"{id}-example-panel")" role="tabpanel" class="demo-section-example">
+                                <DynamicComponent Type="@component" />
+                            </div>
+                            <div id="@($"{id}-code-panel")" role="tabpanel">
+                                <pre><code id="@($"{section.Id}")" class="@GetLanguageClassName()" source>Loading...</code></pre>
+                            </div>
+                        </div>
+                    }
+
+                    break;
+
+                case SectionType.Api:
+                    var classType = section.Arguments?["type"];
+                    var allProperties = section.GetArgumentValue("properties")?.ToLower() == "all";
+                    var apiClass = GetApiClassFromName(classType, allProperties);
+
+                    @if (apiClass == null)
+                    {
+                        <div class="component-not-found">&#9888; The API '@(classType)' was not found.</div>
+                    }
+                    else
+                    {
+                        <p class="api-summary">
+                            @((MarkupString)apiClass.Summary)
+                        </p>
+
+                        @* API - Parameters *@
+                        @if (apiClass.Properties.Any())
+                        {
+                            <h3>🏷️ Parameters</h3>
+
+                            <table class="api-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Default</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in apiClass.Properties)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <code>@item.Name</code>
+                                                @if (!item.IsInherited)
+                                                {
+                                                    <sup>✨</sup>
+                                                }
+                                            </td>
+                                            <td>
+                                                <span>@item.Type</span>
+                                                @if (item.EnumValues.Length > 0)
+                                                {
+                                                    <span class="api-enum-tooltip" title="@(string.Join("; ", item.EnumValues))"></span>
+                                                }
+                                            </td>
+                                            <td>@item.Default</td>
+                                            <td>@((MarkupString)item.Description)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+
+                        @* API - Events *@
+                        @if (apiClass.Events.Any())
+                        {
+                            <h3>🎉 Event Callbacks</h3>
+
+                            <table class="api-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in apiClass.Events)
+                                    {
+                                        <tr>
+                                            <td><code>@item.Name</code></td>
+                                            <td>@item.Type</td>
+                                            <td>@((MarkupString)item.Description)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+
+                        @* API - Methods *@
+                        @if (apiClass.Methods.Any())
+                        {
+                            <h3>⚒️ Methods</h3>
+
+                            <table class="api-table" no-col>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in apiClass.Methods)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <code>@item.GetMethodSignature()</code>
+                                            </td>
+                                            <td>@((MarkupString)item.Description)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    }
+
+                    break;
+
+                case SectionType.Mcp:
+                    var mcpType = section.GetArgumentValue(Section.ARGUMENT_MCP_TYPE)?.ToLower() ?? "tools";
+                    var mcpFilter = section.GetArgumentValue(Section.ARGUMENT_MCP_FILTER);
+                    var parsedMcpType = ParseMcpType(mcpType);
+
+                    <McpViewer McpType="@parsedMcpType" McpFilter="@mcpFilter" />
+                    break;
+
+                case SectionType.McpSummary:
+                    var summaryType = section.GetArgumentValue(Section.ARGUMENT_MCP_TYPE)?.ToLower() ?? "tools";
+                    var summaryFilter = section.GetArgumentValue(Section.ARGUMENT_MCP_FILTER);
+                    var parsedSummaryType = ParseMcpType(summaryType);
+
+                    <McpSummaryViewer McpType="@parsedSummaryType" McpFilter="@summaryFilter" />
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+</div>

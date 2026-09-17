@@ -1,0 +1,26 @@
+﻿@using FluentUI.Demo.DocViewer.Models.Mcp
+
+@if (Prompts.Count == 0)
+{
+    <div class="mcp-empty-message">
+        <em>No prompts available yet. Prompt templates may be added in future versions.</em>
+    </div>
+}
+else
+{
+    <div class="mcp-summary-container">
+        <div class="mcp-summary-header">
+            <div class="mcp-summary-col">Prompt</div>
+            <div class="mcp-summary-col">Description</div>
+        </div>
+        <div class="mcp-summary-body">
+            @foreach (var prompt in Prompts.OrderBy(p => p.Name))
+            {
+                <div class="mcp-summary-row">
+                    <div class="mcp-summary-col"><code>@prompt.Name</code></div>
+                    <div class="mcp-summary-col">@((MarkupString)(prompt.Description ?? prompt.Summary ?? "-"))</div>
+                </div>
+            }
+        </div>
+    </div>
+}

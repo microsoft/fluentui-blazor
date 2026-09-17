@@ -1,0 +1,69 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentAreaChart Width="700"
+                   YAxisTickFormat="$,"
+                   HideTickOverlap
+                   Mode="AreaChartMode.Tonexty"
+                   ChartData="data"
+                   ChartTitle="Area chart multiple negative y example">
+</FluentAreaChart>
+
+@code {
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            Color = DataVizPalette.Color4,
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = -9},
+                new AreaChartDataPoint { X = 25, Y = 14},
+                new AreaChartDataPoint { X = 30, Y = -14},
+                new AreaChartDataPoint { X = 35, Y = 23},
+                new AreaChartDataPoint { X = 40, Y = -20},
+                new AreaChartDataPoint { X = 45, Y = 31},
+                new AreaChartDataPoint { X = 50, Y = -29},
+                new AreaChartDataPoint { X = 55, Y = 27},
+                new AreaChartDataPoint { X = 60, Y = -37},
+                new AreaChartDataPoint { X = 65, Y = 51},
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            Color = DataVizPalette.Color5,
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 21},
+                new AreaChartDataPoint { X = 25, Y = -25},
+                new AreaChartDataPoint { X = 30, Y = 10},
+                new AreaChartDataPoint { X = 35, Y = -10},
+                new AreaChartDataPoint { X = 40, Y = 14},
+                new AreaChartDataPoint { X = 45, Y = -18},
+                new AreaChartDataPoint { X = 50, Y = 9},
+                new AreaChartDataPoint { X = 55, Y = -23},
+                new AreaChartDataPoint { X = 60, Y = 7},
+                new AreaChartDataPoint { X = 65, Y = -55},
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend3",
+            Color = DataVizPalette.Color6,
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = 20, Y = 30},
+                new AreaChartDataPoint { X = 25, Y = 35},
+                new AreaChartDataPoint { X = 30, Y = -33},
+                new AreaChartDataPoint { X = 35, Y = 40},
+                new AreaChartDataPoint { X = 40, Y = 10},
+                new AreaChartDataPoint { X = 45, Y = -40},
+                new AreaChartDataPoint { X = 50, Y = 34},
+                new AreaChartDataPoint { X = 55, Y = 40},
+                new AreaChartDataPoint { X = 60, Y = -60},
+                new AreaChartDataPoint { X = 65, Y = 40},
+            }
+        }
+    };
+}

@@ -1,0 +1,21 @@
+﻿@inject INotificationService NotificationService
+
+<FluentButton OnClick="@ShowInvertedToastAsync">
+    Show Inverted
+</FluentButton>
+
+@code {
+
+    int counter = 1;
+
+    async Task ShowInvertedToastAsync()
+    {
+        var result = await NotificationService.ShowToastAsync(options =>
+        {
+            options.Intent = ToastIntent.Info;
+            options.Inverted = true;
+            options.Title = $"Inverted toast #{counter++}";
+            options.Message = "Toasts are used to show brief messages to the user.";
+        });
+    }
+}

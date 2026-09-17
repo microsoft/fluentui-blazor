@@ -5,22 +5,30 @@
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Displays a list of validation messages for a specified field within a cascaded <see cref="EditContext"/>.
+/// Displays validation messages for a specified field within a cascaded <see cref="EditContext"/>.
 /// </summary>
-public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDisposable
+public partial class FluentValidationMessage<TValue> : FluentComponentBase
 {
     private EditContext? _previousEditContext;
     private Expression<Func<TValue>>? _previousFieldAccessor;
-    private readonly EventHandler<ValidationStateChangedEventArgs>? _validationStateChangedHandler;
+    private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
     private FieldIdentifier _fieldIdentifier;
+    private bool _hasFieldIdentifier;
+
+    /// <summary>
+    /// Constructs an instance of <see cref="FluentValidationMessage{TValue}"/>.
+    /// </summary>
+    public FluentValidationMessage(LibraryConfiguration configuration) : base(configuration)
+    {
+        _validationStateChangedHandler = (_, _) => StateHasChanged();
+    }
 
     [CascadingParameter]
-    private EditContext CurrentEditContext { get; set; } = default!;
+    private EditContext? CurrentEditContext { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="FieldIdentifier"/> for which validation messages should be displayed.
@@ -30,51 +38,57 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
     public FieldIdentifier? Field { get; set; }
 
     /// <summary>
-    /// Gets or sets the field for which validation messages should be displayed.
+    /// Gets or sets the field expression for which validation messages should be displayed.
     /// </summary>
     [Parameter]
     public Expression<Func<TValue>>? For { get; set; }
 
-    /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("validation-message")
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .Build();
-
-    /// <summary>`
-    /// Constructs an instance of <see cref="ValidationMessage{TValue}"/>.
+    /// <summary>
+    /// Gets or sets the icon displayed next to each validation message.
     /// </summary>
-    public FluentValidationMessage()
-    {
-        _validationStateChangedHandler = (sender, eventArgs) => StateHasChanged();
-    }
+    [Parameter]
+    public Icon? Icon { get; set; } = FluentStatus.ErrorIcon;
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-validation-message")
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    private IEnumerable<string> ValidationMessages => _hasFieldIdentifier
+        ? CurrentEditContext!.GetValidationMessages(_fieldIdentifier)
+        : [];
 
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        if (CurrentEditContext == null)
+        if (CurrentEditContext is null)
         {
-            throw new InvalidOperationException($"{GetType()} requires a cascading parameter " +
-                $"of type {nameof(EditContext)}. For example, you can use {GetType()} inside " +
-                $"an {nameof(EditForm)}.");
+            throw new InvalidOperationException($"{GetType()} requires a cascading parameter of type {nameof(EditContext)}. For example, use {GetType()} inside an {nameof(EditForm)}.");
         }
 
-        if (Field != null)
+        if (Field is not null)
         {
             _fieldIdentifier = Field.Value;
+            _hasFieldIdentifier = true;
         }
-        else if (For == null)
+        else
         {
-            throw new InvalidOperationException($"{GetType()} requires a value for either " +
-                $"the {nameof(Field)} or {nameof(For)} parameter.");
-        }
-        else if (For != _previousFieldAccessor)
-        {
-            _fieldIdentifier = FieldIdentifier.Create(For);
-            _previousFieldAccessor = For;
+            if (For is null)
+            {
+                throw new InvalidOperationException($"{GetType()} requires a value for either the {nameof(Field)} or {nameof(For)} parameter.");
+            }
+
+            if (For != _previousFieldAccessor)
+            {
+                _fieldIdentifier = FieldIdentifier.Create(For);
+                _previousFieldAccessor = For;
+            }
+
+            _hasFieldIdentifier = true;
         }
 
         if (CurrentEditContext != _previousEditContext)
@@ -85,25 +99,36 @@ public partial class FluentValidationMessage<TValue> : FluentComponentBase, IDis
         }
     }
 
-    /// <summary>
-    /// Called to dispose this instance.
-    /// </summary>
-    /// <param name="disposing"><see langword="true"/> if called within <see cref="IDisposable.Dispose"/>.</param>
-    protected virtual void Dispose(bool disposing)
-    {
-    }
-
-    void IDisposable.Dispose()
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
     {
         DetachValidationStateChangedListener();
-        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+        return base.DisposeAsync();
     }
 
     private void DetachValidationStateChangedListener()
     {
-        if (_previousEditContext != null)
+        if (_previousEditContext is not null)
         {
             _previousEditContext.OnValidationStateChanged -= _validationStateChangedHandler;
         }
+    }
+
+    internal static RenderFragment? CreateIcon(Icon? icon)
+    {
+        if (icon is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenComponent(0, typeof(FluentIcon<Icon>));
+            builder.AddAttribute(1, "Value", icon);
+            builder.AddAttribute(2, "Width", "12px");
+            builder.AddAttribute(3, "Margin", "0px 4px 0 0");
+            builder.CloseComponent();
+        };
     }
 }

@@ -4,6 +4,9 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Defines the navigation mode for wizard steps.
+/// </summary>
 public enum WizardStepSequence
 {
     /// <summary>
@@ -12,7 +15,7 @@ public enum WizardStepSequence
     Linear,
 
     /// <summary>
-    /// The use can go to any steps (not disabled) clicking on an item.
+    /// The user can go to any steps (not disabled) clicking on an item.
     /// </summary>
     Any,
 

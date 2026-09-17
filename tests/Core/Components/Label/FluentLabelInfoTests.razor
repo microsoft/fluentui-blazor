@@ -1,0 +1,296 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
+@inherits FluentUITestContext
+@code
+{
+    public FluentLabelInfoTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentLabelInfo_Default()
+    {
+        // Arrange
+        using var id = Identifier.SequentialContext();
+
+        // Act
+        var cut = Render(@<FluentLabelInfo>fluent label info</FluentLabelInfo>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabelInfo_InfoTemplate()
+    {
+        // Arrange
+        using var id = Identifier.SequentialContext();
+
+        // Act
+        var cut = Render(@<FluentLabelInfo>
+            <ChildContent>fluent label info</ChildContent>
+            <InfoTemplate>
+                <span>Custom template content</span>
+            </InfoTemplate>
+        </FluentLabelInfo>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLabelInfo_ClassValue_ContainsFluentLabelInfo()
+    {
+        // Act
+        var cut = Render(@<FluentLabelInfo>fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.Contains("class=\"fluent-label-info\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_NoInfoContent_DoesNotRenderInfoButton()
+    {
+        // Act
+        var cut = Render(@<FluentLabelInfo>fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.DoesNotContain("<button", cut.Markup);
+        Assert.DoesNotContain("aria-label", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithInfoText_RendersButtonAndPopover()
+    {
+        // Act
+        var cut = Render(@<FluentLabelInfo InfoText="Some info">fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.Contains("<button", cut.Markup);
+        Assert.Contains("aria-label=\"Some info\"", cut.Markup);
+        Assert.Contains("aria-expanded=\"false\"", cut.Markup);
+        Assert.Contains("Some info", cut.Markup);
+        Assert.Contains("<fluent-popover-b", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithInfoActionLink_OnlyShowsDefaultAriaLabel()
+    {
+        // Act
+        var cut = Render(@<FluentLabelInfo InfoActionLink="https://example.com">fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.Contains("aria-label=\"More information\"", cut.Markup);
+        Assert.Contains("href=\"https://example.com\"", cut.Markup);
+        Assert.Contains("Learn more", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithInfoActionLink_AndCustomActionText()
+    {
+        // Act
+        var cut = Render(@<FluentLabelInfo InfoText="Some info"
+                                            InfoActionLink="https://example.com"
+                                            InfoActionText="Read documentation">fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.Contains("href=\"https://example.com\"", cut.Markup);
+        Assert.Contains("Read documentation", cut.Markup);
+        Assert.DoesNotContain("Learn more", cut.Markup);
+    }
+
+    [Theory]
+    [InlineData(LinkTarget.Blank, "_blank")]
+    [InlineData(LinkTarget.Self, "_self")]
+    [InlineData(LinkTarget.Parent, "_parent")]
+    [InlineData(LinkTarget.Top, "_top")]
+    public void FluentLabelInfo_InfoActionTarget(LinkTarget target, string expectedAttribute)
+    {
+        // Act
+        var cut = Render(@<FluentLabelInfo InfoActionLink="https://example.com"
+                                            InfoActionTarget="@target">fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.Contains($"target=\"{expectedAttribute}\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_CustomInfoIcons_AreRendered()
+    {
+        // Arrange
+        var infoIcon = new CoreIcons.Regular.Size20.QuestionCircle();
+        var infoIconActive = new CoreIcons.Filled.Size20.Star();
+
+        // Act
+        var cut = Render(@<FluentLabelInfo InfoText="Some info"
+                                            InfoIcon="@infoIcon"
+                                            InfoIconActive="@infoIconActive">fluent label info</FluentLabelInfo>);
+
+        // Assert
+        Assert.Contains("part=\"rest\"", cut.Markup);
+        Assert.Contains("part=\"active\"", cut.Markup);
+        Assert.Equal(2, cut.FindAll("svg").Count);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_ClickInfoButton_TogglesAriaExpanded()
+    {
+        // Arrange
+        var cut = Render(@<FluentLabelInfo InfoText="Some info">fluent label info</FluentLabelInfo>);
+        Assert.Contains("aria-expanded=\"false\"", cut.Markup);
+
+        // Act - open
+        cut.Find("button").Click();
+
+        // Assert
+        Assert.Contains("aria-expanded=\"true\"", cut.Markup);
+
+        // Act - close
+        cut.Find("button").Click();
+
+        // Assert
+        Assert.Contains("aria-expanded=\"false\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task FluentLabelInfo_PopoverOpenedChanged_UpdatesState()
+    {
+        // Arrange
+        var cut = Render(@<FluentLabelInfo InfoText="Some info">fluent label info</FluentLabelInfo>);
+        var popover = cut.FindComponent<FluentPopover>();
+
+        // Act - simulate the popover invoking its OpenedChanged callback
+        await cut.InvokeAsync(() => popover.Instance.OpenedChanged.InvokeAsync(true));
+        cut.Render();
+
+        // Assert
+        Assert.Contains("aria-expanded=\"true\"", cut.Markup);
+
+        // Act - simulate closing
+        await cut.InvokeAsync(() => popover.Instance.OpenedChanged.InvokeAsync(false));
+        cut.Render();
+
+        // Assert
+        Assert.Contains("aria-expanded=\"false\"", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithinFluentField_RendersFluentLabelElement()
+    {
+        // Arrange
+        var field = new FluentField(LibraryConfiguration.Empty);
+
+        // Act
+        var cut = Render(@<CascadingValue Value="@field" Name="FluentField">
+            <FluentLabelInfo Size="LabelSize.Large"
+                             Weight="LabelWeight.Semibold"
+                             Disabled="true"
+                             Required="true">fluent label info</FluentLabelInfo>
+        </CascadingValue>);
+
+        // Assert
+        Assert.Contains("<fluent-label", cut.Markup);
+        Assert.Contains("size=\"large\"", cut.Markup);
+        Assert.Contains("weight=\"semibold\"", cut.Markup);
+        Assert.Contains("disabled", cut.Markup);
+        Assert.Contains("required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithoutFluentField_AndSize_Throws()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            Render(@<FluentLabelInfo Size="LabelSize.Large">fluent label info</FluentLabelInfo>));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithoutFluentField_AndWeight_Throws()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            Render(@<FluentLabelInfo Weight="LabelWeight.Semibold">fluent label info</FluentLabelInfo>));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithoutFluentField_AndDisabled_Throws()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            Render(@<FluentLabelInfo Disabled="true">fluent label info</FluentLabelInfo>));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_WithoutFluentField_AndRequired_Throws()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            Render(@<FluentLabelInfo Required="true">fluent label info</FluentLabelInfo>));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsSet_RendersCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, "200px")
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.Contains("--fluent-label-info-width: 200px", label.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsPercentage_RendersCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, "50%")
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.Contains("--fluent-label-info-width: 50%", label.GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsNull_DoesNotRenderCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, null)
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.DoesNotContain("--fluent-label-info-width", label.GetAttribute("style") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthIsEmpty_DoesNotRenderCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .Add(p => p.MaxWidth, string.Empty)
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.DoesNotContain("--fluent-label-info-width", label.GetAttribute("style") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentLabelInfo_MaxWidthNotSet_DoesNotRenderCssVariable()
+    {
+        // Arrange & Act
+        var cut = Render<FluentLabelInfo>(parameters => parameters
+            .AddChildContent("My label"));
+
+        // Assert
+        var label = cut.Find(".fluent-label-info");
+        Assert.DoesNotContain("--fluent-label-info-width", label.GetAttribute("style") ?? string.Empty);
+    }
+}

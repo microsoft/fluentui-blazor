@@ -2,68 +2,94 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[CascadingTypeParameter(nameof(TOption))]
-public partial class FluentSelect<TOption> : ListComponentBase<TOption> where TOption : notnull
+/// <summary>
+/// A FluentSelect allows for selecting one or more options from a list of options.
+/// </summary>
+[CascadingTypeParameter(nameof(TValue))]
+public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>, IFluentControlStyle, IFluentComponentElementBase
 {
-    /// <summary>
-    /// Gets the `Required` aria label.
-    /// </summary>
-    public static string RequiredAriaLabel = "Required";
+    /// <summary />
+    public FluentSelect(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
-    protected virtual MarkupString InlineStyleValue => new InlineStyleBuilder()
-        .AddStyle($"#{Id}::part(listbox)", "position", "relative", Multiple)
-        .AddStyle($"#{Id}::part(listbox)", "max-height", Height, !string.IsNullOrWhiteSpace(Height))
-        .AddStyle($"#{Id}::part(listbox)", "height", "fit-content", !string.IsNullOrWhiteSpace(Height))
-        .AddStyle($"#{Id}::part(listbox)", "z-index", ZIndex.SelectPopup.ToString(), !Multiple)
-        .AddStyle($"#{Id}::part(selected-value)", "white-space", "nowrap")
-        .AddStyle($"#{Id}::part(selected-value)", "overflow", "hidden")
-        .AddStyle($"#{Id}::part(selected-value)", "text-overflow", "ellipsis")
-        .AddStyle($"#{Id}::part(selected-value)", "color", "var(--input-placeholder-rest)", when: !string.IsNullOrEmpty(Placeholder) && SelectedOption is null && string.IsNullOrEmpty(Value) && SelectedOptions is null)
-        .BuildMarkupString();
+    protected virtual string DropdownType => "dropdown";
 
-    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
-        .AddStyle("min-width", Width, when: !string.IsNullOrEmpty(Width))
+    /// <summary />
+    protected virtual bool IsImmediate => this is IFluentInputImmediate;
+
+    /// <summary />
+    protected virtual string? DropdownStyle => new StyleBuilder()
+        .Build();
+
+    /// <summary />
+    protected virtual string? ListStyle => new StyleBuilder()
+        .AddStyle("max-height", Height, when: !string.IsNullOrEmpty(Height))
         .Build();
 
     /// <summary>
-    /// Gets or sets the open attribute.
+    /// Gets or sets the placeholder text to display when no item is selected.
     /// </summary>
     [Parameter]
-    public bool? Open { get; set; }
+    public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Reflects the placement for the listbox when the select is open.
-    /// See <see cref="AspNetCore.Components.SelectPosition"/>
+    /// Gets or sets the size of the list.
+    /// Default is `null`. Internally the component uses <see cref="ListSize.Medium"/> as default.
     /// </summary>
     [Parameter]
-    public SelectPosition? Position { get; set; }
+    public ListSize? Size { get; set; }
 
-    /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
-    /// </summary>
+    /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     [Parameter]
-    public Appearance? Appearance { get; set; }
+    public ElementReference Element { get; set; }
 
-    /// <summary>
-    /// Called whenever the selection changed.
-    /// ⚠️ Only available when Multiple = true.
-    /// ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
-    /// </summary>
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
     [Parameter]
-    public override EventCallback<IEnumerable<TOption>?> SelectedOptionsChanged { get; set; }
+    public string? ControlStyle { get; set; }
 
-    private string? GetAriaLabelWithRequired()
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-#pragma warning disable CS0618 // Type or member is obsolete
-        var label = AriaLabel ?? Label ?? Title ?? string.Empty;
-#pragma warning restore CS0618 // Type or member is obsolete
+        if (firstRender)
+        {
+            // By default, the combobox text is not bound to the Value property.
+            // This method don't change the SelectedItems and Value properties.
+            var selectedOption = Value is TOption option
+                ? option
+                : SelectedItems is not null ? SelectedItems.FirstOrDefault() : default;
+            var defaultText = selectedOption is not null ? base.GetOptionText(selectedOption) : "";
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.Initialize", Id, defaultText);
 
-        return label + (Required ? $", {RequiredAriaLabel}" : string.Empty);
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// Asynchronously clears the current value.
+    /// </summary>
+    public async Task ClearAsync()
+    {
+        await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.ClearValue", Id);
+
+        CurrentValueAsString = null;
+
+        SelectedItems = [];
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(SelectedItems);
+        }
+
+        NotifyValidationFieldChanged();
     }
 }

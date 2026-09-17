@@ -2,33 +2,36 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[CascadingTypeParameter(nameof(TOption))]
-public partial class FluentListbox<TOption> : ListComponentBase<TOption> where TOption : notnull
+/// <summary>
+/// A FluentListbox allows for selecting one or more options from a list of options.
+/// </summary>
+[CascadingTypeParameter(nameof(TValue))]
+public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>
 {
-    /// <summary>
-    /// Gets or sets the maximum number of options that should be visible in the listbox scroll area.
-    /// </summary>
-    [Parameter]
-    public int Size { get; set; }
-
-    /// <summary>
-    /// Called whenever the selection changed.
-    /// ⚠️ Only available when Multiple = true.
-    /// ⚠️ When using manual options, the internal data structure cannot be updated reliably, because of this, the SelectedOptionsChanged event will not be triggered.
-    /// </summary>
-    [Parameter]
-    public override EventCallback<IEnumerable<TOption>?> SelectedOptionsChanged { get; set; }
+    /// <summary />
+    public FluentListbox(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
-    protected virtual StyleBuilder BorderStyle => new StyleBuilder()
-        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
-        .AddStyle("height", Height, when: !string.IsNullOrEmpty(Height))
-        .AddStyle("overflow-y", "auto")
-        .AddStyle("border", "calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest)")
-        .AddStyle("border-radius", "calc(var(--control-corner-radius) * 1px)");
+    protected virtual string? ListStyle => new StyleBuilder()
+        .AddStyle("height", Height)
+        .Build();
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Import the JavaScript module
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.initialize", Id);
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
 }

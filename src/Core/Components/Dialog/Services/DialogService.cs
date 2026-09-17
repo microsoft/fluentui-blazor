@@ -2,61 +2,135 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class DialogService : IDialogService
+/// <summary>
+/// Service for showing dialogs.
+/// </summary>
+public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialogService
 {
-    /// <summary />
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IJSRuntime _jsRuntime;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DialogService"/> class.
+    /// </summary>
+    /// <param name="serviceProvider">List of services available in the application.</param>
+    /// <param name="localizer">Localizer for the application.</param>
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogEventArgs))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBoxContent))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MessageBox))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(SplashScreenContent))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(FluentSplashScreen))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogParameters))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogParameters<object>))]
-    public DialogService()
+    public DialogService(IServiceProvider serviceProvider, IFluentLocalizer? localizer)
     {
+        _serviceProvider = serviceProvider;
+        _jsRuntime = serviceProvider.GetRequiredService<IJSRuntime>();
+        Localizer = localizer ?? FluentLocalizerInternal.Default;
+
+        var configuration = serviceProvider.GetService<LibraryConfiguration>();
+        
+        // Register the global overlay component only when enabled
+        if (configuration?.UseGlobalOverlay != false)
+        {
+            RegisterGlobalOverlayComponent();
+        }
+    }
+
+    /// <summary />
+    protected IFluentLocalizer Localizer { get; }
+
+    /// <inheritdoc cref="IDialogService.CloseAsync(IDialogInstance, DialogResult)"/>
+    public async Task CloseAsync(IDialogInstance dialog, DialogResult result)
+    {
+        var dialogInstance = dialog as DialogInstance;
+
+        // Raise the DialogState.Closing event
+        dialogInstance?.FluentDialog?.RaiseOnStateChangeAsync(dialog, DialogState.Closing);
+
+        // Remove the dialog from the DialogProvider
+        await RemoveDialogFromProviderAsync(dialog);
+
+        // Set the result of the dialog
+        dialogInstance?.ResultCompletion.TrySetResult(result);
+
+        // Raise the DialogState.Closed event
+        dialogInstance?.FluentDialog?.RaiseOnStateChangeAsync(dialog, DialogState.Closed);
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync(Type, DialogOptions)"/>
+    public virtual async Task<DialogResult> ShowDialogAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, DialogOptions options)
+    {
+        if (!componentType.IsSubclassOf(typeof(ComponentBase)))
+        {
+            throw new ArgumentException($"{componentType.FullName} must be a Blazor Component", nameof(componentType));
+        }
+
+        if (this.ProviderNotAvailable())
+        {
+            throw new FluentServiceProviderException<FluentDialogProvider>();
+        }
+
+        options.IsDrawer ??= false;
+        var instance = new DialogInstance(this, componentType, options);
+
+        // Add the dialog to the service, and render it.
+        ServiceProvider.Items.TryAdd(instance?.Id ?? "", instance ?? throw new InvalidOperationException("Failed to create FluentDialog."));
+        await ServiceProvider.OnUpdatedAsync.Invoke(instance);
+
+        return await instance.Result;
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(DialogOptions)"/>
+    public Task<DialogResult> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
+    {
+        return ShowDialogAsync(typeof(TDialog), options);
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDialogAsync{TDialog}(Action{DialogOptions})"/>
+    public Task<DialogResult> ShowDialogAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    {
+        return ShowDialogAsync(typeof(TDialog), new DialogOptions(options));
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(DialogOptions)"/>
+    public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
+    {
+        options.IsDrawer ??= true;
+        options.Alignment ??= DialogAlignment.End;
+        return ShowDialogAsync(typeof(TDialog), options);
+    }
+
+    /// <inheritdoc cref="IDialogService.ShowDrawerAsync{TDialog}(Action{DialogOptions})"/>
+    public Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options) where TDialog : ComponentBase
+    {
+        var dialogOptions = new DialogOptions(options);
+        dialogOptions.IsDrawer ??= true;
+        dialogOptions.Alignment ??= DialogAlignment.End;
+        return ShowDialogAsync(typeof(TDialog), dialogOptions);
     }
 
     /// <summary>
-    /// Convenience method to create a <see cref="EventCallback"/> for a dialog result.
-    /// You can also call <code>EventCallback.Factory.Create</code> directly.
+    /// Removes the dialog from the DialogProvider.
     /// </summary>
-    /// <param name="receiver"></param>
-    /// <param name="callback"></param>
+    /// <param name="dialog"></param>
     /// <returns></returns>
-    public EventCallback<DialogResult> CreateDialogCallback(object receiver, Func<DialogResult, Task> callback) => EventCallback.Factory.Create(receiver, callback);
-
-    public Task CloseAsync(IDialogReference dialog)
+    /// <exception cref="InvalidOperationException"></exception>
+    internal async Task RemoveDialogFromProviderAsync(IDialogInstance? dialog)
     {
-        return CloseAsync(dialog, DialogResult.Ok<object?>(null));
+        if (dialog is null)
+        {
+            return;
+        }
+
+        // Remove the HTML code from the DialogProvider
+        if (!ServiceProvider.Items.TryRemove(dialog.Id, out _))
+        {
+            throw new InvalidOperationException($"Failed to remove dialog from DialogProvider: the ID '{dialog.Id}' doesn't exist in the DialogServiceProvider.");
+        }
+
+        await ServiceProvider.OnUpdatedAsync.Invoke(dialog);
+        await _jsRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Dialog.FocusOnPreviousActiveElement", dialog.Id);
     }
-
-    public Task CloseAsync(IDialogReference dialog, DialogResult result)
-    {
-        OnDialogCloseRequested?.Invoke(dialog, result);
-        return Task.CompletedTask;
-    }
-
-    internal virtual IDialogReference CreateReference(string id)
-    {
-        return new DialogReference(id, this);
-    }
-
-    /// <summary>
-    /// An event that will be invoked when showing a dialog with a custom component
-    /// </summary>
-    public event Action<IDialogReference, Type?, DialogParameters, object>? OnShow;
-
-    public event Func<IDialogReference, Type?, DialogParameters, object, Task<IDialogReference>>? OnShowAsync;
-
-    public event Action<string, DialogParameters>? OnUpdate;
-
-    public event Func<string, DialogParameters, Task<IDialogReference?>>? OnUpdateAsync;
-
-    public event Action<IDialogReference, DialogResult>? OnDialogCloseRequested;
-
 }

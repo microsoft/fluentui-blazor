@@ -1,146 +1,186 @@
-th, td {
-    border-bottom: calc(var(--stroke-width)* 1px) solid var(--neutral-stroke-divider-rest);
+.fluent-data-grid th,
+.fluent-data-grid td {
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
 }
 
-td {
-    padding: 6px 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    align-content: center;
+.fluent-data-grid td:not([col-select='true']) {
+  padding: 0 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-content: center;
 }
+  .fluent-data-grid td:focus-visible {
+    outline-offset: -1px;
+  }
 
-
-    td.col-justify-center {
-        text-align: center;
-    }
-
-    td.col-justify-end,
-    td.col-justify-right {
-        text-align: end;
-    }
-
-th.col-justify-end > div {
-    justify-content: flex-end;
-}
-
-
-td.grid-cell-placeholder:after {
-    content: '\2026'; /*horizontal ellipsis*/
-    opacity: 0.75;
-}
-
-
-.empty-content-cell,
-.loading-content-cell {
-    font-weight: 600;
+  .fluent-data-grid td[col-justify='center'] {
     text-align: center;
-    height: 100%;
-    user-select: none;
-}
+  }
 
-.multiline-text {
-    white-space: inherit;
-    overflow: auto;
-    word-break: break-word;
-    align-content: start;
-}
-
-.column-header {
-    font-weight: 600;
-    text-align: center;
-    position: relative;
-}
-
-::deep .col-sort-button {
-    width: calc(100% - 20px);
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-    ::deep .col-sort-button::part(content) {
-        overflow: hidden;
-    }
-
-::deep .col-options-button {
-    padding-inline-start: 4px;
-}
-
-.col-justify-start ::deep .col-sort-button::part(control) {
-    justify-content: start;
-    overflow: hidden;
-    opacity: 1
-}
-
-.col-justify-center ::deep .col-sort-button::part(control) {
-    justify-content: center;
-    overflow: hidden;
-    opacity: 1
-}
-
-.col-justify-end ::deep .col-sort-button::part(control) {
-    justify-content: end;
-    overflow: hidden;
-    opacity: 1
-}
-
-
-.col-justify-end ::deep .col-sort-button::part(start) {
-    margin-inline-end: 2px;
-}
-
-.col-justify-start ::deep .col-sort-button::part(end),
-.col-justify-center ::deep .col-sort-button::part(end) {
-    margin-inline-start: 2px;
-}
-
-.col-justify-start ::deep .col-title {
-    text-align: start;
-}
-
-.col-justify-center ::deep .col-title {
-    text-align: center;
-}
-
-.col-justify-end ::deep .col-title {
+  .fluent-data-grid td[col-justify='end'] {
     text-align: end;
+  }
+
+.fluent-data-grid th[col-justify='end'] > div {
+  justify-content: flex-end;
 }
 
-::deep .hierarchical-toggle-container {
-    height: 24px;
-    display: inline-flex;
-    vertical-align: middle;
-    align-items: center;
-    column-gap: calc(var(--design-unit) * 1px);
-    position: relative;
-    left: calc(var(--design-unit) * -1.5px);
+
+.fluent-data-grid td[grid-cell-placeholder='true']:after {
+  content: '\2026'; /*horizontal ellipsis*/
+  opacity: 0.75;
 }
 
-::deep .hierarchical-expander {
-    display: inline-block;
-    width: 18px;
+
+.fluent-data-grid tr[row-state='empty-content'] > td,
+.fluent-data-grid tr[row-state='loading-content'] > td,
+.fluent-data-grid tr[row-state='error-content'] > td {
+  font-weight: 600;
+  text-align: center;
+  height: 100%;
+  user-select: none;
 }
 
-    ::deep .hierarchical-expander svg {
-        transition: transform 0.1s linear;
-        pointer-events: none;
-    }
-
-::deep .hierarchical-collapsed svg {
-    transform: rotate(0deg);
+.fluent-data-grid td[multiline='true'] {
+  white-space: inherit;
+  overflow: auto;
+  word-break: break-word;
+  align-content: start;
 }
 
-[dir=rtl] * ::deep .hierarchical-collapsed svg {
-    transform: rotate(180deg);
+.fluent-data-grid th[cell-type='columnheader'] {
+  font-weight: 600;
+  text-align: center;
+  position: relative;
+  padding: 2px 2px;
+  z-index: 1;
 }
 
-::deep .hierarchical-expanded svg {
-    transform: rotate(90deg);
+.fluent-data-grid th[cell-type='columnheader']:hover {
+  z-index: 6;
 }
 
-::deep .hierarchical-expand-button {
-    width: 18px;
-    height: 24px;
-    min-width: 18px;
-    vertical-align: middle;
+.fluent-data-grid [col-sort-button] {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 75px;
+}
+
+.fluent-data-grid [col-sort-button] {
+  overflow: hidden;
+}
+
+.fluent-data-grid [col-justify='start'] [col-sort-button] {
+  justify-content: start;
+  overflow: hidden;
+  opacity: 1;
+  min-width: 75px;
+}
+
+.fluent-data-grid [col-justify='center'] [col-sort-button] {
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  min-width: 75px;
+}
+
+.fluent-data-grid [col-justify='end'] [col-sort-button]  {
+  justify-content: end;
+  overflow: hidden;
+  opacity: 1;
+  min-width: 75px;
+
+}
+
+
+.fluent-data-grid [col-justify='end'] [col-sort-button]::part(start) {
+  margin-inline-end: 2px;
+}
+
+.fluent-data-grid [col-justify='start'] [col-sort-button]::part(end),
+.fluent-data-grid [col-justify='center'] [col-sort-button]::part(end) {
+  margin-inline-start: 2px;
+}
+
+.fluent-data-grid [col-title] {
+  padding: 6px 12px;
+  user-select: none;
+  text-align: start;
+}
+
+.fluent-data-grid [col-title-text] {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.fluent-data-grid th[col-justify='center'] svg {
+  align-content: center;
+  text-align: center;
+}
+
+.fluent-data-grid [col-justify='center'] [col-title] {
+  text-align: center;
+}
+
+.fluent-data-grid [col-justify='end'] [col-title] {
+  text-align: end;
+}
+
+.fluent-data-grid [row-toggle-container] {
+  height: 24px;
+  display: flex;
+  vertical-align: middle;
+  align-items: center;
+  column-gap: var(--spacingHorizontalXS);
+  position: relative;
+  left: calc(var(--spacingHorizontalXS) * -1.5);
+}
+
+.fluent-data-grid [row-expander] {
+  display: inline-block;
+  width: 20px;
+  position: relative;
+  top: -1px;
+}
+
+  .fluent-data-grid [row-expander] svg {
+    transition: transform 0.1s linear;
+    pointer-events: none;
+  }
+
+.fluent-data-grid [row-collapsed='true'] svg {
+  transform: rotate(0deg);
+}
+
+[dir=rtl] .fluent-data-grid [row-collapsed='true'] svg {
+  transform: rotate(180deg);
+}
+
+.fluent-data-grid [row-expanded='true'] svg {
+  transform: rotate(90deg);
+}
+
+.fluent-data-grid [row-expand-button] {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+  min-height: 20px;
+  vertical-align: middle;
+}
+
+.fluent-data-grid td[cell-type='rowdetails'] {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+/* Unlike the HierarchicalToggle container (which wraps the whole cell content),
+   this toggle is a standalone element placed before the cell's own content,
+   so it must stay inline instead of starting its own block. */
+.fluent-data-grid [row-details-toggle-container] {
+  display: inline-flex;
 }

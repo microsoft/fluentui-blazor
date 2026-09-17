@@ -3,23 +3,30 @@
 // ------------------------------------------------------------------------
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
+
 internal sealed class InternalAppBarContext(FluentAppBar appBar)
 {
-    public readonly Dictionary<string, IAppBarItem> Apps = [];
+    public readonly Dictionary<string, IAppBarItem> Apps = new(StringComparer.Ordinal);
     public FluentAppBar AppBar { get; } = appBar;
 
     internal void Register(IAppBarItem app)
     {
-        ArgumentNullException.ThrowIfNull(app.Id);
+        if (app == null || app.Id == null)
+        {
+            return;
+        }
 
-        Apps.Add(app.Id, app);
+        Apps.TryAdd(app.Id, app);
     }
 
     internal void Unregister(IAppBarItem app)
     {
-        ArgumentNullException.ThrowIfNull(app.Id);
+        if (app == null || app.Id == null)
+        {
+            return;
+        }
 
-        if (Apps.Count > 0)
+        if (Apps.TryGetValue(app.Id, out var registered) && registered == app)
         {
             Apps.Remove(app.Id);
         }

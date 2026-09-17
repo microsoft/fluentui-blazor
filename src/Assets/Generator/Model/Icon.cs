@@ -1,4 +1,9 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
@@ -9,7 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 [DebuggerDisplay("{Name} {Variant} {Size}")]
 internal class Icon
 {
-    private readonly string[] LangageSubFolders = new[] { "bg", "ca", "da", "de", "en", "es", "et", "fr", "gl", "hu", "it", "kk", "ko", "lt", "lv", "ms", "no", "pt", "ru", "sl", "sr-cyrl", "sr-latn", "sv" };
+    private static readonly string[] LangageSubFolders = new[] { "bg", "ca", "da", "de", "en", "es", "et", "fr", "gl", "hu", "it", "kk", "ko", "lt", "lv", "ms", "no", "pt", "ru", "sl", "sr-cyrl", "sr-latn", "sv" };
 
     /// <summary>
     /// Convert the file to an icon
@@ -22,9 +27,9 @@ internal class Icon
     {
         File = file;
 
-        string filename = Path.GetFileNameWithoutExtension(file.Name);
-        string[] nameParts = filename.Split(Tools.InvalidCharacters);
-        string folderName = file.Directory!.Name; // Check if the SVG is included in a "language" folder.
+        var filename = Path.GetFileNameWithoutExtension(file.Name);
+        var nameParts = filename.Split(Tools.InvalidCharacters);
+        var folderName = file.Directory!.Name; // Check if the SVG is included in a "language" folder.
 
         // This file is in a language folder?
         if (!LangageSubFolders.Any(language => string.Compare(folderName, language, StringComparison.CurrentCultureIgnoreCase) == 0))
@@ -35,7 +40,7 @@ internal class Icon
         if (nameParts.Length >= 3)
         {
             Variant = Tools.ToPascalCase(nameParts[^1]);
-            Size = int.Parse(nameParts[^2]);
+            Size = int.Parse(nameParts[^2], CultureInfo.InvariantCulture);
             Name = Tools.ToPascalCase(nameParts[..^2].Union(folderName.Split(Tools.InvalidCharacters)).ToArray());
         }
     }
@@ -53,7 +58,7 @@ internal class Icon
     /// <summary>
     /// Gets the size of the icon: 20, 24, etc.
     /// </summary>
-    public int Size { get; set; } = 0;
+    public int Size { get; set; }
 
     /// <summary>
     /// Gets the variant of the icon: Filled, Regular, etc.
@@ -79,7 +84,7 @@ internal class Icon
             return content;
         }
 
-        string pattern = @"<svg\swidth=""\d+""\sheight=""\d+""\sviewBox=""0\s0\s\d+\s\d+""(?:\sfill=""\w+"")?\sxmlns=""http:\/\/www\.w3\.org\/2000\/svg"">";
+        var pattern = @"<svg\swidth=""\d+""\sheight=""\d+""\sviewBox=""0\s0\s\d+\s\d+""(?:\sfill=""\w+"")?\sxmlns=""http:\/\/www\.w3\.org\/2000\/svg"">";
         return Regex.Replace(content, pattern, string.Empty)
                     .Replace("</svg>", "")
                     .Replace("\n", "")

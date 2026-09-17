@@ -1,0 +1,82 @@
+﻿@page "/emoji-explorer"
+@page "/emoji-explorer/embedded"
+@inherits ExplorerBase
+
+<PageTitle>FluentUI Blazor - Emojis explorer</PageTitle>
+
+<SectionContent SectionName="SearchBar">
+    <FluentTextInput Placeholder="Part of emoji name"
+                     Spellcheck="false"
+                     @bind-Value="@Criteria.SearchTerm"
+                     @bind-Value:after="@StartSearchAsync"
+                     ChangeAfterKeyPress="@([KeyPress.For(KeyCode.Enter)])" />
+
+    <FluentSelect Items="@(GetEnumValues<EmojiStyle>())"
+                  @bind-Value="@Criteria.Style"
+                  @bind-Value:after="@StartSearchAsync" />
+
+    <FluentSelect Items="@(GetEnumValues<EmojiGroup>(addEmptyItem: true))"
+                  OptionText="@(i => (int)i == ExplorerBase.EmptyEnumValue ? "[All]" : i.ToString())"
+                  @bind-Value="@Criteria.Group"
+                  @bind-Value:after="@StartSearchAsync" />
+
+    <FluentSelect Items="@(GetEnumValues<EmojiSkintone>(addEmptyItem: true))"
+                  OptionText="@(i => (int)i == ExplorerBase.EmptyEnumValue ? "[All]" : i.ToString())"
+                  @bind-Value="@Criteria.Skintone"
+                  @bind-Value:after="@StartSearchAsync" />
+
+    <FluentButton IconStart="@(new Icons.Regular.Size20.ArrowRight())"
+                  OnClick="@StartSearchAsync" />
+
+</SectionContent>
+
+<SectionContent SectionName="SearchResult">
+    @if (SearchInProgress)
+    {
+        <FluentSpinner />
+    }
+    else if (EmojisFound.Any())
+    {
+        <FluentText As="TextTag.Paragraph">
+            Click on the card to copy a ready to paste "FluentEmoji"
+            component declaration to the clipboard. Or right-click for more options.
+        </FluentText>
+
+        <div style="min-height: 12px;" />
+
+        <FluentStack Orientation="Orientation.Horizontal" Wrap="true" HorizontalGap="12px" VerticalGap="12px">
+            @foreach (var item in EmojisFound.Take(MaximumOfItems))
+            {
+                <PreviewCard Emoji="@item" />
+            }
+
+            @if (EmojisFound.Length > MaximumOfItems)
+            {
+                <FluentButton Appearance="ButtonAppearance.Transparent"
+                              OnClick="@ShowMoreHandlerAsync"
+                              Color="var(--colorBrandForegroundLink)"
+                              Style="height: 100px;">
+                    Show more
+                </FluentButton>
+            }
+
+        </FluentStack>
+    }
+    else
+    {
+        <div>
+            <FluentText Class="help">
+                Enter part of the emoji name and press the search arrow or press Enter.
+            </FluentText>
+        </div>
+    }
+</SectionContent>
+
+<SectionContent SectionName="SearchFooter">
+    @if (!SearchInProgress)
+    {
+        <FluentText>
+            @NumberOfIconsFound
+        </FluentText>
+    }
+</SectionContent>

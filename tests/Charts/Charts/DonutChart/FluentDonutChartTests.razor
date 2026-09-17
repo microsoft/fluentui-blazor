@@ -1,0 +1,315 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<DonutDataPoint> DefaultData =
+    [
+        new DonutDataPoint { Legend = "Category A", Data = 40 },
+        new DonutDataPoint { Legend = "Category B", Data = 30 },
+        new DonutDataPoint { Legend = "Category C", Data = 20 },
+        new DonutDataPoint { Legend = "Category D", Data = 10 },
+    ];
+
+    public FluentDonutChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentDonutChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentDonutChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" ChartTitle="My Donut Chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("chart-title");
+        Assert.Equal("My Donut Chart", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_ValueInsideDonut()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" ValueInsideDonut="100 total" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("value-inside-donut");
+        Assert.Equal("100 total", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_InnerRadius()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" InnerRadius="60" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("inner-radius");
+        Assert.Equal("60", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_InnerRadius_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" InnerRadius="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("inner-radius");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_ShowLabelsInPercent()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" ShowLabelsInPercent="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("show-labels-in-percent");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_HideTooltip_False()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" HideTooltip="false" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("hide-tooltip");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_RoundedCorners()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" RoundedCorners="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("round-corners");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_AllowMultipleLegendSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" AllowMultipleLegendSelection="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("allow-multiple-legend-selection");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_LegendListLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" LegendListLabel="Sections" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("legend-list-label");
+        Assert.Equal("Sections", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" Width="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("width");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" Height="300px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("height");
+        Assert.Equal("300px", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("fr-FR");
+
+        // Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("culture");
+        Assert.Equal("fr-FR", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_Culture_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" Culture="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("culture");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" Class="my-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-donut-chart");
+        Assert.Contains("my-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-donut-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentDonutChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@DefaultData" aria-label="Sales breakdown" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-donut-chart").GetAttribute("aria-label");
+        Assert.Equal("Sales breakdown", attribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<DonutDataPoint>
+        {
+            new DonutDataPoint { Legend = "Alpha", Data = 75 },
+        };
+
+        // Act
+        var cut = Render(@<FluentDonutChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-donut-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("Alpha", dataAttribute);
+        Assert.Contains("75", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_DataPoint_WithColor()
+    {
+        // Arrange
+        var data = new List<DonutDataPoint>
+        {
+            new DonutDataPoint { Legend = "Segment", Data = 50, Color = DataVizPalette.Color1 },
+        };
+
+        // Act
+        var cut = Render(@<FluentDonutChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-donut-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("color1", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<DonutDataPoint>
+        {
+            new DonutDataPoint { Legend = "Custom", Data = 50, Color = DataVizPalette.Custom, CustomColor = "#FF5733" },
+        };
+
+        // Act
+        var cut = Render(@<FluentDonutChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-donut-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("#FF5733", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentDonutChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentDonutChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentDonutChart>
+        );
+
+        // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentDonutChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentDonutChart ChartData="@(Array.Empty<DonutDataPoint>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-donut-chart");
+        Assert.NotNull(element);
+    }
+}
+

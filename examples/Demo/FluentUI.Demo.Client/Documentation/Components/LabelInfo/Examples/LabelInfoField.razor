@@ -1,0 +1,20 @@
+﻿<!-- Using LabelTemplate -->
+<FluentTextInput Placeholder="Example input">
+    <LabelTemplate>
+        <FluentLabelInfo InfoText="This is example information for an InfoLabel."
+                         InfoActionLink="https://dotnet.microsoft.com/">
+            Example label
+        </FluentLabelInfo>
+    </LabelTemplate>
+</FluentTextInput>
+
+<!-- Using LabelInfo object -->
+<FluentTextInput Placeholder="Example input" 
+                 Label="Example label"
+                 LabelInfo="@(new LabelInfo(text: "This is example information for an InfoLabel.", actionLink: "https://dotnet.microsoft.com/"))" />
+
+<!-- Using LabelInfo.WithText() method -->
+<FluentTextInput Placeholder="Example input" 
+                 Label="Example label"
+                 LabelInfo="@(LabelInfo.WithText("This is example information for an InfoLabel.")
+                                       .WithActionLink("https://dotnet.microsoft.com/"))" />

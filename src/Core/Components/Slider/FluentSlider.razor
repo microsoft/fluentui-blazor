@@ -1,24 +1,27 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentInputBase<TValue>
 @typeparam TValue
-@attribute [CascadingTypeParameter(nameof(TValue))]
-<CascadingValue Value="this" IsFixed="true">
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" style="margin-bottom: calc(var(--design-unit) * 3px);" />
-    <fluent-slider @ref=Element
-                   class="@ClassValue"
-                   style="@StyleValue"
-                   readonly="@ReadOnly"
-                   min="@FormatValueAsString(Min)"
-                   max="@FormatValueAsString(Max)"
-                   step="@FormatValueAsString(Step)"
-                   orientation="@Orientation.ToAttributeValue()"
-                   mode="@Mode.ToAttributeValue()"
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+	<fluent-slider slot="@FluentSlot.FieldInput"
                    id="@Id"
-                   value="@FormatValueAsString(Value)"
                    disabled="@Disabled"
-                   name=@Name
-                   required=@Required
-                   @onsliderchange="@ChangeHandlerAsync">
+                   min="@FormatValueAsStringOrNull(Min)"
+                   max="@FormatValueAsStringOrNull(Max)"
+                   value="@FormatValueAsString(Value)"
+                   step="@FormatValueAsStringOrNull(Step)"
+                   size="@Size.ToAttributeValue()"
+                   orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
+                   name="@Name"
+                   readonly="@ReadOnly"
+                   aria-label="@AriaLabel"
+                   autofocus="@Autofocus"
+                   required="@Required"
+                   tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1" , when: () => ReadOnly)"
+                   @onfocusout="@FocusOutHandlerAsync"
+                   @onchange="@ChangeHandlerAsync"
+                   @attributes="@AdditionalAttributes">
         @ChildContent
     </fluent-slider>
-</CascadingValue>
+</FluentField>

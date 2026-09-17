@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -11,15 +12,15 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class Emoji : EmojiInfo
 {
-    private string? _content = null;
+    private string? _content;
 
     /// <summary>
     /// Please use the constructor including parameters.
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
-    public Emoji() : this(string.Empty, EmojiSize.Size16, EmojiGroup.Flags, EmojiSkintone.Default, EmojiStyle.Flat, Array.Empty<byte>())
+    public Emoji() : this(string.Empty, EmojiSize.Size16, EmojiGroup.Flags, EmojiSkintone.Default, EmojiStyle.Flat, [])
     {
-        throw new ArgumentNullException("Please use the constructor including parameters.");
+        throw new InvalidOperationException("Please use the constructor including parameters.");
     }
 
     /// <summary>
@@ -53,8 +54,8 @@ public class Emoji : EmojiInfo
     /// </summary>
     public virtual MarkupString ToMarkup(string? size = null)
     {
-        var styleWidth = size ?? $"{(int)Size}px";
-        return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" style=\"width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+        var styleWidth = size ?? string.Create(CultureInfo.InvariantCulture, $"{(int)Size}px");
+        return new MarkupString(string.Create(CultureInfo.InvariantCulture, $"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" style=\"width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>"));
     }
 
     /// <summary>

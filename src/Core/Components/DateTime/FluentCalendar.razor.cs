@@ -3,71 +3,119 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Components.DateTime;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Fluent Calendar based on
-/// https://github.com/microsoft/fluentui/blob/master/packages/web-components/src/calendar/.
+/// Represents a customizable and interactive calendar component that supports various views, date selection modes,
+/// and animations for period changes.
 /// </summary>
-public partial class FluentCalendar : FluentCalendarBase
+/// <typeparam name="TValue">The type of value handled by the calendar. Must be one of: DateTime?, DateTime, DateOnly, or DateOnly?.</typeparam>
+public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
 {
-    public static string ArrowUp = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"var(--neutral-fill-strong-focus)\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.2 10.73a.75.75 0 001.1 1.04l5.95-6.25v14.73a.75.75 0 001.5 0V5.52l5.95 6.25a.75.75 0 001.1-1.04l-7.08-7.42a1 1 0 00-1.44 0L4.2 10.73z\"/></svg>";
-    public static string ArrowDown = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"var(--neutral-fill-strong-focus)\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>";
+    private ElementReference _calendarReference = default!;
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "DateTime/FluentCalendar.razor.js";
 
-    internal CalendarViews _pickerView = CalendarViews.Days;
-    private VerticalPosition _animationRunning = VerticalPosition.Unset;
-    private DateTime? _pickerMonth = null;
-    private readonly CalendarExtended? _calendarExtended = null;
-    private readonly RangeOfDates _rangeSelector = new RangeOfDates();
+    internal static MarkupStringSanitized ArrowUp = new("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M4.2 10.73a.75.75 0 001.1 1.04l5.95-6.25v14.73a.75.75 0 001.5 0V5.52l5.95 6.25a.75.75 0 001.1-1.04l-7.08-7.42a1 1 0 00-1.44 0L4.2 10.73z\"/></svg>", MarkupStringSanitized.Formats.AlreadySanitized);
+    internal static MarkupStringSanitized ArrowDown = new("<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.8 13.27a.75.75 0 00-1.1-1.04l-5.95 6.25V3.75a.75.75 0 10-1.5 0v14.73L5.3 12.23a.75.75 0 10-1.1 1.04l7.08 7.42a1 1 0 001.44 0l7.07-7.42z\"/></svg>", MarkupStringSanitized.Formats.AlreadySanitized);
 
-    private readonly RangeOfDates _rangeSelectorMouseOver = new RangeOfDates();
-    private readonly List<DateTime> _selectedDatesMouseOver = new List<DateTime>();
+    private CalendarViews _pickerView = CalendarViews.Days;
+    private bool _refreshAccessibilityPending;
+    private AnimationRunning _animationRunning = AnimationRunning.None;
+    private TValue? _pickerMonth;
+    private readonly RangeOfDates _rangeSelector = new();
+
+    private readonly RangeOfDates _rangeSelectorMouseOver = new();
+    private readonly List<DateTime> _selectedDatesMouseOver = [];
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentCalendar{TValue}"/> class with the specified library configuration.
+    /// </summary>
+    /// <param name="configuration">The configuration settings used to initialize the calendar. Cannot be null.</param>
+    public FluentCalendar(LibraryConfiguration configuration) : base(configuration)
+    {
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.Calendar_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && CurrentValue.IsNullOrDefault();
+        };
+    }
 
     /// <summary />
-    protected override string? ClassValue
+    protected string? CalendarClass
     {
         get
         {
-            return new CssBuilder(base.ClassValue)
-                .AddClass("fluent-calendar", () => View == CalendarViews.Days)
-                .AddClass("fluent-month", () => View == CalendarViews.Months)
-                .AddClass("fluent-year", () => View == CalendarViews.Years)
+            return new CssBuilder()
+                .AddClass("fluent-calendar")
+                .AddClass("fluent-day-view", () => View == CalendarViews.Days)
+                .AddClass("fluent-month-view", () => View == CalendarViews.Months)
+                .AddClass("fluent-year-view", () => View == CalendarViews.Years)
                 .Build();
+        }
+    }
+
+    private CalendarViews PickerView
+    {
+        get
+        {
+            return _pickerView;
+        }
+        set
+        {
+            _pickerView = value;
+            _refreshAccessibilityPending = true;
         }
     }
 
     /// <summary>
     /// Gets or sets the current month of the date picker (two-way bindable).
     /// This changes when the user browses through the calendar.
-    /// The month is represented as a DateTime which is always the first day of that month.
+    /// The month is represented as a TValue which is always the first day of that month.
     /// You can also set this to determine which month is displayed first.
     /// If not set, the current month is displayed.
     /// </summary>
     [Parameter]
-    public virtual DateTime PickerMonth
+    [SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "Need to refactor in future release")]
+    public virtual TValue? PickerMonth
     {
         get
         {
-            return (_pickerMonth ?? Value ?? DateTime.Today).StartOfMonth(Culture);
+            var pickerMonthDateTime = _pickerMonth?.ConvertToDateTime() ?? ValueAsDateTime ?? DateTimeProvider.Today;
+            return pickerMonthDateTime.StartOfMonth(Culture).ConvertToTValue<TValue>();
         }
 
         set
         {
-            var month = value.StartOfMonth(Culture);
+            var monthDateTime = value.ConvertToDateTime()?.StartOfMonth(Culture);
+            var currentPickerMonthDateTime = _pickerMonth?.ConvertToDateTime();
 
-            if (month == _pickerMonth)
+            if (monthDateTime == currentPickerMonthDateTime)
             {
                 return;
             }
 
-            _pickerMonth = month;
-            PickerMonthChanged.InvokeAsync(month);
+            _pickerMonth = monthDateTime.HasValue ? monthDateTime.Value.ConvertToTValue<TValue>() : default;
+            _ = PickerMonthChanged.InvokeAsync(_pickerMonth);
         }
     }
 
@@ -75,23 +123,30 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Fired when the display month changes.
     /// </summary>
     [Parameter]
-    public virtual EventCallback<DateTime> PickerMonthChanged { get; set; }
+    public virtual EventCallback<TValue?> PickerMonthChanged { get; set; }
 
     /// <summary>
     /// Defines the appearance of a Day cell.
     /// </summary>
     [Parameter]
-    public RenderFragment<FluentCalendarDay>? DaysTemplate { get; set; }
+    public RenderFragment<FluentCalendarDay<TValue>>? DaysTemplate { get; set; }
 
     /// <summary>
-    /// Gets ot sets if the calendar items are animated during a period change.
-    /// By default, the animation is enabled for Months views, but disabled for Days and Years view.
+    /// Gets or sets a value indicating whether today's date should be highlighted in the calendar.
+    /// </summary>
+    [Parameter]
+    public bool DisplayToday { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether calendar items are animated during a period change.
+    /// By default, the animation is enabled for Months views, but disabled for Days and Years views.
     /// </summary>
     [Parameter]
     public bool? AnimatePeriodChanges { get; set; }
 
     /// <summary>
-    /// Gets or sets the way the user can select one or more dates
+    /// Gets or sets the date selection mode (e.g., <c>SelectMode="CalendarSelectMode.Range"</c>).
+    /// Controls whether the user can select a single date, a range, or multiple dates.
     /// </summary>
     [Parameter]
     public CalendarSelectMode SelectMode { get; set; } = CalendarSelectMode.Single;
@@ -100,46 +155,108 @@ public partial class FluentCalendar : FluentCalendarBase
     /// Gets or sets the list of all selected dates, only when <see cref="SelectMode"/> is set to <see cref="CalendarSelectMode.Range" /> or <see cref="CalendarSelectMode.Multiple" />.
     /// </summary>
     [Parameter]
-    public IEnumerable<DateTime> SelectedDates { get; set; } = new List<DateTime>();
+    public IEnumerable<TValue> SelectedDates { get; set; } = [];
 
     /// <summary>
     /// Fired when the selected dates change.
     /// </summary>
     [Parameter]
-    public EventCallback<IEnumerable<DateTime>> SelectedDatesChanged { get; set; }
+    public EventCallback<IEnumerable<TValue>> SelectedDatesChanged { get; set; }
 
     /// <summary>
-    /// Fired when the selected mouse over change, to display the future range of dates.
+    /// Gets or sets a function invoked when the user hovers over a date, returning the projected range to highlight.
+    /// Only used when <see cref="SelectMode"/> is <see cref="CalendarSelectMode.Range"/>.
     /// </summary>
     [Parameter]
-    public Func<DateTime, IEnumerable<DateTime>>? SelectDatesHover { get; set; }
+    public Func<TValue, IEnumerable<TValue>>? SelectDatesHover { get; set; }
 
     /// <summary />
-    private string GetAnimationClass(string existingClass) => CanBeAnimated ? _animationRunning switch
-    {
-        VerticalPosition.Top => $"{existingClass} animation-running-up",
-        VerticalPosition.Bottom => $"{existingClass} animation-running-down",
-        _ => $"{existingClass} animation-none"
-    } : existingClass;
+    internal bool IsReadOnlyOrDisabled => ReadOnly || Disabled == true;
+
+    /// <summary />
+    internal string GetAnimationClass(string existingClass) => CanBeAnimated
+        ? _animationRunning switch
+        {
+            AnimationRunning.Up => $"{existingClass} animation-running-up",
+            AnimationRunning.Down => $"{existingClass} animation-running-down",
+            _ => $"{existingClass} animation-none",
+        }
+        : existingClass;
 
     /// <summary>
     /// All days of this current month.
     /// </summary>
-    internal CalendarExtended CalendarExtended => _calendarExtended ?? new CalendarExtended(Culture, PickerMonth);
+    internal CalendarExtended CalendarExtended => new(Culture, PickerMonth.ConvertToRequiredDateTime());
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Import the JavaScript module
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
+            await RefreshAccessibilityKeyboardAsync(firstRender);
+        }
+        else if (_refreshAccessibilityPending)
+        {
+            await RefreshAccessibilityKeyboardAsync(firstRender);
+            _refreshAccessibilityPending = false;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary />
+    private async Task RefreshAccessibilityKeyboardAsync(bool firstRender)
+    {
+        var defaultSelector = _pickerView switch
+        {
+            CalendarViews.Days => ".day:not([disabled]):not([inactive])",
+            CalendarViews.Months => ".month:not([disabled]):not([inactive])",
+            CalendarViews.Years => ".year:not([disabled]):not([inactive])",
+            _ => null,
+        };
+
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetAccessibilityKeyboard", _calendarReference, firstRender ? null : defaultSelector);
+    }
+
+    /// <summary>
+    /// Get the internal DateTime? value, synchronizing with CurrentValue if needed
+    /// </summary>
+    internal DateTime? ValueAsDateTime => CurrentValue.ConvertToDateTime();
+
+    /// <summary>
+    /// Implementation of the abstract method from FluentCalendarBase
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected Task OnSelectedDateHandlerAsync(DateTime value)
+        => OnSelectedDateHandlerAsync(value.ConvertToTValue<TValue>());
+
+    /// <summary />
+    internal async Task SetFirstFocusableAsync()
+    {
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetFirstFocusable", _calendarReference);
+    }
 
     /// <summary>
     /// Gets titles to use in the calendar.
     /// </summary>
     /// <returns></returns>
-    internal CalendarTitles GetTitles()
+    internal CalendarTitles<TValue> GetTitles()
     {
-        return new CalendarTitles(this);
+        return new CalendarTitles<TValue>(this);
     }
 
     /// <summary />
-    private async Task OnPreviousButtonHandlerAsync(MouseEventArgs e)
+    internal async Task OnPreviousButtonHandlerAsync(MouseEventArgs _)
     {
-        await StartNewAnimationAsync(VerticalPosition.Bottom);
+        await StartNewAnimationAsync(AnimationRunning.Down);
+        _refreshAccessibilityPending = true;
 
         switch (View)
         {
@@ -158,9 +275,10 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary />
-    private async Task OnNextButtonHandlerAsync(MouseEventArgs e)
+    internal async Task OnNextButtonHandlerAsync(MouseEventArgs _)
     {
-        await StartNewAnimationAsync(VerticalPosition.Top);
+        await StartNewAnimationAsync(AnimationRunning.Up);
+        _refreshAccessibilityPending = true;
 
         switch (View)
         {
@@ -184,6 +302,15 @@ public partial class FluentCalendar : FluentCalendarBase
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, month, 1, 0, 0, 0, 0);
+
+            if (value == CurrentValue?.ConvertToDateTime())
+            {
+                // Even if the month is the same as the current value, we need to update the day to the first day of the month, and trigger the event.
+                // Otherwise, the user cannot return to the day view.
+                await ValueChanged.InvokeAsync(value.ConvertToTValue<TValue>());
+                return;
+            }
+
             await OnSelectedDateHandlerAsync(value);
         }
     }
@@ -194,6 +321,15 @@ public partial class FluentCalendar : FluentCalendarBase
         if (!isReadOnly)
         {
             var value = Culture.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0);
+
+            if (value == CurrentValue?.ConvertToDateTime())
+            {
+                // Even if the year is the same as the current value, we need to update the month and day to the first month and day of the year, and trigger the event.
+                // Otherwise, the user cannot return to the month view.
+                await ValueChanged.InvokeAsync(value.ConvertToTValue<TValue>());
+                return;
+            }
+
             await OnSelectedDateHandlerAsync(value);
         }
     }
@@ -203,7 +339,7 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="day"></param>
     /// <returns></returns>
-    private FluentCalendarDay GetDayProperties(DateTime day) => new(this, day);
+    private FluentCalendarDay<TValue> GetDayProperties(DateTime day) => new(this, day);
 
     /// <summary>
     /// Returns the class name to display a month (month, inactive, disable).
@@ -211,25 +347,33 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <param name="year"></param>
     /// <param name="month"></param>
     /// <returns></returns>
-    private FluentCalendarMonth GetMonthProperties(int? year, int? month) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), month ?? PickerMonth.GetMonth(Culture), 1, 0, 0, 0, 0));
+    private FluentCalendarMonth<TValue> GetMonthProperties(int? year, int? month)
+    {
+        var pickerDateTime = PickerMonth.ConvertToRequiredDateTime();
+        return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), month ?? pickerDateTime.GetMonth(Culture), 1, 0, 0, 0, 0));
+    }
 
     /// <summary>
     /// Returns the class name to display a year (year, inactive, disable).
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private FluentCalendarYear GetYearProperties(int? year) => new(this, Culture.Calendar.ToDateTime(year ?? PickerMonth.GetYear(Culture), 1, 1, 0, 0, 0, 0));
+    private FluentCalendarYear<TValue> GetYearProperties(int? year)
+    {
+        var pickerDateTime = PickerMonth.ConvertToRequiredDateTime();
+        return new(this, Culture.Calendar.ToDateTime(year ?? pickerDateTime.GetYear(Culture), 1, 1, 0, 0, 0, 0));
+    }
 
     /// <summary />
     private bool CanBeAnimated => AnimatePeriodChanges ?? (View != CalendarViews.Days && View != CalendarViews.Years);
 
     /// <summary />
-    private async Task StartNewAnimationAsync(VerticalPosition position)
+    internal async Task StartNewAnimationAsync(AnimationRunning position)
     {
         if (CanBeAnimated)
         {
             // Remove the current animation
-            _animationRunning = VerticalPosition.Unset;
+            _animationRunning = AnimationRunning.None;
             await Task.Delay(1);
             StateHasChanged();
 
@@ -239,11 +383,11 @@ public partial class FluentCalendar : FluentCalendarBase
     }
 
     /// <summary>
-    /// Click on the Calendar Title to disply the Month or Year selector
+    /// Click on the Calendar Title to display the Month or Year selector
     /// </summary>
     /// <param name="title"></param>
     /// <returns></returns>
-    private async Task TitleClickHandlerAsync(CalendarTitles title)
+    private async Task TitleClickHandlerAsync(CalendarTitles<TValue> title)
     {
         if (title.ReadOnly)
         {
@@ -254,12 +398,12 @@ public partial class FluentCalendar : FluentCalendarBase
         {
             // Days -> Months
             case CalendarViews.Days:
-                _pickerView = CalendarViews.Months;
+                PickerView = CalendarViews.Months;
                 break;
 
             // Months -> Years
             case CalendarViews.Months:
-                _pickerView = CalendarViews.Years;
+                PickerView = CalendarViews.Years;
                 break;
         }
 
@@ -271,10 +415,10 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    private async Task PickerMonthSelectAsync(DateTime? month)
+    internal async Task PickerMonthSelectAsync(DateTime month)
     {
-        PickerMonth = month ?? DateTime.Today;
-        _pickerView = CalendarViews.Days;
+        PickerMonth = month.ConvertToTValue<TValue>();
+        PickerView = CalendarViews.Days;
         await Task.CompletedTask;
     }
 
@@ -283,25 +427,17 @@ public partial class FluentCalendar : FluentCalendarBase
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private async Task PickerYearSelectAsync(DateTime? year)
+    private async Task PickerYearSelectAsync(DateTime year)
     {
-        PickerMonth = year ?? DateTime.Today;
-        _pickerView = CalendarViews.Days;
+        PickerMonth = year.ConvertToTValue<TValue>();
+        PickerView = CalendarViews.Days;
         await Task.CompletedTask;
-    }
-
-    /// <summary />
-    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
-    {
-        bool success = BindConverter.TryConvertTo(value, Culture, out result);
-        validationErrorMessage = success ? null : string.Format(ParsingErrorMessage, FieldDisplayName);
-        return success;
     }
 
     /// <summary />
     private (bool IsMultiple, DateTime Min, DateTime Max, bool InProgress) GetMultipleSelection()
     {
-        bool inProgress = SelectDatesHover is not null;
+        var inProgress = SelectDatesHover is not null;
 
         if (SelectedDates == null || !SelectedDates.Any())
         {
@@ -317,12 +453,13 @@ public partial class FluentCalendar : FluentCalendarBase
             inProgress = _rangeSelectorMouseOver.IsValid();
         }
 
-        return (
-            (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Count() > 1,
-            SelectedDates.Min(),
-            SelectedDates.Max(),
+        return
+        (
+            (SelectMode == CalendarSelectMode.Multiple || SelectMode == CalendarSelectMode.Range) && SelectedDates.Skip(1).Any(),
+            SelectedDates.MinDateTime(),
+            SelectedDates.MaxDateTime(),
             inProgress
-               );
+        );
     }
 
     /// <summary />
@@ -339,87 +476,102 @@ public partial class FluentCalendar : FluentCalendarBase
 
                 // Multiple selection
                 case CalendarSelectMode.Multiple:
-
-                    if (SelectDatesHover is null)
-                    {
-                        if (SelectedDates.Contains(value))
-                        {
-                            SelectedDates = SelectedDates.Where(i => i != value);
-                        }
-                        else
-                        {
-                            SelectedDates = SelectedDates.Append(value);
-                        }
-
-                        if (SelectedDatesChanged.HasDelegate)
-                        {
-                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
-                        }
-                    }
-                    else
-                    {
-                        var range = SelectDatesHover.Invoke(value);
-
-                        SelectedDates = range.Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
-
-                        if (SelectedDatesChanged.HasDelegate)
-                        {
-                            await SelectedDatesChanged.InvokeAsync(SelectedDates);
-                        }
-                    }
-
+                    await OnSelectMultipleDatesAsync(value);
                     break;
 
                 // Range of dates
                 case CalendarSelectMode.Range:
-
-                    bool resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
-
-                    // Reset the selection
-                    if (resetRange)
-                    {
-                        _rangeSelector.Clear();
-                        _rangeSelectorMouseOver.Clear();
-                    }
-
-                    // End the selection
-                    else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
-                    {
-                        _rangeSelector.End = value;
-                    }
-
-                    // Start and close a pre-selection
-                    else if (SelectDatesHover is not null)
-                    {
-                        var range = SelectDatesHover.Invoke(value);
-
-                        _rangeSelector.Start = range.Min();
-                        _rangeSelector.End = range.Max();
-                    }
-
-                    // Start the selection
-                    else
-                    {
-                        _rangeSelector.Start = value;
-                        _rangeSelector.End = null;
-
-                        await OnSelectDayMouseOverAsync(value, dayDisabled: false);
-                    }
-
-                    SelectedDates = _rangeSelector.GetAllDates().Where(day => DisabledDateFunc != null ? !DisabledDateFunc(day) : true);
-
-                    if (SelectedDatesChanged.HasDelegate)
-                    {
-                        await SelectedDatesChanged.InvokeAsync(SelectedDates);
-                    }
+                    await OnSelectRangeDatesAsync(value);
                     break;
             }
-
         }
     }
 
     /// <summary />
-    private Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
+    private async Task OnSelectMultipleDatesAsync(DateTime value)
+    {
+        var tValue = value.ConvertToTValue<TValue>();
+
+        if (SelectDatesHover is null)
+        {
+            if (SelectedDates.Any(d => d.ConvertToDateTime() == value))
+            {
+                SelectedDates = SelectedDates.Where(i => i.ConvertToDateTime() != value);
+            }
+            else
+            {
+                SelectedDates = SelectedDates.Concat([tValue]);
+            }
+
+            if (SelectedDatesChanged.HasDelegate)
+            {
+                await SelectedDatesChanged.InvokeAsync(SelectedDates);
+            }
+        }
+        else
+        {
+            var range = SelectDatesHover.Invoke(tValue);
+
+            SelectedDates = range.Where(day =>
+            {
+                var dateTime = day.ConvertToDateTime();
+                return dateTime.HasValue && (DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day));
+            });
+
+            if (SelectedDatesChanged.HasDelegate)
+            {
+                await SelectedDatesChanged.InvokeAsync(SelectedDates);
+            }
+        }
+    }
+
+    /// <summary />
+    private async Task OnSelectRangeDatesAsync(DateTime value)
+    {
+        var resetRange = (_rangeSelector.IsValid() || _rangeSelector.IsSingle()) && _rangeSelector.Includes(value);
+
+        // Reset the selection
+        if (resetRange)
+        {
+            _rangeSelector.Clear();
+            _rangeSelectorMouseOver.Clear();
+        }
+
+        // End the selection
+        else if (_rangeSelector.Start is not null && _rangeSelector.End is null)
+        {
+            _rangeSelector.End = value;
+        }
+
+        // Start and close a pre-selection
+        else if (SelectDatesHover is not null)
+        {
+            var range = SelectDatesHover.Invoke(value.ConvertToTValue<TValue>());
+            _rangeSelector.Start = range.MinDateTime();
+            _rangeSelector.End = range.MaxDateTime();
+        }
+
+        // Start the selection
+        else
+        {
+            _rangeSelector.Start = value;
+            _rangeSelector.End = null;
+
+            await OnSelectDayMouseOverAsync(value, dayDisabled: false);
+        }
+
+        SelectedDates = _rangeSelector.GetAllDates()
+            .Where(day => DisabledDateMinMaxFunc == null || !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()))
+            .Select(day => day.ConvertToTValue<TValue>());
+
+        if (SelectedDatesChanged.HasDelegate)
+        {
+            await SelectedDatesChanged.InvokeAsync(SelectedDates);
+        }
+    }
+
+    /// <summary />
+    internal Task OnSelectDayMouseOverAsync(DateTime value, bool dayDisabled)
     {
         if (dayDisabled ||
             SelectMode == CalendarSelectMode.Single ||
@@ -428,6 +580,8 @@ public partial class FluentCalendar : FluentCalendarBase
             return Task.CompletedTask;
         }
 
+        var tValue = value.ConvertToTValue<TValue>();
+
         if (SelectDatesHover is null)
         {
             _rangeSelectorMouseOver.Start = _rangeSelector.Start ?? value;
@@ -435,18 +589,28 @@ public partial class FluentCalendar : FluentCalendarBase
         }
         else
         {
-            var range = SelectDatesHover.Invoke(value);
-            _rangeSelectorMouseOver.Start = range.Min();
-            _rangeSelectorMouseOver.End = range.Max();
+            var range = SelectDatesHover.Invoke(tValue);
+            _rangeSelectorMouseOver.Start = range.MinDateTime();
+            _rangeSelectorMouseOver.End = range.MaxDateTime();
         }
 
-        var days = DisabledDateFunc is null
+        var days = DisabledDateMinMaxFunc is null
                  ? _rangeSelectorMouseOver.GetAllDates()
-                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateFunc(day));
+                 : _rangeSelectorMouseOver.GetAllDates().Where(day => !DisabledDateMinMaxFunc(day.ConvertToTValue<TValue>()));
 
         _selectedDatesMouseOver.Clear();
         _selectedDatesMouseOver.AddRange(days);
 
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Handler for the OnFocus event.
+    /// </summary>
+    /// <returns></returns>
+    public virtual Task FocusOutHandlerAsync(FocusEventArgs? e)
+    {
+        FocusLost = true;
         return Task.CompletedTask;
     }
 
@@ -458,14 +622,14 @@ public partial class FluentCalendar : FluentCalendarBase
     /// <returns></returns>
     internal bool AllDaysAreDisabled(DateTime start, DateTime end)
     {
-        if (DisabledDateFunc is null)
+        if (DisabledDateMinMaxFunc is null)
         {
             return false;
         }
 
         for (var day = start; day <= end; day = day.AddDays(1))
         {
-            if (!DisabledDateFunc.Invoke(day))
+            if (!DisabledDateMinMaxFunc.Invoke(day.ConvertToTValue<TValue>()))
             {
                 return false;
             }
@@ -473,4 +637,31 @@ public partial class FluentCalendar : FluentCalendarBase
 
         return true;
     }
+
+    /// <summary />
+    private string GetFormValue()
+    {
+        return SelectMode switch
+        {
+            CalendarSelectMode.Single
+                => ValueAsDateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty,
+
+            CalendarSelectMode.Range or CalendarSelectMode.Multiple
+                => string.Join(',', SelectedDates.Select(d =>
+                            {
+                                var dateTime = d.ConvertToDateTime();
+                                return dateTime?.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) ?? string.Empty;
+                            }).Where(s => !string.IsNullOrEmpty(s))),
+
+            _ => string.Empty,
+        };
+    }
+
+    internal enum AnimationRunning
+    {
+        None,
+        Up,
+        Down,
+    }
 }
+

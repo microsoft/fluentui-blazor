@@ -2,115 +2,113 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Linq.Expressions;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-[CascadingTypeParameter(nameof(TOption))]
-public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> where TOption : notnull
+/// <summary>
+/// A FluentAutocomplete allows for selecting one or more options from a list of options with autocomplete functionality.
+/// </summary>
+/// <typeparam name="TOption"></typeparam>
+/// <typeparam name="TValue"></typeparam>
+[CascadingTypeParameter(nameof(TValue))]
+public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>
 {
-    public static string AccessibilityItemIndexOfCount = "{0} ({1} of {2})";
-    public static string AccessibilitySelected = "Selected {0}";
-    public static string AccessibilityNotFound = "No items found";
-    public static string AccessibilityReachedMaxItems = "The maximum number of selected items has been reached.";
-    public static string AccessibilityRemoveItem = "Remove {0}";
-    public static string AccessibilityIconDismiss = "Clear";
-    public static string AccessibilityIconSearch = "Search";
-    internal const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/List/FluentAutocomplete.razor.js";
+    private static readonly Icon SearchIcon = new CoreIcons.Regular.Size20.Search();
+    private static readonly Icon BadgeCloseIcon = new CoreIcons.Regular.Size20.Dismiss();
+    private static readonly Icon ClearIcon = new CoreIcons.Regular.Size20.Dismiss();
 
-    public new FluentTextField? Element { get; set; } = default!;
-    private Virtualize<TOption>? VirtualizationContainer { get; set; }
-    private readonly Debounce _debounce = new();
-    private bool _shouldRender = true;
+    private readonly EqualityComparer<TValue> ValueComparer = EqualityComparer<TValue>.Default;
+    private readonly EqualityComparer<TOption> OptionComparer = EqualityComparer<TOption>.Default;
+
+    private string? _textInput;
+    private bool _isOpen;
     private bool _inProgress;
+    private TValue? _previousValue;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="FluentAutocomplete{TOption}"/> class.
-    /// </summary>
-    public FluentAutocomplete()
+    // List of items used in the internally filtered listbox
+    private List<TOption> _internalFilteredItems = [];
+    private List<TOption> _internalSelectedItems = [];
+    private TOption? _internalSelectedItem => _internalSelectedItems.FirstOrDefault();
+
+    /// <summary />
+    public FluentAutocomplete(LibraryConfiguration configuration) : base(configuration)
     {
-        Multiple = true;
-        Width = "100%";
+        // Default values
         Id = Identifier.NewId();
+
+        SelectedItemExpression = () => SelectedItem;
+
+        // Set default value: if `Width` is not already set (not null),
+        Width ??= "160px";
+
+        // Set default value: if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
+        // (not used since the Multiple is overridden with a default value of true directly in this class)
+        // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
     }
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JS { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference Module { get; set; } = default!;
+    protected override string? StyleValue => new StyleBuilder(base.StyleValue)
+        .AddStyle("--max-selected-width", MaxSelectedWidth)
+        .Build();
 
     /// <summary>
-    /// Gets or sets the text field value.
+    /// Gets or sets the appearance of the text input.
+    /// Default is <see cref="TextInputAppearance.Outline"/>.
     /// </summary>
     [Parameter]
-    public string ValueText { get; set; } = string.Empty;
+    public TextInputAppearance InputAppearance { get; set; } = TextInputAppearance.Outline;
 
     /// <summary>
-    /// Gets or sets the callback that is invoked when the text field value changes.
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
     /// </summary>
     [Parameter]
-    public EventCallback<string> ValueTextChanged { get; set; }
+    public string? Placeholder { get; set; }
 
     /// <summary>
-    /// Gets or sets the position of the options popup.
+    /// Gets or sets whether the list allows multiple selections.
     /// </summary>
     [Parameter]
-    public SelectPosition? Position { get; set; }
+    public override bool Multiple { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the value of the input. This should be used with two-way binding.
-    /// For the FluentAutocomplete component, use the <see cref="ValueText"/> property instead.
+    /// Gets or sets the delay, in milliseconds, before to raise the event.
+    /// Default is 400 milliseconds.
     /// </summary>
     [Parameter]
-    [Obsolete]
-#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
-    public override string? Value
-#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
-    {
-        get => ValueText;
-        set => base.Value = ValueText;
-    }
+    public int ImmediateDelay { get; set; } = 400;
 
     /// <summary>
-    /// Gets or sets the visual appearance. See <seealso cref="AspNetCore.Components.Appearance"/>
+    /// Gets or sets the size of the input. See <see cref="Components.TextInputSize"/>
     /// </summary>
     [Parameter]
-    public FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
+    public TextInputSize? Size { get; set; }
 
     /// <summary>
-    /// Specifies whether a form or an input field should have autocomplete "on" or "off" or another value.
-    /// An Id value must be set to use this property.
-    /// </summary>
-    [Parameter]
-    public string? AutoComplete { get; set; }
-
-    /// <summary>
-    /// Filter the list of options (items), using the text encoded by the user.
+    /// Filter the list of options (items) using the text written by the user.
     /// </summary>
     [Parameter]
     public EventCallback<OptionsSearchEventArgs<TOption>> OnOptionsSearch { get; set; }
 
     /// <summary>
-    /// Gets or sets the style applied to all <see cref="FluentOption{TOption}"/> of the component.
+    /// Gets or sets an event callback that is raised when the component needs to resolve the item corresponding to a given value,
+    /// for example when Value is set from outside the component.
+    /// The handler should set the Item property of the event args to the resolved item for the given value.
     /// </summary>
     [Parameter]
-    public string? OptionStyle { get; set; }
+    public EventCallback<SetValueEventArgs<TOption, TValue>> OnSetValue { get; set; }
 
-    /// <summary>
-    /// Gets or sets the css class applied to all <see cref="FluentOption{TOption}"/> of the component.
-    /// </summary>
-    [Parameter]
-    public string? OptionClass { get; set; }
+    /// <inheritdoc cref="FluentListBase{TOption, TValue}.SelectedItems" />
+    public override IEnumerable<TOption> SelectedItems
+    {
+        get => _internalSelectedItems;
+        set => _internalSelectedItems = value is null ? [] : (Multiple ? [.. value] : [.. value.Take(1)]);
+    }
 
     /// <summary>
     /// Gets or sets the number of maximum options (items) returned by <see cref="OnOptionsSearch"/>.
@@ -134,7 +132,47 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     public RenderFragment? MaximumSelectedOptionsMessage { get; set; }
 
     /// <summary>
-    /// Gets or sets the template for the <see cref="ListComponentBase{TOption}.SelectedOptions"/> items.
+    /// Gets or sets whether the component will display a progress indicator while fetching data.
+    /// A progress ring will be shown at the end of the component, when the <see cref="OnOptionsSearch"/> is invoked.
+    /// You can customize the progress indicator by using the <see cref="HeaderContent"/> or <see cref="FooterContent"/> parameters: see <see cref="AutocompleteHeaderFooterContent{TOption}.InProgress"/>.
+    /// </summary>
+    [Parameter]
+    public bool ShowProgressIndicator { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum height of the selected items panel. A common value is 'unset' (unlimited) or '200px'.
+    /// If this parameter is not set, all selected items will be shown on a single line.
+    /// </summary>
+    [Parameter]
+    public string? MaxAutoHeight { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width of the selected items.
+    /// </summary>
+    [Parameter]
+    public string? MaxSelectedWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the dismiss (clear) button is visible. When <see langword="true"/> (default), the
+    /// dismiss button is shown; when <see langword="false"/>, the search icon is shown instead.
+    /// </summary>
+    [Parameter]
+    public bool ShowDismiss { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+    /// </summary>
+    [Parameter]
+    public Icon IconDismiss { get; set; } = ClearIcon;
+
+    /// <summary>
+    /// Gets or sets the icon used for the Search button. By default: Search icon.
+    /// </summary>
+    [Parameter]
+    public Icon IconSearch { get; set; } = SearchIcon;
+
+    /// <summary>
+    /// Gets or sets the template for the selected options, displayed in the autocomplete input text.
     /// </summary>
     [Parameter]
     public RenderFragment<TOption>? SelectedOptionTemplate { get; set; }
@@ -143,613 +181,401 @@ public partial class FluentAutocomplete<TOption> : ListComponentBase<TOption> wh
     /// Gets or sets the header content, placed at the top of the popup panel.
     /// </summary>
     [Parameter]
-    public RenderFragment<HeaderFooterContent<TOption>>? HeaderContent { get; set; }
+    public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? HeaderContent { get; set; }
 
     /// <summary>
     /// Gets or sets the footer content, placed at the bottom of the popup panel.
     /// </summary>
     [Parameter]
-    public RenderFragment<HeaderFooterContent<TOption>>? FooterContent { get; set; }
+    public RenderFragment<AutocompleteHeaderFooterContent<TOption>>? FooterContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the title and Aria-Label for the Scroll to previous button.
+    /// Gets or sets the currently selected option, when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
     /// </summary>
     [Parameter]
-    public string TitleScrollToPrevious { get; set; } = "Previous";
+    public TOption? SelectedItem { get; set; }
 
     /// <summary>
-    /// Gets or sets the title and Aria-Label for the Scroll to next button.
+    /// Gets or sets an event callback that is raised when the <see cref="SelectedItem"/> changes.
+    /// This is only relevant when <see cref="FluentListBase{TOption, TValue}.Multiple"/> is false.
     /// </summary>
     [Parameter]
-    public string TitleScrollToNext { get; set; } = "Next";
+    public EventCallback<TOption> SelectedItemChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon used for the Clear button. By default: Dismiss icon.
+    /// Gets or sets an expression that identifies the bound <see cref="SelectedItem"/> value.
+    /// This is required to enable the <c>@bind-SelectedItem</c> syntax (Razor automatically
+    /// supplies it). When using manual one-way binding through <see cref="SelectedItem"/>
+    /// and <see cref="SelectedItemChanged"/>, providing this expression is optional: a
+    /// default expression pointing to <see cref="SelectedItem"/> is set in the constructor.
     /// </summary>
     [Parameter]
-    public Icon? IconDismiss { get; set; } = new CoreIcons.Regular.Size16.Dismiss();
+    public Expression<Func<TOption?>>? SelectedItemExpression { get; set; }
 
     /// <summary>
-    /// Gets or sets the icon used for the Search button. By default: Search icon.
+    /// Gets a value indicating whether the number of selected options has reached the maximum defined by <see cref="MaximumSelectedOptions"/>.
     /// </summary>
-    [Parameter]
-    public Icon? IconSearch { get; set; } = new CoreIcons.Regular.Size16.Search();
+    public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
 
-    /// <summary>
-    /// Gets or sets whether the dropdown is shown when there are no items.
-    /// </summary>
-    [Parameter]
-    public bool ShowOverlayOnEmptyResults { get; set; } = true;
-
-    /// <summary>
-    /// Gets or sets whether the component will display a progress indicator while fetching data.
-    /// A progress ring will be shown ad the end of the component, when the <see cref="OnOptionsSearch"/> is invoked.
-    /// You can customize the progress indicator by using the <see cref="HeaderContent"/> or <see cref="FooterContent"/> parameters: see <see cref="HeaderFooterContent{TOption}.InProgress"/>.
-    /// </summary>
-    [Parameter]
-    public bool ShowProgressIndicator { get; set; }
-
-    /// <summary>
-    /// If true, the options list will be rendered with virtualization. This is normally used in conjunction with
-    /// scrolling and causes the option list to fetch and render only the data around the current scroll viewport.
-    /// This can greatly improve the performance when scrolling through large data sets.
-    ///
-    /// If you use <see cref="Virtualize"/>, you should supply a value for <see cref="ItemSize"/> and must
-    /// ensure that every row renders with the same constant height.
-    ///
-    /// Generally it's preferable not to use <see cref="Virtualize"/> if the amount of data being rendered is small.
-    /// </summary>
-    [Parameter]
-    public bool Virtualize { get; set; }
-
-    /// <summary>
-    /// This is applicable only when using <see cref="Virtualize"/>. It defines an expected height in pixels for
-    /// each row, allowing the virtualization mechanism to fetch the correct number of items to match the display
-    /// size and to ensure accurate scrolling.
-    /// </summary>
-    [Parameter]
-    public float ItemSize { get; set; } = 50;
-
-    /// <summary>
-    /// Gets or sets the maximum height of the field to adjust its height in relation to selected elements.
-    /// </summary>
-    [Parameter]
-    public string? MaxAutoHeight { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the currently selected item from the drop-down (if it is open) is selected.
-    /// Default is false.
-    /// </summary>
-    [Parameter]
-    public bool SelectValueOnTab { get; set; } = false;
-
-    /// <summary>
-    /// Gets or sets whether the drop-down panel stays open after selecting an item,
-    /// until the number of selected items reaches the maximum (only using the mouse).
-    /// </summary>
-    [Parameter]
-    public bool KeepOpen { get; set; } = false;
-
-    /// <summary />
-    private string? ListStyleValue => new StyleBuilder()
-        .AddStyle("width", Width, when: !string.IsNullOrEmpty(Width))
-        .AddStyle("display", "none", when: (Items == null || !Items.Any()) && (HeaderContent != null || FooterContent != null))
-        .Build();
-
-    private bool GetSingleSelect() => Multiple == false && SelectedOption is not null;
-
-    /// <summary />
-    private string ComponentWidth
-    {
-        get
-        {
-            if (string.IsNullOrWhiteSpace(Width))
-            {
-                if (Multiple)
-                {
-                    return $"width: 250px; min-width: 250px;";
-                }
-                else
-                {
-                    return string.Empty;
-                }
-            }
-            else
-            {
-                return $"width: {Width}; min-width: {Width};";
-            }
-        }
-    }
-
-    /// <summary />
-    private string IdScroll => $"{Id}-scroll";
-
-    /// <summary />
-    private string IdPopup => $"{Id}-popup";
-
-    /// <summary />
-    private bool IsMultiSelectOpened { get; set; } = false;
-
-    /// <summary />
-    private bool IsReachedMaxItems { get; set; } = false;
-
-    /// <summary />
-    private TOption? SelectableItem { get; set; }
-
-    /// <summary />
-    protected override bool ShouldRender() => _shouldRender;
-
-    /// <summary>
-    /// Closes the multiselect dropdown.
-    /// </summary>
-    /// <returns></returns>
-    public async Task CloseDropdownAsync()
-    {
-        IsMultiSelectOpened = false;
-        await InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary />
-    protected override async Task InputHandlerAsync(ChangeEventArgs e)
-    {
-        if (ReadOnly || Disabled)
-        {
-            return;
-        }
-
-        _inProgress = true;
-        StateHasChanged();
-
-        _shouldRender = false;
-
-        ValueText = e.Value?.ToString() ?? string.Empty;
-        await RaiseValueTextChangedAsync(ValueText);
-
-        if (MaximumSelectedOptions > 0 && SelectedOptions?.Count() >= MaximumSelectedOptions)
-        {
-            IsReachedMaxItems = true;
-            await RenderComponentAsync();
-            return;
-        }
-
-        IsReachedMaxItems = false;
-        IsMultiSelectOpened = true;
-
-        if (ImmediateDelay > 0)
-        {
-            await _debounce.RunAsync(ImmediateDelay, () => InvokeAsync(() => InvokeOptionsSearchAsync()));
-        }
-        else
-        {
-            await InvokeOptionsSearchAsync();
-        }
-    }
-
-    /// <summary>
-    /// Performs the search operation and displays the available values. The search takes into account any previously
-    /// entered text which has updated the <see cref="ValueText"/>.
-    /// </summary>
-    /// <returns></returns>
-    public async Task InvokeOptionsSearchAsync()
-    {
-        _inProgress = true;
-
-        var args = new OptionsSearchEventArgs<TOption>()
-        {
-            Items = Items ?? Array.Empty<TOption>(),
-            Text = ValueText,
-        };
-
-        await OnOptionsSearch.InvokeAsync(args);
-
-        Items = args.Items?.Take(MaximumOptionsSearch);
-
-        SelectableItem = Items != null
-            ? Items.FirstOrDefault(i => OptionDisabled is null ? true : OptionDisabled.Invoke(i) == false)
-            : default;
-
-        if (VirtualizationContainer != null)
-        {
-            await VirtualizationContainer.RefreshDataAsync();
-        }
-
-        _inProgress = false;
-        await RenderComponentAsync();
-    }
-
-    private async Task RenderComponentAsync()
-    {
-        _shouldRender = true;
-        await InvokeAsync(StateHasChanged);
-    }
-
-    private ValueTask<ItemsProviderResult<TOption>> LoadFilteredItemsAsync(ItemsProviderRequest request)
-    {
-        if (Items is null)
-        {
-            return ValueTask.FromResult(
-                new ItemsProviderResult<TOption>(
-                    Array.Empty<TOption>(),
-                    0));
-        }
-
-        return ValueTask.FromResult(
-            new ItemsProviderResult<TOption>(
-                Items.Skip(request.StartIndex).Take(request.Count),
-                Items.Count()));
-    }
-
-    private static readonly KeyCode[] CatchOnly = new[] { KeyCode.Escape, KeyCode.Enter, KeyCode.Backspace, KeyCode.Down, KeyCode.Up };
-    private static readonly KeyCode[] PreventOnly = CatchOnly.Except(new[] { KeyCode.Backspace }).ToArray();
-    private static readonly KeyCode[] SelectValueOnTabOnly = new[] { KeyCode.Tab };
-
-    /// <summary />
-    protected async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs e)
-    {
-        switch (e.Key)
-        {
-            case KeyCode.Escape:
-                await KeyDown_EscapeAsync();
-                break;
-
-            case KeyCode.Enter:
-            case KeyCode.Tab:
-                if (IsMultiSelectOpened)
-                {
-                    var optionDisabled = SelectableItem != null && OptionDisabled != null
-                                       ? OptionDisabled.Invoke(SelectableItem)
-                                       : false;
-                    if (optionDisabled)
-                    {
-                        await KeyDown_EscapeAsync();
-                    }
-                    else
-                    {
-                        await KeyDown_EnterAsync();
-                    }
-                }
-                else
-                {
-                    await OnDropDownExpandedAsync();
-                }
-                break;
-
-            case KeyCode.Backspace:
-                await KeyDown_BackspaceAsync();
-                break;
-
-            case KeyCode.Down:
-                if (IsMultiSelectOpened)
-                {
-                    await KeyDown_ArrowDownAsync();
-                }
-                else
-                {
-                    await OnDropDownExpandedAsync();
-                }
-                break;
-
-            case KeyCode.Up:
-                await KeyDown_ArrowUpAsync();
-                break;
-        }
-
-        // Escape
-        Task KeyDown_EscapeAsync()
-        {
-            IsMultiSelectOpened = false;
-            return Task.CompletedTask;
-        }
-
-        // Backspace
-        async Task KeyDown_BackspaceAsync()
-        {
-            // Remove last selected item
-            if (string.IsNullOrEmpty(ValueText) &&
-                SelectedOptions != null && SelectedOptions.Any())
-            {
-                await RemoveSelectedItemAsync(SelectedOptions.LastOrDefault());
-                IsReachedMaxItems = false;
-                return;
-            }
-
-            // Remove last char
-            // -> Commented to fix #3359
-            // if (!string.IsNullOrEmpty(ValueText))
-            // {
-            //     await InputHandlerAsync(new ChangeEventArgs()
-            //     {
-            //         Value = ValueText[..^1],
-            //     });
-            //     return;
-            // }
-        }
-
-        // ArrowUp
-        async Task KeyDown_ArrowUpAsync()
-        {
-            if (Items != null && Items.Any())
-            {
-                var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-
-                // Previous available item
-                for (var i = index - 1; i >= 0; i--)
-                {
-                    var item = Items.ElementAt(i);
-                    var disabled = OptionDisabled?.Invoke(item) ?? false;
-
-                    if (!disabled)
-                    {
-                        SelectableItem = Items.ElementAt(i);
-                        break;
-                    }
-                }
-
-                if (Module != null)
-                {
-                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, false);
-                }
-            }
-        }
-
-        // ArrowDown
-        async Task KeyDown_ArrowDownAsync()
-        {
-            if (Items != null && Items.Any())
-            {
-                var index = Items.ToList().IndexOf(SelectableItem ?? Items.First());
-
-                // Next available item
-                for (var i = index + 1; i < Items.Count(); i++)
-                {
-                    var item = Items.ElementAt(i);
-                    var disabled = OptionDisabled?.Invoke(item) ?? false;
-
-                    if (!disabled)
-                    {
-                        SelectableItem = Items.ElementAt(i);
-                        break;
-                    }
-                }
-
-                if (Module != null)
-                {
-                    await Module.InvokeVoidAsync("scrollToFirstSelectable", IdPopup, true);
-                }
-            }
-        }
-
-        // Enter
-        async Task KeyDown_EnterAsync()
-        {
-            if (!IsMultiSelectOpened)
-            {
-                return;
-            }
-
-            if (Items != null && Items.Any() && SelectableItem != null)
-            {
-                await OnSelectedItemChangedHandlerAsync(SelectableItem);
-            }
-
-            SelectableItem = default;
-            IsMultiSelectOpened = false;
-        }
-    }
+    private LambdaExpression? ValidationFieldAccessor => Multiple
+        ? SelectedItemsExpression
+        : SelectedItemExpression;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            Module = await JS.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            await Module.InvokeVoidAsync("initialize", Id);
+            // Import the JavaScript module
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.initialize", Id);
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <summary />
-    protected Task OnDropDownExpandedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        return InputHandlerAsync(new ChangeEventArgs()
+        // This part of code cannot be moved to SetParametersAsync because we are invoking `OnSetValue` which is async,
+        // and SetParametersAsync doesn't allow awaiting other async calls inside it.
+        if (!ValueComparer.Equals(Value, _previousValue) && OnSetValue.HasDelegate)
         {
-            Value = ValueText,
-        });
-    }
+            _previousValue = Value;
 
-    /// <summary />
-    protected async Task OnClearAsync()
-    {
-        RemoveAllSelectedItems();
-        ValueText = string.Empty;
-        SelectedOption = default;
-        await RaiseValueTextChangedAsync(ValueText);
-        await RaiseChangedEventsAsync();
+            var currentValue = GetOptionValue(_internalSelectedItem);
 
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("focusOn", Id);
-        }
-    }
+            if (!ValueComparer.Equals(Value, currentValue))
+            {
+                var args = new SetValueEventArgs<TOption, TValue>
+                {
+                    Value = Value,
+                };
 
-    /// <summary />
-    protected override async Task OnSelectedItemChangedHandlerAsync(TOption? item)
-    {
-        ValueText = string.Empty;
-        await RaiseValueTextChangedAsync(ValueText);
+                await OnSetValue.InvokeAsync(args);
 
-        await base.OnSelectedItemChangedHandlerAsync(item);
-
-        // In Single mode, set the focus on the input field
-        if (!Multiple && Module != null)
-        {
-            await Module.InvokeVoidAsync("focusOn", $"{Id}-single");
+                if (args.Item is not null)
+                {
+                    _internalSelectedItems = [args.Item];
+                    SelectedItem = args.Item;
+                }
+                else
+                {
+                    _internalSelectedItems = [];
+                    SelectedItem = default;
+                }
+            }
         }
 
-        await DisplayLastSelectedItemAsync();
-
-        if (MustBeClosed())
-        {
-            IsMultiSelectOpened = false;
-        }
+        await base.OnParametersSetAsync();
     }
 
-    /// <summary />
-    public async Task RemoveSelectedItemAsync(TOption? item)
+    /// <summary>
+    /// Notifies the EditContext that the validation field has changed, based on whether the component is in multiple or single selection mode.
+    /// </summary>
+    protected override void NotifyValidationFieldChanged()
     {
-        if (item == null)
+        if (Multiple && SelectedItemsExpression is not null)
         {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
             return;
         }
 
-        RemoveSelectedItem(item);
-        await RaiseChangedEventsAsync();
-
-        if (Module != null)
+        if (!Multiple)
         {
-            await Module.InvokeVoidAsync("focusOn", Id);
-        }
-    }
-
-    /// <summary />
-    private async Task DisplayLastSelectedItemAsync()
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("displayLastSelectedItem", Id);
-        }
-    }
-
-    /// <summary />
-    private string? GetAutocompleteAriaLabel()
-    {
-        // No items found
-        if (IsMultiSelectOpened && Items?.Any() == false)
-        {
-            return AccessibilityNotFound;
-        }
-
-        // Reached Max Items
-        if (IsReachedMaxItems)
-        {
-            return AccessibilityReachedMaxItems;
-        }
-
-        // Selected {0}
-        if (IsMultiSelectOpened && SelectableItem != null)
-        {
-            var item = GetOptionText(SelectableItem) ?? string.Empty;
-
-            if (Items != null && SelectableItem != null)
+            if (SelectedItemExpression is not null)
             {
-                var count = Items.Count();
-                var current = Items.ToList().IndexOf(SelectableItem) + 1;
-                return string.Format(AccessibilityItemIndexOfCount, item, current, count);
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
             }
 
-            return item;
+            if (ValueExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+            }
+
+            return;
         }
 
-        // Selected items
-        if (SelectedOptions != null && SelectedOptions.Any())
-        {
-            return string.Format(AccessibilitySelected, string.Join(", ", SelectedOptions.Select(i => GetOptionText(i))));
-        }
-
-        // Default
-        return GetAriaLabel() ?? Label ?? Placeholder;
+        base.NotifyValidationFieldChanged();
     }
 
     /// <summary />
-    private async Task RaiseValueTextChangedAsync(string value)
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
-        if (ValueTextChanged.HasDelegate)
+        // Check if SelectedItem is being supplied and has changed
+        if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
         {
-            await ValueTextChanged.InvokeAsync(ValueText);
+            var comparer = OptionSelectedComparer ?? OptionComparer;
+            var currentSelectedItem = _internalSelectedItem;
+
+            if (!comparer.Equals(newSelectedItem, currentSelectedItem))
+            {
+                // Sync _internalSelectedItems with the new value
+                _internalSelectedItems = newSelectedItem is not null ? [newSelectedItem] : [];
+                SelectedItem = newSelectedItem;
+            }
+        }
+
+        await base.SetParametersAsync(parameters);
+    }
+
+    /// <summary>
+    /// Raised when the FluentListbox.SelectedItems property changes.
+    /// </summary>
+    private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
+    {
+        var comparer = OptionSelectedComparer ?? OptionComparer;
+        var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
+        var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
+
+        // Multiple = True
+        if (Multiple)
+        {
+            // Add items that are in 'items' but not already in _internalSelectedItems
+            _internalSelectedItems.AddRange(itemsToAdd);
+
+            // Remove items that are in '_internalFilteredItems' but not in 'items' anymore
+            foreach (var item in itemsToRemove)
+            {
+                _internalSelectedItems.RemoveAll(selectedItem => comparer.Equals(selectedItem, item));
+            }
+        }
+
+        // Multiple = False
+        else
+        {
+            var selectedItem = _internalSelectedItems.FirstOrDefault();
+            var isInsideFilteredItems = _internalFilteredItems.Exists(item => comparer.Equals(item, selectedItem));
+            if (!items.Any() && isInsideFilteredItems)
+            {
+                _internalSelectedItems.Clear();
+            }
+            else
+            {
+                var singleItemToAdd = itemsToAdd.FirstOrDefault();
+                if (singleItemToAdd != null)
+                {
+                    _internalSelectedItems.Clear();
+                    _internalSelectedItems.Add(singleItemToAdd);
+                }
+            }
+        }
+
+        SelectedItem = _internalSelectedItem;
+
+        // Raise event
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
         }
 
         if (ValueChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(ValueText);
+            var value = GetOptionValue(_internalSelectedItem);
+            await ValueChanged.InvokeAsync(value);
         }
 
+        NotifyValidationFieldChanged();
+
+        await SetInputFocusAsync();
     }
 
     /// <summary>
-    /// Gets the position of the popup.
+    /// Detect when the user presses 'Backspace' or 'ArrowDown' keys in the text input.
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    private async Task OnTextInputKeyDownAsync(KeyboardEventArgs args)
+    {
+        switch (args.Key)
+        {
+            // When Backspace is pressed and there is no text in the input, remove the last selected item
+            case "Backspace":
+            case "Delete":
+                if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Count > 0)
+                {
+                    await RemoveSelectedItemAsync(_internalSelectedItems[^1]);
+                }
+
+                break;
+
+            // When ArrowDown is pressed and the listbox is closed, open it
+            // If there are no yet any items in the list, it means the user hasn't typed anything, so we can open the listbox and show all the options
+            case "ArrowDown":
+                if (!_isOpen)
+                {
+                    await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+                }
+
+                break;
+
+            case "Enter":
+                // WARN: The option selection feature is done using JS code (FluentAutocomplete.ts)
+
+                // If not yet open, do the same as pressing ArrowDown.
+                if (!_isOpen)
+                {
+                    await OnTextInputKeyDownAsync(new KeyboardEventArgs { Key = "ArrowDown" });
+                }
+
+                // If already open, close the listbox and let the JS code handle the rest of the logic for selecting the option.
+                else
+                {
+                    _isOpen = false;
+
+                    if (!string.IsNullOrEmpty(_textInput))
+                    {
+                        _textInput = string.Empty;
+                        if (ValueChanged.HasDelegate)
+                        {
+                            await ValueChanged.InvokeAsync((TValue)(object)_textInput);
+                        }
+                    }
+                }
+
+                break;
+        }
+    }
+
+    /// <summary>
+    /// When the user types in the input, display the listbox with the filtered options.
     /// </summary>
     /// <returns></returns>
-    private VerticalPosition? GetVerticalPosition()
-            => Position switch
+    internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
+    {
+        // If the input is empty, we don't show any options in the listbox, and we close it if it was open
+        if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
+        {
+            _isOpen = false;
+            StateHasChanged();
+            return;
+        }
+
+        _inProgress = true;
+        _isOpen = true;
+
+        StateHasChanged();
+
+        // Raise the OnOptionsSearch event to get the filtered list of items.
+        if (OnOptionsSearch.HasDelegate)
+        {
+            var args = new OptionsSearchEventArgs<TOption>()
             {
-                SelectPosition.Above => VerticalPosition.Top,
-                SelectPosition.Below => VerticalPosition.Bottom,
-                _ => VerticalPosition.Unset,
+                Items = [],
+                Text = _textInput ?? string.Empty,
             };
 
+            await OnOptionsSearch.InvokeAsync(args);
+
+            _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
+        }
+
+        // Use the Items parameter to filter the list of items
+        else if (Items != null)
+        {
+            _internalFilteredItems = [.. Items.Where(item => GetOptionText(item)?.StartsWith(_textInput ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) == true).Take(MaximumOptionsSearch)];
+        }
+
+        // No source of items provided
+        else
+        {
+            _internalFilteredItems = [];
+        }
+
+        _inProgress = false;
+    }
+
     /// <summary />
-    private bool MustBeClosed()
+    private Task DisplayFilteredOptionsAsync() => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+
+    /// <summary>
+    /// When the user clicks the "x" button or presses Backspace with an empty input, remove the selected or latest item.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    internal async Task RemoveSelectedItemAsync(TOption? item)
     {
-        if (KeepOpen == false)
+        if (item is null)
         {
-            return true;
+            return;
         }
 
-        if (MaximumSelectedOptions is null || MaximumSelectedOptions <= 1)
+        _isOpen = false;
+        _internalSelectedItems.Remove(item);
+
+        if (SelectedItemsChanged.HasDelegate)
         {
-            return true;
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
         }
 
-        if (MaximumSelectedOptions > 0 && _selectedOptions.Count >= MaximumSelectedOptions)
+        if (SelectedItemChanged.HasDelegate)
         {
-            return true;
+            await SelectedItemChanged.InvokeAsync(_internalSelectedItem);
         }
 
-        return false;
-    }
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(GetOptionValue(_internalSelectedItem));
+        }
 
-    /// <inheritdoc />
-    public override void FocusAsync()
-    {
-        if (Multiple)
-        {
-            Element?.FocusAsync();
-        }
-        else
-        {
-            OnDropDownExpandedAsync();
-        }
-    }
-
-    /// <inheritdoc />
-    public override void FocusAsync(bool preventScroll)
-    {
-        if (Multiple)
-        {
-            Element?.FocusAsync(preventScroll);
-        }
-        else
-        {
-            OnDropDownExpandedAsync();
-        }
-    }
-}
-
-/// <summary />
-public class HeaderFooterContent<TOption>
-{
-    internal HeaderFooterContent(IEnumerable<TOption>? items, bool inProgress)
-    {
-        Items = items ?? Array.Empty<TOption>();
-        InProgress = inProgress;
+        NotifyValidationFieldChanged();
     }
 
     /// <summary>
-    /// Gets a value indicating whether the operation is currently in progress.
+    /// When the user clicks the search icon, open or close the listbox with the filtered options depending on its current state.
     /// </summary>
-    public bool InProgress { get; init; }
+    private async Task SwitchOptionsPopupAsync()
+    {
+        if (_isOpen)
+        {
+            _isOpen = false;
+        }
+        else
+        {
+            await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+        }
+    }
 
     /// <summary>
-    /// Gets the items to display in the header or footer.
+    /// When the user clicks the "x" button to clear the selection, remove all selected items and close the listbox.
     /// </summary>
-    public IEnumerable<TOption> Items { get; init; }
+    /// <returns></returns>
+    private async Task ClearSelectionAsync()
+    {
+        _isOpen = false;
+        _internalSelectedItems.Clear();
+        SelectedItem = default;
+
+        if (SelectedItemsChanged.HasDelegate)
+        {
+            await SelectedItemsChanged.InvokeAsync(_internalSelectedItems);
+        }
+
+        if (SelectedItemChanged.HasDelegate)
+        {
+            await SelectedItemChanged.InvokeAsync(SelectedItem);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(GetOptionValue(SelectedItem));
+        }
+
+        NotifyValidationFieldChanged();
+    }
+
+    /// <summary>
+    /// Sets the focus to the text input element.
+    /// </summary>
+    private async Task SetInputFocusAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", Id);
+    }
 }

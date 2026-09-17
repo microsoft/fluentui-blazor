@@ -1,0 +1,19 @@
+﻿<FluentNav Style="padding-top:10px; height: 100%;"
+		   UseSingleExpanded="false"
+		   Density="@NavDensity.Medium">
+
+	<FluentNavItem Href="/"
+				   Match="NavLinkMatch.All"
+				   IconRest="@(new Icons.Regular.Size20.Home())"
+				   IconActive="@(new Icons.Filled.Size20.Home())">
+		Home
+	</FluentNavItem>
+
+    <FluentNavItem Href="/weather"
+                   Match="NavLinkMatch.All"
+                   IconRest="@(new Icons.Regular.Size20.WeatherPartlyCloudyDay())"
+                   IconActive="@(new Icons.Filled.Size20.WeatherPartlyCloudyDay())">
+        Weather
+    </FluentNavItem>
+
+</FluentNav>

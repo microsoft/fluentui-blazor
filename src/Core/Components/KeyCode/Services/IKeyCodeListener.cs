@@ -4,6 +4,9 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Defines a contract for handling key press and release events asynchronously.
+/// </summary>
 public interface IKeyCodeListener
 {
     /// <summary>

@@ -1,4 +1,8 @@
-﻿using System.Diagnostics;
+﻿// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.Diagnostics;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.AssetsGenerator.Model;
 

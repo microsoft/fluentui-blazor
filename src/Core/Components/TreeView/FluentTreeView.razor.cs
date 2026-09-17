@@ -2,82 +2,63 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTreeView : FluentComponentBase, IDisposable
+/// <summary>
+/// Represents a tree view component.
+/// </summary>
+public partial class FluentTreeView : FluentComponentBase
 {
-    private readonly Dictionary<string, FluentTreeItem> _allItems = [];
-    private readonly Debounce _currentSelectedChangedDebounce = new();
-    private bool _disposed;
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
 
-    public static string LoadingMessage = "Loading...";
+    internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentTreeView"/> class.
+    /// </summary>
+    public FluentTreeView(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
+
+    /// <summary/>
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary/>
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the size of the tree. Default is <see cref="TreeSize.Medium"/>.
+    /// </summary>
+    [Parameter]
+    public TreeSize? Size { get; set; } = TreeSize.Medium;
+
+    /// <summary>
+    /// Gets or sets the appearance of the tree. Default is <see cref="TreeAppearance.Subtle"/>.
+    /// </summary>
+    [Parameter]
+    public TreeAppearance? Appearance { get; set; } = TreeAppearance.Subtle;
+
+    /// <summary>
+    /// Gets or sets whether the selection highlight is hidden.
+    /// When <c>true</c>, the selected tree item is not visually highlighted.
+    /// </summary>
+    [Parameter]
+    public bool HideSelection { get; set; }
 
     /// <summary>
     /// Gets or sets the list of items to bind to the tree.
     /// </summary>
     [Parameter]
     public IEnumerable<ITreeViewItem>? Items { get; set; }
-
-    /// <summary>
-    /// Gets or sets the currently selected tree item.
-    /// Only when using the <see cref="Items"/> property.
-    /// </summary>
-    [Parameter]
-    public ITreeViewItem? SelectedItem { get; set; }
-
-    /// <summary>
-    /// Called when <see cref="SelectedItem"/> changes.
-    /// Only when using the <see cref="Items"/> property.
-    /// </summary>
-    [Parameter]
-    public EventCallback<ITreeViewItem?> SelectedItemChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the tree should render nodes under collapsed items
-    /// Defaults to false
-    /// </summary>
-    [Parameter]
-    [Obsolete("Please use the 'LazyLoadItems' parameter instead.")]
-    public bool RenderCollapsedNodes { get; set; }
-
-    /// <summary>
-    /// Gets or sets the currently selected tree item
-    /// </summary>
-    [Parameter]
-    public FluentTreeItem? CurrentSelected { get; set; } = default!;
-
-    /// <summary>
-    /// Called when <see cref="CurrentSelected"/> changes.
-    /// You cannot update <see cref="FluentTreeItem"/> properties.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentTreeItem?> CurrentSelectedChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
-    /// Called whenever <see cref="FluentTreeItem.Selected"/> changes on an
-    /// item within the tree.
-    /// You cannot update <see cref="FluentTreeItem"/> properties.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentTreeItem> OnSelectedChange { get; set; }
-
-    /// <summary>
-    /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an
-    /// item within the tree.
-    /// You cannot update <see cref="FluentTreeItem"/> properties.
-    /// </summary>
-    [Parameter]
-    public EventCallback<FluentTreeItem> OnExpandedChange { get; set; }
 
     /// <summary>
     /// Gets or sets the template for rendering tree items.
@@ -93,141 +74,109 @@ public partial class FluentTreeView : FluentComponentBase, IDisposable
     [Parameter]
     public bool LazyLoadItems { get; set; } = false;
 
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(TreeChangeEventArgs))]
-    public FluentTreeView()
-    {
-    }
-
-    void IDisposable.Dispose()
-    {
-        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
-
-    internal async Task ItemExpandedChangeAsync(FluentTreeItem item)
-    {
-        if (OnExpandedChange.HasDelegate)
-        {
-            await OnExpandedChange.InvokeAsync(item);
-        }
-
-        if (Items != null)
-        {
-            var currentTreeItem = FindItemById(Items, item.Id);
-
-            if (currentTreeItem != null)
-            {
-                currentTreeItem.Expanded = item.Expanded;
-
-                if (currentTreeItem.OnExpandedAsync != null)
-                {
-                    await currentTreeItem.OnExpandedAsync(new TreeViewItemExpandedEventArgs(currentTreeItem, item.Expanded));
-                }
-
-                await InvokeAsync(StateHasChanged);
-            }
-        }
-    }
-
-    internal async Task ItemSelectedChangeAsync(FluentTreeItem item)
-    {
-        if (OnSelectedChange.HasDelegate)
-        {
-            await OnSelectedChange.InvokeAsync(item);
-        }
-    }
-
-    internal void Register(FluentTreeItem fluentTreeItem)
-    {
-        ArgumentNullException.ThrowIfNull(fluentTreeItem);
-        _allItems[fluentTreeItem.Id!] = fluentTreeItem;
-    }
-
-    internal void Unregister(FluentTreeItem fluentTreeItem)
-    {
-        ArgumentNullException.ThrowIfNull(fluentTreeItem);
-        _allItems.Remove(fluentTreeItem.Id!);
-    }
-
-    internal void HandleCurrentSelectedChange(TreeChangeEventArgs args)
-    {
-        if (!_allItems.TryGetValue(args.AffectedId!, out FluentTreeItem? treeItem))
-        {
-            return;
-        }
-
-        var previouslySelected = CurrentSelected;
-        _currentSelectedChangedDebounce.Run(50, () => InvokeAsync(async () =>
-        {
-            CurrentSelected = treeItem?.Selected == true ? treeItem : null;
-            if (CurrentSelected != previouslySelected && CurrentSelectedChanged.HasDelegate)
-            {
-                foreach (FluentTreeItem item in _allItems.Values)
-                {
-                    if (item != CurrentSelected && item.Selected)
-                    {
-                        await item.SetSelectedAsync(false);
-                    }
-                }
-                await CurrentSelectedChanged.InvokeAsync(CurrentSelected);
-            }
-
-            if (Items != null)
-            {
-                SelectedItem = args.Selected == true ? FindItemById(Items, args.AffectedId) : null;
-
-                if (SelectedItemChanged.HasDelegate)
-                {
-                    await SelectedItemChanged.InvokeAsync(SelectedItem);
-                }
-            }
-        }));
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (_disposed)
-        {
-            return;
-        }
-
-        if (disposing)
-        {
-            _currentSelectedChangedDebounce?.Dispose();
-            _allItems.Clear();
-        }
-
-        _disposed = true;
-    }
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Search for an item by its id in the tree
+    /// Gets or sets the id of the currently selected tree item.
+    /// See also <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model),
+    /// and <see cref="CurrentSelected"/> (returns the <see cref="FluentTreeItem"/> component instance).
     /// </summary>
-    /// <param name="items"></param>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    private ITreeViewItem? FindItemById(IEnumerable<ITreeViewItem>? items, string? id)
+    [Parameter]
+    public string? SelectedId { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected item changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> SelectedIdChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selected <see cref="FluentTreeItem"/> component instance.
+    /// See also <see cref="SelectedId"/> (returns the item id string),
+    /// and <see cref="SelectedItem"/> (returns the <see cref="ITreeViewItem"/> data model).
+    /// </summary>
+    [Parameter]
+    public FluentTreeItem? CurrentSelected { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected <see cref="FluentTreeItem" /> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem?> CurrentSelectedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the selected <see cref="ITreeViewItem"/> data model item.
+    /// See also <see cref="SelectedId"/> (returns the item id string),
+    /// and <see cref="CurrentSelected"/> (returns the <see cref="FluentTreeItem"/> component instance).
+    /// </summary>
+    [Parameter]
+    public ITreeViewItem? SelectedItem { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected <see cref="ITreeViewItem" /> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<ITreeViewItem?> SelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the tree allows multiple selections.
+    /// This Multiple Selection feature is only available when the <see cref="Items"/> parameter is used to generate the tree.
+    /// By default, the tree allows only single selection.
+    /// </summary>
+    [Parameter]
+    public TreeSelectionMode SelectionMode { get; set; } = TreeSelectionMode.Single;
+
+    /// <summary>
+    /// Gets or sets the visibility of the multi-selection checkbox.
+    /// By default all items are visible.
+    /// </summary>
+    [Parameter]
+    public Func<ITreeViewItem, TreeSelectionVisibility>? MultipleSelectionVisibility { get; set; }
+
+    /// <summary>
+    /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? SelectedItems { get; set; }
+
+    /// <summary>
+    /// Called whenever the multi-selected <see cref="ITreeViewItem" /> changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<ITreeViewItem>?> SelectedItemsChanged { get; set; }
+
+    /// <summary>
+    /// Called whenever <see cref="FluentTreeItem.Expanded"/> changes on an item within the tree.
+    /// You cannot update FluentTreeItem properties.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem> OnExpandedChanged { get; set; }
+
+    /// <summary>
+    /// Called whenever the selected item changes.
+    /// You cannot update FluentTreeItem properties.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentTreeItem> OnSelectedChanged { get; set; }
+
+    /// <summary />
+    [ExcludeFromCodeCoverage(Justification = "JavaScript is not covered by unit tests")]
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (items == null)
+        if (firstRender && SelectionMode != TreeSelectionMode.Single)
         {
-            return null;
-        }
-
-        foreach (var item in items)
-        {
-            if (item.Id == id)
+            // Import the JavaScript module
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
             {
-                return item;
+                return;
             }
 
-            var nestedItem = FindItemById(item.Items, id);
-            if (nestedItem != null)
-            {
-                return nestedItem;
-            }
+            // Call a function from the JavaScript module
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, true);
         }
-
-        return null;
     }
 }

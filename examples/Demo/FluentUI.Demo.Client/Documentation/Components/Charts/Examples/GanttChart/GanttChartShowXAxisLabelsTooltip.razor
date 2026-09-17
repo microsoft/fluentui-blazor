@@ -1,0 +1,30 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+@*
+    ShowXAxisLabelsTooltip truncates x-axis tick labels longer than 10 characters and shows
+    the full label in a tooltip on hover. DateLocalizeOptions is set here to produce long
+    month names (e.g. "September 1") that exceed the 10-character limit and demonstrate
+    the tooltip behaviour.
+*@
+
+<FluentGanttChart Style="width: 600px; height: 350px" ChartTitle="Tooltip on truncated x-axis labels"
+                  ShowYAxisLabels="true" ShowXAxisLabelsTooltip="true" DateLocalizeOptions="@_dateOptions" ChartData="@ChartData">
+</FluentGanttChart>
+
+@code {
+  private IDictionary<string, string> _dateOptions = new Dictionary<string, string>
+  {
+    ["month"] = "long",
+    ["day"] = "numeric",
+  };
+
+  private IReadOnlyList<GanttChartDataPoint> ChartData =
+  [
+      new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2023, 9, 1), End = new DateTime(2023, 10, 15)
+}, Y = "Job A", Legend = "Alex", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2023, 10, 1), End = new DateTime(2023, 11, 30)
+}, Y = "Job B", Legend = "Alex", Color = DataVizPalette.Color1 },
+        new GanttChartDataPoint { X = new GanttChartXRange { Start = new DateTime(2023, 11, 1), End = new DateTime(2023, 12, 31)
+}, Y = "Job C", Legend = "Max", Color = DataVizPalette.Color2 },
+    ];
+}

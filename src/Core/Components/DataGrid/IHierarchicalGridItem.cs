@@ -28,4 +28,14 @@ public interface IHierarchicalGridItem
     /// Gets a value indicating whether this item has children.
     /// </summary>
     bool HasChildren { get; }
+
+    /// <summary>
+    /// Gets or sets whether this item is currently selected.
+    /// </summary>
+    bool? IsSelected { get; set; }
+
+    /// <summary>
+    /// Gets the children of this item in the hierarchy.
+    /// </summary>
+    IEnumerable<IHierarchicalGridItem> Children { get; }
 }

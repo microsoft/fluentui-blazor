@@ -3,48 +3,87 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentCard
+/// <summary>
+/// A FluentCard is a container that holds information and actions related to a single concept or object, like a document or a contact.
+/// </summary>
+public partial class FluentCard : FluentComponentBase
 {
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("--card-width", Width, !string.IsNullOrEmpty(Width))
-        .AddStyle("--card-height", Height, !string.IsNullOrEmpty(Height))
-        .AddStyle("content-visibility", "visible", !AreaRestricted)
-        .AddStyle("contain", "none", !AreaRestricted)
+    /// <summary />
+    public FluentCard(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-card")
         .Build();
 
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-card-minimal-style", when: MinimalStyle)
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width)
+        .AddStyle("height", Height)
         .Build();
 
     /// <summary>
-    /// By default, content in the card is restricted to the area of the card itself.
-    /// If you want content to be able to overflow the card, set this property to false.
+    /// Gets or sets the content of the card.
     /// </summary>
     [Parameter]
-    public bool AreaRestricted { get; set; } = true;
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the width of the card. Must be a valid CSS measurement.
+    /// Gets or sets the appearance of the component.
+    /// </summary>
+    [Parameter]
+    public CardAppearance? Appearance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the shadow of the component.
+    /// </summary>
+    [Parameter]
+    public CardShadow? Shadow { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width of the component. 
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
 
     /// <summary>
-    /// Gets or sets the height of the card. Must be a valid CSS measurement.
+    /// Gets or sets the height of the component. 
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
 
-    [Parameter]
-    public bool MinimalStyle { get; set; } = false;
-
     /// <summary>
-    /// Gets or sets the content to be rendered inside the component.
+    /// Command executed when the user clicks on the card.
     /// </summary>
     [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets the role of the card.
+    /// </summary>
+    [Parameter]
+    public string Role { get; set; } = "group";
+
+    /// <summary />
+    internal async Task ClickHandlerAsync(MouseEventArgs args)
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+
+    /// <summary />
+    internal async Task KeyDownHandlerAsync(KeyboardEventArgs args)
+    {
+        if (string.Equals(args.Key, "Enter", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(args.Key, " ", StringComparison.OrdinalIgnoreCase))
+        {
+            await ClickHandlerAsync(new MouseEventArgs { ClientX = 0, ClientY = 0 });
+        }
+    }
 }

@@ -8,19 +8,19 @@ using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Represents an individual step within a <see cref="FluentWizard"/> component.
+/// </summary>
 public partial class FluentWizardStep : FluentComponentBase
 {
-    private readonly Dictionary<EditForm, EditContext> _editForms = new Dictionary<EditForm, EditContext>();
+    private readonly Dictionary<EditForm, EditContext> _editForms = [];
+    private readonly List<EditContext> _editContexts = [];
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class).Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
-        .AddStyle("height", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Left)
-        .AddStyle("cursor", "pointer", when: IsStepClickable)
-        .Build();
+    public FluentWizardStep(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary>
     /// Gets or sets the content of the step.
@@ -35,30 +35,27 @@ public partial class FluentWizardStep : FluentComponentBase
     public RenderFragment<FluentWizardStepArgs>? StepTemplate { get; set; }
 
     /// <summary>
-    /// Gets the step index.
-    /// </summary>
-    public int Index { get; private set; } = 0;
-
-    /// <summary>
     /// Gets or sets whether the step is disabled.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; } = false;
+    public bool Disabled { get; set; }
 
     /// <summary>
-    /// Render the Wizard Step content only when the Step is selected.
+    /// Gets or sets whether to render the step content only when the step is active.
+    /// Content is cleared when the step is deselected, reducing page size for inactive steps.
     /// </summary>
     [Parameter]
-    public bool DeferredLoading { get; set; } = false;
+    public bool DeferredLoading { get; set; }
 
     /// <summary>
-    /// Gets or sets the label of the step.
+    /// Gets or sets the plain-text label shown in the step indicator (e.g., <c>Label="Step 1"</c>).
+    /// See also <see cref="Summary"/> for a short subtitle displayed below the label.
     /// </summary>
     [Parameter]
     public string Label { get; set; } = string.Empty;
 
     /// <summary>
-    /// Display a number the step icon.
+    /// Display a number on the step icon.
     /// By default, this is the <see cref="FluentWizard.DisplayStepNumber"/> value.
     /// </summary>
     [Parameter]
@@ -66,20 +63,13 @@ public partial class FluentWizardStep : FluentComponentBase
 
     /// <summary>
     /// The OnChange event fires before the current step has changed.
-    /// The EventArgs contains a field of the targeted new step and a field to cancel the build-in action.
+    /// The EventArgs contains a field of the targeted new step and a field to cancel the built-in action.
     /// </summary>
     [Parameter]
     public EventCallback<FluentWizardStepChangeEventArgs> OnChange { get; set; }
 
     /// <summary>
-    /// Reference to the parent <see cref="FluentWizard"/> component.
-    /// For internal use only
-    /// </summary>
-    [CascadingParameter]
-    public FluentWizard FluentWizard { get; set; } = default!;
-
-    /// <summary>
-    /// Gets or sets the summary of the step, to diplay near the label.
+    /// Gets or sets a short subtitle displayed below the <see cref="Label"/> in the step indicator.
     /// </summary>
     [Parameter]
     public string Summary { get; set; } = string.Empty;
@@ -89,45 +79,97 @@ public partial class FluentWizardStep : FluentComponentBase
     /// By default, it is a checkmark circle.
     /// </summary>
     [Parameter]
-    public Icon IconPrevious { get; set; } = new CoreIcons.Filled.Size24.CheckmarkCircle();
+    public Icon IconPrevious { get; set; } = new CoreIcons.Filled.Size20.CheckmarkCircle();
 
     /// <summary>
     /// Gets or sets the icon to display for the current/active step.
-    /// By default, it is a checkmark circle.
+    /// By default, it is a filled circle.
     /// </summary>
     [Parameter]
-    public Icon IconCurrent { get; set; } = new CoreIcons.Filled.Size24.Circle();
+    public Icon IconCurrent { get; set; } = new CoreIcons.Filled.Size20.Circle();
 
     /// <summary>
     /// Gets or sets the icon to display for the future/next step.
-    /// By default, it is a checkmark circle.
+    /// By default, it is a regular circle.
     /// </summary>
     [Parameter]
-    public Icon IconNext { get; set; } = new CoreIcons.Regular.Size24.Circle();
+    public Icon IconNext { get; set; } = new CoreIcons.Regular.Size20.Circle();
+
+    /// <summary>
+    /// Reference to the parent <see cref="FluentWizard"/> component.
+    /// For internal use only.
+    /// </summary>
+    [CascadingParameter]
+    internal FluentWizard FluentWizard { get; set; } = default!;
+
+    /// <summary>
+    /// Gets the step index.
+    /// </summary>
+    public int Index { get; private set; }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder.Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("position", "relative")
+        .AddStyle("display", "flex")
+        .AddStyle("gap", "10px", when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .AddStyle("flex-direction", "column", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("align-items", "center", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("flex", "1", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("text-align", "center", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("max-width", FluentWizard.StepperBulletSpace ?? "100%", when: FluentWizard.StepperPosition == StepperPosition.Top)
+        .AddStyle("height", IsLastStep ? "auto" : (FluentWizard.StepperBulletSpace ?? "100%"), when: FluentWizard.StepperPosition == StepperPosition.Left)
+        .AddStyle("cursor", "pointer", when: IsStepClickable)
+        .Build();
 
     internal WizardStepStatus Status { get; set; } = WizardStepStatus.Next;
 
-    private string IconStyle => "width: var(--fluent-wizard-circle-size);" +
-                                (Disabled ? " fill-opacity: var(--disabled-opacity);" : string.Empty);
+    private bool IsLastStep => Index >= FluentWizard.StepCount - 1;
 
+    private string IconStyle => "width: var(--fluent-wizard-circle-size);" +
+                                (Disabled ? " fill-opacity: 0.4;" : string.Empty);
     private Icon StepIcon
     {
         get
         {
-            switch (Status)
+            return Status switch
             {
-                case WizardStepStatus.Previous:
-                    return IconPrevious;
+                WizardStepStatus.Previous => IconPrevious,
+                WizardStepStatus.Current => IconCurrent,
+                WizardStepStatus.Next => IconNext,
+                _ => new CoreIcons.Regular.Size20.Circle(),
+            };
+        }
+    }
 
-                case WizardStepStatus.Current:
-                    return IconCurrent;
-
-                case WizardStepStatus.Next:
-                    return IconNext;
-
-                default:
-                    return new CoreIcons.Regular.Size24.Circle();
+    private bool IsStepClickable
+    {
+        get
+        {
+            if (Disabled)
+            {
+                return false;
             }
+
+            if (FluentWizard.Value == Index)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
+            {
+                return false;
+            }
+
+            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
+                Index > FluentWizard._maxStepVisited)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 
@@ -143,19 +185,19 @@ public partial class FluentWizardStep : FluentComponentBase
         base.OnInitialized();
     }
 
+    /// <summary>
+    /// Registers an EditForm and its EditContext for validation tracking.
+    /// </summary>
     public void RegisterEditFormAndContext(EditForm editForm, EditContext editContext)
     {
-        if (!_editForms.ContainsKey(editForm))
-        {
-            _editForms.Add(editForm, editContext);
-        }
+        _editForms.TryAdd(editForm, editContext);
     }
 
-    public void ClearEditFormAndContext()
-    {
-        _editForms.Clear();
-    }
-
+    /// <summary>
+    /// Validates all registered EditContexts.
+    /// </summary>
+#pragma warning disable CS0618
+    // TODO: Make this method asynchronous and use EditContext.ValidateAsync when the public API can be changed.
     public bool ValidateEditContexts()
     {
         var isValid = true;
@@ -167,7 +209,54 @@ public partial class FluentWizardStep : FluentComponentBase
                 isValid = false;
             }
         }
+
+        foreach (var editContext in _editContexts)
+        {
+            var contextIsValid = editContext.Validate();
+            if (!contextIsValid)
+            {
+                isValid = false;
+            }
+        }
+
         return isValid;
+    }
+#pragma warning restore CS0618
+
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        FluentWizard?.RemoveStep(this);
+        await base.DisposeAsync();
+    }
+
+    /// <summary>
+    /// Clears all registered EditForm and EditContext pairs.
+    /// </summary>
+    internal void ClearEditFormAndContext()
+    {
+        _editForms.Clear();
+        _editContexts.Clear();
+    }
+
+    /// <summary>
+    /// Registers an <see cref="EditContext"/> for validation tracking.
+    /// This is typically called by the <see cref="FluentWizardStepValidator"/> component.
+    /// </summary>
+    internal void RegisterEditContext(EditContext editContext)
+    {
+        if (!_editContexts.Contains(editContext))
+        {
+            _editContexts.Add(editContext);
+        }
+    }
+
+    /// <summary>
+    /// Unregisters an <see cref="EditContext"/> from validation tracking.
+    /// </summary>
+    internal void UnregisterEditContext(EditContext editContext)
+    {
+        _editContexts.Remove(editContext);
     }
 
     internal async Task InvokeOnValidSubmitForEditFormsAsync()
@@ -202,34 +291,5 @@ public partial class FluentWizardStep : FluentComponentBase
         }
 
         await FluentWizard.ValidateAndGoToStepAsync(Index, validateEditContexts: Index > FluentWizard.Value);
-    }
-
-    private bool IsStepClickable
-    {
-        get
-        {
-            if (Disabled)
-            {
-                return false;
-            }
-
-            if (FluentWizard.Value == Index)
-            {
-                return false;
-            }
-
-            if (FluentWizard.StepSequence == WizardStepSequence.Linear)
-            {
-                return false;
-            }
-
-            if (FluentWizard.StepSequence == WizardStepSequence.Visited &&
-                Index > FluentWizard._maxStepVisited)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

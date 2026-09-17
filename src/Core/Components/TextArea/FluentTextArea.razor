@@ -1,29 +1,33 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
-@inherits FluentInputBase<string?>
-<FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@AriaLabel" ChildContent="@LabelTemplate" Required="@Required" />
-<fluent-text-area @ref=Element
-                  class="@ClassValue"
-                  style="@StyleValue"
-                  readOnly="@ReadOnly"
-                  resize="@Resize.ToAttributeValue()"
-                  autofocus="@Autofocus"
-                  form=@Form
-                  list=@DataList
-                  maxlength=@Maxlength
-                  minlength=@Minlength
-                  placeholder="@Placeholder"
-                  cols=@Cols
-                  rows=@Rows
-                  spellcheck=@Spellcheck
-                  id=@Id
-                  value=@Value
-                  current-value="@BindConverter.FormatValue(CurrentValue)"
-                  disabled="@Disabled"
-                  name=@Name
-                  required="@Required"
-                  appearance="@Appearance.ToAttributeValue()"
-                  @onchange="@ChangeHandlerAsync"
-                  @oninput="@InputHandlerAsync"
-                  @attributes="AdditionalAttributes">
-    @ChildContent
-</fluent-text-area>
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentInputImmediateBase<string?>
+
+<FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()" >
+    <fluent-textarea @ref="@Element"
+                     style="@ComponentStyleValue"
+                     appearance="@Appearance.ToAttributeValue()"
+                     autocomplete="@AutoComplete"
+                     autofocus="@Autofocus"
+                     auto-resize="@AutoResize"
+                     aria-label="@AriaLabel"
+                     disabled="@Disabled"
+                     display-shadow="@DisplayShadow"
+                     id="@Id"
+                     maxlength="@MaxLength"
+                     minlength="@MinLength"
+                     name="@Name"
+                     placeholder="@Placeholder"
+                     readonly="@ReadOnly"
+                     required="@Required"
+                     size="@Size.ToAttributeValue()"
+                     slot="@FluentSlot.FieldInput"
+                     spellcheck="@SpellCheckValue"
+                     resize="@Resize.ToAttributeValue()"
+                     value="@ImmediateValueAsString"
+                     @onfocusin="@FocusInHandlerAsync"
+                     @onfocusout="@FocusOutHandlerAsync"
+                     @onchange="@ChangeHandlerAsync"
+                     @ontextimmediate="@InputHandlerAsync"
+                     @attributes="AdditionalAttributes">
+    </fluent-textarea>
+</FluentField>

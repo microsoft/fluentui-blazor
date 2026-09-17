@@ -1,13 +1,39 @@
-﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@inject IMessageService MessageService
 
-@if (MessageService != null && MessagesToShow.Count() > 0)
-{
-    <div @attributes="AdditionalAttributes" class="fluent-messagebar-provider @ClassValue" style="@StyleValue">
-        @foreach (var message in MessagesToShow)
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="AdditionalAttributes">
+    @if (NotificationService != null)
+    {
+        @foreach (var messageBar in GetRenderedMessageBars())
         {
-            <FluentMessageBar Content="@message" Type="@Type" Style="@(Type == MessageType.Notification ? "border-top: 1px solid lightgray;" : "")" AllowDismiss="@message.AllowDismiss" />
+            <CascadingValue Value="messageBar"
+                            IsFixed="true">
+                @if (messageBar.ComponentType is null)
+                {
+                    <FluentMessageBar @key="messageBar.Id"
+                                      Id="@messageBar.Id"
+                                      Class="@messageBar.Options.ClassValue"
+                                      Style="@messageBar.Options.StyleValue"
+                                      Intent="@messageBar.Options.Intent"
+                                      Layout="@messageBar.Options.Layout"
+                                      Shape="@messageBar.Options.Shape"
+                                      Animation="@messageBar.Options.Animation"
+                                      AriaLive="@messageBar.Options.AriaLive"
+                                      Icon="@messageBar.Options.Icon"
+                                      Title="@messageBar.Options.Title"
+                                      ChildContent="@RenderMessageBarContent(messageBar)"
+                                      AllowDismiss="@messageBar.Options.AllowDismiss"
+                                      TimeStamp="@messageBar.Options.TimeStamp"
+                                      AdditionalAttributes="@messageBar.Options.AdditionalAttributes" />
+                }
+                else
+                {
+                    @RenderCustomMessageBar(messageBar)
+                }
+            </CascadingValue>
         }
-    </div>
-}
+    }
+</div>

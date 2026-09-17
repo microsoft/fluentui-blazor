@@ -2,18 +2,43 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Represents a row in a <see cref="FluentDataGrid{TGridItem}"/> component, providing functionality for rendering,
+/// interaction, and data binding.
+/// </summary>
+/// <remarks>This class is used internally by the <see cref="FluentDataGrid{TGridItem}"/> to manage rows and their
+/// associated data. It provides support for row-specific behaviors such as focus, click, and keyboard interactions, as
+/// well as managing the layout and content of the row.</remarks>
+/// <typeparam name="TGridItem">The type of the data item associated with the row.</typeparam>
 [CascadingTypeParameter(nameof(TGridItem))]
-public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent, IDisposable
+public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandleEvent
 {
+    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = new(StringComparer.Ordinal);
     internal string RowId { get; set; } = string.Empty;
-    private readonly Dictionary<string, FluentDataGridCell<TGridItem>> cells = [];
+
+    /// <summary />
+    public FluentDataGridRow(LibraryConfiguration configuration) : base(configuration)
+    {
+    }
+
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-data-grid-row")
+        .Build();
+
+    /// <summary />
+    protected bool ShowHoverAttribute => Grid.ShowHover;
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+       .Build();
 
     /// <summary>
     /// Gets or sets the reference to the item that holds this row's values.
@@ -38,8 +63,17 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// Gets or sets the type of row. See <see cref="DataGridRowType"/>.
     /// </summary>
     [Parameter]
-    public DataGridRowType? RowType { get; set; } = DataGridRowType.Default;
+    public DataGridRowType RowType { get; set; } = DataGridRowType.Default;
 
+    /// <summary>
+    /// Gets or sets the semantic row state used for styling and behavior.
+    /// </summary>
+    [Parameter]
+    public DataGridRowState? RowState { get; set; }
+
+    /// <summary>
+    /// Gets or sets the vertical alignment of a row
+    /// </summary>
     [Parameter]
     public VerticalAlignment VerticalAlignment { get; set; } = VerticalAlignment.Center;
 
@@ -48,9 +82,6 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    [Parameter]
-    public EventCallback<FluentDataGridCell<TGridItem>> OnCellFocus { get; set; }
 
     /// <summary>
     /// Gets or sets the owning <see cref="FluentDataGrid{TItem}"/> component
@@ -68,28 +99,36 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// </summary>
     public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid._columns;
 
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-data-grid-row")
-        .AddClass("hover", when: Grid.ShowHover)
-        .Build();
+    /// <summary>
+    /// Sets the RowIndex for this row.
+    /// </summary>
+    public void SetRowIndex(int rowIndex)
+    {
+        RowIndex = rowIndex;
+    }
 
-    protected string? StyleValue => new StyleBuilder(Style)
-       //.AddStyle("height", $"{Grid.ItemSize:0}px", () => Grid.Virtualize && RowType == DataGridRowType.Default)
-       //.AddStyle("height", "100%", () => (!Grid.Virtualize || InternalGridContext.Rows.Count == 0) && Grid.Loading && RowType == DataGridRowType.Default)
-       .Build();
+    /// <inheritdoc />
+    public override ValueTask DisposeAsync()
+    {
+        InternalGridContext.Unregister(this);
+        return base.DisposeAsync();
+    }
 
+    /// <summary />
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage(Justification = "Tested in aspnetcore code")]
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+        => callback.InvokeAsync(arg);
+
+    /// <summary />
     protected override void OnInitialized()
     {
-        RowId = $"r{InternalGridContext.GetNextRowId()}";
+        RowId = $"r{InternalGridContext.GetNextRowId().ToString(CultureInfo.InvariantCulture)}";
         InternalGridContext.Register(this);
     }
 
-    public void Dispose() => InternalGridContext.Unregister(this);
-
     internal void Register(FluentDataGridCell<TGridItem> cell)
     {
-
-        cell.CellId = $"c{InternalGridContext.GetNextCellId()}";
+        cell.CellId = $"c{InternalGridContext.GetNextCellId().ToString(CultureInfo.InvariantCulture)}";
         cells.Add(cell.CellId, cell);
     }
 
@@ -111,17 +150,22 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     {
         var row = GetRow(rowId);
 
-        if (row is not null && !string.IsNullOrWhiteSpace(row.Class) && (row.Class.Contains(FluentDataGrid<TGridItem>.EMPTY_CONTENT_ROW_CLASS) || row.Class.Contains(FluentDataGrid<TGridItem>.LOADING_CONTENT_ROW_CLASS)))
+        if (row is null)
         {
             return;
         }
 
-        if (row != null && Grid.OnRowClick.HasDelegate)
+        if (row.RowState is not null)
+        {
+            return;
+        }
+
+        if (Grid.OnRowClick.HasDelegate)
         {
             await Grid.OnRowClick.InvokeAsync(row);
         }
 
-        if (row != null && row.RowType == DataGridRowType.Default)
+        if (row.RowType == DataGridRowType.Default)
         {
             foreach (var column in Grid._columns)
             {
@@ -134,7 +178,17 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     internal async Task HandleOnRowDoubleClickAsync(string rowId)
     {
         var row = GetRow(rowId);
-        if (row != null && Grid.OnRowDoubleClick.HasDelegate)
+        if (row is null)
+        {
+            return;
+        }
+
+        if (row.RowState == DataGridRowState.RowDetails)
+        {
+            return;
+        }
+
+        if (Grid.OnRowDoubleClick.HasDelegate)
         {
             await Grid.OnRowDoubleClick.InvokeAsync(row);
         }
@@ -143,19 +197,24 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     /// <summary />
     internal async Task HandleOnRowKeyDownAsync(string rowId, KeyboardEventArgs e)
     {
-        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code))
+        var row = GetRow(rowId);
+
+        if (row is null)
         {
             return;
         }
 
-        var row = GetRow(rowId);
+        if (!SelectColumn<TGridItem>.KEYBOARD_SELECT_KEYS.Contains(e.Code, StringComparer.Ordinal))
+        {
+            return;
+        }
 
-        if (row != null && Grid.OnRowClick.HasDelegate)
+        if (Grid.OnRowClick.HasDelegate)
         {
             await Grid.OnRowClick.InvokeAsync(row);
         }
 
-        if (row != null && row.RowType == DataGridRowType.Default)
+        if (row.RowType == DataGridRowType.Default)
         {
             foreach (var column in Grid._columns)
             {
@@ -164,19 +223,13 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
         }
     }
 
-    private FluentDataGridRow<TGridItem>? GetRow(string rowId, Func<FluentDataGridRow<TGridItem>, bool>? where = null)
+    private FluentDataGridRow<TGridItem>? GetRow(string rowId)
     {
         if (!string.IsNullOrEmpty(rowId) && InternalGridContext.Rows.TryGetValue(rowId, out var row))
         {
-            return where == null
-                 ? row
-                 : row is not null && where(row) ? row : null;
+            return row;
         }
 
         return null;
     }
-
-    /// <summary />
-    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
-        => callback.InvokeAsync(arg);
 }

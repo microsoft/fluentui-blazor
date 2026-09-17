@@ -1,0 +1,136 @@
+/* MCP Summary Viewer Styles - Lightweight View */
+
+.mcp-viewer-summary ::deep .component-not-found {
+  padding: 12px;
+  border: 1px dashed red;
+  background-color: lightyellow;
+  color: red;
+  font-weight: bold;
+}
+
+/* MCP Empty Message (friendly message when no data) */
+.mcp-viewer-summary ::deep .mcp-empty-message {
+  padding: 12px 16px;
+  background-color: var(--colorNeutralBackground4);
+  border-left: 4px solid var(--colorNeutralStroke1);
+  border-radius: var(--borderRadiusMedium);
+  color: var(--colorNeutralForeground2);
+  margin-bottom: 16px;
+}
+
+  .mcp-viewer-summary ::deep .mcp-empty-message em {
+    font-style: italic;
+  }
+
+/* MCP Summary Container - Flexbox */
+.mcp-viewer-summary .mcp-summary-container {
+  width: 100%;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  background: red;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+/* MCP Summary Header */
+.mcp-viewer-summary ::deep .mcp-summary-header {
+  display: flex;
+  flex-direction: row;
+  font-weight: 600;
+  border-bottom: 2px solid var(--colorNeutralStroke1);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+/* MCP Summary Body */
+.mcp-viewer-summary ::deep .mcp-summary-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* MCP Summary Row */
+.mcp-viewer-summary ::deep .mcp-summary-row {
+  display: flex;
+  flex-direction: row;
+  border-bottom: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+  padding: 8px 0;
+}
+
+  .mcp-viewer-summary ::deep .mcp-summary-row:last-child {
+    border-bottom: none;
+  }
+
+/* MCP Summary Column */
+.mcp-viewer-summary ::deep .mcp-summary-col {
+  padding-right: 12px;
+  vertical-align: top;
+}
+
+  .mcp-viewer-summary ::deep .mcp-summary-header .mcp-summary-col:first-child {
+    min-width: 180px;
+    flex: 0 0 180px;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-row .mcp-summary-col:first-child {
+    min-width: 180px;
+    flex: 0 0 180px;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-col:last-child {
+    flex: 1;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-col code {
+    font-weight: 600;
+    background-color: var(--colorNeutralBackground4);
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-col p {
+    margin: 0;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-col .mcp-uri {
+    color: var(--colorBrandForeground1);
+    word-break: break-all;
+  }
+
+/* Mobile Responsive - Stack columns vertically */
+@media (max-width: 768px) {
+  .mcp-viewer-summary ::deep .mcp-summary-row {
+    flex-direction: column;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-header {
+    display: none;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-col:first-child {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-table code {
+    font-weight: 600;
+  }
+}
+
+/* Mobile */
+@media(max-width: 768px) {
+  .mcp-viewer-summary ::deep .mcp-summary-table td {
+    display: block;
+    flex-basis: 100%;
+    white-space: normal;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-table tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .mcp-viewer-summary ::deep .mcp-summary-table td:first-child {
+    min-width: auto;
+    white-space: normal;
+  }
+}

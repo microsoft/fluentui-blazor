@@ -1,4 +1,0 @@
-﻿fluent-search[readonly]::part(clear-button),
-fluent-search[disabled]::part(clear-button) {
-    pointer-events: none;
-}

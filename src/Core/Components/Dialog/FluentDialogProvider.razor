@@ -1,23 +1,79 @@
-﻿@using Microsoft.AspNetCore.Components.Rendering
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
 
-@if (_internalDialogContext.References.Any())
-{
-    <CascadingValue TValue="InternalDialogContext" IsFixed="true" Value = "@_internalDialogContext" >
-        @_renderDialogs
-    </CascadingValue>
-}
-
-
-@code {
-    protected void RenderDialogs(RenderTreeBuilder __builder)
+<div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
+    @if (DialogService != null)
     {
-        @foreach (DialogReference dialog in _internalDialogContext.References)
+        @foreach (var dialog in DialogService.Items.Values.OrderBy(i => i.Index))
         {
-            if (dialog.Instance.Parameters.Visible)
+            @* FluentInputFile *@
+            if (dialog.ComponentType == typeof(Microsoft.AspNetCore.Components.Forms.InputFile))
             {
-                <FluentDialog @key="@dialog.GetKey()" Id="@dialog.Id" Instance="@dialog.Instance" Data="@dialog.Instance.Content" @ondialogdismiss=OnDismissAsync />
+                var anchorId = dialog.Options?.Parameters["ElementId"] as string;
+                var options = dialog.Options?.Parameters["Options"] as InputFileOptions ?? new InputFileOptions();
+                var onCompleted = dialog.Options?.Parameters["OnCompletedAsync"] as Func<IEnumerable<FluentInputFileEventArgs>, Task> ?? (_ => Task.CompletedTask);
+                var onFileUploaded = dialog.Options?.Parameters["OnFileUploadedAsync"] as Func<FluentInputFileEventArgs, Task> ?? (_ => Task.CompletedTask);
+                var onProgressChange = dialog.Options?.Parameters["OnProgressChangeAsync"] as Func<FluentInputFileEventArgs, Task> ?? (_ => Task.CompletedTask);
+                var onFileError = dialog.Options?.Parameters["OnFileErrorAsync"] as Func<FluentInputFileErrorEventArgs, Task> ?? (_ => Task.CompletedTask);
+
+                if (!string.IsNullOrEmpty(anchorId))
+                {
+                    <FluentInputFile @key="dialog.Id"
+                                     Id="@dialog.Id"
+                                     DragDropZoneVisible="false"
+                                     AnchorId="@anchorId"
+                                     OnCompleted="@(e => onCompleted.Invoke(e))"
+                                     Accept="@options.Accept"
+                                     Multiple="@options.Multiple"
+                                     MaximumFileCount="@options.MaximumFileCount"
+                                     MaximumFileSize="@options.MaximumFileSize"
+                                     BufferSize="@options.BufferSize"
+                                     Mode="@options.Mode"
+                                     OnFileUploaded="@(e => onFileUploaded.Invoke(e))"
+                                     OnProgressChange="@(e => onProgressChange.Invoke(e))"
+                                     OnFileError="@(e => onFileError.Invoke(e))" />
+                }
+            }
+
+            @* FluentOverlay (global overlay) *@
+            else if (dialog.ComponentType == typeof(FluentOverlay))
+            {
+                if (LibraryConfiguration?.UseGlobalOverlay == true)
+                {
+                    var overlayOptions = dialog.Options?.Parameters[Components.DialogService.GlobalOverlayOptionsKey] as OverlayOptions 
+                                    ?? new OverlayOptions();
+
+                    <FluentOverlay @key="dialog.Id"
+                                   Id="@Components.DialogService.GlobalOverlayId"
+                                   FullScreen="true"
+                                   CloseMode="OverlayCloseMode.Manual">
+                        <div class="@overlayOptions.ClassValue"
+                             style="@overlayOptions.StyleValue"
+                             appearance="@overlayOptions.CardAppearance.ToAttributeValue()">
+                            <FluentSpinner Size="@overlayOptions.SpinnerSize" />
+                            @if (!string.IsNullOrEmpty(overlayOptions.Text))
+                            {
+                                <FluentText>@overlayOptions.Text</FluentText>
+                            }
+                        </div>
+                    </FluentOverlay>
+                }
+            }
+
+            @* FluentDialog *@
+            else
+            {
+                <FluentDialog @key="dialog.Id"
+                              Id="@dialog.Id"
+                              Class="@dialog.Options?.ClassValue"
+                              Style="@dialog.Options?.StyleValue"
+                              Data="@dialog.Options?.Data"
+                              Instance="@dialog"
+                              OnStateChange="@(dialog.Options?.OnStateChange ?? EmptyOnStateChange)"
+                              @attributes="@AdditionalAttributes" />
             }
         }
+
     }
-}
+</div>

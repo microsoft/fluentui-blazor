@@ -1,0 +1,17 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentDonutChart ChartData="@data"
+                  ChartTitle="Donut chart rounded corners example"
+                  InnerRadius="55"
+                  ValueInsideDonut="39,000"
+                  RoundedCorners="true" />
+
+
+@code {
+    private readonly IReadOnlyList<DonutDataPoint> data = new List<DonutDataPoint>
+    {
+        new DonutDataPoint { Legend = "first", Data = 15000 },
+        new DonutDataPoint { Legend = "second", Data = 25000 },
+        new DonutDataPoint { Legend = "third", Data = 35000 },
+    };
+}

@@ -1,0 +1,8 @@
+.fluent-nav .fluent-navsectionheader {
+  color: var(--colorNeutralForeground1);
+  margin-block: 8px;
+  font-size: var(--fontSizeBase200);
+  font-weight: var(--fontWeightSemibold);
+  margin-inline-start: 10px;
+  line-height: var(--lineHeightBase200);
+}

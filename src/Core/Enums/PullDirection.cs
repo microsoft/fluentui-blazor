@@ -1,18 +1,25 @@
-// ------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Defines the direction of a pull motion.
+/// </summary>
 public enum PullDirection
 {
     /// <summary>
     /// Pull down
     /// </summary>
-    Down = 0,
+    [Description("down")]
+    Down,
 
     /// <summary>
     /// Pull up
     /// </summary>
-    Up = 1,
+    [Description("up")]
+    Up
 }

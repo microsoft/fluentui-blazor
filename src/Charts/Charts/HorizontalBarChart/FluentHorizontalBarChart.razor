@@ -1,0 +1,29 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentChartBase
+
+<fluent-horizontal-bar-chart id="@Id"
+                             class="@ClassValue"
+                             style="@StyleValue"
+                             data="@ChartJson.Serialize(ChartData!)"
+                             width="@Width"
+                             height="@Height"
+                             variant="@(Variant is null ? null : Variant.Value.ToAttributeValue())"
+                             hide-ratio="@(HideRatio ? "true" : null)"
+                             hide-labels="@(HideLabels ? "true" : null)"
+                             hide-legends="@(HideLegends ? "true" : null)"
+                             hide-tooltip="@(HideTooltip ? "true" : null)"
+                             round-corners="@(RoundedCorners ? "true" : null)"
+                             enable-gradient="@(EnableGradient ? "true" : null)"
+                             allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                             legend-list-label="@LegendListLabel"
+                             chart-title="@ChartTitle"
+                             chart-data-mode="@ChartDataMode"
+                             culture="@Culture?.Name"
+                             @attributes="@AdditionalAttributes">
+</fluent-horizontal-bar-chart>
+
+@if (TooltipTemplate is not null)
+{
+    <div id="@_tooltipPortalId" style="display:none;position:absolute;">@TooltipTemplate(_tooltipContext)</div>
+}

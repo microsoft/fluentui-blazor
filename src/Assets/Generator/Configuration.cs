@@ -1,4 +1,9 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
@@ -47,9 +52,9 @@ internal class Configuration
         AssetsFolder = GetAbsoluteFolder(config.GetSection("assets").Value);
         TargetFolder = GetAbsoluteFolder(config.GetSection("target").Value);
         Namespace = config.GetSection("namespace").Value ?? DefaultNamespace;
-        Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i));
+        Sizes = (config.GetSection("sizes").Value ?? DefaultSizes).Split(",", StringSplitOptions.RemoveEmptyEntries).Select(i => Convert.ToInt32(i, CultureInfo.InvariantCulture));
         Names = (config.GetSection("names").Value ?? string.Empty).Split(",", StringSplitOptions.RemoveEmptyEntries);
-        Library = config.GetSection("library").Value?.ToLower() ?? DefaultLibrary;
+        Library = config.GetSection("library").Value?.ToLowerInvariant() ?? DefaultLibrary;
     }
 
     /// <summary>
@@ -85,7 +90,7 @@ internal class Configuration
     /// <summary>
     /// Gets a value indicating whether the help documentation should be displayed.
     /// </summary>
-    public bool Help { get; } = false;
+    public bool Help { get; }
 
     /// <summary>
     /// Displays the help documentation.
@@ -136,8 +141,8 @@ internal class Configuration
 
     private static DirectoryInfo GetAbsoluteFolder(string? folder)
     {
-        string currentPath = GetThisFilePath();
-        string path = folder ?? currentPath;
+        var currentPath = GetThisFilePath();
+        var path = folder ?? currentPath;
 
         if (Path.IsPathRooted(path))
         {

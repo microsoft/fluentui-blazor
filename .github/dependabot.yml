@@ -16,10 +16,10 @@ updates:
     schedule:
       interval: "weekly"
 
-  # NuGet - dev-v5
+  # NuGet - dev
   - package-ecosystem: "nuget"
     directory: "/"
-    target-branch: "dev-v5"
+    target-branch: "dev"
     groups:
       all-nuget-dependencies:
         patterns: ["*"]
@@ -37,12 +37,12 @@ updates:
     schedule:
       interval: "weekly"
 
-  # npm - dev-v5
+  # npm - dev
   - package-ecosystem: "npm"
     directories:
       - "/src/Core.Scripts"
       - "/src/Charts.Scripts"
-    target-branch: "dev-v5"
+    target-branch: "dev"
     groups:
       all-npm-dependencies:
         patterns: ["*"]

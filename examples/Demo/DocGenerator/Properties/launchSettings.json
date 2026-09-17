@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "FluentUI.Demo.Generators": {
-      "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\Shared\\FluentUI.Demo.Shared.csproj"
-    }
-  }
-}

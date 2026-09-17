@@ -2,13 +2,15 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.FluentUI.AspNetCore.Components.Components.Tooltip;
-using Microsoft.FluentUI.AspNetCore.Components.DesignTokens;
 
-// This namespace is deliberately "Components" and not "Components.Extensions".
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary>
+/// Provides methods to add services required by the Fluent UI Web Components for Blazor library
+/// </summary>
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     /// <summary>
@@ -18,45 +20,26 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">Library configuration</param>
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
-        var serviceLifetime = configuration?.ServiceLifetime ?? ServiceLifetime.Scoped;
+        var options = configuration ?? new();
+
+        var serviceLifetime = options?.ServiceLifetime ?? ServiceLifetime.Scoped;
         if (serviceLifetime == ServiceLifetime.Transient)
         {
             throw new NotSupportedException("Transient lifetime is not supported for Fluent UI services.");
         }
-        if (serviceLifetime == ServiceLifetime.Singleton)
-        {
-            services.AddSingleton<GlobalState>();
-            services.AddSingleton<IToastService, ToastService>();
-            services.AddSingleton<IDialogService, DialogService>();
-            services.AddSingleton<IMessageService, MessageService>();
-            services.AddSingleton<IKeyCodeService, KeyCodeService>();
-            services.AddSingleton<IMenuService, MenuService>();
-        }
-        else
-        {
-            services.AddScoped<GlobalState>();
-            services.AddScoped<IToastService, ToastService>();
-            services.AddScoped<IDialogService, DialogService>();
-            services.AddScoped<IMessageService, MessageService>();
-            services.AddScoped<IKeyCodeService, KeyCodeService>();
-            services.AddScoped<IMenuService, MenuService>();
-        }
 
-        var options = configuration ?? new();
-        if (options.UseTooltipServiceProvider)
-        {
-            if (serviceLifetime == ServiceLifetime.Singleton)
-            {
-                services.AddSingleton<ITooltipService, TooltipService>();
-            }
-            else
-            {
-                services.AddScoped<ITooltipService, TooltipService>();
-            }
-        }
-        services.AddSingleton(options);
+        // Add services
+        services.Add<LibraryConfiguration>(provider => options ?? new(), serviceLifetime);
+        services.Add<IDialogService, DialogService>(serviceLifetime);
+        services.Add<INotificationService, NotificationService>(serviceLifetime);
+        services.Add<IFluentLocalizer>(provider => options?.Localizer ?? FluentLocalizerInternal.Default, serviceLifetime);
+        services.Add<IKeyCodeService, KeyCodeService>(serviceLifetime);
+        services.Add<IThemeService, ThemeService>(serviceLifetime);
 
-        services.AddDesignTokens(options);
+        if (configuration == null || configuration.Tooltip.UseServiceProvider)
+        {
+            services.Add<ITooltipService, TooltipService>(serviceLifetime);
+        }
 
         return services;
     }
@@ -72,5 +55,30 @@ public static class ServiceCollectionExtensions
         configuration.Invoke(options);
 
         return AddFluentUIComponents(services, options);
+    }
+
+    /// <summary />
+    private static IServiceCollection Add<TService>(this IServiceCollection services, Func<IServiceProvider, TService> implementationFactory, ServiceLifetime lifetime)
+        where TService : class
+    {
+        return lifetime switch
+        {
+            ServiceLifetime.Singleton => services.AddSingleton(implementationFactory),
+            ServiceLifetime.Scoped => services.AddScoped(implementationFactory),
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported."),
+        };
+    }
+
+    /// <summary />
+    private static IServiceCollection Add<TService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TImplementation>(this IServiceCollection services, ServiceLifetime lifetime)
+        where TService : class
+        where TImplementation : class, TService
+    {
+        return lifetime switch
+        {
+            ServiceLifetime.Singleton => services.AddSingleton<TService, TImplementation>(),
+            ServiceLifetime.Scoped => services.AddScoped<TService, TImplementation>(),
+            _ => throw new NotSupportedException($"Service lifetime {lifetime} is not supported."),
+        };
     }
 }

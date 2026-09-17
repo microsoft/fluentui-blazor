@@ -3,134 +3,87 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
+/// <summary>
+/// Container component that renders all message bars registered with the <see cref="INotificationService"/>.
+/// </summary>
 public partial class FluentMessageBarProvider : FluentComponentBase, IDisposable
 {
-    [Inject]
-    private NavigationManager NavigationManager { get; set; } = default!;
-
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class).Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style).Build();
-
-    /// <summary>
-    /// Display only messages for this section.
-    /// </summary>
-    [Parameter]
-    public string? Section { get; set; }
-
-    /// <summary>
-    /// Displays messages as a single line (with the message only)
-    /// or as a card (with the detailed message).
-    /// </summary>
-    [Parameter]
-    public MessageType Type { get; set; } = MessageType.MessageBar;
-
-    /// <summary>
-    /// Maximum number of messages displayed. Rest is stored in memory to be displayed when an shown message is closed.
-    /// Default value is 5
-    /// Set a value equal to or less than zero, to display all messages for this <see cref="Section" /> (or all categories if not set).
-    /// </summary>
-    [Parameter]
-    public int? MaxMessageCount { get; set; } = 5;
-
-    /// <summary>
-    /// Display the newest messages on top (true) or on bottom (false).
-    /// </summary>
-    [Parameter]
-    public bool NewestOnTop { get; set; } = true;
-
-    /// <summary>
-    /// Clear all (shown and stored) messages when the user navigates to a new page.
-    /// </summary>
-    [Parameter]
-    public bool ClearAfterNavigation { get; set; } = false;
-
-    /// <summary />
-    protected IEnumerable<Message> AllMessagesForCategory
+    public FluentMessageBarProvider(LibraryConfiguration configuration) : base(configuration)
     {
-        get
-        {
-            return string.IsNullOrEmpty(Section)
-                          ? MessageService.AllMessages
-                          : MessageService.AllMessages.Where(x => x.Section == Section);
-        }
+        Id = Identifier.NewId();
     }
 
     /// <summary />
-    protected IEnumerable<Message> MessagesToShow
-    {
-        get
-        {
-            if (MaxMessageCount.HasValue)
-            {
-                var maxMessages = MaxMessageCount.Value > 0 ? MaxMessageCount.Value : int.MaxValue;
+    internal string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-message-bar-provider")
+        .Build();
 
-                return NewestOnTop
-                            ? AllMessagesForCategory.Reverse().TakeLast(maxMessages)
-                            : AllMessagesForCategory.TakeLast(maxMessages);
-            }
-            else
-            {
-                return NewestOnTop
-                            ? MessageService.MessagesToShow(-1, Section).Reverse()
-                            : MessageService.MessagesToShow(-1, Section);
-            }
-        }
-    }
+    /// <summary />
+    internal string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the section identifier for the message bar provider.
+    /// This is used to scope the message bars to a specific section of the page: 
+    /// only message bars with the same section identifier will be rendered in this provider.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public required string Section { get; set; }
+
+    /// <summary />
+    protected virtual INotificationService? NotificationService => GetCachedServiceOrNull<INotificationService>();
 
     /// <summary />
     protected override void OnInitialized()
     {
-        MessageService.OnMessageItemsUpdated += OnMessageItemsUpdatedHandler;
-        MessageService.OnMessageItemsUpdatedAsync += OnMessageItemsUpdatedHandlerAsync;
+        base.OnInitialized();
 
-        if (ClearAfterNavigation)
+        if (NotificationService is NotificationService service)
         {
-            NavigationManager.LocationChanged += ClearMessages;
-        }
-
-    }
-
-    /// <summary />
-    protected virtual void OnMessageItemsUpdatedHandler()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-
-    protected virtual async Task OnMessageItemsUpdatedHandlerAsync()
-    {
-        await Task.Run(() =>
-        {
-            InvokeAsync(StateHasChanged);
-        });
-    }
-
-    private void ClearMessages(object? sender, LocationChangedEventArgs args)
-    {
-        if (AllMessagesForCategory.Any())
-        {
-            InvokeAsync(() =>
-            {
-                MessageService.Clear(Section);
-                StateHasChanged();
-            });
+            // Register this provider as a subscriber. Multiple providers can coexist:
+            // each one is notified and decides (via Section) which messages to render.
+            service.Subscribe(Id, _ => InvokeAsync(StateHasChanged));
         }
     }
 
     /// <summary />
     public void Dispose()
     {
-        MessageService.OnMessageItemsUpdated -= OnMessageItemsUpdatedHandler;
-        MessageService.OnMessageItemsUpdatedAsync -= OnMessageItemsUpdatedHandlerAsync;
-
-        NavigationManager.LocationChanged -= ClearMessages;
+        if (NotificationService is NotificationService service && !string.IsNullOrEmpty(Id))
+        {
+            service.Unsubscribe(Id);
+        }
     }
+
+    /// <summary />
+    private IEnumerable<IMessageBarInstance> MessageBarItems 
+        => NotificationService?.Items.Values
+                               .Where(item => item is IMessageBarInstance)
+                               .Cast<IMessageBarInstance>()
+        ?? [];
+
+    /// <summary />
+    private IEnumerable<IMessageBarInstance> GetRenderedMessageBars()
+        => MessageBarItems.Where(messageBar => string.Compare(messageBar.Options.Section, Section, StringComparison.OrdinalIgnoreCase) == 0 &&
+                                 messageBar.LifecycleStatus == MessageBarLifecycleStatus.Visible)
+            .OrderBy(messageBar => messageBar.Index);
+
+    /// <summary />
+    private RenderFragment RenderMessageBarContent(IMessageBarInstance? messageBar) => builder =>
+    {
+        if (messageBar is null || string.IsNullOrEmpty(messageBar.Options.Message))
+        {
+            return;
+        }
+
+        builder.AddContent(0, new MarkupStringSanitized(messageBar.Options.Message, MarkupStringSanitized.Formats.Html, LibraryConfiguration));
+    };
+
+    private static RenderFragment RenderCustomMessageBar(IMessageBarInstance messageBar) => builder =>
+        builder.RenderDynamicComponent(0, messageBar.ComponentType!, messageBar.Options.Parameters, messageBar.Id);
 }

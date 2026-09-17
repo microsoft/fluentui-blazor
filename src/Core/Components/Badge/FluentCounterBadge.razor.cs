@@ -1,0 +1,89 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// The FluentCounterBadge component is a visual indicator that communicates a value about an associated component.
+/// It uses short postive numbers, color, and icons for quick recognition and is placed near the relevant content.
+/// </summary>
+public partial class FluentCounterBadge : FluentBadge
+{
+    /// <summary />
+    public FluentCounterBadge(LibraryConfiguration configuration) : base(configuration) { }
+
+    private bool _isAttached => AnchorContent is not null;
+    private bool _render => ShowEmpty || Dot || GetCount() is not null || (ShowZero ?? false) || (ShowWhen?.Invoke(Count) == true);
+
+    private int? GetCount() => ShowWhen?.Invoke(Count) == true ? Count : null;
+
+    /// <summary>
+    /// Gets or sets whether the badge renders as a small dot without any text content (e.g., <c>Dot="true"</c>).
+    /// </summary>
+    [Parameter]
+    public bool Dot { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the badge is visible when <see cref="Count"/> is zero (e.g., <c>ShowZero="true"</c>).
+    /// </summary>
+    [Parameter]
+    public bool? ShowZero { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether to render the badge when there is no meaningful content to display (no count, no dot).
+    /// It is overruled by Dot=true or ShowWhen returning true.
+    /// </summary>
+    [Parameter]
+    public bool ShowEmpty { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets if the badge displays the count based on the specified lambda expression.
+    /// By default the badge only shows a count when it's greater than 0.
+    /// For example, to show the count on the badge when the count greater than 4, use ShowWhen=@(Count => Count > 4)
+    /// </summary>
+    [Parameter]
+    public Func<int?, bool>? ShowWhen { get; set; } = Count => Count > 0;
+
+    /// <summary>
+    /// Gets or sets the badge's count.
+    /// The default value is `null`. Internally the component uses 0 as its default value.
+    /// With ShowZero being false by default, the default result will be an empty counter badge
+    /// </summary>
+    [Parameter]
+    public int? Count { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum count value displayed before showing an overflow indicator (e.g., <c>OverflowCount="99"</c>).
+    /// When <see cref="Count"/> exceeds this value, the badge displays the overflow count followed by a "+" sign.
+    /// The default value is <c>null</c>; the component uses <c>99</c> as its internal default.
+    /// </summary>
+    [Parameter]
+    public int? OverflowCount { get; set; }
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrWhiteSpace(BackgroundColor) && Color is not null)
+        {
+            throw new ArgumentException("When setting BackgroundColor, Color must not be set.");
+        }
+
+        if (Appearance == BadgeAppearance.Outline || Appearance == BadgeAppearance.Tint)
+        {
+            throw new ArgumentException("FluentCounterBadge does not support Outline or Tint appearance.");
+        }
+
+        if (Shape == BadgeShape.Square)
+        {
+            throw new ArgumentException("FluentCounterBadge does not support Square shape.");
+        }
+
+        if (Positioning is null && _isAttached)
+        {
+            Positioning = Components.Positioning.AboveEnd;
+        }
+    }
+}

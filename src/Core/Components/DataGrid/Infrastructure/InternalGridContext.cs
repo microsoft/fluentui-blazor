@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
@@ -10,17 +11,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 // so that it doesn't show up by mistake in unrelated components.
 internal sealed class InternalGridContext<TGridItem>(FluentDataGrid<TGridItem> grid)
 {
-    private int _index = 0;
-    private int _rowId = 0;
-    private int _cellId = 0;
+    private int _index;
+    private int _rowId;
+    private int _cellId;
 
-    public (ColumnBase<TGridItem>? Column, SortDirection? Direction) DefaultSortColumn { get; set; }
-    //public SortDirection? DefaultSortDirection { get; set; }
+    public (ColumnBase<TGridItem>? Column, DataGridSortDirection? Direction) DefaultSortColumn { get; set; }
 
-    public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = [];
+    public Dictionary<string, FluentDataGridRow<TGridItem>> Rows { get; set; } = new(StringComparer.Ordinal);
 
     public ICollection<TGridItem> Items { get; set; } = [];
     public int TotalItemCount { get; set; }
+
+    [ExcludeFromCodeCoverage(Justification = "This can only be set when a Virtualized grid is scrolled which can't be done by bUnit")]
     public int TotalViewItemCount { get; set; }
 
     public FluentDataGrid<TGridItem> Grid { get; } = grid;
@@ -49,7 +51,7 @@ internal sealed class InternalGridContext<TGridItem>(FluentDataGrid<TGridItem> g
         Rows.Add(row.RowId, row);
         if (!Grid.Virtualize)
         {
-            row.RowIndex = _index++;
+            row.SetRowIndex(_index++);
         }
     }
 

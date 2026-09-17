@@ -1,9 +1,0 @@
-﻿::deep > .top-align {
-    --scroll-align: flex-start
-}
-
-::deep > .bottom-align {
-    --scroll-align: flex-end
-}
-
-

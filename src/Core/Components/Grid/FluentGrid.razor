@@ -1,10 +1,9 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 <CascadingValue IsFixed Value="this">
-    <div class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes">
-        <div id="@GetId()" class="fluent-grid" style="@($"justify-content: {Justify.ToAttributeValue()};")" spacing="@Spacing">
-            @ChildContent
-        </div>
+    <div id="@Id" class="@ClassValue" style="@StyleValue" @attributes="AdditionalAttributes" spacing="@Spacing">
+        @ChildContent
     </div>
 </CascadingValue>

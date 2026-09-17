@@ -1,6 +1,0 @@
-{
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": [ "_content/FluentUI.Demo.Shared/sources/*" ]
-  }
-}

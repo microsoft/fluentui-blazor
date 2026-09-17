@@ -1,0 +1,388 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<HorizontalBarChartSeries> DefaultData =
+    [
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Q1",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Product A", Data = 60 },
+                new HorizontalBarChartDataPoint { Legend = "Product B", Data = 40 },
+            ],
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Q2",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Product A", Data = 75 },
+                new HorizontalBarChartDataPoint { Legend = "Product B", Data = 55 },
+            ],
+        },
+    ];
+
+    public FluentHorizontalBarChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" ChartTitle="Revenue by Product" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("chart-title");
+        Assert.Equal("Revenue by Product", attribute);
+    }
+
+    [Theory]
+    [InlineData(HorizontalBarChartVariant.PartToWhole, "part-to-whole")]
+    [InlineData(HorizontalBarChartVariant.AbsoluteScale, "absolute-scale")]
+    public void FluentHorizontalBarChart_Variant(HorizontalBarChartVariant value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Variant="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("variant");
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Variant_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Variant="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("variant");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HideRatio()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" HideRatio="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("hide-ratio");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HideTooltip_False()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" HideTooltip="false" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("hide-tooltip");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_RoundedCorners()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" RoundedCorners="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("round-corners");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_AllowMultipleLegendSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" AllowMultipleLegendSelection="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("allow-multiple-legend-selection");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_LegendListLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" LegendListLabel="Products" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("legend-list-label");
+        Assert.Equal("Products", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_ChartDataMode()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" ChartDataMode="fraction" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("chart-data-mode");
+        Assert.Equal("fraction", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Width="500px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("width");
+        Assert.Equal("500px", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Height="300px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("height");
+        Assert.Equal("300px", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("nl-NL");
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("culture");
+        Assert.Equal("nl-NL", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Culture_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Culture="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("culture");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" Class="my-bar-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-horizontal-bar-chart");
+        Assert.Contains("my-bar-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-horizontal-bar-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@DefaultData" aria-label="Quarterly revenue" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("aria-label");
+        Assert.Equal("Quarterly revenue", attribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<HorizontalBarChartSeries>
+        {
+            new HorizontalBarChartSeries
+            {
+                ChartSeriesTitle = "Series 1",
+                ChartData = [ new HorizontalBarChartDataPoint { Legend = "Item A", Data = 50 } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("Item A", dataAttribute);
+        Assert.Contains("50", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_DataPoint_WithColor()
+    {
+        // Arrange
+        var data = new List<HorizontalBarChartSeries>
+        {
+            new HorizontalBarChartSeries
+            {
+                ChartData = [ new HorizontalBarChartDataPoint { Legend = "Colored", Data = 80, Color = DataVizPalette.Color3 } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("color3", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_DataPoint_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<HorizontalBarChartSeries>
+        {
+            new HorizontalBarChartSeries
+            {
+                ChartData = [ new HorizontalBarChartDataPoint { Legend = "Custom", Data = 80, Color = DataVizPalette.Custom, CustomColor = "#E63946" } ],
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@data" />);
+
+        // Assert
+        var dataAttribute = cut.Find("fluent-horizontal-bar-chart").GetAttribute("data");
+        Assert.NotNull(dataAttribute);
+        Assert.Contains("#E63946", dataAttribute);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentHorizontalBarChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentHorizontalBarChart>
+        );
+
+        // Assert — portal div is present when TooltipTemplate is set
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentHorizontalBarChart ChartData="@(Array.Empty<HorizontalBarChartSeries>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-horizontal-bar-chart");
+        Assert.NotNull(element);
+    }
+
+    // HasRenderableData is protected, so a thin subclass exposes it for unit testing.
+    private sealed class TestableHorizontalBarChart : FluentHorizontalBarChart
+    {
+        public TestableHorizontalBarChart(LibraryConfiguration configuration) : base(configuration) { }
+        public bool HasRenderableDataPublic => HasRenderableData;
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HasRenderableData_True_WhenDataContainsSeries()
+    {
+        // Arrange
+#pragma warning disable BL0005
+        var chart = new TestableHorizontalBarChart(new LibraryConfiguration())
+        {
+            ChartData = DefaultData,
+        };
+#pragma warning restore BL0005
+
+        // Assert
+        Assert.True(chart.HasRenderableDataPublic);
+    }
+
+    [Fact]
+    public void FluentHorizontalBarChart_HasRenderableData_False_WhenDataIsEmpty()
+    {
+        // Arrange
+#pragma warning disable BL0005
+        var chart = new TestableHorizontalBarChart(new LibraryConfiguration())
+        {
+            ChartData = [],
+        };
+#pragma warning restore BL0005
+
+        // Assert
+        Assert.False(chart.HasRenderableDataPublic);
+    }
+}

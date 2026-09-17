@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
+[ExcludeFromCodeCoverage(Justification = "This is an *internal* utility class that is too complicated to test. It provides a way to get an async query executor for EF Core queries.")]
 internal static class AsyncQueryExecutorSupplier
 {
     // The primary goal with this is to ensure that:
@@ -60,5 +61,5 @@ internal static class AsyncQueryExecutorSupplier
     // reference the adapter. Trimming won't cause us any problems because this is only a way of detecting misconfiguration
     // so it's sufficient if it can detect the misconfiguration in development.
     private static bool IsEntityFrameworkProviderType([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.Interfaces)] Type queryableProviderType)
-        => queryableProviderType.GetInterfaces().Any(x => string.Equals(x.FullName, "Microsoft.EntityFrameworkCore.Query.IAsyncQueryProvider", StringComparison.Ordinal)) == true;
+        => queryableProviderType.GetInterfaces().Any(x => string.Equals(x.FullName, "Microsoft.EntityFrameworkCore.Query.IAsyncQueryProvider", StringComparison.Ordinal));
 }

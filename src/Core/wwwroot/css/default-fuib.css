@@ -1,0 +1,171 @@
+/*
+ * Microsoft Fluent UI Blazor library - Required styles
+ *
+ * Normalization of HTML elements, copied and ajusted from Normalize.css
+ * Normalize is licensed under MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ *
+ * You can disable this style by setting the attribute `no-fuib-style` on the `body` element, in your source code.
+ */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  font-weight: var(--fontWeightRegular);
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground1);
+  scrollbar-color: var(--colorNeutralForeground4) var(--colorNeutralBackground2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h6, h5, h4, h3, h2, h1 {
+  margin-top: 0;
+  font-weight: var(--fontWeightMedium);
+}
+
+h1 {
+  font-size: var(--fontSizeHero900);
+  line-height: var(--lineHeightHero900);
+}
+
+h2 {
+  font-size: var(--fontSizeHero800);
+  line-height: var(--lineHeightHero800);
+}
+
+h3 {
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
+}
+
+h4 {
+  font-size: var(--fontSizeBase600);
+  line-height: var(--lineHeightBase600);
+}
+
+h5 {
+  font-size: var(--fontSizeBase500);
+  line-height: var(--lineHeightBase500);
+}
+
+h6 {
+  font-size: var(--fontSizeBase400);
+  line-height: var(--lineHeightBase400);
+}
+
+a {
+  color: var(--colorBrandForegroundLink);
+  text-decoration: underline;
+}
+
+  a:hover {
+    color: var(--colorBrandForegroundLinkHover);
+  }
+
+  a:active {
+    color: var(--colorBrandForegroundLinkSelected);
+  }
+
+  a:not([href]):not([class]),
+  a:not([href]):not([class]):hover {
+    color: inherit;
+    text-decoration: none;
+  }
+
+kbd {
+  color: var(--colorBrandForeground2);
+  background-color: var(--colorNeutralBackground6);
+}
+
+mark {
+  background-color: var(--highlight-bg);
+}
+
+hr {
+  color: inherit;
+  border-top: 1px solid;
+  opacity: 0.25;
+  width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Table */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+  table td,
+  table th {
+    padding: var(--spacingVerticalS) var(--spacingHorizontalM);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+[dir=rtl] table td,
+[dir=rtl] table th {
+  text-align: right;
+}
+
+table[data-selectable] {
+  --selectedCheckWidth: 28px;
+  --selectedCheckContent: '✔';
+}
+
+    table[data-selectable]:not([data-selectable="no-check"]) th:first-child::before {
+      content: "";
+      display: inline-block;
+      min-width: var(--selectedCheckWidth);
+    }
+
+    table[data-selectable] tr:hover:not(:has(th)) {
+      background-color: var(--colorNeutralBackground1Hover);
+      color: var(--colorNeutralForeground2Hover);
+      cursor: pointer;
+    }
+
+    table[data-selectable] tr:active:not(:has(th)) {
+      background-color: var(--colorNeutralBackground1Pressed);
+    }
+
+    table[data-selectable] tr[data-selected],
+    table[data-selectable] td[data-selected] {
+      background-color: var(--colorNeutralBackground1Selected);
+      color: var(--colorNeutralForeground2Hover);
+    }
+
+    table[data-selectable]:not([data-selectable="no-check"]) td:first-child::before,
+    table[data-selectable]:not([data-selectable="no-check"]) th:first-child::before {
+      content: "";
+      display: inline-block;
+      min-width: var(--selectedCheckWidth);
+      padding: 0 var(--spacingHorizontalS) 0 0;
+    }
+
+    table[data-selectable]:not([data-selectable="no-check"]) tr[data-selected] td:first-child::before {
+      content: var(--selectedCheckContent);
+      margin: 0 0 0 var(--spacingHorizontalS);
+      min-width: calc(var(--selectedCheckWidth) - var(--spacingHorizontalS));
+      padding: 0 var(--spacingHorizontalS) 0 0;
+    }
+
+fluent-text[weight] > * {
+  font-weight: inherit;
+}
+
+fluent-text[size] > * {
+  font-size: inherit;
+  line-height: inherit;
+}

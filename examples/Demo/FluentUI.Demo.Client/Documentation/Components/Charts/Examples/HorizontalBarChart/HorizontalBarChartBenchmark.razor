@@ -1,0 +1,38 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChart Variant="@HorizontalBarChartVariant.SingleBar"
+                          ChartData="@ChartData">
+</FluentHorizontalBarChart>
+
+@code {
+    IReadOnlyList<HorizontalBarChartSeries> ChartData = new List<HorizontalBarChartSeries>
+    {
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "one",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "one", Data = 10, Total = 100, Color = DataVizPalette.Color1 }
+            },
+            BenchmarkData = 50
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "two",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "two", Data = 30, Total = 200, Color = DataVizPalette.Color2 }
+            },
+            BenchmarkData = 30
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "three",
+            ChartData = new List<HorizontalBarChartDataPoint>
+            {
+                new HorizontalBarChartDataPoint { Legend = "three", Data = 15, Total = 50, Color = DataVizPalette.Color3 }
+            },
+            BenchmarkData = 5
+        }
+    };
+}

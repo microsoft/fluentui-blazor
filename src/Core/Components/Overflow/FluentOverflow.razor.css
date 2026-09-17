@@ -1,28 +1,29 @@
 .fluent-overflow[orientation="horizontal"] {
-    display: flex;
-    flex-direction: row;
-    overflow-x: hidden;
-    gap: 5px;
+    --fluent-overflow-gap: 4px;
 }
 
 .fluent-overflow[orientation="vertical"] {
-    display: flex;
-    flex-direction: column;
-    overflow-y: hidden;
+    --fluent-overflow-gap: 0px;
+}
+
+.fluent-overflow:not(:defined)[visible-on-load="false"] {
+    visibility: hidden;
+}
+
+.fluent-overflow:not(:defined) > [slot="trigger"] {
+    display: none;
 }
 
 .fluent-overflow-more {
     min-width: 32px;
     max-width: 32px;
+    flex-shrink: 0;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.fluent-overflow ::deep > *[overflow] {
+.fluent-overflow > [hidden] {
     display: none;
-}
-
-.fluent-overflow ::deep .fluent-overflow-item[fixed='ellipsis'] {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: fit-content;
 }

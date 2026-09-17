@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -13,13 +14,22 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public class Icon : IconInfo
 {
+
+    /// <summary>
+    /// Represents the default color value used when no specific color is provided.
+    /// This value is required to ensure that the icon inherits the current text color from its parent element.
+    /// And will be correct for dark and light mode.
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword
+    /// </summary>
+    internal const string DefaultColor = "currentColor";
+
     /// <summary>
     /// Please use the constructor including parameters.
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
     public Icon() : this(string.Empty, IconVariant.Regular, IconSize.Size24, string.Empty)
     {
-        throw new ArgumentNullException("Please use the constructor including parameters.");
+        throw new NotSupportedException("Please use the constructor including parameters.");
     }
 
     /// <summary>
@@ -58,6 +68,7 @@ public class Icon : IconInfo
         {
             Color = color;
         }
+
         return this;
     }
 
@@ -82,7 +93,7 @@ public class Icon : IconInfo
     {
         if (accentContainer && Color == null)
         {
-            Color = AspNetCore.Components.Color.Lightweight.ToAttributeValue();
+            Color = Components.Color.Lightweight.ToAttributeValue();
         }
 
         return this;
@@ -91,31 +102,31 @@ public class Icon : IconInfo
     /// <summary>
     /// Gets the HTML markup of the icon.
     /// </summary>
-    public virtual MarkupString ToMarkup(string? size = null, string? color = null)
+    public virtual MarkupString ToMarkup(string? size = null, string? color = null, string? backgroundColor = null, string? slotName = null, string? role = null)
     {
         if (Size != IconSize.Custom && ContainsSVG)
         {
-            var styleWidth = size ?? $"{(int)Size}px";
-            var styleColor = color ?? Color ?? "var(--accent-fill-rest)";
-            return new MarkupString($"<svg viewBox=\"0 0 {(int)Size} {(int)Size}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: var(--neutral-layer-1); width: {styleWidth};\" aria-hidden=\"true\">{Content}</svg>");
+            var sizeAsString = ((int)Size).ToString(CultureInfo.InvariantCulture);
+            var styleWidth = size ?? $"{sizeAsString}px";
+            var styleColor = color ?? Color ?? DefaultColor;
+            var styleBackgroundColor = backgroundColor ?? "var(--colorNeutralBackground1)";
+            var slotAttribute = string.IsNullOrEmpty(slotName) ? string.Empty : $" slot=\"{slotName}\"";
+            var roleAttribute = string.IsNullOrEmpty(role) ? string.Empty : $" role=\"{role}\"";
+            return new MarkupString($"<svg viewBox=\"0 0 {sizeAsString} {sizeAsString}\" width=\"{styleWidth}\" fill=\"{styleColor}\" style=\"background-color: {styleBackgroundColor}; width: {styleWidth};\" aria-hidden=\"true\" {slotAttribute}{roleAttribute}>{Content}</svg>");
         }
-        else
-        {
-            if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
-            {
-                return new MarkupString(Content);
-            }
-            else
-            {
-                var attributes = new StyleBuilder()
-                    .AddStyle("display", "inline-block")
-                    .AddStyle("fill", color, when: !string.IsNullOrEmpty(color))
-                    .AddStyle("width", size, when: !string.IsNullOrEmpty(size))
-                    .Build();
 
-                return new MarkupString($"<div style=\"{attributes}\">{Content}</div>");
-            }
+        if (string.IsNullOrEmpty(size) && string.IsNullOrEmpty(color))
+        {
+            return new MarkupString(Content);
         }
+
+        var attributes = new StyleBuilder()
+            .AddStyle("display", "inline-block")
+            .AddStyle("fill", color, when: () => !string.IsNullOrEmpty(color))
+            .AddStyle("width", size, when: () => !string.IsNullOrEmpty(size))
+            .Build();
+
+        return new MarkupString($"<div style=\"{attributes}\">{Content}</div>");
     }
 
     /// <summary>
@@ -126,7 +137,9 @@ public class Icon : IconInfo
         var svg = ToMarkup(size, color).Value;
 
         // Attribute xmlns="http://www.w3.org/2000/svg" is required for SVG data URI.
-        svg = svg.Contains("http://www.w3.org/2000/svg") ? svg : svg.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ");
+        svg = svg.Contains("http://www.w3.org/2000/svg", StringComparison.InvariantCulture)
+            ? svg
+            : svg.Replace("<svg ", "<svg xmlns=\"http://www.w3.org/2000/svg\" ", StringComparison.InvariantCulture);
 
         var base64Svg = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(svg));
         return $"data:image/svg+xml;base64,{base64Svg}";
@@ -146,11 +159,11 @@ public class Icon : IconInfo
         get
         {
             return !string.IsNullOrEmpty(Content) &&
-                   (Content.StartsWith("<path ") ||
-                    Content.StartsWith("<rect ") ||
-                    Content.StartsWith("<g ") ||
-                    Content.StartsWith("<circle ") ||
-                    Content.StartsWith("<mark "));
+                   (Content.StartsWith("<path ", StringComparison.Ordinal) ||
+                    Content.StartsWith("<rect ", StringComparison.Ordinal) ||
+                    Content.StartsWith("<g ", StringComparison.Ordinal) ||
+                    Content.StartsWith("<circle ", StringComparison.Ordinal) ||
+                    Content.StartsWith("<mark ", StringComparison.Ordinal));
         }
     }
 

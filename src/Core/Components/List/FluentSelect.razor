@@ -1,24 +1,39 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
-@inherits ListComponentBase<TOption>
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentListBase<TOption, TValue>
 @typeparam TOption
-<CascadingValue Value="_internalListContext" Name="ListContext" TValue="InternalListContext<TOption>" IsFixed="true">
-    @InlineStyleValue
-    <FluentInputLabel ForId="@Id" Label="@Label" AriaLabel="@GetAriaLabelWithRequired()" Required="@Required" ChildContent="@LabelTemplate" />
-    <fluent-select @ref=Element
-                   id=@Id
-                   class="@ClassValue"
-                   style="@StyleValue"
-                   open="@Open"
-                   position="@Position.ToAttributeValue()"
-                   multiple="@Multiple"
-                   disabled="@Disabled"
-                   appearance="@Appearance.ToAttributeValue()"
-                   current-value="@Value"
-                   required="@Required"
-                   name="@Name"
-                   @onchange="@ChangeHandlerAsync"
-                   @onkeydown="@OnKeydownHandlerAsync"
-                   @attributes="AdditionalAttributes">
-        @_renderOptions
-    </fluent-select>
+@typeparam TValue
+
+<CascadingValue Value="GetCurrentContext()" Name="ListContext" TValue="InternalListContext<TValue>" IsFixed="true">
+    <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
+        <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
+            <fluent-dropdown @ref="@Element"
+                             id="@Id"
+                             appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
+                             placeholder="@Placeholder"
+                             slot="@FluentSlot.FieldInput"
+                             aria-label="@AriaLabel"
+                             autofocus="@Autofocus"
+                             disabled="@Disabled"
+                             multiple="@Multiple"
+                             name="@Name"
+                             readonly="@ReadOnly"
+                             required="@Required"
+                             size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
+                             style="@DropdownStyle"
+                             type="@DropdownType"
+                             @ondropdownchange="@OnDropdownChangeHandlerAsync"
+                             @onfocusin="@(e => IsImmediate ? FocusInHandlerAsync(e) : Task.CompletedTask)"
+                             @onfocusout="@FocusOutHandlerAsync"
+                             @ontextimmediate="@(e => IsImmediate ? InputHandlerAsync(e) : Task.CompletedTask)"
+                             @attributes="@AdditionalAttributes">
+                <fluent-listbox style="@ListStyle" no-wrap="@OptionNoWrapMaxWidth">
+                    @RenderOptions()
+                </fluent-listbox>
+
+                @RenderExtraFragment()
+
+            </fluent-dropdown>
+        </FluentField>
+    </CascadingValue>
 </CascadingValue>

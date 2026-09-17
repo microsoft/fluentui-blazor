@@ -1,10 +1,15 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// The interface for an item within a <see cref="FluentAppBar"/>.
+/// </summary>  
 public interface IAppBarItem
 {
     /// <summary>
@@ -50,7 +55,7 @@ public interface IAppBarItem
     public int? Count { get; set; }
 
     /// <summary>
-    /// Wether this app is outside of visible app bar area.
+    /// Whether this app is outside of visible app bar area.
     /// </summary>
     public bool? Overflow { get; set; }
 
@@ -58,5 +63,4 @@ public interface IAppBarItem
     /// The callback to invoke when the item is clicked.
     /// </summary>
     public EventCallback<IAppBarItem> OnClick { get; set; }
-
 }

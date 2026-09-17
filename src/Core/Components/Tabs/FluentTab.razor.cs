@@ -3,106 +3,100 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTab : FluentComponentBase
+/// <summary>
+/// A FluentTabs allows people to switch between categories of related information without going to different pages
+/// </summary>
+public partial class FluentTab : FluentComponentBase, ITooltipComponent
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Tabs/FluentTab.razor.js";
-    private DotNetObjectReference<FluentTab>? _dotNetHelper = null;
-    private IJSObjectReference _jsModule = default!;
+    /// <summary />
+    public FluentTab(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
+    internal string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-tab-panel")
         .Build();
 
     /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .AddStyle("height", "100%", () => !string.IsNullOrEmpty(Owner?.Height))
-        .AddStyle("overflow-y", "auto", () => !string.IsNullOrEmpty(Owner?.Height))
+    internal string? StyleValue => DefaultStyleBuilder
         .Build();
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    [CascadingParameter]
+    private FluentTabs? Owner { get; set; }
 
     /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    internal int Index { get; set; }
 
     /// <summary>
-    /// When true, the control will be immutable by user interaction. See <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled">disabled</see> HTML attribute for more information.
+    /// Gets or sets whether the tab is disabled.
     /// </summary>
     [Parameter]
-    public bool Disabled { get; set; } = false;
+    public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the visibility of a tab
+    /// Gets or sets the text displayed on the tab.
+    /// This is the plain-text label shown in the tab strip (e.g., <c>Header="My Tab"</c>).
+    /// For rich content (icons, custom markup), use <see cref="HeaderTemplate"/> instead.
+    /// </summary>
+    /// <remarks>
+    /// Renamed from <c>Label</c> in v4.
+    /// </remarks>
+    [Parameter]
+    public string? Header { get; set; }
+
+    /// <summary>
+    /// Gets or sets the custom header content of the tab (supports icons and rich markup).
+    /// Use this instead of <see cref="Header"/> when you need more than plain text.
+    /// </summary>
+    /// <remarks>
+    /// Renamed from <c>Header</c> in v4.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the CSS class name applied to the tab label.
     /// </summary>
     [Parameter]
-    public bool Visible { get; set; } = true;
+    public string? HeaderClass { get; set; }
 
     /// <summary>
-    /// Gets or sets the label of the tab.
+    /// Gets or sets the CSS styles applied to the tab label.
     /// </summary>
     [Parameter]
-    public string Label { get; set; } = string.Empty;
+    public string? HeaderStyle { get; set; }
 
     /// <summary>
-    /// Callback to invoke when the label changes.
+    /// Gets or sets the icon to be displayed at the start of the tab.
     /// </summary>
     [Parameter]
-    public EventCallback<string> LabelChanged { get; set; }
+    public Icon? IconStart { get; set; }
 
     /// <summary>
-    /// Gets or sets the class, applied to the Label Tab Item.
+    /// Gets or sets the icon color.
     /// </summary>
     [Parameter]
-    public virtual string? LabelClass { get; set; }
+    public Color? IconColor { get; set; }
 
     /// <summary>
-    /// Gets or sets the style, applied to the Label Tab Item.
-    /// </summary>
-    [Parameter]
-    public virtual string? LabelStyle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the customized content of the header.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? Header { get; set; }
-
-    /// <summary>
-    /// Gets or sets the icon to display in front of the tab
-    /// </summary>
-    [Parameter]
-    public Icon? Icon { get; set; }
-
-    /// <summary>
-    /// Gets the index number of this tab.
-    /// </summary>
-    public int Index { get; set; } = 0;
-
-    /// <summary>
-    /// True to let the user edit the <see cref="Label"/> property.
-    /// </summary>
-    [Parameter]
-    public bool LabelEditable { get; set; } = false;
-
-    /// <summary>
-    /// Render the tab content only when the tab is selected.
+    /// Gets or sets whether the tab content is rendered only when the tab is selected.
+    /// To reduce the HTML page size, the tab content is cleared when the tab is unselected.
     /// </summary>
     [Parameter]
     public bool DeferredLoading { get; set; } = false;
 
     /// <summary>
-    /// Gets or sets the customized content of this tab panel.
+    /// Gets or sets the customized loading content message when using deferred loading.
     /// </summary>
     [Parameter]
-    public RenderFragment? Content { get; set; }
+    public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -111,72 +105,43 @@ public partial class FluentTab : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the customized loading content message when using deferred loading.
+    /// Gets or sets whether the tab is displayed. Default is true.
     /// </summary>
     [Parameter]
-    public RenderFragment? LoadingContent { get; set; }
+    public bool Visible { get; set; } = true;
 
-    /// <summary>
-    /// Gets or sets the owning FluentTabs component.
-    /// </summary>
-    [CascadingParameter]
-    public FluentTabs Owner { get; set; } = default!;
-
-    /// <summary>
-    /// If this tab is outside of visible tab panel area.
-    /// </summary>
-    public bool? Overflow { get; private set; }
-
-    public FluentTab()
-    {
-        Id = Identifier.NewId();
-    }
-
-    protected override void OnInitialized()
-    {
-        Index = Owner.RegisterTab(this);
-    }
+    /// <inheritdoc cref="ITooltipComponent.Tooltip" />
+    [Parameter]
+    public string? Tooltip { get; set; }
 
     /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        if (firstRender)
+        if (string.IsNullOrEmpty(Id))
         {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            _dotNetHelper = DotNetObjectReference.Create(this);
+            throw new InvalidOperationException($"{nameof(Id)} must be set for {nameof(FluentTab)}.");
+        }
 
-            await _jsModule.InvokeVoidAsync("TabEditable_Changed", _dotNetHelper, $"#{Id} span[contenteditable='true']", Id);
+        await base.RenderTooltipAsync(Tooltip);
+
+        if (Owner is not null)
+        {
+            Index = await Owner.AddTabAsync(this);
         }
     }
 
     /// <summary />
-    protected virtual Task CloseClickedAsync()
+    public override async ValueTask DisposeAsync()
     {
-        if (Id is null)
+        if (Owner is not null)
         {
-            return Task.CompletedTask;
+            await Owner.RemoveTabAsync(this);
         }
-        return Owner.UnregisterTabAsync(Id);
+
+        await base.DisposeAsync();
+
     }
 
     /// <summary />
-    [JSInvokable]
-    public async Task UpdateTabLabelAsync(string tabId, string label)
-    {
-        if (Id == tabId && Label != label)
-        {
-            Label = label;
-
-            if (LabelChanged.HasDelegate)
-            {
-                await LabelChanged.InvokeAsync(label);
-            }
-        }
-    }
-
-    /// <summary />
-    internal void SetProperties(bool? overflow)
-    {
-        Overflow = overflow == true ? overflow : null;
-    }
+    internal string TabPanelId => $"{Id}-panel";
 }

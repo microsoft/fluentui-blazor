@@ -1,0 +1,25 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="max-width: 300px;">
+  <FluentSlider Label="@($"Stroke width ({_strokeWidth} px)")" Min="0" Max="6" @bind-Value="@_strokeWidth" />
+</div>
+
+<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px" ChartTitle="Stroke width on bars"
+                                  StrokeWidth="@_strokeWidth" ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+  private int _strokeWidth = 2;
+
+  private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+  [
+      new HorizontalBarChartWithAxisDataPoint { Y = "String One", X = 1000, Legend = "Oranges", Color = DataVizPalette.Color1,
+XAxisCalloutData = "1K", YAxisCalloutData = "String One"   },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Two", X = 5000, Legend = "Grapes", Color = DataVizPalette.Color2,
+XAxisCalloutData = "5K", YAxisCalloutData = "String Two"   },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Three", X = 3000, Legend = "Apples", Color =
+DataVizPalette.Color3, XAxisCalloutData = "3K", YAxisCalloutData = "String Three" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Four", X = 2000, Legend = "Bananas", Color =
+DataVizPalette.Color4, XAxisCalloutData = "2K", YAxisCalloutData = "String Four"  },
+    ];
+}

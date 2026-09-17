@@ -5,97 +5,270 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
-using Microsoft.FluentUI.AspNetCore.Components.Utilities;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Calendar;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentTimePicker : FluentInputBase<DateTime?>
+/// <summary />
+public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/DateTime/FluentTimePicker.razor.js";
+    private static readonly IEqualityComparer<DateTime?> TimeComparer = new TimeEqualityComparer();
+    private DateTime DefaultTime => Culture.Calendar.MinSupportedDateTime;
+    private FluentCombobox<DateTime?, DateTime?> _fluentCombobox = default!;
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
-
-    /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? Module { get; set; }
-
-    /// <summary />
-    protected override string? StyleValue => new StyleBuilder(Style).Build();
-
-    /// <summary>
-    /// Gets or sets the design of this input.
-    /// </summary>
-    [Parameter]
-    public virtual FluentInputAppearance Appearance { get; set; } = FluentInputAppearance.Outline;
-
-    /// <summary>
-    /// Gets or sets the time format.
-    /// </summary>
-    [Parameter]
-    public TimeDisplay TimeDisplay { get; set; } = TimeDisplay.HourMinute;
-
-    /// <summary />
-    protected override string? FormatValueAsString(DateTime? value)
+    public FluentTimePicker(LibraryConfiguration configuration) : base(configuration)
     {
-        var format = TimeDisplay switch
+        if (typeof(TValue).IsNotTimeType())
         {
-            TimeDisplay.HourMinute => "HH:mm",
-            TimeDisplay.HourMinuteSeconds => "HH:mm:ss",
-            _ => "HH:mm",
+            throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, TimeOnly, and TimeOnly?.");
+        }
+
+        // Default conditions for the message
+        MessageCondition = (field) =>
+        {
+            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+            {
+                return false;
+            }
+
+            field.MessageIcon = FluentStatus.ErrorIcon;
+            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+
+            return FocusLost &&
+                   (Required ?? false)
+                   && !(Disabled ?? false)
+                   && !ReadOnly
+                   && CurrentValue.IsNullOrDefault();
         };
-
-        var result = value?.ToString(format, CultureInfo.InvariantCulture);
-
-        return result;
     }
 
     /// <summary />
-    protected override bool TryParseValueFromString(string? value, out DateTime? result, [NotNullWhen(false)] out string? validationErrorMessage)
+    protected override string? ClassValue => DefaultClassBuilder
+        .AddClass(base.CssClass)
+        .AddClass("fluent-timepicker")
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the visual appearance.
+    /// </summary>
+    [Parameter]
+    public ListAppearance Appearance { get; set; } = ListAppearance.Outline;
+
+    /// <summary>
+    /// Gets or sets the render style of the time picker (e.g., <c>RenderStyle="DatePickerRenderStyle.FluentUI"</c>).
+    /// <see cref="DatePickerRenderStyle.FluentUI"/> renders a dropdown list; <see cref="DatePickerRenderStyle.Native"/> uses the browser's built-in time input.
+    /// </summary>
+    [Parameter]
+    public DatePickerRenderStyle RenderStyle { get; set; } = DatePickerRenderStyle.FluentUI;
+
+    /// <summary>
+    /// Gets or sets the culture of the component.
+    /// By default <see cref="CultureInfo.CurrentCulture"/> to display using the OS culture.
+    /// </summary>
+    [Parameter]
+    public virtual CultureInfo Culture { get; set; } = CultureInfo.CurrentCulture;
+
+    /// <summary>
+    /// Gets or sets the width of the component.
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the short hint displayed in the input before the user enters a value.
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Gets or sets a function that determines whether a specific time value should be disabled in the picker.
+    /// Return <see langword="true"/> to disable a time; <see langword="false"/> to allow it.
+    /// </summary>
+    [Parameter]
+    public virtual Func<TValue, bool>? DisabledTimeFunc { get; set; }
+
+    /// <summary>
+    /// Gets or sets the first hour displayed in the time dropdown list, in 24-hour format (e.g., <c>StartHour="9"</c>).
+    /// See also <see cref="EndHour"/>.
+    /// </summary>
+    [Parameter]
+    public int StartHour { get; set; } = 8;
+
+    /// <summary>
+    /// Gets or sets the last hour displayed in the time dropdown list, in 24-hour format (e.g., <c>EndHour="17"</c>).
+    /// See also <see cref="StartHour"/>.
+    /// </summary>
+    [Parameter]
+    public int EndHour { get; set; } = 18;
+
+    /// <summary>
+    /// Gets or sets the increment, in minutes, between each time option in the dropdown list.
+    /// </summary>
+    [Parameter]
+    public int Increment { get; set; } = 15;
+
+    /// <summary>
+    /// Gets the short time pattern used by the current culture for formatting time values.
+    /// </summary>
+    private string TimePattern => Culture.DateTimeFormat.ShortTimePattern;
+
+    /// <summary>
+    /// Gets a collection of nullable <see cref="DateTime"/> values representing each hour within the configured range.
+    /// </summary>
+    private IEnumerable<DateTime?> Items
     {
-        var acceptedFormats = new string[] { "HH:mm", "HH:mm:ss", "HH:mm:ss.fff" };
-
-        DateTime currentValue = Value ?? DateTime.MinValue;
-
-        if (string.IsNullOrWhiteSpace(value))
+        get
         {
-            result = null;
-        }
-        else if (DateTime.TryParseExact(value, acceptedFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var valueConverted))
-        {
-            result = currentValue.Date + valueConverted.TimeOfDay;
-        }
-        else
-        {
-            result = Value?.Date;
-        }
+            var totalMinutes = Math.Max(0, (EndHour - StartHour) * 60);
+            var count = totalMinutes / Increment + 1;
 
-        validationErrorMessage = null;
-        return true;
+            return Enumerable.Range(0, count)
+                             .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * Increment));
+        }
     }
 
-    /// <summary />
-    protected override void OnInitialized()
+    /// <summary>
+    /// Gets or sets the selected time value as a <see cref="DateTime"/> object, or <see langword="null"/> if no value
+    /// is selected.
+    /// </summary>
+    private DateTime? SelectedValue
     {
-        if (string.IsNullOrEmpty(Id) && TimeDisplay == TimeDisplay.HourMinuteSeconds)
+        get
         {
-            Id = Identifier.NewId();
+            return DateTime.TryParse(CurrentValueAsString, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTime) ? dateTime : null;
+        }
+        set
+        {
+            CurrentValueAsString = value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
         }
     }
+
+    /// <summary>
+    /// Gets a value indicating whether the date picker is using the Fluent UI style.
+    /// </summary>
+    private bool IsFluentUIStyle => RenderStyle == DatePickerRenderStyle.FluentUI;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && TimeDisplay == TimeDisplay.HourMinuteSeconds)
+        if (firstRender && !IsFluentUIStyle)
         {
-            Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            await Module.InvokeVoidAsync("setControlAttribute", Id, "step", 1);
+            // Set the attribute min/max/step on the shadow "control" element.
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='control']",
+                "min", DefaultTime.AddHours(StartHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='control']",
+                "max", DefaultTime.AddHours(EndHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Id,
+                "[part='control']",
+                "step", Increment);
+        }
+    }
+
+    /// <summary />
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        var acceptedFormats = new string[] { "HH:mm", "HH:mm:ss", "HH:mm:ss.fff" };
+        var currentValue = Value.ConvertToDateTime()?.Date ?? DefaultTime;
+
+        if (DateTime.TryParseExact(value, acceptedFormats, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTime))
+        {
+            result = (currentValue.Date + dateTime.TimeOfDay).ConvertToTValue<TValue>();
+            validationErrorMessage = null;
+            return true;
+        }
+
+        result = default!;
+        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+        return false;
+    }
+
+    /// <summary />
+    protected override string? FormatValueAsString(TValue? value)
+    {
+        return value switch
+        {
+            DateTime dt => dt.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
+            TimeOnly to => to.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
+            _ => null,
+        };
+    }
+
+    /// <summary />
+    private static string? FormatValueAsString(DateTime? value)
+    {
+        return value?.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+    }
+
+    /// <summary />
+    private string GetPlaceholderAccordingToView()
+    {
+        if (!string.IsNullOrEmpty(Placeholder))
+        {
+            return Placeholder;
+        }
+
+        return TimePattern;
+    }
+
+    /// <summary />
+    private bool DisableHourHandler(DateTime? dateTime)
+    {
+        if (dateTime is null || DisabledTimeFunc is null)
+        {
+            return false;
+        }
+
+        var value = CalendarTValue.ConvertToTValue<TValue>(dateTime ?? throw new ArgumentNullException(nameof(dateTime)));
+        return DisabledTimeFunc(value);
+    }
+
+    /// <summary />
+    private async Task KeyDownHandlerAsync(KeyboardEventArgs args)
+    {
+        var isNullable = Nullable.GetUnderlyingType(typeof(TValue)) != null || !typeof(TValue).IsValueType;
+
+        if (isNullable && string.Equals(args.Key, "Delete", StringComparison.OrdinalIgnoreCase))
+        {
+            await _fluentCombobox.ClearAsync();
+        }
+    }
+
+    /// <summary />
+    private TextInputAppearance TextInputAppearance
+    {
+        get
+        {
+            return Appearance switch
+            {
+                ListAppearance.FilledLighter => TextInputAppearance.FilledLighter,
+                ListAppearance.FilledDarker => TextInputAppearance.FilledDarker,
+                ListAppearance.Outline => TextInputAppearance.Outline,
+                ListAppearance.Transparent => TextInputAppearance.Underline,
+                _ => TextInputAppearance.Outline,
+            };
+        }
+    }
+
+    private sealed class TimeEqualityComparer : IEqualityComparer<DateTime?>
+    {
+        public bool Equals(DateTime? x, DateTime? y)
+        {
+            return x?.Hour == y?.Hour && x?.Minute == y?.Minute;
+        }
+
+        public int GetHashCode(DateTime? obj)
+        {
+            return obj is null ? 0 : HashCode.Combine(obj.Value.Hour, obj.Value.Minute);
         }
     }
 }

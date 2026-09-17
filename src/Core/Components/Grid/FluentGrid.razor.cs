@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -14,25 +15,27 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// PowerGrid comes with a 12-point grid system and contains 5 types of breakpoints
 /// that are used for specific screen sizes.
 /// </summary>
-public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
+public partial class FluentGrid : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/Grid/FluentGrid.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Grid/FluentGrid.razor.js";
 
-    public FluentGrid()
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FluentGrid"/> class.
+    /// </summary>
+    public FluentGrid(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
     }
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-grid")
+        .Build();
 
     /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
-
-    /// <summary />
-    private IJSObjectReference? _jsModule { get; set; }
+    protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("justify-content", Justify.ToAttributeValue())
+        .Build();
 
     /// <summary />
     internal GridItemSize? CurrentSize { get; private set; }
@@ -42,10 +45,10 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     /// Only values from 0 to 10 are possible.
     /// </summary>
     [Parameter]
-    public int Spacing { get; set; } = 3;
+    public int Spacing { get; set; }
 
     /// <summary>
-    /// Defines how the browser distributes space between and around content items.
+    /// Gets or sets how the browser distributes space between and around content items.
     /// </summary>
     [Parameter]
     public JustifyContent Justify { get; set; } = JustifyContent.FlexStart;
@@ -64,33 +67,33 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
+    /// Event raised when page size falls within a specific size range (xs, sm, md, lg, xl, xxl).
     /// </summary>
     [Parameter]
     public EventCallback<GridItemSize> OnBreakpointEnter { get; set; }
 
     /// <summary />
-    protected string? ClassValue => new CssBuilder(Class)
-        .Build();
-
-    /// <summary />
-    protected string? StyleValue => new StyleBuilder(Style)
-        .Build();
-
-    protected async override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && OnBreakpointEnter.HasDelegate)
         {
-            _jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            DotNetObjectReference<FluentGrid> dotNetHelper = DotNetObjectReference.Create(this);
-            await _jsModule.InvokeVoidAsync("FluentGridInitialize", Id, dotNetHelper);
+            // Import the JavaScript module
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
+            // Call a function from the JavaScript module
+            var dotNetHelper = DotNetObjectReference.Create(this);
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridInitialize", Id, dotNetHelper);
         }
     }
 
+    /// <summary />
     [JSInvokable]
     public async Task FluentGrid_MediaChangedAsync(string size)
     {
-        bool valid = Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum);
+        var valid = Enum.TryParse<GridItemSize>(size, ignoreCase: true, out var sizeEnum);
         CurrentSize = valid ? sizeEnum : null;
 
         if (OnBreakpointEnter.HasDelegate)
@@ -102,21 +105,13 @@ public partial class FluentGrid : FluentComponentBase, IAsyncDisposable
         }
     }
 
-    public async ValueTask DisposeAsync()
+    /// <summary>
+    /// <inheritdoc cref="IAsyncDisposable.DisposeAsync" />
+    /// </summary>
+    /// <returns></returns>
+    [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        try
-        {
-            if (_jsModule is not null)
-            {
-                await _jsModule.InvokeVoidAsync("FluentGridCleanup", Id);
-                await _jsModule.DisposeAsync();
-            }
-        }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
-        {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
-        }
+        await jsModule.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Grid.FluentGridCleanup", Id);
     }
 }

@@ -5,10 +5,7 @@ trigger:
   batch: true
   branches:
     include:
-    - main
-    - archive-v4
-    - dev-v5
-    - archives/v3
+    - dev
 
   paths:
     include:
@@ -26,8 +23,7 @@ trigger:
 pr:
   branches:
     include:
-    - main
-    - archive-v4
+    - dev
 
   paths:
     include:
@@ -46,10 +42,17 @@ parameters:
   - name: Projects  	    # List of projects to build
     default: |
       **/Microsoft.FluentUI.AspNetCore.Components.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
+      **/Microsoft.FluentUI.AspNetCore.McpServer.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.ODataAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter.csproj
+      **/Microsoft.FluentUI.AspNetCore.Templates.csproj
 
   - name: Tests		        # List of Unit-Test projects to run
     default: |
-      **/Microsoft.FluentUI.AspNetCore.Components.Tests.csproj
+      **/Components.Tests.csproj
+      **/Components.Charts.Tests.csproj
+      **/McpServer.Tests.csproj
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -139,21 +142,6 @@ extends:
         - task: NuGetToolInstaller@1
           displayName: Install NuGet tools
 
-        - ${{ if eq(variables['Build.SourceBranchName'], 'v3') }}:
-          # Install .NET 6.0
-          - task: UseDotNet@2
-            displayName: Install .NET 6.0
-            inputs:
-              version: 6.0.x
-              includePreviewVersions: true
-
-          # Install .NET 7.0
-          - task: UseDotNet@2
-            displayName: 'Install .NET 7.0'
-            inputs:
-              version: 7.0.x
-              includePreviewVersions: true
-
         # Install .NET 8.0
         - task: UseDotNet@2
           displayName: 'Install .NET 8.0'
@@ -161,17 +149,25 @@ extends:
             version: 8.0.x
             includePreviewVersions: false
 
+        # Install .NET 9.0
         - task: UseDotNet@2
           displayName: 'Install .NET 9.0'
           inputs:
             version: 9.0.x
             includePreviewVersions: false
 
+        # Install .NET 10.0
         - task: UseDotNet@2
           displayName: 'Install .NET 10.0'
           inputs:
             version: 10.0.x
-            includePreviewVersions: false
+            includePreviewVersions: true
+
+        - task: UseDotNet@2
+          displayName: 'Install .NET 11.0'
+          inputs:
+            version: 11.0.100-rc.1.26425.128
+            includePreviewVersions: true
 
         # Set version number (exclude some folders)
         - task: PowerShell@2
@@ -195,12 +191,12 @@ extends:
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
 
-        # NPM install Core.Assets
+        # NPM install Core.Scripts
         - task: Npm@1
-          displayName: "NPM install Core.Assets"
+          displayName: "NPM install Core.Scripts"
           inputs:
             command: "install"
-            workingDir: "src/Core.Assets"
+            workingDir: "src/Core.Scripts"
 
         # Build the projects
         - task: DotNetCoreCLI@2
@@ -208,14 +204,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            #arguments: '--configuration Release /p:ContinuousIntegrationBuild=true -warnaserror' temp remove warnaserror
             arguments: '--configuration Release /p:ContinuousIntegrationBuild=true'
-
-        # Stage shipping binaries for symbol upload BEFORE the test step;
-        # see publish-symbols-stage.yml for why this must run pre-test.
-        - template: /eng/pipelines/publish-symbols-stage.yml@self
-          parameters:
-            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/archive-v4', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/')))
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -224,7 +213,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+            arguments: '--configuration Release --coverage --coverage-output-format cobertura /p:DebugType=Full'
             publishTestResults: true
 
         # Coverage Generation
@@ -232,9 +221,10 @@ extends:
           condition: eq(variables['ShouldTest'], 'true')
           displayName: Generate reports
           inputs:
-            reports: '**/*.cobertura.xml'
+            reports: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             targetdir: 'CoverageFolder'
             reporttypes: 'HtmlInline_AzurePipelines'
+            assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
 
         # Publish code coverage
         - task: PublishCodeCoverageResults@2
@@ -242,19 +232,8 @@ extends:
           displayName: 'Publish code coverage'
           inputs:
             codeCoverageTool: Cobertura
-            summaryFileLocation: '**/*.cobertura.xml'
+            summaryFileLocation: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             reportDirectory: CoverageFolder
-
-        - template: /eng/pipelines/publish-symbols-upload.yml@self
-          parameters:
-            condition: and(succeeded(), or(in(variables['Build.SourceBranch'], 'refs/heads/main', 'refs/heads/archive-v4', 'refs/heads/dev-v5'), startsWith(variables['Build.SourceBranch'], 'refs/heads/archives/')))
-
-        # Index sources and publish symbols
-        - task: PublishSymbols@2
-          displayName: 'Publish Symbols to Artifact Services'
-          inputs:
-            SearchPattern: '**/bin/**/*.pdb' # string. Required. Search pattern. Default: **/bin/**/*.pdb.
-            SymbolServerType: 'TeamServices'
 
         # Since NuGet packages are generated during the build, we need to copy them to the artifacts folder.
         - task: CopyFiles@2

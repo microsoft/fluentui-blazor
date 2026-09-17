@@ -18,15 +18,18 @@ public class TemplateColumn<TGridItem> : ColumnBase<TGridItem>
     /// <summary>
     /// Gets or sets the content to be rendered for each row in the table.
     /// </summary>
-    [Parameter] public RenderFragment<TGridItem> ChildContent { get; set; } = EmptyChildContent;
+    [Parameter]
+    public RenderFragment<TGridItem> ChildContent { get; set; } = EmptyChildContent;
 
     /// <inheritdoc />
-    [Parameter] public override IGridSort<TGridItem>? SortBy { get; set; }
+    [Parameter]
+    public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <inheritdoc />
     protected internal override void CellContent(RenderTreeBuilder builder, TGridItem item)
         => builder.AddContent(0, ChildContent(item));
 
+    /// <inheritdoc />
     protected internal override string? RawCellContent(TGridItem item)
     {
         return TooltipText?.Invoke(item);

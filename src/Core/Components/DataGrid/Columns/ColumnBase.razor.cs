@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,13 +17,52 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 public abstract partial class ColumnBase<TGridItem>
 {
-    private bool _isMenuOpen;
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
-    private readonly string _columnId = Identifier.NewId();
     private FluentMenu? _menu;
+    private bool _suppressNextHeaderSyntheticClick;
+    private bool _openHeaderMenuAfterRender;
+
+    private string HeaderButtonId => $"{Grid.Id}-col-{Index}";
+
+    private string HeaderMenuId => $"{HeaderButtonId}-menu";
+
+    /// <summary />
+    [Inject]
+    protected IFluentLocalizer Localizer { get; set; } = default!;
 
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
+
+    /// <summary>
+    /// Indicates whether the current column is the active sort column.
+    /// </summary>
+    internal bool IsActiveSortColumn;
+
+    /// <summary>
+    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
+    /// This allows derived components to change the header output. However, derived components are then
+    /// responsible for using <see cref="HeaderCellItemTemplate" /> within that new output if they want to continue
+    /// respecting that option.
+    /// </summary>
+    protected internal RenderFragment HeaderContent { get; protected set; }
+
+    /// <summary>
+    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header title.
+    /// This allows derived components to change the header title output. However, derived components are then
+    /// responsible for using <see cref="HeaderCellTitleTemplate" /> within that new output if they want to continue
+    /// respecting that option.
+    /// </summary>
+    protected internal RenderFragment HeaderTitleContent { get; protected set; }
+
+    /// <summary>
+    /// Gets the header capabilities for this column.
+    /// </summary>
+    internal ColumnHeaderCapabilities HeaderCapabilities => Grid.GetHeaderCapabilities(this);
+
+    /// <summary>
+    /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
+    /// </summary>
+    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary>
     /// Gets or sets the title text for the column.
@@ -38,8 +78,8 @@ public abstract partial class ColumnBase<TGridItem>
     public int Index { get; set; }
 
     /// <summary>
-    /// Gets or sets the an optional CSS class name.
-    /// If specified, this is included in the class attribute of header and grid cells
+    /// Gets or sets an optional CSS class name.
+    /// If specified, this is included in the <c>class</c> attribute of header and grid cells
     /// for this column.
     /// </summary>
     [Parameter]
@@ -54,13 +94,15 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Style { get; set; }
 
     /// <summary>
-    /// If specified, controls the justification of header and grid cells for this column.
+    /// Gets or sets the cell alignment for header and grid cells in this column
+    /// (e.g., <c>Align="DataGridCellAlignment.Center"</c>).
     /// </summary>
     [Parameter]
-    public Align Align { get; set; }
+    public DataGridCellAlignment Align { get; set; }
 
     /// <summary>
-    /// If true, generates a title and aria-label attribute for the cell contents
+    /// Gets or sets whether each cell in this column renders a <c>title</c> and <c>aria-label</c> attributes
+    /// derived from the cell's content. Use <see cref="TooltipText"/> to supply a custom tooltip value.
     /// </summary>
     [Parameter]
     public bool Tooltip { get; set; } = false;
@@ -76,6 +118,13 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     [Parameter]
     public string? HeaderTooltip { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stable identifier used to persist and restore this column's order.
+    /// When omitted, the grid derives an identifier from the bound property, title, or declaration order.
+    /// </summary>
+    [Parameter]
+    public string? ColumnId { get; set; }
 
     /// <summary>
     /// Gets or sets an optional template for this column's header cell.
@@ -125,11 +174,10 @@ public abstract partial class ColumnBase<TGridItem>
     public abstract IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <summary>
-    /// Gets or sets the initial sort direction.
-    /// if <see cref="IsDefaultSortColumn"/> is true.
+    /// Gets or sets the initial sort direction, applied when <see cref="IsDefaultSortColumn"/> is <c>true</c>.
     /// </summary>
     [Parameter]
-    public SortDirection InitialSortDirection { get; set; } = default;
+    public DataGridSortDirection InitialSortDirection { get; set; } = default;
 
     /// <summary>
     /// Gets or sets a value indicating whether this column should be sorted by default.
@@ -138,7 +186,8 @@ public abstract partial class ColumnBase<TGridItem>
     public bool IsDefaultSortColumn { get; set; } = false;
 
     /// <summary>
-    /// If specified, virtualized grids will use this template to render cells whose data has not yet been loaded.
+    /// Gets or sets the template used to render placeholder cells whose data has not yet loaded
+    /// (applicable when <see cref="FluentDataGrid{TGridItem}.Virtualize"/> is enabled).
     /// </summary>
     [Parameter]
     public RenderFragment<PlaceholderContext>? PlaceholderTemplate { get; set; }
@@ -152,6 +201,30 @@ public abstract partial class ColumnBase<TGridItem>
     public string? Width { get; set; }
 
     /// <summary>
+    /// Gets or sets whether this column is pinned (frozen) to the start or end edge of the grid,
+    /// so it remains visible when the user scrolls horizontally.
+    /// Pinned columns require an explicit <see cref="Width"/>.
+    /// Sticky offsets are recomputed from rendered header widths after the grid is rendered.
+    /// Start-pinned columns must be contiguous at the start of the column list;
+    /// end-pinned columns must be contiguous at the end.
+    /// </summary>
+    [Parameter]
+    public DataGridColumnPin Pin { get; set; } = DataGridColumnPin.None;
+
+    /// <summary>
+    /// The sticky start or end CSS offset seeded by
+    /// <see cref="FluentDataGrid{TGridItem}"/> when columns are collected and later updated from
+    /// rendered widths by JavaScript.
+    /// Not intended for direct use by consumers.
+    /// </summary>
+    internal string PinOffset { get; set; } = "0px";
+
+    /// <summary>
+    /// Gets the effective key used by the grid when persisting and restoring column order.
+    /// </summary>
+    internal string ColumnKey { get; private set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the minimal width of the column.
     /// Defaults to 100px for a regular column and 50px for a select column.
     /// When resizing a column, the user will not be able to make it smaller than this value.
@@ -161,24 +234,47 @@ public abstract partial class ColumnBase<TGridItem>
     public string MinWidth { get; set; } = "100px";
 
     /// <summary>
-    /// If true, the column will include an expand/collapse toggle for hierarchical data.
-    /// This only applies if <typeparamref name="TGridItem"/> implements <see cref="IHierarchicalGridItem"/>.
+    /// Gets or sets whether this column renders an expand/collapse toggle for hierarchical data.
+    /// Requires <typeparamref name="TGridItem"/> to implement <see cref="IHierarchicalGridItem"/>.
     /// </summary>
     [Parameter]
     public bool HierarchicalToggle { get; set; }
 
     /// <summary>
-    /// Gets a reference to the enclosing <see cref="FluentDataGrid{TGridItem}" />.
+    /// Gets or sets whether keyboard focus is disabled for cells in this column.
     /// </summary>
-    protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
+    [Parameter]
+    public bool DisableCellFocus { get; set; }
 
-    protected bool AnyColumnActionEnabled => Sortable is true || ColumnOptions != null || Grid.ResizableColumns;
+    /// <summary>
+    /// Sets the column index for the current instance.
+    /// </summary>
+    internal void SetColumnIndex(int index)
+    {
+        Index = index;
+    }
 
+    /// <summary>
+    /// Sets the effective column key for the current instance.
+    /// </summary>
+    internal void SetColumnKey(string key)
+    {
+        ColumnKey = key;
+    }
+
+    /// <summary />
+    protected ColumnBase()
+    {
+        HeaderContent = RenderDefaultHeaderContent;
+        HeaderTitleContent = RenderDefaultHeaderTitle;
+    }
+
+    /// <summary />
     protected override void OnInitialized()
     {
         if (GetType() == typeof(SelectColumn<TGridItem>))
         {
-            Align = Align.Center;
+            Align = DataGridCellAlignment.Center;
         }
     }
 
@@ -204,6 +300,13 @@ public abstract partial class ColumnBase<TGridItem>
     }
 
     /// <summary>
+    /// Gets whether this column's cells need the <see cref="FluentDataGridCell{TGridItem}"/> component rather
+    /// than a plain cell. Columns with cell-level interaction (e.g. <see cref="SelectColumn{TGridItem}"/>)
+    /// override this to return <see langword="true"/>.
+    /// </summary>
+    protected internal virtual bool RequiresCellComponent => false;
+
+    /// <summary>
     /// Event callback for when the cell is clicked.
     /// </summary>
     /// <param name="cell"></param>
@@ -219,6 +322,7 @@ public abstract partial class ColumnBase<TGridItem>
     /// <param name="cell"></param>
     /// <param name="args"></param>
     /// <returns></returns>
+    [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected internal virtual Task OnCellKeyDownAsync(FluentDataGridCell<TGridItem> cell, KeyboardEventArgs args)
     {
         return Task.CompletedTask;
@@ -229,72 +333,73 @@ public abstract partial class ColumnBase<TGridItem>
     /// </summary>
     /// <param name="builder">The current <see cref="RenderTreeBuilder" />.</param>
     /// <param name="item">The data for the row being rendered.</param>
+
     protected internal abstract void CellContent(RenderTreeBuilder builder, TGridItem item);
 
     /// <summary>
     /// Overridden by derived components to provide the raw content for the column's cells.
     /// </summary>
     /// <param name="item">The data for the row being rendered.</param>
+    [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected internal virtual string? RawCellContent(TGridItem item) => null;
-
-    /// <summary>
-    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
-    /// This allows derived components to change the header output. However, derived components are then
-    /// responsible for using <see cref="HeaderCellItemTemplate" /> within that new output if they want to continue
-    /// respecting that option.
-    /// </summary>
-    protected internal RenderFragment HeaderContent { get; protected set; }
-
-    /// <summary>
-    /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header title.
-    /// This allows derived components to change the header title output. However, derived components are then
-    /// responsible for using <see cref="HeaderCellTitleTemplate" /> within that new output if they want to continue
-    /// respecting that option.
-    /// </summary>
-    protected internal RenderFragment HeaderTitleContent { get; protected set; }
 
     /// <summary>
     /// Gets a value indicating whether this column should act as sortable if no value was set for the
     /// <see cref="ColumnBase{TGridItem}.Sortable" /> parameter. The default behavior is not to be
     /// sortable unless <see cref="ColumnBase{TGridItem}.Sortable" /> is true.
     ///
-    /// Derived components may override this to implement alternative default sortability rules.
+    /// Derived components may override this to implement alternative default sortabillity rules.
     /// </summary>
     /// <returns>True if the column should be sortable by default, otherwise false.</returns>
+    [ExcludeFromCodeCoverage(Justification = "This method is virtual. It is not called directly on this type.")]
     protected virtual bool IsSortableByDefault() => false;
 
-    protected void HandleKeyDown(FluentKeyCodeEventArgs e)
+    internal bool CanSortFromHeader() => Sortable ?? IsSortableByDefault();
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (e.ShiftKey && e.Key == KeyCode.KeyR)
+        if (_openHeaderMenuAfterRender && _menu is not null)
         {
-            Grid.RemoveSortByColumnAsync(this);
+            _openHeaderMenuAfterRender = false;
+            await _menu.OpenMenuAsync();
         }
     }
 
-    public bool IsActiveSortColumn;
-
-    /// <summary>
-    /// Constructs an instance of <see cref="ColumnBase{TGridItem}" />.
-    /// </summary>
-    protected ColumnBase()
+    private async Task HandleColumnHeaderClickedAsync(MouseEventArgs args)
     {
-        HeaderContent = RenderDefaultHeaderContent;
-        HeaderTitleContent = RenderDefaultHeaderTitle;
+        if (_suppressNextHeaderSyntheticClick && args.Detail == 0)
+        {
+            _suppressNextHeaderSyntheticClick = false;
+            return;
+        }
+
+        _suppressNextHeaderSyntheticClick = false;
+        await HandleColumnHeaderActivatedAsync();
     }
 
-    private async Task HandleColumnHeaderClickedAsync()
+    private async Task HandleColumnHeaderActivatedAsync()
     {
-        var hasSorting = Sortable is true || IsDefaultSortColumn;
-        var hasResize = Grid.ResizableColumns;
-        var hasOptions = ColumnOptions is not null;
-        var hasMultiple = (hasSorting && hasResize) || (hasSorting && hasOptions) || (hasResize && hasOptions);
+        var headerCapabilities = HeaderCapabilities;
+        var hasSorting = headerCapabilities.CanSort;
+        var hasResize = headerCapabilities.CanResize;
+        var hasReorder = headerCapabilities.CanReorder;
+        var hasOptions = headerCapabilities.HasOptions;
+        var enabledActions = Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasReorder) + Convert.ToInt32(hasOptions);
+        var hasMultiple = enabledActions > 1;
+
+        if (_menu is not null && enabledActions == 1)
+        {
+            await _menu.CloseMenuAsync();
+        }
 
         if (hasMultiple)
         {
-            _isMenuOpen = !_isMenuOpen;
-            StateHasChanged();
+            _openHeaderMenuAfterRender = true;
+            return;
         }
-        else if (hasSorting)
+
+        if (hasSorting)
         {
             await Grid.SortByColumnAsync(this);
         }
@@ -302,37 +407,88 @@ public abstract partial class ColumnBase<TGridItem>
         {
             await Grid.ShowColumnResizeAsync(this);
         }
+        else if (hasReorder)
+        {
+            await Grid.ShowColumnReorderAsync(this);
+        }
         else if (hasOptions)
         {
             await Grid.ShowColumnOptionsAsync(this);
         }
     }
 
+    private async Task HandleHeaderButtonKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (!string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (HeaderCapabilities.HasAnyAction && Grid.HeaderCellAsButtonWithMenu)
+        {
+            _suppressNextHeaderSyntheticClick = true;
+            _openHeaderMenuAfterRender = true;
+            return;
+        }
+
+        await HandleColumnHeaderActivatedAsync();
+    }
+
+    private async Task HandleOptionsButtonKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        {
+            await Grid.ShowAllHeaderUIAsync(this);
+        }
+    }
+
     private async Task HandleSortMenuKeyDownAsync(KeyboardEventArgs args)
     {
-        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.SortByColumnAsync(this);
-            StateHasChanged();
-            _isMenuOpen = false;
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
+        }
+    }
+
+    private async Task HandleReorderMenuKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
+        {
+            await Grid.ShowColumnReorderAsync(this);
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
         }
     }
 
     private async Task HandleResizeMenuKeyDownAsync(KeyboardEventArgs args)
     {
-        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.ShowColumnResizeAsync(this);
-            _isMenuOpen = false;
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
         }
     }
 
     private async Task HandleOptionsMenuKeyDownAsync(KeyboardEventArgs args)
     {
-        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key))
+        if (KEYBOARD_MENU_SELECT_KEYS.Contains(args.Key, StringComparer.OrdinalIgnoreCase))
         {
             await Grid.ShowColumnOptionsAsync(this);
-            _isMenuOpen = false;
+            if (_menu is not null)
+            {
+                await _menu.CloseMenuAsync();
+            }
         }
     }
 
@@ -342,14 +498,12 @@ public abstract partial class ColumnBase<TGridItem>
         {
             if (Grid.SortByAscending is true)
             {
-                return Grid.ColumnSortLabels.SortMenuAscendingLabel;
+                return Localizer[Localization.LanguageResource.DataGrid_SortMenuAscending];
             }
-            else
-            {
-                return Grid.ColumnSortLabels.SortMenuDescendingLabel;
-            }
+
+            return Localizer[Localization.LanguageResource.DataGrid_SortMenuDescending];
         }
 
-        return Grid.ColumnSortLabels.SortMenu;
+        return Localizer[Grid.ColumnSortMenuSettings.Text];
     }
 }

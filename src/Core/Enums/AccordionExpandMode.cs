@@ -17,5 +17,5 @@ public enum AccordionExpandMode
     /// <summary>
     /// The accordion allows multiple items expanded at a time.
     /// </summary>
-    Multi
+    Multi,
 }

@@ -1,0 +1,33 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentFunnelChart ChartData="@data" ChartTitle="Stacked Funnel chart" />
+
+@code {
+    private readonly IReadOnlyList<FunnelDataPoint> data = new List<FunnelDataPoint>
+    {
+            new FunnelDataPoint { Stage = "Visit", SubValues = new List<FunnelSubValue>
+                {
+                    new FunnelSubValue { Category = "A", Value = 100, Color = DataVizPalette.Color5 },
+                    new FunnelSubValue { Category = "B", Value = 80, Color = DataVizPalette.Color6 },
+                    new FunnelSubValue { Category = "C", Value = 50, Color = DataVizPalette.Color10 },
+                    new FunnelSubValue { Category = "D", Value = 30, Color = DataVizPalette.Color3 },
+                }
+            },
+            new FunnelDataPoint { Stage = "Sign-Up", SubValues = new List<FunnelSubValue>
+                {
+                    new FunnelSubValue { Category = "A", Value = 60, Color = DataVizPalette.Color5 },
+                    new FunnelSubValue { Category = "B", Value = 40, Color = DataVizPalette.Color6 },
+                    new FunnelSubValue { Category = "C", Value = 20, Color = DataVizPalette.Color10 },
+                    new FunnelSubValue { Category = "D", Value = 10, Color = DataVizPalette.Color3 },
+                }
+            },
+            new FunnelDataPoint { Stage = "Purchase", SubValues = new List<FunnelSubValue>
+                {
+                    new FunnelSubValue { Category = "A", Value = 30, Color = DataVizPalette.Color5 },
+                    new FunnelSubValue { Category = "B", Value = 20, Color = DataVizPalette.Color6 },
+                    new FunnelSubValue { Category = "C", Value = 10, Color = DataVizPalette.Color10 },
+                    new FunnelSubValue { Category = "D", Value = 5, Color = DataVizPalette.Color3 },
+                }
+            },
+    };
+}

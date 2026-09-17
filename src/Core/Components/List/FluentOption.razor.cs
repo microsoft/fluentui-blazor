@@ -3,14 +3,31 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentOption<TOption> : FluentComponentBase, IDisposable where TOption : notnull
+/// <summary>
+/// The Option element is used to define an item contained in a List component.
+/// </summary>
+public partial class FluentOption<TValue> : FluentComponentBase
 {
+    private (string? Id, object? Data, TValue? Value)? _dataCache;
 
+    /// <summary />
+    public FluentOption(LibraryConfiguration configuration) : base(configuration) { }
+
+    /// <summary>
+    /// Gets or sets the context of the list.
+    /// </summary>
     [CascadingParameter(Name = "ListContext")]
-    internal InternalListContext<TOption> InternalListContext { get; set; } = default!;
+    private InternalListContext<TValue>? InternalListContext { get; set; }
+
+    /// <summary>
+    /// Gets or sets the non-generic context of the list for type validation.
+    /// </summary>
+    [CascadingParameter(Name = "ListContextBase")]
+    private InternalListContext? InternalListContextBase { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the element is disabled.
@@ -22,19 +39,32 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     /// Gets or sets the value of this option.
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public TValue? Value { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is selected.
+    /// Gets or sets the name of this option.
+    /// </summary>
+    [Parameter]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text to display in the dropdown when the option is selected
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value indicating whether the element is selected.
     /// </summary>
     [Parameter]
     public bool Selected { get; set; }
 
     /// <summary>
-    /// Called whenever the selection changed.
+    /// Gets or sets the content to display below the main option text.
+    /// This can be used to add additional textual information (no markup) about the option.
     /// </summary>
     [Parameter]
-    public EventCallback<bool> SelectedChanged { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -42,75 +72,92 @@ public partial class FluentOption<TOption> : FluentComponentBase, IDisposable wh
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// Called whenever the selection changed.
-    /// </summary>
-    [Parameter]
-    public EventCallback<string> OnSelect { get; set; }
-
-    /// <summary>
-    /// Gets or sets the title tooltip of this option.
-    /// </summary>
-    [Parameter]
-    public string? Title { get; set; }
-
-    protected override Task OnInitializedAsync()
+    /// <summary />
+    private string? ValueFormatted
     {
-        InternalListContext.Register(this);
-
-        return base.OnInitializedAsync();
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && Selected &&
-            InternalListContext != null &&
-            InternalListContext.ValueChanged.HasDelegate &&
-            InternalListContext.ListComponent.Multiple)
+        get
         {
-            await InternalListContext.ValueChanged.InvokeAsync(Value);
+            if (InternalListContext is null ||
+                InternalListContext.ListComponent.OptionValueToString is null)
+            {
+                return Value?.ToString();
+            }
+
+            return InternalListContext.ListComponent.OptionValueToString.Invoke(Value);
         }
     }
 
     /// <summary />
-    public async Task OnClickHandlerAsync()
+    protected override Task OnInitializedAsync()
     {
-        if (Disabled)
+        // Validate that the FluentOption TValue matches the parent List TValue
+        if (InternalListContext is null && InternalListContextBase is not null)
         {
-            return;
+            throw new InvalidOperationException(
+                $"The type parameter '{typeof(TValue).Name}' of the FluentOption component does not match " +
+                $"the type '{InternalListContextBase.ValueType.Name}' of the parent List component.");
         }
 
-        Selected = !Selected;
-
-        if (SelectedChanged.HasDelegate)
+        if (string.IsNullOrEmpty(Id))
         {
-            await SelectedChanged.InvokeAsync(Selected);
+            Id = Identifier.NewId();
         }
 
-        if (OnSelect.HasDelegate)
+        return AddOptionToInternalListAsync();
+    }
+
+    /// <summary>
+    /// Adds this option to the internal list context.
+    /// </summary>
+    private Task AddOptionToInternalListAsync()
+    {
+        if (InternalListContext is not null)
         {
-            await OnSelect.InvokeAsync(Value);
-        }
-        else
-        {
-            if (InternalListContext != null && InternalListContext.ListComponent.Items is null)
+            InternalListContext.AddOption(this);
+
+            // Use AreValuesEqual to check if the option's value matches the list's current value
+            if (Value is not null)
             {
-                if (InternalListContext.ValueChanged.HasDelegate)
+                if (InternalListContext.ListComponent.AreValuesEqual(InternalListContext.ListComponent.Value, Value))
                 {
-                    await InternalListContext.ValueChanged.InvokeAsync(Value);
-                }
-                if (InternalListContext.SelectedOptionChanged.HasDelegate)
-                {
-                    await InternalListContext.SelectedOptionChanged.InvokeAsync();
+                    Selected = true;
                 }
             }
         }
+
+        return Task.CompletedTask;
     }
 
-    public FluentOption()
+    /// <summary />
+    public override async Task SetParametersAsync(ParameterView parameters)
     {
-        Id = Identifier.NewId();
+        await base.SetParametersAsync(parameters);
+
+        parameters.TryGetValue<string?>(nameof(Id), out var id);
+        parameters.TryGetValue<object?>(nameof(Data), out var data);
+        parameters.TryGetValue<TValue?>(nameof(Value), out var value);
+
+        // If any of the key parameters have changed, notify the list context to remove this option
+        if (_dataCache is not null && InternalListContext is not null)
+        {
+            if (!StringComparer.Ordinal.Equals(id, _dataCache.Value.Id) ||
+                !EqualityComparer<object?>.Default.Equals(data, _dataCache.Value.Data) ||
+                !EqualityComparer<TValue?>.Default.Equals(value, _dataCache.Value.Value))
+            {
+                InternalListContext.RemoveOption(this);
+                await AddOptionToInternalListAsync();
+            }
+        }
+
+        _dataCache = (id, data, value);
     }
 
-    public void Dispose() => InternalListContext.Unregister(this);
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        _dataCache = null;
+        InternalListContext?.RemoveOption(this);
+
+        await base.DisposeAsync();
+    }
 }

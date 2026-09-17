@@ -1,8 +1,0 @@
-﻿.reboot-example {
-    position: relative;
-    padding: 1rem;
-    border: solid var(--neutral-fill-secondary-rest);
-    background: var(--neutral-layer-2);
-    border-width: 1px;
-    margin-bottom: .75rem;
-}

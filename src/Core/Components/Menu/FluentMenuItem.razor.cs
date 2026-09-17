@@ -2,55 +2,103 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentMenuItem : FluentComponentBase, IDisposable
+/// <summary>
+/// Menu list item which is displayed in a MenuList component.
+/// </summary>
+public partial class FluentMenuItem : FluentComponentBase
 {
+    private bool EmptyContent => ChildContent is null && Label is null;
+    /// <summary />
+    protected string? ClassValue => DefaultClassBuilder
+        .Build();
+
+    /// <summary />
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary />
+    [DynamicDependency(nameof(OnChangeHandlerAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(MenuItemEventArgs))]
+    public FluentMenuItem(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
+
     /// <summary>
     /// Gets or sets the owning FluentMenu.
     /// </summary>
     [CascadingParameter]
-    public FluentMenu Owner { get; set; } = default!;
+    private FluentMenu? Menu { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the menu item label.
+    /// Gets or sets the owning FluentMenuList.
     /// </summary>
-    [Parameter]
-    public string? Label { get; set; }
+    [CascadingParameter]
+    private FluentMenuList? MenuList { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is disabled.
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the expanded state of the element.
-    /// </summary>
-    [Parameter]
-    public bool Expanded { get; set; }
-
-    /// <summary>
-    /// Gets or sets the role of the element.
+    /// Gets or sets the role of the menu item.
     /// </summary>
     [Parameter]
     public MenuItemRole? Role { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is checked.
+    /// Gets or sets the checked state of the menu item.
     /// </summary>
     [Parameter]
-    public bool Checked { get; set; }
+    public bool? Checked { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicates whether the FluentMenu should remain open after an action.
+    /// Event raised for checkbox and radio menuitems
     /// </summary>
     [Parameter]
-    public bool KeepOpen { get; set; }
+    public EventCallback<bool?> CheckedChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the menu item's disabled state.
+    /// </summary>
+    [Parameter]
+    public bool? Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the start (leading side) of the menu item content.
+    /// Use <see cref="IconEnd"/> to add an icon at the end.
+    /// </summary>
+    [Parameter]
+    public Icon? IconStart { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed at the end (trailing side) of the menu item content.
+    /// Use <see cref="IconStart"/> to add an icon at the start.
+    /// </summary>
+    [Parameter]
+    public Icon? IconEnd { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed as the indication of a submenu.
+    /// </summary>
+    [Parameter]
+    public Icon? IconSubmenu { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="Icon"/> displayed as the checked indicator for items with <see cref="Role"/> set to
+    /// <see cref="MenuItemRole.Checkbox"/> or <see cref="MenuItemRole.Radio"/>.
+    /// </summary>
+    [Parameter]
+    public Icon? IconIndicator { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text label of the menu item.
+    /// Use as an alternative to <see cref="ChildContent"/> for simple text; if both are set, both are rendered.
+    /// </summary>
+    [Parameter]
+    public string? Label { get; set; }
 
     /// <summary>
     /// Gets or sets the content to be rendered inside the component.
@@ -68,85 +116,59 @@ public partial class FluentMenuItem : FluentComponentBase, IDisposable
     /// Event raised when the user click on this item.
     /// </summary>
     [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
+    public EventCallback<MenuItemEventArgs> OnClick { get; set; }
 
-    /// <summary>
-    /// Event raised for checkbox and radio menuitems
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> CheckedChanged { get; set; }
-
-    public FluentMenuItem()
+    /// <summary />
+    internal async Task OnChangeHandlerAsync(MenuItemEventArgs args)
     {
-        Id = Identifier.NewId();
-    }
-
-    protected override void OnInitialized()
-    {
-        Owner?.Register(this);
-    }
-
-    protected async Task OnClickHandlerAsync(MouseEventArgs ev)
-    {
-        if (Disabled)
+        if (!string.Equals(args.Id, Id, StringComparison.OrdinalIgnoreCase))
         {
             return;
         }
 
-        if (Owner != null && !KeepOpen)
+        args.Item = this;
+
+        if (args.Checked is null)
         {
-            await Owner.CloseAsync();
-        }
-
-        await OnClick.InvokeAsync(ev);
-    }
-
-    protected async Task OnChangeHandlerAsync(ChangeEventArgs ev)
-    {
-        // fluent-menu-item v2 does not pass the checked state as a parameter when emitting
-        // the change event so we need to capture the state from the html element using javascript.
-        // The value is passed in v3 so javscript lookup won't be necessary.
-        if (Owner != null && Role is MenuItemRole.MenuItemCheckbox or MenuItemRole.MenuItemRadio)
-        {
-            var isChecked = await Owner.IsCheckedAsync(this);
-            Checked = isChecked;
-
-            await CheckedChanged.InvokeAsync(Checked);
-
-            if (Role == MenuItemRole.MenuItemCheckbox || (Role == MenuItemRole.MenuItemRadio && isChecked))
+            // It is just a click on a menu item
+            if (OnClick.HasDelegate)
             {
-                await Owner.NotifyCheckedChangedAsync(this);
+                await OnClick.InvokeAsync(args);
+            }
+
+            if (Menu is not null)
+            {
+                await Menu.NotifyClickedAsync(args);
+            }
+
+            if (MenuList is not null)
+            {
+                await MenuList.NotifyClickedAsync(args);
+            }
+        }
+        else
+        {
+            // The checked state of menu item with a checkbox or radio role has changed.
+            // In case of a radio item, the event will fired twice. One time for the unchecked item and
+            // once for the checked item
+            if (Role == MenuItemRole.Checkbox || Role == MenuItemRole.Radio)
+            {
+
+                if (CheckedChanged.HasDelegate)
+                {
+                    await CheckedChanged.InvokeAsync(args.Checked.Value);
+                }
+
+                if (MenuList is not null)
+                {
+                    await MenuList.NotifyCheckedChangedAsync(args);
+                }
+
+                if (Menu is not null)
+                {
+                    await Menu.NotifyCheckedChangedAsync(args);
+                }
             }
         }
     }
-
-    protected string? GetRole()
-    {
-        if (Role is not null)
-        {
-            return Role.ToAttributeValue();
-        }
-        else
-            if (Checked)
-        {
-            return "menuitemcheckbox";
-        }
-
-        return null;
-    }
-
-    private async Task OnKeyDownHandlerAsync(KeyboardEventArgs e)
-    {
-        if (e.ShiftKey || e.AltKey || e.CtrlKey)
-        {
-            return;
-        }
-
-        if (e.Code is nameof(KeyCode.Enter))
-        {
-            await OnClickHandlerAsync(new MouseEventArgs());
-        }
-    }
-
-    public void Dispose() => Owner?.Unregister(this);
 }

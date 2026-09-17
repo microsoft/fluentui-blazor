@@ -1,28 +1,3 @@
-.fluent-popover-content  {
-    font-family: var(--body-font);
-    -webkit-font-smoothing: antialiased;
-    line-height: 27px;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    hyphens: auto;
-    width: 100%;
-    padding: 1em;
+fluent-popover-b {
+    position: fixed; /* When the base component is not fixed it will impact the DOM and moves content around when the popover is being shown */
 }
-
-    .fluent-popover-content div[part="header"] {
-        font-size: 20px;
-        font-weight: 600;
-        width: inherit;
-        margin-bottom: 12px;
-    }
-
-    .fluent-popover-content div[part="body"] {
-        height: 100%;
-    }
-
-    .fluent-popover-content div[part="footer"] {
-        font-size: 14px;
-        font-weight: normal;
-        width: inherit;
-        margin-top: 12px;
-    }

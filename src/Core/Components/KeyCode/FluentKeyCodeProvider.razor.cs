@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
+/// <summary />
 public partial class FluentKeyCodeProvider : IDisposable
 {
+    private bool _disposedValue;
+
     [Inject]
     private IKeyCodeService KeyCodeService { get; set; } = default!;
 
@@ -17,24 +20,47 @@ public partial class FluentKeyCodeProvider : IDisposable
     [Parameter]
     public bool PreventDefault { get; set; } = false;
 
-    private void KeyDownHandler(FluentKeyCodeEventArgs args)
+    /// <summary />
+    internal async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs args)
     {
         foreach (var listener in KeyCodeService.Listeners)
         {
-            listener.OnKeyDownAsync(args);
+            await listener.OnKeyDownAsync(args);
         }
     }
 
-    private void KeyUpHandler(FluentKeyCodeEventArgs args)
+    /// <summary />
+    internal async Task KeyUpHandlerAsync(FluentKeyCodeEventArgs args)
     {
         foreach (var listener in KeyCodeService.Listeners)
         {
-            listener.OnKeyUpAsync(args);
+            await listener.OnKeyUpAsync(args);
         }
     }
 
+    /// <summary>
+    /// Releases the resources used by the current instance of the class.
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposedValue)
+        {
+            if (disposing)
+            {
+                KeyCodeService.Clear();
+            }
+
+            _disposedValue = true;
+        }
+    }
+
+    /// <summary>
+    /// Releases the resources used by the current instance of the class.
+    /// </summary>
     public void Dispose()
     {
-        KeyCodeService.Clear();
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
     }
 }

@@ -4,15 +4,24 @@
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-/// <summary />
-internal class OverflowItem
+/// <summary>
+/// Represents an item hidden by overflow handling.
+/// </summary>
+public record OverflowItem
 {
-    /// <summary />
-    public string? Id { get; set; }
+    /// <summary>
+    /// Gets the unique identifier of the overflow item.
+    /// </summary>
+    public string? Id { get; init; }
 
-    /// <summary />
-    public bool? Overflow { get; set; }
+    /// <summary>
+    /// Gets the text associated with the overflow item.
+    /// </summary>
+    public string? Text { get; init; }
 
-    /// <summary />
-    public string? Text { get; set; }
+    /// <summary>
+    /// Gets the index of the overflow item.
+    /// </summary>
+    public int Index { get; init; }
 }
+

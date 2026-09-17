@@ -1,0 +1,28 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px;">
+    <FluentCheckbox @bind-Value="@_allowMultiple" Label="Allow multiple legend selection" />
+</div>
+
+<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
+                                  ChartTitle="Horizontal bar chart multiple legend selection example"
+                                  AllowMultipleLegendSelection="@_allowMultiple"
+                                  ChartData="@ChartData">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private bool _allowMultiple = true;
+
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { X =  10000, Y = "Q1", Legend = "Product A", Color = DataVizPalette.Color1, XAxisCalloutData =  "10K", YAxisCalloutData = "Q1" },
+        new HorizontalBarChartWithAxisDataPoint { X =  -5000, Y = "Q1", Legend = "Product B", Color = DataVizPalette.Color2, XAxisCalloutData =  "-5K", YAxisCalloutData = "Q1" },
+        new HorizontalBarChartWithAxisDataPoint { X =   8000, Y = "Q1", Legend = "Product C", Color = DataVizPalette.Color3, XAxisCalloutData =   "8K", YAxisCalloutData = "Q1" },
+        new HorizontalBarChartWithAxisDataPoint { X =  -7000, Y = "Q2", Legend = "Product A", Color = DataVizPalette.Color1, XAxisCalloutData =  "-7K", YAxisCalloutData = "Q2" },
+        new HorizontalBarChartWithAxisDataPoint { X =  12000, Y = "Q2", Legend = "Product B", Color = DataVizPalette.Color2, XAxisCalloutData =  "12K", YAxisCalloutData = "Q2" },
+        new HorizontalBarChartWithAxisDataPoint { X =   3000, Y = "Q2", Legend = "Product C", Color = DataVizPalette.Color3, XAxisCalloutData =   "3K", YAxisCalloutData = "Q2" },
+        new HorizontalBarChartWithAxisDataPoint { X =  15000, Y = "Q3", Legend = "Product A", Color = DataVizPalette.Color1, XAxisCalloutData =  "15K", YAxisCalloutData = "Q3" },
+        new HorizontalBarChartWithAxisDataPoint { X =  -4000, Y = "Q3", Legend = "Product B", Color = DataVizPalette.Color2, XAxisCalloutData =  "-4K", YAxisCalloutData = "Q3" },
+        new HorizontalBarChartWithAxisDataPoint { X =   5000, Y = "Q3", Legend = "Product C", Color = DataVizPalette.Color3, XAxisCalloutData =   "5K", YAxisCalloutData = "Q3" },
+    ];
+}

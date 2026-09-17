@@ -1,62 +1,105 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
-namespace Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary />
 internal static class AdditionalAttributesExtensions
 {
-    /// <summary> Determines whether two sets of attributes are equal when rendered. </summary>
-    /// <param name="x">The compared set</param>
-    /// <param name="y">The set to compare with</param>
-    /// <remarks></remarks>
-    /// <returns><c>true</c> if both sets render the same attributes; otherwise, <c>false</c>.</returns>
-    public static bool RenderedAttributesEqual(
-        this IReadOnlyDictionary<string, object>? x,
-        IReadOnlyDictionary<string, object>? y)
+    /// <summary>
+    /// Returns the value of the additional attribute with the specified name.
+    /// </summary>
+    /// <param name="attributes">Additional attributes</param>
+    /// <param name="name">Name of the attribute</param>
+    /// <param name="defaultValue">Default value to return if the attribute is not found</param>
+    /// <returns>The value of the attribute, or the default value if not found</returns>
+    public static object? GetValueOrDefault(this IReadOnlyDictionary<string, object>? attributes, string name, object? defaultValue = null)
     {
-        if ((x?.Count ?? 0) == 0 && (y?.Count ?? 0) == 0)
+        // Returns the found attribute value
+        if (attributes is not null &&
+            attributes.TryGetValue(name, out var value))
         {
-            return true;
+            return value;
         }
 
-        if (x is { Count: > 0 } &&
-            !x.AllRenderedAttributesInAndEqual(y))
-        {
-            return false;
-        }
-
-        if (y is { Count: > 0 } &&
-            !y.AllRenderedAttributesInAndEqual(x))
-        {
-            return false;
-        }
-
-        return true;
+        // Or default value if not found
+        return defaultValue;
     }
 
-    private static bool AllRenderedAttributesInAndEqual(
-        this IReadOnlyDictionary<string, object> x,
-        IReadOnlyDictionary<string, object>? y)
+    /// <summary>
+    /// Returns the value of the additional attribute with the specified name if it is not found.
+    /// </summary>
+    /// <param name="attributes">Additional attributes</param>
+    /// <param name="name">Name of the attribute</param>
+    /// <param name="value">Value to return if the attribute is not found</param>
+    /// <param name="when">Condition to check, to return the value</param>
+    /// <returns>null if the attribute is found, or if the condition is not met</returns>
+    public static AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(this IReadOnlyDictionary<string, object>? attributes, string name, object? value, Func<bool>? when = null)
     {
-        foreach (var xKvp in x)
+        return new AdditionalAttributeCondition(attributes).GetValueIfNoAdditionalAttribute(name, value, when);
+    }
+
+    /// <summary>
+    /// Returns the value of the additional attribute with the specified name if it is not found.
+    /// </summary>
+    internal class AdditionalAttributeCondition
+    {
+        private readonly IReadOnlyDictionary<string, object>? _additionalAttributes;
+        private readonly List<AdditionalAttributeConditionItem> _listOfConditions = [];
+
+        /// <summary />
+        internal AdditionalAttributeCondition(IReadOnlyDictionary<string, object>? attributes)
         {
-            if (xKvp.Value is null)
-            {
-                continue;
-            }
-
-            if (y is null)
-            {
-                return false;
-            }
-
-            if (!y.TryGetValue(xKvp.Key, out var yValue) ||
-                !xKvp.Value.Equals(yValue))
-            {
-                return false;
-            }
+            _additionalAttributes = attributes;
         }
 
-        return true;
+        /// <summary>
+        /// Returns the value of the additional attribute with the specified name if it is not found.
+        /// </summary>
+        /// <param name="name">Name of the attribute</param>
+        /// <param name="value">Value to return if the attribute is not found</param>
+        /// <param name="when">Condition to check, to return the value</param>
+        /// <returns>null if the attribute is found, or if the condition is not met</returns>
+        public AdditionalAttributeCondition GetValueIfNoAdditionalAttribute(string name, object? value, Func<bool>? when = null)
+        {
+            var item = new AdditionalAttributeConditionItem(name, value, when is null ? () => true : when);
+            _listOfConditions.Add(item);
+            return this;
+        }
+
+        /// <summary>
+        /// Returns the value of the additional attribute with the specified name if it is not found.
+        /// </summary>
+        /// <returns></returns>
+        public object? Build()
+        {
+            foreach (var item in _listOfConditions)
+            {
+                if (_additionalAttributes is not null &&
+                    _additionalAttributes.ContainsKey(item.Name))
+                {
+                    return null;
+                }
+
+                if (item.When())
+                {
+                    return item.Value;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the value of the additional attribute with the specified name if it is not found.
+        /// </summary>
+        /// <returns></returns>
+        public override string? ToString()
+        {
+            return Build()?.ToString() ?? null;
+        }
+
+        private record AdditionalAttributeConditionItem(string Name, object? Value, Func<bool> When);
     }
 }

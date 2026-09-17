@@ -1,31 +1,42 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
-
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
-public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisposable
+/// <summary>
+/// A sortable list component that allows users to reorder items via drag-and-drop.
+/// <typeparam name="TItem">The type of the items in the list.</typeparam>
+/// </summary>
+public partial class FluentSortableList<TItem> : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = "./_content/Microsoft.FluentUI.AspNetCore.Components/Components/SortableList/FluentSortableList.razor.js";
+    private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
-    private bool _disposed;
 
     /// <summary />
-    [Inject]
-    private LibraryConfiguration LibraryConfiguration { get; set; } = default!;
+    public FluentSortableList(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
-    [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    protected string? ClassValue => DefaultClassBuilder
+        .AddClass("fluent-sortable-list")
+        .Build();
 
     /// <summary />
-    private IJSObjectReference? Module { get; set; }
+    protected string? StyleValue => DefaultStyleBuilder
+        .Build();
+
+    /// <summary>
+    /// Gets or sets the text used on `aria-label` attribute.
+    /// </summary>
+    [Parameter]
+    public string? AriaLabel { get; set; }
 
     /// <summary>
     /// Gets or sets the template to be used to define each sortable item in the list.
@@ -38,7 +49,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     /// Gets or sets the list of items to be displayed in a sortable list.
     /// </summary>
     [Parameter, AllowNull]
-    public IEnumerable<TItem> Items { get; set; }
+    public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
     /// Event callback for when the list is updated.
@@ -53,39 +64,51 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public EventCallback<FluentSortableListEventArgs> OnRemove { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on both lists to enable.
-    /// You can only have 1 group with 2 lists.
+    /// Event callback for when an item is added to the list.
+    /// </summary>
+    [Parameter]
+    public EventCallback<FluentSortableListEventArgs> OnAdd { get; set; }
+
+    /// <summary>
+    /// Event callback for when the list of items is updated.
+    /// Supports bi-directional binding for the <see cref="Items"/> parameter.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IEnumerable<TItem>?> ItemsChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the Group used for dragging between lists. Set the group to the same value on every list to enable.
     /// </summary>
     [Parameter]
     public string? Group { get; set; }
 
     /// <summary>
-    /// Gets or sets whether elements are cloned instead of moved. Set Pull to "clone" to enable this.
+    /// Gets or sets whether elements are cloned instead of moved when dragged to another list (e.g., <c>Clone="true"</c>).
+    /// Requires <see cref="Group"/> to be set to the same value on both lists.
     /// </summary>
     [Parameter]
-    public bool Clone { get; set; } = false;
+    public bool Clone { get; set; }
 
     /// <summary>
-    /// Gets or sets wether it is possible to drop items into the current list from another list in the same group.
+    /// Gets or sets whether it is possible to drop items into the current list from another list in the same group.
     /// Set to false to disable dropping from another list onto the current list.
     /// </summary>
     [Parameter]
     public bool Drop { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the list is sortable.
-    /// Default is true
-    /// Disable sorting within a list by setting to false.
+    /// Gets or sets whether sorting within this list is enabled. Default is <c>true</c>.
+    /// Set to <c>false</c> to disable reordering within this list while still allowing cross-list drag-and-drop.
     /// </summary>
     [Parameter]
     public bool Sort { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether the whole item acts as drag handle.
-    /// Set to true to use an element with classname `.sortable-grab` as the handle.
+    /// Gets or sets whether drag handles are used instead of dragging the whole item.
+    /// When <c>true</c>, only elements with the CSS class <c>sortable-grab</c> can initiate a drag.
     /// </summary>
     [Parameter]
-    public bool Handle { get; set; } = false;
+    public bool Handle { get; set; }
 
     /// <summary>
     /// Gets or sets the function to filter out elements that cannot be sorted or moved.
@@ -94,171 +117,118 @@ public partial class FluentSortableList<TItem> : FluentComponentBase, IAsyncDisp
     public Func<TItem, bool>? ItemFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets wether to ignore the HTML5 DnD behaviour and force the fallback to kick in
+    /// Gets or sets whether to ignore the HTML5 DnD behaviour and force the fallback to kick in.
     /// </summary>
     [Parameter]
     public bool Fallback { get; set; } = false;
 
-    /// <summary>
-    /// Gets or sets the color of filtered list items.
-    /// </summary>
-    [Parameter]
-    public string? ListItemFilteredColor { get; set; }
+    private string? Filter => (Items?.Any(GetItemFiltered) ?? false) ? ".filtered" : string.Empty;
 
-    /// <summary>
-    /// Gets or sets the border width on the list. Must be a valid CSS measurement.
-    /// </summary>
-    [Parameter]
-    public string? ListBorderWidth { get; set; }
-
-    /// <summary>
-    /// Gets or sets the color of the border on the list.
-    /// </summary>
-    [Parameter]
-    public string? ListBorderColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the padding on the list. Must be a valid CSS measurement.
-    /// </summary>
-    [Parameter]
-    public string? ListPadding { get; set; }
-
-    /// <summary>
-    /// Gets or sets the background color of the list items.
-    /// </summary>
-    [Parameter]
-    public string? ListItemBackgroundColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the height of the list items. Must be a valid CSS measurement.
-    /// </summary>
-    [Parameter]
-    public string? ListItemHeight { get; set; }
-
-    /// <summary>
-    /// Gets or sets the border width on the list items. Must be a valid CSS measurement.
-    /// </summary>
-    [Parameter]
-    public string? ListItemBorderWidth { get; set; }
-
-    /// <summary>
-    /// Gets or sets the border color of the list items.
-    /// </summary>
-    [Parameter]
-    public string? ListItemBorderColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the border color of the list items during repositioning.
-    /// </summary>
-    [Parameter]
-    public string? ListItemDropBorderColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the background color of the list items during repositioning.
-    /// </summary>
-    [Parameter]
-    public string? ListItemDropColor { get; set; }
-
-    /// <summary>
-    /// Gets or sets the padding on the list items. Must be a valid CSS measurement.
-    /// </summary>
-    [Parameter]
-    public string? ListItemPadding { get; set; }
-
-    /// <summary>
-    /// Gets or sets the spacing between list items. Must be a valid CSS measurement.
-    /// </summary>
-    [Parameter]
-    public string? ListItemSpacing { get; set; }
-
-    protected string? ClassValue => new CssBuilder(Class)
-        .AddClass("fluent-sortable-list")
-        .Build();
-
-    protected string? StyleValue => new StyleBuilder(Style)
-    .AddStyle("--fluent-sortable-list-filtered", ListItemFilteredColor, !string.IsNullOrEmpty(ListItemFilteredColor))
-    .AddStyle("--fluent-sortable-list-border-width", ListBorderWidth, !string.IsNullOrEmpty(ListBorderWidth))
-    .AddStyle("--fluent-sortable-list-border-color", ListBorderColor, !string.IsNullOrEmpty(ListBorderColor))
-    .AddStyle("--fluent-sortable-list-padding", ListPadding, !string.IsNullOrEmpty(ListPadding))
-    .AddStyle("--fluent-sortable-list-background-color", ListItemBackgroundColor, !string.IsNullOrEmpty(ListItemBackgroundColor))
-    .AddStyle("--fluent-sortable-list-item-height", ListItemHeight, !string.IsNullOrEmpty(ListItemHeight))
-    .AddStyle("--fluent-sortable-list-item-border-width", ListItemBorderWidth, !string.IsNullOrEmpty(ListItemBorderWidth))
-    .AddStyle("--fluent-sortable-list-item-border-color", ListItemBorderColor, !string.IsNullOrEmpty(ListItemBorderColor))
-    .AddStyle("--fluent-sortable-list-item-drop-border-color", ListItemDropBorderColor, !string.IsNullOrEmpty(ListItemDropBorderColor))
-    .AddStyle("--fluent-sortable-list-item-drop-color", ListItemDropColor, !string.IsNullOrEmpty(ListItemDropColor))
-    .AddStyle("--fluent-sortable-list-item-padding", ListItemPadding, !string.IsNullOrEmpty(ListItemPadding))
-    .AddStyle("--fluent-sortable-list-item-spacing", ListItemSpacing, !string.IsNullOrEmpty(ListItemSpacing))
-    .Build();
-
-    private string Filter => Items.Any(GetItemFiltered) ? ".filtered" : string.Empty;
-
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
         if (firstRender)
         {
             _selfReference = DotNetObjectReference.Create(this);
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE.FormatCollocatedUrl(LibraryConfiguration));
-            if (!_disposed)
-            {
-                await Module.InvokeAsync<string>("init", Element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
-            }
+            await JSRuntime.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.Components.SortableList.Initialize", _element, Group, Clone ? "clone" : null, Drop, Sort, Handle ? ".sortable-grab" : null, Filter, Fallback, _selfReference);
         }
     }
 
+    /// <summary />
     protected bool GetItemFiltered(TItem item)
     {
         if (ItemFilter != null)
         {
             return ItemFilter(item);
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
+    /// <summary>
+    /// Invoked from JavaScript to get an item at a specific index.
+    /// </summary>
     [JSInvokable]
-    public void OnUpdateJS(int oldIndex, int newIndex, string fromListId, string toListId)
+    public TItem? GetItemJS(int index)
     {
-        if (OnUpdate.HasDelegate)
-        {
-            // invoke the OnUpdate event passing in the oldIndex, the newIndex, the fromId and the toId
-            OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
-        }
+        return Items != null && index >= 0 && index < Items.Count() ? Items.ElementAt(index) : default;
     }
 
+    /// <summary>
+    /// Invoked from JavaScript when an item is updated.
+    /// </summary>
     [JSInvokable]
-    public void OnRemoveJS(int oldIndex, int newIndex, string fromListId, string toListId)
+    public async Task OnUpdateJSAsync(int oldIndex, int newIndex, string fromListId, string toListId)
     {
-        if (OnRemove.HasDelegate)
+        if (string.Equals(fromListId, toListId, StringComparison.OrdinalIgnoreCase) && Items != null)
         {
-            // remove the item from the list
-            OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
-        }
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_disposed)
-        {
-            return;
-        }
-
-        try
-        {
-            _selfReference?.Dispose();
-            _disposed = true;
-            if (Module is not null)
+            var list = Items.ToList();
+            var item = list[oldIndex];
+            list.RemoveAt(oldIndex);
+            list.Insert(newIndex, item);
+            Items = list;
+            if (ItemsChanged.HasDelegate)
             {
-                await Module.DisposeAsync();
+                await ItemsChanged.InvokeAsync(Items);
             }
         }
-        catch (Exception ex) when (ex is JSDisconnectedException ||
-                                   ex is OperationCanceledException)
+
+        if (OnUpdate.HasDelegate)
         {
-            // The JSRuntime side may routinely be gone already if the reason we're disposing is that
-            // the client disconnected. This is not an error.
+            await OnUpdate.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
         }
+    }
+
+    /// <summary>
+    /// Invoked from JavaScript when an item is added to the list.
+    /// </summary>
+    [JSInvokable]
+    public async Task OnAddJSAsync(int oldIndex, int newIndex, string fromListId, string toListId, TItem? item)
+    {
+        if (item is not null && Items is not null)
+        {
+            var list = Items.ToList();
+            list.Insert(newIndex, item);
+            Items = list;
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(Items);
+            }
+        }
+
+        if (OnAdd.HasDelegate)
+        {
+            await OnAdd.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
+        }
+    }
+
+    /// <summary>
+    /// Invoked from JavaScript when an item is removed.
+    /// </summary>
+    [JSInvokable]
+    public async Task OnRemoveJSAsync(int oldIndex, int newIndex, string fromListId, string toListId, string? pullMode)
+    {
+        if (Items != null && !string.Equals(pullMode, "clone", StringComparison.OrdinalIgnoreCase))
+        {
+            var list = Items.ToList();
+            list.RemoveAt(oldIndex);
+            Items = list;
+            if (ItemsChanged.HasDelegate)
+            {
+                await ItemsChanged.InvokeAsync(Items);
+            }
+        }
+
+        if (OnRemove.HasDelegate)
+        {
+            await OnRemove.InvokeAsync(new FluentSortableListEventArgs(oldIndex, newIndex, fromListId, toListId));
+        }
+    }
+
+    /// <inheritdoc />
+    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    {
+        await jsModule.InvokeVoidAsync("stop");
+        _selfReference?.Dispose();
     }
 }
