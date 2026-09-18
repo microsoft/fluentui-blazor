@@ -17,10 +17,16 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
-    /// <param name="lifetime">The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).</param>
+    /// <param name="lifetime">
+    /// The lifetime of the toast in seconds (null, uses the globally configured lifetime, which defaults to 7 seconds).
+    /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
-    /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
+    /// <param name="dismissOnClickAsync">
+    /// The callback action for the dismiss action. When the action is completed, the toast will be closed.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the close result of the toast.
+    /// </returns>
     Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
@@ -29,7 +35,7 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
     /// <param name="lifetime">
-    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// The lifetime of the toast in seconds(null, uses the globally configured lifetime, which defaults to 7 seconds).
     /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
     /// <param name="dismissOnClickAsync">
@@ -46,11 +52,15 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
     /// <param name="lifetime">
-    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// The lifetime of the toast in seconds (null, uses the globally configured lifetime, which defaults to 7 seconds).
     /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
-    /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
+    /// <param name="dismissOnClickAsync">
+    /// The callback action for the dismiss action. When the action is completed, the toast will be closed.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the close result of the toast.
+    /// </returns>
     Task<ToastResult> ShowErrorToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
@@ -59,11 +69,15 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
     /// <param name="lifetime">
-    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// The lifetime of the toast in seconds (null, uses the globally configured lifetime, which defaults to 7 seconds).
     /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
-    /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
+    /// <param name="dismissOnClickAsync">
+    /// The callback action for the dismiss action. When the action is completed, the toast will be closed.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the close result of the toast.
+    /// </returns>
     Task<ToastResult> ShowInfoToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
