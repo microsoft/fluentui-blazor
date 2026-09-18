@@ -87,10 +87,6 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
-          - output: pipelineArtifact
-            targetPath: '$(Build.ArtifactStagingDirectory)\restore.binlog'
-            artifactName: RestoreDiagnostics
-
           - output: nuget
             useDotNetTask: false
             packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
@@ -173,8 +169,6 @@ extends:
             feedsToUse: config
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
-            verbosityRestore: Diagnostic
-            restoreArguments: '--disable-parallel -bl:$(Build.ArtifactStagingDirectory)\restore.binlog'
 
         # NPM install Core.Scripts
         - task: Npm@1
