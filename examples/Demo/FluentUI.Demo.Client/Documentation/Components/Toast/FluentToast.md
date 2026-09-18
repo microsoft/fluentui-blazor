@@ -141,15 +141,6 @@ by using a required title plus optional message and dismiss button details.
 In this example, **Success** toasts are shown for 3 seconds (`lifetime: 3` parameter), **Warning**, **Error**, **Info**, and **Progress** toasts are shown for 7 seconds (which is the default value)
 and then close automatically.
 
-The default value (7 seconds) can be changed globally in the `AddFluentUIComponents` method when configuring services:
-
-```csharp
-builder.Services.AddFluentUIComponents(config =>
-{
-   config.Toast.Lifetime = TimeSpan.FromSeconds(2);
-});
-```
-
 These five helper methods are non-blocking. Because they use `ToastResultTiming.Queued`, the awaited call completes
 as soon as the toast is queued, so the code after `await` continues to run immediately, without waiting for the toast
 to be rendered or closed:
@@ -178,6 +169,7 @@ When `ProgressResult` is not `null`, the **Close Progress** button is enabled so
 This example shows the standard toast setup with default behavior and intent. Use it as the baseline pattern for simple status feedback.
 
 **Notes**:
+
 - By default, `ResultTiming = ToastResultTiming.Queued`. The code after `await` resumes as soon as the toast is queued (just before it becomes visible).
 
 - Set this property to `ToastResultTiming.Visible` to block execution until the toast is visible.
