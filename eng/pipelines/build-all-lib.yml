@@ -174,7 +174,7 @@ extends:
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
             verbosityRestore: Diagnostic
-            restoreArguments: '-bl:$(Build.ArtifactStagingDirectory)\restore.binlog'
+            restoreArguments: '--disable-parallel -bl:$(Build.ArtifactStagingDirectory)\restore.binlog'
 
         # NPM install Core.Scripts
         - task: Npm@1
