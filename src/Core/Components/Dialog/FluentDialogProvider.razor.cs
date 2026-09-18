@@ -86,7 +86,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     private async Task<IDialogReference> ShowDialogAsync(IDialogReference dialogReference, Type? dialogComponent, DialogParameters parameters, object content)
     {
-        return await Task.Run(async () =>
+        await InvokeAsync(async () =>
         {
             var previouslyFocusedElement = await GetPreviouslyFocusedElementAsync();
 
@@ -94,10 +94,10 @@ public partial class FluentDialogProvider : IAsyncDisposable
             dialogReference.Instance = dialog;
 
             _internalDialogContext.References.Add(dialogReference);
-            await InvokeAsync(StateHasChanged);
-
-            return dialogReference;
+            StateHasChanged();
         });
+
+        return dialogReference;
     }
 
     private void UpdateDialog(string? dialogId, DialogParameters parameters)
@@ -116,7 +116,9 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     private async Task<IDialogReference?> UpdateDialogAsync(string? dialogId, DialogParameters parameters)
     {
-        return await Task.Run(() =>
+        IDialogReference? result = null;
+
+        await InvokeAsync(() =>
         {
             IDialogReference? reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
             DialogInstance? dialogInstance = reference?.Instance;
@@ -130,10 +132,13 @@ public partial class FluentDialogProvider : IAsyncDisposable
                     dialogInstance.Content = content;
                 }
 
-                InvokeAsync(StateHasChanged);
+                StateHasChanged();
             }
-            return reference;
+
+            result = reference;
         });
+
+        return result;
     }
 
     // Check if the content object is a IDialogParameters<TContent> and get the Content property.
