@@ -1,0 +1,24 @@
+﻿@inject IDialogService DialogService
+<div class="sticker-row">
+    <FluentButton OnClick="@OpenDialogAsync"
+                  Appearance="ButtonAppearance.Primary">
+        Open Dialog
+    </FluentButton>
+</div>
+
+@code
+{
+
+    private async Task OpenDialogAsync()
+    {
+        var result = await DialogService.ShowDialogAsync<DialogForCard>(options =>
+        {
+            options.Modal = true;
+            options.Size = DialogSize.Small;
+
+        });
+
+
+    }
+}
+
