@@ -1,0 +1,67 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10">
+        <FluentSlider Label=@($"Data Size: {_dataSize}") @bind-Value="@_dataSize" @bind-Value:after="@RandomizeData" Min="0" Max="50" Step="1" Style="width: 250px;" />
+        <FluentSelect Label="X-Axis type" Items="@(Enum.GetValues<XAxisKind>())" @bind-Value="@_xAxisKind" @bind-Value:after="@RandomizeData" />
+    </FluentStack>
+    <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10">
+        <FluentButton OnClick="@RandomizeData">Change Data</FluentButton>
+        <FluentButton OnClick="@ChangeColor">Change Color</FluentButton>
+    </FluentStack>
+</FluentStack>
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart dynamic example"
+                        ChartData="@ColoredData"
+                        Width="650px"
+                        Height="350px"
+                        HideLegends="true"
+                        HideTickOverlap="true"
+                        YMaxValue="100"
+                        MaxBarWidth="24"
+                        Style="margin-top: 20px;">
+</FluentVerticalBarChart>
+
+@code {
+    private readonly Random _random = new();
+    private int _dataSize = 5;
+    private int _colorIndex;
+    private XAxisKind _xAxisKind = XAxisKind.Number;
+    private IReadOnlyList<VerticalBarChartDataPoint> _chartData = [];
+
+    private readonly IReadOnlyList<IReadOnlyList<string>> _colorPalettes =
+    [
+        ["qualitative.1", "qualitative.2", "qualitative.3"],
+        ["qualitative.4", "qualitative.5", "qualitative.6"],
+        ["qualitative.7", "qualitative.8", "qualitative.9"],
+        ["qualitative.10", "qualitative.11", "qualitative.12"],
+    ];
+
+    private IReadOnlyList<VerticalBarChartDataPoint> ColoredData => _chartData
+        .Select((point, index) => point with { Color = DataVizPalette.Custom, CustomColor = _colorPalettes[_colorIndex][index % _colorPalettes[_colorIndex].Count] })
+        .ToArray();
+
+    protected override void OnInitialized() => RandomizeData();
+
+    private void RandomizeData() => _chartData = Enumerable.Range(0, _dataSize).Select(CreatePoint).ToArray();
+
+    private void ChangeColor() => _colorIndex = (_colorIndex + 1) % _colorPalettes.Count;
+
+    private VerticalBarChartDataPoint CreatePoint(int index) => new()
+    {
+        X = _xAxisKind switch
+        {
+            XAxisKind.Date => new DateTime(2020, 1, 1).AddDays(_random.Next(1, 76)),
+            XAxisKind.String => $"Label {index + 1}",
+            _ => (double)_random.Next(1, 76),
+        },
+        Y = _random.Next(1, 91),
+    };
+
+    private enum XAxisKind
+    {
+        Number,
+        Date,
+        String,
+    }
+}

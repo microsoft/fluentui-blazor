@@ -132,8 +132,8 @@ export class FunnelChart extends ChartBase {
     this.elementInternals.ariaLabel = this._getHostAriaLabel();
 
     const svgRect = this.svgElement.getBoundingClientRect();
-    const pixelWidth = svgRect.width || parseFloat(String(this.width)) || 400;
-    const pixelHeight = svgRect.height || parseFloat(String(this.height)) || 400;
+    const pixelWidth = this._resolveChartDimension(svgRect.width, 400);
+    const pixelHeight = this._resolveChartDimension(svgRect.height, 400);
 
     const verticalPadding = 16;
     const funnelWidth = pixelWidth * 0.8;
@@ -341,6 +341,7 @@ export class FunnelChart extends ChartBase {
     path.addEventListener('blur', () => {
       this._clearTooltip();
     });
+    path.addEventListener('click', () => this._focusRovingElement(this._segments, path));
 
     path.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {

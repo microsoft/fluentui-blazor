@@ -1,12 +1,13 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentHorizontalBarChartWithAxis Style="width: 800px"
-                                  ChartTitle="Revenue by category (rounded corners)"
-                                  RoundedCorners="true"
-                                  ChartData="@ChartData">
+<FluentCheckbox @bind-Value="@_roundedCorners" Label="Rounded corners" />
+
+<FluentHorizontalBarChartWithAxis ChartTitle="Revenue by category (rounded corners)" RoundedCorners="@_roundedCorners" ChartData="@ChartData" Width="650">
 </FluentHorizontalBarChartWithAxis>
 
 @code {
+    private bool _roundedCorners = true;
+
     private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> ChartData =
     [
         new HorizontalBarChartWithAxisDataPoint { Y = "String One",   X = 1000,  Legend = "Oranges", Color = DataVizPalette.Color1, XAxisCalloutData = "1K",  YAxisCalloutData = "String One"   },

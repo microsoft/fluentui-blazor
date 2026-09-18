@@ -1,8 +1,8 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_roundCorners" Label="Rounded corners" />
 
-<FluentHorizontalBarChart
+<FluentHorizontalBarChart Width="650"
                           ChartTitle="Horizontal bar chart rounded corners example"
                           Variant="@HorizontalBarChartVariant.AbsoluteScale"
                           RoundedCorners="@_roundCorners"

@@ -1,44 +1,45 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentHorizontalBarChart ChartTitle="Default Horizontal Bar Chart"
-                          ChartData="@ChartData">
+<FluentHorizontalBarChart Width="650px"
+                          ChartTitle="Horizontal bar chart basic example"
+                          ChartData="@chartData">
 </FluentHorizontalBarChart>
 
 @code {
-    private IReadOnlyList<HorizontalBarChartSeries> ChartData =
+    private readonly IReadOnlyList<HorizontalBarChartSeries> chartData =
     [
         new HorizontalBarChartSeries
         {
             ChartSeriesTitle = "Monitored First",
             ChartData =
             [
-                new HorizontalBarChartDataPoint { Legend = "Debit card numbers (EU and USA)", Data = 40, Color = DataVizPalette.Custom, CustomColor = "#0099BC" },
-                new HorizontalBarChartDataPoint { Legend = "Passport numbers (USA)", Data = 23, Color = DataVizPalette.Custom, CustomColor = "#77004D" },
-                new HorizontalBarChartDataPoint { Legend = "Social security numbers", Data = 35, Color = DataVizPalette.Color21 },
-                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 87, Color = DataVizPalette.Color10 },
-                new HorizontalBarChartDataPoint { Legend = "Tax identification numbers (USA)", Data = 87, Color = DataVizPalette.Custom, CustomColor = "#004E8C" }
-            ]
+                new HorizontalBarChartDataPoint { Legend = "Debit card numbers (EU and USA)", Data = 40, Color = DataVizPalette.Custom, CustomColor = "qualitative.1" },
+                new HorizontalBarChartDataPoint { Legend = "Passport numbers (USA)", Data = 23, Color = DataVizPalette.Custom, CustomColor = "qualitative.2" },
+                new HorizontalBarChartDataPoint { Legend = "Social security numbers", Data = 35, Color = DataVizPalette.Custom, CustomColor = "qualitative.3" },
+                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 87, Color = DataVizPalette.Custom, CustomColor = "qualitative.10" },
+                new HorizontalBarChartDataPoint { Legend = "Tax identification numbers (USA)", Data = 87, Color = DataVizPalette.Custom, CustomColor = "qualitative.4" },
+            ],
         },
         new HorizontalBarChartSeries
         {
             ChartSeriesTitle = "Monitored Second",
             ChartData =
             [
-                new HorizontalBarChartDataPoint { Legend = "Debit card numbers (EU and USA)", Data = 40, Color = DataVizPalette.Custom, CustomColor = "#0099BC" },
-                new HorizontalBarChartDataPoint { Legend = "Passport numbers (USA)", Data = 56, Color = DataVizPalette.Custom, CustomColor = "#77004D" },
-                new HorizontalBarChartDataPoint { Legend = "Social security numbers", Data = 35, Color = DataVizPalette.Color21 },
-                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 92, Color = DataVizPalette.Color10 },
-                new HorizontalBarChartDataPoint { Legend = "Tax identification numbers (USA)", Data = 87, Color = DataVizPalette.Custom, CustomColor = "#004E8C" }
-            ]
+                new HorizontalBarChartDataPoint { Legend = "Debit card numbers (EU and USA)", Data = 40, Color = DataVizPalette.Custom, CustomColor = "qualitative.1" },
+                new HorizontalBarChartDataPoint { Legend = "Passport numbers (USA)", Data = 56, Color = DataVizPalette.Custom, CustomColor = "qualitative.2" },
+                new HorizontalBarChartDataPoint { Legend = "Social security numbers", Data = 35, Color = DataVizPalette.Custom, CustomColor = "qualitative.3" },
+                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 92, Color = DataVizPalette.Custom, CustomColor = "qualitative.10" },
+                new HorizontalBarChartDataPoint { Legend = "Tax identification numbers (USA)", Data = 87, Color = DataVizPalette.Custom, CustomColor = "qualitative.4" },
+            ],
         },
         new HorizontalBarChartSeries
         {
             ChartSeriesTitle = "Unmonitored",
             ChartData =
             [
-                new HorizontalBarChartDataPoint { Legend = "Phone Numbers", Data = 40, Color = DataVizPalette.Custom, CustomColor = "#881798" },
-                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 23, Color = DataVizPalette.Color10 }
-            ]
-        }
+                new HorizontalBarChartDataPoint { Legend = "Phone Numbers", Data = 40, Color = DataVizPalette.Custom, CustomColor = "qualitative.9" },
+                new HorizontalBarChartDataPoint { Legend = "Credit card Numbers", Data = 23, Color = DataVizPalette.Custom, CustomColor = "qualitative.10" },
+            ],
+        },
     ];
 }

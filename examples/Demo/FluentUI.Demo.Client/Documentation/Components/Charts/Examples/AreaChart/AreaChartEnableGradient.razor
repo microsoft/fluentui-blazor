@@ -1,11 +1,16 @@
 ﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
+<FluentCheckbox @bind-Value="@_enableGradient" Label="Enable gradient" />
+
 <FluentAreaChart ChartData="data"
                  ChartTitle="Area chart gradient example"
-                 Width="700px"
-                 EnableGradient="true" />
+                 Width="700"
+                 Height="312"
+                 EnableGradient="@_enableGradient" />
 
 @code {
+    private bool _enableGradient = true;
+
     private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
     {
         new AreaChartSeries

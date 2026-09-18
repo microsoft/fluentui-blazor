@@ -1,0 +1,16 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGaugeChart ChartTitle="Gauge chart basic example"
+                  Segments="@segments"
+                  ChartValue="50"
+                  MaxValue="100">
+</FluentGaugeChart>
+
+@code {
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+}

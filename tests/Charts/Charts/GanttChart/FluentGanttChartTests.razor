@@ -539,4 +539,26 @@
         // Assert — the JSON should contain the date timestamp, not the numeric tick value
         Assert.Equal($"[{expectedMs}]", chart.TickValuesJsonPublic);
     }
+
+    [Fact]
+    public void FluentGanttChart_TickValuesJson_UnspecifiedKindDateTickValue_TreatedAsUtc()
+    {
+        // Arrange — an Unspecified-kind tick value must normalize the same way as the identical
+        // Utc-kind instant, matching the ChartAxisValue date policy used for chart data points.
+        // Before the fix, this constructed the DateTimeOffset using the server's local time zone,
+        // so an explicit tick could drift away from a data point representing the same instant.
+        var unspecified = new DateTime(2024, 1, 15, 0, 0, 0, DateTimeKind.Unspecified);
+        var utc = DateTime.SpecifyKind(unspecified, DateTimeKind.Utc);
+        var expectedMs = new DateTimeOffset(utc).ToUnixTimeMilliseconds();
+
+#pragma warning disable BL0005
+        var chart = new TestableFluentGanttChart(new LibraryConfiguration())
+        {
+            DateTickValues = [unspecified],
+        };
+#pragma warning restore BL0005
+
+        // Assert
+        Assert.Equal($"[{expectedMs}]", chart.TickValuesJsonPublic);
+    }
 }

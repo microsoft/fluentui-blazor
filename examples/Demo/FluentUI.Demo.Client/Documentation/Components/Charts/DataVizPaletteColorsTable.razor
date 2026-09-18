@@ -1,0 +1,83 @@
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <div style="min-height: 1000px">
+        <table data-type="system-color">
+            <thead>
+                <tr>
+                    <th>Color constant</th>
+                    <th>Light</th>
+                    <th>Dark</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var color in Colors)
+                {
+                    var lightAnchor = $"dataviz-{color.Name}-light";
+                    var darkAnchor = $"dataviz-{color.Name}-dark";
+
+                    <tr>
+                        <td data-type="name">@color.Name</td>
+                        <td data-type="block-cell">
+                            <div id="@lightAnchor"
+                                 color="block"
+                                 aria-label="@($"{color.Name} light color {color.LightValue}")"
+                                 style="@($"background-color: {color.LightValue};")">
+                            </div>
+                        </td>
+                        <td data-type="block-cell" data-empty="@(!color.HasDarkVariant)">
+                            @if (color.HasDarkVariant)
+                            {
+                                <div id="@darkAnchor"
+                                color="block"
+                                aria-label="@($"{color.Name} dark color {color.DarkValue}")"
+                                style="@($"background-color: {color.DarkValue};")">
+                                </div>
+                            }
+                            else
+                            {
+                                <div id="@lightAnchor"
+                                     color="block"
+                                     aria-label="@($"{color.Name} light color {color.LightValue}")"
+                                     style="@($"background-color: {color.LightValue};")">
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</FluentStack>
+
+<style>
+    table[data-type='system-color'] {
+        width: unset !important;
+        margin-left: 24px;
+    }
+
+        table[data-type='system-color'] th,
+        table[data-type='system-color'] td[data-type='name'] {
+            align-content: center;
+            padding: 0 10px;
+        }
+
+        table[data-type='system-color'] td[data-type='name'] {
+            width: 300px;
+        }
+
+        table[data-type='system-color'] td[data-type='block-cell'] {
+            width: 140px;
+            min-width: 140px;
+            padding: 0;
+        }
+
+        table[data-type='system-color'] [color='block'] {
+            border: 1px solid @SystemColors.Neutral.Stroke1;
+            width: 140px;
+            min-width: 140px;
+            height: 40px;
+        }
+
+        table[data-type='system-color'] td[data-type='block-cell'][data-empty='True'] {
+            background-color: transparent;
+        }
+</style>

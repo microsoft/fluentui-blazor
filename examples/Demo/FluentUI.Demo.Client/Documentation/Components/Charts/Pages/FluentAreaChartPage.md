@@ -54,107 +54,85 @@ The chart axes support 2 ways of localization.
 
 ## Examples
 
-### Basic example
-
-The default example renders an area chart with 3 data series and a legend showing each category's data value.
+### Basic Example
 
 {{ AreaChartDefault }}
 
-### Enable gradient
+### Multiple
 
-Setting `EnableGradient` applies a gradient fill to the area series.
+{{ AreaChartMultiple }}
+
+### Custom accessibility
+
+{{ AreaChartCustomAccessibility }}
+
+### Enable Gradient
 
 {{ AreaChartEnableGradient }}
 
-### Negative Y values
-
-This example demonstrates how to handle negative values in the area chart. The area fill will extend below the x-axis for negative values.
+### Negative Y Values
 
 {{ AreaChartNegativeYValues }}
 
-### Multiple Series Negative Y values
-
-This example demonstrates how to handle multiple series with negative values in the area chart. The area fill will extend below the x-axis for negative values.
+### Multiple Series Negative Y Values
 
 {{ AreaChartMultipleSeriesNegativeYValues }}
 
-### All negative Y values
-
-This example demonstrates how to handle all negative values in the area chart. The area fill will extend below the x-axis for negative values.
+### All Negative Y Values
 
 {{ AreaChartAllNegativeYValues }}
 
-### Zero Y (Non stacked)
-
-Non-stacked mode: each series fills independently from y=0 (equivalent to React's mode="tozeroy").
+### Zero Y (Non Stacked)
 
 {{ AreaChartZeroYValues }}
 
-### Secondary axis
-
-Use `UseSecondaryYScale` on a series and configure the secondary axis visibility and label width.
+### Secondary Axis
 
 {{ AreaChartSecondaryAxis }}
 
-### Axis titles
-
-The `XAxisTitle` and `YAxisTitle` properties label the chart axes.
+### Axis Titles
 
 {{ AreaChartAxisTitles }}
 
-### Without legends
-
-This example removes the legend list below the chart.
-
-{{ AreaChartHideLegends }}
-
-### Rounded corners
-
-Enabling `RoundedCorners` applies a softer visual style to the legend indicators.
-
-{{ AreaChartRoundedCorners }}
-
-### With custom sizing
-
-Use the sliders to adjust the chart width and height at runtime.
+### Sizing
 
 {{ AreaChartSizing }}
 
-### Hide tooltip
+### Hide Legends
 
-Setting `HideTooltip` disables the hover callout.
+{{ AreaChartHideLegends }}
 
-{{ AreaChartHideTooltip }}
-
-### Legend list label
-
-The `LegendListLabel` property sets the accessible heading for the legend list.
-
-{{ AreaChartLegendListLabel }}
-
-### Culture
-
-This example uses a specific culture to format the axis labels and tooltips.
-
-{{ AreaChartCulture }}
-
-### Multiple legend selection
-
-When `AllowMultipleLegendSelection` is enabled, multiple legend items can be selected at the same time.
+### Multiple Legend Selection
 
 {{ AreaChartMultipleLegendSelection }}
 
-### RTL
+### Rounded Corners
 
-This example demonstrates the chart inside a right-to-left container.
+{{ AreaChartRoundedCorners }}
 
-{{ AreaChartDefaultRTL }}
+### Culture
 
-### Custom tooltip
+{{ AreaChartCulture }}
 
-Use `CartesianTooltipTemplate` (or `TooltipTemplate`) to replace the default hover callout with custom Blazor markup.
+### Title Align
+
+{{ AreaChartTitleAlign }}
+
+### Title and Legend Positions
+
+{{ AreaChartTitleAndLegendPositions }}
+
+### Hide Tooltip
+
+{{ AreaChartHideTooltip }}
+
+### Custom Tooltip
 
 {{ AreaChartCustomTooltip }}
+
+### RTL
+
+{{ AreaChartRTL }}
 
 ## API Fluent Area Chart
 

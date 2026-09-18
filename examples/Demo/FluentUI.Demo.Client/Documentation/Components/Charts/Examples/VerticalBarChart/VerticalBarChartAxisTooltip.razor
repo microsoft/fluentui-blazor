@@ -1,0 +1,35 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentRadioGroup Label="X Axis Tick Labels" @bind-Value="@_axisLabelMode" Name="vbar-axis-label-mode">
+    <FluentRadio Value="@AxisLabelMode.ShowTooltip">Show x-axis labels tooltip</FluentRadio>
+    <FluentRadio Value="@AxisLabelMode.WrapLabels">Wrap x-axis labels</FluentRadio>
+</FluentRadioGroup>
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart axis tooltip example"
+                        ChartData="@_chartData"
+                        Width="650px"
+                        Height="350px"
+                        BarWidth="16"
+                        HideLegends="true"
+                        ShowXAxisLabelsTooltip="@(_axisLabelMode == AxisLabelMode.ShowTooltip)"
+                        WrapXAxisLabels="@(_axisLabelMode == AxisLabelMode.WrapLabels)"
+                        Style="margin-top: 20px;">
+</FluentVerticalBarChart>
+
+@code {
+    private AxisLabelMode _axisLabelMode = AxisLabelMode.ShowTooltip;
+
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _chartData =
+    [
+        new() { X = "Simple Text", Y = 1000, Color = DataVizPalette.Custom, CustomColor = "dodgerblue" },
+        new() { X = "Showing all text here", Y = 5000, Color = DataVizPalette.Custom, CustomColor = "midnightblue" },
+        new() { X = "Large data, showing all text by tooltip", Y = 3000, Color = DataVizPalette.Custom, CustomColor = "darkblue" },
+        new() { X = "Data", Y = 2000, Color = DataVizPalette.Custom, CustomColor = "deepskyblue" },
+    ];
+
+    private enum AxisLabelMode
+    {
+        ShowTooltip,
+        WrapLabels,
+    }
+}

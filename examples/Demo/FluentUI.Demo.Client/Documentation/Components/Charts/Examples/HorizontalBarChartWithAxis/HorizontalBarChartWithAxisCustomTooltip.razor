@@ -1,9 +1,7 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 @inject IJSRuntime JS
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px"
-                                  ChartTitle="Horizontal Bar Chart With Axis custom tooltip example"
-                                  ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Horizontal Bar Chart With Axis custom tooltip example" ChartData="@ChartData" Width="650px" Height="350px">
     <CartesianTooltipTemplate Context="ctx">
         <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 150px;">
             <div style="display: flex; align-items: center; gap: 8px;">

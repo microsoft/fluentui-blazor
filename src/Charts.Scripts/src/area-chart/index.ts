@@ -1,4 +1,3 @@
-
 export { definition as AreaChartDefinition } from './area-chart.definition.js';
 export { AreaChart } from './area-chart.js';
 export { styles as AreaChartStyles } from './area-chart.styles.js';

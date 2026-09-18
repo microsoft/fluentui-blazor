@@ -1,0 +1,57 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentScatterChart ChartTitle="Website Traffic and Sales Performance"
+                    ChartData="@_chartData"
+                    Width="650px"
+                    XAxisTitle="Date"
+                    YAxisTitle="Number of visitors"
+                    UseUTC="true">
+</FluentScatterChart>
+
+@code {
+    private readonly IReadOnlyList<ScatterChartSeries> _chartData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Website Traffic",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 1, 0, 0, 0, DateTimeKind.Utc), Y = 5000, MarkerSize = 15 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 2, 0, 0, 0, DateTimeKind.Utc), Y = 7000, MarkerSize = 20 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 6500, MarkerSize = 18 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 4, 0, 0, 0, DateTimeKind.Utc), Y = 8000, MarkerSize = 25 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 9000, MarkerSize = 30 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 6, 0, 0, 0, DateTimeKind.Utc), Y = 8500, MarkerSize = 28 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 7, 0, 0, 0, DateTimeKind.Utc), Y = 9500, MarkerSize = 35 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Sales Performance",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            Data =
+            [
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 1, 0, 0, 0, DateTimeKind.Utc), Y = 2000, MarkerSize = 10 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 2, 0, 0, 0, DateTimeKind.Utc), Y = 3000, MarkerSize = 15 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 2500, MarkerSize = 12 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 4, 0, 0, 0, DateTimeKind.Utc), Y = 4000, MarkerSize = 20 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 4500, MarkerSize = 22 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 6, 0, 0, 0, DateTimeKind.Utc), Y = 4200, MarkerSize = 18 },
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 7, 0, 0, 0, DateTimeKind.Utc), Y = 5000, MarkerSize = 25 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Promotional Campaign",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.5",
+            Data =
+            [
+                new ScatterChartDataPoint { X = new DateTime(2023, 3, 5, 12, 0, 0, DateTimeKind.Utc), Y = 6000, MarkerSize = 40 },
+            ],
+        },
+    ];
+}

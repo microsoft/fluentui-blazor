@@ -1,0 +1,70 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Timers
+@implements IDisposable
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10">
+        <FluentButton OnClick="@ToggleTimer">@(_isRunning ? "Stop" : "Start")</FluentButton>
+        <FluentButton OnClick="@ResetValue">Reset</FluentButton>
+    </FluentStack>
+
+    <FluentGaugeChart ChartTitle="Gauge chart live value example"
+                      Segments="@_chartData"
+                      ChartValue="@_chartValue"
+                      MaxValue="100">
+    </FluentGaugeChart>
+</FluentStack>
+
+@code {
+    private readonly System.Timers.Timer _timer = new(500);
+    private bool _isRunning;
+    private int _chartValue = 0;
+
+    private readonly IReadOnlyList<GaugeChartSegment> _chartData =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+
+    protected override void OnInitialized()
+    {
+        _timer.Elapsed += OnTimerElapsed;
+        _timer.AutoReset = true;
+    }
+
+    private void ToggleTimer()
+    {
+        if (_isRunning)
+        {
+            _timer.Stop();
+            _isRunning = false;
+            return;
+        }
+
+        _timer.Start();
+        _isRunning = true;
+    }
+
+    private void ResetValue()
+    {
+        _timer.Stop();
+        _isRunning = false;
+        _chartValue = 0;
+    }
+
+    private void OnTimerElapsed(object? sender, ElapsedEventArgs e)
+    {
+        _ = InvokeAsync(() =>
+        {
+            _chartValue = _chartValue >= 100 ? 0 : _chartValue + 5;
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        _timer.Elapsed -= OnTimerElapsed;
+        _timer.Dispose();
+    }
+}

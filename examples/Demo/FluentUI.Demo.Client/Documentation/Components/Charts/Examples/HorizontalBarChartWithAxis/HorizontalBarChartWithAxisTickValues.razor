@@ -1,7 +1,6 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<FluentHorizontalBarChartWithAxis Style="width: 650px; height: 350px" ChartTitle="Explicit tick values on x-axis"
-                                  TickValues="@(new[] { 0.0, 1000, 2500, 4000, 5000 })" ChartData="@ChartData">
+<FluentHorizontalBarChartWithAxis ChartTitle="Explicit tick values on x-axis" TickValues="@(new[] { 0.0, 1000, 2500, 4000, 5000 })" ChartData="@ChartData" Width="650px" Height="350px">
 </FluentHorizontalBarChartWithAxis>
 
 @code {
