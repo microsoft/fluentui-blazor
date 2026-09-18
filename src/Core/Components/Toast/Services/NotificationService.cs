@@ -30,23 +30,23 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
     }
 
     /// <inheritdoc cref="INotificationService.ShowSuccessToastAsync(string?, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
-    public Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+    public Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
         => ShowSimpleToastAsync(ToastIntent.Success, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowWarningToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
-    public Task<ToastResult> ShowWarningToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+    public Task<ToastResult> ShowWarningToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
         => ShowSimpleToastAsync(ToastIntent.Warning, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowErrorToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
-    public Task<ToastResult> ShowErrorToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+    public Task<ToastResult> ShowErrorToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
         => ShowSimpleToastAsync(ToastIntent.Error, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowInfoToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
-    public Task<ToastResult> ShowInfoToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+    public Task<ToastResult> ShowInfoToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
         => ShowSimpleToastAsync(ToastIntent.Info, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowProgressToastAsync(string, string?, int?, string?, Func{ToastEventArgs, Task}?)"/>
-    public Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
+    public Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null)
         => ShowSimpleToastAsync(ToastIntent.Progress, title, message, lifetime, dismissLabel, dismissOnClickAsync);
 
     /// <inheritdoc cref="INotificationService.ShowToastAsync(ToastOptions)"/>
@@ -185,7 +185,7 @@ public partial class NotificationService : FluentServiceBase<INotificationInstan
         // Remove the Toast from the ToastProvider.
         await RemoveToastFromProviderAsync(instance);
 
-        // Set the result of the Toast.        
+        // Set the result of the Toast.
         instance.ResultCompletion.TrySetResult(result);
     }
 

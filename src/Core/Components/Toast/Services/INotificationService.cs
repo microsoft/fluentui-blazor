@@ -17,55 +17,67 @@ public partial interface INotificationService : IFluentServiceBase<INotification
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
-    /// <param name="lifetime">The lifetime of the toast in seconds (default is 7 seconds).</param>
+    /// <param name="lifetime">The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).</param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
     /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
-    Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
+    Task<ToastResult> ShowSuccessToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
     /// Shows a warning toast with the specified title and message and waits for the close result.
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
-    /// <param name="lifetime">The lifetime of the toast in seconds (default is 7 seconds).</param>
+    /// <param name="lifetime">
+    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
-    /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
-    Task<ToastResult> ShowWarningToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
+    /// <param name="dismissOnClickAsync">
+    /// The callback action for the dismiss action. When the action is completed, the toast will be closed.
+    /// </param>
+    /// <returns>
+    /// A task that represents the asynchronous operation. The task result contains the close result of the toast.
+    /// </returns>
+    Task<ToastResult> ShowWarningToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
     /// Shows an error toast with the specified title and message and waits for the close result.
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
-    /// <param name="lifetime">The lifetime of the toast in seconds (default is 7 seconds).</param>
+    /// <param name="lifetime">
+    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
     /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
-    Task<ToastResult> ShowErrorToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
+    Task<ToastResult> ShowErrorToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
     /// Shows an info toast with the specified title and message and waits for the close result.
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
-    /// <param name="lifetime">The lifetime of the toast in seconds (default is 7 seconds).</param>
+    /// <param name="lifetime">
+    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
     /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
-    Task<ToastResult> ShowInfoToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
+    Task<ToastResult> ShowInfoToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
     /// Shows a progress toast with the specified title and message and waits for the close result.
     /// </summary>
     /// <param name="title">The title of the toast.</param>
     /// <param name="message">The message content of the toast.</param>
-    /// <param name="lifetime">The lifetime of the toast in seconds (default is 7 seconds).</param>
+    /// <param name="lifetime">
+    /// The lifetime of the toast in seconds (null, falls back to default lifetime of 7 seconds).
+    /// </param>
     /// <param name="dismissLabel">The label for the dismiss action.</param>
     /// <param name="dismissOnClickAsync">The callback action for the dismiss action. When the action is completed, the toast will be closed.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the close result of the toast.</returns>
-    Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = LibraryToastOptions.DefaultLifetimeSeconds, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
+    Task<ToastResult> ShowProgressToastAsync(string title, string? message = null, int? lifetime = null, string? dismissLabel = null, Func<ToastEventArgs, Task>? dismissOnClickAsync = null);
 
     /// <summary>
     /// Shows a toast using the supplied options and waits for the close result.
