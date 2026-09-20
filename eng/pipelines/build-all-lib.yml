@@ -168,7 +168,6 @@ extends:
             command: 'restore'
             projects: ${{ parameters.Projects }}
             restoreArguments: '/p:WarningsNotAsErrors=NU5104'
-            verbosityRestore: 'Diagnostic'
             feedsToUse: config
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
