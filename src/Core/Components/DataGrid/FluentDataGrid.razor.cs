@@ -800,9 +800,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Drops every sort level but the first while <see cref="SortMode"/> is not
-    /// <see cref="DataGridSortMode.Multiple"/>, both for the current sort and for the sort declared by the columns,
-    /// which <see cref="ResetSortAsync"/> restores.
+    /// Drops every sort level but the first from the current sort while <see cref="SortMode"/> is not
+    /// <see cref="DataGridSortMode.Multiple"/>. What the columns declare is left alone: it belongs to the columns,
+    /// not to the mode, so switching to Multiple again restores the declared sort in full.
     /// </summary>
     /// <returns><see langword="true"/> when the current sort changed and the data has to be re-queried.</returns>
     private bool CollapseSortLevelsForSingleSortMode()
@@ -810,11 +810,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (SortMode == DataGridSortMode.Multiple)
         {
             return false;
-        }
-
-        if (_defaultSortColumns.Count > 1)
-        {
-            _defaultSortColumns.RemoveRange(1, _defaultSortColumns.Count - 1);
         }
 
         // The live region that carries it is only rendered in Multiple mode, so an announcement left over from
@@ -950,13 +945,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
-        // Only the first default sort column is used in Single mode; in Multiple mode the columns are sorted on in
-        // declaration order.
-        if (SortMode != DataGridSortMode.Multiple && _collectedDefaultSortColumns.Count > 0)
-        {
-            return;
-        }
-
         // A declared level that cannot order the data is dropped rather than shown, so that the header does not
         // advertise a sort the provider request leaves out.
         if (!CanSortDataAtLevel(column, _collectedDefaultSortColumns.Count > 0))
@@ -968,8 +956,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _collectedDefaultSortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
 
         // The declared sort is applied while the columns are collected for the first time, unless something else
-        // (restored state, or a programmatic call) already sorted the grid.
-        if (!_defaultSortApplied && _sortColumns.Count == _collectedDefaultSortColumns.Count - 1)
+        // (restored state, or a programmatic call) already sorted the grid. Only its first level is applied unless
+        // SortMode is Multiple, though every level is still collected, so the rest are there to restore if the grid
+        // is later switched to Multiple.
+        if (!_defaultSortApplied
+            && _sortColumns.Count == _collectedDefaultSortColumns.Count - 1
+            && (SortMode == DataGridSortMode.Multiple || _sortColumns.Count == 0))
         {
             _sortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
         }
@@ -1767,8 +1759,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private void RestoreDefaultSort()
     {
+        // The columns declare their sort in full, whatever the mode; only Multiple applies more than its first level.
         _sortColumns.Clear();
-        _sortColumns.AddRange(_defaultSortColumns);
+        _sortColumns.AddRange(SortMode == DataGridSortMode.Multiple
+            ? _defaultSortColumns
+            : _defaultSortColumns.Take(1));
     }
 
     private async Task NotifySortChangedAsync(bool useCoreRefresh = false)

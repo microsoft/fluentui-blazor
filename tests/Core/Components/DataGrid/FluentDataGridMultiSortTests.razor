@@ -1486,6 +1486,58 @@
         return cut;
     }
 
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_DeclaredSort_SurvivesASwitchToSingleModeAndBack()
+    {
+        // Arrange: two columns declare the sort, so the grid starts with two levels.
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" />
+            </FluentDataGrid>
+        );
+
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+
+        // Act: to Single, which keeps one level, and back to Multiple.
+        cut.Render(parameters => parameters.Add(p => p.SortMode, DataGridSortMode.Single));
+        Assert.Single(grid.SortColumns);
+
+        cut.Render(parameters => parameters.Add(p => p.SortMode, DataGridSortMode.Multiple));
+        await grid.ResetSortAsync();
+
+        // Assert: the sort the columns declare is theirs, not something a mode switch can consume.
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_DeclaredSort_StartingInSingleMode_IsCollectedInFull()
+    {
+        // Arrange: the grid starts in Single mode, which applies one level, but both columns still declare one.
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Single">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" />
+            </FluentDataGrid>
+        );
+
+        Assert.Single(grid.SortColumns);
+        Assert.True(grid.HasDeclaredSort);
+
+        // Act
+        cut.Render(parameters => parameters.Add(p => p.SortMode, DataGridSortMode.Multiple));
+        await grid.ResetSortAsync();
+
+        // Assert: the second level was never the mode's to discard, so it is there once Multiple can apply it.
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,
