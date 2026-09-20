@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -228,6 +228,25 @@ public class MigrationServiceTests
         // Assert
         Assert.NotNull(result);
         Assert.False(string.IsNullOrEmpty(result.Content));
+    }
+
+    [Fact]
+    public void GetComponentMigration_DataGrid_ShouldDescribeTheMultiColumnSortBreakingChanges()
+    {
+        // Arrange
+        var service = new MigrationService();
+
+        // Act
+        var result = service.GetComponentMigration("DataGrid");
+
+        // Assert: the sort of a grid is now a list of levels, and the members that reported a single sorted
+        // column are gone. Anyone migrating hits compile errors on those names, so the guide has to name them
+        // and say what replaces them.
+        Assert.NotNull(result);
+        Assert.Contains("SortByColumn", result.Content, StringComparison.Ordinal);
+        Assert.Contains("SortByAscending", result.Content, StringComparison.Ordinal);
+        Assert.Contains("SortColumns", result.Content, StringComparison.Ordinal);
+        Assert.Contains("DataGridSortMode.Multiple", result.Content, StringComparison.Ordinal);
     }
 
     [Fact]
