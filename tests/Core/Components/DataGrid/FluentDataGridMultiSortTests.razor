@@ -1320,6 +1320,172 @@
         Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
     }
 
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortState_SavedBeforeEscapingExisted_WithACommaInTheTitle_IsStillRestored()
+    {
+        // Arrange && Act: single sort state used to be written unescaped, so a comma in the title is a separator
+        // under the current grammar and the whole level would otherwise be dropped.
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Title="Dept,Div" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        grid.LoadStateFromQueryString("?orderby=Dept,Div asc");
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Dept,Div", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortState_SavedBeforeEscapingExisted_WithABackslashInTheTitle_IsStillRestored()
+    {
+        // Arrange && Act: a backslash is the escape character under the current grammar, so it would be eaten.
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Title="Dept\Div" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        grid.LoadStateFromQueryString("?orderby=Dept\\Div desc");
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Dept\\Div", grid.SortColumns[0].Column.Title);
+        Assert.False(grid.SortColumns[0].Ascending);
+    }
+
+    [Theory]
+    // The direction is the last token, and anything that is not "asc" sorts descending, as it did before.
+    [InlineData("?orderby=Department asc", "Department", true)]
+    [InlineData("?orderby=Department desc", "Department", false)]
+    [InlineData("?orderby=Department", "Department", false)]
+    [InlineData("?orderby=Department sideways", "Department", false)]
+    // A title holding spaces: the old parser cut at the first space and lost this one, the current grammar keeps it.
+    [InlineData("?orderby=Full Name asc", "Full Name", true)]
+    [InlineData("?orderby=Full Name desc", "Full Name", false)]
+    public void FluentDataGrid_MultiSort_LegacySortState_IsReadAsASingleLevel(string queryString, string expectedTitle, bool expectedAscending)
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderLegacyStateGrid(out grid);
+
+        // Act
+        grid.LoadStateFromQueryString(queryString);
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal(expectedTitle, grid.SortColumns[0].Column.Title);
+        Assert.Equal(expectedAscending, grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_LegacySortState_WithACommaAndSpacesInTheTitle_IsRestored()
+    {
+        // Arrange: the comma splits the value under the current grammar and neither piece resolves, so the whole
+        // value is re-read as one level. The old parser cut at the first space and never restored this one either,
+        // so the fallback is what makes the link work rather than what keeps it working.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderLegacyStateGrid(out grid);
+
+        // Act
+        grid.LoadStateFromQueryString("?orderby=Name, in full asc");
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name, in full", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_LegacySortState_NamingAColumnThatIsGone_LeavesTheSortAlone()
+    {
+        // Arrange: neither grammar resolves this, and a stale link must not unsort a grid that has a declared sort.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true, saveStateInUrl: true);
+
+        // Act
+        grid.LoadStateFromQueryString("?orderby=A Column That Left asc");
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_LegacySortState_InSingleSortMode_IsRestored()
+    {
+        // Arrange: every link written in the old format holds one level, which is all Single mode accepts.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, sortMode: DataGridSortMode.Single, saveStateInUrl: true);
+
+        // Act
+        grid.LoadStateFromQueryString("?orderby=Department desc");
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.False(grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_LegacySortState_IsRewrittenInTheKeyFormatOnTheNextSave()
+    {
+        // Arrange: a link in the old format is read, and the grid saves its state again on the next render.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderLegacyStateGrid(out grid);
+
+        grid.LoadStateFromQueryString("?orderby=Name, in full asc");
+        Assert.Single(grid.SortColumns);
+
+        // Act
+        await grid.RefreshDataAsync();
+        cut.Render();
+
+        // Assert: the saved value now names the column by key, with the comma escaped, so it survives the current
+        // grammar and no longer depends on the fallback.
+        var query = System.Web.HttpUtility.ParseQueryString(new Uri(navigationManager.Uri).Query);
+        Assert.Equal($"{EscapedKeyOf(grid, "Name, in full")} asc", query["orderby"]);
+
+        // And reading that value back gives the same column, through the current grammar rather than the fallback.
+        grid.LoadStateFromQueryString($"?orderby={query["orderby"]}");
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name, in full", grid.SortColumns[0].Column.Title);
+    }
+
+    private static string EscapedKeyOf(FluentDataGrid<Employee> grid, string title)
+    {
+        var key = grid._columns.Find(c => string.Equals(c.Title, title, StringComparison.Ordinal))!.ColumnKey;
+        return key.Replace(SLASH, SLASH + SLASH, StringComparison.Ordinal).Replace(",", SLASH + ",", StringComparison.Ordinal);
+    }
+
+    private const string SLASH = "\\";
+
+    private IRenderedComponent<FluentDataGrid<Employee>> RenderLegacyStateGrid(out FluentDataGrid<Employee> grid)
+    {
+        FluentDataGrid<Employee>? reference = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@reference" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Title="Department" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Title="Full Name" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Level)" Title="Name, in full" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        grid = reference!;
+        return cut;
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,

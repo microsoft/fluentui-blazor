@@ -52,8 +52,11 @@ Set `ColumnId` on the columns of a grid that saves its state. It is the only key
 when columns are added or removed around it. Without one, two columns sharing a `Title` are told apart only by their
 position, so a saved link stops being accurate once that position changes.
 
-The grid reads the parameter back when the page is loaded, once its columns have been collected. A level whose key
-matches no column falls back to matching a column by title, so links saved before the key was used keep working.
+The grid reads the parameter back when the page is loaded, once its columns have been collected. Links saved by
+earlier versions keep working: a level whose key matches no column is matched by title instead, and a value that
+resolves to no column at all is re-read as the single unescaped level those versions wrote, so a title holding a
+comma or a backslash is not mistaken for a separator or an escape.
+
 Set `SaveStatePrefix` to keep the parameters apart when more than one grid on a page saves its state.
 
 Clearing the sort writes the parameter with an empty value rather than dropping it, because the two mean different

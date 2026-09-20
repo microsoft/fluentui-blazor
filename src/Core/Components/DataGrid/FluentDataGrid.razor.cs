@@ -89,6 +89,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly List<DataGridSortColumn<TGridItem>> _collectedDefaultSortColumns = [];
     private bool _defaultSortApplied;
     private List<(string ColumnReference, bool Ascending)>? _pendingSortStateFromUrl;
+    // The orderby value exactly as it was read, so that state written before the escaping grammar existed can be
+    // re-read under the old one when the current grammar resolves nothing.
+    private string? _pendingSortStateRawFromUrl;
     private string? _sortAnnouncement;
     private bool _checkColumnHeaderUiPosition;
     private bool _checkColumnResizing;
@@ -2393,21 +2396,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var query = System.Web.HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby", StringComparer.Ordinal))
         {
+            var raw = query[$"{SaveStatePrefix}orderby"]!;
             var sortState = new List<(string ColumnReference, bool Ascending)>();
 
             // One "<column key> <asc|desc>" entry per sort level, in priority order.
-            foreach (var entry in SplitSortStateEntries(query[$"{SaveStatePrefix}orderby"]!))
+            foreach (var entry in SplitSortStateEntries(raw))
             {
-                // The direction is the entry's last token, so that a title containing spaces survives the trip.
-                var separator = entry.LastIndexOf(' ');
-                if (separator < 0)
-                {
-                    sortState.Add((entry, false));
-                }
-                else
-                {
-                    sortState.Add((entry[..separator], string.Equals(entry[(separator + 1)..], "asc", StringComparison.Ordinal)));
-                }
+                sortState.Add(ParseSortStateEntry(entry));
 
                 if (SortMode != DataGridSortMode.Multiple)
                 {
@@ -2416,8 +2411,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
 
             // The columns are collected during the first render, which happens after OnInitialized calls this.
-            // Whichever of the two runs last resolves the titles to columns.
+            // Whichever of the two runs last resolves the entries to columns.
             _pendingSortStateFromUrl = sortState;
+            _pendingSortStateRawFromUrl = raw;
             ApplyPendingSortStateFromUrl();
         }
 
@@ -2451,8 +2447,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // columns declare, which AddColumn applies while the columns are collected.
         var savedAsUnsorted = _pendingSortStateFromUrl.Count == 0;
 
+        var levels = ResolveSortStateLevels(_pendingSortStateFromUrl);
+
+        // A value written before the escaping grammar existed holds one unescaped "<title> <direction>" level, so a
+        // comma in the title reads as a level separator and a backslash as an escape, and none of what comes out
+        // resolves. Reading the whole value as that single level is what such a link meant when it was saved.
+        if (levels.Count == 0 && !savedAsUnsorted && !string.IsNullOrEmpty(_pendingSortStateRawFromUrl))
+        {
+            levels = ResolveSortStateLevels([ParseSortStateEntry(_pendingSortStateRawFromUrl)]);
+        }
+
+        _pendingSortStateFromUrl = null;
+        _pendingSortStateRawFromUrl = null;
+
+        // Saved entries that no longer resolve to a column are dropped and the current sort is left alone, because
+        // the query string is user input; only an explicitly empty value unsorts the grid.
+        if (levels.Count == 0 && !savedAsUnsorted)
+        {
+            return;
+        }
+
+        _sortColumns.Clear();
+        _sortColumns.AddRange(levels);
+        UpdateSortAnnouncement();
+    }
+
+    /// <summary>
+    /// Resolves saved sort levels to the grid's columns, dropping the ones that cannot be applied.
+    /// </summary>
+    private List<DataGridSortColumn<TGridItem>> ResolveSortStateLevels(List<(string ColumnReference, bool Ascending)> sortState)
+    {
         var levels = new List<DataGridSortColumn<TGridItem>>();
-        foreach (var (columnReference, ascending) in _pendingSortStateFromUrl)
+        foreach (var (columnReference, ascending) in sortState)
         {
             // A level names its column by key, which stays distinct when two columns share a title, so the levels
             // come back on the columns they were saved from whatever order they were sorted in. Levels saved by an
@@ -2472,18 +2498,19 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             levels.Add(new DataGridSortColumn<TGridItem>(column, ascending));
         }
 
-        _pendingSortStateFromUrl = null;
+        return levels;
+    }
 
-        // Saved entries that no longer resolve to a column are dropped and the current sort is left alone, because
-        // the query string is user input; only an explicitly empty value unsorts the grid.
-        if (levels.Count == 0 && !savedAsUnsorted)
-        {
-            return;
-        }
-
-        _sortColumns.Clear();
-        _sortColumns.AddRange(levels);
-        UpdateSortAnnouncement();
+    /// <summary>
+    /// Reads one sort level. The direction is the entry's last token, so that a column reference containing spaces
+    /// survives the trip; an entry without one sorts descending, as an unreadable direction always has.
+    /// </summary>
+    private static (string ColumnReference, bool Ascending) ParseSortStateEntry(string entry)
+    {
+        var separator = entry.LastIndexOf(' ');
+        return separator < 0
+            ? (entry, false)
+            : (entry[..separator], string.Equals(entry[(separator + 1)..], "asc", StringComparison.Ordinal));
     }
 
     /// <summary>
