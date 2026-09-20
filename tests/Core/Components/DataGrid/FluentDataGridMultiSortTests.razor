@@ -1256,6 +1256,70 @@
         Assert.Empty(grid.SortColumns);
     }
 
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SortState_WithColumnsSharingATitle_RestoresTheLevelsToTheRightColumns()
+    {
+        // Arrange: the second column is the primary sort, so restoring the levels in declaration order would put
+        // them on the wrong columns.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Title="Sortable" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Title="Sortable" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        await grid.SortByColumnAsync(grid._columns[1], DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync(grid._columns[0], DataGridSortDirection.Descending);
+
+        var savedQuery = new Uri(navigationManager.Uri).Query;
+        await grid.ClearSortAsync();
+
+        // Act
+        grid.LoadStateFromQueryString(savedQuery);
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Same(grid._columns[1], grid.SortColumns[0].Column);
+        Assert.Same(grid._columns[0], grid.SortColumns[1].Column);
+        Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SortState_IsSavedByColumnKey()
+    {
+        // Arrange
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, saveStateInUrl: true);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Assert: the key identifies the column even when another one shares its title, which the title cannot.
+        var query = System.Web.HttpUtility.ParseQueryString(new Uri(navigationManager.Uri).Query);
+        Assert.Equal($"{grid._columns[0].ColumnKey} asc", query["orderby"]);
+        Assert.Equal("Employee.Department asc", query["orderby"]);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortState_SavedByTitleBeforeKeysWereUsed_IsStillRestored()
+    {
+        // Arrange && Act: state written by an earlier version names its columns by title, so titles stay a
+        // fallback for links and bookmarks that are already out there.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        navigationManager.NavigateTo("http://localhost/?orderby=Department asc,Name desc");
+
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, saveStateInUrl: true);
+
+        // Assert
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,

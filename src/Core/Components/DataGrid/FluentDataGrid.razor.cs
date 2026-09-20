@@ -88,7 +88,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // staged rather than rebuilt in place because _defaultSortColumns is read throughout the render that collects.
     private readonly List<DataGridSortColumn<TGridItem>> _collectedDefaultSortColumns = [];
     private bool _defaultSortApplied;
-    private List<(string Title, bool Ascending)>? _pendingSortStateFromUrl;
+    private List<(string ColumnReference, bool Ascending)>? _pendingSortStateFromUrl;
     private string? _sortAnnouncement;
     private bool _checkColumnHeaderUiPosition;
     private bool _checkColumnResizing;
@@ -997,6 +997,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _manualGrid = _columns.Count == 0;
         RebuildDeclaredSort();
 
+        // Ahead of the sort being restored, which resolves saved levels to columns by their key.
+        AssignColumnKeys();
+
         if (_columns.Count > 0)
         {
             // Sort state that was restored before the columns existed can only be resolved to columns now.
@@ -1019,7 +1022,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
 
-        AssignColumnKeys();
         ValidatePinnedColumnConstraints();
         ApplyStoredColumnOrder();
         ValidateAndComputePinnedColumns();
@@ -1092,7 +1094,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (column is IBindableColumn bindable && bindable.PropertyInfo is not null)
         {
-            return $"{bindable.PropertyInfo.DeclaringType?.FullName ?? typeof(TGridItem).FullName}.{bindable.PropertyInfo.Name}";
+            // The declaring type's short name rather than its full name: this key is written to the query string
+            // when the sort is saved there, and a namespace makes that unreadable. Two columns that collide because
+            // of it are still told apart by the suffix AssignColumnKeys adds.
+            return $"{bindable.PropertyInfo.DeclaringType?.Name ?? typeof(TGridItem).Name}.{bindable.PropertyInfo.Name}";
         }
 
         if (!string.IsNullOrWhiteSpace(column.Title))
@@ -2388,9 +2393,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var query = System.Web.HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby", StringComparer.Ordinal))
         {
-            var sortState = new List<(string Title, bool Ascending)>();
+            var sortState = new List<(string ColumnReference, bool Ascending)>();
 
-            // One "<title> <asc|desc>" entry per sort level, in priority order.
+            // One "<column key> <asc|desc>" entry per sort level, in priority order.
             foreach (var entry in SplitSortStateEntries(query[$"{SaveStatePrefix}orderby"]!))
             {
                 // The direction is the entry's last token, so that a title containing spaces survives the trip.
@@ -2447,12 +2452,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var savedAsUnsorted = _pendingSortStateFromUrl.Count == 0;
 
         var levels = new List<DataGridSortColumn<TGridItem>>();
-        foreach (var (title, ascending) in _pendingSortStateFromUrl)
+        foreach (var (columnReference, ascending) in _pendingSortStateFromUrl)
         {
-            // Columns are matched by title, and the levels were saved in priority order, so a grid holding several
-            // columns with the same title still restores one level per column instead of collapsing them into one.
-            var column = _columns.Find(c => string.Equals(c.Title, title, StringComparison.Ordinal)
-                && !levels.Exists(x => x.Column == c));
+            // A level names its column by key, which stays distinct when two columns share a title, so the levels
+            // come back on the columns they were saved from whatever order they were sorted in. Levels saved by an
+            // earlier version hold the title instead, so that is tried next.
+            var column = _columns.Find(c => string.Equals(c.ColumnKey, columnReference, StringComparison.Ordinal)
+                    && !levels.Exists(x => x.Column == c))
+                ?? _columns.Find(c => string.Equals(c.Title, columnReference, StringComparison.Ordinal)
+                    && !levels.Exists(x => x.Column == c));
 
             // Sort state that no longer matches a sortable column, or that cannot be applied at this level, is dropped
             // rather than failing the render: the query string is user input.
@@ -2479,18 +2487,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Escapes a column title for the comma separated list of sort levels that
-    /// <see cref="SaveStateToQueryString"/> writes, so that a title holding a comma (or the backslash that escapes
+    /// Escapes the column reference in the comma separated list of sort levels that
+    /// <see cref="SaveStateToQueryString"/> writes, so that one holding a comma (or the backslash that escapes
     /// one) does not read back as two levels.
     /// </summary>
-    private static string EscapeSortStateTitle(string? title)
-        => (title ?? string.Empty)
+    private static string EscapeSortStateValue(string? value)
+        => (value ?? string.Empty)
             .Replace("\\", "\\\\", StringComparison.Ordinal)
             .Replace(",", "\\,", StringComparison.Ordinal);
 
     /// <summary>
     /// Splits the saved sort state into one entry per sort level, undoing the escaping
-    /// <see cref="EscapeSortStateTitle"/> applied. Entries that are empty once unescaped are dropped, as the
+    /// <see cref="EscapeSortStateValue"/> applied. Entries that are empty once unescaped are dropped, as the
     /// whole value is user input.
     /// </summary>
     private static List<string> SplitSortStateEntries(string value)
@@ -2552,7 +2560,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // The key is written even when the grid is not sorted, with an empty value. A missing key means nothing was
         // saved, which leaves the sort the columns declare free to apply; an empty one means the grid was explicitly
         // left unsorted, and that declared sort has to stay off when the state is restored.
-        var orderBy = string.Join(',', _sortColumns.Select(level => $"{EscapeSortStateTitle(level.Column.Title)} {(level.Ascending ? "asc" : "desc")}"));
+        var orderBy = string.Join(',', _sortColumns.Select(level => $"{EscapeSortStateValue(level.Column.ColumnKey)} {(level.Ascending ? "asc" : "desc")}"));
         stateParams.Add($"{SaveStatePrefix}orderby", orderBy);
 
         stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);

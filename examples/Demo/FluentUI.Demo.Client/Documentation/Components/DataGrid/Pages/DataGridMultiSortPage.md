@@ -37,8 +37,23 @@ in priority order, so a link reproduces the whole sort:
 
     ?orderby=Department asc,Location desc
 
-The grid reads the parameter back when the page is loaded, once its columns have been collected. Each entry is matched
-to a column by title, and a comma or backslash in a title is escaped with a backslash so it does not split the entries.
+Each entry names its column by the key the grid also uses to persist column order, and a comma or backslash in a key is
+escaped with a backslash so it does not split the entries. The key is:
+
+| The column has | Its key is | For example |
+| --- | --- | --- |
+| a `ColumnId` | that id | `orders` |
+| no `Title` | the property it binds to | `Employee.Department` |
+| a `Title` | that title | `Start Date` |
+
+Two columns that would take the same key are told apart by a suffix, in declaration order.
+
+Set `ColumnId` on the columns of a grid that saves its state. It is the only key you choose yourself, so it stays put
+when columns are added or removed around it. Without one, two columns sharing a `Title` are told apart only by their
+position, so a saved link stops being accurate once that position changes.
+
+The grid reads the parameter back when the page is loaded, once its columns have been collected. A level whose key
+matches no column falls back to matching a column by title, so links saved before the key was used keep working.
 Set `SaveStatePrefix` to keep the parameters apart when more than one grid on a page saves its state.
 
 Clearing the sort writes the parameter with an empty value rather than dropping it, because the two mean different
