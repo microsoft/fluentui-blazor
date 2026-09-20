@@ -30,6 +30,28 @@ Declaring `IsDefaultSortColumn` on more than one column gives the grid a multi-c
 order the columns are declared. `ResetSortAsync`, removing the last sort level and <kbd>Shift</kbd> + <kbd>s</kbd> all
 return to it; **Clear all sorts** and `ClearSortAsync` leave the grid unsorted instead.
 
+## Saving the sort in the URL
+
+Setting `SaveStateInUrl` writes the sort to the query string as an `orderby` parameter with one entry per sort level,
+in priority order, so a link reproduces the whole sort:
+
+    ?orderby=Department asc,Location desc
+
+The grid reads the parameter back when the page is loaded, once its columns have been collected. Each entry is matched
+to a column by title, and a comma or backslash in a title is escaped with a backslash so it does not split the entries.
+Set `SaveStatePrefix` to keep the parameters apart when more than one grid on a page saves its state.
+
+Clearing the sort writes the parameter with an empty value rather than dropping it, because the two mean different
+things when the state is read back:
+
+| Query string | Restored as |
+| --- | --- |
+| No `orderby` | Nothing was saved, so the sort the columns declare through `IsDefaultSortColumn` applies. |
+| `orderby=` | The grid was explicitly left unsorted, so the declared sort stays off. |
+
+Entries that no longer match a column are dropped and the current sort is left alone, since the query string is user
+input.
+
 ## Programmatic sorting
 
 | Method | Description |

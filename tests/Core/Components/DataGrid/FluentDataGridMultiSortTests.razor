@@ -1081,6 +1081,61 @@
         Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
     }
 
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SortState_WhenTheSortIsCleared_RemovesOrderByFromTheQueryString()
+    {
+        // Arrange
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+        Assert.Contains("orderby=", new Uri(navigationManager.Uri).Query);
+
+        // Act
+        await grid.ClearSortAsync();
+
+        // Assert: the key stays, with an empty value. Dropping it would read back as "nothing saved" on the next
+        // load, which lets the sort the columns declare apply again.
+        Assert.Empty(grid.SortColumns);
+        var query = System.Web.HttpUtility.ParseQueryString(new Uri(navigationManager.Uri).Query);
+        Assert.Contains("orderby", query.AllKeys);
+        Assert.Equal(string.Empty, query["orderby"]);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortState_SavedAsUnsorted_KeepsTheDeclaredSortOff()
+    {
+        // Arrange: the grid declares a sort on Department, so a load with nothing saved brings that sort back.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        navigationManager.NavigateTo("http://localhost/?orderby=");
+
+        // Act
+        var cut = RenderMultiSortGrid(out var grid, defaultSortColumn: true, saveStateInUrl: true);
+
+        // Assert
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortState_WithNoSavedState_AppliesTheDeclaredSort()
+    {
+        // Arrange && Act: the control for the test above, so that an empty orderby is shown to be what suppresses
+        // the declared sort rather than the grid never applying it.
+        var cut = RenderMultiSortGrid(out var grid, defaultSortColumn: true, saveStateInUrl: true);
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,

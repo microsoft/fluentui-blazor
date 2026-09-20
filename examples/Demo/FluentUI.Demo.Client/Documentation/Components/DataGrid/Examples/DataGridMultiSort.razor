@@ -1,5 +1,6 @@
 ﻿<FluentStack HorizontalGap="15" VerticalAlignment="VerticalAlignment.Center">
     <FluentCheckbox @bind-Value="@_headerMenu" Label="Use menu for column actions" />
+    <FluentCheckbox @bind-Value="@_saveStateInUrl" Label="Save sort state in the URL" />
     <FluentButton OnClick="@(() => _grid!.ClearSortAsync())">Clear all sorts</FluentButton>
 </FluentStack>
 
@@ -11,6 +12,7 @@
                 TGridItem="Employee"
                 Items="@_employees"
                 SortMode="DataGridSortMode.Multiple"
+                SaveStateInUrl="@_saveStateInUrl"
                 HeaderCellAsButtonWithMenu="@_headerMenu"
                 OnSortChanged="@HandleSortChanged"
                 DisplayMode="DataGridDisplayMode.Table"
@@ -25,6 +27,7 @@
 @code {
     private FluentDataGrid<Employee>? _grid;
     private bool _headerMenu;
+    private bool _saveStateInUrl = true;
     private string _sortDescription = "Department (ascending)";
 
     private void HandleSortChanged(DataGridSortEventArgs<Employee> args)

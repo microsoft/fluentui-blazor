@@ -2406,6 +2406,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
+        // An empty saved value means the grid was explicitly left unsorted, so it has to override the sort the
+        // columns declare, which AddColumn applies while the columns are collected.
+        var savedAsUnsorted = _pendingSortStateFromUrl.Count == 0;
+
         var levels = new List<DataGridSortColumn<TGridItem>>();
         foreach (var (title, ascending) in _pendingSortStateFromUrl)
         {
@@ -2426,7 +2430,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         _pendingSortStateFromUrl = null;
 
-        if (levels.Count == 0)
+        // Saved entries that no longer resolve to a column are dropped and the current sort is left alone, because
+        // the query string is user input; only an explicitly empty value unsorts the grid.
+        if (levels.Count == 0 && !savedAsUnsorted)
         {
             return;
         }
@@ -2507,11 +2513,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         var stateParams = new Dictionary<string, object?>(StringComparer.Ordinal);
-        if (_sortColumns.Count > 0)
-        {
-            var orderBy = string.Join(',', _sortColumns.Select(level => $"{EscapeSortStateTitle(level.Column.Title)} {(level.Ascending ? "asc" : "desc")}"));
-            stateParams.Add($"{SaveStatePrefix}orderby", orderBy);
-        }
+        // The key is written even when the grid is not sorted, with an empty value. A missing key means nothing was
+        // saved, which leaves the sort the columns declare free to apply; an empty one means the grid was explicitly
+        // left unsorted, and that declared sort has to stay off when the state is restored.
+        var orderBy = string.Join(',', _sortColumns.Select(level => $"{EscapeSortStateTitle(level.Column.Title)} {(level.Ascending ? "asc" : "desc")}"));
+        stateParams.Add($"{SaveStatePrefix}orderby", orderBy);
 
         stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
         stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
