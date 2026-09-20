@@ -1136,6 +1136,63 @@
         Assert.Equal("Department", grid.SortColumns[0].Column.Title);
     }
 
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_DeclaredSort_WhenAColumnIsRemoved_DropsThatColumnsLevel()
+    {
+        // Arrange: two columns declare a sort, so the sort ResetSortAsync restores has two levels.
+        var showLevel = true;
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                @if (showLevel)
+                {
+                    <PropertyColumn Property="@(x => x.Level)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" />
+                }
+            </FluentDataGrid>
+        );
+
+        Assert.Equal(["Department", "Level"], grid.SortColumns.Select(level => level.Column.Title));
+
+        // Act: the Level column goes away, and the grid is asked for the sort its columns declare.
+        showLevel = false;
+        cut.Render();
+        await grid.ResetSortAsync();
+
+        // Assert: a column the grid no longer holds must not come back through the declared sort, where it would
+        // reach OnSortChanged and the provider request.
+        Assert.Equal(["Department"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.All(grid.SortColumns, level => Assert.Contains(level.Column, grid._columns));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_DeclaredSort_WhenAColumnIsAdded_PicksUpItsLevel()
+    {
+        // Arrange: only one column declares a sort to begin with.
+        var showLevel = false;
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                @if (showLevel)
+                {
+                    <PropertyColumn Property="@(x => x.Level)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" />
+                }
+            </FluentDataGrid>
+        );
+
+        // Act
+        showLevel = true;
+        cut.Render();
+        await grid.ResetSortAsync();
+
+        // Assert: the rebuilt collection tracks columns appearing as well as disappearing.
+        Assert.Equal(["Department", "Level"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,

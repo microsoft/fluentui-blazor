@@ -83,6 +83,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private readonly List<DataGridSortColumn<TGridItem>> _sortColumns = [];
     // The sort declared by the columns (IsDefaultSortColumn), restored when the user clears the sort.
     private readonly List<DataGridSortColumn<TGridItem>> _defaultSortColumns = [];
+    // Filled while the columns are collected and swapped into _defaultSortColumns once the collection completes, so
+    // that columns which were removed or recreated since the last render do not linger in the declared sort. It is
+    // staged rather than rebuilt in place because _defaultSortColumns is read throughout the render that collects.
+    private readonly List<DataGridSortColumn<TGridItem>> _collectedDefaultSortColumns = [];
     private bool _defaultSortApplied;
     private List<(string Title, bool Ascending)>? _pendingSortStateFromUrl;
     private string? _sortAnnouncement;
@@ -922,37 +926,49 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         column.SetColumnIndex(_columns.Count + 1);
         _columns.Add(column);
 
-        if (!isDefaultSortColumn || !initialSortDirection.HasValue || _defaultSortColumns.Exists(x => x.Column == column))
+        if (!isDefaultSortColumn || !initialSortDirection.HasValue || _collectedDefaultSortColumns.Exists(x => x.Column == column))
         {
             return;
         }
 
         // Only the first default sort column is used in Single mode; in Multiple mode the columns are sorted on in
         // declaration order.
-        if (SortMode != DataGridSortMode.Multiple && _defaultSortColumns.Count > 0)
+        if (SortMode != DataGridSortMode.Multiple && _collectedDefaultSortColumns.Count > 0)
         {
             return;
         }
 
         var ascending = initialSortDirection.Value != DataGridSortDirection.Descending;
-        _defaultSortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
-
-        if (_internalGridContext.DefaultSortColumn.Column is null)
-        {
-            _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
-        }
+        _collectedDefaultSortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
 
         // The declared sort is applied while the columns are collected for the first time, unless something else
         // (restored state, or a programmatic call) already sorted the grid.
-        if (!_defaultSortApplied && _sortColumns.Count == _defaultSortColumns.Count - 1)
+        if (!_defaultSortApplied && _sortColumns.Count == _collectedDefaultSortColumns.Count - 1)
         {
             _sortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
         }
     }
 
+    /// <summary>
+    /// Replaces the sort declared by the columns with the one just collected, so that it only ever names columns the
+    /// grid currently holds. Without it a column that was removed, or recreated as a new component instance, stays in
+    /// the collection and <see cref="ResetSortAsync"/> restores a detached column, which then reaches
+    /// <see cref="OnSortChanged"/> and <see cref="GridItemsProviderRequest{TGridItem}"/>.
+    /// </summary>
+    private void RebuildDeclaredSort()
+    {
+        _defaultSortColumns.Clear();
+        _defaultSortColumns.AddRange(_collectedDefaultSortColumns);
+
+        _internalGridContext.DefaultSortColumn = _defaultSortColumns.Count > 0
+            ? (_defaultSortColumns[0].Column, _defaultSortColumns[0].Direction)
+            : (null, null);
+    }
+
     private void StartCollectingColumns()
     {
         _columns.Clear();
+        _collectedDefaultSortColumns.Clear();
         _collectingColumns = true;
     }
 
@@ -960,6 +976,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
+        RebuildDeclaredSort();
 
         if (_columns.Count > 0)
         {
