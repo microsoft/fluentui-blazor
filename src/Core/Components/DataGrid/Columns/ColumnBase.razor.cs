@@ -19,6 +19,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public abstract partial class ColumnBase<TGridItem>
 {
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
+
+    // The codes that activate a header button. Numpad Enter reports its own code rather than "Enter", so it has to
+    // be listed for the numeric keypad to reach the sort actions at all.
+    private static readonly string[] KEYBOARD_ACTIVATE_CODES = ["Enter", "NumpadEnter", "Space"];
     private FluentMenu? _menu;
     private FluentButton? _headerButton;
     private FluentButton? _optionsButton;
@@ -504,8 +508,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleHeaderButtonKeyDownAsync(KeyboardEventArgs args)
     {
-        if (!string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) &&
-            !string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        if (!IsHeaderButtonActivation(args))
         {
             return;
         }
@@ -549,8 +552,7 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleSortButtonKeyDownAsync(KeyboardEventArgs args)
     {
-        if (!string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) &&
-            !string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        if (!IsHeaderButtonActivation(args))
         {
             return;
         }
@@ -565,12 +567,14 @@ public abstract partial class ColumnBase<TGridItem>
 
     private async Task HandleOptionsButtonKeyDownAsync(KeyboardEventArgs args)
     {
-        if (string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        if (IsHeaderButtonActivation(args))
         {
             await Grid.ShowAllHeaderUIAsync(this);
         }
     }
+
+    private static bool IsHeaderButtonActivation(KeyboardEventArgs args)
+        => KEYBOARD_ACTIVATE_CODES.Contains(args.Code, StringComparer.OrdinalIgnoreCase);
 
     private async Task HandleSortMenuKeyDownAsync(KeyboardEventArgs args)
     {

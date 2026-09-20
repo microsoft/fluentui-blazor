@@ -1629,6 +1629,47 @@
             SortColumns = [new DataGridSortColumn<Employee>(first, true), new DataGridSortColumn<Employee>(second, true)],
         };
 
+    [Theory]
+    // Numpad Enter carries its own code, so listing "Enter" alone left the numeric keypad unable to add a level.
+    [InlineData("Enter")]
+    [InlineData("NumpadEnter")]
+    [InlineData("Space")]
+    public async Task FluentDataGrid_MultiSort_ShiftActivatingASortButton_AddsThatColumnToTheSort(string code)
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Act
+        cut.FindAll("[col-sort-button]")[1].KeyDown(new KeyboardEventArgs { Code = code, Key = "Enter", ShiftKey = true });
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+    }
+
+    [Theory]
+    [InlineData("Enter")]
+    [InlineData("NumpadEnter")]
+    [InlineData("Space")]
+    public async Task FluentDataGrid_MultiSort_ShiftActivatingAHeaderButton_AddsThatColumnToTheSort(string code)
+    {
+        // Arrange: with HeaderCellAsButtonWithMenu the header itself is the button, and the same gesture applies.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Act
+        cut.FindAll("[col-sort-button]")[1].KeyDown(new KeyboardEventArgs { Code = code, Key = "Enter", ShiftKey = true });
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,
