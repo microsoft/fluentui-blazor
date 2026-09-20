@@ -126,7 +126,6 @@ public readonly struct GridItemsProviderRequest<TGridItem>
     /// <param name="req">The <see cref="GridItemsProviderRequest{TGridItem}"/> to compare with the current request.</param>
     /// <returns><see langword="true"/> if the specified request has the same start index, count, sort columns, and sort
     /// order as the current request; otherwise, <see langword="false"/>.</returns>
-    [ExcludeFromCodeCoverage(Justification = "This is a not reachable in a unit test scenario.")]
     public bool IsSameRequest(GridItemsProviderRequest<TGridItem> req)
     {
         if (StartIndex != req.StartIndex)
@@ -149,7 +148,11 @@ public readonly struct GridItemsProviderRequest<TGridItem>
 
         for (var i = 0; i < sortColumns.Count; i++)
         {
-            if (sortColumns[i].Column.Index != otherSortColumns[i].Column.Index
+            // Columns are compared by key rather than by index: an index is a position in the grid that collected
+            // the column, so a column that was removed and the one that took its place share one, and two requests
+            // naming different columns would look equal and leave the provider holding the previous order. The key
+            // also stays the same when a column is recreated, which is a request for the order the grid already has.
+            if (!string.Equals(sortColumns[i].Column.ColumnKey, otherSortColumns[i].Column.ColumnKey, StringComparison.Ordinal)
                 || sortColumns[i].Ascending != otherSortColumns[i].Ascending)
             {
                 return false;

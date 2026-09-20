@@ -1538,6 +1538,97 @@
         Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
     }
 
+    [Fact]
+    public void FluentDataGrid_MultiSort_IsSameRequest_WithDifferentColumnsSharingAnIndex_IsFalse()
+    {
+        // Arrange: a column's index is its position in the grid that collected it, so a column that was replaced and
+        // the one that took its place carry the same one. Comparing indexes would call these requests equal and the
+        // provider would not be asked for the new order.
+        FluentDataGrid<Employee>? first = default!;
+        RenderMultiSortGrid(out first);
+
+        FluentDataGrid<Employee>? second = default!;
+        Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@second" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        var byDepartment = first._columns[0];
+        var byName = second._columns[0];
+        Assert.Equal(byDepartment.Index, byName.Index);
+        Assert.NotEqual(byDepartment.ColumnKey, byName.ColumnKey);
+
+        // Act
+        var request = RequestSortedBy(byDepartment);
+        var other = RequestSortedBy(byName);
+
+        // Assert
+        Assert.False(request.IsSameRequest(other));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_IsSameRequest_WithTheSameColumnRecreated_IsTrue()
+    {
+        // Arrange: the same column declared by two renders of the same markup is two instances of one column, and
+        // asking the provider again for an order it already has would be wasteful.
+        FluentDataGrid<Employee>? first = default!;
+        RenderMultiSortGrid(out first);
+
+        FluentDataGrid<Employee>? second = default!;
+        RenderMultiSortGrid(out second);
+
+        var before = first._columns[0];
+        var after = second._columns[0];
+        Assert.NotSame(before, after);
+        Assert.Equal(before.ColumnKey, after.ColumnKey);
+
+        // Act && Assert
+        Assert.True(RequestSortedBy(before).IsSameRequest(RequestSortedBy(after)));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_IsSameRequest_WithADifferentDirection_IsFalse()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        RenderMultiSortGrid(out grid);
+        var column = grid._columns[0];
+
+        // Act && Assert
+        Assert.False(RequestSortedBy(column).IsSameRequest(RequestSortedBy(column, ascending: false)));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_IsSameRequest_WithTheLevelsInADifferentOrder_IsFalse()
+    {
+        // Arrange: the same columns at swapped priorities are a different order, so the data has to be requested again.
+        FluentDataGrid<Employee>? grid = default!;
+        RenderMultiSortGrid(out grid);
+
+        var request = RequestSortedBy(grid._columns[0], grid._columns[1]);
+        var swapped = RequestSortedBy(grid._columns[1], grid._columns[0]);
+
+        // Act && Assert
+        Assert.False(request.IsSameRequest(swapped));
+    }
+
+    private static GridItemsProviderRequest<Employee> RequestSortedBy(ColumnBase<Employee> column, bool ascending = true)
+        => new()
+        {
+            StartIndex = 0,
+            Count = 10,
+            SortColumns = [new DataGridSortColumn<Employee>(column, ascending)],
+        };
+
+    private static GridItemsProviderRequest<Employee> RequestSortedBy(ColumnBase<Employee> first, ColumnBase<Employee> second)
+        => new()
+        {
+            StartIndex = 0,
+            Count = 10,
+            SortColumns = [new DataGridSortColumn<Employee>(first, true), new DataGridSortColumn<Employee>(second, true)],
+        };
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,
