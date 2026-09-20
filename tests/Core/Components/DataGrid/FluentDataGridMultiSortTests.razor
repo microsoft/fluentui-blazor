@@ -1193,6 +1193,69 @@
         Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
     }
 
+    [Fact]
+    public void FluentDataGrid_MultiSort_DeclaredSort_OnAColumnThatCannotSortTheData_IsNotApplied()
+    {
+        // Arrange && Act: a PropertyColumn only derives a SortBy when Sortable is set, so this column declares a
+        // sort it cannot carry out. ApplySorting would drop the level, leaving the header claiming an order the
+        // data does not have.
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DeclaredSort_WithANonAppendableSecondLevel_KeepsOnlyTheFirst()
+    {
+        // Arrange && Act: the second column's sort replaces the ordering before it, so it cannot be a second level.
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <TemplateColumn Title="Level"
+                                SortBy="@(new ColumnKeyGridSort<Employee>("Level", (q, asc) => q.OrderBy(x => x.Level)))"
+                                Sortable="true"
+                                IsDefaultSortColumn="true"
+                                InitialSortDirection="DataGridSortDirection.Descending">
+                    @context.Level
+                </TemplateColumn>
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Equal(["Department"], grid.SortColumns.Select(level => level.Column.Title));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_RestoredSort_OnAColumnThatCannotSortTheData_IsNotApplied()
+    {
+        // Arrange: the same column as above, with the sort arriving from the query string instead.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        navigationManager.NavigateTo("http://localhost/?orderby=Department asc");
+
+        FluentDataGrid<Employee>? grid = default!;
+
+        // Act
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Empty(grid.SortColumns);
+    }
+
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
         out FluentDataGrid<Employee> grid,
         DataGridSortMode sortMode = DataGridSortMode.Multiple,

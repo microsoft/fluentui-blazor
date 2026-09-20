@@ -692,6 +692,22 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             && column.CanSortFromHeader()
             && (_sortColumns.Count == 0 || column.SortBy?.CanApplyThen != false);
 
+    /// <summary>
+    /// Gets whether a column can actually order the data at the given level, which is what
+    /// <see cref="GridItemsProviderRequest{TGridItem}.ApplySorting"/> requires of it: a column with no
+    /// <see cref="ColumnBase{TGridItem}.SortBy"/> cannot sort at all, and one whose sort cannot be appended to an
+    /// existing ordering cannot follow another level.
+    /// <para>
+    /// Levels that fail this are kept out of <see cref="SortColumns"/> entirely, because a level the provider
+    /// request drops would still show a direction and a priority in its header, be announced, and be reported
+    /// through <see cref="OnSortChanged"/>, claiming an order the data does not have.
+    /// </para>
+    /// </summary>
+    /// <param name="column">The column the level sorts by.</param>
+    /// <param name="isSecondary">Whether the level follows another one, and so has to be appended to an ordering.</param>
+    internal static bool CanSortDataAtLevel(ColumnBase<TGridItem> column, bool isSecondary)
+        => column.SortBy is not null && (!isSecondary || column.SortBy.CanApplyThen);
+
     /// <inheritdoc />
     protected override void OnInitialized()
     {
@@ -934,6 +950,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // Only the first default sort column is used in Single mode; in Multiple mode the columns are sorted on in
         // declaration order.
         if (SortMode != DataGridSortMode.Multiple && _collectedDefaultSortColumns.Count > 0)
+        {
+            return;
+        }
+
+        // A declared level that cannot order the data is dropped rather than shown, so that the header does not
+        // advertise a sort the provider request leaves out.
+        if (!CanSortDataAtLevel(column, _collectedDefaultSortColumns.Count > 0))
         {
             return;
         }
@@ -2433,7 +2456,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             // Sort state that no longer matches a sortable column, or that cannot be applied at this level, is dropped
             // rather than failing the render: the query string is user input.
-            if (column is null || (levels.Count > 0 && column.SortBy?.CanApplyThen == false))
+            if (column is null || !CanSortDataAtLevel(column, levels.Count > 0))
             {
                 continue;
             }

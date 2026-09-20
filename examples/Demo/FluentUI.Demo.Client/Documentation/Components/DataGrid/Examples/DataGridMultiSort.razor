@@ -18,7 +18,9 @@
                 DisplayMode="DataGridDisplayMode.Table"
                 Style="min-width: max-content;">
     <PropertyColumn Title="Department" Property="@(e => e.Department)" Sortable="true" IsDefaultSortColumn="true" />
-    <PropertyColumn Title="Location" Property="@(e => e.Location)" Sortable="true" />
+    @* The title says so too, because a header with no sort actions otherwise looks the same as one that is
+       simply not sorted on yet. *@
+    <PropertyColumn Title="Location (non sortable)" Property="@(e => e.Location)" Sortable="false" />
     <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Sortable="true" />
     <PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true" />
     <PropertyColumn Title="Salary" Property="@(e => e.Salary)" Width="120px" Sortable="true" Align="DataGridCellAlignment.End" />
