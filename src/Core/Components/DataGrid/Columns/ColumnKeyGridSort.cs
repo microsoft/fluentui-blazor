@@ -17,6 +17,20 @@ public sealed class ColumnKeyGridSort<TGridItem> : IGridSort<TGridItem>
     /// <summary />
     /// <param name="columnKey">The key reported by <see cref="ToPropertyList(bool)"/>, for a data source that sorts the data itself.</param>
     /// <param name="sortFunction">An optional function that sorts the collection, used when the grid sorts the data.</param>
+    /// <remarks>
+    /// Kept as a separate constructor rather than folded into the one below with an optional argument, so that code
+    /// compiled against an earlier version keeps binding to a constructor that exists.
+    /// </remarks>
+    public ColumnKeyGridSort(
+        string columnKey,
+        Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction = null)
+        : this(columnKey, sortFunction, thenSortFunction: null)
+    {
+    }
+
+    /// <summary />
+    /// <param name="columnKey">The key reported by <see cref="ToPropertyList(bool)"/>, for a data source that sorts the data itself.</param>
+    /// <param name="sortFunction">An optional function that sorts the collection, used when the grid sorts the data.</param>
     /// <param name="thenSortFunction">
     /// An optional function that appends this sort to an already ordered collection, using
     /// <see cref="Queryable.ThenBy{TSource, TKey}(IOrderedQueryable{TSource}, System.Linq.Expressions.Expression{Func{TSource, TKey}})"/>.
@@ -25,8 +39,8 @@ public sealed class ColumnKeyGridSort<TGridItem> : IGridSort<TGridItem>
     /// </param>
     public ColumnKeyGridSort(
         string columnKey,
-        Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction = null,
-        Func<IOrderedQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? thenSortFunction = null)
+        Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? sortFunction,
+        Func<IOrderedQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>? thenSortFunction)
     {
         _columnKey = columnKey;
         _sortFunction = sortFunction;

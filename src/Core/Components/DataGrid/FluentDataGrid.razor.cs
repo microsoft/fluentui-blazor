@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -703,20 +704,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
-        if (Items is not null && ItemsProvider is not null)
-        {
-            throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
-        }
-
-        if (Virtualize && MultiLine)
-        {
-            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
-        }
-
-        if (Virtualize && RowDetails is not null)
-        {
-            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(RowDetails)} at the same time.");
-        }
+        ValidateParameterCombinations();
 
         // Perform a re-query only if the data source or something else has changed
         var dataSourceHasChanged = !Equals(ItemsProvider, _lastAssignedItemsProvider) || !ReferenceEquals(Items, _lastAssignedItems);
@@ -748,6 +736,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || EffectiveLoadingValue;
 
+        // SortMode is an ordinary parameter, so it can be switched back to Single while the grid is sorted by
+        // several columns. The extra levels are dropped here rather than left in place, because the grid would
+        // otherwise keep sorting by - and reporting through OnSortChanged, ResetSortAsync and the saved state -
+        // more columns than the parameter says it sorts by.
+        if (CollapseSortLevelsForSingleSortMode())
+        {
+            await NotifySortChangedAsync(useCoreRefresh: true);
+            return;
+        }
+
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
@@ -755,6 +753,58 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await RefreshDataCoreAsync();
         }
+    }
+
+    /// <summary>
+    /// Throws when parameters that cannot be used together are set at the same time.
+    /// </summary>
+    private void ValidateParameterCombinations()
+    {
+        if (Items is not null && ItemsProvider is not null)
+        {
+            throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
+        }
+
+        if (Virtualize && MultiLine)
+        {
+            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
+        }
+
+        if (Virtualize && RowDetails is not null)
+        {
+            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(RowDetails)} at the same time.");
+        }
+    }
+
+    /// <summary>
+    /// Drops every sort level but the first while <see cref="SortMode"/> is not
+    /// <see cref="DataGridSortMode.Multiple"/>, both for the current sort and for the sort declared by the columns,
+    /// which <see cref="ResetSortAsync"/> restores.
+    /// </summary>
+    /// <returns><see langword="true"/> when the current sort changed and the data has to be re-queried.</returns>
+    private bool CollapseSortLevelsForSingleSortMode()
+    {
+        if (SortMode == DataGridSortMode.Multiple)
+        {
+            return false;
+        }
+
+        if (_defaultSortColumns.Count > 1)
+        {
+            _defaultSortColumns.RemoveRange(1, _defaultSortColumns.Count - 1);
+        }
+
+        // The live region that carries it is only rendered in Multiple mode, so an announcement left over from
+        // before the switch would be read out if the grid is ever switched back.
+        _sortAnnouncement = null;
+
+        if (_sortColumns.Count <= 1)
+        {
+            return false;
+        }
+
+        _sortColumns.RemoveRange(1, _sortColumns.Count - 1);
+        return true;
     }
 
     /// <inheritdoc />
@@ -2305,10 +2355,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             var sortState = new List<(string Title, bool Ascending)>();
 
             // One "<title> <asc|desc>" entry per sort level, in priority order.
-            foreach (var entry in query[$"{SaveStatePrefix}orderby"]!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            foreach (var entry in SplitSortStateEntries(query[$"{SaveStatePrefix}orderby"]!))
             {
-                var orderBy = entry.Split(' ', 2);
-                sortState.Add((orderBy[0], orderBy.Length == 2 && string.Equals(orderBy[1], "asc", StringComparison.Ordinal)));
+                // The direction is the entry's last token, so that a title containing spaces survives the trip.
+                var separator = entry.LastIndexOf(' ');
+                if (separator < 0)
+                {
+                    sortState.Add((entry, false));
+                }
+                else
+                {
+                    sortState.Add((entry[..separator], string.Equals(entry[(separator + 1)..], "asc", StringComparison.Ordinal)));
+                }
 
                 if (SortMode != DataGridSortMode.Multiple)
                 {
@@ -2351,13 +2409,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var levels = new List<DataGridSortColumn<TGridItem>>();
         foreach (var (title, ascending) in _pendingSortStateFromUrl)
         {
-            var column = _columns.Find(c => string.Equals(c.Title, title, StringComparison.Ordinal));
+            // Columns are matched by title, and the levels were saved in priority order, so a grid holding several
+            // columns with the same title still restores one level per column instead of collapsing them into one.
+            var column = _columns.Find(c => string.Equals(c.Title, title, StringComparison.Ordinal)
+                && !levels.Exists(x => x.Column == c));
 
             // Sort state that no longer matches a sortable column, or that cannot be applied at this level, is dropped
             // rather than failing the render: the query string is user input.
-            if (column is null
-                || levels.Exists(x => x.Column == column)
-                || (levels.Count > 0 && column.SortBy?.CanApplyThen == false))
+            if (column is null || (levels.Count > 0 && column.SortBy?.CanApplyThen == false))
             {
                 continue;
             }
@@ -2377,6 +2436,69 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         UpdateSortAnnouncement();
     }
 
+    /// <summary>
+    /// Escapes a column title for the comma separated list of sort levels that
+    /// <see cref="SaveStateToQueryString"/> writes, so that a title holding a comma (or the backslash that escapes
+    /// one) does not read back as two levels.
+    /// </summary>
+    private static string EscapeSortStateTitle(string? title)
+        => (title ?? string.Empty)
+            .Replace("\\", "\\\\", StringComparison.Ordinal)
+            .Replace(",", "\\,", StringComparison.Ordinal);
+
+    /// <summary>
+    /// Splits the saved sort state into one entry per sort level, undoing the escaping
+    /// <see cref="EscapeSortStateTitle"/> applied. Entries that are empty once unescaped are dropped, as the
+    /// whole value is user input.
+    /// </summary>
+    private static List<string> SplitSortStateEntries(string value)
+    {
+        var entries = new List<string>();
+        var entry = new StringBuilder();
+        var escaped = false;
+
+        void AddEntry()
+        {
+            var text = entry.ToString().Trim();
+            if (text.Length > 0)
+            {
+                entries.Add(text);
+            }
+
+            entry.Clear();
+        }
+
+        foreach (var character in value)
+        {
+            if (escaped)
+            {
+                entry.Append(character);
+                escaped = false;
+            }
+            else if (character == '\\')
+            {
+                escaped = true;
+            }
+            else if (character == ',')
+            {
+                AddEntry();
+            }
+            else
+            {
+                entry.Append(character);
+            }
+        }
+
+        if (escaped)
+        {
+            // A trailing backslash escapes nothing, so it is part of the title.
+            entry.Append('\\');
+        }
+
+        AddEntry();
+        return entries;
+    }
+
     private void SaveStateToQueryString()
     {
         if (!SaveStateInUrl)
@@ -2387,7 +2509,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var stateParams = new Dictionary<string, object?>(StringComparer.Ordinal);
         if (_sortColumns.Count > 0)
         {
-            var orderBy = string.Join(',', _sortColumns.Select(level => $"{level.Column.Title} {(level.Ascending ? "asc" : "desc")}"));
+            var orderBy = string.Join(',', _sortColumns.Select(level => $"{EscapeSortStateTitle(level.Column.Title)} {(level.Ascending ? "asc" : "desc")}"));
             stateParams.Add($"{SaveStatePrefix}orderby", orderBy);
         }
 

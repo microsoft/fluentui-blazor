@@ -76,8 +76,9 @@ An empty `SortColumns` now means the grid is not sorted, where `Column` used to 
 `IGridSort<TGridItem>` gained `CanApplyThen` and `ApplyThen`, which append a sort to another column's ordering with
 `ThenBy`. Both have default implementations, so existing implementations keep compiling: their columns can be the
 first column sorted on, but cannot be added as a further sort level until they implement the two members.
-`GridSort<TGridItem>` supports it as it is. `ColumnKeyGridSort<TGridItem>` needs the new optional `thenSortFunction`
-constructor argument whenever it is given a `sortFunction`.
+`GridSort<TGridItem>` supports it as it is. `ColumnKeyGridSort<TGridItem>` gained a constructor overload that takes a
+`thenSortFunction` next to the `sortFunction`; supply it whenever the column has a `sortFunction` and should be able to
+take part in a multi-column sort. The existing `(columnKey, sortFunction)` constructor is unchanged.
 
 ### Type changes
 - `GenerateHeader`: `GenerateHeaderOption?` → `DataGridGeneratedHeaderType?`

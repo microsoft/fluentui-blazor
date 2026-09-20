@@ -140,6 +140,14 @@
             // determine align string based on Align value
             align = Align.ToAttributeValue();
             <div style="display: flex; justify-content: @align; padding: 0 6px; ">
+                @if (Align == DataGridCellAlignment.Start || Align == DataGridCellAlignment.Center)
+                {
+                    @if (headerCapabilities.HasHeaderPopupContent)
+                    {
+                        @OptionsButton()
+                    }
+                }
+
                 @if (headerCapabilities.CanSort)
                 {
                     var sortLevel = SortLevel;
@@ -179,9 +187,12 @@
                     </div>
                 }
 
-                @if (headerCapabilities.HasHeaderPopupContent)
+                @if (Align == DataGridCellAlignment.End)
                 {
-                    @OptionsButton()
+                    @if (headerCapabilities.HasHeaderPopupContent)
+                    {
+                        @OptionsButton()
+                    }
                 }
             </div>
 

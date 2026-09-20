@@ -80,4 +80,19 @@ public class ColumnKeyGridSortTests : Bunit.BunitContext
 
         Assert.True(ordered.Select(x => x.Number).SequenceEqual([1, 2]));
     }
+
+    [Fact]
+    public void ColumnKeyGridSort_KeepsTheConstructorThatTookAColumnKeyAndASortFunction()
+    {
+        // The then-sort function was added as an extra constructor rather than as an optional argument on the
+        // existing one: an optional argument changes the compiled signature, so callers built against an earlier
+        // version would fail with a MissingMethodException instead of just recompiling.
+        var parameterCounts = typeof(ColumnKeyGridSort<GridRow>)
+            .GetConstructors()
+            .Select(constructor => constructor.GetParameters().Length)
+            .ToList();
+
+        Assert.Contains(2, parameterCounts);
+        Assert.Contains(3, parameterCounts);
+    }
 }
