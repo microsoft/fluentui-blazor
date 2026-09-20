@@ -1,9 +1,10 @@
-// ------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,6 +17,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     private const string ExpressionNotRepresentableMessage = "The supplied expression can't be represented as a property name for sorting. Only simple member expressions, such as @(x => x.SomeProperty), can be converted to property names.";
 
     private readonly Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>> _first;
+    private readonly Func<IOrderedQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>> _firstAsThen;
     private List<Func<IOrderedQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>>>? _then;
 
     private (LambdaExpression, bool) _firstExpression;
@@ -24,9 +26,13 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     private IReadOnlyCollection<SortedProperty>? _cachedPropertyListAscending;
     private IReadOnlyCollection<SortedProperty>? _cachedPropertyListDescending;
 
-    internal GridSort(Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>> first, (LambdaExpression, bool) firstExpression)
+    internal GridSort(
+        Func<IQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>> first,
+        Func<IOrderedQueryable<TGridItem>, bool, IOrderedQueryable<TGridItem>> firstAsThen,
+        (LambdaExpression, bool) firstExpression)
     {
         _first = first;
+        _firstAsThen = firstAsThen;
         _firstExpression = firstExpression;
         _then = default;
         _thenExpressions = default;
@@ -41,6 +47,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
 #pragma warning disable MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
     public static GridSort<TGridItem> ByAscending<U>(Expression<Func<TGridItem, U>> expression)
         => new((queryable, asc) => asc ? queryable.OrderBy(expression) : queryable.OrderByDescending(expression),
+            (queryable, asc) => asc ? queryable.ThenBy(expression) : queryable.ThenByDescending(expression),
             (expression, true));
 
     /// <summary>
@@ -53,6 +60,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public static GridSort<TGridItem> ByAscending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
         => new((queryable, asc) => asc ? queryable.OrderBy(expression, comparer) : queryable.OrderByDescending(expression, comparer),
+            (queryable, asc) => asc ? queryable.ThenBy(expression, comparer) : queryable.ThenByDescending(expression, comparer),
             (expression, true));
 
     /// <summary>
@@ -63,6 +71,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     /// <returns>A <see cref="GridSort{T}"/> instance representing the specified sorting rule.</returns>
     public static GridSort<TGridItem> ByDescending<U>(Expression<Func<TGridItem, U>> expression)
         => new((queryable, asc) => asc ? queryable.OrderByDescending(expression) : queryable.OrderBy(expression),
+            (queryable, asc) => asc ? queryable.ThenByDescending(expression) : queryable.ThenBy(expression),
             (expression, false));
 
     /// <summary>
@@ -76,6 +85,7 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     public static GridSort<TGridItem> ByDescending<U>(Expression<Func<TGridItem, U>> expression, IComparer<U> comparer)
 #pragma warning restore MA0018 // Do not declare static members on generic types (deprecated; use CA1000 instead)
         => new((queryable, asc) => asc ? queryable.OrderByDescending(expression, comparer) : queryable.OrderBy(expression, comparer),
+            (queryable, asc) => asc ? queryable.ThenByDescending(expression, comparer) : queryable.ThenBy(expression, comparer),
             (expression, false));
 
     /// <summary>
@@ -203,6 +213,9 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
         return this;
     }
 
+    /// <inheritdoc />
+    public bool CanApplyThen => true;
+
     /// <summary>
     /// Apply the sort function to the collection
     /// </summary>
@@ -211,22 +224,35 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
     /// <returns>The ordered collection</returns>
     public IOrderedQueryable<TGridItem> Apply(IQueryable<TGridItem> queryable, bool ascending)
     {
-        if (IsHierarchicalInMemoryQueryable(queryable))
-        {
-            return ApplyHierarchicalSorting(queryable, ascending);
-        }
+        var sortedQueryable = ApplyStandardSorting(queryable, ascending);
 
-        return ApplyStandardSorting(queryable, ascending);
+        return HierarchicalSortHelper.IsHierarchicalInMemoryQueryable(queryable)
+            ? HierarchicalSortHelper.RestoreHierarchyOrder(queryable, sortedQueryable)
+            : sortedQueryable;
     }
 
-    private static bool IsHierarchicalInMemoryQueryable(IQueryable<TGridItem> queryable)
-        => typeof(IHierarchicalGridItem).IsAssignableFrom(typeof(TGridItem))
-            && queryable.Provider is EnumerableQuery<TGridItem>;
+    /// <summary>
+    /// Appends this sort's rules to a collection that is already ordered.
+    /// </summary>
+    /// <param name="queryable">The already ordered collection.</param>
+    /// <param name="ascending">Sort ascending (true) or descending (false)</param>
+    /// <returns>The ordered collection</returns>
+    /// <remarks>
+    /// Hierarchical ordering is not restored here: with more than one sort level that has to happen once, after the
+    /// last level has been applied. <see cref="GridItemsProviderRequest{TGridItem}.ApplySorting(IQueryable{TGridItem})"/>
+    /// takes care of it.
+    /// </remarks>
+    public IOrderedQueryable<TGridItem> ApplyThen(IOrderedQueryable<TGridItem> queryable, bool ascending)
+        => ApplyThenClauses(_firstAsThen(queryable, ascending), ascending);
 
-    private IOrderedQueryable<TGridItem> ApplyStandardSorting(IQueryable<TGridItem> queryable, bool ascending)
+    /// <summary>
+    /// Applies the sort's rules without restoring hierarchical order, so that further sort levels can be appended.
+    /// </summary>
+    internal IOrderedQueryable<TGridItem> ApplyStandardSorting(IQueryable<TGridItem> queryable, bool ascending)
+        => ApplyThenClauses(_first(queryable, ascending), ascending);
+
+    private IOrderedQueryable<TGridItem> ApplyThenClauses(IOrderedQueryable<TGridItem> orderedQueryable, bool ascending)
     {
-        var orderedQueryable = _first(queryable, ascending);
-
         if (_then is not null)
         {
             foreach (var clause in _then)
@@ -236,83 +262,6 @@ public sealed class GridSort<TGridItem> : IGridSort<TGridItem>
         }
 
         return orderedQueryable;
-    }
-
-    private IOrderedQueryable<TGridItem> ApplyHierarchicalSorting(IQueryable<TGridItem> queryable, bool ascending)
-    {
-        var standardSortedQueryable = ApplyStandardSorting(queryable, ascending);
-        var sortedItems = standardSortedQueryable.ToList();
-        if (sortedItems.Count == 0)
-        {
-            return standardSortedQueryable;
-        }
-
-        var itemOrder = sortedItems
-            .Select((item, index) => (Item: (object)item!, Index: index))
-            .ToDictionary(x => x.Item, x => x.Index, ReferenceEqualityComparer.Instance);
-
-        var visibleItemsSet = new HashSet<object>(sortedItems.Select(item => (object)item!), ReferenceEqualityComparer.Instance);
-        var rootItems = sortedItems
-            .Where(item => item is IHierarchicalGridItem { Depth: 0 })
-            .ToList();
-
-        if (rootItems.Count == 0)
-        {
-            return standardSortedQueryable;
-        }
-
-        var orderedItems = new List<TGridItem>(sortedItems.Count);
-        var orderedItemsSet = new HashSet<object>(ReferenceEqualityComparer.Instance);
-
-        AppendSortedHierarchy(rootItems, visibleItemsSet, orderedItems, orderedItemsSet, itemOrder);
-
-        var remainingItems = sortedItems.Where(item => !orderedItemsSet.Contains((object)item!));
-        foreach (var item in remainingItems)
-        {
-            if (orderedItemsSet.Add((object)item!))
-            {
-                orderedItems.Add(item);
-            }
-        }
-
-        var hierarchyOrder = orderedItems
-            .Select((item, index) => (Item: (object)item!, Index: index))
-            .ToDictionary(x => x.Item, x => x.Index, ReferenceEqualityComparer.Instance);
-
-        return queryable.OrderBy(item => hierarchyOrder[(object)item!]);
-    }
-
-    private static void AppendSortedHierarchy(
-        IReadOnlyList<TGridItem> siblings,
-        HashSet<object> visibleItemsSet,
-        List<TGridItem> orderedItems,
-        HashSet<object> orderedItemsSet,
-        IReadOnlyDictionary<object, int> itemOrder)
-    {
-        foreach (var item in siblings.OrderBy(item => itemOrder[(object)item!]))
-        {
-            if (!orderedItemsSet.Add((object)item!))
-            {
-                continue;
-            }
-
-            orderedItems.Add(item);
-
-            if (item is not IHierarchicalGridItem hierarchicalItem)
-            {
-                continue;
-            }
-
-            var visibleChildren = hierarchicalItem.Children
-                .OfType<TGridItem>()
-                .Where(child => visibleItemsSet.Contains((object)child!))
-                .ToList();
-
-            if (visibleChildren.Count > 0)
-            {
-                AppendSortedHierarchy(visibleChildren, visibleItemsSet, orderedItems, orderedItemsSet, itemOrder);
-            }
-        }
     }
 
     /// <summary>

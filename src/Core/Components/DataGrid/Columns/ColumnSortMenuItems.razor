@@ -1,0 +1,65 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+@* The multi-column sort actions, shared by the column header menu (HeaderCellAsButtonWithMenu) and the column
+   header popup, so both offer exactly the same actions.
+
+   Only the direction this column is not already sorted in is offered, and choosing it changes this column's
+   direction while it keeps its place in the sort. *@
+@if (ShowSortAscending)
+{
+    <FluentMenuItem autofocus="@AutofocusAttribute(first: true)"
+                    OnClick="@(() => SortAsync(DataGridSortDirection.Ascending))"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, () => SortAsync(DataGridSortDirection.Ascending)))"
+                    IconStart="@(new CoreIcons.Regular.Size20.ArrowSortUp())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortAscending]
+    </FluentMenuItem>
+}
+
+@if (ShowSortDescending)
+{
+    <FluentMenuItem autofocus="@AutofocusAttribute(first: !ShowSortAscending)"
+                    OnClick="@(() => SortAsync(DataGridSortDirection.Descending))"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, () => SortAsync(DataGridSortDirection.Descending)))"
+                    IconStart="@(new CoreIcons.Regular.Size20.ArrowSortDown())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortDescending]
+    </FluentMenuItem>
+}
+
+@if (SortLevel is null && Grid.SortColumns.Count > 0 && Grid.CanAddToSort(Column))
+{
+    <FluentMenuItem OnClick="@AddToSortAsync"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, AddToSortAsync))"
+                    IconStart="@(new CoreIcons.Regular.Size20.ArrowSort())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortMenuAddToSort]
+    </FluentMenuItem>
+}
+
+@if (SortLevel is not null)
+{
+    <FluentMenuItem OnClick="@ClearSortAsync"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, ClearSortAsync))"
+                    IconStart="@(new CoreIcons.Regular.Size20.Dismiss())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortMenuClearSort]
+    </FluentMenuItem>
+}
+
+@* Going back to the declared sort is only worth offering when the columns declare one; without it, resetting and
+   clearing would do the same thing. *@
+@if (Grid.SortColumns.Count > 1 && Grid.HasDeclaredSort)
+{
+    <FluentMenuItem OnClick="@ResetAllSortsAsync"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, ResetAllSortsAsync))"
+                    IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortMenuResetAllSorts]
+    </FluentMenuItem>
+}
+
+@if (Grid.SortColumns.Count > 1)
+{
+    <FluentMenuItem OnClick="@ClearAllSortsAsync"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, ClearAllSortsAsync))"
+                    IconStart="@(new CoreIcons.Filled.Size20.DismissCircle())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortMenuClearAllSorts]
+    </FluentMenuItem>
+}

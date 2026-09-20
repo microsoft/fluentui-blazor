@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
+using Microsoft.JSInterop;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -19,6 +20,8 @@ public abstract partial class ColumnBase<TGridItem>
 {
     private static readonly string[] KEYBOARD_MENU_SELECT_KEYS = ["Enter", "NumpadEnter"];
     private FluentMenu? _menu;
+    private FluentButton? _headerButton;
+    private FluentButton? _optionsButton;
     private bool _suppressNextHeaderSyntheticClick;
     private bool _openHeaderMenuAfterRender;
 
@@ -26,17 +29,68 @@ public abstract partial class ColumnBase<TGridItem>
 
     private string HeaderMenuId => $"{HeaderButtonId}-menu";
 
+    private string SortDescriptionId => $"{HeaderButtonId}-sort-description";
+
+    /// <summary>
+    /// Gets the level this column is sorted at, or <see langword="null"/> when the grid is not sorted by it.
+    /// </summary>
+    internal (int Level, bool Ascending)? SortLevel => Grid.GetSortLevel(this);
+
+    /// <summary>
+    /// Gets the shortcut that adds this column to the sort, advertised to assistive technology. Only set when the
+    /// shortcut does something: adding to the sort needs a column the grid can sort on and a grid that sorts by more
+    /// than one column.
+    /// </summary>
+    private string? AddToSortKeyboardShortcut
+        => Grid.SortMode == DataGridSortMode.Multiple && CanSortFromHeader() ? "Shift+Enter" : null;
+
+    /// <summary>
+    /// Gets whether this column's header shows the multi-column sort actions, which also decides whether the header
+    /// button opens the menu rather than sorting right away.
+    /// </summary>
+    private bool HasMultiSortActions
+        => Grid.SortMode == DataGridSortMode.Multiple && Grid.ShowMultiSortActions;
+
+    private async Task CloseHeaderMenuAsync()
+    {
+        if (_menu is not null)
+        {
+            await _menu.CloseMenuAsync();
+        }
+
+        // Closing a menu returns focus to the button that opened it, otherwise a keyboard user is dropped out of the
+        // header entirely and has to tab back to where they were.
+        await FocusAsync(_headerButton);
+    }
+
+    /// <summary>
+    /// Puts focus back on the button that opens this column's header popup.
+    /// </summary>
+    internal Task FocusOptionsButtonAsync() => FocusAsync(_optionsButton);
+
+    private static async Task FocusAsync(FluentButton? button)
+    {
+        if (button is null || button.Element.Id is null)
+        {
+            return;
+        }
+
+        try
+        {
+            await button.Element.FocusAsync();
+        }
+        catch (JSException)
+        {
+            // The element is gone (a re-render replaced it); leaving focus where it is beats failing the interaction.
+        }
+    }
+
     /// <summary />
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = default!;
 
     [CascadingParameter]
     internal InternalGridContext<TGridItem> InternalGridContext { get; set; } = default!;
-
-    /// <summary>
-    /// Indicates whether the current column is the active sort column.
-    /// </summary>
-    internal bool IsActiveSortColumn;
 
     /// <summary>
     /// Gets or sets a <see cref="RenderFragment" /> that will be rendered for this column's header cell.
@@ -375,7 +429,34 @@ public abstract partial class ColumnBase<TGridItem>
         }
 
         _suppressNextHeaderSyntheticClick = false;
+
+        // Shift+click adds the column to the sort instead of opening the menu, which holds the same actions for
+        // everyone who cannot use the shortcut.
+        if (TryHandleAddToSortGesture(args.ShiftKey, out var addToSort))
+        {
+            await addToSort;
+            return;
+        }
+
         await HandleColumnHeaderActivatedAsync();
+    }
+
+    /// <summary>
+    /// Handles the Shift+click and Shift+Enter shortcut that adds this column to the grid's sort.
+    /// </summary>
+    /// <param name="shiftKey">Whether the Shift key was held down.</param>
+    /// <param name="addToSort">The started operation, when the gesture applies.</param>
+    /// <returns><see langword="true"/> when the gesture was handled, so the default action is skipped.</returns>
+    private bool TryHandleAddToSortGesture(bool shiftKey, out Task addToSort)
+    {
+        if (!shiftKey || Grid.SortMode != DataGridSortMode.Multiple || !HeaderCapabilities.CanSort)
+        {
+            addToSort = Task.CompletedTask;
+            return false;
+        }
+
+        addToSort = Grid.AddSortByColumnAsync(this);
+        return true;
     }
 
     private async Task HandleColumnHeaderActivatedAsync()
@@ -386,9 +467,13 @@ public abstract partial class ColumnBase<TGridItem>
         var hasReorder = headerCapabilities.CanReorder;
         var hasOptions = headerCapabilities.HasOptions;
         var enabledActions = Convert.ToInt32(hasSorting) + Convert.ToInt32(hasResize) + Convert.ToInt32(hasReorder) + Convert.ToInt32(hasOptions);
-        var hasMultiple = enabledActions > 1;
 
-        if (_menu is not null && enabledActions == 1)
+        // Sorting by several columns is more than one action on its own (sort ascending or descending, add this
+        // column to the sort, clear it again), so the menu opens rather than sorting right away.
+        var hasMultiple = enabledActions > 1 || (hasSorting && HasMultiSortActions);
+
+        // The button is the menu's trigger, so a single action closes the menu the web component just opened.
+        if (_menu is not null && !hasMultiple)
         {
             await _menu.CloseMenuAsync();
         }
@@ -425,6 +510,14 @@ public abstract partial class ColumnBase<TGridItem>
             return;
         }
 
+        if (TryHandleAddToSortGesture(args.ShiftKey, out var addToSort))
+        {
+            // The button turns the key press into a click as well, which must not open the menu on top of this.
+            _suppressNextHeaderSyntheticClick = true;
+            await addToSort;
+            return;
+        }
+
         if (HeaderCapabilities.HasAnyAction && Grid.HeaderCellAsButtonWithMenu)
         {
             _suppressNextHeaderSyntheticClick = true;
@@ -433,6 +526,41 @@ public abstract partial class ColumnBase<TGridItem>
         }
 
         await HandleColumnHeaderActivatedAsync();
+    }
+
+    private async Task HandleSortButtonClickedAsync(MouseEventArgs args)
+    {
+        if (_suppressNextHeaderSyntheticClick && args.Detail == 0)
+        {
+            _suppressNextHeaderSyntheticClick = false;
+            return;
+        }
+
+        _suppressNextHeaderSyntheticClick = false;
+
+        if (TryHandleAddToSortGesture(args.ShiftKey, out var addToSort))
+        {
+            await addToSort;
+            return;
+        }
+
+        await Grid.SortByColumnAsync(this);
+    }
+
+    private async Task HandleSortButtonKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (!string.Equals(args.Code, "Enter", StringComparison.OrdinalIgnoreCase) &&
+            !string.Equals(args.Code, "Space", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (TryHandleAddToSortGesture(args.ShiftKey, out var addToSort))
+        {
+            // The button turns the key press into a click as well, which would sort by this column alone.
+            _suppressNextHeaderSyntheticClick = true;
+            await addToSort;
+        }
     }
 
     private async Task HandleOptionsButtonKeyDownAsync(KeyboardEventArgs args)
@@ -494,14 +622,11 @@ public abstract partial class ColumnBase<TGridItem>
 
     private string GetSortOptionText()
     {
-        if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
+        if (SortLevel is { } sortLevel)
         {
-            if (Grid.SortByAscending is true)
-            {
-                return Localizer[Localization.LanguageResource.DataGrid_SortMenuAscending];
-            }
-
-            return Localizer[Localization.LanguageResource.DataGrid_SortMenuDescending];
+            return sortLevel.Ascending
+                ? Localizer[Localization.LanguageResource.DataGrid_SortMenuAscending]
+                : Localizer[Localization.LanguageResource.DataGrid_SortMenuDescending];
         }
 
         return Localizer[Grid.ColumnSortMenuSettings.Text];

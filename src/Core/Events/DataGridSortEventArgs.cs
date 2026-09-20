@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -11,12 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class DataGridSortEventArgs<TGridItem> : EventArgs
 {
     /// <summary>
-    /// Gets the column that defines the sort order.
+    /// Gets the columns the grid is sorted by, in priority order: the first entry is the primary sort, the ones after
+    /// it break its ties. Holds at most one entry unless <see cref="FluentDataGrid{TGridItem}.SortMode"/> is
+    /// <see cref="DataGridSortMode.Multiple"/>, and is empty when the grid is no longer sorted.
     /// </summary>
-    public ColumnBase<TGridItem>? Column { get; init; }
-
-    /// <summary>
-    /// Gets a value indicating whether the grid is sorted ascending.
-    /// </summary>
-    public bool SortByAscending { get; init; }
+    public IReadOnlyList<DataGridSortColumn<TGridItem>> SortColumns { get; init; } = [];
 }

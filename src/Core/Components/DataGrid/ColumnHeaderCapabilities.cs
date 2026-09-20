@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------------
+﻿// ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -9,6 +9,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 [StructLayout(LayoutKind.Auto)]
 internal readonly record struct ColumnHeaderCapabilities(
     bool CanSort,
+    bool HasSortOptions,
     bool CanResize,
     bool CanReorder,
     bool HasOptions,

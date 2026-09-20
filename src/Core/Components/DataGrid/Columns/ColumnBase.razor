@@ -49,27 +49,24 @@
                 ariaLabel = HeaderTooltip ?? tooltip;
             }
 
+            var sortLevel = SortLevel;
+            var sortLevelDescription = Grid.SortLevelDescription(this);
+            var sortIndicatorSlot = Align == DataGridCellAlignment.End ? "start" : "end";
+
             @if (headerCapabilities.HasAnyAction)
             {
-                <FluentButton Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" col-sort-button Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@ariaLabel" Title="@(HeaderTooltip ?? Title)" aria-haspopup="menu" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" aria-controls="@HeaderMenuId">
+                <FluentButton @ref="@_headerButton" Id="@HeaderButtonId" Appearance="ButtonAppearance.Subtle" col-sort-button Style="@headerButtonStyle" @onclick="@HandleColumnHeaderClickedAsync" StopPropagation="true" @onkeydown="@HandleHeaderButtonKeyDownAsync" aria-label="@ariaLabel" Title="@(HeaderTooltip ?? Title)" aria-haspopup="menu" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" aria-controls="@HeaderMenuId" aria-describedby="@(sortLevelDescription is null ? null : SortDescriptionId)" aria-keyshortcuts="@AddToSortKeyboardShortcut">
                     <div col-title-text title="@tooltip">
                         @HeaderTitleContent
                     </div>
 
-                    @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
+                    @if (sortLevel is not null)
                     {
-                        if (Grid.SortByAscending == true)
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
-                        }
-                        else
-                        {
-                            <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
-                        }
+                        @RenderSortIndicator(sortLevel.Value, sortIndicatorSlot)
                     }
                     @if (headerCapabilities.HasOptions && Filtered.GetValueOrDefault())
                     {
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@(Align == DataGridCellAlignment.End ? "start" : "end")" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.Filter())" Slot="@sortIndicatorSlot" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                     }
                 </FluentButton>
             }
@@ -81,16 +78,29 @@
                     </div>
                 </div>
             }
+            @if (sortLevelDescription is not null)
+            {
+                <span col-sort-description id="@SortDescriptionId">@sortLevelDescription</span>
+            }
             <FluentMenu @key="@HeaderMenuId" Id="@HeaderMenuId" @ref="@_menu" Trigger="@HeaderButtonId" Style="@headerPopupLayerStyle">
                 <FluentMenuList>
                     @if (headerCapabilities.CanSort)
                     {
-                        <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync"
-                                        IconStart="@(Grid.ColumnSortMenuSettings.Icon is not null && Grid.ColumnSortMenuSettings.IconPositionStart ? Grid.ColumnSortMenuSettings.Icon : null)"
-                                        IconEnd="@(Grid.ColumnSortMenuSettings.Icon is not null && !Grid.ColumnSortMenuSettings.IconPositionStart ? Grid.ColumnSortMenuSettings.Icon : null)">
-                            @GetSortOptionText()
+                        @* With multi-column sorting the menu holds one action per sort change, so that it can all be
+                           done with a keyboard, a screen reader and touch, where Shift+click is not available. *@
+                        @if (HasMultiSortActions)
+                        {
+                            <ColumnSortMenuItems Column="@this" TGridItem="TGridItem" OnActionApplied="@CloseHeaderMenuAsync" />
+                        }
+                        else
+                        {
+                            <FluentMenuItem OnClick="@(async () => await Grid.SortByColumnAsync(this))" @onkeydown="HandleSortMenuKeyDownAsync"
+                                            IconStart="@(Grid.ColumnSortMenuSettings.Icon is not null && Grid.ColumnSortMenuSettings.IconPositionStart ? Grid.ColumnSortMenuSettings.Icon : null)"
+                                            IconEnd="@(Grid.ColumnSortMenuSettings.Icon is not null && !Grid.ColumnSortMenuSettings.IconPositionStart ? Grid.ColumnSortMenuSettings.Icon : null)">
+                                @GetSortOptionText()
 
-                        </FluentMenuItem>
+                            </FluentMenuItem>
+                        }
                     }
                     @if (headerCapabilities.HasOptions)
                     {
@@ -130,38 +140,29 @@
             // determine align string based on Align value
             align = Align.ToAttributeValue();
             <div style="display: flex; justify-content: @align; padding: 0 6px; ">
-                @if (Align == DataGridCellAlignment.Start || Align == DataGridCellAlignment.Center)
-                {
-                    @if (headerCapabilities.HasHeaderPopupContent)
-                    {
-                        @OptionsButton()
-                    }
-                }
-
                 @if (headerCapabilities.CanSort)
                 {
-                    <FluentButton Appearance="ButtonAppearance.Subtle" col-sort-button @onclick="@(() => Grid.SortByColumnAsync(this))" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))">
+                    var sortLevel = SortLevel;
+                    var sortLevelDescription = Grid.SortLevelDescription(this);
+
+                    <FluentButton Appearance="ButtonAppearance.Subtle" col-sort-button @onclick="@HandleSortButtonClickedAsync" @onkeydown="@HandleSortButtonKeyDownAsync" aria-label="@tooltip" title="@tooltip" @oncontextmenu="@(() => Grid.RemoveSortByColumnAsync(this))" aria-describedby="@(sortLevelDescription is null ? null : SortDescriptionId)" aria-keyshortcuts="@AddToSortKeyboardShortcut">
                         <div col-title-text title="@tooltip">
                             @HeaderTitleContent
                         </div>
 
-                        @if (Grid.SortByAscending.HasValue && IsActiveSortColumn)
+                        @if (sortLevel is not null)
                         {
-                            if (Grid.SortByAscending == true)
-                            {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortUp())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
-                            }
-                            else
-                            {
-                                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ArrowSortDown())" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
-                            }
+                            @RenderSortIndicator(sortLevel.Value, "end")
                         }
                         @if (headerCapabilities.HasOptions && Filtered.GetValueOrDefault())
                         {
                             <FluentIcon Value="@(Grid.ColumnOptionsMenuSettings.Icon)" Slot="end" Style="opacity: var(--fluent-data-grid-header-opacity);" />
                         }
                     </FluentButton>
-
+                    @if (sortLevelDescription is not null)
+                    {
+                        <span col-sort-description id="@SortDescriptionId">@sortLevelDescription</span>
+                    }
                 }
                 else
                 {
@@ -178,12 +179,9 @@
                     </div>
                 }
 
-                @if (Align == DataGridCellAlignment.End)
+                @if (headerCapabilities.HasHeaderPopupContent)
                 {
-                    @if (headerCapabilities.HasHeaderPopupContent)
-                    {
-                        @OptionsButton()
-                    }
+                    @OptionsButton()
                 }
             </div>
 
@@ -201,10 +199,26 @@
         }
     }
 
+    /// <summary>
+    /// Renders this column's sort direction, and its priority when the grid is sorted by more than one column. The
+    /// priority is hidden from assistive technology, which gets it from the header's accessible description instead.
+    /// </summary>
+    private RenderFragment RenderSortIndicator((int Level, bool Ascending) sortLevel, string slot)
+    {
+        return
+            @<text>
+                <FluentIcon Value="@((Icon)(sortLevel.Ascending ? new CoreIcons.Regular.Size20.ArrowSortUp() : new CoreIcons.Regular.Size20.ArrowSortDown()))" Slot="@slot" Style="opacity: var(--fluent-data-grid-header-opacity);" />
+                @if (Grid.SortColumns.Count > 1)
+                {
+                    <span col-sort-level slot="@slot" aria-hidden="true">@sortLevel.Level</span>
+                }
+            </text>;
+    }
+
     private RenderFragment OptionsButton()
     {
         return
-            @<FluentButton IconOnly="true" Appearance="ButtonAppearance.Subtle" col-options-button @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" @onkeydown="@HandleOptionsButtonKeyDownAsync" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
+            @<FluentButton @ref="@_optionsButton" IconOnly="true" Appearance="ButtonAppearance.Subtle" col-options-button @onclick="@(() => Grid.ShowAllHeaderUIAsync(this))" @onkeydown="@HandleOptionsButtonKeyDownAsync" aria-label="@Localizer[Localization.LanguageResource.DataGrid_OptionsMenu]">
                 <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" Color="Color.Default" Width="20px" Style="opacity: var(--fluent-data-grid-header-opacity);" />
             </FluentButton>;
     }

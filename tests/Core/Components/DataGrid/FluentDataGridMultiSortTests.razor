@@ -1,0 +1,999 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public FluentDataGridMultiSortTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        Services.AddFluentUIComponents();
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_AddSortByColumnAsync_WithMultipleMode_SortsByEveryLevelInOrder()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+        Assert.Equal(["IT/Alice", "IT/Bob", "Sales/Alice", "Sales/Carol"], GetRenderedItems(cut));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_AddSortByColumnAsync_WithDescendingSecondLevel_SortsThatLevelDescending()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Assert
+        Assert.Equal(["IT/Bob", "IT/Alice", "Sales/Carol", "Sales/Alice"], GetRenderedItems(cut));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_AddSortByColumnAsync_WithSingleMode_SortsByThatColumnAlone()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_AddSortByColumnAsync_WhenColumnIsAlreadySortedOn_TogglesDirectionAndKeepsItsLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.AddSortByColumnAsync("Department");
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.False(grid.SortColumns[0].Ascending);
+        Assert.True(grid.SortColumns[1].Ascending);
+        Assert.Equal(["Sales/Alice", "Sales/Carol", "IT/Alice", "IT/Bob"], GetRenderedItems(cut));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SortByColumnAsync_WithMultipleMode_ReplacesEveryLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.SortByColumnAsync("Level", DataGridSortDirection.Ascending);
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Level", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_RemoveSortByColumnAsync_WithMultipleMode_RemovesOnlyThatLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.RemoveSortByColumnAsync(grid.SortColumns[0].Column);
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_RemoveSortByColumnAsync_WhenTheLastLevelIsRemoved_RestoresTheDeclaredSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        await grid.SortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Act
+        await grid.RemoveSortByColumnAsync(grid.SortColumns[0].Column);
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ClearSortAsync_LeavesTheGridUnsorted()
+    {
+        // Arrange: this grid declares a default sort, which clearing does not bring back.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+        Assert.Equal(2, grid.SortColumns.Count);
+
+        // Act
+        await grid.ClearSortAsync();
+
+        // Assert
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ResetSortAsync_RestoresTheDeclaredSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+        Assert.Equal(2, grid.SortColumns.Count);
+
+        // Act
+        await grid.ResetSortAsync();
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DeclaredDefaultSortColumns_WithMultipleMode_AreAllSortedOn()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+        Assert.False(grid.SortColumns[1].Ascending);
+        Assert.Equal(["IT/Bob", "IT/Alice", "Sales/Carol", "Sales/Alice"], GetRenderedItems(cut));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DeclaredDefaultSortColumns_WithSingleMode_OnlyUseTheFirstOne()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ColumnHeaders_WithMoreThanOneSortLevel_OnlyMarkThePrimaryColumnWithAriaSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        var headers = cut.FindAll("th");
+
+        // Assert
+        Assert.Equal("ascending", headers[0].GetAttribute("aria-sort"));
+        Assert.Equal("none", headers[1].GetAttribute("aria-sort"));
+
+        // Both sorted columns are marked for styling, the unsorted one is not.
+        Assert.Equal("asc", headers[0].GetAttribute("col-sort"));
+        Assert.Equal("desc", headers[1].GetAttribute("col-sort"));
+        Assert.False(headers[2].HasAttribute("col-sort"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ColumnHeaders_WithMoreThanOneSortLevel_DescribeTheirSortLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        var descriptions = cut.FindAll("[col-sort-description]");
+        var sortButtons = cut.FindAll("[col-sort-button]");
+
+        // Assert
+        Assert.Equal(2, descriptions.Count);
+        Assert.Equal("Sorted ascending, sort level 1 of 2", descriptions[0].TextContent);
+        Assert.Equal("Sorted descending, sort level 2 of 2", descriptions[1].TextContent);
+
+        // The description is what makes the level available to a screen reader, so it has to be referenced.
+        Assert.Equal(descriptions[0].Id, sortButtons[0].GetAttribute("aria-describedby"));
+        Assert.Equal(descriptions[1].Id, sortButtons[1].GetAttribute("aria-describedby"));
+
+        // The level is also shown visually, but hidden from assistive technology to avoid saying it twice.
+        var levels = cut.FindAll("[col-sort-level]");
+        Assert.Equal(["1", "2"], levels.Select(level => level.TextContent));
+        Assert.All(levels, level => Assert.Equal("true", level.GetAttribute("aria-hidden")));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ColumnHeaders_WithASingleSortLevel_HaveNoSortLevelDescriptionOrBadge()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Assert: aria-sort already tells a screen reader everything there is to know.
+        Assert.Empty(cut.FindAll("[col-sort-description]"));
+        Assert.Empty(cut.FindAll("[col-sort-level]"));
+        Assert.Null(cut.FindAll("[col-sort-button]")[0].GetAttribute("aria-describedby"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ColumnHeaders_AdvertiseTheAddToSortShortcut()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Assert: assistive technology reads the shortcut out with the header, so it can be discovered.
+        Assert.Equal("Shift+Enter", cut.FindAll("[col-sort-button]")[0].GetAttribute("aria-keyshortcuts"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ColumnHeaders_WithSingleMode_DoNotAdvertiseTheShortcut()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single);
+
+        // Assert: the shortcut does nothing in single sort mode, so it is not announced.
+        Assert.Null(cut.FindAll("[col-sort-button]")[0].GetAttribute("aria-keyshortcuts"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_RightClickOnAColumnHeader_RemovesOnlyThatSortLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act
+        cut.FindAll("[col-sort-button]")[1].ContextMenu();
+
+        // Assert
+        Assert.Equal(["Department"], grid.SortColumns.Select(level => level.Column.Title));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ColumnHeaderPopup_FocusesItsFirstItem()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        cut.FindAll("[col-options-button]")[0].Click();
+
+        // Assert: opening the popup from the keyboard has to move focus into it.
+        var items = GetHeaderPopupMenuItems(cut).ToList();
+        Assert.True(items[0].HasAttribute("autofocus"));
+        Assert.DoesNotContain(items.Skip(1), item => item.HasAttribute("autofocus"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_AfterASortAction_PutsFocusBackOnTheHeaderButton()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        var headerButton = cut.FindComponents<FluentButton>()
+            .Select(button => button.Instance)
+            .Where(button => button.AdditionalAttributes?.ContainsKey("col-sort-button") == true)
+            .ElementAt(1);
+
+        // Act
+        ActivateMenuItem(cut, grid, column: 2, label: "Add to sort");
+
+        // Assert
+        var focused = JSInterop.Invocations["Blazor._internal.domWrapper.focus"]
+            .Select(invocation => invocation.Arguments[0])
+            .OfType<ElementReference>()
+            .Last();
+
+        Assert.Equal(headerButton.Element.Id, focused.Id);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ColumnHeaderPopup_AfterASortAction_PutsFocusBackOnTheButtonThatOpenedIt()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        cut.FindAll("[col-options-button]")[1].Click();
+
+        var optionsButton = cut.FindComponents<FluentButton>()
+            .Select(button => button.Instance)
+            .Where(button => button.AdditionalAttributes?.ContainsKey("col-options-button") == true)
+            .ElementAt(1);
+
+        // Act
+        GetHeaderPopupMenuItems(cut)
+            .First(item => string.Equals(item.TextContent.Trim(), "Sort ascending", StringComparison.Ordinal))
+            .KeyDown(new KeyboardEventArgs { Key = "Enter" });
+
+        // Assert: the popup is gone, so focus has to go back to its button or it falls off the header entirely.
+        Assert.Empty(cut.FindAll("[col-header-ui]"));
+
+        var focused = JSInterop.Invocations["Blazor._internal.domWrapper.focus"]
+            .Select(invocation => invocation.Arguments[0])
+            .OfType<ElementReference>()
+            .Last();
+
+        Assert.Equal(optionsButton.Element.Id, focused.Id);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SortStatus_AnnouncesTheSortOrderInALiveRegion()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Assert: the live region is rendered up front, so screen readers pick up later changes to it.
+        var status = cut.Find("[sort-status]");
+        Assert.Equal("status", status.GetAttribute("role"));
+        Assert.Equal("polite", status.GetAttribute("aria-live"));
+        Assert.Empty(status.TextContent);
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Assert
+        Assert.Equal("Sorted by Department ascending, then by Name descending", cut.Find("[sort-status]").TextContent);
+
+        // Act
+        await grid.ClearSortAsync();
+
+        // Assert
+        Assert.Equal("Sorting cleared", cut.Find("[sort-status]").TextContent);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortStatus_IsNotRenderedWithSingleMode()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single);
+
+        // Assert
+        Assert.Empty(cut.FindAll("[sort-status]"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ShiftClickOnAColumnHeader_AddsThatColumnToTheSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        var sortButtons = cut.FindAll("[col-sort-button]");
+
+        // Act
+        sortButtons[0].Click();
+        cut.FindAll("[col-sort-button]")[1].Click(new MouseEventArgs { ShiftKey = true, Detail = 1 });
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+        await Task.CompletedTask;
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ShiftEnterOnAColumnHeader_AddsThatColumnToTheSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Act
+        cut.FindAll("[col-sort-button]")[1].KeyDown(new KeyboardEventArgs { Code = "Enter", Key = "Enter", ShiftKey = true });
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ShiftClickOnAColumnHeader_WithSingleMode_SortsByThatColumnAlone()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single);
+
+        // Act
+        cut.FindAll("[col-sort-button]")[0].Click();
+        cut.FindAll("[col-sort-button]")[1].Click(new MouseEventArgs { ShiftKey = true, Detail = 1 });
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SetSortAsync_AppliesTheGivenLevelsInOrder()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        await grid.SetSortAsync([
+            new DataGridSortColumn<Employee>(grid._columns[0], false),
+            new DataGridSortColumn<Employee>(grid._columns[1], true),
+        ]);
+
+        // Assert
+        Assert.Equal(["Sales/Alice", "Sales/Carol", "IT/Alice", "IT/Bob"], GetRenderedItems(cut));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SetSortAsync_WithAnEmptyCollection_RemovesTheSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        // Act
+        await grid.SetSortAsync([]);
+
+        // Assert: unlike ClearSortAsync, this does not bring the declared sort back.
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SetSortAsync_WithMoreThanOneColumnInSingleMode_Throws()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single);
+
+        // Act && Assert
+        await Assert.ThrowsAsync<InvalidOperationException>(() => grid.SetSortAsync([
+            new DataGridSortColumn<Employee>(grid._columns[0], true),
+            new DataGridSortColumn<Employee>(grid._columns[1], true),
+        ]));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SetSortAsync_WithTheSameColumnTwice_Throws()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act && Assert
+        await Assert.ThrowsAsync<ArgumentException>(() => grid.SetSortAsync([
+            new DataGridSortColumn<Employee>(grid._columns[0], true),
+            new DataGridSortColumn<Employee>(grid._columns[0], false),
+        ]));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_AddSortByColumnAsync_WhenTheColumnsSortCannotBeAppended_SortsByThatColumnAlone()
+    {
+        // Arrange: a ColumnKeyGridSort with a sort function but no then-sort function cannot be a secondary level.
+        var nameSort = new ColumnKeyGridSort<Employee>(
+            "name",
+            (queryable, ascending) => ascending ? queryable.OrderBy(x => x.Name) : queryable.OrderByDescending(x => x.Name));
+
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <TemplateColumn Title="Name" Sortable="true" SortBy="@nameSort">@context.Name</TemplateColumn>
+            </FluentDataGrid>
+        );
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Assert
+        Assert.False(grid.CanAddToSort(grid._columns[1]));
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ItemsProviderRequest_ReportsEverySortLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        GridItemsProviderRequest<Employee>? lastRequest = null;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple"
+                             RefreshItems="@(request => { lastRequest = request; return Task.CompletedTask; })">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Assert
+        Assert.NotNull(lastRequest);
+        Assert.Equal(["Department", "Name"], lastRequest!.Value.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], lastRequest!.Value.SortColumns.Select(level => level.Ascending));
+
+        var properties = lastRequest!.Value.GetSortByProperties().ToList();
+        Assert.Equal(["Department", "Name"], properties.Select(property => property.PropertyName));
+        Assert.Equal([DataGridSortDirection.Ascending, DataGridSortDirection.Descending], properties.Select(property => property.Direction));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_SortState_WithMoreThanOneLevel_RoundTripsThroughTheQueryString()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Act
+        grid.LoadStateFromQueryString("?orderby=Department asc,Name desc");
+        await grid.RefreshDataAsync();
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+        Assert.False(grid.SortColumns[1].Ascending);
+        Assert.Equal(["IT/Bob", "IT/Alice", "Sales/Carol", "Sales/Alice"], GetRenderedItems(cut));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_SortState_FromTheQueryString_IsAppliedOnceTheColumnsExist()
+    {
+        // Arrange && Act: the grid reads the query string from OnInitialized, before it has any columns.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        navigationManager.NavigateTo("http://localhost/?orderby=Department asc,Name desc");
+
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, saveStateInUrl: true);
+
+        // Assert
+        Assert.Equal(2, grid.SortColumns.Count);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_OnSortChanged_ReportsEverySortLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        DataGridSortEventArgs<Employee>? lastArgs = null;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple"
+                             OnSortChanged="@(args => lastArgs = args)">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Assert
+        Assert.NotNull(lastArgs);
+        Assert.Equal(["Department", "Name"], lastArgs!.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], lastArgs!.SortColumns.Select(level => level.Ascending));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_WithMultipleMode_OffersTheSortActions()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        // Assert: nothing is sorted yet, so there is only a direction to pick.
+        Assert.Equal(["Sort ascending", "Sort descending"], GetMenuItemLabels(cut, grid, column: 2));
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Assert: another column can now join the sort.
+        Assert.Equal(["Sort ascending", "Sort descending", "Add to sort"], GetMenuItemLabels(cut, grid, column: 2));
+
+        // Act: menu items are activated with Enter, since their OnClick runs on the web component's change event,
+        // which bUnit cannot raise.
+        ActivateMenuItem(cut, grid, column: 2, label: "Add to sort");
+
+        // Assert
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.True(grid.SortColumns[1].Ascending);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_ForASortedColumn_OffersOnlyTheOtherDirection()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Assert: the direction it is already sorted in is not offered, and the sort can be cleared per column.
+        Assert.Equal(
+            ["Sort descending", "Clear sort", "Clear all sorts"],
+            GetMenuItemLabels(cut, grid, column: 2));
+
+        // Act
+        ActivateMenuItem(cut, grid, column: 2, label: "Sort descending");
+
+        // Assert: the column changed direction and kept its place in the sort, rather than replacing it.
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, false], grid.SortColumns.Select(level => level.Ascending));
+        Assert.Equal(["IT/Bob", "IT/Alice", "Sales/Carol", "Sales/Alice"], GetRenderedItems(cut));
+
+        // Assert: and now the other direction is the one on offer.
+        Assert.Equal(
+            ["Sort ascending", "Clear sort", "Clear all sorts"],
+            GetMenuItemLabels(cut, grid, column: 2));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_ClearSort_RemovesOnlyThatColumn()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act
+        ActivateMenuItem(cut, grid, column: 2, label: "Clear sort");
+
+        // Assert
+        Assert.Equal(["Department"], grid.SortColumns.Select(level => level.Column.Title));
+
+        // Assert: with a single sorted column left there is nothing to clear all of.
+        Assert.Equal(["Sort descending", "Clear sort"], GetMenuItemLabels(cut, grid, column: 1));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_WithADeclaredSort_OffersResetAboveClear()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid, defaultSortColumn: true);
+
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Assert: resetting comes before clearing, since it is the less destructive of the two.
+        Assert.Equal(
+            ["Sort ascending", "Clear sort", "Reset all sorts", "Clear all sorts"],
+            GetMenuItemLabels(cut, grid, column: 2));
+
+        // Act
+        ActivateMenuItem(cut, grid, column: 2, label: "Reset all sorts");
+
+        // Assert
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+        Assert.True(grid.SortColumns[0].Ascending);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_WithoutADeclaredSort_DoesNotOfferReset()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Assert: with no declared sort to go back to, resetting would do what clearing does.
+        Assert.DoesNotContain("Reset all sorts", GetMenuItemLabels(cut, grid, column: 2));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_ClearAllSorts_LeavesTheGridUnsorted()
+    {
+        // Arrange: the grid declares a default sort, so this proves clearing does not fall back to it.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid, defaultSortColumn: true);
+
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+        Assert.Equal(2, grid.SortColumns.Count);
+
+        // Act
+        ActivateMenuItem(cut, grid, column: 2, label: "Clear all sorts");
+
+        // Assert
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ColumnHeader_PutsThePopupButtonAtTheEndOfTheHeader()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        var header = cut.FindAll("th")[0];
+        var buttons = header.QuerySelectorAll("[col-sort-button], [col-options-button]");
+
+        // Assert: the title (inside the sort button) comes first, the button that opens the popup last.
+        Assert.Equal(2, buttons.Length);
+        Assert.True(buttons[0].HasAttribute("col-sort-button"));
+        Assert.True(buttons[1].HasAttribute("col-options-button"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ColumnHeaderPopup_WithoutTheHeaderMenu_OffersTheSortActions()
+    {
+        // Arrange: without HeaderCellAsButtonWithMenu the sort actions live in the column header popup.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        // Act
+        cut.FindAll("[col-options-button]")[1].Click();
+
+        // Assert: the popup holds the same menu items as the header menu, and sizes itself to them.
+        Assert.Equal(
+            ["Sort ascending", "Sort descending"],
+            GetHeaderPopupMenuItems(cut).Select(item => item.TextContent.Trim()));
+        Assert.True(cut.Find("[col-header-ui]").HasAttribute("col-header-ui-menu"));
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        cut.FindAll("[col-options-button]")[1].Click();
+
+        // Assert
+        Assert.Equal(
+            ["Sort ascending", "Sort descending", "Add to sort"],
+            GetHeaderPopupMenuItems(cut).Select(item => item.TextContent.Trim()));
+
+        // Act
+        GetHeaderPopupMenuItems(cut)
+            .First(item => string.Equals(item.TextContent.Trim(), "Add to sort", StringComparison.Ordinal))
+            .KeyDown(new KeyboardEventArgs { Key = "Enter" });
+
+        // Assert
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+
+        // Assert: acting on an item closes the popup, as activating a header menu item does.
+        Assert.Empty(cut.FindAll("[col-header-ui]"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ShowMultiSortActions_False_LeavesTheHeadersAsTheyAreWithoutMultiSort()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" ShowMultiSortActions="false">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Assert: no button appears to open a popup that would only hold the sort actions.
+        Assert.Empty(cut.FindAll("[col-options-button]"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ShowMultiSortActions_False_StillSupportsTheShiftShortcut()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" ShowMultiSortActions="false">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Act
+        cut.FindAll("[col-sort-button]")[0].Click();
+        cut.FindAll("[col-sort-button]")[1].Click(new MouseEventArgs { ShiftKey = true, Detail = 1 });
+
+        // Assert: the actions are hidden from the header, the gesture and the API still sort by several columns.
+        Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ShowMultiSortActions_False_KeepsTheSingleSortMenuItem()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" ShowMultiSortActions="false" HeaderCellAsButtonWithMenu="true">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Equal(["Sort"], GetMenuItemLabels(cut, grid, column: 2));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ShiftS_WithADeclaredSort_ReturnsToIt()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        await grid.SortByColumnAsync("Name", DataGridSortDirection.Descending);
+        await grid.AddSortByColumnAsync("Level", DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+
+        // Assert: unchanged from single sort mode, where Shift+S restores the starting situation.
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ShiftS_ClearsEverySortLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
+
+        // Act
+        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+
+        // Assert
+        Assert.Empty(grid.SortColumns);
+    }
+
+    private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(
+        out FluentDataGrid<Employee> grid,
+        DataGridSortMode sortMode = DataGridSortMode.Multiple,
+        bool defaultSortColumn = false,
+        bool saveStateInUrl = false)
+    {
+        FluentDataGrid<Employee>? reference = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@reference" Items="@GetEmployees()" SortMode="@sortMode" SaveStateInUrl="@saveStateInUrl">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="@defaultSortColumn" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Level)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        grid = reference!;
+        return cut;
+    }
+
+    private IRenderedComponent<FluentDataGrid<Employee>> RenderMenuGrid(out FluentDataGrid<Employee> grid, bool defaultSortColumn = false)
+    {
+        FluentDataGrid<Employee>? reference = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@reference" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" HeaderCellAsButtonWithMenu="true">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="@defaultSortColumn" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        grid = reference!;
+        return cut;
+    }
+
+    private static void ActivateMenuItem(IRenderedComponent<FluentDataGrid<Employee>> cut, FluentDataGrid<Employee> grid, int column, string label)
+        => FindMenuItem(cut, grid, column, label).KeyDown(new KeyboardEventArgs { Key = "Enter" });
+
+    private static IEnumerable<IElement> GetHeaderPopupMenuItems(IRenderedComponent<FluentDataGrid<Employee>> cut)
+        => cut.Find("[col-header-ui]").QuerySelectorAll("fluent-menu-item");
+
+    private static List<string> GetMenuItemLabels(IRenderedComponent<FluentDataGrid<Employee>> cut, FluentDataGrid<Employee> grid, int column)
+        => cut.Find($"#{grid.Id}-col-{column}-menu")
+            .QuerySelectorAll("fluent-menu-item")
+            .Select(item => item.TextContent.Trim())
+            .ToList();
+
+    private static IElement FindMenuItem(IRenderedComponent<FluentDataGrid<Employee>> cut, FluentDataGrid<Employee> grid, int column, string label)
+        => cut.Find($"#{grid.Id}-col-{column}-menu")
+            .QuerySelectorAll("fluent-menu-item")
+            .First(item => string.Equals(item.TextContent.Trim(), label, StringComparison.Ordinal));
+
+    private static List<string> GetRenderedItems(IRenderedComponent<FluentDataGrid<Employee>> cut)
+        => cut.FindComponent<FluentDataGridRow<Employee>>().Instance.InternalGridContext.Items
+            .Select(employee => $"{employee.Department}/{employee.Name}")
+            .ToList();
+
+    private static IQueryable<Employee> GetEmployees() =>
+        new[]
+        {
+            new Employee("Sales", "Carol", 2),
+            new Employee("IT", "Alice", 3),
+            new Employee("Sales", "Alice", 1),
+            new Employee("IT", "Bob", 2),
+        }.AsQueryable();
+
+    private record Employee(string Department, string Name, int Level);
+}

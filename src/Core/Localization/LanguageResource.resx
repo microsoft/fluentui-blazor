@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -257,6 +257,55 @@
   </data>
   <data name="DataGrid_SortMenu" xml:space="preserve">
     <value>Sort</value>
+  </data>
+  <data name="DataGrid_SortAscending" xml:space="preserve">
+    <value>Sort ascending</value>
+  </data>
+  <data name="DataGrid_SortDescending" xml:space="preserve">
+    <value>Sort descending</value>
+  </data>
+  <data name="DataGrid_SortMenuAddToSort" xml:space="preserve">
+    <value>Add to sort</value>
+  </data>
+  <data name="DataGrid_SortMenuClearSort" xml:space="preserve">
+    <value>Clear sort</value>
+    <comment>Stops sorting by one column, keeping the other sorted columns</comment>
+  </data>
+  <data name="DataGrid_SortMenuResetAllSorts" xml:space="preserve">
+    <value>Reset all sorts</value>
+    <comment>Returns to the sort the columns declare through IsDefaultSortColumn</comment>
+  </data>
+  <data name="DataGrid_SortMenuClearAllSorts" xml:space="preserve">
+    <value>Clear all sorts</value>
+  </data>
+  <data name="DataGrid_SortDirectionAscending" xml:space="preserve">
+    <value>ascending</value>
+  </data>
+  <data name="DataGrid_SortDirectionDescending" xml:space="preserve">
+    <value>descending</value>
+  </data>
+  <data name="DataGrid_SortColumnAscending" xml:space="preserve">
+    <value>{0} ascending</value>
+    <comment>{0} is a column title, for example "Name ascending"</comment>
+  </data>
+  <data name="DataGrid_SortColumnDescending" xml:space="preserve">
+    <value>{0} descending</value>
+    <comment>{0} is a column title, for example "Name descending"</comment>
+  </data>
+  <data name="DataGrid_SortLevel" xml:space="preserve">
+    <value>Sorted {0}, sort level {1} of {2}</value>
+    <comment>{0} is a sort direction, {1} the level of this column in a multi-column sort and {2} the number of sorted columns</comment>
+  </data>
+  <data name="DataGrid_SortAnnouncement" xml:space="preserve">
+    <value>Sorted by {0}</value>
+    <comment>{0} lists the sorted columns, for example "Name ascending, then by Age descending"</comment>
+  </data>
+  <data name="DataGrid_SortAnnouncementSeparator" xml:space="preserve">
+    <value>, then by </value>
+    <comment>Joins the sorted columns announced by DataGrid_SortAnnouncement</comment>
+  </data>
+  <data name="DataGrid_SortAnnouncementCleared" xml:space="preserve">
+    <value>Sorting cleared</value>
   </data>
   <data name="DataGrid_ResizeMenu" xml:space="preserve">
     <value>Resize</value>
