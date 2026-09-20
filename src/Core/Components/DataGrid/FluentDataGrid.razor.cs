@@ -959,10 +959,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _defaultSortColumns.Clear();
         _defaultSortColumns.AddRange(_collectedDefaultSortColumns);
-
-        _internalGridContext.DefaultSortColumn = _defaultSortColumns.Count > 0
-            ? (_defaultSortColumns[0].Column, _defaultSortColumns[0].Direction)
-            : (null, null);
     }
 
     private void StartCollectingColumns()
