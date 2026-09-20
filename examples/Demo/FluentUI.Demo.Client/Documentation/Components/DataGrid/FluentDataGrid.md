@@ -29,7 +29,8 @@ removes the column sorting and restores the default/start situation with regards
 this key combination*.
 
 When the grid is sorted by several columns (`SortMode` is `DataGridSortMode.Multiple`), <kbd>Shift</kbd> + <kbd>Enter</kbd> on
-a focused header adds that column to the sort, and <kbd>Shift</kbd> + <kbd>s</kbd> clears every sort level. The column header
+a focused header adds that column to the sort, and <kbd>Shift</kbd> + <kbd>s</kbd> returns to the sort the columns declare
+through `IsDefaultSortColumn`, leaving the grid unsorted when none of them declares one. The column header
 also offers these actions, for when the key combination is not available. See
 [multi-column sorting](/DataGrid/MultiSort).
 

@@ -20,6 +20,7 @@ header popup otherwise:
 | Sort ascending / Sort descending | The column is not already sorted in that direction | A column that is already sorted on changes direction and keeps its place in the sort. Any other column becomes the only column the grid is sorted by. |
 | Add to sort | The grid is sorted by another column | Adds the column as the next sort level, ascending. |
 | Clear sort | The column is sorted on | Stops sorting by this column, keeping the other levels. |
+| Reset all sorts | More than one column is sorted on, and some column declares a sort | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
 | Clear all sorts | More than one column is sorted on | Removes every sort level, leaving the grid unsorted. |
 
 Set `ShowMultiSortActions` to false to leave the headers exactly as they are in single sort mode. Sorting by several
