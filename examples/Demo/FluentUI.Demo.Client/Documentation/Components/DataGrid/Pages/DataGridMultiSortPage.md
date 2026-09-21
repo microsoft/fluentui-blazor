@@ -32,6 +32,10 @@ Declaring `IsDefaultSortColumn` on more than one column gives the grid a multi-c
 order the columns are declared. `ResetSortAsync`, removing the last sort level and <kbd>Shift</kbd> + <kbd>s</kbd> all
 return to it; **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
 
+## Example
+
+{{ DataGridMultiSort }}
+
 ## Saving the sort in the URL
 
 Setting `SaveStateInUrl` writes the sort to the query string as an `orderby` parameter with one entry per sort level,
@@ -125,7 +129,3 @@ The sort state is exposed as follows:
   announced twice.
 - Changing the sort updates neither the focused element nor its name, so the new order is announced through a status
   message ("Sorted by Department ascending, then by Location descending").
-
-## Example
-
-{{ DataGridMultiSort }}
