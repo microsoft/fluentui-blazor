@@ -1,23 +1,10 @@
-﻿<FluentStack HorizontalGap="15" VerticalAlignment="VerticalAlignment.Center">
-    <FluentCheckbox @bind-Value="@_headerMenu" Label="Use menu for column actions" />
-    <FluentButton OnClick="@(() => _grid!.ClearSortAsync())">Clear all sorts</FluentButton>
-</FluentStack>
-
-<p>
-    Sorted by: <strong>@_sortDescription</strong>
-</p>
-
-<FluentDataGrid @ref="_grid"
-                TGridItem="Employee"
+﻿<FluentDataGrid TGridItem="Employee"
                 Items="@_employees"
                 SortMode="DataGridSortMode.Multiple"
-                HeaderCellAsButtonWithMenu="@_headerMenu"
-                OnSortChanged="@HandleSortChanged"
+                SaveStateInUrl="true"
                 DisplayMode="DataGridDisplayMode.Table"
                 Style="min-width: max-content;">
     <PropertyColumn Title="Department" Property="@(e => e.Department)" Sortable="true" IsDefaultSortColumn="true" />
-    @* The title says so too, because a header with no sort actions otherwise looks the same as one that is
-       simply not sorted on yet. *@
     <PropertyColumn Title="Location (non sortable)" Property="@(e => e.Location)" Sortable="false" />
     <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Sortable="true" />
     <PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true" />
@@ -25,17 +12,6 @@
 </FluentDataGrid>
 
 @code {
-    private FluentDataGrid<Employee>? _grid;
-    private bool _headerMenu;
-    private string _sortDescription = "Department (ascending)";
-
-    private void HandleSortChanged(DataGridSortEventArgs<Employee> args)
-    {
-        _sortDescription = args.SortColumns.Count == 0
-            ? "nothing"
-            : string.Join(", then ", args.SortColumns.Select(level => $"{level.Column.Title} ({(level.Ascending ? "ascending" : "descending")})"));
-    }
-
     private record Employee(int Id, string FullName, string Department, string Location, string StartDate, int Salary);
 
     private readonly IQueryable<Employee> _employees = new[]

@@ -71,6 +71,8 @@ things when the state is read back:
 Entries that no longer match a column are dropped and the current sort is left alone, since the query string is user
 input.
 
+{{ DataGridSortStateInUrl }}
+
 ## Programmatic sorting
 
 | Method | Description |
