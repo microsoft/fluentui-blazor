@@ -106,7 +106,7 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
         };
     }
 
-    private TimeSpan GetLifetime(IToastInstance toast)
+    private TimeSpan? GetLifetime(IToastInstance toast)
     {
         // If the toast has a specific lifetime defined, use it.
         if (toast.Options.Lifetime.HasValue)
@@ -123,7 +123,7 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
         }
 
         // Otherwise, use the default lifetime from the configuration, or TimeSpan.Zero if not defined.
-        return configuration.Toast.Lifetime ?? TimeSpan.Zero;
+        return configuration.Toast.Lifetime;
     }
 
     /// <summary>
