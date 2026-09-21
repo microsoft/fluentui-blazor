@@ -5,9 +5,9 @@ route: /DataGrid/MultiSort
 
 # Multi-column sorting
 
-By default the DataGrid is sorted by one column at a time: sorting another column replaces the current sort. Setting the
-`SortMode` parameter to `DataGridSortMode.Multiple` lets the grid be sorted by several columns at once, each with its own
-direction. The first sorted column is the primary sort, the next ones break its ties.
+By default the DataGrid sorts by one column at a time, so sorting a new column replaces the last one. Set `SortMode` to
+`DataGridSortMode.Multiple` to sort by several columns at once, each in its own direction. The first column sets the
+order. When two rows have the same value in that column, the next column decides which one comes first, and so on.
 
 Columns are added to the sort with <kbd>Shift</kbd> + click, or from the column header. The sort priority is shown as a
 number next to the sort direction icon.
