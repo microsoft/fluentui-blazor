@@ -35,8 +35,8 @@
 			@*ToDo: Make styling configurable *@
 			<FluentPopover @bind-Opened="_showMoreItems"
 						   AnchorId="@($"appbar-more-{Id}")"
-						   OffsetVertical="-48"
-						   OffsetHorizontal="320">
+						   OffsetVertical="@(Orientation == Orientation.Vertical ? -58 : -2)"
+						   OffsetHorizontal="@(Orientation == Orientation.Vertical ? 328 : 0)">
 				<ChildContent>
 					<div class="fluent-appbar-popover">
 						@if (PopoverShowSearch)
