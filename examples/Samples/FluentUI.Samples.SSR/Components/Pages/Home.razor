@@ -3,3 +3,104 @@
 <PageTitle>Home</PageTitle>
 
 This demo is for debugging purposes only.
+
+
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<PageTitle>Log in</PageTitle>
+
+<h1>Log in</h1>
+<FluentGrid>
+    <FluentGridItem xs="8" sm="4">
+
+        <EditForm Model="Input" method="post" OnSubmit="TestSubmit"FormName="login">
+            <DataAnnotationsValidator />
+            <h2>Use a local account to log in.</h2>
+            <FluentValidationSummary class="text-danger" role="alert" />
+            <FluentStack Orientation="Orientation.Vertical">
+                <FluentCheckbox Name="Input.RememberMe" @bind-Value="Input.RememberMe" Label="Remember me" ></FluentCheckbox>
+                <FluentSwitch Name="Input.ForgetMe" @bind-Value="Input.ForgetMe" Label="Forget me" ></FluentSwitch>
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Style="width: 100%" >Log in</FluentButton>
+                <div>
+                    <p>
+                        <FluentLink Href="Account/ForgotPassword">Forgot your password?</FluentLink>
+                    </p>
+                    <p>
+                        <FluentLink Href="@(NavigationManager.GetUriWithQueryParameters("Account/Register", new Dictionary<string, object?> { ["ReturnUrl"] = ReturnUrl }))">Register as a new user</FluentLink>
+                    </p>
+                    <p>
+                        <FluentLink Href="Account/ResendEmailConfirmation">Resend email confirmation</FluentLink>
+                    </p>
+                </div>
+            </FluentStack>
+        </EditForm>
+    </FluentGridItem>
+    <FluentGridItem xs="12" sm="8">
+        <h3>Use another service to log in.</h3>
+    </FluentGridItem>
+</FluentGrid>
+
+@code {
+    //private string? errorMessage;
+    private EditContext editContext = default!;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = default!;
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Input ??= new();
+
+        editContext = new EditContext(Input);
+
+        if (HttpMethods.IsGet(HttpContext.Request.Method))
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            //await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        }
+    }
+
+    public async Task LoginUser()
+    {
+
+    }
+
+    public async Task TestSubmit(EditContext editContext)
+    {
+        var isValid = editContext.Validate();
+        if (isValid)
+        {
+            await JS.InvokeVoidAsync("console.log", $"Form is valid. RememberMe: {Input.RememberMe}, ForgetMe: {Input.ForgetMe}");
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("console.log", "Form is invalid.");
+        }
+    }
+
+    private sealed class InputModel
+    {
+
+
+
+        [Display(Name = "Remember me?")]
+        public bool RememberMe { get; set; }
+
+        [Display(Name = "Forget me?")]
+        public bool ForgetMe { get; set; }
+
+    }
+}
