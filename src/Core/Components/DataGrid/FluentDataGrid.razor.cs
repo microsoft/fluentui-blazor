@@ -2502,7 +2502,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     private static (string ColumnReference, bool Ascending) ParseSortStateEntry(string entry)
     {
-        var separator = entry.LastIndexOf(' ');
+        var separator = entry.LastIndexOf(" ", StringComparison.Ordinal);
         return separator < 0
             ? (entry, false)
             : (entry[..separator], string.Equals(entry[(separator + 1)..], "asc", StringComparison.Ordinal));
