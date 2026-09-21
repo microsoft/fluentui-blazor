@@ -19,7 +19,7 @@ This demo is for debugging purposes only.
 <FluentGrid>
     <FluentGridItem xs="8" sm="4">
 
-        <EditForm Model="Input" method="post" OnSubmit="TestSubmit" FormName="login">
+        <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
             <DataAnnotationsValidator />
             <h2>Use a local account to log in.</h2>
             <FluentValidationSummary class="text-danger" role="alert" />
@@ -76,19 +76,6 @@ This demo is for debugging purposes only.
     public async Task LoginUser()
     {
 
-    }
-
-    public async Task TestSubmit(EditContext editContext)
-    {
-        var isValid = editContext.Validate();
-        if (isValid)
-        {
-            
-        }
-        else
-        {
-            
-        }
     }
 
     private sealed class InputModel
