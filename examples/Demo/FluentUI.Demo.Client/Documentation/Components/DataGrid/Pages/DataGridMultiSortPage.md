@@ -1,4 +1,4 @@
-﻿---
+---
 title: Multi-column sorting
 route: /DataGrid/MultiSort
 ---

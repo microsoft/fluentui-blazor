@@ -1,4 +1,4 @@
-﻿# FluentDataGrid — Advanced Patterns
+# FluentDataGrid — Advanced Patterns
 
 ## Basic Usage
 

@@ -1,4 +1,4 @@
-﻿---
+---
 title: DataGrid
 route: /DataGrid/[Default]
 icon: Table
