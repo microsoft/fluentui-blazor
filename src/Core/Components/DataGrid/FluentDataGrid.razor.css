@@ -157,14 +157,13 @@
   background-color: var(--fluent-data-grid-stripe-background-color);
 }
 
-/* A popup that only holds the sort menu is sized by the menu, which also brings its own padding. */
+/* A popup that only holds the sort menu is sized by the menu, which also brings its own padding. Where it sits is
+   left to the rules above: the button that opens it is at the start of the header unless the column is aligned to
+   the end, so pinning the popup to one side here would move it away from the button on every other column. */
 .fluent-data-grid [col-header-ui][col-header-ui-menu] {
   min-width: unset;
   width: max-content;
   padding: 0;
-  /* Aligned with the button that opens it, which sits at the end of the header. */
-  inset-inline-start: auto;
-  inset-inline-end: 0;
 }
 
 /* The sort priority shown next to the sort direction icon when the grid is sorted by more than one column.

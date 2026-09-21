@@ -348,7 +348,7 @@
             .ElementAt(1);
 
         // Act
-        ActivateMenuItem(cut, grid, column: 2, label: "Add to sort");
+        ActivateMenuItem(cut, grid, column: 2, label: "Add");
 
         // Assert
         var focused = JSInterop.Invocations["Blazor._internal.domWrapper.focus"]
@@ -675,11 +675,11 @@
         await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
 
         // Assert: another column can now join the sort.
-        Assert.Equal(["Sort ascending", "Sort descending", "Add to sort"], GetMenuItemLabels(cut, grid, column: 2));
+        Assert.Equal(["Sort ascending", "Sort descending", "Add"], GetMenuItemLabels(cut, grid, column: 2));
 
         // Act: menu items are activated with Enter, since their OnClick runs on the web component's change event,
         // which bUnit cannot raise.
-        ActivateMenuItem(cut, grid, column: 2, label: "Add to sort");
+        ActivateMenuItem(cut, grid, column: 2, label: "Add");
 
         // Assert
         Assert.Equal(["Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
@@ -698,7 +698,7 @@
 
         // Assert: the direction it is already sorted in is not offered, and the sort can be cleared per column.
         Assert.Equal(
-            ["Sort descending", "Clear sort", "Clear all sorts"],
+            ["Sort descending", "Clear", "Clear all"],
             GetMenuItemLabels(cut, grid, column: 2));
 
         // Act
@@ -711,7 +711,7 @@
 
         // Assert: and now the other direction is the one on offer.
         Assert.Equal(
-            ["Sort ascending", "Clear sort", "Clear all sorts"],
+            ["Sort ascending", "Clear", "Clear all"],
             GetMenuItemLabels(cut, grid, column: 2));
     }
 
@@ -726,17 +726,17 @@
         await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
 
         // Act
-        ActivateMenuItem(cut, grid, column: 2, label: "Clear sort");
+        ActivateMenuItem(cut, grid, column: 2, label: "Clear");
 
         // Assert
         Assert.Equal(["Department"], grid.SortColumns.Select(level => level.Column.Title));
 
         // Assert: with a single sorted column left there is nothing to clear all of.
-        Assert.Equal(["Sort descending", "Clear sort"], GetMenuItemLabels(cut, grid, column: 1));
+        Assert.Equal(["Sort descending", "Clear"], GetMenuItemLabels(cut, grid, column: 1));
     }
 
     [Fact]
-    public async Task FluentDataGrid_MultiSort_HeaderMenu_WithADeclaredSort_OffersResetAboveClear()
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_WithADeclaredSort_OffersResetAfterTheClearActions()
     {
         // Arrange
         FluentDataGrid<Employee>? grid = default!;
@@ -744,13 +744,13 @@
 
         await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
 
-        // Assert: resetting comes before clearing, since it is the less destructive of the two.
+        // Assert: the two that clear sit together, and the one that restores the declared sort comes last.
         Assert.Equal(
-            ["Sort ascending", "Clear sort", "Reset all sorts", "Clear all sorts"],
+            ["Sort ascending", "Clear", "Clear all", "Reset"],
             GetMenuItemLabels(cut, grid, column: 2));
 
         // Act
-        ActivateMenuItem(cut, grid, column: 2, label: "Reset all sorts");
+        ActivateMenuItem(cut, grid, column: 2, label: "Reset");
 
         // Assert
         Assert.Single(grid.SortColumns);
@@ -769,7 +769,7 @@
         await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
 
         // Assert: with no declared sort to go back to, resetting would do what clearing does.
-        Assert.DoesNotContain("Reset all sorts", GetMenuItemLabels(cut, grid, column: 2));
+        Assert.DoesNotContain("Reset", GetMenuItemLabels(cut, grid, column: 2));
     }
 
     [Fact]
@@ -783,7 +783,7 @@
         Assert.Equal(2, grid.SortColumns.Count);
 
         // Act
-        ActivateMenuItem(cut, grid, column: 2, label: "Clear all sorts");
+        ActivateMenuItem(cut, grid, column: 2, label: "Clear all");
 
         // Assert
         Assert.Empty(grid.SortColumns);
@@ -844,12 +844,12 @@
 
         // Assert
         Assert.Equal(
-            ["Sort ascending", "Sort descending", "Add to sort"],
+            ["Sort ascending", "Sort descending", "Add"],
             GetHeaderPopupMenuItems(cut).Select(item => item.TextContent.Trim()));
 
         // Act
         GetHeaderPopupMenuItems(cut)
-            .First(item => string.Equals(item.TextContent.Trim(), "Add to sort", StringComparison.Ordinal))
+            .First(item => string.Equals(item.TextContent.Trim(), "Add", StringComparison.Ordinal))
             .KeyDown(new KeyboardEventArgs { Key = "Enter" });
 
         // Assert
@@ -1683,6 +1683,77 @@
                 <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="@defaultSortColumn" InitialSortDirection="DataGridSortDirection.Ascending" />
                 <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
                 <PropertyColumn Property="@(x => x.Level)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        grid = reference!;
+        return cut;
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_HeaderMenu_WithActionsAfterTheSortOnes_SeparatesThemWithADivider()
+    {
+        // Arrange: a column with ColumnOptions puts an extra action in the header menu after the sort ones.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGridWithColumnOptions(out grid);
+
+        // Act
+        var entries = GetMenuEntries(cut, grid, column: 2);
+
+        // Assert: the sort actions are several items, so they are grouped off from what follows.
+        var divider = entries.IndexOf(MenuDivider);
+        Assert.True(divider > 0, $"expected a divider among [{string.Join(", ", entries)}]");
+        Assert.Equal("Sort descending", entries[divider - 1]);
+        Assert.True(divider < entries.Count - 1, "the divider should separate the sort actions from what follows");
+        Assert.DoesNotContain(MenuDivider, entries.Skip(divider + 1));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_HeaderMenu_WithNothingAfterTheSortActions_HasNoDivider()
+    {
+        // Arrange && Act: with only the sort actions there is nothing to separate them from.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+
+        // Assert
+        Assert.DoesNotContain(MenuDivider, GetMenuEntries(cut, grid, column: 2));
+    }
+
+    [Fact]
+    public void FluentDataGrid_SingleSort_HeaderMenu_HasNoDivider()
+    {
+        // Arrange && Act: single sort mode offers one sort item, which needs no grouping.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGridWithColumnOptions(out grid, sortMode: DataGridSortMode.Single);
+
+        // Assert
+        Assert.DoesNotContain(MenuDivider, GetMenuEntries(cut, grid, column: 2));
+    }
+
+    private const string MenuDivider = "<divider>";
+
+    /// <summary>The menu's items and dividers, in the order they are offered.</summary>
+    private static List<string> GetMenuEntries(IRenderedComponent<FluentDataGrid<Employee>> cut, FluentDataGrid<Employee> grid, int column)
+        => cut.Find($"#{grid.Id}-col-{column}-menu")
+            .QuerySelectorAll("fluent-menu-item, fluent-divider")
+            .Select(item => string.Equals(item.LocalName, "fluent-divider", StringComparison.Ordinal)
+                ? MenuDivider
+                : item.TextContent.Trim())
+            .ToList();
+
+    private IRenderedComponent<FluentDataGrid<Employee>> RenderMenuGridWithColumnOptions(
+        out FluentDataGrid<Employee> grid,
+        DataGridSortMode sortMode = DataGridSortMode.Multiple)
+    {
+        FluentDataGrid<Employee>? reference = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@reference" Items="@GetEmployees()" SortMode="@sortMode"
+                             HeaderCellAsButtonWithMenu="true">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true">
+                    <ColumnOptions><span>Options</span></ColumnOptions>
+                </PropertyColumn>
             </FluentDataGrid>
         );
 

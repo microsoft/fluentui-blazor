@@ -91,6 +91,13 @@
                         @if (HasMultiSortActions)
                         {
                             <ColumnSortMenuItems Column="@this" TGridItem="TGridItem" OnActionApplied="@CloseHeaderMenuAsync" />
+
+                            @* The sort actions are several items rather than one, so a divider keeps them together and
+                               apart from whatever else the header menu offers. *@
+                            @if (headerCapabilities.HasActionsBesidesSort)
+                            {
+                                <FluentDivider />
+                            }
                         }
                         else
                         {

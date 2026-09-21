@@ -265,18 +265,18 @@
     <value>Sort descending</value>
   </data>
   <data name="DataGrid_SortMenuAddToSort" xml:space="preserve">
-    <value>Add to sort</value>
+    <value>Add</value>
   </data>
   <data name="DataGrid_SortMenuClearSort" xml:space="preserve">
-    <value>Clear sort</value>
+    <value>Clear</value>
     <comment>Stops sorting by one column, keeping the other sorted columns</comment>
   </data>
   <data name="DataGrid_SortMenuResetAllSorts" xml:space="preserve">
-    <value>Reset all sorts</value>
+    <value>Reset</value>
     <comment>Returns to the sort the columns declare through IsDefaultSortColumn</comment>
   </data>
   <data name="DataGrid_SortMenuClearAllSorts" xml:space="preserve">
-    <value>Clear all sorts</value>
+    <value>Clear all</value>
   </data>
   <data name="DataGrid_SortDirectionAscending" xml:space="preserve">
     <value>ascending</value>

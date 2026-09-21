@@ -44,22 +44,22 @@
     </FluentMenuItem>
 }
 
-@* Going back to the declared sort is only worth offering when the columns declare one; without it, resetting and
-   clearing would do the same thing. *@
-@if (Grid.SortColumns.Count > 1 && Grid.HasDeclaredSort)
-{
-    <FluentMenuItem OnClick="@ResetAllSortsAsync"
-                    @onkeydown="@(args => HandleKeyDownAsync(args, ResetAllSortsAsync))"
-                    IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())">
-        @Localizer[Localization.LanguageResource.DataGrid_SortMenuResetAllSorts]
-    </FluentMenuItem>
-}
-
 @if (Grid.SortColumns.Count > 1)
 {
     <FluentMenuItem OnClick="@ClearAllSortsAsync"
                     @onkeydown="@(args => HandleKeyDownAsync(args, ClearAllSortsAsync))"
                     IconStart="@(new CoreIcons.Filled.Size20.DismissCircle())">
         @Localizer[Localization.LanguageResource.DataGrid_SortMenuClearAllSorts]
+    </FluentMenuItem>
+}
+
+@* Going back to the declared sort is only worth offering when the columns declare one; without it, resetting and
+   clearing would do the same thing. It comes after the two that clear, which belong together. *@
+@if (Grid.SortColumns.Count > 1 && Grid.HasDeclaredSort)
+{
+    <FluentMenuItem OnClick="@ResetAllSortsAsync"
+                    @onkeydown="@(args => HandleKeyDownAsync(args, ResetAllSortsAsync))"
+                    IconStart="@(new CoreIcons.Regular.Size20.ArrowReset())">
+        @Localizer[Localization.LanguageResource.DataGrid_SortMenuResetAllSorts]
     </FluentMenuItem>
 }

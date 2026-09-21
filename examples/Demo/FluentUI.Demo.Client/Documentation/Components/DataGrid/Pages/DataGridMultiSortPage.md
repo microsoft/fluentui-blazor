@@ -13,15 +13,16 @@ Columns are added to the sort with <kbd>Shift</kbd> + click, or from the column 
 number next to the sort direction icon.
 
 The column header offers these actions, in the header menu when `HeaderCellAsButtonWithMenu` is set and in the column
-header popup otherwise:
+header popup otherwise. They are shown as a group, separated from anything else the header menu offers, so each one
+is named for what it does to the sort rather than repeating the word:
 
 | Action | Shown when | Result |
 | --- | --- | --- |
 | Sort ascending / Sort descending | The column is not already sorted in that direction | A column that is already sorted on changes direction and keeps its place in the sort. Any other column becomes the only column the grid is sorted by. |
-| Add to sort | The grid is sorted by another column | Adds the column as the next sort level, ascending. |
-| Clear sort | The column is sorted on | Stops sorting by this column, keeping the other levels. |
-| Reset all sorts | More than one column is sorted on, and some column declares a sort | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
-| Clear all sorts | More than one column is sorted on | Removes every sort level, leaving the grid unsorted. |
+| Add | The grid is sorted by another column | Adds the column as the next sort level, ascending. |
+| Clear | The column is sorted on | Stops sorting by this column, keeping the other levels. |
+| Clear all | More than one column is sorted on | Removes every sort level, leaving the grid unsorted. |
+| Reset | More than one column is sorted on, and some column declares a sort | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
 
 Set `ShowMultiSortActions` to false to leave the headers exactly as they are in single sort mode. Sorting by several
 columns then only happens through <kbd>Shift</kbd> + click, <kbd>Shift</kbd> + <kbd>Enter</kbd> and the grid's sort
@@ -29,7 +30,7 @@ methods — see the note under Accessibility before using it.
 
 Declaring `IsDefaultSortColumn` on more than one column gives the grid a multi-column sort to start with, applied in the
 order the columns are declared. `ResetSortAsync`, removing the last sort level and <kbd>Shift</kbd> + <kbd>s</kbd> all
-return to it; **Clear all sorts** and `ClearSortAsync` leave the grid unsorted instead.
+return to it; **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
 
 ## Saving the sort in the URL
 
