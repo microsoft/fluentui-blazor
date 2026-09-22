@@ -140,7 +140,6 @@ public partial class FluentAppBar : FluentComponentBase
 
         var handler = args.Key switch
         {
-            KeyCode.Enter => HandlePopoverToggleAsync(!_showMoreItems),
             KeyCode.Right when Orientation == Orientation.Vertical => HandlePopoverToggleAsync(value: true),
             KeyCode.Left when Orientation == Orientation.Vertical => HandlePopoverToggleAsync(value: false),
             KeyCode.Down when Orientation == Orientation.Horizontal => HandlePopoverToggleAsync(value: true),
