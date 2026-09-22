@@ -31,6 +31,11 @@ parameters:
     type: string
     default: ''
 
+  - name: PublishToDotnet9Feed
+    displayName: Publish to dotnet9 feed
+    type: boolean
+    default: true
+
 variables:
   - template: /eng/pipelines/version.yml@self
 
@@ -87,13 +92,14 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
-          - output: nuget
-            useDotNetTask: false
-            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-            packageParentPath: '$(Build.ArtifactStagingDirectory)'
-            nuGetFeedType: internal
-            publishVstsFeed: public/dotnet9
-            allowPackageConflicts: true
+          - ${{ if eq(parameters.PublishToDotnet9Feed, true) }}:
+            - output: nuget
+              useDotNetTask: false
+              packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+              packageParentPath: '$(Build.ArtifactStagingDirectory)'
+              nuGetFeedType: internal
+              publishVstsFeed: public/dotnet9
+              allowPackageConflicts: true
 
         steps:
 
