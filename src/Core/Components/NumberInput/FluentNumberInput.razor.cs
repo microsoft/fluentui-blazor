@@ -339,10 +339,10 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         var decimalSep = Culture.NumberFormat.NumberDecimalSeparator;
         var negativeSign = Culture.NumberFormat.NegativeSign;
 
-        return string.Concat(value.Where(c =>
-                char.IsAsciiDigit(c) ||
-                decimalSep.Contains(c, StringComparison.Ordinal) ||
-                negativeSign.Contains(c, StringComparison.Ordinal)));
+        return new string([.. value.Where(c =>
+            char.IsAsciiDigit(c)
+            || decimalSep.Contains(c, StringComparison.Ordinal)
+            || negativeSign.Contains(c, StringComparison.Ordinal))]);
     }
 
     /// <summary>
@@ -363,7 +363,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
     /// <summary>
     /// Tries to parse the input string into a value of type <typeparamref name="TValue"/> using the specified <see cref="Culture"/>.
-    /// It first removes all non-digit characters except the decimal separator to ensure reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// It first removes all non-digit characters except the decimal separator and negative sign to ensure reliable parsing regardless of which Unicode character the browser uses for group separators.
     /// </summary>
     private bool TryParse(string? value, IFormatProvider formatProvider, out TValue result)
     {
