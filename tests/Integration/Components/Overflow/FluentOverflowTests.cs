@@ -132,14 +132,30 @@ public class FluentOverflowTests : FluentPlaywrightBaseTest
         var host = page.Locator("#overflow-appbar-overflow");
         await page.WaitForFunctionAsync("() => document.querySelectorAll('#overflow-appbar-overflow > .fluent-appbar-item[hidden]').length > 25");
         var hiddenCount = await host.Locator(":scope > .fluent-appbar-item[hidden]").CountAsync();
-        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeVisibleAsync();
-        await host.Locator("[slot='trigger']").ClickAsync();
-        await Assertions.Expect(page.Locator("#overflow-appbar fluent-popover-b .fluent-appbar-item"))
+        var trigger = host.Locator("[slot='trigger']");
+        var popoverItems = page.Locator("#overflow-appbar fluent-popover-b .fluent-appbar-item");
+        await Assertions.Expect(trigger).ToBeVisibleAsync();
+        await Assertions.Expect(trigger).ToHaveCSSAsync("border-radius", "0px");
+        await Assertions.Expect(trigger).ToHaveAttributeAsync("aria-expanded", "false");
+
+        await trigger.FocusAsync();
+        await trigger.PressAsync("Enter");
+        await Assertions.Expect(trigger).ToHaveAttributeAsync("aria-expanded", "true");
+        await Assertions.Expect(popoverItems)
+            .ToHaveCountAsync(hiddenCount);
+
+        await trigger.PressAsync("Enter");
+        await Assertions.Expect(trigger).ToHaveAttributeAsync("aria-expanded", "false");
+
+        await trigger.PressAsync("Space");
+        await Assertions.Expect(trigger).ToHaveAttributeAsync("aria-expanded", "true");
+        await Assertions.Expect(popoverItems)
             .ToHaveCountAsync(hiddenCount);
 
         await page.GetByTestId("expand-appbar").ClickAsync();
         await Assertions.Expect(host.Locator(":scope > .fluent-appbar-item[hidden]")).ToHaveCountAsync(0);
-        await Assertions.Expect(host.Locator("[slot='trigger']")).ToBeHiddenAsync();
+        await Assertions.Expect(trigger).ToBeHiddenAsync();
+        await Assertions.Expect(trigger).ToHaveAttributeAsync("aria-expanded", "false");
         await Assertions.Expect(page.Locator("#overflow-appbar fluent-popover-b")).ToHaveCountAsync(0);
     }
 

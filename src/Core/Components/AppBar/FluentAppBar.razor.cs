@@ -106,18 +106,18 @@ public partial class FluentAppBar : FluentComponentBase
             return;
         }
 
-        ApplyOverflowItems(args.Items?.Select(item => item.Id));
+        await ApplyOverflowItemsAsync(args.Items?.Select(item => item.Id));
         await InvokeAsync(StateHasChanged);
     }
 
     /// <summary />
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        ApplyOverflowItems(items.Select(item => item.Id));
+        await ApplyOverflowItemsAsync(items.Select(item => item.Id));
         await InvokeAsync(StateHasChanged);
     }
 
-    private void ApplyOverflowItems(IEnumerable<string?>? itemIds)
+    private async Task ApplyOverflowItemsAsync(IEnumerable<string?>? itemIds)
     {
         var overflowIds = itemIds?.OfType<string>().ToHashSet(StringComparer.Ordinal)
                        ?? new HashSet<string>(StringComparer.Ordinal);
@@ -127,6 +127,11 @@ public partial class FluentAppBar : FluentComponentBase
         }
 
         HandleSearch();
+
+        if (overflowIds.Count == 0)
+        {
+            await HandlePopoverToggleAsync(value: false);
+        }
     }
 
     internal Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);

@@ -40,10 +40,11 @@
     public async Task FluentAppBar_Overflow()
     {
         // Arrange
+        var visibilityChanges = new List<bool>();
 
         // Act
         var cut = Render<FluentAppBar>(
-            @<FluentAppBar Id="appbar">
+            @<FluentAppBar Id="appbar" PopoverVisibilityChanged="value => visibilityChanges.Add(value)">
                 <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
             </FluentAppBarItem>
                 <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
@@ -75,6 +76,17 @@
 
         await trigger.ClickAsync();
         Assert.Equal("true", trigger.GetAttribute("aria-expanded"));
+        Assert.Equal([true], visibilityChanges);
+
+        await cut.Find("fluent-overflow").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "appbar-overflow",
+            Items = [],
+        });
+
+        Assert.Equal("false", trigger.GetAttribute("aria-expanded"));
+        Assert.Empty(cut.FindAll("fluent-popover-b"));
+        Assert.Equal([true, false], visibilityChanges);
     }
 
     [Fact]

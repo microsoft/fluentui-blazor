@@ -26,6 +26,7 @@
   .fluent-appbar button.fluent-appbar-more-item {
     padding: 0;
     border: 0;
+    border-radius: 0;
     color: inherit;
     font: inherit;
     background: transparent;
