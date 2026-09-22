@@ -326,8 +326,8 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     }
 
     /// <summary>
-    /// Removes all characters that are not ASCII digits or the decimal separator.
-    /// This ensures reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// Removes all characters that are not ASCII digits, the decimal separator, or the negative sign.
+    /// This ensures reliable parsing regardless of the current culture or which Unicode character the browser uses for group separators.
     /// </summary>
     private string? KeepOnlyDigits(string? value)
     {
