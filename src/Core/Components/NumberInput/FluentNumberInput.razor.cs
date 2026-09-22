@@ -337,7 +337,12 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         }
 
         var decimalSep = Culture.NumberFormat.NumberDecimalSeparator;
-        return new string([.. value.Where(c => char.IsAsciiDigit(c) || decimalSep.Contains(c, StringComparison.Ordinal))]);
+        var negativeSign = Culture.NumberFormat.NegativeSign;
+
+        return string.Concat(value.Where(c =>
+                char.IsAsciiDigit(c) ||
+                decimalSep.Contains(c, StringComparison.Ordinal) ||
+                negativeSign.Contains(c, StringComparison.Ordinal)));
     }
 
     /// <summary>
