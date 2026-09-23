@@ -1,7 +1,8 @@
-﻿@using FluentUI.Demo.DocViewer.Components
+﻿@using FluentUI.Demo.Client.Layout.Cookies
+@using FluentUI.Demo.DocViewer.Components
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
-
+<CookieConsent @ref="@_cookie"/>
 <FluentLayout @key="@GetLayoutKey()" Height="100dvh" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
 
     @* ------------------- *@
@@ -55,8 +56,15 @@
             <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
                           OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
                           Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                          BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackgroundHover)" : "var(--colorBrandBackground)")"
                           Title="Open or hide the console" />
+
+            @* Manage Cookies *@
+            <FluentButton IconStart="@(new Icons.Regular.Size20.Cookies().WithColor("var(--colorNeutralForegroundOnBrand)"))"
+                          OnClick="@ManageCookieSettingsAsync"
+                          Appearance="ButtonAppearance.Subtle"
+                          BackgroundColor="var(--colorBrandBackground)"
+                          Title="Manage cookies" />
 
         </FluentStack>
     </FluentLayoutItem>

@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Reflection;
+using FluentUI.Demo.Client.Layout.Cookies;
 using FluentUI.Demo.DocViewer;
 
 namespace FluentUI.Demo.Client;
@@ -28,9 +29,6 @@ public static class ServiceCollectionExtensions
         {
             _services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
 
-            // _services.AddSingleton<CacheStorageAccessor>();
-            // _services.AddSingleton<DemoNavProvider>();
-
             return _services;
         }
 
@@ -40,9 +38,7 @@ public static class ServiceCollectionExtensions
         public IServiceCollection ForServer()
         {
             _services.AddHttpClient<IStaticAssetService, ServerStaticAssetService>();
-
-            // _services.AddSingleton<DemoNavProvider>();
-            // _services.AddScoped<CacheStorageAccessor>();
+            _services.AddScoped<CookieConsentService>();
 
             return _services;
         }
