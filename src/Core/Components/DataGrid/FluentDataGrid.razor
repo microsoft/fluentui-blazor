@@ -84,6 +84,13 @@
                 }
             </tbody>
         </table>
+        @if (SortMode == DataGridSortMode.Multiple)
+        {
+            @* Changing the sort changes neither the focused element nor its accessible name, so the resulting sort
+               order is announced as a status message instead. Rendered up front (and empty) so that screen readers
+               have registered the live region before the first sort change. *@
+            <div sort-status role="status" aria-live="polite">@_sortAnnouncement</div>
+        }
     </Defer>
 </CascadingValue>
 
@@ -264,11 +271,6 @@
             var col = _columns[i];
             var headerCapabilities = GetHeaderCapabilities(col);
 
-            if (_sortByColumn == col)
-                col.IsActiveSortColumn = true;
-            else
-                col.IsActiveSortColumn = false;
-
             var columnHeaderAttributes = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase);
             var additionalAttributes = GetColumnHeaderAttributes(col, headerCapabilities);
 
@@ -297,7 +299,15 @@
                 @col.HeaderContent
                 @if (ShouldRenderColumnHeaderUi(col, headerCapabilities))
                 {
-                    <div col-header-ui>
+                    <div col-header-ui col-header-ui-menu="@(IsSortOnlyHeaderUi(col, headerCapabilities) ? bool.TrueString.ToLowerInvariant() : null)">
+                        @if (ShouldRenderColumnSort(col, headerCapabilities))
+                        {
+                            <ColumnSortOptions Column="@col" TGridItem="TGridItem" />
+                        }
+                        @if (ShouldRenderColumnSort(col, headerCapabilities) && (ShouldRenderColumnOptions(col, headerCapabilities) || ShouldRenderColumnResize(col, headerCapabilities) || ShouldRenderColumnReorder(col, headerCapabilities)))
+                        {
+                            <FluentDivider />
+                        }
                         @if (ShouldRenderColumnOptions(col, headerCapabilities))
                         {
                             @col.ColumnOptions

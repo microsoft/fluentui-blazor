@@ -14,6 +14,40 @@
 }
 ```
 
+## Sorting by More Than One Column
+
+`SortMode="DataGridSortMode.Multiple"` lets the grid be sorted by several columns at once. Users add a column with
+Shift+click (Shift+Enter from the keyboard) or from the column header, which lists the sort actions.
+
+```razor
+<FluentDataGrid Items="@people" SortMode="DataGridSortMode.Multiple" OnSortChanged="@HandleSortChanged">
+    <PropertyColumn Property="@(p => p.City)" Sortable="true" IsDefaultSortColumn="true" />
+    <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+</FluentDataGrid>
+
+@code {
+    private void HandleSortChanged(DataGridSortEventArgs<Person> args)
+    {
+        // Every sorted column, in priority order
+        foreach (var level in args.SortColumns)
+        {
+            Console.WriteLine($"{level.Column.Title} {(level.Ascending ? "asc" : "desc")}");
+        }
+    }
+}
+```
+
+The sort is a list of `DataGridSortColumn<TGridItem>` everywhere it is exposed: `FluentDataGrid.SortColumns`,
+`DataGridSortEventArgs.SortColumns` and `GridItemsProviderRequest.SortColumns`. There are no single-column
+`SortByColumn` / `SortByAscending` properties; use `SortColumns.FirstOrDefault()` for the primary sort.
+
+Methods: `SortByColumnAsync` (sort by one column), `AddSortByColumnAsync` (add a level, or change the direction of a
+column already sorted on), `RemoveSortByColumnAsync` (drop one level), `SetSortAsync` (replace the whole sort),
+`ClearSortAsync` (leave the grid unsorted) and `ResetSortAsync` (back to the columns' `IsDefaultSortColumn` sort).
+
+`ShowMultiSortActions="false"` hides the sort actions from the column headers, leaving only the Shift shortcuts and
+these methods - which touch users cannot reach, so only use it alongside your own sorting UI.
+
 ## Pagination
 
 ```razor
@@ -65,8 +99,8 @@ For server-side data loading (API calls, EF Core via adapter):
     {
         dataProvider = async request =>
         {
-            // request.StartIndex, request.Count, request.SortByColumn,
-            // request.SortByAscending, request.CancellationToken
+            // request.StartIndex, request.Count, request.SortColumns,
+            // request.CancellationToken
             var result = await FetchFromApi(request);
             return GridItemsProviderResult.From(result.Items, result.TotalCount);
         };
