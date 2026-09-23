@@ -61,6 +61,11 @@
   z-index: 6;
 }
 
+/* The header cell centres its own content, which the menu rendered inside it would otherwise inherit. */
+.fluent-data-grid th[cell-type='columnheader'] fluent-menu-item {
+  text-align: start;
+}
+
 .fluent-data-grid [col-sort-button] {
   width: 100%;
   overflow: hidden;
