@@ -73,7 +73,7 @@
             filters.Add("search", $"state:{_stateFilter}");
 
         var s = req.GetSortByProperties().FirstOrDefault();
-        if (req.SortByColumn != null && !string.IsNullOrEmpty(s.PropertyName))
+        if (!string.IsNullOrEmpty(s.PropertyName))
         {
             filters.Add("sort", s.PropertyName + (s.Direction == DataGridSortDirection.Ascending ? ":asc" : ":desc"));
         }
