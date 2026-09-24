@@ -23,34 +23,6 @@ The default example renders a compact line sparkline.
 
 {{ SparklineChartHideLegends }}
 
-### Multiple Legend Selection
-
-{{ SparklineChartMultipleLegendSelection }}
-
-### Rounded Corners
-
-{{ SparklineChartRoundedCorners }}
-
-### Culture
-
-{{ SparklineChartCulture }}
-
-### Title Align
-
-{{ SparklineChartTitleAlign }}
-
-### Title and Legend Positions
-
-{{ SparklineChartTitleAndLegendPositions }}
-
-### Hide Tooltip
-
-{{ SparklineChartHideTooltip }}
-
-### Custom Tooltip
-
-{{ SparklineChartCustomTooltip }}
-
 ### RTL
 
 {{ SparklineChartRTL }}

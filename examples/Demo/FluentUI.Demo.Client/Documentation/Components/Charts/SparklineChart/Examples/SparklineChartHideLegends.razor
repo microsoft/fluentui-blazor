@@ -1,10 +1,8 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <FluentCheckbox @bind-Value="@_hideLegends" Label="Hide legends" />
 
 <FluentSparklineChart ChartData="@sparklineData"
-                      Width="700"
-                      Height="250"
                       ShowLegend="@(!_hideLegends)"
                       Style="display: block;">
 </FluentSparklineChart>

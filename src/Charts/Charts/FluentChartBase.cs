@@ -107,12 +107,6 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     [Parameter]
     public string? Height { get; set; }
 
-    /// <summary />
-    internal virtual string? StyleValue => DefaultStyleBuilder
-        .AddStyle("width", Width, when: Width is not null)
-        .AddStyle("height", Height, when: Height is not null)
-        .Build();
-
     /// <summary>
     /// Gets or sets a value indicating whether multiple legend items can be selected simultaneously.
     /// When <see langword="true"/>, clicking a legend item adds it to the active selection rather than replacing the current selection.
@@ -136,6 +130,12 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     /// </summary>
     [Parameter]
     public RenderFragment<TooltipContext>? TooltipTemplate { get; set; }
+
+    /// <summary />
+    internal virtual string? StyleValue => DefaultStyleBuilder
+        .AddStyle("width", Width, when: Width is not null)
+        .AddStyle("height", Height, when: Height is not null)
+        .Build();
 
     /// <summary>
     /// Returns <see langword="true"/> when a tooltip template is set on this component.

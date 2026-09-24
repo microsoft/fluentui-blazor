@@ -1,25 +1,17 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
-
-<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
-    <FluentSelect Label="Title align"
-                  Items="@(Enum.GetValues<ChartTitleAlign>())"
-                  @bind-Value="@_titleAlign" />
-</FluentStack>
-
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
 <div>
     A sparkline
     <FluentSparklineChart ChartData="@sparklineExamples[0]"
-                          Width="80"
-                          Height="20"
+                          Width="80px"
+                          Height="20px"
                           ShowLegend="true"
-                          Style="display: inline-block;"
-                 TitleAlign="@_titleAlign">
+                          Style="display: inline-block;">
     </FluentSparklineChart>
     - is a very small line chart, drawn without axes or coordinates. It presents the general shape of the variation (like over time) in some measurement,
     <FluentSparklineChart ChartData="@sparklineExamples[1]"
-                          Width="80"
-                          Height="20"
+                          Width="80px"
+                          Height="20px"
                           Style="display: inline-block;">
     </FluentSparklineChart>
     - such as temperature or stock market price, in a simple and highly condensed way.
@@ -30,7 +22,7 @@
     <br />
 </div>
 
-<table role="grid">
+<table style="width: 220px;" role="grid">
     <tbody>
         @for (var index = 0; index < sparklineExamples.Count; index++)
         {
@@ -38,8 +30,8 @@
                 <td style="padding-block:5px;padding-inline-end:15px;">Row @(index + 1)</td>
                 <td>
                     <FluentSparklineChart ChartData="@sparklineExamples[index]"
-                                          Width="80"
-                                          Height="20"
+                                          Width="80px"
+                                          Height="20px"
                                           ShowLegend="@(index < 2 || index > 4)">
                     </FluentSparklineChart>
                 </td>
@@ -49,8 +41,6 @@
 </table>
 
 @code {
-    private ChartTitleAlign _titleAlign = ChartTitleAlign.Center;
-
     private readonly IReadOnlyList<SparklineChartData> sparklineExamples =
     [
         new SparklineChartData
@@ -171,6 +161,3 @@
             ],
         };
 }
-
-
-

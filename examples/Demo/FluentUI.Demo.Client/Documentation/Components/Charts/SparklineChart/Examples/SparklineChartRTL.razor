@@ -1,27 +1,14 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Charts
-@using System.Globalization
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
 
-<div style="margin-bottom: 16px; max-width: 220px;">
-    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
-        @foreach (var cultureName in Cultures)
-        {
-            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
-        }
-    </FluentSelect>
-</div>
+<div dir="rtl">
 
 <FluentSparklineChart ChartData="@sparklineData"
-                      Width="650"
-                      Height="350"
-                      Culture="@SelectedCulture"
                       ShowLegend="true"
                       Style="display: block;">
 </FluentSparklineChart>
+</div>
 
 @code {
-    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
-
-    private string _selectedCulture = Cultures[0];
 
     private readonly SparklineChartData sparklineData = new()
     {
@@ -47,9 +34,8 @@
             },
         ],
     };
-
-    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
 }
+
 
 
 
