@@ -6,22 +6,6 @@ function highlightElement(element) {
   globalThis.hljs.highlightElement(element);
 }
 
-function synchronizeHighlightTheme() {
-  const linkLight = document.querySelector('link[title="highlight-light"]');
-  const linkDark = document.querySelector('link[title="highlight-dark"]');
-  if (!linkLight || !linkDark) {
-    return;
-  }
-
-  const isDark = typeof globalThis.Blazor?.theme?.isDarkMode === "function"
-    ? globalThis.Blazor.theme.isDarkMode()
-    : document.body.dataset.theme === "dark"
-      || globalThis.matchMedia?.("(prefers-color-scheme: dark)").matches;
-
-  linkLight.disabled = isDark;
-  linkDark.disabled = !isDark;
-}
-
 async function refreshTabs() {
   await globalThis.customElements.whenDefined("fluent-tablist");
 
@@ -40,9 +24,8 @@ export async function initialize() {
     console.warn("highlight.js is not yet initialized.");
     return;
   }
-
   await refreshTabs();
-  synchronizeHighlightTheme();
+  await refreshTabs();
 
   for (const element of document.querySelectorAll("[data-highlight]")) {
     highlightElement(element);
