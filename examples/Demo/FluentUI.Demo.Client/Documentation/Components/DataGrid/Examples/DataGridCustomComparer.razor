@@ -137,7 +137,9 @@
     private void HandleSortChanged(DataGridSortEventArgs<Country> args)
     {
         var sort = args.SortColumns.FirstOrDefault();
-        Console.WriteLine($"[Custom comparer] Sort changed: {sort.Column?.Title} sorted {(sort.Ascending ? "ascending" : "descending")}");
+        Console.WriteLine(sort is null
+            ? "[Custom comparer] Sort cleared"
+            : $"[Custom comparer] Sort changed: {sort.Column.Title} sorted {(sort.Ascending ? "ascending" : "descending")}");
     }
 
     public class StringLengthComparer : IComparer<string>
