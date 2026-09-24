@@ -1,0 +1,44 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10" Style="margin-bottom: 16px;">
+    <FluentRadioGroup Label="X Axis Tick Labels" @bind-Value="@_axisLabelMode" Name="vsbar-axis-label-mode">
+        <FluentRadio Value="@AxisLabelMode.ShowTooltip">Show tooltip at x-axis ticks</FluentRadio>
+        <FluentRadio Value="@AxisLabelMode.WrapLabels">Wrap x-axis ticks</FluentRadio>
+    </FluentRadioGroup>
+    <FluentSwitch @bind-Value="@_roundedCorners" Label="Round corners" />
+</FluentStack>
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart axis tooltip example"
+                               ChartData="@_chartData"
+                               Width="650px"
+                               Height="350px"
+                               BarWidth="16"
+                               BarGapMax="2"
+                               ShowXAxisLabelsTooltip="@(_axisLabelMode == AxisLabelMode.ShowTooltip)"
+                               WrapXAxisLabels="@(_axisLabelMode == AxisLabelMode.WrapLabels)"
+                               RoundedCorners="@_roundedCorners"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private AxisLabelMode _axisLabelMode = AxisLabelMode.ShowTooltip;
+    private bool _roundedCorners;
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        CreateStack("Simple Data", [CreatePoint("Metadata1", 2, "qualitative.1"), CreatePoint("Metadata2", 0.5, "qualitative.2"), CreatePoint("Metadata3", 0, "qualitative.3")]),
+        CreateStack("Long text will display all text", [CreatePoint("Metadata1", 30, "qualitative.1"), CreatePoint("Metadata2", 3, "qualitative.2"), CreatePoint("Metadata3", 40, "qualitative.3")]),
+        CreateStack("Data", [CreatePoint("Metadata1", 10, "qualitative.1"), CreatePoint("Metadata2", 60, "qualitative.2"), CreatePoint("Metadata3", 30, "qualitative.3")]),
+        CreateStack("Meta data", [CreatePoint("Metadata1", 2, "qualitative.1"), CreatePoint("Metadata2", 0.5, "qualitative.2"), CreatePoint("Metadata3", 0, "qualitative.3")]),
+    ];
+
+    private static VerticalStackedBarChartData CreateStack(string x, IReadOnlyList<VerticalStackedBarChartDataPoint> points) => new() { XAxisPoint = x, ChartData = points };
+
+    private static VerticalStackedBarChartDataPoint CreatePoint(string legend, double data, string color) => new() { Legend = legend, Data = data, Color = DataVizPalette.Custom, CustomColor = color };
+
+    private enum AxisLabelMode
+    {
+        ShowTooltip,
+        WrapLabels,
+    }
+}

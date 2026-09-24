@@ -1,0 +1,103 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGroupedVerticalBarChart ChartTitle="Grouped Vertical Bar chart secondary y-axis example"
+                               ChartData="@_chartData"
+                               Width="700px"
+                               Height="300px"
+                               BarWidth="16"
+                               HideTickOverlap="true">
+</FluentGroupedVerticalBarChart>
+
+@code {
+    private readonly IReadOnlyList<GroupedVerticalBarChartData> _chartData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jan - Mar",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series1",
+                    Data = 24000,
+                    Color = DataVizPalette.Color6,
+                    Legend = "2021",
+                },
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series2",
+                    Data = 54000,
+                    Color = DataVizPalette.Color5,
+                    Legend = "2022",
+                    UseSecondaryYScale = true,
+                },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Apr - Jun",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series1",
+                    Data = 12000,
+                    Color = DataVizPalette.Color6,
+                    Legend = "2021",
+                },
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series2",
+                    Data = 9000,
+                    Color = DataVizPalette.Color5,
+                    Legend = "2022",
+                    UseSecondaryYScale = true,
+                },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jul - Sep",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series1",
+                    Data = 10000,
+                    Color = DataVizPalette.Color6,
+                    Legend = "2021",
+                },
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series2",
+                    Data = 60000,
+                    Color = DataVizPalette.Color5,
+                    Legend = "2022",
+                    UseSecondaryYScale = true,
+                },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Oct - Dec",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series1",
+                    Data = 15000,
+                    Color = DataVizPalette.Color6,
+                    Legend = "2021",
+                },
+                new GroupedVerticalBarChartDataPoint
+                {
+                    Key = "series2",
+                    Data = 6000,
+                    Color = DataVizPalette.Color5,
+                    Legend = "2022",
+                    UseSecondaryYScale = true,
+                },
+            ],
+        },
+    ];
+}

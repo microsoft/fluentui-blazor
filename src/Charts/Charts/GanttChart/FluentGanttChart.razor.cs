@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
@@ -50,23 +49,4 @@ public partial class FluentGanttChart : FluentCartesianChartBase
     /// </summary>
     [Parameter]
     public int? BarHeight { get; set; }
-
-    /// <summary>
-    /// Gets or sets the explicit set of x-axis tick values to render when the chart uses a
-    /// <b>date</b> x-axis. When set, only the specified dates appear as tick marks instead of
-    /// the auto-generated ones.
-    /// For numeric axes, use the base-class <c>TickValues</c> property instead.
-    /// </summary>
-    [Parameter]
-    public IEnumerable<DateTime>? DateTickValues { get; set; }
-
-    /// <inheritdoc />
-    /// <remarks>
-    /// When <see cref="DateTickValues"/> is set, dates are converted to Unix millisecond timestamps
-    /// before serialisation so the web component receives the expected numeric format.
-    /// </remarks>
-    internal override string? TickValuesJson =>
-        DateTickValues is not null
-            ? JsonSerializer.Serialize(DateTickValues.Select(d => (double)new DateTimeOffset(d).ToUnixTimeMilliseconds()), ChartJsonSerializerContext.Default.IEnumerableDouble)
-            : base.TickValuesJson;
 }
