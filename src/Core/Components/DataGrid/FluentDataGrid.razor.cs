@@ -72,11 +72,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private AsyncServiceScope? _scope;
     private bool _asyncQueryExecuted;
     private readonly InternalGridContext<TGridItem> _internalGridContext;
-    // The columns the grid displays, in display order. Everything that renders or positions a column reads this one.
+    // Every collected column in display order, hidden ones (ColumnBase.Visible) included, so that the column order, the
+    // sort and the column keys keep holding them. What renders or positions a column reads VisibleColumns instead.
     internal readonly List<ColumnBase<TGridItem>> _columns;
-    // Every collected column in display order, hidden ones (ColumnBase.Visible) included, so that the column order,
-    // the sort and the column keys keep holding them while they are hidden.
-    internal readonly List<ColumnBase<TGridItem>> _allColumns;
     private bool _collectingColumns;
     private ColumnBase<TGridItem>? _activeHeaderUiColumn;
     private ColumnHeaderUiKind _activeHeaderUiKind;
@@ -148,7 +146,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         Id = Identifier.NewId();
         _columns = [];
-        _allColumns = [];
         _columnOrder = [];
         _internalGridContext = new(this);
         _currentPageItemsChanged = new(EventCallback.Factory.Create<PaginationState>(this, RefreshDataCoreAsync));
@@ -777,7 +774,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
-        if (_allColumns.Count > 0 && mustRefreshData)
+        if (_columns.Count > 0 && mustRefreshData)
         {
             await RefreshDataCoreAsync();
         }
@@ -852,7 +849,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             if (AutoFit)
             {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
+                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, VisibleColumns.Count);
             }
         }
 
@@ -934,6 +931,29 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
+    /// <summary>
+    /// Gets the columns the grid displays, in display order: every collected column but the hidden ones. When no column
+    /// is hidden, which is the usual case, this is the list of all the columns itself, so reading it allocates nothing.
+    /// </summary>
+    internal IReadOnlyList<ColumnBase<TGridItem>> VisibleColumns
+        => _columns.TrueForAll(column => column.Visible) ? _columns : [.. _columns.Where(column => column.Visible)];
+
+    /// <summary>
+    /// Gets the displayed column at the specified <paramref name="index"/> (1-based, see <see cref="ColumnBase{TGridItem}.Index"/>),
+    /// or <see langword="null"/> when there is none.
+    /// </summary>
+    internal ColumnBase<TGridItem>? GetVisibleColumn(int index)
+    {
+        if (index <= 0)
+        {
+            return null;
+        }
+
+        // Without hidden columns, the column at an index is the one at that place in the list.
+        var column = index <= _columns.Count ? _columns[index - 1] : null;
+        return column?.Index == index ? column : _columns.Find(c => c.Index == index);
+    }
+
     // Invoked by descendant columns at a special time during rendering
     internal void AddColumn(ColumnBase<TGridItem> column, DataGridSortDirection? initialSortDirection, bool isDefaultSortColumn)
     {
@@ -942,8 +962,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
-        column.SetColumnIndex(_allColumns.Count + 1);
-        _allColumns.Add(column);
+        column.SetColumnIndex(_columns.Count + 1);
+        _columns.Add(column);
 
         if (!isDefaultSortColumn || !initialSortDirection.HasValue || _collectedDefaultSortColumns.Exists(x => x.Column == column))
         {
@@ -986,7 +1006,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private void StartCollectingColumns()
     {
-        _allColumns.Clear();
         _columns.Clear();
         _collectedDefaultSortColumns.Clear();
         _collectingColumns = true;
@@ -995,30 +1014,30 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void FinishCollectingColumns()
     {
         _collectingColumns = false;
-        _manualGrid = _allColumns.Count == 0;
+        _manualGrid = _columns.Count == 0;
         RebuildDeclaredSort();
 
         // Ahead of the sort being restored, which resolves saved levels to columns by their key.
         AssignColumnKeys();
 
-        if (_allColumns.Count > 0)
+        if (_columns.Count > 0)
         {
             // Sort state that was restored before the columns existed can only be resolved to columns now.
             ApplyPendingSortStateFromUrl();
             _defaultSortApplied = true;
         }
 
-        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _allColumns.Exists(x => x is not SelectColumn<TGridItem> && !string.IsNullOrWhiteSpace(x.Width)))
+        if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Exists(x => x is not SelectColumn<TGridItem> && !string.IsNullOrWhiteSpace(x.Width)))
         {
             throw new ArgumentException("You can use either the 'GridTemplateColumns' parameter on the grid or the 'Width' property at the column level, not both.");
         }
 
-        if (_allColumns.Where(x => x.HierarchicalToggle).Skip(1).Any())
+        if (_columns.Where(x => x.HierarchicalToggle).Skip(1).Any())
         {
             throw new ArgumentException("Only one column can have 'HierarchicalToggle' set to true.");
         }
 
-        if (_allColumns.Exists(x => x.HierarchicalToggle) && !_allColumns[0].HierarchicalToggle)
+        if (_columns.Exists(x => x.HierarchicalToggle) && !_columns[0].HierarchicalToggle)
         {
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
@@ -1042,11 +1061,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             RowSize,
             MultiLine,
             _internalGridTemplateColumns);
-        var changed = _columnInteractionOptions != options || _columnInteractionColumns.Count != _columns.Count;
+        // The script resizes and moves the displayed columns, so it has to be set up again when they change.
+        var columns = VisibleColumns;
+        var changed = _columnInteractionOptions != options || _columnInteractionColumns.Count != columns.Count;
 
-        for (var columnIndex = 0; columnIndex < _columns.Count; columnIndex++)
+        for (var columnIndex = 0; columnIndex < columns.Count; columnIndex++)
         {
-            var column = _columns[columnIndex];
+            var column = columns[columnIndex];
             var state = (column, column.ColumnKey, column.Pin, column.Width, column.MinWidth);
             if (columnIndex >= _columnInteractionColumns.Count)
             {
@@ -1059,9 +1080,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        if (_columnInteractionColumns.Count > _columns.Count)
+        if (_columnInteractionColumns.Count > columns.Count)
         {
-            _columnInteractionColumns.RemoveRange(_columns.Count, _columnInteractionColumns.Count - _columns.Count);
+            _columnInteractionColumns.RemoveRange(columns.Count, _columnInteractionColumns.Count - columns.Count);
         }
 
         if (changed)
@@ -1077,7 +1098,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         var keyCounts = new Dictionary<string, int>(StringComparer.Ordinal);
 
-        foreach (var column in _allColumns)
+        foreach (var column in _columns)
         {
             var baseKey = GetColumnKeyBase(column);
             keyCounts.TryGetValue(baseKey, out var existingCount);
@@ -1111,10 +1132,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     private void ApplyStoredColumnOrder()
     {
-        if (_allColumns.Count == 0)
+        if (_columns.Count == 0)
         {
             _columnOrder.Clear();
-            _columns.Clear();
             return;
         }
 
@@ -1124,9 +1144,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _columnOrder.AddRange(ColumnOrder.Where(x => !string.IsNullOrWhiteSpace(x)));
         }
 
-        var startPinnedColumns = _allColumns.Where(c => c.Pin == DataGridColumnPin.Start).ToList();
-        var reorderableColumns = _allColumns.Where(c => c.Pin == DataGridColumnPin.None).ToList();
-        var endPinnedColumns = _allColumns.Where(c => c.Pin == DataGridColumnPin.End).ToList();
+        var startPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.Start).ToList();
+        var reorderableColumns = _columns.Where(c => c.Pin == DataGridColumnPin.None).ToList();
+        var endPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.End).ToList();
 
         if (_columnOrder.Count > 0 && reorderableColumns.Count > 0)
         {
@@ -1140,53 +1160,22 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 .ThenBy(column => column.Index)];
         }
 
-        _allColumns.Clear();
-        _allColumns.AddRange(startPinnedColumns);
-        _allColumns.AddRange(reorderableColumns);
-        _allColumns.AddRange(endPinnedColumns);
-
-        UpdateVisibleColumns();
-        UpdateTrackedColumnOrder();
-    }
-
-    /// <summary>
-    /// Rebuilds the displayed columns from every collected column, leaving out the hidden ones, and numbers them.
-    /// </summary>
-    private void UpdateVisibleColumns()
-    {
         _columns.Clear();
-        _columns.AddRange(_allColumns.Where(column => column.Visible));
-
-        foreach (var column in _allColumns.Where(column => !column.Visible))
-        {
-            // A hidden column has no position in the grid, so it cannot be mistaken for the one displayed there.
-            column.SetColumnIndex(0);
-        }
+        _columns.AddRange(startPinnedColumns);
+        _columns.AddRange(reorderableColumns);
+        _columns.AddRange(endPinnedColumns);
 
         ResetColumnIndices();
-    }
-
-    /// <summary>
-    /// Writes the order of the displayed columns back into every collected column, where the hidden columns keep the
-    /// places they had, so that they come back there once shown again.
-    /// </summary>
-    private void MergeVisibleColumnOrder()
-    {
-        var visibleIndex = 0;
-        for (var index = 0; index < _allColumns.Count; index++)
-        {
-            if (_allColumns[index].Visible)
-            {
-                _allColumns[index] = _columns[visibleIndex++];
-            }
-        }
+        UpdateTrackedColumnOrder();
     }
 
     private void ResetColumnIndices()
     {
-        for (var index = 0; index < _columns.Count; index++)
+        // An index is a place among the displayed columns (grid-column, col-index), so a hidden column has none.
+        var index = 0;
+        foreach (var column in _columns)
         {
-            _columns[index].SetColumnIndex(index + 1);
+            column.SetColumnIndex(column.Visible ? ++index : 0);
         }
     }
 
@@ -1198,16 +1187,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
+        var visibleColumns = VisibleColumns;
         var gridTemplateColumns = GetVisibleGridTemplateColumns();
 
         if (!AutoFit)
         {
-            _internalGridTemplateColumns = gridTemplateColumns ?? string.Join(' ', Enumerable.Repeat("1fr", _columns.Count));
+            _internalGridTemplateColumns = gridTemplateColumns ?? string.Join(' ', Enumerable.Repeat("1fr", visibleColumns.Count));
         }
 
-        if (_columns.Exists(x => !string.IsNullOrWhiteSpace(x.Width)))
+        if (visibleColumns.Any(x => !string.IsNullOrWhiteSpace(x.Width)))
         {
-            _internalGridTemplateColumns = gridTemplateColumns ?? string.Join(' ', _columns.Select(x => x.Width ?? "auto"));
+            _internalGridTemplateColumns = gridTemplateColumns ?? string.Join(' ', visibleColumns.Select(x => x.Width ?? "auto"));
         }
     }
 
@@ -1218,18 +1208,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     private string? GetVisibleGridTemplateColumns()
     {
-        if (string.IsNullOrWhiteSpace(GridTemplateColumns) || _columns.Count == _allColumns.Count)
+        if (string.IsNullOrWhiteSpace(GridTemplateColumns) || _columns.TrueForAll(column => column.Visible))
         {
             return GridTemplateColumns;
         }
 
         var tracks = SplitGridTemplateTracks(GridTemplateColumns);
-        if (tracks.Count != _allColumns.Count)
+        if (tracks.Count != _columns.Count)
         {
             return GridTemplateColumns;
         }
 
-        return string.Join(' ', tracks.Where((_, index) => _allColumns[index].Visible));
+        return string.Join(' ', tracks.Where((_, index) => _columns[index].Visible));
     }
 
     /// <summary>
@@ -1278,7 +1268,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void UpdateTrackedColumnOrder()
     {
         _columnOrder.Clear();
-        _columnOrder.AddRange(_allColumns.Select(column => column.ColumnKey));
+        _columnOrder.AddRange(_columns.Select(column => column.ColumnKey));
     }
 
     /// <summary>
@@ -1293,7 +1283,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     private void ValidateAndComputePinnedColumns()
     {
-        var hasPinned = _columns.Exists(c => c.Pin != DataGridColumnPin.None);
+        var visibleColumns = VisibleColumns;
+        var hasPinned = visibleColumns.Any(c => c.Pin != DataGridColumnPin.None);
         if (!hasPinned)
         {
             return;
@@ -1303,7 +1294,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         // Compute start-pin sticky offsets in display order.
         var startOffset = 0.0;
-        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.Start))
+        foreach (var col in visibleColumns.Where(c => c.Pin == DataGridColumnPin.Start))
         {
             col.PinOffset = $"{startOffset.ToString(CultureInfo.InvariantCulture)}px";
             startOffset += ParsePixelWidth(col.Width);
@@ -1311,7 +1302,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         // Compute end-pin sticky offsets in reverse display order.
         var endOffset = 0.0;
-        foreach (var col in _columns.Where(c => c.Pin == DataGridColumnPin.End).Reverse())
+        foreach (var col in visibleColumns.Where(c => c.Pin == DataGridColumnPin.End).Reverse())
         {
             col.PinOffset = $"{endOffset.ToString(CultureInfo.InvariantCulture)}px";
             endOffset += ParsePixelWidth(col.Width);
@@ -1325,7 +1316,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private void ValidatePinnedColumnConstraints()
     {
         // Width must be explicitly provided for pinned columns.
-        foreach (var col in _allColumns.Where(c => c.Pin != DataGridColumnPin.None))
+        foreach (var col in _columns.Where(c => c.Pin != DataGridColumnPin.None))
         {
             if (string.IsNullOrWhiteSpace(col.Width))
             {
@@ -1337,24 +1328,24 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         // Start-pinned columns must be contiguous at the start: each one must be preceded by
         // another start-pinned column (or be the very first column).
-        for (var i = 0; i < _allColumns.Count; i++)
+        for (var i = 0; i < _columns.Count; i++)
         {
-            if (_allColumns[i].Pin == DataGridColumnPin.Start && i > 0 && _allColumns[i - 1].Pin != DataGridColumnPin.Start)
+            if (_columns[i].Pin == DataGridColumnPin.Start && i > 0 && _columns[i - 1].Pin != DataGridColumnPin.Start)
             {
                 throw new ArgumentException(
-                    $"Column '{_allColumns[i].Title ?? _allColumns[i].Index.ToString(CultureInfo.InvariantCulture)}' is start-pinned but the preceding column is not. " +
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is start-pinned but the preceding column is not. " +
                     "Start-pinned columns must be contiguous at the start of the column list.");
             }
         }
 
         // End-pinned columns must be contiguous at the end: each one must be followed by
         // another end-pinned column (or be the very last column).
-        for (var i = 0; i < _allColumns.Count; i++)
+        for (var i = 0; i < _columns.Count; i++)
         {
-            if (_allColumns[i].Pin == DataGridColumnPin.End && i < _allColumns.Count - 1 && _allColumns[i + 1].Pin != DataGridColumnPin.End)
+            if (_columns[i].Pin == DataGridColumnPin.End && i < _columns.Count - 1 && _columns[i + 1].Pin != DataGridColumnPin.End)
             {
                 throw new ArgumentException(
-                    $"Column '{_allColumns[i].Title ?? _allColumns[i].Index.ToString(CultureInfo.InvariantCulture)}' is end-pinned but the following column is not. " +
+                    $"Column '{_columns[i].Title ?? _columns[i].Index.ToString(CultureInfo.InvariantCulture)}' is end-pinned but the following column is not. " +
                     "End-pinned columns must be contiguous at the end of the column list.");
             }
         }
@@ -1412,7 +1403,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Gets the grid's current column order, hidden columns included.
     /// </summary>
-    public IReadOnlyList<string> GetColumnOrder() => [.. _allColumns.Select(column => column.ColumnKey)];
+    public IReadOnlyList<string> GetColumnOrder() => [.. _columns.Select(column => column.ColumnKey)];
 
     /// <summary>
     /// Applies a persisted column order to the current grid.
@@ -1428,7 +1419,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _columnOrder.AddRange(columnOrder.Where(x => !string.IsNullOrWhiteSpace(x)));
         }
 
-        if (_allColumns.Count == 0)
+        if (_columns.Count == 0)
         {
             return Task.CompletedTask;
         }
@@ -1522,15 +1513,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         reorderableColumns.RemoveAt(currentIndex);
         reorderableColumns.Insert(targetIndex, column);
 
-        var startPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.Start).ToList();
-        var endPinnedColumns = _columns.Where(c => c.Pin == DataGridColumnPin.End).ToList();
+        // The moved columns take the places of the displayed unpinned ones, so the pinned and the hidden columns stay
+        // where they are.
+        var reorderableIndex = 0;
+        for (var index = 0; index < _columns.Count; index++)
+        {
+            if (_columns[index].Visible && _columns[index].Pin == DataGridColumnPin.None)
+            {
+                _columns[index] = reorderableColumns[reorderableIndex++];
+            }
+        }
 
-        _columns.Clear();
-        _columns.AddRange(startPinnedColumns);
-        _columns.AddRange(reorderableColumns);
-        _columns.AddRange(endPinnedColumns);
-
-        MergeVisibleColumnOrder();
         ResetColumnIndices();
         ValidateAndComputePinnedColumns();
         UpdateGridTemplateColumns();
@@ -1563,7 +1556,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         => GetReorderableColumns().IndexOf(column);
 
     private List<ColumnBase<TGridItem>> GetReorderableColumns()
-        => [.. _columns.Where(c => c.Pin == DataGridColumnPin.None)];
+        => [.. VisibleColumns.Where(c => c.Pin == DataGridColumnPin.None)];
 
     private Task ShowColumnHeaderUiAsync(ColumnBase<TGridItem> column, ColumnHeaderUiKind kind)
     {
@@ -1694,7 +1687,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task AddSortByColumnAsync(string title, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
-        var column = _allColumns.Find(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+        var column = _columns.Find(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
 
         return column is not null ? AddSortByColumnAsync(column, direction) : Task.CompletedTask;
     }
@@ -1794,7 +1787,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task SortByColumnAsync(string title, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
-        var column = _allColumns.Find(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+        var column = _columns.Find(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
 
         return column is not null ? SortByColumnAsync(column, direction) : Task.CompletedTask;
     }
@@ -2540,7 +2533,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     private void ApplyPendingSortStateFromUrl()
     {
-        if (_pendingSortStateFromUrl is null || _allColumns.Count == 0)
+        if (_pendingSortStateFromUrl is null || _columns.Count == 0)
         {
             return;
         }
@@ -2585,9 +2578,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             // A level names its column by key, which stays distinct when two columns share a title, so the levels
             // come back on the columns they were saved from whatever order they were sorted in. Levels saved by an
             // earlier version hold the title instead, so that is tried next.
-            var column = _allColumns.Find(c => string.Equals(c.ColumnKey, columnReference, StringComparison.Ordinal)
+            var column = _columns.Find(c => string.Equals(c.ColumnKey, columnReference, StringComparison.Ordinal)
                     && !levels.Exists(x => x.Column == c))
-                ?? _allColumns.Find(c => string.Equals(c.Title, columnReference, StringComparison.Ordinal)
+                ?? _columns.Find(c => string.Equals(c.Title, columnReference, StringComparison.Ordinal)
                     && !levels.Exists(x => x.Column == c));
 
             // Sort state that no longer matches a sortable column, or that cannot be applied at this level, is dropped

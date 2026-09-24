@@ -92,7 +92,7 @@
             </FluentDataGrid>);
 
         // Act
-        await cut.InvokeAsync(() => grid.MoveColumnToEndAsync(grid._columns[0]));
+        await cut.InvokeAsync(() => grid.MoveColumnToEndAsync(grid.VisibleColumns[0]));
 
         // Assert: the displayed columns moved around the second place, which the hidden column keeps.
         Assert.Equal(["Level", "City", "Department"], GetHeaderTitles(cut));
@@ -163,7 +163,7 @@
     }
 
     [Fact]
-    public void FluentDataGrid_Visible_False_OnAPinnedColumn_OffsetsTheNextPinnedColumnFromTheEdge()
+    public void FluentDataGrid_Visible_False_OnAPinnedColumn_DoesNotOffsetTheNextPinnedColumn()
     {
         // Arrange && Act
         FluentDataGrid<Employee>? grid = default!;
@@ -175,9 +175,24 @@
             </FluentDataGrid>);
 
         // Assert
-        Assert.Equal("Name", grid._columns[0].Title);
-        Assert.Equal("0px", grid._columns[0].PinOffset);
+        Assert.Equal("Name", grid.VisibleColumns[0].Title);
+        Assert.Equal("0px", grid.VisibleColumns[0].PinOffset);
         Assert.Contains("grid-template-columns: 150px 100px;", cut.Find("table").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_VisibleColumns_WithoutHiddenColumns_IsTheListOfAllColumns()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()">
+                <PropertyColumn Property="@(x => x.Department)" />
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+
+        // Assert: rows read the displayed columns on every render, so the usual case must not allocate.
+        Assert.Same(grid._columns, grid.VisibleColumns);
     }
 
     private static List<string> GetHeaderTitles(IRenderedComponent<FluentDataGrid<Employee>> cut)
