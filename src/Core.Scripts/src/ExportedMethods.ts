@@ -11,8 +11,11 @@ import { Microsoft as FluentTextInput } from './Components/TextInput/TextInput';
 import { Microsoft as FluentOverlayFile } from './Components/Overlay/FluentOverlay';
 import { Microsoft as FluentListBoxContainerFile } from './Components/List/ListBoxContainer';
 import { Microsoft as FluentAutocompleteFile } from './Components/List/FluentAutocomplete';
+import { Microsoft as FluentSelectFile } from './Components/List/FluentSelect';
 import { Microsoft as FluentMenuFile } from './Components/Menu/FluentMenu';
 import { Microsoft as FluentColorPickerFile } from './Components/ColorPicker/FluentColorPicker';
+import { Microsoft as FluentKeyCodeFile } from './Components/KeyCode/FluentKeyCode';
+import { Microsoft as FluentOverflowFile } from './Components/Overflow/FluentOverflowInterop';
 
 export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
 
@@ -44,8 +47,11 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Components.Overlay = FluentOverlayFile.FluentUI.Blazor.Components.Overlay;
     (window as any).Microsoft.FluentUI.Blazor.Components.ListBoxContainer = FluentListBoxContainerFile.FluentUI.Blazor.Components.ListBoxContainer;
     (window as any).Microsoft.FluentUI.Blazor.Components.Autocomplete = FluentAutocompleteFile.FluentUI.Blazor.Components.Autocomplete;
+    (window as any).Microsoft.FluentUI.Blazor.Components.Select = FluentSelectFile.FluentUI.Blazor.Components.Select;
     (window as any).Microsoft.FluentUI.Blazor.Components.Menu = FluentMenuFile.FluentUI.Blazor.Components.Menu;
     (window as any).Microsoft.FluentUI.Blazor.Components.ColorPicker = FluentColorPickerFile.FluentUI.Blazor.Components.ColorPicker;
+    (window as any).Microsoft.FluentUI.Blazor.Components.KeyCode = FluentKeyCodeFile.FluentUI.Blazor.Components.KeyCode;
+    (window as any).Microsoft.FluentUI.Blazor.Components.Overflow = FluentOverflowFile.FluentUI.Blazor.Components.Overflow;
 
     // [^^^ Add your other exported methods before this line ^^^]
   }

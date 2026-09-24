@@ -1,4 +1,10 @@
 export {
+  AreaChart,
+  AreaChartDefinition,
+  AreaChartStyles,
+  AreaChartTemplate
+} from './area-chart/index.js';
+export {
   ChartLegend,
   ChartLegendDefinition,
   ChartLegendStyles,

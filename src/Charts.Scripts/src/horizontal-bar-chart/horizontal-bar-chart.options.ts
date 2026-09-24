@@ -1,9 +1,15 @@
-export enum Variant {
-  PartToWhole = 'part-to-whole',
-  AbsoluteScale = 'absolute-scale',
-  SingleBar = 'single-bar',
-}
+/**
+ * Display variant of the horizontal bar chart.
+ *
+ * @public
+ */
+export type HorizontalBarChartVariant = 'part-to-whole' | 'absolute-scale' | 'single-bar';
 
+/**
+ * A single data point in the horizontal bar chart.
+ *
+ * @public
+ */
 export interface HorizontalBarChartDataPoint {
   /**
    * Legend text for the datapoint in the chart
@@ -30,9 +36,18 @@ export interface HorizontalBarChartDataPoint {
    */
   color?: string;
 
+  /**
+   * Gradient fill for the bar. A tuple of two CSS color strings: [startColor, endColor].
+   * When provided, overrides the `color` property.
+   */
   gradient?: [string, string];
 }
 
+/**
+ * Props for a single series in the horizontal bar chart.
+ *
+ * @public
+ */
 export interface HorizontalBarChartProps {
   /**
    * title for the data series
@@ -44,7 +59,13 @@ export interface HorizontalBarChartProps {
    */
   chartData: HorizontalBarChartDataPoint[];
 
+  /**
+   * Benchmark value rendered as a reference line on the bar.
+   */
   benchmarkData?: number;
 
+  /**
+   * Text label displayed alongside the bar, overriding the computed data label.
+   */
   chartDataText?: string;
 }

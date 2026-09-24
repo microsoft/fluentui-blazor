@@ -411,7 +411,7 @@ FodyWeavers.xsd
 
 # JavaScript files (only TypeScript)
 *.js
-*.razor.js.map
+*.js.map
 
 #templates JavaScript files must not be ignored
 !src/Templates/**/*.js
@@ -433,3 +433,4 @@ all-emojis.json
 /src/Core.Scripts/obj/
 /.playwright-mcp
 /src/Charts.Scripts/sync-from-monorepo.ps1
+/src/Charts/wwwroot/js/chart-tooltip-bridge.js.map

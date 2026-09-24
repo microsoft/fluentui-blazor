@@ -52,6 +52,12 @@ Setting `ShowLabelsInPercent` displays each segment's label as a percentage of t
 
 {{ DonutChartShowLabelsInPercent }}
 
+### Value inside donut
+
+The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
+
+{{ DonutChartValueInsideDonut }}
+
 ### Hide labels
 
 Setting `HideLabels` suppresses the callout labels around the chart segments, leaving only the legend to identify each slice.
@@ -76,12 +82,6 @@ Use the sliders to adjust the chart's `Width`, `Height`, and `InnerRadius` at ru
 
 {{ DonutChartSizing }}
 
-### Outside labels
-
-Enabling `ShowOutsideLabels` moves each segment's label outside the ring, avoiding overlap for charts with many small segments.
-
-{{ DonutChartOutsideLabels }}
-
 ### Hide tooltip
 
 Setting `HideTooltip` disables the hover callout so that mousing over a segment no longer shows a data tooltip.
@@ -105,12 +105,6 @@ Setting the `Culture` property to a specific locale (here `de-DE`) formats all n
 When `AllowMultipleLegendSelection` is enabled, clicking a legend item highlights only the corresponding segment; multiple legend items can be selected at the same time.
 
 {{ DonutChartMultipleLegendSelection }}
-
-### Value inside donut
-
-The `ValueInsideDonut` property sets the text displayed in the center of the ring; use the text input to change the value and see the chart update in real time.
-
-{{ DonutChartValueInsideDonut }}
 
 ### RTL
 

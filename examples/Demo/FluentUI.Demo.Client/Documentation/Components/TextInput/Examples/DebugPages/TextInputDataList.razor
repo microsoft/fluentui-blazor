@@ -1,0 +1,19 @@
+@page "/textinput/debug/datalist"
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentTextInput DataList="example-datalist" @bind-Value="@Value" />
+
+    <datalist id="example-datalist">
+        <option value="Option 1"></option>
+        <option value="Option 2"></option>
+        <option value="Option 3"></option>
+    </datalist>
+
+</FluentStack>
+
+Value = @Value
+
+@code
+{
+    string Value = "";
+}

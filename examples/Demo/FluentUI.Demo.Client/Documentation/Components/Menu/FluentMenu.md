@@ -78,6 +78,27 @@ await Menu.OpenMenuAsync("Target2", targetOffsetLeft: 10, targetOffsetTop: 5);
 
 {{ MenuProgrammaticMultipleTargets }}
 
+## RenderWhen
+
+Use the `RenderWhen` parameter to defer rendering a menu until it is needed. It accepts a `Func<bool>` that is
+evaluated whenever the component renders. While the function returns `false`, the menu and its child content are not
+added to the DOM. When it returns `true`, the menu is rendered, initialized, and opened automatically.
+
+This is useful for menus whose content is expensive to create, depends on data that is loaded on demand, or should not
+be present in the DOM until the user requests it. The parameter is optional; when it is not set, the menu is always
+rendered and behaves as usual.
+
+The example below demonstrates two ways to use `RenderWhen`:
+
+1. **Defer rendering and keep the menu in the DOM.** The first menu sets its rendering condition to `true` when the
+	button is clicked. After its first opening, the condition remains `true`, so the menu stays in the DOM and can be
+	reopened without being rendered again.
+2. **Defer rendering and remove the menu from the DOM when it closes.** The second menu uses `OpenedChanged` to update
+	its rendering condition. When the menu closes, the callback receives `false`, causing the menu and its content to be
+	removed from the DOM. The menu is rendered again the next time its button is clicked.
+
+{{ MenuRenderWhen }}
+
 ## Menu item slots
 A menu item can has slots that can be used for specific content. The slots are `indicator`, `start`, `end` and `submenu-glyph`. In the `FluentMenuItem`
 component, we have made parameters use icons for the content of these. The available parameters are `IconIndicator`, `IconStart`, `IconEnd` and `IconSubmenu`.

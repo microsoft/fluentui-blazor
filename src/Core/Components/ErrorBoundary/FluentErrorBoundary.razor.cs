@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -15,6 +16,8 @@ public partial class FluentErrorBoundary : FluentComponentBase
     private ErrorBoundary? ErrorBoundary;
 
     /// <summary />
+    [DynamicDependency(nameof(OnToggleAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]
     public FluentErrorBoundary(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary>

@@ -4,7 +4,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -13,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A textarea component that allows users to enter and edit multiple lines of text.
 /// </summary>
-public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress
+public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluentComponentElementBase, ITooltipComponent, IFluentComponentChangeAfterKeyPress, IFluentControlStyle, IFluentControlAriaLabel
 {
 
     /// <summary>
@@ -123,6 +122,10 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     [Parameter]
     public bool? Spellcheck { get; set; }
 
+    /// <inheritdoc cref="IFluentControlStyle.ControlStyle" />
+    [Parameter]
+    public string? ControlStyle { get; set; }
+
     /// <inheritdoc cref="ITooltipComponent.Tooltip" />
     [Parameter]
     public string? Tooltip { get; set; }
@@ -172,6 +175,11 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
 
             // Initialize the change after key press event
             await IFluentComponentChangeAfterKeyPress.InitializeRuntimeAsync(this, JSRuntime, Element);
+
+            if (!string.IsNullOrEmpty(ControlStyle))
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
+            }
         }
     }
 
@@ -187,17 +195,6 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
         result = value;
         validationErrorMessage = null;
         return true;
-    }
-
-    /// <summary>
-    /// Handler for the OnFocus event.
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    protected virtual Task FocusOutHandlerAsync(FocusEventArgs e)
-    {
-        FocusLost = true;
-        return Task.CompletedTask;
     }
 
     private string? DisplayShadow

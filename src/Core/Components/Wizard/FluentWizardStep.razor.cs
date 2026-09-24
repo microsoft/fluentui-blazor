@@ -196,6 +196,8 @@ public partial class FluentWizardStep : FluentComponentBase
     /// <summary>
     /// Validates all registered EditContexts.
     /// </summary>
+#pragma warning disable CS0618
+    // TODO: Make this method asynchronous and use EditContext.ValidateAsync when the public API can be changed.
     public bool ValidateEditContexts()
     {
         var isValid = true;
@@ -219,6 +221,7 @@ public partial class FluentWizardStep : FluentComponentBase
 
         return isValid;
     }
+#pragma warning restore CS0618
 
     /// <summary />
     public override async ValueTask DisposeAsync()

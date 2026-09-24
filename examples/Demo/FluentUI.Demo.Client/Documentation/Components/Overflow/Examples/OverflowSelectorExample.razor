@@ -1,0 +1,26 @@
+﻿<div class="resizable-horizontal" style="min-width: 200px;">
+    <FluentOverflow TItem="string"
+                    Selector=".overflow-item">
+        <div class="overflow-item" behavior="fixed">Pinned</div>
+        <div class="overflow-item">Blazor</div>
+        <div class="overflow-item">Microsoft</div>
+        <div class="overflow-item">Azure</div>
+        <div class="overflow-item" behavior="fixed">Visible</div>
+        <div class="overflow-item">DevOps</div>
+        <div class="overflow-item">Framework</div>
+    </FluentOverflow>
+</div>
+
+<style>
+    .overflow-item {
+        background: var(--colorNeutralBackground2);
+        border: dashed 1px var(--colorNeutralBackground2Selected);
+        padding: 2px 8px;
+    }
+
+    .overflow-item[behavior] {
+        background: var(--fill-color);
+        border: dashed 1px var(--colorStatusSuccessBorder1);
+        padding: 2px 8px;
+    }
+</style>

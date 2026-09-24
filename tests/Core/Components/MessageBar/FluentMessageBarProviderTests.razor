@@ -44,6 +44,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_ShowInfo_RendersMessage()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -65,6 +67,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_ShowSuccess_RendersMessage()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -80,6 +84,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_ShowWarning_RendersMessage()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -95,6 +101,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_ShowError_RendersMessage()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -110,6 +118,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_ShowMessage_OptionsObject()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -137,6 +147,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_Section_OnlyRendersMatchingSection()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cutA = Render(@<FluentMessageBarProvider Section="section-A" />);
         var cutB = Render(@<FluentMessageBarProvider Section="section-B" />);
@@ -154,6 +166,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_Section_CaseInsensitive()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="LOWER" />);
 
@@ -169,10 +183,18 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_Dismiss_RemovesMessage()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
-        var task = NotificationService.ShowInfoBarAsync(TEST_SECTION, "Dismiss me");
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Intent = MessageBarIntent.Info;
+            o.Title = "Dismiss me";
+            o.ResultTiming = MessageBarResultTiming.Closed;
+        });
         cut.WaitForAssertion(() => Assert.Contains("Dismiss me", cut.Markup));
 
         // Act
@@ -189,6 +211,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CloseAsync_ById_Closes()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -197,6 +221,7 @@
             o.Section = TEST_SECTION;
             o.Id = "to-close";
             o.Title = "Close me";
+            o.ResultTiming = MessageBarResultTiming.Closed;
         });
         cut.WaitForAssertion(() => Assert.Contains("Close me", cut.Markup));
 
@@ -213,6 +238,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CloseAsync_UnknownId_ReturnsFalse()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -229,6 +256,8 @@
     [InlineData("   ")]
     public async Task FluentMessageBarProvider_CloseAsync_InvalidId_ReturnsFalse(string? id)
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -242,6 +271,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CloseAsync_Instance_Programmatic()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -272,6 +303,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CloseAsync_Instance_WithMessageBarResult()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -280,6 +313,7 @@
         {
             o.Section = TEST_SECTION;
             o.Title = "With result";
+            o.ResultTiming = MessageBarResultTiming.Closed;
             o.OnStatusChange = args =>
             {
                 if (args.Status == MessageBarLifecycleStatus.Visible)
@@ -304,6 +338,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CloseAsync_NonInstance_NoOp()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -316,6 +352,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CloseAllAsync_RemovesAll()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -339,6 +377,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_DoubleClose_NoOp()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -378,17 +418,71 @@
             o.Section = TEST_SECTION;
             o.Title = "Auto";
             o.Lifetime = TimeSpan.FromMilliseconds(100);
+            o.ResultTiming = MessageBarResultTiming.Closed;
         });
 
-        var result = await task;
+        var result = await task.WaitAsync(Xunit.TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(MessageBarCloseReason.TimedOut, result.Reason);
     }
 
     [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ResultTiming_Visible_CompletesBeforeClose()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        // Act: default ResultTiming is Visible, so the task completes as soon as the message is shown.
+        var result = await NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Visible timing";
+        });
+
+        // Assert: result completed at visible time, and the message bar is still displayed.
+        Assert.Equal(MessageBarCloseReason.Programmatic, result.Reason);
+        Assert.Null(result.Data);
+        cut.WaitForAssertion(() => Assert.Contains("Visible timing", cut.Markup));
+
+        // Cleanup
+        await NotificationService.CloseAllMessageBarsAsync();
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentMessageBarProvider_ResultTiming_Closed_WaitsUntilClose()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange
+        var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
+
+        var task = NotificationService.ShowMessageBarAsync(o =>
+        {
+            o.Section = TEST_SECTION;
+            o.Title = "Closed timing";
+            o.ResultTiming = MessageBarResultTiming.Closed;
+        });
+        cut.WaitForAssertion(() => Assert.Contains("Closed timing", cut.Markup));
+
+        // Assert: the result is not completed while the message bar is visible.
+        Assert.False(task.IsCompleted);
+
+        // Act
+        cut.Find("fluent-button[slot='dismiss']").Click();
+        var result = await task;
+
+        // Assert
+        Assert.Equal(MessageBarCloseReason.Dismissed, result.Reason);
+    }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_Lifetime_Zero_StaysOpen()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -414,6 +508,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_OnStatusChange_RaisesAllEvents()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -441,6 +537,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_DuplicateId_Throws()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -473,6 +571,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_ShowMessage_NullOptions_Throws()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -489,6 +589,8 @@
     [InlineData("   ")]
     public async Task FluentMessageBarProvider_ShowMessage_EmptySection_Throws(string? section)
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -506,6 +608,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_NotRendered_Throws()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange: no FluentMessageBarProvider rendered
 
         // Act & Assert
@@ -518,6 +622,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_Dispose_UnsubscribesAndAllowsAnotherProvider()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var first = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -537,6 +643,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_AllProvidersDisposed_ServiceUnavailable()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var provider = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -553,6 +661,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CustomComponent_Rendered()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -573,6 +683,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_CustomComponent_OptionsObject()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
         var options = new MessageBarOptions
@@ -593,6 +705,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_EmptyMessage_DoesNotRenderContent()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -609,6 +723,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_MultipleMessages_OrderedByIndex()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cut = Render(@<FluentMessageBarProvider Section="@TEST_SECTION" />);
 
@@ -630,6 +746,8 @@
     [Fact(Timeout = TEST_TIMEOUT)]
     public async Task FluentMessageBarProvider_TwoProviders_DifferentSections()
     {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
         // Arrange
         var cutA = Render(@<FluentMessageBarProvider Section="A" />);
         var cutB = Render(@<FluentMessageBarProvider Section="B" />);

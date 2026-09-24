@@ -22,6 +22,17 @@ public class DisplayAttributeExtensionTests
     }
 
     [Fact]
+    public void Test_PropertyInfo_DisplayAttribute_Returns_Correct_Name()
+    {
+        var expected = "Test Name";
+        var property = typeof(TestModel).GetProperty(nameof(TestModel.TestProperty));
+
+        var actual = property!.GetDisplayAttributeString();
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void Test_DisplayAttribute_Returns_Null_When_No_Attribute()
     {
         var actual = typeof(TestModel).GetDisplayAttributeString(nameof(TestModel.PropertyWithoutAttr));
@@ -60,6 +71,17 @@ public class DisplayAttributeExtensionTests
     {
         var expected = "Metadata Display Name";
         var actual = typeof(TestModelWithMetadata).GetDisplayAttributeString(nameof(TestModelWithMetadata.PropertyWithMetadataDisplay));
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Test_PropertyInfo_DisplayAttribute_Returns_Name_From_MetadataType()
+    {
+        var expected = "Metadata Display Name";
+        var property = typeof(TestModelWithMetadata).GetProperty(nameof(TestModelWithMetadata.PropertyWithMetadataDisplay));
+
+        var actual = property!.GetDisplayAttributeString();
 
         Assert.Equal(expected, actual);
     }

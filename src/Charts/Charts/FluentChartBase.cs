@@ -68,16 +68,10 @@ public abstract partial class FluentChartBase : FluentComponentBase, IAsyncDispo
     public string? LegendListLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether bars or arcs are rendered with rounded corners.
+    /// Gets or sets a value indicating whether bars, arcs or legend indicators are rendered with rounded corners.
     /// </summary>
     [Parameter]
     public bool RoundedCorners { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether a gradient fill is applied to the bars or arcs.
-    /// </summary>
-    [Parameter]
-    public bool EnableGradient { get; set; }
 
     /// <summary>
     /// Gets or sets the width of the chart. Accepts any valid CSS size value (e.g. <c>"400px"</c>, <c>"100%"</c>).

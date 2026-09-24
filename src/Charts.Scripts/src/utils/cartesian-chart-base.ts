@@ -1,4 +1,5 @@
 import { attr } from '@microsoft/fast-element';
+import type { AxisCategoryOrder } from './chart-options.js';
 import { ChartBase } from './chart-base.js';
 import { jsonConverter } from './chart-helpers.js';
 
@@ -98,6 +99,34 @@ export abstract class CartesianChartBase extends ChartBase {
   @attr({ attribute: 'tick-format' })
   public tickFormat?: string;
 
+  /**
+   * Explicit tick positions for the y-axis. Overrides auto-generated y-axis ticks.
+   * Accepts an array of numbers (parsed via JSON attribute).
+   */
+  @attr({ attribute: 'y-axis-tick-values', converter: jsonConverter })
+  public yAxisTickValues?: number[];
+
+  /**
+   * Preferred tick count for x-axis auto-generated ticks.
+   * When not set, each chart keeps its existing default.
+   */
+  @attr({ attribute: 'x-axis-tick-count' })
+  public xAxisTickCount?: number | string;
+
+  /**
+   * Preferred tick count for y-axis auto-generated ticks.
+   * When not set, each chart keeps its existing default.
+   */
+  @attr({ attribute: 'y-axis-tick-count' })
+  public yAxisTickCount?: number | string;
+
+  /**
+   * Optional order strategy for categorical x-axis domains.
+   * Charts with non-categorical x-axes ignore this.
+   */
+  @attr({ attribute: 'x-axis-category-order' })
+  public xAxisCategoryOrder: AxisCategoryOrder = 'default';
+
   /** Width in pixels of the SVG stroke drawn on each bar. When set, an outline is applied. */
   @attr({ attribute: 'stroke-width' })
   public strokeWidth?: number | string;
@@ -110,12 +139,31 @@ export abstract class CartesianChartBase extends ChartBase {
   public showXAxisLabelsTooltip: boolean = false;
 
   /**
+   * When true (default), hides x-axis tick labels that would overlap with the previous label.
+   * Set to false to always show all tick labels regardless of overlap.
+   */
+  @attr({ attribute: 'hide-tick-overlap', mode: 'boolean' })
+  public hideTickOverlap: boolean = true;
+
+  /**
    * Locale-aware date/time format options (`Intl.DateTimeFormatOptions`) passed to
    * `Intl.DateTimeFormat` when rendering date axis tick labels. Overrides the
    * auto-determined format options.
    */
   @attr({ attribute: 'date-localize-options', converter: jsonConverter })
   public dateLocalizeOptions?: Intl.DateTimeFormatOptions;
+
+  /** When true, date axes display values in UTC instead of the user's local timezone. */
+  @attr({ attribute: 'use-utc', mode: 'boolean' })
+  public useUTC: boolean = false;
+
+  /**
+   * Optional custom formatter function for date-axis tick labels.
+   * Receives a `Date` and returns a formatted string.
+   * When set, takes precedence over `tickFormat` and `dateLocalizeOptions`.
+   * Cannot be set via HTML attribute — assign directly on the element.
+   */
+  public customDateTimeFormatter?: (dateTime: Date) => string;
 
   // ── Lifecycle ────────────────────────────────────────────────────
 
@@ -139,9 +187,15 @@ export abstract class CartesianChartBase extends ChartBase {
       'yMaxValue',
       'tickValues',
       'tickFormat',
+      'yAxisTickValues',
+      'xAxisTickCount',
+      'yAxisTickCount',
+      'xAxisCategoryOrder',
       'strokeWidth',
       'showXAxisLabelsTooltip',
+      'hideTickOverlap',
       'dateLocalizeOptions',
+      'useUTC',
     ] as const;
 
     const saved: Partial<Record<(typeof attrFields)[number], unknown>> = {};
@@ -221,6 +275,22 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected yAxisTickValuesChanged() {
+    this._requestRender();
+  }
+
+  protected xAxisTickCountChanged() {
+    this._requestRender();
+  }
+
+  protected yAxisTickCountChanged() {
+    this._requestRender();
+  }
+
+  protected xAxisCategoryOrderChanged() {
+    this._requestRender();
+  }
+
   protected strokeWidthChanged() {
     this._requestRender();
   }
@@ -229,7 +299,15 @@ export abstract class CartesianChartBase extends ChartBase {
     this._requestRender();
   }
 
+  protected hideTickOverlapChanged() {
+    this._requestRender();
+  }
+
   protected dateLocalizeOptionsChanged() {
+    this._requestRender();
+  }
+
+  protected useUTCChanged() {
     this._requestRender();
   }
 }

@@ -22,10 +22,26 @@ The list of options won’t close until it is dismissed it, either by clicking o
 Set the `Multiple="true"` parameter to enable multiple selections.
 
 Because combobox inputs always allow people to enter information, the selections will not replace
-the placeholder text by default. For best usability, build in other ways to show people the selections they’ve made
-without opening the menu, like showing their choices as tags in the input (NOT YET IMPLEMENTED).
+the placeholder text by default.
+
+For a better experience when displaying and selecting multiple items, use **FluentAutocomplete**.
 
 {{ ComboboxDefault }}
+
+## Single selection
+
+Set `Multiple="false"` to allow a single selection and display the selected item in the input.
+
+{{ ComboboxSingleSelect }}
+
+## Immediate and Filtered
+
+Set `Immediate="true"` to update `ImmediateText` as the user types. 
+You can bind to `ImmediateText` and use its value to filter the list items.
+
+> [!WARNING] Immediate mode is only supported for single selection. Setting both `Immediate="true"` and `Multiple="true"` throws an `InvalidOperationException`.
+
+{{ ComboboxFiltered }}
 
 ## FreeOption
 
@@ -44,7 +60,7 @@ to display the user text.
 
 You can change the appearance of the **FluentSelect** component by using the **appearance** or **Size** parameters.
 
-See a similar example on the [FluentSelect](/List/Select#appearance) page.
+See a similar example on the [FluentSelect](/Lists/Select#appearance) page.
 
 ## Customize the items
 
@@ -55,7 +71,7 @@ The following example shows how to customize the items:
 - `OptionValueToString`: This function is used to customize the HTML value of the option. <br />
 - `OptionDisabled`: This function is used to define the disabled options. <br />
 
-See a similar example on the [FluentSelect](/List/Select#customize-the-items) page.
+See a similar example on the [FluentSelect](/Lists/Select#customize-the-items) page.
 
 ## API FluentCombobox
 

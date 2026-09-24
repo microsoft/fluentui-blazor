@@ -1,0 +1,34 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentAreaChart ChartData="data"
+                 ChartTitle="Area chart culture example (de-DE)"
+                 Width="700px"
+                 Culture="culture" />
+
+@code {
+    private readonly System.Globalization.CultureInfo culture = new("de-DE");
+
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = new DateTime(2024, 1, 1), Y = 7000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 2, 1), Y = 13000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 3, 1), Y = 9000 },
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = new DateTime(2024, 1, 1), Y = 12000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 2, 1), Y = 18000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 3, 1), Y = 14000 },
+            }
+        }
+    };
+}

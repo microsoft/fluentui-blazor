@@ -1,8 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@{
-#pragma warning disable IL2111
-}
 
 <AddTag Name="@(IsDrawer() ? "fluent-drawer" : "fluent-dialog")"
         fuib
@@ -22,8 +19,7 @@
     @if (Instance is not null)
     {
         <CascadingValue Value="Instance">
-            <DynamicComponent Type="@Instance.ComponentType"
-                              Parameters="Instance.Options.Parameters" />
+            @RenderDialogContent(Instance)
         </CascadingValue>
     }
     else

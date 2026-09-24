@@ -216,6 +216,12 @@ Resources provide static documentation that users can attach to conversations.
 
 ## Version Compatibility
 
+### MCP protocol version
+
+The server is built with the official [MCP C# SDK](https://github.com/modelcontextprotocol/csharp-sdk) **2.x**, which targets the MCP **2026-07-28** specification. The protocol version is negotiated per connection: clients using an earlier specification (2025-11-25 and before) automatically fall back to the legacy `initialize` handshake, so no specific client version is required.
+
+### Component library version
+
 The MCP server and the `Microsoft.FluentUI.AspNetCore.Components` NuGet package are published together with the **same version number** (e.g. `5.0.0-rc.1-26049.2`). Because the documentation served by the MCP is generated from a specific version of the library, it is important that the user's project references the matching version.
 
 Two tools are provided to automate this check:

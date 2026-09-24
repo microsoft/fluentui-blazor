@@ -37,6 +37,20 @@ public class MessageBarOptionsTests
         Assert.Null(options.TimeStamp);
         Assert.Null(options.Lifetime);
         Assert.Null(options.OnStatusChange);
+        Assert.Equal(MessageBarResultTiming.Visible, options.ResultTiming);
+    }
+
+    [Fact]
+    public void MessageBarOptions_ResultTiming_CanBeChanged()
+    {
+        // Arrange
+        var options = new MessageBarOptions();
+
+        // Act
+        options.ResultTiming = MessageBarResultTiming.Closed;
+
+        // Assert
+        Assert.Equal(MessageBarResultTiming.Closed, options.ResultTiming);
     }
 
     [Fact]

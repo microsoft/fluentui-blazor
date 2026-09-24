@@ -18,6 +18,9 @@ public partial class FluentDialog : FluentComponentBase, IHandleEvent
 {
     private string? _shownInstanceId;
 
+    private static RenderFragment RenderDialogContent(IDialogInstance instance) => builder =>
+        builder.RenderDynamicComponent(0, instance.ComponentType, instance.Options.Parameters);
+
     /// <summary />
     [DynamicDependency(nameof(OnToggleAsync))]
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogToggleEventArgs))]

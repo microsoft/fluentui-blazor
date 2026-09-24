@@ -175,8 +175,6 @@
                 targetRow.Columns.Add(source);
             }
         }
-
-        StateHasChanged();
     }
 
     private void OnDropElement(FluentDragEventArgs<FormElement> e)
@@ -213,8 +211,6 @@
                 targetColumn.Elements.Add(source);
             }
         }
-
-        StateHasChanged();
     }
 
     public class Form

@@ -338,13 +338,16 @@
     public async Task FluentPullToRefresh_OnTouchEnd_WithMoreData_CompletesThenResets()
     {
         var refreshCalls = 0;
+        var refreshStarted = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var refreshCompletion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         var cut = Render<FluentPullToRefresh>(parameters => parameters
             .Add(p => p.EmulateTouch, false)
             .Add(p => p.StatusUpdateMessageTimeout, 10)
-            .Add(p => p.OnRefreshAsync, () =>
+            .Add(p => p.OnRefreshAsync, async () =>
             {
                 refreshCalls++;
-                return Task.FromResult(true);
+                refreshStarted.SetResult(true);
+                return await refreshCompletion.Task;
             })
             .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
 
@@ -352,7 +355,10 @@
         var container = cut.Find("div.fluent-pull-container");
         var touchEndTask = container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(0));
 
-        await cut.WaitForAssertionAsync(() => Assert.Equal(PullStatus.Completed, GetPullStatus(cut)));
+        await refreshStarted.Task;
+        var completedStatusTask = cut.WaitForAssertionAsync(() => Assert.Equal(PullStatus.Completed, GetPullStatus(cut)));
+        refreshCompletion.SetResult(true);
+        await completedStatusTask;
 
         await touchEndTask;
 
@@ -364,17 +370,26 @@
     [Fact]
     public async Task FluentPullToRefresh_OnTouchEnd_NoMoreData_ShowsNoDataBeforeReset()
     {
+        var refreshStarted = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var refreshCompletion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
         var cut = Render<FluentPullToRefresh>(parameters => parameters
             .Add(p => p.EmulateTouch, false)
             .Add(p => p.StatusUpdateMessageTimeout, 10)
-            .Add(p => p.OnRefreshAsync, () => Task.FromResult(false))
+            .Add(p => p.OnRefreshAsync, async () =>
+            {
+                refreshStarted.SetResult(true);
+                return await refreshCompletion.Task;
+            })
             .Add(p => p.ChildContent, builder => builder.AddContent(0, "Content")));
 
         await SetDistanceAsync(cut, 80);
         var container = cut.Find("div.fluent-pull-container");
         var touchEndTask = container.TriggerEventAsync("ontouchend", CreateTouchEventArgs(0));
 
-        await cut.WaitForAssertionAsync(() => Assert.Equal(PullStatus.NoData, GetPullStatus(cut)));
+        await refreshStarted.Task;
+        var noDataStatusTask = cut.WaitForAssertionAsync(() => Assert.Equal(PullStatus.NoData, GetPullStatus(cut)));
+        refreshCompletion.SetResult(false);
+        await noDataStatusTask;
 
         await touchEndTask;
 

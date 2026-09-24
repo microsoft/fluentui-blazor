@@ -3,6 +3,28 @@ import * as FluentUIComponents from '@fluentui/web-components'
 export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
 
   /**
+   * Attach a datalist element to a text input element.
+   * To remove when the Bug https://github.com/microsoft/fluentui/issues/36585 is fixed in FluentUI Web Components.
+   * @param elementOrId - The text input element or its ID
+   * @param dataListId - The ID of the datalist element
+   */
+  export function attachDataList(elementOrId: HTMLElement | string, dataListId: string): void {
+    const list = document.getElementById(dataListId);
+    const textInput = typeof elementOrId === 'string' 
+                    ? document.getElementById(elementOrId) as FluentUIComponents.TextInput | null 
+                    : elementOrId as FluentUIComponents.TextInput | null;
+    const input = textInput?.shadowRoot?.querySelector("input");
+
+    if (!list || !input || !textInput) {
+      return;
+    }
+
+    textInput.shadowRoot?.getElementById(dataListId)?.remove();
+    textInput.shadowRoot?.append(list.cloneNode(true));
+    input.setAttribute("list", dataListId);
+  }
+
+  /**
   * Attach 'immediate' event handling to the input element.
   * @param {string} id - The element ID
   * @param {number} delay - The delay in milliseconds before raising 'immediate' event
@@ -82,10 +104,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
      * Internal input event handler
      */
     private onInput(event: Event): void {
+      const eventTarget = event.composedPath()[0];
+      const value = eventTarget instanceof HTMLInputElement || eventTarget instanceof HTMLTextAreaElement
+        ? eventTarget.value
+        : this.element.value;
 
       // If delay is zero or negative, dispatch immediately
       if (this.delay <= 0) {
-        this.element.dispatchEvent(this.createImmediateEvent(event));
+        this.element.dispatchEvent(this.createImmediateEvent(event, value));
         return;
       }
 
@@ -97,7 +123,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
       // Set a new timer
       this.timerId = setTimeout(() => {
         // Create and dispatch the custom 'immediate' event
-        this.element.dispatchEvent(this.createImmediateEvent(event));
+        this.element.dispatchEvent(this.createImmediateEvent(event, value));
         this.timerId = null;
       }, this.delay);
     }
@@ -107,12 +133,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextInput {
      * @param event 
      * @returns 
      */
-    private createImmediateEvent(event: Event): CustomEvent<InputImmediateEventDetail> {
+    private createImmediateEvent(event: Event, value: string): CustomEvent<InputImmediateEventDetail> {
       return new CustomEvent<InputImmediateEventDetail>('immediate', {
         bubbles: true,
         cancelable: true,
         detail: {
-          value: this.element.value,
+          value,
           originalEvent: event
         }
       });

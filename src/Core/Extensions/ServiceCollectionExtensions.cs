@@ -18,10 +18,6 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">Service collection</param>
     /// <param name="configuration">Library configuration</param>
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(IDialogService))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(DialogService))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(INotificationService))]
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(NotificationService))]
     public static IServiceCollection AddFluentUIComponents(this IServiceCollection services, LibraryConfiguration? configuration = null)
     {
         var options = configuration ?? new();

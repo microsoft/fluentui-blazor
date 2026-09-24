@@ -2,3 +2,4 @@ export { definition as FunnelChartDefinition } from './funnel-chart.definition.j
 export { FunnelChart } from './funnel-chart.js';
 export { styles as FunnelChartStyles } from './funnel-chart.styles.js';
 export { template as FunnelChartTemplate } from './funnel-chart.template.js';
+export type { FunnelChartDataPoint, FunnelChartSubValue, FunnelChartOrientation } from './funnel-chart.options.js';

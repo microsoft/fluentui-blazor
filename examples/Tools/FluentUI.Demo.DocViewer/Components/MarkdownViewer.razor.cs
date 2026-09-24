@@ -87,7 +87,6 @@ public partial class MarkdownViewer
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
             await McpDocumentationService.LoadAsync(HttpClient, "/mcp-documentation.json").ConfigureAwait(true);
-            StateHasChanged();
         }
     }
 

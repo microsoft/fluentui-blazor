@@ -36,6 +36,48 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
   }
 
   /**
+   * Applies custom CSS to an element inside a shadow DOM by injecting a scoped <style> element into
+   * the shadow root. Unlike a `::part()` selector applied from outside, this can also target
+   * pseudo-elements (e.g. '::-ms-reveal') since the style lives in the same shadow tree as the target.
+   * @param elementOrId The host element (or its ID) whose shadow root will receive the <style> element.
+   * @param shadowSelector The selector (scoped to the shadow root) that plain CSS declarations apply to, e.g. '.control'.
+   * @param style CSS text. Plain declarations without a selector (e.g. 'color: red;') are wrapped with
+   * `shadowSelector`; text containing a selector (e.g. '::-ms-reveal { display: none; }') is injected as-is.
+   */
+  export function applyShadowStyle(elementOrId: HTMLElement | string, shadowSelector: string, style: string | null): void {
+    let element: HTMLElement | null;
+    if (typeof elementOrId === 'string') {
+      element = document.getElementById(elementOrId);
+    } else {
+      element = elementOrId;
+    }
+
+    const shadowRoot = element?.shadowRoot;
+    if (!shadowRoot) {
+      return;
+    }
+
+    const styleElement = shadowRoot.querySelector<HTMLStyleElement>('style[data-fluent-shadow-style]');
+
+    if (!style) {
+      styleElement?.remove();
+      return;
+    }
+
+    const cssText = style.includes('{') ? style : `${shadowSelector} { ${style} }`;
+
+    if (styleElement) {
+      styleElement.textContent = cssText;
+      return;
+    }
+
+    const newStyleElement = document.createElement('style');
+    newStyleElement.setAttribute('data-fluent-shadow-style', '');
+    newStyleElement.textContent = cssText;
+    shadowRoot.appendChild(newStyleElement);
+  }
+
+  /**
    * Calls reportValidity on a custom element by reference or by id.
    * @param elementOrId The element or its ID.
    * @returns True when reportValidity is available and was called.

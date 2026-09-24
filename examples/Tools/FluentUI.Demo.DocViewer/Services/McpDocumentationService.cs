@@ -1,8 +1,9 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
-
-using System.Net.Http.Json;
+#if !NET11_0_OR_GREATER
+using System.Net.Http.Json;  //using is no longer needed in .NET 11 and later
+#endif
 using System.Text.Json;
 using FluentUI.Demo.DocViewer.Models.Mcp;
 

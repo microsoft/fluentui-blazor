@@ -1,7 +1,10 @@
-export interface AccessibilityData {
-  ariaLabel?: string;
-}
+import type { AccessibilityData } from '../utils/chart-options.js';
 
+/**
+ * A single data point in the gantt chart.
+ *
+ * @public
+ */
 export interface GanttChartDataPoint {
   /**
    * Dependent value of the data point, rendered along the x-axis.

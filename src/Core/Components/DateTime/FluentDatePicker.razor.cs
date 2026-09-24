@@ -20,6 +20,8 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     private FluentCalendar<TValue> _calendar = default!;
     private FluentIcon<Icon> _icon = default!;
 
+    private FluentTextInput _input = default!;
+
     /// <summary>
     /// Initializes a new instance of the FluentDatePicker class using the specified library configuration.
     /// </summary>
@@ -190,6 +192,12 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
         }
 
         await OnSelectedDateHandlerAsync(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>());
+
+        if (!DateTime.TryParse(_input.CurrentValueOrDefault, Culture, DateTimeStyles.None, out _))
+        {
+            var formattedValue = FormatValueAsString(updatedValue is null ? default : updatedValue.Value.ConvertToTValue<TValue>());
+            await _input.ValueChanged.InvokeAsync(formattedValue);
+        }
     }
 
     /// <summary />

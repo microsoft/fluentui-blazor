@@ -2,9 +2,7 @@
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
 
-<DemoNewsBar />
-
-<FluentLayout @key="@GetLayoutKey()" Height="calc(100dvh - var(--demo-notification-height, 0px))" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
+<FluentLayout @key="@GetLayoutKey()" Height="100dvh" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
 
 	@* ------------------- *@
 	@*       Header        *@
@@ -13,18 +11,18 @@
 		<DemoHeader @rendermode="@DocViewer.DemoRenderMode" />
 	</FluentLayoutItem>
 
-	@* ------------------- *@
-	@*     Left menu       *@
-	@* ------------------- *@
+    @* ------------------- *@
+    @*     Left menu       *@
+    @* ------------------- *@
 
 	<FluentLayoutItem Area="@LayoutArea.Navigation" Width="262px" Sticky="true" Height="var(--layout-body-height)"
 					  Style="overflow-y: auto; padding: 0px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
 		<DemoNav @rendermode="@DocViewer.DemoRenderMode" />
 	</FluentLayoutItem>
 
-	@* ------------------- *@
-	@*       Body          *@
-	@* ------------------- *@
+    @* ------------------- *@
+    @*       Body          *@
+    @* ------------------- *@
 
 	@if (IsHomePage())
 	{
@@ -50,39 +48,39 @@
 		</FluentLayoutItem>
 	}
 
-	@* ------------------- *@
-	@*       Footer        *@
-	@* ------------------- *@
+    @* ------------------- *@
+    @*       Footer        *@
+    @* ------------------- *@
 
-	<FluentLayoutItem Area="LayoutArea.Footer" Padding="@Padding.All0">
+    <FluentLayoutItem Area="LayoutArea.Footer" Padding="@Padding.All0">
 
-		<!-- Console -->
-		@if (_consoleLogOpened)
-		{
-			<ConsoleLogProvider Style="height: 150px;" OnClose="@(() => _consoleLogOpened = false)" />
-		}
+        <!-- Console -->
+        @if (_consoleLogOpened)
+        {
+            <ConsoleLogProvider Style="height: 150px;" OnClose="@(() => _consoleLogOpened = false)" />
+        }
 
-		<!-- Version and copyright -->
-		<FluentStack VerticalAlignment="@VerticalAlignment.Center"
-					 Padding="@Padding.All2"
-					 HorizontalGap="12px"
-					 Style="font-size: smaller;">
+        <!-- Version and copyright -->
+        <FluentStack VerticalAlignment="@VerticalAlignment.Center"
+                     Padding="@Padding.All2"
+                     HorizontalGap="12px"
+                     Style="font-size: smaller;">
 
-			<div>
-				Version: @AppVersion.Version
-			</div>
+            <div>
+                Version: @AppVersion.Version
+            </div>
 
-			<FluentSpacer />
-			<a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core" target="_blank" hidden-when="xs">
-				Powered by @AppVersion.FrameworkDescription
-			</a>
-			<FluentSpacer />
+            <FluentSpacer />
+            <a href="https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core" target="_blank" hidden-when="xs">
+                Powered by @AppVersion.FrameworkDescription
+            </a>
+            <FluentSpacer />
 
-			<div hidden-when="xs">
-				&copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
-			</div>
-		</FluentStack>
-	</FluentLayoutItem>
+            <div hidden-when="xs">
+                &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
+            </div>
+        </FluentStack>
+    </FluentLayoutItem>
 
 </FluentLayout>
 

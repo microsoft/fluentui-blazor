@@ -19,6 +19,16 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentSwitch_Default_TrueValue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch value="true" />);
+
+        // Assert
+        cut.Verify();
+    }
+
     [Theory]
     [InlineData(LabelPosition.Above, "above")]
     [InlineData(LabelPosition.After, "after")]
@@ -38,7 +48,7 @@
     }
 
     [Fact]
-    public void FluentCheckbox_LabelTemplate()
+    public void FluentSwitch_LabelTemplate()
     {
         // Arrange && Act
         var cut = Render(@<FluentSwitch><LabelTemplate>Label with <b>bold</b> text</LabelTemplate></FluentSwitch>);
@@ -48,7 +58,7 @@
     }
 
     [Fact]
-    public void FluentCheckbox_ReadOnly()
+    public void FluentSwitch_ReadOnly()
     {
         // Arrange && Act
         var cut = Render(@<FluentSwitch ReadOnly="true" />);
@@ -58,7 +68,7 @@
     }
 
     [Fact]
-    public void FluentCheckbox_Required()
+    public void FluentSwitch_Required()
     {
         // Arrange && Act
         var cut = Render(@<FluentSwitch Required="true" />);

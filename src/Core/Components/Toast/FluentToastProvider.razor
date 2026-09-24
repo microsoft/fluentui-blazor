@@ -1,8 +1,5 @@
 ﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @inherits FluentComponentBase
-@{
-#pragma warning disable IL2111
-}
 
 <div id="@Id"
      class="@ClassValue"
@@ -37,7 +34,7 @@
                              DismissAction="@toast.Options.DismissAction"
                              FooterTemplate="@RenderFooterContent(toast)"
                              Width="@(toast.Options.Width ?? configuration.Toast.Width)"
-                             AdditionalAttributes="@toast.Options.AdditionalAttributes" />                
+                             AdditionalAttributes="@toast.Options.AdditionalAttributes" />
             </CascadingValue>
         }
     }

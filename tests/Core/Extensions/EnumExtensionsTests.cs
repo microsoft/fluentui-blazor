@@ -4,6 +4,7 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using Bunit;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
@@ -84,6 +85,112 @@ public partial class EnumExtensionsTests
 
         // Assert
         Assert.Null(myDescription);
+    }
+
+    public static IEnumerable<object[]> RegisteredEnumValues()
+    {
+        return typeof(GeneratedEnumExtensions).GetCustomAttributesData()
+            .Where(attribute => attribute.AttributeType.Name == "EnumAttributeValuesAttribute")
+            .Select(attribute => (Type)attribute.ConstructorArguments[0].Value!)
+            .SelectMany(type => Enum.GetValues(type).Cast<Enum>())
+            .Select(value => new object[] { value });
+    }
+
+    [Theory]
+    [MemberData(nameof(RegisteredEnumValues))]
+    public void GetDescription_RegisteredValue_MatchesReflection(Enum value)
+    {
+        var method = typeof(GeneratedEnumExtensions).GetMethod("GetDescription", BindingFlags.Static | BindingFlags.NonPublic, [value.GetType()]);
+
+        Assert.NotNull(method);
+        Assert.False(method.IsGenericMethod);
+        Assert.Equal(EnumExtensions.GetDescription(value), method.Invoke(null, [value]));
+    }
+
+    [Fact]
+    public void ToAttributeValue_UnregisteredEnum_UsesReflectionFallback()
+    {
+        var method = typeof(GeneratedEnumExtensions).GetMethod("GetDescription", BindingFlags.Static | BindingFlags.NonPublic, [typeof(MyEnum)]);
+
+        Assert.Null(method);
+        Assert.Equal("Custom-Value", MyEnum.MyDescription.ToAttributeValue());
+    }
+
+    [Theory]
+    [InlineData(WizardStepStatus.None, "none")]
+    [InlineData(WizardStepStatus.Current, "current")]
+    [InlineData(WizardStepStatus.All, "all")]
+    [InlineData(WizardStepStatus.Previous | WizardStepStatus.Current, "")]
+    public void ToAttributeValue_FlagsEnum_UsesGeneratedOverload(WizardStepStatus value, string expected)
+    {
+        var method = typeof(GeneratedEnumExtensions).GetMethod("GetDescription", BindingFlags.Static | BindingFlags.NonPublic, [typeof(WizardStepStatus)]);
+
+        Assert.NotNull(method);
+        Assert.Equal(expected, value.ToAttributeValue());
+    }
+
+    [Theory]
+    [InlineData(Color.Default, "var(--colorNeutralForeground1)")]
+    [InlineData(Color.Primary, "var(--colorBrandForeground1)")]
+    [InlineData((Color)(-1), "")]
+    public void ToAttributeValue_GeneratedColor_ReturnsDescription(Color value, string expected)
+    {
+        var actual = GeneratedEnumExtensions.ToAttributeValue(value);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData(Color.Primary, "var(--colorBrandForeground1)")]
+    [InlineData((Color)(-1), "")]
+    public void ToAttributeValue_NullableGeneratedColor_ReturnsDescription(Color? value, string? expected)
+    {
+        var actual = GeneratedEnumExtensions.ToAttributeValue(value);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(Color.Default, null)]
+    [InlineData(Color.Primary, "var(--colorBrandForeground1)")]
+    public void ToAttributeValue_GeneratedSentinel_OmitsMatchingValue(Color value, string? expected)
+    {
+        var actual = GeneratedEnumExtensions.ToAttributeValue(value, Color.Default);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData(Color.Default, null)]
+    [InlineData(Color.Primary, "var(--colorBrandForeground1)")]
+    public void ToAttributeValue_NullableGeneratedSentinel_OmitsMatchingValue(Color? value, string? expected)
+    {
+        var actual = GeneratedEnumExtensions.ToAttributeValue(value, Color.Default);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(false, "")]
+    [InlineData(true, null)]
+    [InlineData(null, "")]
+    public void ToAttributeValue_UnknownGeneratedValue_RespectsEmptyOption(bool? returnEmptyAsNull, string? expected)
+    {
+        var actual = GeneratedEnumExtensions.ToAttributeValue((Color)(-1), returnEmptyAsNull);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void ToAttributeValue_TypedExtensionCall_ReusesGeneratedString()
+    {
+        var first = Orientation.Horizontal.ToAttributeValue();
+        var second = Orientation.Horizontal.ToAttributeValue();
+
+        Assert.Equal("horizontal", first);
+        Assert.Same(first, second);
     }
 
     [Fact]

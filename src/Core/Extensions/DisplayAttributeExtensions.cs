@@ -16,16 +16,21 @@ internal static class DisplayAttributeExtensions
     /// <param name="itemType">The type to investigate</param>
     /// <param name="propertyName"> The name of the property to get the Display attribute for</param>
     /// <returns></returns>
-    [SuppressMessage("Trimming", "IL2075:'this' argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.",
-                   Justification = "In the context of the Enum, the 'Display' attribute will not be trimmed.")]
     public static string? GetDisplayAttributeString([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)] this Type itemType, string propertyName)
     {
         var propertyInfo = itemType.GetProperty(propertyName);
 
-        if (propertyInfo == null)
-        {
-            return null;
-        }
+        return propertyInfo?.GetDisplayAttributeString();
+    }
+
+    /// <summary>
+    /// Returns the display name of a property if present.
+    /// </summary>
+    /// <param name="propertyInfo">The property to investigate.</param>
+    /// <returns>The configured display name, or <see langword="null"/>.</returns>
+    public static string? GetDisplayAttributeString(this PropertyInfo propertyInfo)
+    {
+        ArgumentNullException.ThrowIfNull(propertyInfo);
 
         var displayAttribute = propertyInfo.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
         if (displayAttribute is not null)
@@ -33,9 +38,9 @@ internal static class DisplayAttributeExtensions
             return displayAttribute.GetName();
         }
 
-        if (itemType.GetCustomAttribute<MetadataTypeAttribute>() is MetadataTypeAttribute metadata)
+        if (propertyInfo.DeclaringType?.GetCustomAttribute<MetadataTypeAttribute>() is MetadataTypeAttribute metadata)
         {
-            return metadata.MetadataClassType.GetDisplayAttributeString(propertyName);
+            return metadata.MetadataClassType.GetDisplayAttributeString(propertyInfo.Name);
         }
 
         return null;

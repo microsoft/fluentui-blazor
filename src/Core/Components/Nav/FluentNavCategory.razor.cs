@@ -31,6 +31,7 @@ public partial class FluentNavCategory : FluentNavBase
     protected string? ClassValue => DefaultClassBuilder
         .AddClass("fluent-navcategoryitem")
         .AddClass("active", _isActive)
+        .AddClass(ActiveClass, !string.IsNullOrWhiteSpace(ActiveClass) && _isActive)
         .Build();
 
     /// <summary />
@@ -42,6 +43,13 @@ public partial class FluentNavCategory : FluentNavBase
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets additional class names to style the category item when it is active, separated by space. An active
+    /// category item always has the "active" class applied, so this property allows for additional styling.
+    /// </summary>
+    [Parameter]
+    public string? ActiveClass { get; set; }
 
     /// <summary>
     /// Gets or sets the icon displayed when the category is in its default (resting) state.
@@ -118,7 +126,10 @@ public partial class FluentNavCategory : FluentNavBase
     {
         if (firstRender)
         {
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
 
             if (HasActiveSubitem() && !Expanded && !_hasBeenManuallyCollapsed)
             {

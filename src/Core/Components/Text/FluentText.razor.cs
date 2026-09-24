@@ -25,10 +25,11 @@ public partial class FluentText : FluentComponentBase, ITooltipComponent
         .Build();
 
     /// <summary>
-    /// Gets or sets the tag to be rendered.
+    /// Gets or sets the tag to surround the <see cref="ChildContent"/> with to create semantic HTML Default to
+    /// <see langword="null"/> so ChildContent is displayed as provided without any additional wrapping element.
     /// </summary>
     [Parameter]
-    public TextTag As { get; set; }
+    public TextTag? As { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the text.

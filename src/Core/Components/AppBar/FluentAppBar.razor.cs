@@ -2,10 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
-using Microsoft.JSInterop;
-using static Microsoft.FluentUI.AspNetCore.Components.FluentOverflow;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -16,24 +15,18 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentAppBar : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Overflow/FluentOverflow.razor.js";
-    private const string OVERFLOW_SELECTOR = ".fluent-appbar-item";
-
     private readonly InternalAppBarContext _internalAppBarContext;
-    private DotNetObjectReference<FluentAppBar>? _dotNetHelper;
     private bool _showMoreItems;
     private string? _searchTerm = string.Empty;
     private IEnumerable<IAppBarItem> _searchResults = [];
-    private Orientation _previousOrientation;
-
-    // ToDo: Implement focus on popup
 
     /// <summary />
+    [DynamicDependency(nameof(OnOverflowChangedAsync))]
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(OverflowChangedEventArgs))]
     public FluentAppBar(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
         _internalAppBarContext = new(this);
-        _previousOrientation = Orientation;
     }
 
     /// <summary>
@@ -73,10 +66,8 @@ public partial class FluentAppBar : FluentComponentBase
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// Gets all app items with <see cref="IAppBarItem.Overflow"/> assigned to True.
-    /// </summary>
     internal IEnumerable<IAppBarItem> AppsOverflow => _internalAppBarContext.Apps.Where(i => i.Value.Overflow == true).Select(v => v.Value);
+    private string OverflowElementId => $"{Id}-overflow";
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -90,7 +81,16 @@ public partial class FluentAppBar : FluentComponentBase
         .AddStyle("flex-direction", "column", Orientation == Orientation.Vertical)
         .AddStyle("height", "100%", Orientation == Orientation.Vertical)
         .AddStyle("width", "100%", Orientation == Orientation.Horizontal)
-        .AddStyle("gap", "2px")
+        .Build();
+
+    /// <summary />
+    protected virtual string? OverflowStyleValue => new StyleBuilder()
+        .AddStyle("flex", "1 1 auto")
+        .AddStyle("min-height", "0", Orientation == Orientation.Vertical)
+        .AddStyle("min-width", "0", Orientation == Orientation.Horizontal)
+        .AddStyle("height", "100%", Orientation == Orientation.Vertical)
+        .AddStyle("width", "100%", Orientation == Orientation.Horizontal)
+        .AddStyle("--fluent-overflow-gap", "2px")
         .Build();
 
     /// <summary />
@@ -99,57 +99,34 @@ public partial class FluentAppBar : FluentComponentBase
         _searchResults = AppsOverflow;
     }
 
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    private async Task OnOverflowChangedAsync(OverflowChangedEventArgs args)
     {
-        if (firstRender)
-        {
-            _dotNetHelper = DotNetObjectReference.Create(this);
-            // Overflow
-            await JSModule.ImportJavaScriptModuleAsync(JAVASCRIPT_FILE);
-
-            await InitializeOverflowAsync();
-        }
-    }
-
-    /// <summary />
-    protected override async Task OnParametersSetAsync()
-    {
-        if (_previousOrientation != Orientation && JSModule.Imported)
-        {
-            _previousOrientation = Orientation;
-            await InitializeOverflowAsync();
-        }
-    }
-
-    /// <summary />
-    [JSInvokable]
-    public async Task OverflowRaisedAsync(OverflowItem[] items)
-    {
-        if (items is null || items.Length == 0)
+        if (!string.Equals(args.Id, OverflowElementId, StringComparison.Ordinal))
         {
             return;
         }
 
-        foreach (var item in items)
-        {
-            if (item.Id is not null)
-            {
-                var app = _internalAppBarContext.Apps[item.Id];
-                app.Overflow = item.Overflow;
-            }
-        }
-
+        ApplyOverflowItems(args.Items?.Select(item => item.Id));
         await InvokeAsync(StateHasChanged);
     }
 
-    private async Task InitializeOverflowAsync()
+    /// <summary />
+    public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
-        if (JSModule is not null)
+        ApplyOverflowItems(items.Select(item => item.Id));
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void ApplyOverflowItems(IEnumerable<string?>? itemIds)
+    {
+        var overflowIds = itemIds?.OfType<string>().ToHashSet(StringComparer.Ordinal)
+                       ?? new HashSet<string>(StringComparer.Ordinal);
+        foreach (var app in _internalAppBarContext.Apps.Values)
         {
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Initialize", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
-            //await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Overflow.Refresh", _dotNetHelper, Id, Orientation == Orientation.Horizontal, OVERFLOW_SELECTOR, 0);
+            app.Overflow = app.Id is not null && overflowIds.Contains(app.Id);
         }
+
+        HandleSearch();
     }
 
     internal Task TogglePopoverAsync() => HandlePopoverToggleAsync(!_showMoreItems);
@@ -164,8 +141,10 @@ public partial class FluentAppBar : FluentComponentBase
         var handler = args.Key switch
         {
             KeyCode.Enter => HandlePopoverToggleAsync(!_showMoreItems),
-            KeyCode.Right => HandlePopoverToggleAsync(value: true),
-            KeyCode.Left => HandlePopoverToggleAsync(value: false),
+            KeyCode.Right when Orientation == Orientation.Vertical => HandlePopoverToggleAsync(value: true),
+            KeyCode.Left when Orientation == Orientation.Vertical => HandlePopoverToggleAsync(value: false),
+            KeyCode.Down when Orientation == Orientation.Horizontal => HandlePopoverToggleAsync(value: true),
+            KeyCode.Up when Orientation == Orientation.Horizontal => HandlePopoverToggleAsync(value: false),
             _ => Task.CompletedTask,
         };
         await handler;
@@ -184,8 +163,6 @@ public partial class FluentAppBar : FluentComponentBase
         {
             await PopoverVisibilityChanged.InvokeAsync(_showMoreItems);
         }
-
-        await Task.CompletedTask;
     }
 
     private void HandleSearch()
@@ -196,8 +173,7 @@ public partial class FluentAppBar : FluentComponentBase
         }
         else
         {
-            var filteredAppBarItems = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
-            _searchResults = filteredAppBarItems;
+            _searchResults = AppsOverflow.Where(i => i.Text.Contains(_searchTerm, StringComparison.CurrentCultureIgnoreCase)).ToList();
         }
     }
 }

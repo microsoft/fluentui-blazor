@@ -14,7 +14,7 @@ MCP Prompts are **pre-defined prompt templates** that help you accomplish common
 
 {{ MCP Type=prompts }}
 
-> [!NOTE] The Fluent UI Blazor MCP Server focuses primarily on **Tools** and **Resources** for documentation access. Prompt templates may be added in future versions based on community feedback.
+> [!NOTE] The prompts listed above are served directly by the MCP Server. Your MCP client (VS Code, Visual Studio, ...) exposes them, for example through the `/mcp.fluent-ui-blazor` prompt picker in GitHub Copilot Chat.
 
 ## Suggested Prompt Patterns
 
@@ -155,15 +155,6 @@ In your AI assistant chat:
 a grid for displaying customer orders with columns for OrderId,
 CustomerName, OrderDate, and TotalAmount. Enable sorting and pagination.
 ```
-
-## Future Prompt Support
-
-The MCP specification supports server-provided prompts. Future versions of the Fluent UI Blazor MCP Server may include:
-
-- **Component scaffold prompts** - Generate complete component templates
-- **Form builder prompts** - Create forms with validation
-- **Layout prompts** - Design page layouts with Fluent UI
-- **Theme customization prompts** - Apply custom theming
 
 ## Contributing Prompts
 

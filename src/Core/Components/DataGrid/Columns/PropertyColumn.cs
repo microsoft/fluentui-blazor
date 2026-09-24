@@ -54,7 +54,6 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
     public override IGridSort<TGridItem>? SortBy { get; set; }
 
     /// <inheritdoc />
-#pragma warning disable IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
     protected override void OnParametersSet()
     {
         // We have to do a bit of pre-processing on the lambda expression. Only do that if it's new or changed.
@@ -94,7 +93,7 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
             if (Title is null)
             {
                 PropertyInfo = memberExpression.Member as PropertyInfo;
-                var daText = memberExpression.Member.DeclaringType?.GetDisplayAttributeString(memberExpression.Member.Name);
+                var daText = PropertyInfo?.GetDisplayAttributeString();
                 if (!string.IsNullOrEmpty(daText))
                 {
                     Title = daText;
@@ -107,55 +106,17 @@ public class PropertyColumn<TGridItem, TProp> : ColumnBase<TGridItem>, IBindable
         }
     }
 
-#pragma warning restore IL2072 // Target parameter argument does not satisfy 'DynamicallyAccessedMembersAttribute' in call to target method. The return value of the source method does not have matching annotations.
     private static Func<TGridItem, string?> CreateFormatter(Func<TGridItem, TProp> getter, string format)
     {
-        var closedType = typeof(PropertyColumn<,>).MakeGenericType(typeof(TGridItem), typeof(TProp));
-
-        //Nullable struct
-        if (Nullable.GetUnderlyingType(typeof(TProp)) is Type underlying &&
-            typeof(IFormattable).IsAssignableFrom(underlying))
+        var propertyType = Nullable.GetUnderlyingType(typeof(TProp)) ?? typeof(TProp);
+        if (typeof(IFormattable).IsAssignableFrom(propertyType))
         {
-            var method = closedType
-                .GetMethod(nameof(CreateNullableValueTypeFormatter), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(underlying);
-            return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
-        }
-
-        if (typeof(IFormattable).IsAssignableFrom(typeof(TProp)))
-        {
-            //Struct
-            if (typeof(TProp).IsValueType)
-            {
-                var method = closedType
-                    .GetMethod(nameof(CreateValueTypeFormatter), BindingFlags.NonPublic | BindingFlags.Static)!
-                    .MakeGenericMethod(typeof(TProp));
-                return (Func<TGridItem, string?>)method.Invoke(null, [getter, format])!;
-            }
-
-            //Double cast required because CreateReferenceTypeFormatter required the TProp to be a reference type which implements IFormattable.
-            return CreateReferenceTypeFormatter((Func<TGridItem, IFormattable?>)(object)getter, format);
+            return item => getter(item) is IFormattable value
+                ? value.ToString(format, formatProvider: null)
+                : null;
         }
 
         throw new InvalidOperationException($"A '{nameof(Format)}' parameter was supplied, but the type '{typeof(TProp)}' does not implement '{typeof(IFormattable)}'.");
-    }
-
-    private static Func<TGridItem, string?> CreateReferenceTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
-        where T : class, IFormattable
-    {
-        return item => getter(item)?.ToString(format, formatProvider: null);
-    }
-
-    private static Func<TGridItem, string?> CreateValueTypeFormatter<T>(Func<TGridItem, T> getter, string format)
-        where T : struct, IFormattable
-    {
-        return item => getter(item).ToString(format, formatProvider: null);
-    }
-
-    private static Func<TGridItem, string?> CreateNullableValueTypeFormatter<T>(Func<TGridItem, T?> getter, string format)
-        where T : struct, IFormattable
-    {
-        return item => getter(item)?.ToString(format, formatProvider: null);
     }
 
     /// <inheritdoc />

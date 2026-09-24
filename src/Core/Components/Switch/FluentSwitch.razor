@@ -12,16 +12,16 @@
     <fluent-switch @ref="@Element"
                    aria-label="@AriaLabel"
                    autofocus="@Autofocus"
-                   checked="@CurrentValue"
+                   checked="@(CurrentValue ? "true" : null)"
                    disabled="@Disabled"
                    id="@Id"
-                   value="@bool.TrueString"
                    name="@Name"
                    readonly="@ReadOnly"
                    required="@Required"
                    @onfocusout="@FocusOutHandlerAsync"
                    @attributes="AdditionalAttributes"
                    @onchange="@OnSwitchChangedHandlerAsync"
+                   value="@bool.TrueString"
                    slot="@FluentSlot.FieldInput"
                    tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)" />
 </FluentField>

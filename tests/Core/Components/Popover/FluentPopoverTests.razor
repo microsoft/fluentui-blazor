@@ -105,4 +105,25 @@
         // Assert
         Assert.Equal(expectedOpened, Opened);
     }
+
+    [Fact]
+    public async Task FluentPopover_ToggleEvent_UpdatesBoundOpenedState()
+    {
+        bool Opened = true;
+
+        // Arrange
+        var cut = Render(@<FluentPopover Id="MyPopover" AnchorId="MyButton" @bind-Opened="@Opened">Popover Content</FluentPopover>);
+
+        // Act
+        await cut.Find("fluent-popover-b").TriggerEventAsync("onpopovertoggle", new DialogToggleEventArgs
+        {
+            Id = "MyPopover",
+            OldState = "open",
+            NewState = "closed"
+        });
+
+        // Assert
+        Assert.False(Opened);
+        Assert.Contains("opened=\"false\"", cut.Markup);
+    }
 }

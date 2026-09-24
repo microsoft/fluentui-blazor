@@ -101,21 +101,12 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
 
             if (hasComponent)
             {
-                builder.OpenComponent(1, toast.ComponentType!);
-                if (toast.Options.Parameters is not null)
-                {
-                    foreach (var parameter in toast.Options.Parameters)
-                    {
-                        builder.AddAttribute(2, parameter.Key, parameter.Value);
-                    }
-                }
-
-                builder.CloseComponent();
+                builder.RenderDynamicComponent(1, toast.ComponentType!, toast.Options.Parameters);
             }
         };
     }
 
-    private TimeSpan GetLifetime(IToastInstance toast)
+    private TimeSpan? GetLifetime(IToastInstance toast)
     {
         // If the toast has a specific lifetime defined, use it.
         if (toast.Options.Lifetime.HasValue)
@@ -132,7 +123,7 @@ public partial class FluentToastProvider : FluentComponentBase, IDisposable
         }
 
         // Otherwise, use the default lifetime from the configuration, or TimeSpan.Zero if not defined.
-        return configuration.Toast.Lifetime ?? TimeSpan.Zero;
+        return configuration.Toast.Lifetime;
     }
 
     /// <summary>

@@ -27,9 +27,18 @@ parameters:
       **/Components.Charts.Tests.csproj
       **/McpServer.Tests.csproj
 
-  - name: NugetPackageVersion # NuGet package version to use (overrides computed version)
+  - name: ForcedNugetPackageVersion  # NuGet package version to use (overrides computed version)
     type: string
     default: ''
+
+  - name: ForcedAssemblyVersion # Assembly version to use (overrides computed version)
+    type: string
+    default: ''
+
+  - name: PublishToDotnet9Feed
+    displayName: Publish to dotnet9 feed
+    type: boolean
+    default: true
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -87,13 +96,14 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
-          - output: nuget
-            useDotNetTask: false
-            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-            packageParentPath: '$(Build.ArtifactStagingDirectory)'
-            nuGetFeedType: internal
-            publishVstsFeed: public/dotnet9
-            allowPackageConflicts: true
+          - ${{ if eq(parameters.PublishToDotnet9Feed, true) }}:
+            - output: nuget
+              useDotNetTask: false
+              packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+              packageParentPath: '$(Build.ArtifactStagingDirectory)'
+              nuGetFeedType: internal
+              publishVstsFeed: public/dotnet9
+              allowPackageConflicts: true
 
         steps:
 
@@ -109,15 +119,8 @@ extends:
               -buildNumber "$(Build.BuildNumber)"
               -packageSuffix "$(PackageSuffix)"
               -testProjects "${{ parameters.Tests }}"
-
-        # Override PackageVersion if specified
-        - task: PowerShell@2
-          displayName: 'Override PackageVersion (if specified)'
-          condition: ne('${{ parameters.NugetPackageVersion }}', '')
-          inputs:
-            targetType: 'inline'
-            script: |
-              Write-Host "##vso[task.setvariable variable=PackageVersion]${{ parameters.NugetPackageVersion }}"
+              -ForceAssemblyVersion "${{ parameters.ForcedAssemblyVersion }}"
+              -ForcePackageVersion "${{ parameters.ForcedNugetPackageVersion }}"
 
         # Install NuGet tools
         - task: NuGetToolInstaller@1
@@ -142,6 +145,13 @@ extends:
             version: 10.0.x
             includePreviewVersions: true
 
+        - task: UseDotNet@2
+          displayName: 'Install .NET 11.0'
+          inputs:
+            # Allow stable packages with RC dependencies while keeping NU5104 visible... adding `/p:WarningsNotAsErrors=NU5104` below
+            version: 11.0.100-rc.1.26425.128
+            includePreviewVersions: true
+
         # Set version number (exclude some folders)
         - task: PowerShell@2
           displayName: 'Versioning $(Build.BuildNumber)'
@@ -160,6 +170,7 @@ extends:
           inputs:
             command: 'restore'
             projects: ${{ parameters.Projects }}
+            restoreArguments: '/p:WarningsNotAsErrors=NU5104'
             feedsToUse: config
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
@@ -177,7 +188,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true /p:DebugType=portable /p:DebugSymbols=true'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true /p:DebugType=portable /p:DebugSymbols=true /p:WarningsNotAsErrors=NU5104'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -186,7 +197,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:DebugType=Full'
+            arguments: '--configuration Release --coverage --coverage-output-format cobertura /p:DebugType=Full /p:WarningsNotAsErrors=NU5104'
             publishTestResults: true
 
         # Coverage Generation
@@ -194,9 +205,10 @@ extends:
           condition: eq(variables['ShouldTest'], 'true')
           displayName: Generate reports
           inputs:
-            reports: '**/*.cobertura.xml'
+            reports: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             targetdir: 'CoverageFolder'
             reporttypes: 'HtmlInline_AzurePipelines'
+            assemblyfilters: '+Microsoft.FluentUI.AspNetCore.Components*;+Microsoft.FluentUI.AspNetCore.Components.Charts*;-Microsoft.FluentUI.AspNetCore.Components.Tests.Tools'
 
         # Publish code coverage
         - task: PublishCodeCoverageResults@2
@@ -204,7 +216,7 @@ extends:
           displayName: 'Publish code coverage'
           inputs:
             codeCoverageTool: Cobertura
-            summaryFileLocation: '**/*.cobertura.xml'
+            summaryFileLocation: '$(Agent.TempDirectory)/**/*.cobertura.xml'
             reportDirectory: CoverageFolder
 
         # Index sources and publish symbols

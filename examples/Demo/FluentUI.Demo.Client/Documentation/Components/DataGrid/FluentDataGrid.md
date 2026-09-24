@@ -28,6 +28,12 @@ You can use the <kbd>Arrow</kbd> keys to navigate through a DataGrid. When a hea
 removes the column sorting and restores the default/start situation with regards to sorting. *You cannot remove the default grid sorting with
 this key combination*.
 
+When the grid is sorted by several columns (`SortMode` is `DataGridSortMode.Multiple`), <kbd>Shift</kbd> + <kbd>Enter</kbd> on
+a focused header adds that column to the sort, and <kbd>Shift</kbd> + <kbd>s</kbd> returns to the sort the columns declare
+through `IsDefaultSortColumn`, leaving the grid unsorted when none of them declares one. The column header
+also offers these actions, for when the key combination is not available. See
+[multi-column sorting](/DataGrid/MultiSort).
+
 When a header cell is focused and the column allows setting options, you can use the <kbd>Tab</kbd> key to select the options button. Pressing
 the <kbd>Enter</kbd> key then will toggle the options popover. Pressing <kbd>Esc</kbd> closes the popover .
 
@@ -45,6 +51,9 @@ again will toggle the sort direction. When `HeaderCellAsButtonWithMenu` is true,
 
 A sort can be removed by right clicking (or by pressing <kbd>Shift</kbd> + <kbd>r</kbd>) on the header column (with exception of
 the default sort).
+
+By setting the `SortMode` parameter to `DataGridSortMode.Multiple`, the grid can be sorted by several columns at once. See
+[multi-column sorting](/DataGrid/MultiSort).
 
 *The minimal width for a sortable column is 75 pixels.*
 
@@ -118,16 +127,15 @@ The following examples show how to use the DataGrid component in different scena
 
 ### Sorting
 
+- [Multi-column sorting](/DataGrid/MultiSort)
 - [Custom comparer for sorting](/DataGrid/CustomComparerSort)
 - [Custom sorting](/DataGrid/CustomSort)
 
 ### Columns
 
-- [Single/Multi select](/DataGrid/MultiSelect)
+- [Column types](/DataGrid/ColumnTypes)
 - [Dynamic columns](/DataGrid/DynamicColumns)
 - [Column headers](/DataGrid/HeaderGeneration)
-- [Template columns](/DataGrid/TemplateColumns)
-- [Template columns 2](/DataGrid/TemplateColumns2)
 
 ### Advanced
 
@@ -148,18 +156,6 @@ The following examples show how to use the DataGrid component in different scena
 ## API FluentDataGridCell
 
 {{ API Type=FluentDataGridCell<string> }}
-
-## API PropertyColumn
-
-{{ API Type=PropertyColumn<string,string> }}
-
-## API TemplateColumn
-
-{{ API Type=TemplateColumn<string> }}
-
-## API SelectColumn
-
-{{ API Type=SelectColumn<string> }}
 
 ## Migrating to v5
 

@@ -1,14 +1,5 @@
 export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
 
-  const getDeepActiveElement = (): HTMLElement | null => {
-    let activeElement: Element | null = document.activeElement;
-    while (activeElement instanceof HTMLElement && activeElement.shadowRoot?.activeElement) {
-      activeElement = activeElement.shadowRoot.activeElement;
-    }
-
-    return activeElement instanceof HTMLElement ? activeElement : null;
-  };
-
   /**
    * Tag names of non-modal, transient elements (e.g. toasts) that reuse the
    * dialog toggle plumbing but must never restore focus when they open or close.
@@ -112,9 +103,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Dialog {
       return false;
     }
 
-    const activeElement = getDeepActiveElement();
-    if (!activeElement || !dialog.contains(activeElement)) {
+    const activeElement = document.activeElement;
+    if (!(activeElement instanceof HTMLElement) || !dialog.contains(activeElement)) {
       return false;
+    }
+
+    // The dialog surface itself receives focus when no interactive content does (e.g. MessageBox).
+    if (activeElement === dialog) {
+      return true;
     }
 
     // Keep shortcuts active for explicit dialog action surfaces.

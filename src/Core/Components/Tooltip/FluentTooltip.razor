@@ -8,8 +8,8 @@
                     class="@ClassValue"
                     style="@StyleValue"
                     anchor="@Anchor"
-                    delay="@Delay"
-                    positioning="@Positioning.ToAttributeValue()"
+                    delay="@(Delay ?? LibraryConfiguration?.Tooltip.Delay)"
+                    positioning="@((Positioning ?? LibraryConfiguration?.Tooltip.Positioning).ToAttributeValue())"
                     @ondialogtoggle="@OnToggleAsync"
                     @attributes="AdditionalAttributes">
         @ChildContent

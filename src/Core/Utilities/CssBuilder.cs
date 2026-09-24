@@ -15,21 +15,15 @@ public readonly partial struct CssBuilder
 {
     private readonly HashSet<string> _classes;
     private readonly string[]? _userClasses;
-    private readonly bool _validateClassNames = ValidateClassNames;
+    private readonly bool _validateClassNames = LibraryConfiguration.ShouldValidateClassNames;
     private static readonly Regex s_validClassNameRegex = GenerateValidClassNameRegex();
-
-    /// <summary>
-    /// Validate CSS class, which must respect the following regex: "^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$".
-    /// Default is true.
-    /// </summary>
-    public static bool ValidateClassNames { get; set; } = true;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CssBuilder"/> class.
     /// </summary>
     public CssBuilder()
     {
-        _classes = [];
+        _classes = new(StringComparer.Ordinal);
         _userClasses = null;
     }
 
@@ -39,7 +33,7 @@ public readonly partial struct CssBuilder
     /// <param name="userClasses">The user classes to include at the end.</param>
     public CssBuilder(string? userClasses)
     {
-        _classes = [];
+        _classes = new(StringComparer.Ordinal);
         _userClasses = string.IsNullOrWhiteSpace(userClasses)
                      ? null
                      : SplitAndValidate(userClasses).ToArray();
