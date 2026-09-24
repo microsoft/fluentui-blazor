@@ -39,7 +39,8 @@ Shift+click (Shift+Enter from the keyboard) or from the column header, which lis
 
 The sort is a list of `DataGridSortColumn<TGridItem>` everywhere it is exposed: `FluentDataGrid.SortColumns`,
 `DataGridSortEventArgs.SortColumns` and `GridItemsProviderRequest.SortColumns`. There are no single-column
-`SortByColumn` / `SortByAscending` properties; use `SortColumns.FirstOrDefault()` for the primary sort.
+`SortByColumn` / `SortByAscending` properties; use `SortColumns.FirstOrDefault()` for the primary sort
+(`null` when the grid is not sorted).
 
 Methods: `SortByColumnAsync` (sort by one column), `AddSortByColumnAsync` (add a level, or change the direction of a
 column already sorted on), `RemoveSortByColumnAsync` (drop one level), `SetSortAsync` (replace the whole sort),

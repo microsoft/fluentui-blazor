@@ -1954,6 +1954,47 @@
         Assert.Empty(grid.SortColumns);
     }
 
+    [Fact]
+    public async Task FluentDataGrid_SortByColumnAsync_WithAutoDirection_TogglesThePrimaryDirection()
+    {
+        // Arrange
+        FluentDataGrid<Customer>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" GenerateHeader="DataGridGeneratedHeaderType.None" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Id)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        Assert.Empty(grid.SortColumns);
+
+        // Act && Assert: with nothing sorted yet, the column starts ascending.
+        await grid.SortByColumnAsync("Name");
+        AssertPrimarySort("Name", ascending: true, firstName: "Bill Gates");
+
+        // Act && Assert: sorting by the primary column again flips its direction each time.
+        await grid.SortByColumnAsync("Name");
+        AssertPrimarySort("Name", ascending: false, firstName: "Vincent Baaij");
+
+        await grid.SortByColumnAsync("Name");
+        AssertPrimarySort("Name", ascending: true, firstName: "Bill Gates");
+
+        // Act && Assert: another column starts ascending rather than toggling the ascending column it replaces.
+        await grid.SortByColumnAsync("Id");
+        AssertPrimarySort("Id", ascending: true, firstName: "Denis Voituron");
+
+        void AssertPrimarySort(string title, bool ascending, string firstName)
+        {
+            var level = Assert.Single(grid.SortColumns);
+            Assert.Equal(title, level.Column.Title);
+            Assert.Equal(ascending, level.Ascending);
+
+            var row = cut.FindComponent<FluentDataGridRow<Customer>>();
+            Assert.Equal(firstName, row.Instance.InternalGridContext.Items.First().Name);
+        }
+    }
+
 
     [Fact]
     public void FluentDataGrid_RemoveSortByColumn()
