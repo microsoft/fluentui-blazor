@@ -1,0 +1,199 @@
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public FluentDataGridColumnVisibilityTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        Services.AddFluentUIComponents();
+        Services.AddScoped<IKeyCodeService>(factory => new KeyCodeService());
+    }
+
+    [Fact]
+    public void FluentDataGrid_Visible_False_DoesNotRenderTheColumn()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" Items="@GetEmployees()">
+                <PropertyColumn Property="@(x => x.Department)" />
+                <PropertyColumn Property="@(x => x.Name)" Visible="false" />
+                <PropertyColumn Property="@(x => x.Level)" />
+            </FluentDataGrid>);
+
+        // Assert
+        Assert.Equal(["Department", "Level"], GetHeaderTitles(cut));
+        Assert.All(cut.FindAll("tbody tr"), row => Assert.Equal(2, row.QuerySelectorAll("td").Length));
+        Assert.Contains("grid-template-columns: 1fr 1fr;", cut.Find("table").GetAttribute("style"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_Visible_HidingTheSortedColumn_KeepsSortingByIt()
+    {
+        // Arrange
+        var nameVisible = true;
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" Visible="@nameVisible" />
+            </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => grid.SortByColumnAsync("Name", DataGridSortDirection.Descending));
+        var nameColumn = grid.SortColumns[0].Column;
+
+        // Act
+        nameVisible = false;
+        cut.Render();
+
+        // Assert: unlike a column left out with @if, the column is the same instance, so the sort still applies.
+        Assert.Same(nameColumn, Assert.Single(grid.SortColumns).Column);
+        Assert.Equal(["Carol", "Bob", "Alice", "Alice"], GetRenderedNames(cut));
+
+        // Act: shown again, the header tells the grid is sorted by it.
+        nameVisible = true;
+        cut.Render();
+
+        // Assert
+        Assert.Equal("descending", cut.FindAll("th")[1].GetAttribute("aria-sort"));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_Visible_False_CanStillBeSortedByTitle()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" Visible="false" />
+            </FluentDataGrid>);
+
+        // Act
+        await cut.InvokeAsync(() => grid.SortByColumnAsync("Name", DataGridSortDirection.Ascending));
+
+        // Assert
+        Assert.Equal("Name", Assert.Single(grid.SortColumns).Column.Title);
+        Assert.Equal(["Alice", "Alice", "Bob", "Carol"], GetRenderedNames(cut));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_Visible_MovingAColumnWhileAnotherIsHidden_KeepsThePlaceOfTheHiddenOne()
+    {
+        // Arrange
+        var nameVisible = false;
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" ReorderableColumns="true">
+                <PropertyColumn ColumnId="department" Property="@(x => x.Department)" />
+                <PropertyColumn ColumnId="name" Property="@(x => x.Name)" Visible="@nameVisible" />
+                <PropertyColumn ColumnId="level" Property="@(x => x.Level)" />
+                <PropertyColumn ColumnId="city" Property="@(x => x.City)" />
+            </FluentDataGrid>);
+
+        // Act
+        await cut.InvokeAsync(() => grid.MoveColumnToEndAsync(grid._columns[0]));
+
+        // Assert: the displayed columns moved around the second place, which the hidden column keeps.
+        Assert.Equal(["Level", "City", "Department"], GetHeaderTitles(cut));
+        Assert.Equal(["level", "name", "city", "department"], grid.GetColumnOrder());
+
+        // Act
+        nameVisible = true;
+        cut.Render();
+
+        // Assert
+        Assert.Equal(["Level", "Name", "City", "Department"], GetHeaderTitles(cut));
+    }
+
+    [Fact]
+    public void FluentDataGrid_Visible_False_ColumnOrderStillHoldsTheHiddenColumn()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" ColumnOrder="@(["level", "name", "department"])">
+                <PropertyColumn ColumnId="department" Property="@(x => x.Department)" />
+                <PropertyColumn ColumnId="name" Property="@(x => x.Name)" Visible="false" />
+                <PropertyColumn ColumnId="level" Property="@(x => x.Level)" />
+            </FluentDataGrid>);
+
+        // Assert
+        Assert.Equal(["Level", "Department"], GetHeaderTitles(cut));
+        Assert.Equal(["level", "name", "department"], grid.GetColumnOrder());
+    }
+
+    [Theory]
+    [InlineData("1fr minmax(100px, 2fr) 3fr", "grid-template-columns: 1fr 3fr;")]
+    [InlineData("repeat(3, 1fr)", "grid-template-columns: repeat(3, 1fr);")]
+    public void FluentDataGrid_Visible_False_RemovesTheTrackOfTheHiddenColumnFromGridTemplateColumns(string template, string expectedStyle)
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" Items="@GetEmployees()" GridTemplateColumns="@template">
+                <PropertyColumn Property="@(x => x.Department)" />
+                <PropertyColumn Property="@(x => x.Name)" Visible="false" />
+                <PropertyColumn Property="@(x => x.Level)" />
+            </FluentDataGrid>);
+
+        // Assert: tracks that cannot be told apart, as with repeat(), are left as they are.
+        Assert.Contains(expectedStyle, cut.Find("table").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentDataGrid_Visible_False_OnTheFirstColumn_PutsTheRowDetailsToggleInTheNextOne()
+    {
+        // Arrange && Act
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" Items="@GetEmployees()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Department)" Visible="false" />
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>@context.City</RowDetails>
+            </FluentDataGrid>);
+
+        // Assert
+        Assert.All(cut.FindAll("tbody tr"), row =>
+        {
+            var cells = row.QuerySelectorAll("td");
+            Assert.NotNull(cells[0].QuerySelector("[row-details-toggle-container]"));
+            Assert.Single(row.QuerySelectorAll("[row-details-toggle-container]"));
+        });
+    }
+
+    [Fact]
+    public void FluentDataGrid_Visible_False_OnAPinnedColumn_OffsetsTheNextPinnedColumnFromTheEdge()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()">
+                <PropertyColumn Property="@(x => x.Department)" Pin="DataGridColumnPin.Start" Width="100px" Visible="false" />
+                <PropertyColumn Property="@(x => x.Name)" Pin="DataGridColumnPin.Start" Width="150px" />
+                <PropertyColumn Property="@(x => x.Level)" Width="100px" />
+            </FluentDataGrid>);
+
+        // Assert
+        Assert.Equal("Name", grid._columns[0].Title);
+        Assert.Equal("0px", grid._columns[0].PinOffset);
+        Assert.Contains("grid-template-columns: 150px 100px;", cut.Find("table").GetAttribute("style"));
+    }
+
+    private static List<string> GetHeaderTitles(IRenderedComponent<FluentDataGrid<Employee>> cut)
+        => [.. cut.FindAll("th [col-title-text]").Select(x => x.TextContent.Trim())];
+
+    private static List<string> GetRenderedNames(IRenderedComponent<FluentDataGrid<Employee>> cut)
+        => [.. cut.FindComponent<FluentDataGridRow<Employee>>().Instance.InternalGridContext.Items.Select(employee => employee.Name)];
+
+    private static IQueryable<Employee> GetEmployees() =>
+        new[]
+        {
+            new Employee("Sales", "Carol", 2, "Paris"),
+            new Employee("IT", "Bob", 1, "Lyon"),
+            new Employee("Sales", "Alice", 3, "Lille"),
+            new Employee("IT", "Alice", 2, "Nantes"),
+        }.AsQueryable();
+
+    private record Employee(string Department, string Name, int Level, string City);
+}
