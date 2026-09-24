@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
+using System.Web;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -1521,7 +1522,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task SortByColumnAsync(ColumnBase<TGridItem> column, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
-        var primary = _sortColumns.Count > 0 ? _sortColumns[0] : null;
+        var primary = _sortColumns.FirstOrDefault();
         var ascending = direction switch
         {
             DataGridSortDirection.Ascending => true,
@@ -2395,7 +2396,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
-        var query = System.Web.HttpUtility.ParseQueryString(queryString);
+        var query = HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby", StringComparer.Ordinal))
         {
             var raw = query[$"{SaveStatePrefix}orderby"]!;
@@ -2815,7 +2816,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (ErrorContent is null)
         {
-            builder.AddContent(0, Localizer[Localization.LanguageResource.DataGrid_ErrorContent]);
+            builder.AddContent(0, Localizer[LanguageResource.DataGrid_ErrorContent]);
 
         }
         else
