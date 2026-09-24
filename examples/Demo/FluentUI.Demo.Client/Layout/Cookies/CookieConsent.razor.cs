@@ -12,23 +12,11 @@ namespace FluentUI.Demo.Client.Layout.Cookies;
 /// A component that displays a cookie consent banner and manages user preferences for cookies, including analytics,
 /// social media, and advertising cookies.
 /// </summary>
-public partial class CookieConsent()
+public partial class CookieConsent(LibraryConfiguration configuration) : FluentComponentBase(configuration)
 {
+    private const string JAVASCRIPT_FILE = "./Layout/Cookies/CookieConsent.razor.js";
     private const string GA_MEASUREMENT_ID = "G-VML6BZWWTC"; // Google Analytics measurement ID
     private const string MC_PROIOJECT_ID = "hnr14wvzj8";     // Microsoft Clarity project ID
-
-    /// <summary>
-    /// Gets or sets the <see cref="IJSRuntime"/> instance used for invoking JavaScript functions from Blazor
-    /// components.
-    /// </summary>
-    [Inject]
-    public required IJSRuntime JSRuntime { get; set; }
-
-    /// <summary>
-    /// Gets or sets the <see cref="CookieConsentService"/> instance used for managing cookie consent and preferences.
-    /// </summary>
-    [Inject]
-    public required CookieConsentService CookieConsentService { get; set; }
 
     /// <summary>
     /// Gets or sets the <see cref="IDialogService"/> instance used for showing dialogs to manage cookie preferences.
@@ -39,16 +27,18 @@ public partial class CookieConsent()
     private bool _showBanner;
     private CookieState? _cookieState;
 
-    private IJSObjectReference? _module;
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            _cookieState ??= await CookieConsentService.GetCookieStateAsync();
-            _showBanner = _cookieState is null;
+            // Import the JavaScript module
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
 
-            _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Layout/Cookies/CookieConsent.razor.js");
+            _cookieState ??= await GetCookieStateAsync();
+            _showBanner = _cookieState is null;
 
             if (!_showBanner)
             {
@@ -62,7 +52,7 @@ public partial class CookieConsent()
     private async Task AcceptPolicyAsync()
     {
         _cookieState = new CookieState(true);
-        await CookieConsentService.SetCookieStateAsync(_cookieState);
+        await SetCookieStateAsync(_cookieState);
         await InitAnalyticsAsync();
 
         _showBanner = false;
@@ -70,7 +60,7 @@ public partial class CookieConsent()
 
     private async Task RejectPolicyAsync()
     {
-        await CookieConsentService.SetCookieStateAsync(new CookieState(false));
+        await SetCookieStateAsync(new CookieState(false));
 
         _showBanner = false;
     }
@@ -81,11 +71,10 @@ public partial class CookieConsent()
     /// </summary>
     public async Task ManageCookiesAsync()
     {
-        _cookieState ??= await CookieConsentService.GetCookieStateAsync() ?? new();
+        _cookieState ??= await GetCookieStateAsync() ?? new();
 
         var result = await DialogService.ShowDialogAsync<ManageCookies>(options =>
         {
-            options.Header.Title = $"Manage cookie preferences";
             options.Header.CloseAction.Visible = true;
 
             options.Parameters.Add(nameof(ManageCookies.Content), _cookieState);
@@ -95,16 +84,48 @@ public partial class CookieConsent()
         {
             _cookieState = (CookieState)result.Value;
 
-            await CookieConsentService.SetCookieStateAsync(_cookieState);
+            await SetCookieStateAsync(_cookieState);
             await InitAnalyticsAsync();
         }
     }
 
-    private async Task InitAnalyticsAsync()
+    /// <summary>
+    /// Retrieves the current cookie state by invoking the JavaScript function "getCookiePolicy" and returns a
+    /// <see cref="CookieState"/> object
+    /// </summary>
+    /// <returns>The current <see cref="CookieState"/> object representing the user's cookie preferences.</returns>
+    public async Task<CookieState?> GetCookieStateAsync()
+    {
+        _cookieState = await JSModule.ObjectReference.InvokeAsync<CookieState?>("getCookiePolicy");
+
+        if (_cookieState != null && _cookieState.AcceptAnalytics == null && _cookieState.AcceptSocialMedia == null && _cookieState.AcceptAdvertising == null)
+        {
+            _cookieState = null;
+        }
+
+        return _cookieState;
+    }
+
+    /// <summary>
+    /// Sets the cookie state by invoking the JavaScript function "setCookiePolicy" with the provided <see cref="CookieState"/>
+    /// object.
+    /// </summary>
+    /// <param name="state">The <see cref="CookieState"/> object representing the user's cookie preferences.</param>
+    /// <returns></returns>
+    public async Task SetCookieStateAsync(CookieState state)
+    {
+        await JSModule.ObjectReference.InvokeVoidAsync("setCookiePolicy", state);
+    }
+
+    /// <summary>
+    /// Initializes analytics tracking by invoking the JavaScript function "initAnalytics" with the provided Google
+    /// Analytics measurement ID and Microsoft Clarity project ID.
+    /// </summary>
+    public async Task InitAnalyticsAsync()
     {
         if (_cookieState is not null)
         {
-            await CookieConsentService.InitAnalyticsAsync(GA_MEASUREMENT_ID, MC_PROIOJECT_ID, _cookieState.AcceptAnalytics, _cookieState.AcceptAdvertising);
+            await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROIOJECT_ID, _cookieState?.AcceptAnalytics, _cookieState?.AcceptAdvertising);
         }
     }
 }

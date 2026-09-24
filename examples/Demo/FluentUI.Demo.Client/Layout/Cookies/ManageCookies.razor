@@ -2,7 +2,7 @@
 
 <FluentDialogBody Style="height: 446px;">
     <TitleTemplate>
-        @Dialog.Options.Header.Title
+        Manage cookie preferences
     </TitleTemplate>
 
     <ChildContent>
@@ -12,32 +12,40 @@
 
         <dl>
             <dt>
-                <h4>Required</h4>
-                <p class="explainer">We use required cookies to perform essential website functions. For example, they're used to log you in, save your language preferences, provide a shopping cart experience, improve performance, route traffic between web servers, detect the size of your screen, determine page load times, improve user experience, and for audience measurement. These cookies are necessary for our websites to work.</p>
+                <FluentText As="TextTag.H4">Required</FluentText>
+                <FluentText As="TextTag.Paragraph" Padding="pt-3">
+                    We use required cookies to perform essential website functions. For example, they're used to log you in, save your language preferences, provide a shopping cart experience, improve performance, route traffic between web servers, detect the size of your screen, determine page load times, improve user experience, and for audience measurement. These cookies are necessary for our websites to work.
+                </FluentText>
             </dt>
 
             <dt aria-label="Analytics">
-                <h4>Analytics</h4>
-                <p class="explainer">We allow third parties to use analytics cookies to understand how you use our websites so we can make them better and the third parties can develop and improve their products, which they may use on websites that are not owned or operated by Microsoft. For example, they're used to gather information about the pages you visit and how many clicks you need to accomplish a task. We use some analytics cookies for advertising.</p>
-                <FluentRadioGroup Class="choices" Name="AcceptAnalytics" @bind-Value="@Content.AcceptAnalytics" TValue="bool?">
+                <FluentText As="TextTag.H4">Analytics</FluentText>
+                <FluentText As="TextTag.Paragraph" Padding="pt-3">
+                    We allow third parties to use analytics cookies to understand how you use our websites so we can make them better and the third parties can develop and improve their products, which they may use on websites that are not owned or operated by Microsoft. For example, they're used to gather information about the pages you visit and how many clicks you need to accomplish a task. We use some analytics cookies for advertising.
+                </FluentText>
+                <FluentRadioGroup Name="AcceptAnalytics" @bind-Value="@Content.AcceptAnalytics" TValue="bool?">
                     <FluentRadio Value="true" Label="Accept" TValue="bool?" />
                     <FluentRadio Value="false" Label="Reject" TValue="bool?" />
                 </FluentRadioGroup>
             </dt>
 
             <dt aria-label="Social Media">
-                <h4>Social Media</h4>
-                <p class="explainer">We and third parties use social media cookies to show you ads and content based on your social media profiles and activity on our websites. They’re used to connect your activity on our websites to your social media profiles so the ads and content you see on our websites and on social media will better reflect your interests.</p>
-                <FluentRadioGroup Class="choices" Name="AcceptSocialMedia" @bind-Value="@Content.AcceptSocialMedia" TValue="bool?">
+                <FluentText As="TextTag.H4">Social Media</FluentText>
+                <FluentText As="TextTag.Paragraph" Padding="pt-3">
+                    We and third parties use social media cookies to show you ads and content based on your social media profiles and activity on our websites. They’re used to connect your activity on our websites to your social media profiles so the ads and content you see on our websites and on social media will better reflect your interests.
+                </FluentText>
+                <FluentRadioGroup Name="AcceptSocialMedia" @bind-Value="@Content.AcceptSocialMedia" TValue="bool?">
                     <FluentRadio Value="true" Label="Accept" TValue="bool?" />
                     <FluentRadio Value="false" Label="Reject" TValue="bool?" />
                 </FluentRadioGroup>
             </dt>
 
             <dt aria-label="Advertising">
-                <h4>Advertising</h4>
-                <p class="explainer">We and third parties use advertising cookies to show you new ads by recording which ads you've already seen. They're also used to track which ads you click on or purchases you make after clicking on an ad for payment purposes, and to show you ads that are more relevant to you. For example, they're used to detect when you click on an ad and show you ads based on your social media interests and website browsing history.</p>
-                <FluentRadioGroup Class="choices" Name="AcceptAdvertising" @bind-Value="@Content.AcceptAdvertising" TValue="bool?">
+                <FluentText As="TextTag.H4">Advertising</FluentText>
+                <FluentText As="TextTag.Paragraph" Padding="pt-3">
+                    We and third parties use advertising cookies to show you new ads by recording which ads you've already seen. They're also used to track which ads you click on or purchases you make after clicking on an ad for payment purposes, and to show you ads that are more relevant to you. For example, they're used to detect when you click on an ad and show you ads based on your social media interests and website browsing history.
+                </FluentText>
+                <FluentRadioGroup Name="AcceptAdvertising" @bind-Value="@Content.AcceptAdvertising" TValue="bool?">
                     <FluentRadio Value="true" Label="Accept" TValue="bool?" />
                     <FluentRadio Value="false" Label="Reject" TValue="bool?" />
                 </FluentRadioGroup>

@@ -1,27 +1,29 @@
-﻿@if (_showBanner)
+﻿@inherits FluentComponentBase
+
+@if (_showBanner)
 {
     <div id="cookieconsent" role="alert">
         <FluentGrid Spacing="0" Justify="JustifyContent.FlexEnd">
-            <FluentGridItem Style="min-width: 400px;" Class="info">
-                <div class="infoicon">
-                    <FluentIcon Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size28.Info())" />
-                </div>
-                <p class="infomessage">
+            <FluentGridItem Style="min-width: 400px;" Padding="8px 0 8px 5%">
+                <FluentText Padding="pa-3" As="TextTag.Span" Style="display: table-cell;">
+                    <FluentIcon  Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size28.Info())" />
+                </FluentText>
+                <FluentText As="TextTag.Paragraph" Padding="0" Style="display: table-cell; vertical-align: middle;" Size="TextSize.Size300">
                     We use optional cookies to improve your experience on our websites, such as through social media connections, and to display personalized advertising based on your online activity. If you reject optional cookies, only cookies necessary to provide you the services will be used. You may change your selection by clicking “Manage Cookies”.
-                    <a target="_blank" href="https://go.microsoft.com/fwlink/?LinkId=521839">Privacy Statement</a>
-                    <a target="_blank" href="https://aka.ms/3rdpartycookies">Third-Party Cookies</a>
-                </p>
+                    <FluentLink Inline="true" Href="https://go.microsoft.com/fwlink/?LinkId=521839" Target="LinkTarget.Blank">Privacy Statement</FluentLink>
+                    <FluentLink Inline="true" Href="https://aka.ms/3rdpartycookies" Target="LinkTarget.Blank">Third-Party Cookies</FluentLink>
+                </FluentText>
             </FluentGridItem>
-            <FluentGridItem  Gap="10px" Class="buttons">
+            <FluentGridItem  Gap="10px" Margin="0 5% 0 5%" Padding="py-2" Style="align-self: center; min-width: fit-content;">
                 <FluentGrid Justify="JustifyContent.FlexEnd" Spacing="3">
                     <FluentGridItem sm="4" xs="12">
-                        <FluentButton Class="button" @onclick="AcceptPolicyAsync" Title="Accept" Appearance="ButtonAppearance.Outline">Accept</FluentButton>
+                        <FluentButton Class="button" OnClick="AcceptPolicyAsync" Title="Accept" Appearance="ButtonAppearance.Outline">Accept</FluentButton>
                     </FluentGridItem>
                     <FluentGridItem sm="4" xs="12">
-                        <FluentButton Class="button" @onclick="RejectPolicyAsync" Title="Reject" Appearance="ButtonAppearance.Outline">Reject</FluentButton>
+                        <FluentButton Class="button" OnClick="RejectPolicyAsync" Title="Reject" Appearance="ButtonAppearance.Outline">Reject</FluentButton>
                     </FluentGridItem>
                     <FluentGridItem sm="4" xs="12">
-                        <FluentButton Class="button" @onclick="ManageCookiesAsync" Title="Manage cookies" Appearance="ButtonAppearance.Outline">Manage cookies</FluentButton>
+                        <FluentButton Class="button" OnClick="ManageCookiesAsync" Title="Manage cookies" Appearance="ButtonAppearance.Outline">Manage cookies</FluentButton>
                     </FluentGridItem>
                 </FluentGrid>
             </FluentGridItem>

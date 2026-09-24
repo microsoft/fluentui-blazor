@@ -8,50 +8,14 @@
   background-color: var(--colorNeutralBackground3);
 }
 
-::deep .info {
-    margin: 0;
-    padding-left: 5% !important;
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
-}
-
-::deep .infoicon {
-    display: table-cell !important;
-    padding: 12px !important;
-    width: 24px !important;
-    height: 24px !important;
-}
-
-::deep .infomessage {
-  display: table-cell !important;
-  vertical-align: middle !important;
-  padding: 0 !important;
-  font-size: var(--fontSizeBase300);
-  font-weight: var(--fontWeightRegular);
-  line-height: var(--lineHeightBase100);
-}
-
-::deep .buttons {
-    display: inline-block;
-    margin-left: 5%;
-    margin-right: 5%;
-    min-width: 40%;
-    min-width: calc((150px + 3 * 4px) * 2 + 150px);
-    min-width: fit-content;
-    align-self: center;
-    position: relative;
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
-}
-
-::deep .button {
+.button {
     min-width: 150px;
 }
 
 @media (max-width: 768px) {
 
-    ::deep .info,
-    ::deep .buttons {
+    .info,
+    .buttons {
         padding-top: 8px;
         padding-bottom: 12px;
         padding-left: 3.75%;
@@ -60,7 +24,7 @@
         width: 92.5%;
     }
 
-    ::deep .button {
+    .button {
         width: 100%;
     }
 }
