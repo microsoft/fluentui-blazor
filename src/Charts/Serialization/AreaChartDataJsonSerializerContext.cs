@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 [JsonSerializable(typeof(IReadOnlyList<AreaChartSeries>))]
 [JsonSerializable(typeof(AreaChartDataPoint))]
 [JsonSerializable(typeof(IReadOnlyList<AreaChartDataPoint>))]
+[JsonSerializable(typeof(CalloutAccessibilityData))]
 [ExcludeFromCodeCoverage(Justification = "This class is used for source-generated JSON serialization and does not contain any logic to be tested.")]
 internal sealed partial class AreaChartDataJsonSerializerContext : JsonSerializerContext
 {

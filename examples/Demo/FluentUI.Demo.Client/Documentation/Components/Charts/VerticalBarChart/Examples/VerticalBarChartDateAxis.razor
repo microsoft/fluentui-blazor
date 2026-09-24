@@ -1,0 +1,34 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart Date axis example"
+                        ChartData="@_chartData"
+                        Width="650px"
+                        Height="350px"
+                        TickFormat="%b %Y"
+                        Culture="@CultureInfo.CurrentCulture"
+                        HideLegends="true"
+                        XAxisTitle="Date"
+                        YAxisTitle="Values"
+                        DateTickValues="@_tickValues">
+</FluentVerticalBarChart>
+
+@code {
+    private readonly IReadOnlyList<DateTime> _tickValues =
+    [
+        new(2018, 1, 1),
+        new(2018, 3, 1),
+        new(2018, 7, 1),
+        new(2018, 10, 1),
+        new(2019, 1, 1),
+    ];
+
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _chartData =
+    [
+        new() { X = new DateTime(2018, 1, 1), Y = 3500, Color = DataVizPalette.Custom, CustomColor = "#627CEF" },
+        new() { X = new DateTime(2018, 3, 1), Y = 2500, Color = DataVizPalette.Custom, CustomColor = "#C19C00" },
+        new() { X = new DateTime(2018, 7, 1), Y = 1900, Color = DataVizPalette.Custom, CustomColor = "#E650AF" },
+        new() { X = new DateTime(2018, 10, 1), Y = 2800, Color = DataVizPalette.Custom, CustomColor = "#0E7878" },
+        new() { X = new DateTime(2019, 1, 1), Y = 3800, Color = DataVizPalette.Custom, CustomColor = "#0E7878" },
+    ];
+}

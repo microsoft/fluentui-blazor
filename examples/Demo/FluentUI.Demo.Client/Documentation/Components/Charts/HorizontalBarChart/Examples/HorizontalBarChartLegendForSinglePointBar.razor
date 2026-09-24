@@ -1,0 +1,37 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChart Width="100%"
+                          ChartTitle="Horizontal bar chart single point legend example"
+                          ShowLegendForSinglePointBar="true"
+                          ChartData="@_chartData">
+</FluentHorizontalBarChart>
+
+@code {
+    private readonly IReadOnlyList<HorizontalBarChartSeries> _chartData =
+    [
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Servers",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Servers", Data = 32, Total = 100, Color = DataVizPalette.Color1 },
+            ],
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Storage",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Storage", Data = 48, Total = 100, Color = DataVizPalette.Color2 },
+            ],
+        },
+        new HorizontalBarChartSeries
+        {
+            ChartSeriesTitle = "Network",
+            ChartData =
+            [
+                new HorizontalBarChartDataPoint { Legend = "Network", Data = 20, Total = 100, Color = DataVizPalette.Color3 },
+            ],
+        },
+    ];
+}

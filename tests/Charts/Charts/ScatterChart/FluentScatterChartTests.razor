@@ -1,0 +1,242 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<ScatterChartSeries> DefaultData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Group 1",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 10, Y = 20, MarkerSize = 5 },
+                new ScatterChartDataPoint { X = 15, Y = 35, MarkerSize = 8 },
+            ],
+            Color = DataVizPalette.Color1,
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Group 2",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 25, Y = 10, MarkerSize = 6 },
+                new ScatterChartDataPoint { X = 30, Y = 40, MarkerSize = 10 },
+            ],
+            Color = DataVizPalette.Color2,
+        },
+    ];
+
+    public FluentScatterChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentScatterChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentScatterChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" ChartTitle="Scatter Correlation" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("chart-title");
+        Assert.Equal("Scatter Correlation", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" Width="600px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("width");
+        Assert.Equal("600px", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("it-IT");
+
+        // Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("culture");
+        Assert.Equal("it-IT", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" Class="my-scatter-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-scatter-chart");
+        Assert.Contains("my-scatter-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-scatter-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentScatterChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@DefaultData" aria-label="Scatter plot" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("aria-label");
+        Assert.Equal("Scatter plot", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var series = new List<ScatterChartSeries>
+        {
+            new ScatterChartSeries
+            {
+                Legend = "Series S",
+                Data = [ new ScatterChartDataPoint { X = 50, Y = 100, MarkerSize = 12 } ],
+                Color = DataVizPalette.Color3,
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentScatterChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Series S", attribute);
+        Assert.Contains("50", attribute);
+        Assert.Contains("100", attribute);
+        Assert.Contains("color3", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_Series_WithCustomColor()
+    {
+        // Arrange
+        var series = new List<ScatterChartSeries>
+        {
+            new ScatterChartSeries
+            {
+                Legend = "Custom Scatter",
+                Data = [ new ScatterChartDataPoint { X = 1, Y = 2, MarkerSize = 3 } ],
+                Color = DataVizPalette.Custom,
+                CustomColor = "#334455",
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentScatterChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-scatter-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#334455", attribute);
+    }
+
+    [Fact]
+    public void FluentScatterChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentScatterChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentScatterChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentScatterChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentScatterChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </CartesianTooltipTemplate>
+            </FluentScatterChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentScatterChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentScatterChart ChartData="@(Array.Empty<ScatterChartSeries>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-scatter-chart");
+        Assert.NotNull(element);
+    }
+}

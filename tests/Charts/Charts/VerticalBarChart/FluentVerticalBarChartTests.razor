@@ -1,0 +1,283 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<VerticalBarChartDataPoint> DefaultData =
+    [
+        new VerticalBarChartDataPoint { X = "Item A", Y = 100, Legend = "Item A", Color = DataVizPalette.Color1 },
+        new VerticalBarChartDataPoint { X = "Item B", Y = 150, Legend = "Item B", Color = DataVizPalette.Color2 },
+    ];
+
+    public FluentVerticalBarChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" ChartTitle="Quarterly Performance" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("chart-title");
+        Assert.Equal("Quarterly Performance", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_LineLegendText()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" LineLegendText="Target" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("line-legend-text");
+        Assert.Equal("Target", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_BarWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" BarWidth="25px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("bar-width");
+        Assert.Equal("25px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_MaxBarWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" MaxBarWidth="50px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("max-bar-width");
+        Assert.Equal("50px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_UseSingleColor()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" UseSingleColor="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("use-single-color");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Colors()
+    {
+        // Arrange
+        var colors = new[] { "#FF0000", "#00FF00", "#0000FF" };
+
+        // Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" Colors="@colors" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("colors");
+        Assert.NotNull(attribute);
+        Assert.Contains("#FF0000", attribute);
+        Assert.Contains("#00FF00", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" Width="500px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("width");
+        Assert.Equal("500px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" Height="300px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("height");
+        Assert.Equal("300px", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("en-US");
+
+        // Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("culture");
+        Assert.Equal("en-US", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" Class="my-vbar-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-vertical-bar-chart");
+        Assert.Contains("my-vbar-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-vertical-bar-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@DefaultData" aria-label="Vertical bar chart" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("aria-label");
+        Assert.Equal("Vertical bar chart", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new List<VerticalBarChartDataPoint>
+        {
+            new VerticalBarChartDataPoint { X = "Item 1", Y = 88, Legend = "Item 1", Color = DataVizPalette.Color5 },
+        };
+
+        // Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Item 1", attribute);
+        Assert.Contains("88", attribute);
+        Assert.Contains("color5", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_Series_WithCustomColor()
+    {
+        // Arrange
+        var data = new List<VerticalBarChartDataPoint>
+        {
+            new VerticalBarChartDataPoint { X = "Bar", Y = 12, Legend = "Bar", Color = DataVizPalette.Custom, CustomColor = "#123456" },
+        };
+
+        // Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-vertical-bar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#123456", attribute);
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentVerticalBarChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentVerticalBarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentVerticalBarChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </CartesianTooltipTemplate>
+            </FluentVerticalBarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentVerticalBarChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentVerticalBarChart ChartData="@(Array.Empty<VerticalBarChartDataPoint>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-vertical-bar-chart");
+        Assert.NotNull(element);
+    }
+}

@@ -40,10 +40,11 @@
     public async Task FluentAppBar_Overflow()
     {
         // Arrange
+        var visibilityChanges = new List<bool>();
 
         // Act
         var cut = Render<FluentAppBar>(
-            @<FluentAppBar Id="appbar">
+            @<FluentAppBar Id="appbar" PopoverVisibilityChanged="value => visibilityChanges.Add(value)">
                 <FluentAppBarItem Href="/" Id="id1" Text="My item" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item tooltip">
             </FluentAppBarItem>
                 <FluentAppBarItem Href="/" Id="id2" Text="My item 2" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="My item 2 tooltip">
@@ -62,6 +63,30 @@
 		// Assert
 		var popup = cut.Find("fluent-popover-b");
 		Assert.NotNull(popup);
+        Assert.Equal("appbar-popover-appbar", popup.Id);
+
+        var trigger = cut.Find(".fluent-appbar-more-item[slot='trigger']");
+        Assert.Equal("BUTTON", trigger.TagName);
+        Assert.Equal("button", trigger.GetAttribute("type"));
+        Assert.Equal("dialog", trigger.GetAttribute("aria-haspopup"));
+        Assert.Equal("false", trigger.GetAttribute("aria-expanded"));
+        Assert.Equal(popup.Id, trigger.GetAttribute("aria-controls"));
+        Assert.Equal("dialog", popup.GetAttribute("role"));
+        Assert.Equal(trigger.GetAttribute("title"), popup.GetAttribute("aria-label"));
+
+        await trigger.ClickAsync();
+        Assert.Equal("true", trigger.GetAttribute("aria-expanded"));
+        Assert.Equal([true], visibilityChanges);
+
+        await cut.Find("fluent-overflow").TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "appbar-overflow",
+            Items = [],
+        });
+
+        Assert.Equal("false", trigger.GetAttribute("aria-expanded"));
+        Assert.Empty(cut.FindAll("fluent-popover-b"));
+        Assert.Equal([true, false], visibilityChanges);
     }
 
     [Fact]
@@ -313,41 +338,6 @@
         var ab = cut.Find("nav");
         Assert.False(ab.HasAttribute("hide-bar"));
     }
-
-    [Fact]
-    public async Task FluentAppBar_HandlePopoverKeyDownAsync_Enter()
-    {
-        // Arrange
-        bool popoverVisible = false;
-        var cut = Render<FluentAppBar>(@<FluentAppBar Id="appbar" PopoverVisibilityChanged="@((bool visible) => popoverVisible = visible)">
-            <FluentAppBarItem Id="id1" Text="Item1" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
-            </FluentAppBarItem>
-            <FluentAppBarItem Id="id2" Text="Item2" Href="/" IconRest="@(new Samples.Icons.Samples.Info())" IconActive="@(new Samples.Icons.Samples.Warning())" Tooltip="Tooltip">
-            </FluentAppBarItem>
-        </FluentAppBar>
-	);
-
-		await cut.Instance.OverflowRaisedAsync(new OverflowItem[] { new OverflowItem() { Id = "id2", Text = "Item2" } });
-		cut.Render();
-
-		var method = typeof(FluentAppBar).GetMethod("HandlePopoverKeyDownAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-		var targetId = $"appbar-more-{cut.Instance.Id}";
-
-		// Act for Enter
-		popoverVisible = false;
-		var argsEnter = new FluentKeyCodeEventArgs { Key = KeyCode.Enter, TargetId = targetId };
-		if (method is not null && cut.Instance is not null)
-		{
-			var result = method.Invoke(cut.Instance, [argsEnter]);
-			if (result is Task task)
-			{
-				await task;
-			}
-		}
-
-		// Assert
-		Assert.True(popoverVisible);
-	}
 
 	[Fact]
 	public async Task FluentAppBar_HandlePopoverKeyDownAsync_Right()

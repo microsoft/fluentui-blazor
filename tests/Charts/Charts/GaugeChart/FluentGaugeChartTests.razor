@@ -1,0 +1,343 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<GaugeChartSegment> DefaultData =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 33, Color = DataVizPalette.Color2 },
+        new GaugeChartSegment { Legend = "High", Size = 34, Color = DataVizPalette.Color3 },
+    ];
+
+    public FluentGaugeChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" ChartValue="65" MinValue="0" MaxValue="100" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentGaugeChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" ChartTitle="Performance Index" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("chart-title");
+        Assert.Equal("Performance Index", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_ChartValue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" ChartValue="75.5" />);
+
+        // Assert
+        Assert.Equal(75.5, cut.FindComponent<FluentGaugeChart>().Instance.ChartValue);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_MinValue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" MinValue="10" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("min-value");
+        Assert.Equal("10", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_MaxValue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" MaxValue="200" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("max-value");
+        Assert.Equal("200", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_MaxValue_Null()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" MaxValue="null" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("max-value");
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Sublabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" Sublabel="Optimal range" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("sublabel");
+        Assert.Equal("Optimal range", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_HideMinMax()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" HideMinMax="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("hide-min-max");
+        Assert.Equal("true", attribute);
+    }
+
+    [Theory]
+    [InlineData(GaugeValueFormat.Fraction, "fraction")]
+    [InlineData(GaugeValueFormat.Percentage, "percentage")]
+    public void FluentGaugeChart_ChartValueFormat(GaugeValueFormat value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" ChartValueFormat="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("chart-value-format");
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_ChartValueFormatTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" ChartValueFormatTemplate="{0}%" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("chart-value-format-template");
+        Assert.Equal("{0}%", attribute);
+    }
+
+    [Theory]
+    [InlineData(GaugeChartVariant.SingleSegment, "single-segment")]
+    [InlineData(GaugeChartVariant.MultipleSegments, "multiple-segments")]
+    public void FluentGaugeChart_Variant(GaugeChartVariant value, string expectedValue)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" Variant="@value" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("variant");
+        Assert.Equal(expectedValue, attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_EnableGradient()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" EnableGradient="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("enable-gradient");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_LegendListLabel()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" LegendListLabel="Gauge Levels" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("legend-list-label");
+        Assert.Equal("Gauge Levels", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_RoundedCorners()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" RoundedCorners="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("round-corners");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_AllowMultipleLegendSelection()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" AllowMultipleLegendSelection="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("allow-multiple-legend-selection");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" Width="350px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("width");
+        Assert.Equal("350px", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" Height="250px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("height");
+        Assert.Equal("250px", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("en-US");
+
+        // Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("culture");
+        Assert.Equal("en-US", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" Class="my-gauge-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-gauge-chart");
+        Assert.Contains("my-gauge-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-gauge-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@DefaultData" aria-label="System gauge" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("aria-label");
+        Assert.Equal("System gauge", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var segments = new List<GaugeChartSegment>
+        {
+            new GaugeChartSegment { Legend = "Zone 1", Size = 50, Color = DataVizPalette.Color4 },
+        };
+
+        // Act
+        var cut = Render(@<FluentGaugeChart Segments="@segments" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("segments");
+        Assert.NotNull(attribute);
+        Assert.Contains("Zone 1", attribute);
+        Assert.Contains("50", attribute);
+        Assert.Contains("color4", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_Segment_WithCustomColor()
+    {
+        // Arrange
+        var segments = new List<GaugeChartSegment>
+        {
+            new GaugeChartSegment { Legend = "Custom Zone", Size = 40, Color = DataVizPalette.Custom, CustomColor = "#123456" },
+        };
+
+        // Act
+        var cut = Render(@<FluentGaugeChart Segments="@segments" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-gauge-chart").GetAttribute("segments");
+        Assert.NotNull(attribute);
+        Assert.Contains("#123456", attribute);
+    }
+
+    [Fact]
+    public void FluentGaugeChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentGaugeChart Segments="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentGaugeChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentGaugeChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentGaugeChart Segments="@(Array.Empty<GaugeChartSegment>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-gauge-chart");
+        Assert.NotNull(element);
+    }
+}
