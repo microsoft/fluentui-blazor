@@ -22,22 +22,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     return activeElement instanceof HTMLElement ? activeElement : null;
   };
 
-  // Walks up through the shadow roots, so that an element inside a web component (the input of a
-  // fluent-text-input, for instance) counts as being inside the grid that holds the component.
-  const containsAcrossShadowRoots = (container: HTMLElement, element: Element) => {
-    let current: Element | null = element;
-    while (current) {
-      if (container.contains(current)) {
-        return true;
-      }
-
-      const root = current.getRootNode();
-      current = root instanceof ShadowRoot ? root.host : null;
-    }
-
-    return false;
-  };
-
   const nonTextInputTypes = ['button', 'checkbox', 'color', 'file', 'hidden', 'image', 'radio', 'range', 'reset', 'submit'];
 
   const isTextEntryElement = (element: HTMLElement) => {
@@ -105,7 +89,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   // Use a dictionary for grids for id-based access
   let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
-  export function Initialize(gridElement: HTMLElement, autoFocus: boolean) {
+  export function Initialize(gridElement: HTMLElement, autoFocus: boolean, dotNetHelper: any) {
     if (!gridElement) {
       return;
     }
@@ -264,7 +248,34 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
       return targetRow.cells[cell.cellIndex] as HTMLTableCellElement | null;
     };
+    // Shift+R, Shift+S, + and - type the very characters they are made of, so they only act on a key press
+    // made in this grid (not in a grid nested in its row details) and not in a field the key types into
+    // (WCAG 2.1.4, Character Key Shortcuts). Handling them here keeps the key presses made anywhere else on
+    // the page from reaching .NET: only Shift+S, which changes the sort, calls it.
+    const handleCharacterKeyShortcut = (event: KeyboardEvent) => {
+      if (event.ctrlKey || event.altKey || event.metaKey) {
+        return;
+      }
+
+      const composedPath = event.composedPath();
+      const target = composedPath[0];
+      if (composedPath.find(entry => entry instanceof HTMLTableElement) !== gridElement
+        || (target instanceof HTMLElement && isTextEntryElement(target))) {
+        return;
+      }
+
+      if (event.key === '+' || event.key === '-') {
+        ResizeColumnDiscrete(gridElement, undefined, event.key === '+' ? 10 : -10);
+      } else if (event.shiftKey && event.code === 'KeyR') {
+        ResetColumnWidths(gridElement);
+      } else if (event.shiftKey && event.code === 'KeyS') {
+        dotNetHelper?.invokeMethodAsync('RemoveSortByColumnAsync');
+      }
+    };
+
     const keyDownHandler = (event: KeyboardEvent) => {
+      handleCharacterKeyShortcut(event);
+
       if ((event as any)[handledArrowNavigationEventFlag]) {
         return;
       }
@@ -389,15 +400,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.addEventListener('keydown', keyDownHandler, { signal, capture: true });
 
     return {
-      // The grid's character key shortcuts (Shift+R, Shift+S, + and -) arrive through a listener on the
-      // whole document, so they only apply while the focus is in this grid, and not while it is in a
-      // field that the key types into.
-      canHandleCharacterKeyShortcut: () => {
-        const activeElement = getDeepActiveElement();
-        return !!activeElement
-          && containsAcrossShadowRoots(gridElement, activeElement)
-          && !isTextEntryElement(activeElement);
-      },
       stop: () => {
         controller.abort();
         const grid = grids.find(g => g.id === gridElement.id);

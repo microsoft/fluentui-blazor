@@ -2105,16 +2105,18 @@
     }
 
     [Theory]
-    [InlineData(true, "Id")]
-    [InlineData(false, "Name")]
-    public async Task FluentDataGrid_KeyDown_ShiftS_OnlyRemovesTheSortWhenTheFocusIsInTheGrid(bool focusInGrid, string expectedSortColumn)
+    [InlineData(KeyCode.KeyS, "S", true)]
+    [InlineData(KeyCode.KeyR, "R", true)]
+    [InlineData(KeyCode.Minus, "-", false)]
+    [InlineData(KeyCode.NumpadAdd, "+", false)]
+    public async Task FluentDataGrid_KeyDown_CharacterKeyShortcuts_AreLeftToTheGridScript(KeyCode key, string value, bool shiftKey)
     {
-        // Arrange: the key press comes from a listener on the whole document, so an uppercase S typed in a field
-        // anywhere on the page reaches the grid as well.
-        SetupKeyboardFocusInGrid(focusInGrid);
+        // Arrange: the document-wide key listener reports every key press on the page, typing in a field included.
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
         FluentDataGrid<Customer>? grid = default!;
         var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()">
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" ResizableColumns="true">
                 <PropertyColumn Property="@(x => x.Id)" Sortable="true" IsDefaultSortColumn="true" />
                 <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
             </FluentDataGrid>);
@@ -2122,63 +2124,34 @@
         await cut.InvokeAsync(() => grid.SortByColumnAsync("Name", DataGridSortDirection.Descending));
 
         // Act
-        await cut.InvokeAsync(() => grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" }));
+        await cut.InvokeAsync(() => grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = key, Value = value, ShiftKey = shiftKey }));
 
-        // Assert
-        Assert.Equal(expectedSortColumn, grid.SortColumns[0].Column.Title);
-    }
-
-    [Theory]
-    [InlineData(true, 1)]
-    [InlineData(false, 0)]
-    public async Task FluentDataGrid_KeyDown_ShiftR_OnlyResetsTheColumnWidthsWhenTheFocusIsInTheGrid(bool focusInGrid, int expectedResets)
-    {
-        // Arrange
-        var (module, _) = SetupKeyboardFocusInGrid(focusInGrid);
-        FluentDataGrid<Customer>? grid = default!;
-        var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" ResizableColumns="true">
-                <PropertyColumn Property="@(x => x.Id)" />
-                <PropertyColumn Property="@(x => x.Name)" />
-            </FluentDataGrid>);
-
-        // Act
-        await cut.InvokeAsync(() => grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyR, ShiftKey = true, Value = "R" }));
-
-        // Assert
-        Assert.Equal(expectedResets, module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.ResetColumnWidths"].Count);
+        // Assert: the grid's own script handles these keys, as it knows whether they were typed in the grid.
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+        Assert.Empty(module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.ResetColumnWidths"]);
+        Assert.Empty(module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.ResizeColumnDiscrete"]);
     }
 
     [Fact]
-    public async Task FluentDataGrid_KeyDown_NotAShortcut_DoesNotAskWhereTheFocusIs()
+    public void FluentDataGrid_Initialize_GivesTheScriptAReferenceToTheGridForShiftS()
     {
         // Arrange
-        var (_, controller) = SetupKeyboardFocusInGrid(focusInGrid: true);
-        FluentDataGrid<Customer>? grid = default!;
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Act
         var cut = Render<FluentDataGrid<Customer>>(
-            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()">
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
             </FluentDataGrid>);
 
-        // Act: every key press on the page reaches the grid, so only its shortcuts may cost a call to JavaScript.
-        await cut.InvokeAsync(() => grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyA, ShiftKey = true, Value = "A" }));
-
-        // Assert
-        controller.VerifyNotInvoke("canHandleCharacterKeyShortcut");
-    }
-
-    /// <summary>
-    /// Sets up the grid's JavaScript controller, which tells whether the focus is in the grid (and not in a field that
-    /// the key types into). Called before the grid is rendered, as the controller is created on the first render.
-    /// </summary>
-    private (BunitJSModuleInterop Module, BunitJSModuleInterop Controller) SetupKeyboardFocusInGrid(bool focusInGrid)
-    {
-        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
-        module.Mode = JSRuntimeMode.Loose;
-        var controller = module.SetupModule("Microsoft.FluentUI.Blazor.DataGrid.Initialize", invocation => true);
-        controller.Mode = JSRuntimeMode.Loose;
-        controller.Setup<bool>("canHandleCharacterKeyShortcut").SetResult(focusInGrid);
-        return (module, controller);
+        // Assert: the script calls RemoveSortByColumnAsync through this reference on Shift+S.
+        var initialize = Assert.Single(module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.Initialize"]);
+        Assert.IsType<DotNetObjectReference<FluentDataGrid<Customer>>>(initialize.Arguments[2]);
+        Assert.NotNull(typeof(FluentDataGrid<Customer>)
+            .GetMethod(nameof(FluentDataGrid<Customer>.RemoveSortByColumnAsync), Type.EmptyTypes)!
+            .GetCustomAttributes(typeof(JSInvokableAttribute), inherit: false)
+            .SingleOrDefault());
     }
 
     [Theory]

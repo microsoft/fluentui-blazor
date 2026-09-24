@@ -838,7 +838,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             _selfReference = DotNetObjectReference.Create(this);
 
-            _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
+            _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus, _selfReference);
             if (AutoItemsPerPage)
             {
 
@@ -1747,6 +1747,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// sort declared by the columns is restored.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    [JSInvokable] // Shift+S, which the grid's script handles
     public Task RemoveSortByColumnAsync()
     {
         if (SortMode == DataGridSortMode.Multiple)
@@ -2620,29 +2621,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns></returns>
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        if (IsCharacterKeyShortcut(args) && await CanHandleCharacterKeyShortcutAsync())
-        {
-            if (args.ShiftKey && args.Key == KeyCode.KeyR)
-            {
-                await ResetColumnWidthsAsync();
-            }
-
-            if (args.ShiftKey && args.Key == KeyCode.KeyS)
-            {
-                await RemoveSortByColumnAsync();
-            }
-
-            if (string.Equals(args.Value, "-", StringComparison.Ordinal))
-            {
-                await SetColumnWidthDiscreteAsync(columnIndex: null, -10);
-            }
-
-            if (string.Equals(args.Value, "+", StringComparison.Ordinal))
-            {
-                await SetColumnWidthDiscreteAsync(columnIndex: null, 10);
-            }
-        }
-
+        // Shift+R, Shift+S, + and - are handled by the grid's script, which only acts on key presses made in the grid
+        // and outside of text fields, rather than here, where every key press on the page arrives.
         var activeColumn =
             _activeHeaderUiKind == ColumnHeaderUiKind.Reorder
                 ? _activeHeaderUiColumn
@@ -2673,38 +2653,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (activeColumn is not null && args.AltKey && args.Key == KeyCode.KeyL)
         {
             await MoveColumnToEndAsync(activeColumn);
-        }
-    }
-
-    /// <summary>
-    /// Gets whether the key press is one of the grid's character key shortcuts: Shift+R, Shift+S, + and -. These
-    /// are the characters the same keys type, so they must not act while the user types.
-    /// </summary>
-    private static bool IsCharacterKeyShortcut(FluentKeyCodeEventArgs args)
-        => (args.ShiftKey && (args.Key == KeyCode.KeyR || args.Key == KeyCode.KeyS))
-            || string.Equals(args.Value, "-", StringComparison.Ordinal)
-            || string.Equals(args.Value, "+", StringComparison.Ordinal);
-
-    /// <summary>
-    /// Gets whether the focus is in this grid, and not in a field inside it that the key types into. The key press
-    /// is reported by a listener on the whole document, so without this every grid on the page would reset its
-    /// sort or column widths when an uppercase S or R is typed anywhere (WCAG 2.1.4, Character Key Shortcuts).
-    /// </summary>
-    private async Task<bool> CanHandleCharacterKeyShortcutAsync()
-    {
-        if (_gridController is null)
-        {
-            return false;
-        }
-
-        try
-        {
-            return await _gridController.InvokeAsync<bool>("canHandleCharacterKeyShortcut");
-        }
-        catch (JSException)
-        {
-            // The grid element is gone (a re-render replaced it), so the focus cannot be in it.
-            return false;
         }
     }
 
