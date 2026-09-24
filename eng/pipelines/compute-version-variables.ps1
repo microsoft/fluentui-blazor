@@ -43,9 +43,8 @@
           -branchName "$(Build.SourceBranchName)"
           -buildNumber "$(Build.BuildNumber)"
           -packageSuffix "$(PackageSuffix)"
-          -testProjects "${{ parameters.Tests }}"
-          -ForceAssemblyVersion "${{ parameters.FixedAssemblyVersion }}"
-          -ForcePackageVersion "${{ parameters.NugetPackageVersion }}"
+          -ForceAssemblyVersion "${{ parameters.ForcedAssemblyVersion }}"
+          -ForcePackageVersion "${{ parameters.ForcedNugetPackageVersion }}"
 
 #>
 
