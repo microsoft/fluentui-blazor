@@ -20,6 +20,14 @@
     Projects to tests, to define the variable "ShouldTest".
     Not empty, ShouldTest will be "true".
 
+.PARAMETER ForceAssemblyVersion
+    Assembly version to use instead of the computed version.
+    Default is "".
+
+.PARAMETER ForcePackageVersion
+    Package version to use instead of the computed version.
+    Default is "".
+
 .EXAMPLE
     $> .\compute-version-variables -branchName "dev" -buildNumber "4.6.1.24123.3" -packageSuffix "Preview"
 
@@ -36,6 +44,8 @@
           -buildNumber "$(Build.BuildNumber)"
           -packageSuffix "$(PackageSuffix)"
           -testProjects "${{ parameters.Tests }}"
+          -ForceAssemblyVersion "${{ parameters.FixedAssemblyVersion }}"
+          -ForcePackageVersion "${{ parameters.NugetPackageVersion }}"
 
 #>
 
@@ -43,7 +53,9 @@ param (
     [Parameter(Mandatory = $true)][ValidateNotNullOrEmpty()][string]$branchName,
     [Parameter(Mandatory = $true)][ValidateNotNullOrEmpty()][string]$buildNumber,
     [string]$packageSuffix,
-    [string]$testProjects
+    [string]$testProjects,
+    [string]$ForceAssemblyVersion,
+    [string]$ForcePackageVersion
 )
 
 Write-Host "Compute AssemblyVersion and PackageVersion."
@@ -115,6 +127,15 @@ else {
     $toTest = "true"
 }
 
+# Force versions if specified
+if (-not [string]::IsNullOrWhiteSpace($ForceAssemblyVersion)) {
+    $assembly = $ForceAssemblyVersion
+}
+
+if (-not [string]::IsNullOrWhiteSpace($ForcePackageVersion)) {
+    $package = $ForcePackageVersion
+}
+
 if ($testProjects -eq "") {
     $toTest = "false"
 }
@@ -127,9 +148,15 @@ Write-Host "##vso[task.setvariable variable=ShouldTest]$toTest"
 # Display computed versions
 Write-Host ""
 Write-Host "----------------------------------------------- "
+Write-Host "Parameters:"
+Write-Host "----------------------------------------------- "
 Write-Host " -  Branch                 = $branch "
 Write-Host " -  BuildNumber            = $buildNumber "
 Write-Host " -  PackageSuffix          = $packageSuffix "
+Write-Host " -  ForceAssemblyVersion   = $ForceAssemblyVersion "
+Write-Host " -  ForcePackageVersion    = $ForcePackageVersion "
+Write-Host "----------------------------------------------- "
+Write-Host "Computed:"
 Write-Host "----------------------------------------------- "
 Write-Host " -> AssemblyVersion        = $assembly "
 Write-Host " -> PackageVersion         = $package "
