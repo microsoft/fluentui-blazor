@@ -7,6 +7,9 @@
 
     <FluentSpacer />
 
+    @* Search Components *@
+    <DemoSearchInput @rendermode="@DocViewer.DemoRenderMode" />
+    
     @* GitHub Logo *@
     <FluentButton IconStart="@(new GitHubIcon().WithColor("var(--colorNeutralForegroundOnBrand)"))"
                     OnClick="@(() => OpenUrlInNewTabAsync("https://github.com/microsoft/fluentui-blazor/tree/dev-v5"))"
