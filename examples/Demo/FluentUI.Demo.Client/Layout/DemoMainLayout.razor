@@ -27,6 +27,7 @@
 	@if (IsHomePage())
 	{
 		<FluentLayoutItem Area="@LayoutArea.Content" Class="demo-home">
+            <DemoNewsBar @rendermode="@DocViewer.DemoRenderMode" />
 			<div class="demo-home">
 				<div>@Body</div>
 				<div><DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" 
@@ -37,6 +38,7 @@
 	else
 	{
 		<FluentLayoutItem Area="@LayoutArea.Content">
+            <DemoNewsBar @rendermode="@DocViewer.DemoRenderMode" />
 			<FluentErrorBoundary DisplayErrorDetails="ErrorBoundaryDetails.ErrorMessage" OnCloseRedirectUrl="/">
 				@Body
 			</FluentErrorBoundary>

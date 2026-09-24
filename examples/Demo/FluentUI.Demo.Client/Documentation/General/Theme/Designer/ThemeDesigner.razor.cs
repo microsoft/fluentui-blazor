@@ -21,6 +21,11 @@ public partial class ThemeDesigner
     [Inject]
     private IThemeService ThemeService { get; set; } = default!;
 
+    protected override async Task OnInitializedAsync()
+    {
+        _isDark = await ThemeService.IsSystemDarkAsync();
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
