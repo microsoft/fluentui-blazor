@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
+using System.Web;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -1516,16 +1517,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// sort level instead.
     /// </summary>
     /// <param name="column">The column that defines the new sort order.</param>
-    /// <param name="direction">The direction of sorting. If the value is <see cref="DataGridSortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    /// <param name="direction">The direction of sorting. If the value is <see cref="DataGridSortDirection.Auto"/>, the
+    /// column the grid is primarily sorted by has its direction toggled and any other column is sorted ascending.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task SortByColumnAsync(ColumnBase<TGridItem> column, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
-        var primary = _sortColumns.Count > 0 ? _sortColumns[0] : default(DataGridSortColumn<TGridItem>?);
+        var primary = _sortColumns.FirstOrDefault();
         var ascending = direction switch
         {
             DataGridSortDirection.Ascending => true,
             DataGridSortDirection.Descending => false,
-            DataGridSortDirection.Auto => primary?.Column != column || !primary.Value.Ascending,
+            DataGridSortDirection.Auto => primary?.Column != column || !primary.Ascending,
             _ => true,
         };
 
@@ -1610,8 +1612,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// </summary>
     /// <param name="sortColumns">The columns to sort by, where the first entry becomes the primary sort.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    /// <exception cref="ArgumentException">A column appears more than once, or a column's sort cannot be used at the
-    /// level it is given.</exception>
+    /// <exception cref="ArgumentException">An entry or its column is <see langword="null"/>, a column appears more than
+    /// once, or a column's sort cannot be used at the level it is given.</exception>
     /// <exception cref="InvalidOperationException">More than one column is given while <see cref="SortMode"/> is
     /// <see cref="DataGridSortMode.Single"/>.</exception>
     public async Task SetSortAsync(IEnumerable<DataGridSortColumn<TGridItem>> sortColumns)
@@ -1621,6 +1623,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var levels = new List<DataGridSortColumn<TGridItem>>();
         foreach (var level in sortColumns)
         {
+            // Nullable-oblivious callers, or SortColumns.FirstOrDefault() of an unsorted grid, can still pass null.
+            if (level?.Column is null)
+            {
+                throw new ArgumentException("A sort level and its column cannot be null.", nameof(sortColumns));
+            }
+
             if (levels.Exists(x => x.Column == level.Column))
             {
                 throw new ArgumentException($"The column '{level.Column.Title}' can only be sorted on once.", nameof(sortColumns));
@@ -1683,7 +1691,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Sorts the grid by the specified column <paramref name="title"/> found first. If the title is not found, nothing happens.
     /// </summary>
     /// <param name="title">The title of the column to sort by.</param>
-    /// <param name="direction">The direction of sorting. The default is <see cref="DataGridSortDirection.Auto"/>. If the value is <see cref="DataGridSortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="DataGridSortDirection.Auto"/>. If the value is <see cref="DataGridSortDirection.Auto"/>, the column the grid is primarily sorted by has its direction toggled and any other column is sorted ascending.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task SortByColumnAsync(string title, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
@@ -1696,7 +1704,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// Sorts the grid by the specified column <paramref name="index"/>. If the index is out of range, nothing happens.
     /// </summary>
     /// <param name="index">The index of the column to sort by.</param>
-    /// <param name="direction">The direction of sorting. The default is <see cref="DataGridSortDirection.Auto"/>. If the value is <see cref="DataGridSortDirection.Auto"/>, then it will toggle the direction on each call.</param>
+    /// <param name="direction">The direction of sorting. The default is <see cref="DataGridSortDirection.Auto"/>. If the value is <see cref="DataGridSortDirection.Auto"/>, the column the grid is primarily sorted by has its direction toggled and any other column is sorted ascending.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task SortByColumnAsync(int index, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
@@ -2389,7 +2397,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             return;
         }
 
-        var query = System.Web.HttpUtility.ParseQueryString(queryString);
+        var query = HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby", StringComparer.Ordinal))
         {
             var raw = query[$"{SaveStatePrefix}orderby"]!;
@@ -2791,7 +2799,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (ErrorContent is null)
         {
-            builder.AddContent(0, Localizer[Localization.LanguageResource.DataGrid_ErrorContent]);
+            builder.AddContent(0, Localizer[LanguageResource.DataGrid_ErrorContent]);
 
         }
         else
