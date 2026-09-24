@@ -1906,10 +1906,10 @@
 
         // Assert
         await grid.SortByColumnAsync(-1);
-        Assert.Null(grid._sortByColumn);
+        Assert.Empty(grid.SortColumns);
 
         await grid.SortByColumnAsync(3);
-        Assert.Null(grid._sortByColumn);
+        Assert.Empty(grid.SortColumns);
     }
 
     [Theory]
@@ -1951,7 +1951,7 @@
 
         // Assert
         await grid.SortByColumnAsync("InvalidColumnName");
-        Assert.Null(grid._sortByColumn);
+        Assert.Empty(grid.SortColumns);
     }
 
 
@@ -1967,7 +1967,7 @@
                 <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
             </FluentDataGrid>
         );
-        grid._sortByColumn = null;
+        grid.SetSortAsync([]);
         grid.RemoveSortByColumnAsync();
 
         grid.SortByColumnAsync("Name", DataGridSortDirection.Descending);
@@ -3626,8 +3626,8 @@
 
         // Assert
         Assert.True(sortChanged);
-        Assert.Equal(column, eventArgs?.Column);
-        Assert.True(eventArgs?.SortByAscending);
+        Assert.Equal(column, eventArgs?.SortColumns[0].Column);
+        Assert.True(eventArgs?.SortColumns[0].Ascending);
 
         // Reset
         sortChanged = false;
@@ -3637,8 +3637,8 @@
 
         // Assert
         Assert.True(sortChanged);
-        Assert.Equal(column, eventArgs?.Column);
-        Assert.False(eventArgs?.SortByAscending);
+        Assert.Equal(column, eventArgs?.SortColumns[0].Column);
+        Assert.False(eventArgs?.SortColumns[0].Ascending);
 
         // Reset
         sortChanged = false;
@@ -3648,7 +3648,7 @@
 
         // Assert
         Assert.True(sortChanged);
-        Assert.Null(eventArgs?.Column);
+        Assert.Empty(eventArgs!.SortColumns);
     }
 
     [Fact]
