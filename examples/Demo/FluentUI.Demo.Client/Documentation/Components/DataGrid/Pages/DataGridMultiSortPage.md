@@ -94,7 +94,7 @@ in the `OnSortChanged` event, and from `GridItemsProviderRequest.SortColumns` wh
 every sort level in priority order, so read the first entry where you used to read a single sorted column:
 
 ```csharp
-var primary = args.SortColumns.FirstOrDefault();
+var primary = args.SortColumns.FirstOrDefault(); // null when the grid is not sorted
 ```
 
 
