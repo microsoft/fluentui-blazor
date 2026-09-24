@@ -30,7 +30,6 @@ public partial class ThemeDesigner
     {
         if (firstRender)
         {
-            _isDark = await ThemeService.IsSystemDarkAsync();
             await PreviewThemeAsync();
         }
     }
