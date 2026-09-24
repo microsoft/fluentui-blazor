@@ -26,7 +26,7 @@
 
                     var language = section.Arguments?[Section.ARGUMENT_LANGUAGE] ?? "text";
 
-                    <pre><code id="@(section.Id)" class="language-@language">@((MarkupString)section.Value)</code></pre>
+                    <pre><code id="@(section.Id)" class="language-@language" data-highlight>@((MarkupString)section.Value)</code></pre>
 
                     break;
 
@@ -59,7 +59,9 @@
                             @foreach (var item in section.ExtraFiles)
                             {
                                 <div id="@($"{id}-{item.Key}-panel")" role="tabpanel">
-                                    <pre><code id="@($"{section.Id}-{item.Key}")" class="@GetLanguageClassName(item.Value)" source>Loading...</code></pre>
+                                    <pre><code id="@($"{section.Id}-{item.Key}")"
+                                               class="@GetLanguageClassName(item.Value)"
+                                               data-source-url="@GetSourceCodeUrl(item.Value)">Loading...</code></pre>
                                 </div>
                             }
                         </div>
@@ -81,7 +83,9 @@
                                 <SampleContainer ComponentName="@section.Value" @rendermode="@SampleRenderMode" />
                             </div>
                             <div id="@($"{id}-code-panel")" role="tabpanel">
-                                <pre><code id="@($"{section.Id}")" class="@GetLanguageClassName()" source>Loading...</code></pre>
+                                <pre><code id="@($"{section.Id}")"
+                                           class="@GetLanguageClassName()"
+                                           data-source-url="@GetSourceCodeUrl($"{section.Value}.razor")">Loading...</code></pre>
                             </div>
                         </div>
                     }
