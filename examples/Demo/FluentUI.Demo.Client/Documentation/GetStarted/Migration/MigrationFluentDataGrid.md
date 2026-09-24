@@ -45,7 +45,7 @@ foreach (var level in request.SortColumns)
     Sort(level.Column, level.Ascending);
 }
 
-// Or, for a data source that sorts by one column only
+// Or, for a data source that sorts by one column only (null when the grid is not sorted)
 var primary = request.SortColumns.FirstOrDefault();
 ```
 
@@ -67,11 +67,12 @@ void HandleSortChanged(DataGridSortEventArgs<Person> args)
 void HandleSortChanged(DataGridSortEventArgs<Person> args)
 {
     var primary = args.SortColumns.FirstOrDefault();
-    Log(primary.Column?.Title, primary.Ascending);
+    Log(primary?.Column.Title, primary?.Ascending ?? false);
 }
 ```
 
-An empty `SortColumns` now means the grid is not sorted, where `Column` used to be `null`.
+An empty `SortColumns` now means the grid is not sorted, where `Column` used to be `null`. `FirstOrDefault()` then
+returns `null`, so check the entry itself rather than its `Column`, which is never `null`.
 
 `IGridSort<TGridItem>` gained `CanApplyThen` and `ApplyThen`, which append a sort to another column's ordering with
 `ThenBy`. Both have default implementations, so existing implementations keep compiling: their columns can be the

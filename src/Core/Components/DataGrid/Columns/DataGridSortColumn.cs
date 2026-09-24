@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <typeparam name="TGridItem">The type of data represented by each row in the grid.</typeparam>
 /// <param name="Column">The column that is sorted on.</param>
 /// <param name="Ascending">Whether the column is sorted ascending.</param>
-public readonly record struct DataGridSortColumn<TGridItem>(ColumnBase<TGridItem> Column, bool Ascending)
+public sealed record DataGridSortColumn<TGridItem>(ColumnBase<TGridItem> Column, bool Ascending)
 {
     /// <summary>
     /// Gets the direction the column is sorted in.

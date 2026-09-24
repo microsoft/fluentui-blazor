@@ -1520,12 +1520,12 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task SortByColumnAsync(ColumnBase<TGridItem> column, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
-        var primary = _sortColumns.Count > 0 ? _sortColumns[0] : default(DataGridSortColumn<TGridItem>?);
+        var primary = _sortColumns.Count > 0 ? _sortColumns[0] : null;
         var ascending = direction switch
         {
             DataGridSortDirection.Ascending => true,
             DataGridSortDirection.Descending => false,
-            DataGridSortDirection.Auto => primary?.Column != column || !primary.Value.Ascending,
+            DataGridSortDirection.Auto => primary?.Column != column || !primary.Ascending,
             _ => true,
         };
 

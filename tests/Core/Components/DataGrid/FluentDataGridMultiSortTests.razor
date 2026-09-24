@@ -662,6 +662,38 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_MultiSort_SortColumns_WhenNotSorted_HaveNoPrimarySortLevel()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        GridItemsProviderRequest<Employee>? lastRequest = null;
+        DataGridSortEventArgs<Employee>? lastArgs = null;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple"
+                             RefreshItems="@(request => { lastRequest = request; return Task.CompletedTask; })"
+                             OnSortChanged="@(args => lastArgs = args)">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Assert: the first entry of an empty sort is null rather than a level with no column, so the compiler's
+        // nullability analysis flags code that reads its Column without checking it.
+        Assert.NotNull(lastRequest);
+        Assert.Null(lastRequest!.Value.SortColumns.FirstOrDefault());
+        Assert.Null(grid.SortColumns.FirstOrDefault());
+
+        // Act
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+        await grid.ClearSortAsync();
+
+        // Assert
+        Assert.NotNull(lastArgs);
+        Assert.Null(lastArgs!.SortColumns.FirstOrDefault());
+    }
+
+    [Fact]
     public async Task FluentDataGrid_MultiSort_HeaderMenu_WithMultipleMode_OffersTheSortActions()
     {
         // Arrange
