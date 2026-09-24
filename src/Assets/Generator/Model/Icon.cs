@@ -84,7 +84,7 @@ internal class Icon
             return content;
         }
 
-        var pattern = @"<svg\swidth=""\d+""\sheight=""\d+""\sviewBox=""0\s0\s\d+\s\d+""(?:\sfill=""\w+"")?\sxmlns=""http:\/\/www\.w3\.org\/2000\/svg"">";
+        var pattern = @"<svg(?=[^>]*\bwidth=""\d+"")(?=[^>]*\bheight=""\d+"")(?=[^>]*\bviewBox=""0\s0\s\d+\s\d+"")(?=[^>]*\bxmlns=""http://www\.w3\.org/2000/svg"")[^>]*>";
         return Regex.Replace(content, pattern, string.Empty)
                     .Replace("</svg>", "")
                     .Replace("\n", "")
