@@ -58,14 +58,6 @@
                           Appearance="ButtonAppearance.Subtle"
                           BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackgroundHover)" : "var(--colorBrandBackground)")"
                           Title="Open or hide the console" />
-
-            @* Manage Cookies *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.Cookies().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@ManageCookieSettingsAsync"
-                          Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="var(--colorBrandBackground)"
-                          Title="Manage cookies" />
-
         </FluentStack>
     </FluentLayoutItem>
 
@@ -133,12 +125,11 @@
                 Powered by @AppVersion.FrameworkDescription
             </a>
             <FluentSpacer />
-            <FluentLink Inline="true" OnClick="ManageCookieSettingsAsync">
-                Manage Cookies
-            </FluentLink>
-            -
             <div hidden-when="xs">
-                &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
+                <FluentLink Inline="true" OnClick="ManageCookieSettingsAsync">
+                    Manage Cookies
+                </FluentLink>
+                - &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
             </div>
         </FluentStack>
     </FluentLayoutItem>
