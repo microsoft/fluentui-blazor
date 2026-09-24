@@ -1,0 +1,38 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGanttChart ChartTitle="Gantt Chart — UTC date ticks"
+                  ChartData="@_chartData"
+                  ShowYAxisLabels="true"
+                  UseUTC="true"
+                  TickFormat="%Y-%m-%d %H:%M"
+                  Width="600"
+                  Height="350">
+</FluentGanttChart>
+
+@code {
+    private readonly IReadOnlyList<GanttChartDataPoint> _chartData =
+    [
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange
+            {
+                Start = new DateTimeOffset(2024, 3, 31, 23, 30, 0, TimeSpan.Zero),
+                End = new DateTimeOffset(2024, 4, 1, 5, 0, 0, TimeSpan.Zero),
+            },
+            Y = "Overnight import",
+            Legend = "UTC series",
+            Color = DataVizPalette.Color1,
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange
+            {
+                Start = new DateTimeOffset(2024, 4, 1, 6, 0, 0, TimeSpan.Zero),
+                End = new DateTimeOffset(2024, 4, 1, 12, 0, 0, TimeSpan.Zero),
+            },
+            Y = "Morning sync",
+            Legend = "UTC series",
+            Color = DataVizPalette.Color2,
+        },
+    ];
+}

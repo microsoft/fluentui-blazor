@@ -1,0 +1,65 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<FluentSwitch @bind-Value="@_allowMultipleShapesForPoints" Label="Multiple shapes" />
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="300px"
+                 AllowMultipleShapesForPoints="@_allowMultipleShapesForPoints">
+</FluentLineChart>
+
+@code {
+    private static readonly DateTime _largeDataStart = new(2020, 3, 1, 0, 0, 0, DateTimeKind.Utc);
+
+    private bool _allowMultipleShapesForPoints;
+
+    private readonly IReadOnlyList<LineChartSeries> _chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Constant",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data = CreateLargeData(0, 10000, _ => 500000),
+        },
+        new LineChartSeries
+        {
+            Legend = "All",
+            Color = DataVizPalette.Custom,
+            CustomColor = "semantic.success",
+            Data = CreateLargeData(1000, 8000, index =>
+            {
+                var n = index % 1000;
+                return n < 500 ? n * n : 1000000 - n * n;
+            }),
+        },
+        new LineChartSeries
+        {
+            Legend = "Single point",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.10",
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 282000 },
+            ],
+        },
+    ];
+
+    private static IReadOnlyList<LineChartDataPoint> CreateLargeData(int start, int count, Func<int, double> value) =>
+        Enumerable.Range(0, count)
+            .Select(index =>
+            {
+                var dataIndex = start + index;
+                var x = _largeDataStart.AddHours(dataIndex);
+
+                return new LineChartDataPoint
+                {
+                    X = x,
+                    XAxisCalloutData = new DateTimeOffset(x).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture),
+                    Y = value(dataIndex),
+                };
+            })
+            .ToArray();
+}

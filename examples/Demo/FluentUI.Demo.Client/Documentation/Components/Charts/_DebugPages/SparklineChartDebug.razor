@@ -1,0 +1,88 @@
+@page "/Charts/SparklineChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="100"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="40"
+                      max="300"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:180px;flex:1 1 180px;">
+        <label slot="label" for="value-text-width" id="value-text-width--label">
+            Value text width
+        </label>
+        <FluentSlider slot="input"
+                      id="value-text-width"
+                      min="0"
+                      max="200"
+                      @bind-Value="@valueTextWidth">
+        </FluentSlider>
+        <fluent-label slot="message">@valueTextWidth</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Show legend" @bind-Value="showLegend"></FluentSwitch>
+    <FluentSwitch Label="Use area variant" @bind-Value="useAreaVariant"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentSparklineChart ChartTitle="Sparkline chart interactive example"
+                          ChartData="@chartData"
+                          Width="@($"{width}px")"
+                          Height="@($"{height}px")"
+                          Variant="@(useAreaVariant ? SparklineVariant.Area : SparklineVariant.Line)"
+                          Color="#0078D4"
+                          ShowLegend="@showLegend"
+                          ValueTextWidth="@valueTextWidth"
+                          HideTooltip="@hideTooltips" />
+</div>
+
+@code {
+    private readonly SparklineChartData chartData = new()
+    {
+        LineChartData =
+        [
+            new SparklineChartSeries
+            {
+                Legend = "Trend",
+                Data =
+                [
+                    new SparklineDataPoint { X = 1, Y = 10 },
+                    new SparklineDataPoint { X = 2, Y = 25 },
+                    new SparklineDataPoint { X = 3, Y = 15 },
+                    new SparklineDataPoint { X = 4, Y = 30 },
+                    new SparklineDataPoint { X = 5, Y = 22 },
+                ],
+                Color = DataVizPalette.Color1,
+            },
+        ],
+    };
+
+    private int width = 400;
+    private int height = 80;
+    private int valueTextWidth = 100;
+    private bool showLegend;
+    private bool useAreaVariant;
+    private bool hideTooltips;
+}

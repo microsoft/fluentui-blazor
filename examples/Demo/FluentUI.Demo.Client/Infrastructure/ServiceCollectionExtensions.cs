@@ -28,9 +28,6 @@ public static class ServiceCollectionExtensions
         {
             _services.AddHttpClient<IStaticAssetService, HttpBasedStaticAssetService>();
 
-            // _services.AddSingleton<CacheStorageAccessor>();
-            // _services.AddSingleton<DemoNavProvider>();
-
             return _services;
         }
 
@@ -40,9 +37,6 @@ public static class ServiceCollectionExtensions
         public IServiceCollection ForServer()
         {
             _services.AddHttpClient<IStaticAssetService, ServerStaticAssetService>();
-
-            // _services.AddSingleton<DemoNavProvider>();
-            // _services.AddScoped<CacheStorageAccessor>();
 
             return _services;
         }

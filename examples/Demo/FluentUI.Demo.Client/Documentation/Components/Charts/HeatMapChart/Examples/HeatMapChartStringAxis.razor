@@ -1,0 +1,52 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHeatMapChart ChartTitle="Heat map - string axis"
+                    ChartData="@_chartData"
+                    DomainValuesForColorScale="@_domainValuesForColorScale"
+                    RangeValuesForColorScale="@_rangeValuesForColorScale"
+                    Width="450px"
+                    Height="378px">
+</FluentHeatMapChart>
+
+@code {
+    private readonly IReadOnlyList<HeatMapChartData> _chartData =
+    [
+        new HeatMapChartData
+        {
+            Value = 20,
+            Legend = "Low",
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Mon", Y = "Team A", Value = 12, RectText = "12" },
+                new HeatMapChartDataPoint { X = "Tue", Y = "Team C", Value = 18, RectText = "18" },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 50,
+            Legend = "Medium",
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Mon", Y = "Team B", Value = 45, RectText = "45" },
+                new HeatMapChartDataPoint { X = "Wed", Y = "Team A", Value = 52, RectText = "52" },
+                new HeatMapChartDataPoint { X = "Thu", Y = "Team C", Value = 49, RectText = "49" },
+            ],
+        },
+        new HeatMapChartData
+        {
+            Value = 80,
+            Legend = "High",
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Tue", Y = "Team A", Value = 78, RectText = "78" },
+                new HeatMapChartDataPoint { X = "Wed", Y = "Team B", Value = 82, RectText = "82" },
+                new HeatMapChartDataPoint { X = "Thu", Y = "Team B", Value = 91, RectText = "91" },
+                new HeatMapChartDataPoint { X = "Fri", Y = "Team C", Value = 86, RectText = "86" },
+            ],
+        },
+    ];
+
+    private readonly double[] _domainValuesForColorScale = [0, 50, 100];
+
+    private readonly string[] _rangeValuesForColorScale = ["#d4e8ff", "#0078d4", "#003a78"];
+}

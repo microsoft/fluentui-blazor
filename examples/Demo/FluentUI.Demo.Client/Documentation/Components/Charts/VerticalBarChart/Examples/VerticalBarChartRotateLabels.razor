@@ -1,0 +1,20 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart rotated labels example"
+                        ChartData="@_chartData"
+                        Width="650px"
+                        Height="350px"
+                        BarWidth="16"
+                        HideLegends="true"
+                        RotateXAxisLabels="true">
+</FluentVerticalBarChart>
+
+@code {
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _chartData =
+    [
+        new() { X = "This is a medium long label. ", Y = 3500, Color = DataVizPalette.Custom, CustomColor = "#627CEF" },
+        new() { X = "This is a long label This is a long label", Y = 2500, Color = DataVizPalette.Custom, CustomColor = "#C19C00" },
+        new() { X = "This label is as long as the previous one", Y = 1900, Color = DataVizPalette.Custom, CustomColor = "#E650AF" },
+        new() { X = "A short label", Y = 2800, Color = DataVizPalette.Custom, CustomColor = "#0E7878" },
+    ];
+}

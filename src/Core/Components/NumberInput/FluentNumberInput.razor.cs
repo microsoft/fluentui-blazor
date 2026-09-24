@@ -326,8 +326,8 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     }
 
     /// <summary>
-    /// Removes all characters that are not ASCII digits or the decimal separator.
-    /// This ensures reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// Removes all characters that are not ASCII digits, the decimal separator, or the negative sign.
+    /// This ensures reliable parsing regardless of the current culture or which Unicode character the browser uses for group separators.
     /// </summary>
     private string? KeepOnlyDigits(string? value)
     {
@@ -337,7 +337,12 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         }
 
         var decimalSep = Culture.NumberFormat.NumberDecimalSeparator;
-        return new string([.. value.Where(c => char.IsAsciiDigit(c) || decimalSep.Contains(c, StringComparison.Ordinal))]);
+        var negativeSign = Culture.NumberFormat.NegativeSign;
+
+        return new string([.. value.Where(c =>
+            char.IsAsciiDigit(c)
+            || decimalSep.Contains(c, StringComparison.Ordinal)
+            || negativeSign.Contains(c, StringComparison.Ordinal))]);
     }
 
     /// <summary>
@@ -358,7 +363,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
     /// <summary>
     /// Tries to parse the input string into a value of type <typeparamref name="TValue"/> using the specified <see cref="Culture"/>.
-    /// It first removes all non-digit characters except the decimal separator to ensure reliable parsing regardless of which Unicode character the browser uses for group separators.
+    /// It first removes all non-digit characters except the decimal separator and negative sign to ensure reliable parsing regardless of which Unicode character the browser uses for group separators.
     /// </summary>
     private bool TryParse(string? value, IFormatProvider formatProvider, out TValue result)
     {

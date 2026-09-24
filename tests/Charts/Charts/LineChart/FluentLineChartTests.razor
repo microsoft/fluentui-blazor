@@ -1,0 +1,276 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<LineChartSeries> DefaultData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Revenue",
+            Data =
+            [
+                new LineChartDataPoint { X = 1, Y = 100 },
+                new LineChartDataPoint { X = 2, Y = 150 },
+                new LineChartDataPoint { X = 3, Y = 200 },
+            ],
+            Color = DataVizPalette.Color1,
+        },
+        new LineChartSeries
+        {
+            Legend = "Expenses",
+            Data =
+            [
+                new LineChartDataPoint { X = 1, Y = 80 },
+                new LineChartDataPoint { X = 2, Y = 110 },
+                new LineChartDataPoint { X = 3, Y = 130 },
+            ],
+            Color = DataVizPalette.Color2,
+        },
+    ];
+
+    public FluentLineChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentLineChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentLineChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" ChartTitle="Financial Overview" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("chart-title");
+        Assert.Equal("Financial Overview", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_StrokeWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" StrokeWidth="3" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("stroke-width");
+        Assert.Equal("3", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_ShowMarkers()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" ShowMarkers="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("show-markers");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_SecondaryYAxisTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" SecondaryYAxisTitle="Secondary Axis" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("secondary-y-axis-title");
+        Assert.Equal("Secondary Axis", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" Width="600px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("width");
+        Assert.Equal("600px", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("en-GB");
+
+        // Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("culture");
+        Assert.Equal("en-GB", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" Class="my-line-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-line-chart");
+        Assert.Contains("my-line-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-line-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentLineChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@DefaultData" aria-label="Line trend" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("aria-label");
+        Assert.Equal("Line trend", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var series = new List<LineChartSeries>
+        {
+            new LineChartSeries
+            {
+                Legend = "Profit",
+                Data = [ new LineChartDataPoint { X = 10, Y = 250 } ],
+                Color = DataVizPalette.Color4,
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentLineChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Profit", attribute);
+        Assert.Contains("250", attribute);
+        Assert.Contains("color4", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_Series_WithCustomColor()
+    {
+        // Arrange
+        var series = new List<LineChartSeries>
+        {
+            new LineChartSeries
+            {
+                Legend = "Custom Line",
+                Data = [ new LineChartDataPoint { X = 1, Y = 10 } ],
+                Color = DataVizPalette.Custom,
+                CustomColor = "#ABCDEF",
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentLineChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-line-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#ABCDEF", attribute);
+    }
+
+    [Fact]
+    public void FluentLineChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentLineChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentLineChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentLineChart_CartesianTooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentLineChart ChartData="@DefaultData">
+                <CartesianTooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </CartesianTooltipTemplate>
+            </FluentLineChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentLineChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLineChart ChartData="@(Array.Empty<LineChartSeries>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-line-chart");
+        Assert.NotNull(element);
+    }
+}

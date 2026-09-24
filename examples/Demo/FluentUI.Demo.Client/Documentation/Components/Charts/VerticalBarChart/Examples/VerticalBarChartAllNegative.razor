@@ -1,0 +1,37 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart all negative example"
+                        ChartData="@_chartData"
+                        Width="650px"
+                        Height="350px"
+                        SupportNegativeData="true"
+                        XAxisTitle="Values of each category"
+                        YAxisTitle="Revenue in dollars"
+                        LineLegendText="just line"
+                        LineLegendColor="brown"
+                        LineBorderWidth="2">
+</FluentVerticalBarChart>
+
+@code {
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _chartData =
+    [
+        CreatePoint(0, -10000, "Oranges", "qualitative.1", -7000),
+        CreatePoint(10000, -50000, "Dogs", "qualitative.2", -30000),
+        CreatePoint(25000, -30000, "Apples", "qualitative.3", -3000),
+        CreatePoint(40000, -13000, "Bananas", "qualitative.6"),
+        CreatePoint(52000, -43000, "Giraffes", "qualitative.11", -30000),
+        CreatePoint(68000, -30000, "Cats", "qualitative.2", -5000),
+        CreatePoint(80000, -20000, "Elephants", "qualitative.11", -16000),
+        CreatePoint(92000, -45000, "Monkeys", "qualitative.6", -40000),
+    ];
+
+    private static VerticalBarChartDataPoint CreatePoint(double x, double y, string legend, string color, double? lineY = null) => new()
+    {
+        X = x,
+        Y = y,
+        Legend = legend,
+        Color = DataVizPalette.Custom,
+        CustomColor = color,
+        LineData = lineY.HasValue ? new VerticalBarChartLineDataPoint { Y = lineY.Value } : null,
+    };
+}
