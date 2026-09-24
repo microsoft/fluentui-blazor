@@ -9,13 +9,23 @@ function highlightElement(element) {
 async function refreshTabs() {
   await globalThis.customElements.whenDefined("fluent-tablist");
 
-  for (const tablist of document.querySelectorAll(".doc-viewer fluent-tablist")) {
-    if (tablist.getAttribute("role") !== "tablist") {
-      tablist.replaceWith(tablist.cloneNode(true));
+  for (const container of document.querySelectorAll(".doc-viewer .demo-tabs")) {
+    const tablist = container.querySelector(":scope > fluent-tablist");
+    const tabs = tablist?.querySelectorAll(":scope > fluent-tab");
+    const panels = container.querySelectorAll(":scope > [role='tabpanel']");
+
+    if (!tablist || tabs.length !== panels.length) {
+      console.error("Unable to initialize documentation tabs: tabs and panels do not match.");
+      continue;
     }
-    else {
-      tablist.tabsChanged();
-    }
+
+    tabs.forEach((tab, index) => {
+      const panelId = panels[index].id;
+      tab.id = panelId.endsWith("-panel") ? panelId.slice(0, -6) : `${panelId}-tab`;
+      tab.setAttribute("aria-controls", panelId);
+    });
+
+    tablist.replaceWith(tablist.cloneNode(true));
   }
 }
 
@@ -24,7 +34,7 @@ export async function initialize() {
     console.warn("highlight.js is not yet initialized.");
     return;
   }
-  await refreshTabs();
+
   await refreshTabs();
 
   for (const element of document.querySelectorAll("[data-highlight]")) {
