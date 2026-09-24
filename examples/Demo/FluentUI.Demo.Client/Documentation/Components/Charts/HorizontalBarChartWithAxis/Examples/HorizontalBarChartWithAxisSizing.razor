@@ -1,0 +1,23 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="horizontal-bar-axis-width" Min="200" Max="1000" Step="25" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="horizontal-bar-axis-height" Min="200" Max="1000" Step="25" Style="width:300px;" />
+</FluentStack>
+
+<FluentHorizontalBarChartWithAxis ChartTitle="Horizontal bar chart with axis sizing example"
+                                  ChartData="@data"
+                                  Width="@($"{_width}px")"
+                                  Height="@($"{_height}px")" />
+
+@code {
+    private int _width = 650;
+    private int _height = 350;
+
+    private readonly IReadOnlyList<HorizontalBarChartWithAxisDataPoint> data =
+    [
+        new HorizontalBarChartWithAxisDataPoint { X = 10000, Y = "5000", Legend = "Oranges", Color = DataVizPalette.Custom, CustomColor = "qualitative.1" },
+        new HorizontalBarChartWithAxisDataPoint { X = 20000, Y = "50000", Legend = "Dogs", Color = DataVizPalette.Custom, CustomColor = "qualitative.2" },
+        new HorizontalBarChartWithAxisDataPoint { X = 25000, Y = "30000", Legend = "Apples", Color = DataVizPalette.Custom, CustomColor = "qualitative.3" },
+    ];
+}

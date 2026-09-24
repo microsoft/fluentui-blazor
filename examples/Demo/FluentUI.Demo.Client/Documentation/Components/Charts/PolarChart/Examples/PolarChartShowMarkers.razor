@@ -1,0 +1,59 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="Shape" Items="@(Enum.GetValues<PolarChartShape>())" @bind-Value="@_shape" />
+    <FluentSelect Label="Direction" Items="@(Enum.GetValues<PolarChartDirection>())" @bind-Value="@_direction" />
+    <FluentSwitch @bind-Value="@_showMarkers" Label="Show markers" />
+    <FluentSwitch @bind-Value="@_enableMultiValueCallout" Label="Multi-value callout" />
+</FluentStack>
+
+<FluentPolarChart ChartTitle="Polar chart attributes example"
+                  ChartData="@_chartData"
+                  Shape="@_shape"
+                  Direction="@_direction"
+                  ShowMarkers="@_showMarkers"
+                  EnableMultiValueCallout="@_enableMultiValueCallout"
+                  Width="500px"
+                  Height="450px">
+</FluentPolarChart>
+
+@code {
+    private PolarChartShape _shape = PolarChartShape.Circle;
+    private PolarChartDirection _direction = PolarChartDirection.Counterclockwise;
+    private bool _showMarkers;
+    private bool _enableMultiValueCallout;
+
+    private readonly IReadOnlyList<PolarChartSeries> _chartData =
+    [
+        new PolarChartSeries
+        {
+            Legend = "Mike",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Math", Y = 120 },
+                new PolarChartDataPoint { X = "Chinese", Y = 98 },
+                new PolarChartDataPoint { X = "English", Y = 86 },
+                new PolarChartDataPoint { X = "Geography", Y = 99 },
+                new PolarChartDataPoint { X = "Physics", Y = 85 },
+                new PolarChartDataPoint { X = "History", Y = 65 },
+            ],
+        },
+        new PolarChartSeries
+        {
+            Legend = "Lily",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Math", Y = 110 },
+                new PolarChartDataPoint { X = "Chinese", Y = 130 },
+                new PolarChartDataPoint { X = "English", Y = 95 },
+                new PolarChartDataPoint { X = "Geography", Y = 90 },
+                new PolarChartDataPoint { X = "Physics", Y = 100 },
+                new PolarChartDataPoint { X = "History", Y = 90 },
+            ],
+        },
+    ];
+}

@@ -1,0 +1,62 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-top: 16px; max-width: 220px;">
+    <FluentSelect TOption="string"
+                  TValue="string"
+                  Label="yAxisCategoryOrder"
+                  Value="@_order.ToString()"
+                  ValueChanged="@(v => _order = Enum.Parse<ChartCategoryOrder>(v))">
+        @foreach (var opt in _orderOptions)
+        {
+            <FluentOptionString Value="@opt.ToString()">@opt.ToString()</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentScatterChart ChartTitle="Scatter chart axis category order example"
+                    ChartData="@_chartData"
+                    Width="650px"
+                    XAxisTitle="Score"
+                    YAxisTitle="Category"
+                    ShowYAxisLabels="true"
+                    YAxisCategoryOrder="@_order">
+</FluentScatterChart>
+
+@code {
+    private ChartCategoryOrder _order = ChartCategoryOrder.Default;
+
+    private static readonly ChartCategoryOrder[] _orderOptions =
+        Enum.GetValues<ChartCategoryOrder>();
+
+    private readonly IReadOnlyList<ScatterChartSeries> _chartData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Current",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 10, Y = "Delta", MarkerSize = 14 },
+                new ScatterChartDataPoint { X = 18, Y = "Alpha", MarkerSize = 12 },
+                new ScatterChartDataPoint { X = 34, Y = "Echo", MarkerSize = 18 },
+                new ScatterChartDataPoint { X = 26, Y = "Bravo", MarkerSize = 16 },
+                new ScatterChartDataPoint { X = 42, Y = "Charlie", MarkerSize = 20 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Previous",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 14, Y = "Delta", MarkerSize = 10 },
+                new ScatterChartDataPoint { X = 9, Y = "Alpha", MarkerSize = 9 },
+                new ScatterChartDataPoint { X = 28, Y = "Echo", MarkerSize = 14 },
+                new ScatterChartDataPoint { X = 21, Y = "Bravo", MarkerSize = 12 },
+                new ScatterChartDataPoint { X = 35, Y = "Charlie", MarkerSize = 16 },
+            ],
+        },
+    ];
+}

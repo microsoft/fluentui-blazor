@@ -1,0 +1,44 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentSankeyChart ChartTitle="Sankey Chart basic example"
+                   ChartData="@chartData"
+                   Width="650px"
+                   Height="350px">
+    <TooltipTemplate Context="ctx">
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+            <strong>@ctx.Legend</strong>
+            <div>Value: <strong>@ctx.YValue</strong></div>
+        </div>
+    </TooltipTemplate>
+</FluentSankeyChart>
+
+@code {
+
+    private readonly SankeyChartData chartData = new()
+    {
+        Nodes =
+        [
+            new SankeyChartNode { Name = "node0", Color = DataVizPalette.Custom, CustomColor = "qualitative.2" },
+            new SankeyChartNode { Name = "node1", Color = DataVizPalette.Custom, CustomColor = "qualitative.7" },
+            new SankeyChartNode { Name = "node2", Color = DataVizPalette.Custom, CustomColor = "qualitative.8" },
+            new SankeyChartNode { Name = "node3", Color = DataVizPalette.Custom, CustomColor = "qualitative.9" },
+            new SankeyChartNode { Name = "node4", Color = DataVizPalette.Custom, CustomColor = "qualitative.11" },
+            new SankeyChartNode { Name = "node5", Color = DataVizPalette.Custom, CustomColor = "qualitative.12" },
+        ],
+        Links =
+        [
+            new SankeyChartLink { Source = 0, Target = 2, Value = 2 },
+            new SankeyChartLink { Source = 1, Target = 2, Value = 2 },
+            new SankeyChartLink { Source = 1, Target = 3, Value = 2 },
+            new SankeyChartLink { Source = 0, Target = 4, Value = 2 },
+            new SankeyChartLink { Source = 2, Target = 3, Value = 2 },
+            new SankeyChartLink { Source = 2, Target = 4, Value = 2 },
+            new SankeyChartLink { Source = 3, Target = 4, Value = 4 },
+            new SankeyChartLink { Source = 3, Target = 5, Value = 4 },
+        ],
+    };
+}
+
+
+
+

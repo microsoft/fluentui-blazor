@@ -16,8 +16,12 @@
                              round-corners="@(RoundedCorners ? "true" : null)"
                              enable-gradient="@(EnableGradient ? "true" : null)"
                              allow-multiple-legend-selection="@(AllowMultipleLegendSelection ? "true" : null)"
+                             show-legend-for-single-point-bar="@(ShowLegendForSinglePointBar ? "true" : null)"
                              legend-list-label="@LegendListLabel"
                              chart-title="@ChartTitle"
+                             title-align="@TitleAlign?.ToAttributeValue()"
+                             title-position="@TitlePosition?.ToAttributeValue()"
+                             legend-position="@LegendPosition?.ToAttributeValue()"
                              chart-data-mode="@ChartDataMode"
                              culture="@Culture?.Name"
                              @attributes="@AdditionalAttributes">

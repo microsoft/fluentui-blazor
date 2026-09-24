@@ -1,0 +1,42 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentSwitch @bind-Value="@_showAxisTitles" Label="Show axis titles" />
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart shared features"
+                        ChartData="@_chartData"
+                        Width="760px"
+                        Height="400px"
+                        BarWidth="auto"
+                        MaxBarWidth="24"
+                        Colors="@_colors"
+                        XAxisTitle="@(_showAxisTitles ? "Category index" : null)"
+                        YAxisTitle="@(_showAxisTitles ? "Performance" : null)"
+                        SecondaryYAxisTitle="@(_showAxisTitles ? "Growth index" : null)"
+                        YAxisScaleType="ChartAxisScaleType.Log"
+                        SecondaryYAxisScaleType="ChartAxisScaleType.Log"
+                        XAxisScaleType="ChartAxisScaleType.Log"
+                        Style="margin-top: 20px;">
+</FluentVerticalBarChart>
+
+@code {
+    private bool _showAxisTitles = true;
+
+    private readonly IReadOnlyList<string> _colors = ["#0f6cbd", "#d13438", "#107c10"];
+
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _chartData =
+    [
+        new()
+        {
+            X = 1.0,
+            Y = 42,
+            Legend = "North",
+            BarLabel = "42%",
+            XAxisCalloutData = "First quarter",
+            YAxisCalloutData = "42 percent",
+            LineData = new VerticalBarChartLineDataPoint { Y = 10, UseSecondaryYScale = true },
+            CallOutAccessibilityData = new CalloutAccessibilityData { AriaLabel = "North, first quarter, 42 percent" },
+        },
+        new() { X = 10.0, Y = 70, Legend = "Central", LineData = new VerticalBarChartLineDataPoint { Y = 100, UseSecondaryYScale = true } },
+        new() { X = 100.0, Y = 58, Legend = "South", LineData = new VerticalBarChartLineDataPoint { Y = 1000, UseSecondaryYScale = true } },
+    ];
+}
