@@ -27,7 +27,11 @@ parameters:
       **/Components.Charts.Tests.csproj
       **/McpServer.Tests.csproj
 
-  - name: NugetPackageVersion # NuGet package version to use (overrides computed version)
+  - name: ForcedNugetPackageVersion  # NuGet package version to use (overrides computed version)
+    type: string
+    default: ''
+
+  - name: ForcedAssemblyVersion # Assembly version to use (overrides computed version)
     type: string
     default: ''
 
@@ -115,15 +119,8 @@ extends:
               -buildNumber "$(Build.BuildNumber)"
               -packageSuffix "$(PackageSuffix)"
               -testProjects "${{ parameters.Tests }}"
-
-        # Override PackageVersion if specified
-        - task: PowerShell@2
-          displayName: 'Override PackageVersion (if specified)'
-          condition: ne('${{ parameters.NugetPackageVersion }}', '')
-          inputs:
-            targetType: 'inline'
-            script: |
-              Write-Host "##vso[task.setvariable variable=PackageVersion]${{ parameters.NugetPackageVersion }}"
+              -ForceAssemblyVersion "${{ parameters.ForcedAssemblyVersion }}"
+              -ForcePackageVersion "${{ parameters.ForcedNugetPackageVersion }}"
 
         # Install NuGet tools
         - task: NuGetToolInstaller@1
