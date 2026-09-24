@@ -60,7 +60,9 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
 
     private async Task RejectPolicyAsync()
     {
-        await SetCookieStateAsync(new CookieState(false));
+        _cookieState = new CookieState(false);
+        await SetCookieStateAsync(_cookieState);
+        await InitAnalyticsAsync();
 
         _showBanner = false;
     }

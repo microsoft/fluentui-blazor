@@ -23,10 +23,12 @@ function gtag(..._args: unknown[]): void {
   window.dataLayer.push(arguments);
 }
 
-function eraseGoogleAnalyticsCookies(): void {
+function eraseGoogleAnalyticsCookies(measurementId: string): void {
   deleteCookie('_ga', '.fluentui-blazor.net');
   deleteCookie('_gid', '.fluentui-blazor.net');
   deleteCookie('_gat', '.fluentui-blazor.net');
+  deleteCookie('_ga_' + measurementId.split('-')[1], '.fluentui-blazor.net');
+
 
   console.log('Google Analytics cookies erased');
 }
@@ -128,7 +130,7 @@ export async function initAnalytics( GAmeasurementId: string, MCprojectId: strin
   Clarity.init(MCprojectId);
 
   if (cookiePolicy === null || cookiePolicy.acceptAnalytics === null) {
-    eraseGoogleAnalyticsCookies();
+    eraseGoogleAnalyticsCookies(GAmeasurementId);
     console.log('Google Analytics cookies erased');
 
     Clarity.erase();

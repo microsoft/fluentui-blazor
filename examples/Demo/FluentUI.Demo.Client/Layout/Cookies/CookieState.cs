@@ -25,9 +25,9 @@ public class CookieState
     /// </summary>
     public bool? AcceptAdvertising { get; set; }
 
-    public CookieState(bool? acceptAnalysis, bool? acceptSocialMedia, bool? acceptAdvertising)
+    public CookieState(bool? acceptAnalytics, bool? acceptSocialMedia, bool? acceptAdvertising)
     {
-        AcceptAnalytics = acceptAnalysis;
+        AcceptAnalytics = acceptAnalytics;
         AcceptSocialMedia = acceptSocialMedia;
         AcceptAdvertising = acceptAdvertising;
     }
