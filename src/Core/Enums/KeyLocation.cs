@@ -39,12 +39,12 @@ public enum KeyLocation
     /// <summary>
     /// The key was on a mobile device; this can be on either a physical keypad or a virtual keyboard.
     /// </summary>
-    [Obsolete]
+    [Obsolete("This value is obsolete and no longer supported.")]
     Mobile = 4,
 
     /// <summary>
     /// The key was a button on a game controller or a joystick on a mobile device.
     /// </summary>
-    [Obsolete]
+    [Obsolete("This value is obsolete and no longer supported.")]
     Joystick = 5,
 }

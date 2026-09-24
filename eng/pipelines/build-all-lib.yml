@@ -27,9 +27,18 @@ parameters:
       **/Components.Charts.Tests.csproj
       **/McpServer.Tests.csproj
 
-  - name: NugetPackageVersion # NuGet package version to use (overrides computed version)
+  - name: ForcedNugetPackageVersion  # NuGet package version to use (overrides computed version)
     type: string
     default: ''
+
+  - name: ForcedAssemblyVersion # Assembly version to use (overrides computed version)
+    type: string
+    default: ''
+
+  - name: PublishToDotnet9Feed
+    displayName: Publish to dotnet9 feed
+    type: boolean
+    default: true
 
 variables:
   - template: /eng/pipelines/version.yml@self
@@ -87,13 +96,14 @@ extends:
             targetPath: '$(Build.ArtifactStagingDirectory)\SignedPackages'
             artifactName: PackageArtifacts
 
-          - output: nuget
-            useDotNetTask: false
-            packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
-            packageParentPath: '$(Build.ArtifactStagingDirectory)'
-            nuGetFeedType: internal
-            publishVstsFeed: public/dotnet9
-            allowPackageConflicts: true
+          - ${{ if eq(parameters.PublishToDotnet9Feed, true) }}:
+            - output: nuget
+              useDotNetTask: false
+              packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+              packageParentPath: '$(Build.ArtifactStagingDirectory)'
+              nuGetFeedType: internal
+              publishVstsFeed: public/dotnet9
+              allowPackageConflicts: true
 
         steps:
 
@@ -109,15 +119,8 @@ extends:
               -buildNumber "$(Build.BuildNumber)"
               -packageSuffix "$(PackageSuffix)"
               -testProjects "${{ parameters.Tests }}"
-
-        # Override PackageVersion if specified
-        - task: PowerShell@2
-          displayName: 'Override PackageVersion (if specified)'
-          condition: ne('${{ parameters.NugetPackageVersion }}', '')
-          inputs:
-            targetType: 'inline'
-            script: |
-              Write-Host "##vso[task.setvariable variable=PackageVersion]${{ parameters.NugetPackageVersion }}"
+              -ForceAssemblyVersion "${{ parameters.ForcedAssemblyVersion }}"
+              -ForcePackageVersion "${{ parameters.ForcedNugetPackageVersion }}"
 
         # Install NuGet tools
         - task: NuGetToolInstaller@1

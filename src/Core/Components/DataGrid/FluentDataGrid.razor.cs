@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -33,6 +34,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         Options,
         Reorder,
         Resize,
+        Sort,
     }
 
 #if NET11_0_OR_GREATER
@@ -75,9 +77,22 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ColumnBase<TGridItem>? _activeHeaderUiColumn;
     private ColumnHeaderUiKind _activeHeaderUiKind;
     private ColumnBase<TGridItem>? _pendingHeaderUiReopenColumn;
+    private ColumnBase<TGridItem>? _restoreHeaderUiFocusColumn;
     private ColumnHeaderUiKind _pendingHeaderUiReopenKind;
-    internal ColumnBase<TGridItem>? _sortByColumn;
-    private bool _sortByAscending;
+    // The columns the grid is sorted by, in priority order. Holds at most one entry unless SortMode is Multiple.
+    private readonly List<DataGridSortColumn<TGridItem>> _sortColumns = [];
+    // The sort declared by the columns (IsDefaultSortColumn), restored when the user clears the sort.
+    private readonly List<DataGridSortColumn<TGridItem>> _defaultSortColumns = [];
+    // Filled while the columns are collected and swapped into _defaultSortColumns once the collection completes, so
+    // that columns which were removed or recreated since the last render do not linger in the declared sort. It is
+    // staged rather than rebuilt in place because _defaultSortColumns is read throughout the render that collects.
+    private readonly List<DataGridSortColumn<TGridItem>> _collectedDefaultSortColumns = [];
+    private bool _defaultSortApplied;
+    private List<(string ColumnReference, bool Ascending)>? _pendingSortStateFromUrl;
+    // The orderby value exactly as it was read, so that state written before the escaping grammar existed can be
+    // re-read under the old one when the current grammar resolves nothing.
+    private string? _pendingSortStateRawFromUrl;
+    private string? _sortAnnouncement;
     private bool _checkColumnHeaderUiPosition;
     private bool _checkColumnResizing;
     private bool _checkColumnReordering;
@@ -477,6 +492,30 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     public EventCallback<DataGridSortEventArgs<TGridItem>> OnSortChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the grid can be sorted by more than one column at a time.
+    /// The default is <see cref="DataGridSortMode.Single"/>.
+    ///
+    /// With <see cref="DataGridSortMode.Multiple"/>, Shift+click (Shift+Enter from the keyboard) on a column header
+    /// adds that column to the sort, and the column header menu gains items to add a column to the sort, remove it
+    /// again and clear the sort. Use <see cref="HeaderCellAsButtonWithMenu"/> to put those items in the header menu
+    /// rather than in the column header options popup.
+    /// </summary>
+    [Parameter]
+    public DataGridSortMode SortMode { get; set; } = DataGridSortMode.Single;
+
+    /// <summary>
+    /// Gets or sets whether the column headers offer the multi-column sort actions when <see cref="SortMode"/> is
+    /// <see cref="DataGridSortMode.Multiple"/>. The default is <see langword="true"/>.
+    ///
+    /// Set this to <see langword="false"/> to keep the headers as they are in single sort mode; sorting by several
+    /// columns is then only possible through Shift+click, Shift+Enter and the grid's sort methods. Note that this
+    /// leaves no way to build a multi-column sort by touch, or with a screen reader that does not pass Shift+Enter
+    /// through, so only turn it off when your application offers its own UI for it.
+    /// </summary>
+    [Parameter]
+    public bool ShowMultiSortActions { get; set; } = true;
+
+    /// <summary>
     /// Optionally defines a class to be applied to a rendered row.
     /// </summary>
     [Parameter]
@@ -617,9 +656,60 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal int LastVirtualizeProviderTotalItemCount => _lastVirtualizeProviderTotalItemCount;
 
     /// <summary>
-    /// Indicates whether the grid is currently sorted ascending.
+    /// Gets the columns the grid is sorted by, in priority order: the first entry is the primary sort.
+    /// Holds at most one entry unless <see cref="SortMode"/> is <see cref="DataGridSortMode.Multiple"/>,
+    /// and is empty when the grid is not sorted.
     /// </summary>
-    public bool? SortByAscending => _sortByAscending;
+    public IReadOnlyList<DataGridSortColumn<TGridItem>> SortColumns => _sortColumns;
+
+    /// <summary>
+    /// Gets whether any column declares a sort through <see cref="ColumnBase{TGridItem}.IsDefaultSortColumn"/>, which
+    /// is what <see cref="ResetSortAsync"/> goes back to.
+    /// </summary>
+    internal bool HasDeclaredSort => _defaultSortColumns.Count > 0;
+
+    /// <summary>
+    /// Gets the sort level for the specified column, or <see langword="null"/> when the grid is not sorted by it.
+    /// <c>Level</c> is 1-based, so it can be shown as the sort priority in the column header.
+    /// </summary>
+    internal (int Level, bool Ascending)? GetSortLevel(ColumnBase<TGridItem> column)
+    {
+        for (var i = 0; i < _sortColumns.Count; i++)
+        {
+            if (_sortColumns[i].Column == column)
+            {
+                return (i + 1, _sortColumns[i].Ascending);
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Gets whether the specified column can be added to the current sort as an extra level, which needs
+    /// <see cref="SortMode"/> to be <see cref="DataGridSortMode.Multiple"/> and its
+    /// <see cref="ColumnBase{TGridItem}.SortBy"/> to support being applied on top of another ordering.
+    /// </summary>
+    internal bool CanAddToSort(ColumnBase<TGridItem> column)
+        => SortMode == DataGridSortMode.Multiple
+            && column.CanSortFromHeader()
+            && (_sortColumns.Count == 0 || column.SortBy?.CanApplyThen != false);
+
+    /// <summary>
+    /// Gets whether a column can actually order the data at the given level, which is what
+    /// <see cref="GridItemsProviderRequest{TGridItem}.ApplySorting"/> requires of it: a column with no
+    /// <see cref="ColumnBase{TGridItem}.SortBy"/> cannot sort at all, and one whose sort cannot be appended to an
+    /// existing ordering cannot follow another level.
+    /// <para>
+    /// Levels that fail this are kept out of <see cref="SortColumns"/> entirely, because a level the provider
+    /// request drops would still show a direction and a priority in its header, be announced, and be reported
+    /// through <see cref="OnSortChanged"/>, claiming an order the data does not have.
+    /// </para>
+    /// </summary>
+    /// <param name="column">The column the level sorts by.</param>
+    /// <param name="isSecondary">Whether the level follows another one, and so has to be appended to an ordering.</param>
+    internal static bool CanSortDataAtLevel(ColumnBase<TGridItem> column, bool isSecondary)
+        => column.SortBy is not null && (!isSecondary || column.SortBy.CanApplyThen);
 
     /// <inheritdoc />
     protected override void OnInitialized()
@@ -637,20 +727,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // The associated pagination state may have been added/removed/replaced
         _currentPageItemsChanged.SubscribeOrMove(Pagination?.CurrentPageItemsChanged);
 
-        if (Items is not null && ItemsProvider is not null)
-        {
-            throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
-        }
-
-        if (Virtualize && MultiLine)
-        {
-            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
-        }
-
-        if (Virtualize && RowDetails is not null)
-        {
-            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(RowDetails)} at the same time.");
-        }
+        ValidateParameterCombinations();
 
         // Perform a re-query only if the data source or something else has changed
         var dataSourceHasChanged = !Equals(ItemsProvider, _lastAssignedItemsProvider) || !ReferenceEquals(Items, _lastAssignedItems);
@@ -682,6 +759,16 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         var mustRefreshData = dataSourceHasChanged || paginationStateHasChanged || EffectiveLoadingValue;
 
+        // SortMode is an ordinary parameter, so it can be switched back to Single while the grid is sorted by
+        // several columns. The extra levels are dropped here rather than left in place, because the grid would
+        // otherwise keep sorting by - and reporting through OnSortChanged, ResetSortAsync and the saved state -
+        // more columns than the parameter says it sorts by.
+        if (CollapseSortLevelsForSingleSortMode())
+        {
+            await NotifySortChangedAsync(useCoreRefresh: true);
+            return;
+        }
+
         // We don't want to trigger the first data load until we've collected the initial set of columns,
         // because they might perform some action like setting the default sort order, so it would be wasteful
         // to have to re-query immediately
@@ -689,6 +776,53 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             await RefreshDataCoreAsync();
         }
+    }
+
+    /// <summary>
+    /// Throws when parameters that cannot be used together are set at the same time.
+    /// </summary>
+    private void ValidateParameterCombinations()
+    {
+        if (Items is not null && ItemsProvider is not null)
+        {
+            throw new InvalidOperationException($"FluentDataGrid requires one of {nameof(Items)} or {nameof(ItemsProvider)}, but both were specified.");
+        }
+
+        if (Virtualize && MultiLine)
+        {
+            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(MultiLine)} at the same time.");
+        }
+
+        if (Virtualize && RowDetails is not null)
+        {
+            throw new InvalidOperationException($"FluentDataGrid cannot use both {nameof(Virtualize)} and {nameof(RowDetails)} at the same time.");
+        }
+    }
+
+    /// <summary>
+    /// Drops every sort level but the first from the current sort while <see cref="SortMode"/> is not
+    /// <see cref="DataGridSortMode.Multiple"/>. What the columns declare is left alone: it belongs to the columns,
+    /// not to the mode, so switching to Multiple again restores the declared sort in full.
+    /// </summary>
+    /// <returns><see langword="true"/> when the current sort changed and the data has to be re-queried.</returns>
+    private bool CollapseSortLevelsForSingleSortMode()
+    {
+        if (SortMode == DataGridSortMode.Multiple)
+        {
+            return false;
+        }
+
+        // The live region that carries it is only rendered in Multiple mode, so an announcement left over from
+        // before the switch would be read out if the grid is ever switched back.
+        _sortAnnouncement = null;
+
+        if (_sortColumns.Count <= 1)
+        {
+            return false;
+        }
+
+        _sortColumns.RemoveRange(1, _sortColumns.Count - 1);
+        return true;
     }
 
     /// <inheritdoc />
@@ -726,6 +860,14 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         await UpdateColumnInteractionsAsync();
+
+        if (_restoreHeaderUiFocusColumn is not null)
+        {
+            var focusColumn = _restoreHeaderUiFocusColumn;
+            _restoreHeaderUiFocusColumn = null;
+
+            await focusColumn.FocusOptionsButtonAsync();
+        }
 
         if (_pendingHeaderUiReopenColumn is not null && _pendingHeaderUiReopenKind != ColumnHeaderUiKind.None)
         {
@@ -790,23 +932,57 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     // Invoked by descendant columns at a special time during rendering
     internal void AddColumn(ColumnBase<TGridItem> column, DataGridSortDirection? initialSortDirection, bool isDefaultSortColumn)
     {
-        if (_collectingColumns)
+        if (!_collectingColumns)
         {
-            column.SetColumnIndex(_columns.Count + 1);
-            _columns.Add(column);
-
-            if (isDefaultSortColumn && _sortByColumn is null && initialSortDirection.HasValue)
-            {
-                _sortByColumn = column;
-                _sortByAscending = initialSortDirection.Value != DataGridSortDirection.Descending;
-                _internalGridContext.DefaultSortColumn = (column, initialSortDirection.Value);
-            }
+            return;
         }
+
+        column.SetColumnIndex(_columns.Count + 1);
+        _columns.Add(column);
+
+        if (!isDefaultSortColumn || !initialSortDirection.HasValue || _collectedDefaultSortColumns.Exists(x => x.Column == column))
+        {
+            return;
+        }
+
+        // A declared level that cannot order the data is dropped rather than shown, so that the header does not
+        // advertise a sort the provider request leaves out.
+        if (!CanSortDataAtLevel(column, _collectedDefaultSortColumns.Count > 0))
+        {
+            return;
+        }
+
+        var ascending = initialSortDirection.Value != DataGridSortDirection.Descending;
+        _collectedDefaultSortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
+
+        // The declared sort is applied while the columns are collected for the first time, unless something else
+        // (restored state, or a programmatic call) already sorted the grid. Only its first level is applied unless
+        // SortMode is Multiple, though every level is still collected, so the rest are there to restore if the grid
+        // is later switched to Multiple.
+        if (!_defaultSortApplied
+            && _sortColumns.Count == _collectedDefaultSortColumns.Count - 1
+            && (SortMode == DataGridSortMode.Multiple || _sortColumns.Count == 0))
+        {
+            _sortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
+        }
+    }
+
+    /// <summary>
+    /// Replaces the sort declared by the columns with the one just collected, so that it only ever names columns the
+    /// grid currently holds. Without it a column that was removed, or recreated as a new component instance, stays in
+    /// the collection and <see cref="ResetSortAsync"/> restores a detached column, which then reaches
+    /// <see cref="OnSortChanged"/> and <see cref="GridItemsProviderRequest{TGridItem}"/>.
+    /// </summary>
+    private void RebuildDeclaredSort()
+    {
+        _defaultSortColumns.Clear();
+        _defaultSortColumns.AddRange(_collectedDefaultSortColumns);
     }
 
     private void StartCollectingColumns()
     {
         _columns.Clear();
+        _collectedDefaultSortColumns.Clear();
         _collectingColumns = true;
     }
 
@@ -814,6 +990,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _collectingColumns = false;
         _manualGrid = _columns.Count == 0;
+        RebuildDeclaredSort();
+
+        // Ahead of the sort being restored, which resolves saved levels to columns by their key.
+        AssignColumnKeys();
+
+        if (_columns.Count > 0)
+        {
+            // Sort state that was restored before the columns existed can only be resolved to columns now.
+            ApplyPendingSortStateFromUrl();
+            _defaultSortApplied = true;
+        }
 
         if (!string.IsNullOrWhiteSpace(GridTemplateColumns) && _columns.Exists(x => x is not SelectColumn<TGridItem> && !string.IsNullOrWhiteSpace(x.Width)))
         {
@@ -830,7 +1017,6 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             throw new ArgumentException("The 'HierarchicalToggle' parameter can only be set on the first column of the grid.");
         }
 
-        AssignColumnKeys();
         ValidatePinnedColumnConstraints();
         ApplyStoredColumnOrder();
         ValidateAndComputePinnedColumns();
@@ -903,7 +1089,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
         if (column is IBindableColumn bindable && bindable.PropertyInfo is not null)
         {
-            return $"{bindable.PropertyInfo.DeclaringType?.FullName ?? typeof(TGridItem).FullName}.{bindable.PropertyInfo.Name}";
+            // The declaring type's short name rather than its full name: this key is written to the query string
+            // when the sort is saved there, and a namespace makes that unreadable. Two columns that collide because
+            // of it are still told apart by the suffix AssignColumnKeys adds.
+            return $"{bindable.PropertyInfo.DeclaringType?.Name ?? typeof(TGridItem).Name}.{bindable.PropertyInfo.Name}";
         }
 
         if (!string.IsNullOrWhiteSpace(column.Title))
@@ -1093,9 +1282,13 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var canResize = ResizeType is not null && ResizableColumns;
         var canReorder = ReorderableColumns && IsColumnEligibleForReordering(column);
         var hasOptions = column.ColumnOptions is not null;
-        var hasHeaderPopupContent = canReorder || hasOptions || (!HeaderCellAsButtonWithMenu && canResize);
 
-        return new(canSort, canResize, canReorder, hasOptions, hasHeaderPopupContent);
+        // Without the header menu, the multi-column sort actions live in the column header popup, which is the only
+        // place they can be reached without the Shift+click shortcut.
+        var hasSortOptions = canSort && SortMode == DataGridSortMode.Multiple && ShowMultiSortActions && !HeaderCellAsButtonWithMenu;
+        var hasHeaderPopupContent = canReorder || hasOptions || hasSortOptions || (!HeaderCellAsButtonWithMenu && canResize);
+
+        return new(canSort, hasSortOptions, canResize, canReorder, hasOptions, hasHeaderPopupContent);
     }
 
     internal bool CanMoveColumnToStart(ColumnBase<TGridItem> column)
@@ -1280,9 +1473,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private bool ShouldRenderColumnHeaderUi(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
         => IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All)
             ? headerCapabilities.HasAnyAction
-            : ShouldRenderColumnOptions(column, headerCapabilities)
+            : ShouldRenderColumnSort(column, headerCapabilities)
+                || ShouldRenderColumnOptions(column, headerCapabilities)
                 || ShouldRenderColumnResize(column, headerCapabilities)
                 || ShouldRenderColumnReorder(column, headerCapabilities);
+
+    private bool ShouldRenderColumnSort(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => headerCapabilities.HasSortOptions
+            && (IsColumnHeaderUiActive(column, ColumnHeaderUiKind.Sort)
+                || IsColumnHeaderUiActive(column, ColumnHeaderUiKind.All));
+
+    /// <summary>
+    /// Gets whether the column header popup holds nothing but the sort menu, which then sizes the popup instead of the
+    /// fixed width the options, resize and reorder UI need.
+    /// </summary>
+    private bool IsSortOnlyHeaderUi(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
+        => ShouldRenderColumnSort(column, headerCapabilities)
+            && !ShouldRenderColumnOptions(column, headerCapabilities)
+            && !ShouldRenderColumnResize(column, headerCapabilities)
+            && !ShouldRenderColumnReorder(column, headerCapabilities);
 
     private bool ShouldRenderColumnOptions(ColumnBase<TGridItem> column, ColumnHeaderCapabilities headerCapabilities)
         => headerCapabilities.HasOptions
@@ -1302,34 +1511,172 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     internal bool IsColumnResizeUiOpen => _activeHeaderUiKind == ColumnHeaderUiKind.Resize && _activeHeaderUiColumn is not null;
 
     /// <summary>
-    /// Sets the grid's current sort column to the specified <paramref name="column"/>.
+    /// Sets the grid's current sort column to the specified <paramref name="column"/>, replacing any columns the grid
+    /// was sorted by. Use <see cref="AddSortByColumnAsync(ColumnBase{TGridItem}, DataGridSortDirection)"/> to add a
+    /// sort level instead.
     /// </summary>
     /// <param name="column">The column that defines the new sort order.</param>
     /// <param name="direction">The direction of sorting. If the value is <see cref="DataGridSortDirection.Auto"/>, then it will toggle the direction on each call.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task SortByColumnAsync(ColumnBase<TGridItem> column, DataGridSortDirection direction = DataGridSortDirection.Auto)
     {
-        _sortByAscending = direction switch
+        var primary = _sortColumns.Count > 0 ? _sortColumns[0] : default(DataGridSortColumn<TGridItem>?);
+        var ascending = direction switch
         {
             DataGridSortDirection.Ascending => true,
             DataGridSortDirection.Descending => false,
-            DataGridSortDirection.Auto => _sortByColumn != column || !_sortByAscending,
+            DataGridSortDirection.Auto => primary?.Column != column || !primary.Value.Ascending,
             _ => true,
         };
 
-        _sortByColumn = column;
+        _sortColumns.Clear();
+        _sortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
 
-        if (OnSortChanged.HasDelegate)
+        await NotifySortChangedAsync();
+    }
+
+    /// <summary>
+    /// Adds the specified <paramref name="column"/> to the grid's sort as an extra level, keeping the columns the grid
+    /// is already sorted by. If the grid is already sorted by the column, only its direction changes and it keeps its
+    /// level.
+    ///
+    /// Requires <see cref="SortMode"/> to be <see cref="DataGridSortMode.Multiple"/>. Otherwise, and when the grid is
+    /// not sorted yet or the column's sort cannot be applied on top of another ordering, this sorts by the column
+    /// alone, like <see cref="SortByColumnAsync(ColumnBase{TGridItem}, DataGridSortDirection)"/> does.
+    /// </summary>
+    /// <param name="column">The column to add to the sort.</param>
+    /// <param name="direction">The direction of sorting. If the value is <see cref="DataGridSortDirection.Auto"/>, a
+    /// column that is already sorted on has its direction toggled and a new column is sorted ascending.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public async Task AddSortByColumnAsync(ColumnBase<TGridItem> column, DataGridSortDirection direction = DataGridSortDirection.Auto)
+    {
+        var index = _sortColumns.FindIndex(x => x.Column == column);
+
+        if (SortMode != DataGridSortMode.Multiple || _sortColumns.Count == 0 || (index < 0 && !CanAddToSort(column)))
         {
-            await OnSortChanged.InvokeAsync(new()
-            {
-                Column = _sortByColumn,
-                SortByAscending = _sortByAscending,
-            });
+            await SortByColumnAsync(column, direction);
+            return;
         }
 
-        _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
-        await RefreshDataAsync();
+        var ascending = direction switch
+        {
+            DataGridSortDirection.Ascending => true,
+            DataGridSortDirection.Descending => false,
+            DataGridSortDirection.Auto => index < 0 || !_sortColumns[index].Ascending,
+            _ => true,
+        };
+
+        if (index < 0)
+        {
+            _sortColumns.Add(new DataGridSortColumn<TGridItem>(column, ascending));
+        }
+        else
+        {
+            _sortColumns[index] = new DataGridSortColumn<TGridItem>(column, ascending);
+        }
+
+        await NotifySortChangedAsync();
+    }
+
+    /// <summary>
+    /// Adds the column with the specified <paramref name="title"/> to the grid's sort as an extra level. If the title
+    /// is not found, nothing happens.
+    /// </summary>
+    /// <param name="title">The title of the column to add to the sort.</param>
+    /// <param name="direction">The direction of sorting, as in <see cref="AddSortByColumnAsync(ColumnBase{TGridItem}, DataGridSortDirection)"/>.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task AddSortByColumnAsync(string title, DataGridSortDirection direction = DataGridSortDirection.Auto)
+    {
+        var column = _columns.Find(c => c.Title?.Equals(title, StringComparison.InvariantCultureIgnoreCase) ?? false);
+
+        return column is not null ? AddSortByColumnAsync(column, direction) : Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Adds the column with the specified <paramref name="index"/> to the grid's sort as an extra level. If the index
+    /// is out of range, nothing happens.
+    /// </summary>
+    /// <param name="index">The index of the column to add to the sort.</param>
+    /// <param name="direction">The direction of sorting, as in <see cref="AddSortByColumnAsync(ColumnBase{TGridItem}, DataGridSortDirection)"/>.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public Task AddSortByColumnAsync(int index, DataGridSortDirection direction = DataGridSortDirection.Auto)
+    {
+        return index >= 0 && index < _columns.Count ? AddSortByColumnAsync(_columns[index], direction) : Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Replaces the grid's sort with the specified columns, in priority order. An empty collection leaves the grid
+    /// unsorted, as <see cref="ClearSortAsync"/> does.
+    /// </summary>
+    /// <param name="sortColumns">The columns to sort by, where the first entry becomes the primary sort.</param>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    /// <exception cref="ArgumentException">A column appears more than once, or a column's sort cannot be used at the
+    /// level it is given.</exception>
+    /// <exception cref="InvalidOperationException">More than one column is given while <see cref="SortMode"/> is
+    /// <see cref="DataGridSortMode.Single"/>.</exception>
+    public async Task SetSortAsync(IEnumerable<DataGridSortColumn<TGridItem>> sortColumns)
+    {
+        ArgumentNullException.ThrowIfNull(sortColumns);
+
+        var levels = new List<DataGridSortColumn<TGridItem>>();
+        foreach (var level in sortColumns)
+        {
+            if (levels.Exists(x => x.Column == level.Column))
+            {
+                throw new ArgumentException($"The column '{level.Column.Title}' can only be sorted on once.", nameof(sortColumns));
+            }
+
+            if (levels.Count > 0)
+            {
+                if (SortMode != DataGridSortMode.Multiple)
+                {
+                    throw new InvalidOperationException($"The grid can only be sorted by one column because {nameof(SortMode)} is {nameof(DataGridSortMode.Single)}.");
+                }
+
+                if (level.Column.SortBy?.CanApplyThen == false)
+                {
+                    throw new ArgumentException($"The sort of column '{level.Column.Title}' cannot be used as a secondary sort level, so it can only be the first column sorted on.", nameof(sortColumns));
+                }
+            }
+
+            levels.Add(level);
+        }
+
+        _sortColumns.Clear();
+        _sortColumns.AddRange(levels);
+
+        await NotifySortChangedAsync();
+    }
+
+    /// <summary>
+    /// Removes every sort level, leaving the grid unsorted. The sort declared by the columns through
+    /// <see cref="ColumnBase{TGridItem}.IsDefaultSortColumn"/> is not restored; use <see cref="ResetSortAsync"/>
+    /// for that.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public async Task ClearSortAsync()
+    {
+        if (_sortColumns.Count == 0)
+        {
+            return;
+        }
+
+        _sortColumns.Clear();
+
+        await NotifySortChangedAsync(useCoreRefresh: true);
+    }
+
+    /// <summary>
+    /// Restores the sort declared by the columns through <see cref="ColumnBase{TGridItem}.IsDefaultSortColumn"/>,
+    /// leaving the grid unsorted when no column declares one. This is what removing the last sort level and the
+    /// Shift+S shortcut do.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    public async Task ResetSortAsync()
+    {
+        RestoreDefaultSort();
+
+        await NotifySortChangedAsync(useCoreRefresh: true);
     }
 
     /// <summary>
@@ -1357,37 +1704,117 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
-    /// Removes the grid's sort on double click if this is specified <paramref name="column"/> currently sorted on.
+    /// Removes the specified <paramref name="column"/> from the grid's sort.
+    ///
+    /// With <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>, the other sort levels are kept and
+    /// the sort declared by the columns is restored once the last level is removed. Otherwise the sort declared by the
+    /// columns is restored right away, and a default sort column is not removed.
     /// </summary>
-    /// <param name="column">The column to check against the current sorted on column.</param>
+    /// <param name="column">The column to stop sorting by.</param>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task RemoveSortByColumnAsync(ColumnBase<TGridItem> column)
     {
-        if (_sortByColumn == column && !column.IsDefaultSortColumn)
+        if (SortMode == DataGridSortMode.Multiple)
         {
-            _sortByColumn = _internalGridContext.DefaultSortColumn.Column ?? null;
-            _sortByAscending = _internalGridContext.DefaultSortColumn.Direction != DataGridSortDirection.Descending;
-
-            if (OnSortChanged.HasDelegate)
+            var index = _sortColumns.FindIndex(x => x.Column == column);
+            if (index < 0)
             {
-                await OnSortChanged.InvokeAsync(new()
-                {
-                    Column = _sortByColumn,
-                    SortByAscending = _sortByAscending,
-                });
+                return;
             }
 
-            _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
-            await RefreshDataCoreAsync();
+            _sortColumns.RemoveAt(index);
+
+            if (_sortColumns.Count == 0)
+            {
+                RestoreDefaultSort();
+            }
+
+            await NotifySortChangedAsync(useCoreRefresh: true);
             return;
+        }
+
+        if (_sortColumns.Count > 0 && _sortColumns[0].Column == column && !column.IsDefaultSortColumn)
+        {
+            RestoreDefaultSort();
+
+            await NotifySortChangedAsync(useCoreRefresh: true);
         }
     }
 
     /// <summary>
     /// Removes the grid's sort on double click for the currently sorted column if it's not a default sort column.
+    /// With <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>, every sort level is removed and the
+    /// sort declared by the columns is restored.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-    public Task RemoveSortByColumnAsync() => (_sortByColumn != null) ? RemoveSortByColumnAsync(_sortByColumn) : Task.CompletedTask;
+    public Task RemoveSortByColumnAsync()
+    {
+        if (SortMode == DataGridSortMode.Multiple)
+        {
+            return _sortColumns.Count > 0 ? ResetSortAsync() : Task.CompletedTask;
+        }
+
+        return _sortColumns.Count > 0 ? RemoveSortByColumnAsync(_sortColumns[0].Column) : Task.CompletedTask;
+    }
+
+    private void RestoreDefaultSort()
+    {
+        // The columns declare their sort in full, whatever the mode; only Multiple applies more than its first level.
+        _sortColumns.Clear();
+        _sortColumns.AddRange(SortMode == DataGridSortMode.Multiple
+            ? _defaultSortColumns
+            : _defaultSortColumns.Take(1));
+    }
+
+    private async Task NotifySortChangedAsync(bool useCoreRefresh = false)
+    {
+        UpdateSortAnnouncement();
+
+        if (OnSortChanged.HasDelegate)
+        {
+            await OnSortChanged.InvokeAsync(new()
+            {
+                SortColumns = [.. _sortColumns],
+            });
+        }
+
+        _ = InvokeAsync(StateHasChanged); // We want to see the updated sort order in the header, even before the data query is completed
+
+        if (useCoreRefresh)
+        {
+            await RefreshDataCoreAsync();
+        }
+        else
+        {
+            await RefreshDataAsync();
+        }
+    }
+
+    /// <summary>
+    /// Builds the text for the grid's sort status message, which is announced by screen readers because changing the
+    /// sort updates neither the focused element nor its accessible name.
+    /// </summary>
+    private void UpdateSortAnnouncement()
+    {
+        if (SortMode != DataGridSortMode.Multiple)
+        {
+            return;
+        }
+
+        if (_sortColumns.Count == 0)
+        {
+            _sortAnnouncement = Localizer[LanguageResource.DataGrid_SortAnnouncementCleared];
+            return;
+        }
+
+        var levels = _sortColumns.Select(level => Localizer[
+            level.Ascending ? LanguageResource.DataGrid_SortColumnAscending : LanguageResource.DataGrid_SortColumnDescending,
+            level.Column.Title ?? level.Column.ColumnKey]);
+
+        _sortAnnouncement = Localizer[
+            LanguageResource.DataGrid_SortAnnouncement,
+            string.Join(Localizer[LanguageResource.DataGrid_SortAnnouncementSeparator], levels)];
+    }
 
     /// <summary>
     /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column, closing any other column
@@ -1420,6 +1847,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <summary>
+    /// Displays the sort UI for the specified column, closing any other column header UI that was previously
+    /// displayed.
+    /// </summary>
+    internal Task ShowColumnSortAsync(ColumnBase<TGridItem> column)
+    {
+        return ShowColumnHeaderUiAsync(column, ColumnHeaderUiKind.Sort);
+    }
+
+    /// <summary>
     /// Displays the <see cref="ColumnBase{TGridItem}.ColumnOptions"/> UI for the specified column
     /// <paramref name="title"/> found first, closing any other column options UI that was previously displayed. If the
     /// title is not found, nothing happens.
@@ -1446,8 +1882,20 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Closes the column resize UI that was previously displayed.
     /// </summary>
-    public Task CloseColumnHeaderUIAsync()
+    public Task CloseColumnHeaderUIAsync() => CloseColumnHeaderUIAsync(restoreFocus: false);
+
+    /// <summary>
+    /// Closes the column header UI, optionally putting focus back on the button that opened it. Focus is restored when
+    /// the grid itself closes the popup (after a sort action, say), not when the user clicks elsewhere, where moving
+    /// focus would take it away from whatever they clicked.
+    /// </summary>
+    internal Task CloseColumnHeaderUIAsync(bool restoreFocus)
     {
+        if (restoreFocus)
+        {
+            _restoreHeaderUiFocusColumn = _activeHeaderUiColumn;
+        }
+
         _activeHeaderUiColumn = null;
         _activeHeaderUiKind = ColumnHeaderUiKind.None;
         _checkColumnHeaderUiPosition = false;
@@ -1574,7 +2022,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         // If we're not using Virtualize, we build and execute a request against the items provider directly
         var startIndex = Pagination is null ? 0 : (Pagination.CurrentPageIndex * Pagination.ItemsPerPage);
         GridItemsProviderRequest<TGridItem> request = new(
-            startIndex, Pagination?.ItemsPerPage, _sortByColumn, _sortByAscending, thisLoadCts.Token);
+            startIndex, Pagination?.ItemsPerPage, [.. _sortColumns], thisLoadCts.Token);
         _lastRefreshedPaginationState = Pagination;
 
         if (RefreshItems is not null)
@@ -1666,7 +2114,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         GridItemsProviderRequest<TGridItem> providerRequest = new(
-            startIndex, count, _sortByColumn, _sortByAscending, request.CancellationToken);
+            startIndex, count, [.. _sortColumns], request.CancellationToken);
         var providerResult = await ResolveItemsRequestAsync(providerRequest);
 
         if (!request.CancellationToken.IsCancellationRequested)
@@ -1794,10 +2242,37 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         return GridItemsProviderResult.From(Array.Empty<TGridItem>(), 0);
     }
 
+    /// <summary>
+    /// Gets the header's <c>aria-sort</c> value. Only the primary sort column gets a direction: WAI-ARIA states that
+    /// authors should apply aria-sort to only one header at a time, so the other sort levels are conveyed through the
+    /// header's accessible description instead (see <see cref="SortLevelDescription"/>).
+    /// </summary>
     private string AriaSortValue(ColumnBase<TGridItem> column)
-         => _sortByColumn == column
-             ? (_sortByAscending ? "ascending" : "descending")
+         => _sortColumns.Count > 0 && _sortColumns[0].Column == column
+             ? (_sortColumns[0].Ascending ? "ascending" : "descending")
              : "none";
+
+    /// <summary>
+    /// Gets the text describing which level of a multi-column sort a column is sorted at, or <see langword="null"/>
+    /// when there is nothing to add to <c>aria-sort</c>: a single sorted column already announces its direction.
+    /// </summary>
+    internal string? SortLevelDescription(ColumnBase<TGridItem> column)
+    {
+        if (SortMode != DataGridSortMode.Multiple || _sortColumns.Count < 2)
+        {
+            return null;
+        }
+
+        var level = GetSortLevel(column);
+
+        return level is null
+            ? null
+            : Localizer[
+                LanguageResource.DataGrid_SortLevel,
+                Localizer[level.Value.Ascending ? LanguageResource.DataGrid_SortDirectionAscending : LanguageResource.DataGrid_SortDirectionDescending],
+                level.Value.Level,
+                _sortColumns.Count];
+    }
 
     private string? StyleValue => DefaultStyleBuilder
         .AddStyle("grid-template-columns", _internalGridTemplateColumns, !string.IsNullOrWhiteSpace(_internalGridTemplateColumns) && DisplayMode == DataGridDisplayMode.Grid)
@@ -1831,9 +2306,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         var attributes = FluentDataGridCell<TGridItem>.BuildAttributes(this, column, DataGridCellType.ColumnHeader);
 
-        if (column.IsActiveSortColumn)
+        if (GetSortLevel(column) is { } sortLevel)
         {
-            attributes["col-sort"] = _sortByAscending ? "asc" : "desc";
+            attributes["col-sort"] = sortLevel.Ascending ? "asc" : "desc";
         }
 
         if (ResizableColumns)
@@ -1916,15 +2391,25 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         var query = System.Web.HttpUtility.ParseQueryString(queryString);
         if (query.AllKeys.Contains($"{SaveStatePrefix}orderby", StringComparer.Ordinal))
         {
-            var orderBy = query[$"{SaveStatePrefix}orderby"]!.Split(' ', 2);
-            var title = orderBy[0];
+            var raw = query[$"{SaveStatePrefix}orderby"]!;
+            var sortState = new List<(string ColumnReference, bool Ascending)>();
 
-            var column = _columns.Find(c => string.Equals(c.Title, title, StringComparison.Ordinal));
-            if (column is not null)
+            // One "<column key> <asc|desc>" entry per sort level, in priority order.
+            foreach (var entry in SplitSortStateEntries(raw))
             {
-                _sortByColumn = column;
-                _sortByAscending = orderBy.Length == 2 && string.Equals(orderBy[1], "asc", StringComparison.Ordinal);
+                sortState.Add(ParseSortStateEntry(entry));
+
+                if (SortMode != DataGridSortMode.Multiple)
+                {
+                    break;
+                }
             }
+
+            // The columns are collected during the first render, which happens after OnInitialized calls this.
+            // Whichever of the two runs last resolves the entries to columns.
+            _pendingSortStateFromUrl = sortState;
+            _pendingSortStateRawFromUrl = raw;
+            ApplyPendingSortStateFromUrl();
         }
 
         if (Pagination is not null)
@@ -1941,6 +2426,151 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
     }
 
+    /// <summary>
+    /// Resolves sort state that was restored from the query string to the grid's columns, and applies it. Called both
+    /// from <see cref="LoadStateFromQueryString"/> and once the columns have been collected, because either of the two
+    /// can be the last to run.
+    /// </summary>
+    private void ApplyPendingSortStateFromUrl()
+    {
+        if (_pendingSortStateFromUrl is null || _columns.Count == 0)
+        {
+            return;
+        }
+
+        // An empty saved value means the grid was explicitly left unsorted, so it has to override the sort the
+        // columns declare, which AddColumn applies while the columns are collected.
+        var savedAsUnsorted = _pendingSortStateFromUrl.Count == 0;
+
+        var levels = ResolveSortStateLevels(_pendingSortStateFromUrl);
+
+        // A value written before the escaping grammar existed holds one unescaped "<title> <direction>" level, so a
+        // comma in the title reads as a level separator and a backslash as an escape, and none of what comes out
+        // resolves. Reading the whole value as that single level is what such a link meant when it was saved.
+        if (levels.Count == 0 && !savedAsUnsorted && !string.IsNullOrEmpty(_pendingSortStateRawFromUrl))
+        {
+            levels = ResolveSortStateLevels([ParseSortStateEntry(_pendingSortStateRawFromUrl)]);
+        }
+
+        _pendingSortStateFromUrl = null;
+        _pendingSortStateRawFromUrl = null;
+
+        // Saved entries that no longer resolve to a column are dropped and the current sort is left alone, because
+        // the query string is user input; only an explicitly empty value unsorts the grid.
+        if (levels.Count == 0 && !savedAsUnsorted)
+        {
+            return;
+        }
+
+        _sortColumns.Clear();
+        _sortColumns.AddRange(levels);
+        UpdateSortAnnouncement();
+    }
+
+    /// <summary>
+    /// Resolves saved sort levels to the grid's columns, dropping the ones that cannot be applied.
+    /// </summary>
+    private List<DataGridSortColumn<TGridItem>> ResolveSortStateLevels(List<(string ColumnReference, bool Ascending)> sortState)
+    {
+        var levels = new List<DataGridSortColumn<TGridItem>>();
+        foreach (var (columnReference, ascending) in sortState)
+        {
+            // A level names its column by key, which stays distinct when two columns share a title, so the levels
+            // come back on the columns they were saved from whatever order they were sorted in. Levels saved by an
+            // earlier version hold the title instead, so that is tried next.
+            var column = _columns.Find(c => string.Equals(c.ColumnKey, columnReference, StringComparison.Ordinal)
+                    && !levels.Exists(x => x.Column == c))
+                ?? _columns.Find(c => string.Equals(c.Title, columnReference, StringComparison.Ordinal)
+                    && !levels.Exists(x => x.Column == c));
+
+            // Sort state that no longer matches a sortable column, or that cannot be applied at this level, is dropped
+            // rather than failing the render: the query string is user input.
+            if (column is null || !CanSortDataAtLevel(column, levels.Count > 0))
+            {
+                continue;
+            }
+
+            levels.Add(new DataGridSortColumn<TGridItem>(column, ascending));
+        }
+
+        return levels;
+    }
+
+    /// <summary>
+    /// Reads one sort level. The direction is the entry's last token, so that a column reference containing spaces
+    /// survives the trip; an entry without one sorts descending, as an unreadable direction always has.
+    /// </summary>
+    private static (string ColumnReference, bool Ascending) ParseSortStateEntry(string entry)
+    {
+        var separator = entry.LastIndexOf(" ", StringComparison.Ordinal);
+        return separator < 0
+            ? (entry, false)
+            : (entry[..separator], string.Equals(entry[(separator + 1)..], "asc", StringComparison.Ordinal));
+    }
+
+    /// <summary>
+    /// Escapes the column reference in the comma separated list of sort levels that
+    /// <see cref="SaveStateToQueryString"/> writes, so that one holding a comma (or the backslash that escapes
+    /// one) does not read back as two levels.
+    /// </summary>
+    private static string EscapeSortStateValue(string? value)
+        => (value ?? string.Empty)
+            .Replace("\\", "\\\\", StringComparison.Ordinal)
+            .Replace(",", "\\,", StringComparison.Ordinal);
+
+    /// <summary>
+    /// Splits the saved sort state into one entry per sort level, undoing the escaping
+    /// <see cref="EscapeSortStateValue"/> applied. Entries that are empty once unescaped are dropped, as the
+    /// whole value is user input.
+    /// </summary>
+    private static List<string> SplitSortStateEntries(string value)
+    {
+        var entries = new List<string>();
+        var entry = new StringBuilder();
+        var escaped = false;
+
+        void AddEntry()
+        {
+            var text = entry.ToString().Trim();
+            if (text.Length > 0)
+            {
+                entries.Add(text);
+            }
+
+            entry.Clear();
+        }
+
+        foreach (var character in value)
+        {
+            if (escaped)
+            {
+                entry.Append(character);
+                escaped = false;
+            }
+            else if (character == '\\')
+            {
+                escaped = true;
+            }
+            else if (character == ',')
+            {
+                AddEntry();
+            }
+            else
+            {
+                entry.Append(character);
+            }
+        }
+
+        if (escaped)
+        {
+            // A trailing backslash escapes nothing, so it is part of the title.
+            entry.Append('\\');
+        }
+
+        AddEntry();
+        return entries;
+    }
+
     private void SaveStateToQueryString()
     {
         if (!SaveStateInUrl)
@@ -1949,11 +2579,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         }
 
         var stateParams = new Dictionary<string, object?>(StringComparer.Ordinal);
-        if (_sortByColumn is not null)
-        {
-            var order = _sortByAscending ? "asc" : "desc";
-            stateParams.Add($"{SaveStatePrefix}orderby", $"{_sortByColumn.Title} {order}");
-        }
+        // The key is written even when the grid is not sorted, with an empty value. A missing key means nothing was
+        // saved, which leaves the sort the columns declare free to apply; an empty one means the grid was explicitly
+        // left unsorted, and that declared sort has to stay off when the state is restored.
+        var orderBy = string.Join(',', _sortColumns.Select(level => $"{EscapeSortStateValue(level.Column.ColumnKey)} {(level.Ascending ? "asc" : "desc")}"));
+        stateParams.Add($"{SaveStatePrefix}orderby", orderBy);
 
         stateParams.Add($"{SaveStatePrefix}page", Pagination?.CurrentPageIndex + 1 ?? null);
         stateParams.Add($"{SaveStatePrefix}top", Pagination?.ItemsPerPage ?? null);
