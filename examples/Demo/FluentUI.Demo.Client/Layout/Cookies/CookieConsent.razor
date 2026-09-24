@@ -4,7 +4,7 @@
 {
     <div id="cookieconsent" role="alert">
         <FluentGrid Spacing="0" Justify="JustifyContent.FlexEnd">
-            <FluentGridItem Style="min-width: 400px;" Padding="8px 0 8px 5%">
+            <FluentGridItem Id="message-container" Style="min-width: 400px;" Padding="8px 0 8px 5%">
                 <FluentText Padding="pa-3" As="TextTag.Span" Style="display: table-cell;">
                     <FluentIcon  Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size28.Info())" />
                 </FluentText>
@@ -14,7 +14,7 @@
                     <FluentLink Inline="true" Href="https://aka.ms/3rdpartycookies" Target="LinkTarget.Blank">Third-Party Cookies</FluentLink>
                 </FluentText>
             </FluentGridItem>
-            <FluentGridItem  Gap="10px" Margin="0 5% 0 5%" Padding="py-2" Style="align-self: center; min-width: fit-content;">
+            <FluentGridItem Id="buttons-container"  Gap="10px" Margin="0 5% 0 5%" Padding="py-2" Style="align-self: center; min-width: fit-content;">
                 <FluentGrid Justify="JustifyContent.FlexEnd" Spacing="3">
                     <FluentGridItem sm="4" xs="12">
                         <FluentButton Class="button" OnClick="AcceptPolicyAsync" Title="Accept" Appearance="ButtonAppearance.Outline">Accept</FluentButton>

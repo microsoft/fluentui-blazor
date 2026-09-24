@@ -40,10 +40,7 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
             _cookieState ??= await GetCookieStateAsync();
             _showBanner = _cookieState is null;
 
-            if (!_showBanner)
-            {
-                await InitAnalyticsAsync();
-            }
+            await InitAnalyticsAsync();
 
             StateHasChanged();
         }
@@ -79,7 +76,7 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
         {
             options.Header.CloseAction.Visible = true;
 
-            options.Parameters.Add(nameof(ManageCookies.Content), _cookieState);
+            options.Parameters.Add(nameof(ManageCookies.Content), new CookieState(_cookieState.AcceptAnalytics, _cookieState.AcceptSocialMedia, _cookieState.AcceptAdvertising));
         });
 
         if (!result.Cancelled && result.Value is not null)
@@ -125,9 +122,11 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
     /// </summary>
     public async Task InitAnalyticsAsync()
     {
-        if (_cookieState is not null)
+        if (_cookieState is null)
         {
-            await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROIOJECT_ID, _cookieState?.AcceptAnalytics, _cookieState?.AcceptAdvertising);
+            _cookieState = new CookieState(false);
         }
+
+        await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROIOJECT_ID, _cookieState?.AcceptAnalytics, _cookieState?.AcceptAdvertising);
     }
 }

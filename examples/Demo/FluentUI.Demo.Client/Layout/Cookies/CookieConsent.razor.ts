@@ -34,8 +34,14 @@ function eraseGoogleAnalyticsCookies(measurementId: string): void {
 }
 
 const injectGAScript = (measurementId: string): void => {
+
+  if (document.getElementById('google-analytics-script')) {
+    return;
+  }
+
   // Load the Google tag manager script dynamically
   const script = document.createElement('script');
+  script.id = 'google-analytics-script';
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
   document.head.appendChild(script);
