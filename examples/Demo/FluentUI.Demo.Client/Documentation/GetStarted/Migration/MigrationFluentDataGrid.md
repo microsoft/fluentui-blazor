@@ -67,7 +67,10 @@ void HandleSortChanged(DataGridSortEventArgs<Person> args)
 void HandleSortChanged(DataGridSortEventArgs<Person> args)
 {
     var primary = args.SortColumns.FirstOrDefault();
-    Log(primary?.Column.Title, primary?.Ascending ?? false);
+    if (primary is not null)
+    {
+        Log(primary.Column.Title, primary.Ascending);
+    }
 }
 ```
 

@@ -540,6 +540,27 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_MultiSort_SetSortAsync_WithANullLevelOrColumn_ThrowsAndKeepsTheSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+        await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
+
+        // Act && Assert: the first entry of an unsorted grid's SortColumns is null, and a column can still be null
+        // when the level comes from nullable-oblivious code. Both are rejected before the sort is replaced.
+        await Assert.ThrowsAsync<ArgumentException>(() => grid.SetSortAsync([null!]));
+        await Assert.ThrowsAsync<ArgumentException>(() => grid.SetSortAsync([new DataGridSortColumn<Employee>(null!, true)]));
+        await Assert.ThrowsAsync<ArgumentException>(() => grid.SetSortAsync([
+            new DataGridSortColumn<Employee>(grid._columns[0], true),
+            null!,
+        ]));
+
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", level.Column.Title);
+    }
+
+    [Fact]
     public async Task FluentDataGrid_MultiSort_AddSortByColumnAsync_WhenTheColumnsSortCannotBeAppended_SortsByThatColumnAlone()
     {
         // Arrange: a ColumnKeyGridSort with a sort function but no then-sort function cannot be a secondary level.
