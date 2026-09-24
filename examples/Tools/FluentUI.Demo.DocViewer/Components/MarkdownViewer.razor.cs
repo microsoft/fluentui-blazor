@@ -9,7 +9,6 @@ using FluentUI.Demo.DocViewer.Models;
 using FluentUI.Demo.DocViewer.Models.Mcp;
 using FluentUI.Demo.DocViewer.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace FluentUI.Demo.DocViewer.Components;
 
@@ -19,8 +18,6 @@ namespace FluentUI.Demo.DocViewer.Components;
 public partial class MarkdownViewer
 {
     private bool _isPageNotFound;
-    private const string JAVASCRIPT_FILE = "./_content/FluentUI.Demo.DocViewer/Components/MarkdownViewer.razor.js";
-    private IJSObjectReference _jsModule = default!;
 
     /// <summary />
     [Inject]
@@ -34,15 +31,17 @@ public partial class MarkdownViewer
     [Inject]
     internal NavigationManager NavigationManager { get; set; } = default!;
 
-    /// <summary />
-    [Inject]
-    internal IJSRuntime JSRuntime { get; set; } = default!;
-
     /// <summary>
     /// Gets or sets the Page route of the markdown file to display.
     /// </summary>
     [Parameter]
     public required string Route { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="IComponentRenderMode"/> to use for rendering the sample component.
+    /// </summary>
+    [Parameter]
+    public IComponentRenderMode? SampleRenderMode { get; set; }
 
     /// <summary />
     internal string PageTitle { get; private set; } = string.Empty;
@@ -81,40 +80,6 @@ public partial class MarkdownViewer
         {
             HttpClient.BaseAddress ??= new Uri(NavigationManager.BaseUri);
             await McpDocumentationService.LoadAsync(HttpClient, "/mcp-documentation.json").ConfigureAwait(true);
-        }
-    }
-
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", JAVASCRIPT_FILE);
-
-            foreach (var section in Sections.Where(i => i.Type == SectionType.Component))
-            {
-                // Source Tab
-                if (section.ExtraFiles.Count <= 0)
-                {
-                    var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, section.Value + ".razor");
-                    await _jsModule.InvokeVoidAsync("loadAndHighlightCode", section.Id, url);
-                }
-
-                // Extra files
-                else
-                {
-                    foreach (var (tabName, file) in section.ExtraFiles)
-                    {
-                        var url = string.Format(System.Globalization.CultureInfo.InvariantCulture, DocViewerService.Options.SourceCodeUrl, file);
-                        await _jsModule.InvokeVoidAsync("loadAndHighlightCode", $"{section.Id}-{tabName}", url);
-                    }
-                }
-            }
-
-            foreach (var section in Sections.Where(i => i.Type == SectionType.Code))
-            {
-                await _jsModule.InvokeVoidAsync("applyHighlight", section.Id);
-            }
         }
     }
 
@@ -214,6 +179,14 @@ public partial class MarkdownViewer
             ".js" => "language-javascript",
             _ => "language-plaintext"
         };
+    }
+
+    private string GetSourceCodeUrl(string file)
+    {
+        return string.Format(
+            System.Globalization.CultureInfo.InvariantCulture,
+            DocViewerService.Options.SourceCodeUrl,
+            file);
     }
 
     [GeneratedRegex(@"(\w+)(&lt;|<)(.+)(>|&gt;)")]

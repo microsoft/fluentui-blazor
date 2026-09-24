@@ -4,99 +4,51 @@
 
 <FluentLayout @key="@GetLayoutKey()" Height="100dvh" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
 
-    @* ------------------- *@
-    @*       Header        *@
-    @* ------------------- *@
-    <FluentLayoutItem Area="@LayoutArea.Header" Height="44px">
-        <FluentStack VerticalAlignment="@VerticalAlignment.Center" HorizontalGap="4px" Height="100%">
-            @* Hamburger on Mobile *@
-            <FluentLayoutHamburger Style="margin: 2px 12px;" PanelHeader="Fluent UI Blazor" Display="HamburgerDisplay.DesktopMobile" />
-
-            @* Microsoft Logo *@
-            <MicrosoftLogo />
-
-            <FluentSpacer />
-
-            @* Search Components *@
-            <DemoSearchInput />
-
-            @* GitHub Logo *@
-            <FluentButton IconStart="@(new GitHubIcon().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@(() => OpenUrlInNewTabAsync("https://github.com/microsoft/fluentui-blazor/"))"
-                          Appearance="ButtonAppearance.Transparent"
-                          Title="See the Fluent UI Blazor GitHub repository" />
-
-            @* DarkTheme *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.DarkTheme().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@SwitchThemeAsync"
-                          Appearance="ButtonAppearance.Transparent"
-                          Title="Switch to Light/Dark theme" />
-
-            @* Direction *@
-            <FluentButton IconOnly="true"
-                          Title="Switch to LTR/RTL direction"
-                          OnClick="@SwitchDirAsync"
-                          Appearance="ButtonAppearance.Transparent">
-                <FluentIcon Class="hidden-if-ltr"
-                            Value="@(new Icons.Regular.Size20.TextDirectionHorizontalRtl().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
-                <FluentIcon Class="hidden-if-rtl"
-                            Value="@(new Icons.Regular.Size20.TextDirectionHorizontalLtr().WithColor(SystemColors.Neutral.ForegroundOnBrand))" />
-            </FluentButton>
-
-            @* Reboot *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.DrawText().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@ReloadReboot"
-                          Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_useReboot ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
-                          Style="display: none;"
-                          Title="Use the Reboot.css styles" />
-
-            @* Open Console *@
-            <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
-                          OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
-                          Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
-                          Title="Open or hide the console" />
-
-        </FluentStack>
-    </FluentLayoutItem>
+	@* ------------------- *@
+	@*       Header        *@
+	@* ------------------- *@
+	<FluentLayoutItem Area="@LayoutArea.Header" Height="44px">
+		<DemoHeader @rendermode="@DocViewer.DemoRenderMode" />
+	</FluentLayoutItem>
 
     @* ------------------- *@
     @*     Left menu       *@
     @* ------------------- *@
 
-    <FluentLayoutItem Area="@LayoutArea.Navigation" Width="262px" Sticky="true" Height="var(--layout-body-height)"
-                      Style="overflow-y: auto; padding: 0px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
-        <DemoNav />
-    </FluentLayoutItem>
+	<FluentLayoutItem Area="@LayoutArea.Navigation" Width="262px" Sticky="true" Height="var(--layout-body-height)"
+					  Style="overflow-y: auto; padding: 0px; border-right: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+		<DemoNav @rendermode="@DocViewer.DemoRenderMode" />
+	</FluentLayoutItem>
 
     @* ------------------- *@
     @*       Body          *@
     @* ------------------- *@
 
-    @if (IsHomePage())
-    {
-        <FluentLayoutItem Area="@LayoutArea.Content" Class="demo-home">
-            <DemoNewsBar />
-            <div class="demo-home">
-                <div>@Body</div>
-                <div><DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" /></div>
-            </div>
-        </FluentLayoutItem>
-    }
-    else
-    {
-        <FluentLayoutItem Area="@LayoutArea.Content">
-            <DemoNewsBar />
-            <FluentErrorBoundary DisplayErrorDetails="ErrorBoundaryDetails.ErrorMessage" OnCloseRedirectUrl="/">
-                @Body
-            </FluentErrorBoundary>
-        </FluentLayoutItem>
+	@if (IsHomePage())
+	{
+		<FluentLayoutItem Area="@LayoutArea.Content" Class="demo-home">
+            <DemoNewsBar @rendermode="@DocViewer.DemoRenderMode" />
+			<div class="demo-home">
+				<div>@Body</div>
+				<div><DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" 
+										   @rendermode="@DocViewer.DemoRenderMode" /></div>
+			</div>
+		</FluentLayoutItem>
+	}
+	else
+	{
+		<FluentLayoutItem Area="@LayoutArea.Content">
+            <DemoNewsBar @rendermode="@DocViewer.DemoRenderMode" />
+			<FluentErrorBoundary DisplayErrorDetails="ErrorBoundaryDetails.ErrorMessage" OnCloseRedirectUrl="/">
+				@Body
+			</FluentErrorBoundary>
+		</FluentLayoutItem>
 
-        <FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true" hidden-when="sm">
-            <DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)" />
-        </FluentLayoutItem>
-    }
+		<FluentLayoutItem Area="@LayoutArea.Aside" Width="240px" Sticky="true" hidden-when="sm">
+			<DemoAsidePanel Page="@Navigation.ToBaseRelativePath(Navigation.Uri)"
+							@rendermode="@DocViewer.DemoRenderMode" />
+		</FluentLayoutItem>
+	}
 
     @* ------------------- *@
     @*       Footer        *@
@@ -135,4 +87,4 @@
 </FluentLayout>
 
 <!-- FluentUI Service Providers -->
-<FluentProviders />
+<FluentProviders @rendermode="@DocViewer.DemoRenderMode" />

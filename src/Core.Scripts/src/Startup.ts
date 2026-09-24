@@ -66,6 +66,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     // Initialize Fluent UI theme
     blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
+    ThemeFile.FluentUI.Blazor.Utilities.Theme.initializeThemeSettings();
     ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
 
     // Initialize all custom components
@@ -91,6 +92,7 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
 
     if (blazor.addEventListener && typeof blazor.addEventListener === 'function') {
       blazor.addEventListener('enhancedload', () => {
+        ThemeFile.FluentUI.Blazor.Utilities.Theme.initializeThemeSettings();
         FluentUIStyles.reapplyStyles();
         FluentLayout.LayoutAutoInitialize();
       });

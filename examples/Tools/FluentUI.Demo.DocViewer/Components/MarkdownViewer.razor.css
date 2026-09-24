@@ -85,11 +85,11 @@
         opacity: 1;
       }
 
-      .doc-viewer ::deep pre code[source] {
+      .doc-viewer ::deep pre code[data-source-url] {
         display: none;
       }
 
-        .doc-viewer ::deep pre code[source][class*="hljs"] {
+        .doc-viewer ::deep pre code[data-source-url][class*="hljs"] {
           display: block;
         }
   /* Demo Section */
