@@ -16,7 +16,7 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
 {
     private const string JAVASCRIPT_FILE = "./Layout/Cookies/CookieConsent.razor.js";
     private const string GA_MEASUREMENT_ID = "G-VML6BZWWTC"; // Google Analytics measurement ID
-    private const string MC_PROIOJECT_ID = "hnr14wvzj8";     // Microsoft Clarity project ID
+    private const string MC_PROJECT_ID = "hnr14wvzj8";     // Microsoft Clarity project ID
 
     /// <summary>
     /// Gets or sets the <see cref="IDialogService"/> instance used for showing dialogs to manage cookie preferences.
@@ -127,6 +127,6 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
             _cookieState = new CookieState(false);
         }
 
-        await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROIOJECT_ID, _cookieState?.AcceptAnalytics, _cookieState?.AcceptAdvertising);
+        await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROJECT_ID, _cookieState?.AcceptAnalytics, _cookieState?.AcceptAdvertising);
     }
 }

@@ -24,7 +24,7 @@
         width: 92.5%;
     }
 
-    .button {
+    ::deep .button {
         width: 100%;
     }
 }
