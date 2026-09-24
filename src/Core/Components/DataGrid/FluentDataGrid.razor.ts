@@ -22,6 +22,36 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     return activeElement instanceof HTMLElement ? activeElement : null;
   };
 
+  // Walks up through the shadow roots, so that an element inside a web component (the input of a
+  // fluent-text-input, for instance) counts as being inside the grid that holds the component.
+  const containsAcrossShadowRoots = (container: HTMLElement, element: Element) => {
+    let current: Element | null = element;
+    while (current) {
+      if (container.contains(current)) {
+        return true;
+      }
+
+      const root = current.getRootNode();
+      current = root instanceof ShadowRoot ? root.host : null;
+    }
+
+    return false;
+  };
+
+  const nonTextInputTypes = ['button', 'checkbox', 'color', 'file', 'hidden', 'image', 'radio', 'range', 'reset', 'submit'];
+
+  const isTextEntryElement = (element: HTMLElement) => {
+    if (element.isContentEditable || element instanceof HTMLTextAreaElement || element instanceof HTMLSelectElement) {
+      return true;
+    }
+
+    if (element instanceof HTMLInputElement) {
+      return !nonTextInputTypes.includes(element.type);
+    }
+
+    return element.matches('[role="textbox"], [role="searchbox"], [role="combobox"], [role="spinbutton"]');
+  };
+
   const getFocusedGridElement = (gridElement: HTMLElement, event: KeyboardEvent): HTMLElement | null => {
     const composedPath = event.composedPath();
 
@@ -359,6 +389,15 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     gridElement.addEventListener('keydown', keyDownHandler, { signal, capture: true });
 
     return {
+      // The grid's character key shortcuts (Shift+R, Shift+S, + and -) arrive through a listener on the
+      // whole document, so they only apply while the focus is in this grid, and not while it is in a
+      // field that the key types into.
+      canHandleCharacterKeyShortcut: () => {
+        const activeElement = getDeepActiveElement();
+        return !!activeElement
+          && containsAcrossShadowRoots(gridElement, activeElement)
+          && !isTextEntryElement(activeElement);
+      },
       stop: () => {
         controller.abort();
         const grid = grids.find(g => g.id === gridElement.id);

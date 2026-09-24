@@ -2620,24 +2620,27 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns></returns>
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        if (args.ShiftKey && args.Key == KeyCode.KeyR)
+        if (IsCharacterKeyShortcut(args) && await CanHandleCharacterKeyShortcutAsync())
         {
-            await ResetColumnWidthsAsync();
-        }
+            if (args.ShiftKey && args.Key == KeyCode.KeyR)
+            {
+                await ResetColumnWidthsAsync();
+            }
 
-        if (args.ShiftKey && args.Key == KeyCode.KeyS)
-        {
-            await RemoveSortByColumnAsync();
-        }
+            if (args.ShiftKey && args.Key == KeyCode.KeyS)
+            {
+                await RemoveSortByColumnAsync();
+            }
 
-        if (string.Equals(args.Value, "-", StringComparison.Ordinal))
-        {
-            await SetColumnWidthDiscreteAsync(columnIndex: null, -10);
-        }
+            if (string.Equals(args.Value, "-", StringComparison.Ordinal))
+            {
+                await SetColumnWidthDiscreteAsync(columnIndex: null, -10);
+            }
 
-        if (string.Equals(args.Value, "+", StringComparison.Ordinal))
-        {
-            await SetColumnWidthDiscreteAsync(columnIndex: null, 10);
+            if (string.Equals(args.Value, "+", StringComparison.Ordinal))
+            {
+                await SetColumnWidthDiscreteAsync(columnIndex: null, 10);
+            }
         }
 
         var activeColumn =
@@ -2670,6 +2673,38 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         if (activeColumn is not null && args.AltKey && args.Key == KeyCode.KeyL)
         {
             await MoveColumnToEndAsync(activeColumn);
+        }
+    }
+
+    /// <summary>
+    /// Gets whether the key press is one of the grid's character key shortcuts: Shift+R, Shift+S, + and -. These
+    /// are the characters the same keys type, so they must not act while the user types.
+    /// </summary>
+    private static bool IsCharacterKeyShortcut(FluentKeyCodeEventArgs args)
+        => (args.ShiftKey && (args.Key == KeyCode.KeyR || args.Key == KeyCode.KeyS))
+            || string.Equals(args.Value, "-", StringComparison.Ordinal)
+            || string.Equals(args.Value, "+", StringComparison.Ordinal);
+
+    /// <summary>
+    /// Gets whether the focus is in this grid, and not in a field inside it that the key types into. The key press
+    /// is reported by a listener on the whole document, so without this every grid on the page would reset its
+    /// sort or column widths when an uppercase S or R is typed anywhere (WCAG 2.1.4, Character Key Shortcuts).
+    /// </summary>
+    private async Task<bool> CanHandleCharacterKeyShortcutAsync()
+    {
+        if (_gridController is null)
+        {
+            return false;
+        }
+
+        try
+        {
+            return await _gridController.InvokeAsync<bool>("canHandleCharacterKeyShortcut");
+        }
+        catch (JSException)
+        {
+            // The grid element is gone (a re-render replaced it), so the focus cannot be in it.
+            return false;
         }
     }
 

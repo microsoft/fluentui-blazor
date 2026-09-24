@@ -916,6 +916,7 @@
     {
         // Arrange
         FluentDataGrid<Employee>? grid = default!;
+        SetupKeyboardFocusInGrid();
         var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
 
         await grid.SortByColumnAsync("Name", DataGridSortDirection.Descending);
@@ -934,6 +935,7 @@
     {
         // Arrange
         FluentDataGrid<Employee>? grid = default!;
+        SetupKeyboardFocusInGrid();
         var cut = RenderMultiSortGrid(out grid);
 
         await grid.SortByColumnAsync("Department", DataGridSortDirection.Ascending);
@@ -1688,6 +1690,20 @@
 
         grid = reference!;
         return cut;
+    }
+
+    /// <summary>
+    /// The grid's character key shortcuts (Shift+S among them) only act while the focus is in the grid, which the
+    /// grid asks its JavaScript controller about. Called before the grid is rendered, as the controller is created
+    /// on the first render.
+    /// </summary>
+    private void SetupKeyboardFocusInGrid()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var controller = module.SetupModule("Microsoft.FluentUI.Blazor.DataGrid.Initialize", invocation => true);
+        controller.Mode = JSRuntimeMode.Loose;
+        controller.Setup<bool>("canHandleCharacterKeyShortcut").SetResult(true);
     }
 
     [Fact]
