@@ -1,6 +1,7 @@
 ---
-Title: New release available
+Title: Fluent UI Blazor v5 is coming soon
 Intent: Success
 ---
-Version RC5 is now available with many new components.
-Check out the GitHub changelog for all the details and breaking changes.
+This site contains the v5 documentation.
+See the GitHub changelog for details and breaking changes.
+Need v4? Visit https://v4.fluentui-blazor.net
