@@ -31,7 +31,7 @@
     <!-- Versioning -->
     <VersionFile>5.0.0</VersionFile>
     <VersionPrefix>5.0.0</VersionPrefix>
-    <VersionSuffix>RC.5</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
 
     <Authors>Microsoft</Authors>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
