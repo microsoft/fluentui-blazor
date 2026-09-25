@@ -104,3 +104,41 @@ body {
   .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
   }
+
+.sticker-sheet-root {
+  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+  border-radius: var(--borderRadiusXLarge);
+}
+
+.sticker-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+  gap: var(--spacingHorizontalL);
+  padding: var(--spacingVerticalS) 0 var(--spacingVerticalXXXL);
+}
+
+.sticker-card {
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusXLarge);
+  padding: var(--spacingVerticalL) var(--spacingHorizontalL);
+  background: var(--colorNeutralBackground1);
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--spacingVerticalM);
+}
+
+.sticker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacingHorizontalM);
+  align-items: center;
+}
+
+.sticker-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingVerticalM);
+  align-items: stretch;
+}

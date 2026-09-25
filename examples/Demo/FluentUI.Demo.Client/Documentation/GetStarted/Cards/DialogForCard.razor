@@ -1,0 +1,29 @@
+﻿<FluentDialogBody>
+
+    <TitleTemplate>
+        Dialog
+    </TitleTemplate>
+
+    <ChildContent>
+        This is the body content of the dialog.
+    </ChildContent>
+
+    <ActionTemplate>
+        <FluentButton OnClick="btnOK_Click" Appearance="ButtonAppearance.Primary">Close</FluentButton>
+    </ActionTemplate>
+
+</FluentDialogBody>
+
+@code
+{
+    [CascadingParameter]
+    public required IDialogInstance Dialog { get; set; }
+
+    [Inject]
+    public required IDialogService DialogService { get; set; }
+
+    private async Task btnOK_Click()
+    {
+        await Dialog.CloseAsync(DialogResult.Ok("Yes"));
+    }
+}
