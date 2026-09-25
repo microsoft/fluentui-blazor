@@ -67,18 +67,19 @@ jobs:
      - name: Setup .NET 11.0
        uses: actions/setup-dotnet@v6
        with:
+        # Allow stable packages with RC dependencies while keeping NU5104 visible... adding `/p:WarningsNotAsErrors=NU5104` below
         dotnet-version: 11.0.100-rc.1.26425.128
 
      # Build
 
      - name: Restore
-       run: dotnet restore Microsoft.FluentUI-v5.slnx
+       run: dotnet restore Microsoft.FluentUI-v5.slnx /p:WarningsNotAsErrors=NU5104
 
      - name: Build
        run: |
          PROJECTS="${{ env.PROJECTS }}"
          for project in $PROJECTS; do
-           dotnet build "$project" --configuration Release -warnaserror
+           dotnet build "$project" --configuration Release -warnaserror /p:WarningsNotAsErrors=NU5104
          done
        working-directory: ${{ github.workspace }}
 
@@ -90,15 +91,15 @@ jobs:
          for test in $TESTS; do
            runsettings="$(dirname "$test")/coverage.runsettings"
            if [ -f "$runsettings" ]; then
-             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings "$runsettings"
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura --coverage-settings "$runsettings" /p:WarningsNotAsErrors=NU5104
            else
-             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura
+             dotnet test "$test" --report-trx --results-directory ./TestResults --configuration Release --coverage --coverage-output-format cobertura /p:WarningsNotAsErrors=NU5104
            fi
          done
        working-directory: ${{ github.workspace }}
 
      - name: Tests .NET 11.0
-       run: dotnet test ./tests/Core/Components.Tests.csproj --report-trx --results-directory ./TestResults --verbosity normal --configuration Release /p:ExampleNetVersion=net11.0
+       run: dotnet test ./tests/Core/Components.Tests.csproj --report-trx --results-directory ./TestResults --verbosity normal --configuration Release /p:ExampleNetVersion=net11.0 /p:WarningsNotAsErrors=NU5104
        working-directory: ${{ github.workspace }}
 
      - name: Publish Unit Tests
