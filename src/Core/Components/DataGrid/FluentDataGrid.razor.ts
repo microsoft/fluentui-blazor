@@ -22,20 +22,6 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
     return activeElement instanceof HTMLElement ? activeElement : null;
   };
 
-  const nonTextInputTypes = ['button', 'checkbox', 'color', 'file', 'hidden', 'image', 'radio', 'range', 'reset', 'submit'];
-
-  const isTextEntryElement = (element: HTMLElement) => {
-    if (element.isContentEditable || element instanceof HTMLTextAreaElement || element instanceof HTMLSelectElement) {
-      return true;
-    }
-
-    if (element instanceof HTMLInputElement) {
-      return !nonTextInputTypes.includes(element.type);
-    }
-
-    return element.matches('[role="textbox"], [role="searchbox"], [role="combobox"], [role="spinbutton"]');
-  };
-
   const getFocusedGridElement = (gridElement: HTMLElement, event: KeyboardEvent): HTMLElement | null => {
     const composedPath = event.composedPath();
 
@@ -248,19 +234,24 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
       return targetRow.cells[cell.cellIndex] as HTMLTableCellElement | null;
     };
-    // Shift+R, Shift+S, + and - type the very characters they are made of, so they only act on a key press
-    // made in this grid (not in a grid nested in its row details) and not in a field the key types into
-    // (WCAG 2.1.4, Character Key Shortcuts). Handling them here keeps the key presses made anywhere else on
-    // the page from reaching .NET: only Shift+S, which changes the sort, calls it.
+    // Shift+R, Shift+S, + and - type the very characters they are made of, so they only act on a key press aimed
+    // at the grid itself: the table, one of its cells or one of its column header buttons (WCAG 2.1.4, Character Key
+    // Shortcuts). Whatever a cell holds (a text field, a date picker, a custom component...) is left alone, as it is
+    // by arrow key navigation, and so is a grid nested in the row details, whose cells belong to another table.
+    // Handling them here keeps the key presses made anywhere else on the page from reaching .NET: only Shift+S,
+    // which changes the sort, calls it.
     const handleCharacterKeyShortcut = (event: KeyboardEvent) => {
       if (event.ctrlKey || event.altKey || event.metaKey) {
         return;
       }
 
-      const composedPath = event.composedPath();
-      const target = composedPath[0];
-      if (composedPath.find(entry => entry instanceof HTMLTableElement) !== gridElement
-        || (target instanceof HTMLElement && isTextEntryElement(target))) {
+      // A key press made inside a web component is retargeted to its host, which is what event.target holds here.
+      const target = event.target;
+      const isAimedAtGrid = target === gridElement
+        || (target instanceof HTMLElement
+          && target.matches('td, th, [col-sort-button], [col-options-button]')
+          && target.closest('table') === gridElement);
+      if (!isAimedAtGrid) {
         return;
       }
 
