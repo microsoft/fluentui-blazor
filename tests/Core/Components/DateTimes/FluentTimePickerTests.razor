@@ -278,6 +278,16 @@
         Assert.Empty(comboboxes);
     }
 
+    [Fact]
+    public void FluentTimePicker_NativeStyle_DoesNotRestrictTimeRange()
+    {
+        // Arrange & Act
+        Render(@<FluentTimePicker TValue="DateTime" Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" />);
+
+        // Assert: StartHour/EndHour/Increment are ignored in Native mode, so no min/max/step is pushed to the native input
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+    }
+
     [Theory]
     [InlineData(typeof(DateTime))]
     [InlineData(typeof(DateTime?))]
