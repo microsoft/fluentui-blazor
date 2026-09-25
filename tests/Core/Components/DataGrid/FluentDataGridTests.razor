@@ -2146,6 +2146,56 @@
     }
 
     [Theory]
+    [InlineData(KeyCode.KeyS, "S", true)]
+    [InlineData(KeyCode.KeyR, "R", true)]
+    [InlineData(KeyCode.Minus, "-", false)]
+    [InlineData(KeyCode.NumpadAdd, "+", false)]
+    public async Task FluentDataGrid_KeyDown_CharacterKeyShortcuts_AreLeftToTheGridScript(KeyCode key, string value, bool shiftKey)
+    {
+        // Arrange: the document-wide key listener reports every key press on the page, typing in a field included.
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" @ref="@grid" Items="@GetCustomers().AsQueryable()" ResizableColumns="true">
+                <PropertyColumn Property="@(x => x.Id)" Sortable="true" IsDefaultSortColumn="true" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>);
+
+        await cut.InvokeAsync(() => grid.SortByColumnAsync("Name", DataGridSortDirection.Descending));
+
+        // Act
+        await cut.InvokeAsync(() => grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = key, Value = value, ShiftKey = shiftKey }));
+
+        // Assert: the grid's own script handles these keys, as it knows whether they were typed in the grid.
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+        Assert.Empty(module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.ResetColumnWidths"]);
+        Assert.Empty(module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.ResizeColumnDiscrete"]);
+    }
+
+    [Fact]
+    public void FluentDataGrid_Initialize_GivesTheScriptAReferenceToTheGridForShiftS()
+    {
+        // Arrange
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+
+        // Act
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>);
+
+        // Assert: the script calls RemoveSortByColumnAsync through this reference on Shift+S.
+        var initialize = Assert.Single(module.Invocations["Microsoft.FluentUI.Blazor.DataGrid.Initialize"]);
+        Assert.IsType<DotNetObjectReference<FluentDataGrid<Customer>>>(initialize.Arguments[2]);
+        Assert.NotNull(typeof(FluentDataGrid<Customer>)
+            .GetMethod(nameof(FluentDataGrid<Customer>.RemoveSortByColumnAsync), Type.EmptyTypes)!
+            .GetCustomAttributes(typeof(JSInvokableAttribute), inherit: false)
+            .SingleOrDefault());
+    }
+
+    [Theory]
     [InlineData("status", KeyCode.KeyF, new[] { "status", "name", "created" })]
     [InlineData("status", KeyCode.KeyP, new[] { "name", "status", "created" })]
     [InlineData("name", KeyCode.KeyN, new[] { "created", "name", "status" })]

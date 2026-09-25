@@ -839,7 +839,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
             _selfReference = DotNetObjectReference.Create(this);
 
-            _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
+            _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus, _selfReference);
             if (AutoItemsPerPage)
             {
 
@@ -1755,6 +1755,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// sort declared by the columns is restored.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
+    [JSInvokable] // Shift+S, which the grid's script handles
     public Task RemoveSortByColumnAsync()
     {
         if (SortMode == DataGridSortMode.Multiple)
@@ -2628,26 +2629,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <returns></returns>
     public async Task OnKeyDownAsync(FluentKeyCodeEventArgs args)
     {
-        if (args.ShiftKey && args.Key == KeyCode.KeyR)
-        {
-            await ResetColumnWidthsAsync();
-        }
-
-        if (args.ShiftKey && args.Key == KeyCode.KeyS)
-        {
-            await RemoveSortByColumnAsync();
-        }
-
-        if (string.Equals(args.Value, "-", StringComparison.Ordinal))
-        {
-            await SetColumnWidthDiscreteAsync(columnIndex: null, -10);
-        }
-
-        if (string.Equals(args.Value, "+", StringComparison.Ordinal))
-        {
-            await SetColumnWidthDiscreteAsync(columnIndex: null, 10);
-        }
-
+        // Shift+R, Shift+S, + and - are handled by the grid's script, which only acts on key presses made in the grid
+        // and outside of text fields, rather than here, where every key press on the page arrives.
         var activeColumn =
             _activeHeaderUiKind == ColumnHeaderUiKind.Reorder
                 ? _activeHeaderUiColumn
