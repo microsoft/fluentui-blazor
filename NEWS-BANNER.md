@@ -1,7 +1,7 @@
 ---
-Title: Fluent UI Blazor v5 is coming soon
+Title: Fluent UI Blazor v5 is here!
 Intent: Success
 ---
-This site contains the v5 documentation.
-See the GitHub changelog for details and breaking changes.
+NuGet Packages will be available soon. Here you'll find the v5 documentation, examples and migration guides.
+
 Need v4? Visit https://v4.fluentui-blazor.net
