@@ -10,7 +10,21 @@
 [![Validate Security](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/microsoft/fluentui-blazor/actions/workflows/codeql-analysis.yml)
 -->
 
+---------------
+
+# Important: Fluent UI Blazor v5 is released
+
+This means the v4 packages are **no longer supported**.
+
+While we will continue to maintain the v4.x packages for a while, we will not be adding any new features to them. We are focusing on v5 and the new features it brings.
+
+The v4.x documentation and demos will of course remain available for reference.
+
+---------------
+
 > ## Reporting an issue?
+>
+>
 > Please supply us with **ready-to-run** reproduction code in the form of something we can copy/paste, a (zipped) project structure or a GitHub repository.
 >
 > We do not have capacity to craft or compose a reproduction for every issue that gets raised.
@@ -22,8 +36,9 @@
 > With 💖, the Fluent UI crew.
 
 ## Demo
-Explore the Demo: visit https://www.fluentui-blazor.net to kickstart your first project, browse the documentation, and test all components live.  
-If you encounter any problems, you can use the [backup site](https://fluentui-blazor.azurewebsites.net). 
+
+Explore the Demo: visit <https://www.fluentui-blazor.net> to kickstart your first project, browse the documentation, and test all components live.  
+If you encounter any problems, you can use the [backup site](https://fluentui-blazor.azurewebsites.net).
 
 ---
 
@@ -32,18 +47,18 @@ If you encounter any problems, you can use the [backup site](https://fluentui-bl
 This package is for use in .NET 8 and 9 Blazor projects. If you are using **now unsupported** .NET 6 or 7, please use the v3 version of the packages (names starting with `Microsoft.Fast.Components.FluentUI`)
 
 > ⚠️ [!IMPORTANT]
-> Version 4 is no longer supported and will receive security updates only. No new features or non-security bug fixes will be released for v4. We recommend upgrading 
+> Version 4 is no longer supported and will receive security updates only. No new features or non-security bug fixes will be released for v4. We recommend upgrading
 > to [version 5](https://github.com/microsoft/fluentui-blazor/tree/dev) to receive the latest features, improvements, and bug fixes.
 
 ## Introduction
 
-The `Microsoft.FluentUI.AspNetCore.*` family of packages provides a set of Razor components for building [Blazor](https://blazor.net) applications that leverage the Fluent Design System (i.e. have the look and feel of modern Microsoft applications). 
+The `Microsoft.FluentUI.AspNetCore.*` family of packages provides a set of Razor components for building [Blazor](https://blazor.net) applications that leverage the Fluent Design System (i.e. have the look and feel of modern Microsoft applications).
 
 Some of the components in the library are wrappers around Microsoft's official Fluent UI Web Components. Others are components that leverage the Fluent Design System or make it easier to work with Fluent. To get up and running with the library, see the **Getting Started** section below.
 
-The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net). 
+The source for the library is hosted in the [fluentui-blazor](https://github.com/microsoft/fluentui-blazor) repository at GitHub. Documentation on the components is available at the [demo site](https://www.fluentui-blazor.net).
 
-## Upgrading from an earlier version 
+## Upgrading from an earlier version
 
 If you are upgrading from an earlier version of the library, please see the [what's new](https://www.fluentui-blazor.net/whatsnew) for information on (breaking) changes.
 
@@ -52,27 +67,32 @@ If you are upgrading from an earlier version of the library, please see the [wha
 ### Using our dotnet templates
 
 The easiest way to get started is by using our [Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates). These mimic the regular Blazor templates and come with the design and components pre-configured. You install them with this command:
+
 ```shell
 dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
 
 Navigate to a folder where you want to create your new project and run the following command to create a new project.
+
 ```shell
 dotnet new fluentblazor --name MyApplication
 ```
 
 If you want to create a new standalone WebAssembly project, you can use the following command:
+
 ```shell
 dotnet new fluentblazorwasm --name MyApplication
 ```
 
 Other available templates are:
+
 - Fluent .NET Aspire Starter App (fluentaspire-starter)
 - Fluent .NET MAUI Blazor Hybrid and Web App (fluentmaui-blazor-web)
 
 When using Visual Studio, you can also use the **New Project** dialog to create a new project. The templates can be found by typine **Fluent** in the search field.
 
 ### Manual Install
+
 To start using the Fluent UI Blazor library from scratch, you first need to install the main [NuGet package](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Components/) in the project you want to use the library and its components.
 You can use the NuGet package manager in your IDE or use the following command when using a CLI:
 
@@ -88,6 +108,7 @@ dotnet add package Microsoft.FluentUI.AspNetCore.Components.Emoji
 ```
 
 ### Script
+
 As mentioned, we wrap the **Fluent UI Web Components** which are implemented in a script file. This **file is included in the library** itself and does not have to be downloaded or pulled from a CDN.
 
 > By including the script in the library we can safeguard that you are always using the best matching script version.
@@ -97,9 +118,11 @@ Even when using **SSR (Static Server Rendering)**, the script will be included a
 ```html
 <script src="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.lib.module.js" type="module" async></script>
 ```
+
 If you add interactivity later, the Blazor script will kick in and try to load the web component script again but JavaScript will handle that gracefully by design.
 
 ### Reboot (optional)
+
 **Reboot** is a collection of element-specific CSS changes in a single file to help kick-start building a site with the **Fluent UI Blazor** components. It provides an elegant, consistent, and simple baseline to build upon.
 
 If you want to use **Reboot**, you'll need to add to your `app.razor`, `index.html` or `_Layout.cshtml` file a line that includes the stylesheet (`.css` file). This can be done by adding the following line to the `<head>` section:
@@ -113,6 +136,7 @@ When using the templates to create your application, **Reboot** is already set-u
 _When creating a site that is hosted in a different base path,it might be necessary to remove the leading '/' from the stylesheet link._
 
 ### Register Services
+
 Add the following in `Program.cs`
 
 ```csharp
@@ -126,6 +150,7 @@ builder.Services.AddHttpClient();
 ```
 
 ### Add Component Providers
+
 Add the following components at the end of your `MainLayout.razor` file.  
 These providers are used by associated services to display Toasts, Dialog boxes, Tooltips or Message Bars correctly.
 
@@ -136,14 +161,18 @@ These providers are used by associated services to display Toasts, Dialog boxes,
 <FluentMessageBarProvider />
 <FluentMenuProvider />
 ```
+
 > **note:** You can remove providers which you are not using in your application.
 
 ## Working with Icons and Emoji
-We have additional packages available that include the complete Fluent UI System icons and Fluent UI Emoji collections. 
+
+We have additional packages available that include the complete Fluent UI System icons and Fluent UI Emoji collections.
+
 Please refer to the [Icons and Emoji](https://www.fluentui-blazor.net/IconsAndEmoji) page for more information.
 
 ## Usage
-With the package installed, you can begin using the Fluent UI Blazor library components in the same way as any other Razor component. 
+
+With the package installed, you can begin using the Fluent UI Blazor library components in the same way as any other Razor component.
 
 ### Add Imports
 
@@ -154,6 +183,7 @@ After the package is added, you need to add the following in your  `_Imports.raz
 ```
 
 ### Quick Start
+
 This is literally all you need in your views to use Fluent UI Blazor library in your application.
 
 ```xml
@@ -164,10 +194,12 @@ This is literally all you need in your views to use Fluent UI Blazor library in 
 ```
 
 ## Configuring the Design System
+
 The Fluent UI Razor components are built on FAST's (Adaptive UI) technology, which enables design customization and personalization, while automatically
 maintaining accessibility. This is accomplished through setting various "design tokens". The library exposes all design tokens, which you can use both from code as in a declarative way in your `.razor` pages. The different ways of working with design tokens are described in the [design tokens](https://www.fluentui-blazor.net/DesignTokens) page.
 
 ## Blazor Hybrid
+
 You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects. Setup is almost the same as described in the "Getting started" section above, but to get everything to work you'll need to take one extra steps (for now) described below.
 
 ### Temporary workaround for MAUI/WPF/Windows Forms issues
@@ -175,8 +207,8 @@ You can use this library in **Blazor Hybrid** (MAUI/WPF/Windows Forms) projects.
 > [!NOTE]
 > The workaround below only applies to .NET 8. As of .NET 9 this workaround is no longer needed. If you have this workaround in place for .NET 9 your Blazor Hybrid project **will not load**.
 
-Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404)). 
-There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed	`initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
+Currently when using the WebView to run Blazor (so all Hybrid variants) the web-components script is not imported automatically (see [#404](https://github.com/microsoft/fluentui-blazor/issues/404)).
+There is also an issue with loading the custom event handlers that are being configured by the web-components script. Until these are fixed on the WebView side, there is a workaround available, namely to intercept `'_framework/blazor.modules.json'` and provide proper JS initializers file (created by build). The needed    `initializersLoader.webview.js` has been added to the library and needs to be included with a script tag **before** the `_framework/blazor.webview.js` script tag:
 
 ```xml
 <script app-name="{NAME OF YOUR APP}" src="./_content/Microsoft.FluentUI.AspNetCore.Components/js/initializersLoader.webview.js"></script>
@@ -189,21 +221,23 @@ initializersLoader replaces standard `fetch` function with one which provides th
 For more information regarding the bug, see issue [15234](https://github.com/dotnet/maui/issues/15234) in the MAUI repo.
   
 ## Use the DataGrid component with EF Core or OData Client
+
 If you want to use the `<FluentDataGrid>` with data provided through EF Core or an OData Client, you need to install an additional package so the grid knows how to resolve queries asynchronously for efficiency.
 Please see the [DataGrid](https://www.fluentui-blazor.net/DataGrid) page for more information.
 
-
 ## Additional resources
-* The Microsoft Fluent UI Blazor library [documentation and demo site](https://www.fluentui-blazor.net)
+
+- The Microsoft Fluent UI Blazor library [documentation and demo site](https://www.fluentui-blazor.net)
 
 ## Support
+
 The Microsoft Fluent UI Blazor library is an open source project and is **not** an official part of ASP.NET Core, which means it’s **not** officially
 supported and isn’t committed to ship updates as part of any official .NET updates. It is built and maintained by Microsoft employees (**and** other contributors)
 and offers support, like most other open source projects, on a best effort base through the GitHub repository **only**.
 
 ## Contributing to the project
 
-We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/main/docs/contributing.md). 
+We offer some guidelines on how you can get started [contributing to the project](https://github.com/microsoft/fluentui-blazor/blob/main/docs/contributing.md).
 We also have a document that explains and shows how to [write and develop unit tests](https://github.com/microsoft/fluentui-blazor/blob/main/docs/unit-tests.md)
 
 ### 🏆 Contributors
@@ -216,14 +250,15 @@ Made with [contrib.rocks](https://contrib.rocks).
 
 ## Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is active on [Discord](https://discord.gg/FcSNfg4). Submit requests 
+Looking to get answers to questions or engage with us in real-time? Our community is active on [Discord](https://discord.gg/FcSNfg4). Submit requests
 and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
 ## Contact
 
-* Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2). 
-* Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
-* Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
+* Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2). 
+- Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
+- Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
+
 .
