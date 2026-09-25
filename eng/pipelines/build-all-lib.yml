@@ -148,7 +148,6 @@ extends:
         - task: UseDotNet@2
           displayName: 'Install .NET 11.0'
           inputs:
-            # Allow stable packages with RC dependencies while keeping NU5104 visible... adding `/p:WarningsNotAsErrors=NU5104` below
             version: 11.0.100-rc.1.26425.128
             includePreviewVersions: true
 
@@ -170,7 +169,6 @@ extends:
           inputs:
             command: 'restore'
             projects: ${{ parameters.Projects }}
-            restoreArguments: '/p:WarningsNotAsErrors=NU5104'
             feedsToUse: config
             nugetConfigPath: nuget.config
             includeNuGetOrg: false
@@ -188,7 +186,7 @@ extends:
           inputs:
             command: 'build'
             projects: ${{ parameters.Projects }}
-            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true /p:DebugType=portable /p:DebugSymbols=true /p:WarningsNotAsErrors=NU5104'
+            arguments: '--configuration Release /p:ContinuousIntegrationBuild=true /p:DebugType=portable /p:DebugSymbols=true'
 
         # Test and generate Code Coverage
         - task: DotNetCoreCLI@2
@@ -197,7 +195,7 @@ extends:
           inputs:
             command: test
             projects: ${{ parameters.Tests }}
-            arguments: '--configuration Release --coverage --coverage-output-format cobertura /p:DebugType=Full /p:WarningsNotAsErrors=NU5104'
+            arguments: '--configuration Release --coverage --coverage-output-format cobertura /p:DebugType=Full'
             publishTestResults: true
 
         # Coverage Generation

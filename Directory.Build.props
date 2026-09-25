@@ -25,6 +25,9 @@
     <TargetNetVersions Condition="'$(Configuration)' == 'Release'">net8.0;net9.0;net10.0;net11.0</TargetNetVersions>
     <TargetNetVersions Condition="'$(Configuration)' != 'Release'">$(NetVersion)</TargetNetVersions>
 
+    <!-- NU5104: A stable release of a package should not have a prerelease dependency -->
+    <NoWarn>$(NoWarn);NU5104</NoWarn>
+
     <!-- .NET 11 Preview 7 reports BL0016 across the existing JS interop architecture. -->
     <NoWarn Condition="'$(TargetFramework)' == 'net11.0' Or '$(ExampleNetVersion)' == 'net11.0'">$(NoWarn);BL0016</NoWarn>
 
