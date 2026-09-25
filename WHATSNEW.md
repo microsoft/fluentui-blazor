@@ -1,3 +1,16 @@
+## V4.14.5
+
+### General
+
+- Pin GitHub Actions to full-length commit SHAs ([#5141](https://github.com/microsoft/fluentui-blazor/pull/5141))
+- Several updates related to package management and housekeeping
+
+### Components
+
+- \[AnchoredRegion\] Fix focus across shadow DOM and inline popups ([#5041](https://github.com/microsoft/fluentui-blazor/pull/5041))
+- \[DataGrid\] Fix column width popup focus on tab navigation ([#5003](https://github.com/microsoft/fluentui-blazor/pull/5003))
+- \[Dialog\] Marshal dialog provider Add/Update onto sync context ([#5301](https://github.com/microsoft/fluentui-blazor/pull/5301))
+
 ## V4.14.4
 
 ### General
@@ -326,7 +339,7 @@ See the commit history in the Fluent UI System Icons repository [commit history]
 
 ### Icons and Emoji
 
-  - Update to Fluent UI System Icons 1.1.302.
+- Update to Fluent UI System Icons 1.1.302.
     See the commit history in the Fluent UI System Icons repository [commit history](https://github.com/microsoft/fluentui-system-icons/commits/main/) for the full list of changes.
 
 ## Before v4.12.0
