@@ -124,9 +124,14 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     {
         get
         {
-            var increment = Math.Max(1, Increment); // Ensure increment is at least 1 to avoid division by zero
+            var increment = Math.Max(1, Increment);
             var totalMinutes = Math.Max(0, (EndHour - StartHour) * 60);
             var count = totalMinutes / increment + 1;
+
+            if (EndHour == 24 && totalMinutes % increment == 0)
+            {
+                count--;
+            }
 
             return Enumerable.Range(0, count)
                              .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * increment));

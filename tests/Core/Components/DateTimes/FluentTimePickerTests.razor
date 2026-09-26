@@ -243,6 +243,8 @@
     [InlineData(8, 18, 15, 41, "08:00", "18:00")]
     [InlineData(7, 18, 5, 133, "07:00", "18:00")]
     [InlineData(9, 17, 7, 69, "09:00", "16:56")]
+    [InlineData(0, 24, 60, 24, "00:00", "23:00")]
+    [InlineData(0, 24, 15, 96, "00:00", "23:45")]
     public void FluentTimePicker_Items_GeneratesExpectedTimes(int startHour, int endHour, int increment, int expectedCount, string expectedFirst, string expectedLast)
     {
         // Arrange & Act
