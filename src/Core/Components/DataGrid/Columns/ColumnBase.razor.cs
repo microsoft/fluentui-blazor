@@ -267,7 +267,7 @@ public abstract partial class ColumnBase<TGridItem>
     {
         if (e.ShiftKey && e.Key == KeyCode.KeyR)
         {
-            Grid.RemoveSortByColumnAsync(this);
+            _ = Grid.RemoveSortByColumnAsync(this);
         }
     }
 

@@ -238,10 +238,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        if (NavigationManager != null)
-        {
-            NavigationManager.LocationChanged -= LocationChanged;
-        }
+        NavigationManager?.LocationChanged -= LocationChanged;
 
         try
         {

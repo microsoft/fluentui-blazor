@@ -84,14 +84,8 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
     /// <inheritdoc />
     protected override void OnParametersSet()
     {
-        Context = string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name);
-
-        if (Context == null)
-        {
-            throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
+        Context = (string.IsNullOrEmpty(Name) ? CascadedContext : CascadedContext?.FindContextInAncestors(Name)) ?? throw new InvalidOperationException($"{GetType()} must have an ancestor {typeof(FluentRadioGroup<TValue>)} " +
                 $"with a matching 'Name' property, if specified.");
-        }
-
         if (Checked.HasValue && Checked == true)
         {
             Context.CurrentValue = Value;
