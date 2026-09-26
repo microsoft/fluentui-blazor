@@ -52,6 +52,50 @@
         timePicker.Verify();
     }
 
+    [Theory]
+    [InlineData(1, 24, 0, "min", "01:00")]
+    [InlineData(8, 24, 0, "min", "08:00")]
+    [InlineData(0, 1, 0, "max", "01:00")]
+    [InlineData(0, 23, 0, "max", "23:00")]
+    [InlineData(0, 24, 1, "step", 60)]
+    [InlineData(0, 24, 60, "step", 3600)]
+    public void OnAfterRenderAsync_NativeStyleWithConstraint_CopiesExpectedAttribute(int startHour, int endHour, int increment, string expectedAttribute, object expectedValue)
+    {
+        // Arrange & Act
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime"
+                                                   Culture="@InvariantCulture"
+                                                   RenderStyle="DatePickerRenderStyle.Native"
+                                                   StartHour="@startHour"
+                                                   EndHour="@endHour"
+                                                   Increment="@increment" />);
+        var timePickerInstance = timePicker.FindComponent<FluentTimePicker<DateTime>>().Instance;
+
+        // Assert
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+        Assert.Equal(new object?[] { timePickerInstance.Id, "[part='control']", expectedAttribute, expectedValue }, invocation.Arguments);
+    }
+
+    [Theory]
+    [InlineData(0, 18, 15, "min")]
+    [InlineData(8, 24, 15, "max")]
+    [InlineData(8, 18, 0, "step")]
+    public void OnAfterRenderAsync_NativeStyleAtBoundary_DoesNotCopyAttribute(int startHour, int endHour, int increment, string omittedAttribute)
+    {
+        // Arrange & Act
+        Render(@<FluentTimePicker TValue="DateTime"
+                                 Culture="@InvariantCulture"
+                                 RenderStyle="DatePickerRenderStyle.Native"
+                                 StartHour="@startHour"
+                                 EndHour="@endHour"
+                                 Increment="@increment" />);
+
+        // Assert
+        Assert.DoesNotContain(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow" &&
+            Equals(invocation.Arguments[2], omittedAttribute));
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", 2);
+    }
+
     [Fact]
     public void TimeEqualityComparer_GetHashCode_UsesHourAndMinuteOnly()
     {
@@ -158,10 +202,49 @@
     }
 
     [Theory]
+    [InlineData(-1, 18, 15, "StartHour")]
+    [InlineData(8, 25, 15, "EndHour")]
+    [InlineData(8, 18, -1, "Increment")]
+    [InlineData(8, 18, 61, "Increment")]
+    [InlineData(8, 8, 15, "EndHour")]
+    [InlineData(9, 8, 15, "EndHour")]
+    public void FluentTimePicker_InvalidTimeRange_ThrowsArgumentOutOfRangeException(int startHour, int endHour, int increment, string expectedParameterName)
+    {
+        // Act
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
+            Render(@<FluentTimePicker TValue="DateTime"
+                                     Culture="@InvariantCulture"
+                                     StartHour="@startHour"
+                                     EndHour="@endHour"
+                                     Increment="@increment" />));
+
+        // Assert
+        Assert.Equal(expectedParameterName, exception.ParamName);
+    }
+
+    [Fact]
+    public void FluentTimePicker_InclusiveBoundaries_DoesNotThrowException()
+    {
+        // Arrange & Act
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime"
+                                                   Culture="@InvariantCulture"
+                                                   RenderStyle="DatePickerRenderStyle.Native"
+                                                   StartHour="0"
+                                                   EndHour="24"
+                                                   Increment="0" />);
+
+        // Assert
+        Assert.NotNull(timePicker);
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+    }
+
+    [Theory]
     [InlineData(8, 12, 30, 9, "08:00", "12:00")]
     [InlineData(8, 18, 15, 41, "08:00", "18:00")]
     [InlineData(7, 18, 5, 133, "07:00", "18:00")]
     [InlineData(9, 17, 7, 69, "09:00", "16:56")]
+    [InlineData(0, 24, 60, 24, "00:00", "23:00")]
+    [InlineData(0, 24, 15, 96, "00:00", "23:45")]
     public void FluentTimePicker_Items_GeneratesExpectedTimes(int startHour, int endHour, int increment, int expectedCount, string expectedFirst, string expectedLast)
     {
         // Arrange & Act
