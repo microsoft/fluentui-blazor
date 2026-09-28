@@ -1,1 +1,15 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+<FluentNumberInput Label="Your magic number"
+                   Min="0"
+                   Max="100"
+                   Step="5"
+                   Placeholder="[0-100], step=5"
+                   Message="@($"Value: {Value}")"
+                   MessageCondition="@(e => true)"
+                   @bind-Value="@Value" />
+
+</div>
+@code
+{
+    int? Value;
+}

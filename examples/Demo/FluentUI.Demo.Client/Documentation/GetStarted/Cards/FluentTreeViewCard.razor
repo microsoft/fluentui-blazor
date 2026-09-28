@@ -1,1 +1,29 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+
+
+    <FluentTreeView @bind-SelectedId="@SelectedId"
+                    @bind-CurrentSelected="SelectedItem"
+                    OnExpandedChanged="@(item => ExpandedItem = item)">
+        <FluentTreeItem Id="Item1" Text="Root item 1">
+            <FluentTreeItem Id="Item11" Text="Flowers" IconStart="@(new Icons.Regular.Size16.LeafOne())">
+                <FluentTreeItem Id="Item111" Text="Daisy" />
+                <FluentTreeItem Id="Item112" Text="Sunflower" />
+                <FluentTreeItem Id="Item113" Text="Rose" />
+            </FluentTreeItem>
+            <FluentTreeItem Id="Item12" Text="Nested item 2" />
+            <FluentTreeItem Id="Item13" Text="Nested item 3" />
+        </FluentTreeItem>
+    </FluentTreeView>
+</div>
+<FluentText>
+    Current selected tree item is: <b>@SelectedId</b>
+</FluentText>
+<FluentText>
+    Most recently expanded/collapsed tree item is: <b>@ExpandedItem?.Text</b>
+    </FluentText>
+
+@code {
+    string? SelectedId = "Item11";
+    FluentTreeItem? SelectedItem;
+    FluentTreeItem? ExpandedItem;
+}

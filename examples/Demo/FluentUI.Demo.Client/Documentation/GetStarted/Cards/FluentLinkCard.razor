@@ -1,1 +1,17 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+    <FluentStack Orientation="Orientation.Vertical">
+        <FluentLink OnClick="@(() => Console.WriteLine("Link with icon at start clicked"))"
+                    IconStart="@(new Icons.Regular.Size16.Link())">
+            Link with icon at start
+        </FluentLink>
+        <FluentLink OnClick="@(() => Console.WriteLine("Link with icon at end clicked"))"
+                    IconEnd="@(new Icons.Regular.Size16.Bookmark().WithColor(Color.Success))">
+            Link with icon at end
+        </FluentLink>
+        <FluentText As="@TextTag.Paragraph">
+            This is an
+            <FluentLink Href="link#inline" Inline>inline link</FluentLink>
+            used alongside text.
+        </FluentText>
+    </FluentStack>
+</div>

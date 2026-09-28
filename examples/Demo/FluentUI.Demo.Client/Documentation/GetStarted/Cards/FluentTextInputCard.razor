@@ -1,1 +1,9 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+    <FluentTextInput Appearance="@TextInputAppearance.Outline"
+                     Label="Textinput"
+                     @bind-Value="@Value" />
+</div>
+
+@code {
+    string Value = "This is a text input";
+}

@@ -1,1 +1,14 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+    <FluentButton Id="LeftButton"
+                  OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
+    <FluentPopover AnchorId="LeftButton"
+                   @bind-Opened="@LeftOpened">
+        <p>Example content in a</p>
+        <p>Popover component</p>
+    </FluentPopover>
+</div>
+
+@code
+{
+    bool LeftOpened;
+}

@@ -1,1 +1,14 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿@using FluentUI.Demo.SampleData
+<div class="sticker-row">
+
+<FluentSortableList @bind-Items="items" Style="width: 100%;">
+        <ItemTemplate>@context.FirstName @context.LastName</ItemTemplate>
+    </FluentSortableList>
+
+</div>
+
+
+@code {
+
+    IEnumerable<People.Person> items = People.GeneratePersons(5);
+}

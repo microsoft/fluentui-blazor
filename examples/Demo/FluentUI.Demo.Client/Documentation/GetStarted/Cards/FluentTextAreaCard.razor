@@ -1,1 +1,11 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+    <FluentTextArea Label="TextArea"
+                    Spellcheck="false"
+                    @bind-Value="@value" />
+</div>
+
+<FluentLabel>Value = @value</FluentLabel>
+
+@code {
+    string value = "This is a text area";
+}

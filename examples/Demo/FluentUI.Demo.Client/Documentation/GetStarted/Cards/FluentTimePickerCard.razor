@@ -1,1 +1,14 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿<div class="sticker-row">
+
+    <FluentTimePicker Label="Meeting time"
+                      DisabledTimeFunc="@(date => date?.Hour == 12)"
+                      @bind-Value="@SelectedValue" />
+</div>
+<div>
+    <b>Selected time:</b> @(SelectedValue?.ToString("yyyy-MM-dd HH:mm"))
+</div>
+
+@code
+{
+    DateTime? SelectedValue;
+}

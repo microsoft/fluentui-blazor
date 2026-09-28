@@ -1,1 +1,31 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿@inject INotificationService NotificationService
+<div class="sticker-row">
+    <FluentStack Wrap="true" HorizontalGap="12px" VerticalGap="5px">
+    <FluentButton OnClick="@(async e => await NotificationService.ShowSuccessToastAsync($"Success toast #{counter++}", lifetime: 3))">
+        Show Success
+    </FluentButton>
+    <FluentButton OnClick="@(async e => await NotificationService.ShowWarningToastAsync($"Warning toast #{counter++}"))">
+        Show Warning
+    </FluentButton>
+    <FluentButton OnClick="@(async e => await NotificationService.ShowErrorToastAsync($"Error toast #{counter++}"))">
+        Show Error
+    </FluentButton>
+    <FluentButton OnClick="@(async e => await NotificationService.ShowInfoToastAsync($"Info toast #{counter++}"))">
+        Show Info
+    </FluentButton>
+    <FluentButton OnClick="@(async e => { ProgressResult = await NotificationService.ShowProgressToastAsync($"Progress toast #{counter++}"); })">
+        Show Progress
+    </FluentButton>
+    <FluentButton OnClick="@(async e => { if (ProgressResult is not null) await ProgressResult.Instance.CloseAsync(); })"
+                  Disabled="@(ProgressResult is null)">
+        Close Progress
+    </FluentButton>
+    </FluentStack>
+</div>
+@code {
+
+    int counter = 1;
+    ToastResult? ProgressResult;
+}
+
+

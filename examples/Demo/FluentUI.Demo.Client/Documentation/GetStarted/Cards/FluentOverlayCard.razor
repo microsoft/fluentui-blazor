@@ -1,1 +1,11 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿    <FluentOverlay FullScreen="false" @bind-Visible="@IsVisible" />
+<div class="sticker-row">
+
+    <FluentButton OnClick="@(e => IsVisible = true)">
+        Show Overlay
+    </FluentButton>
+</div>
+@code
+{
+    bool IsVisible;
+}

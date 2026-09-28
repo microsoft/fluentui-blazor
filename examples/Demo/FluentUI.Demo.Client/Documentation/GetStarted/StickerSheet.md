@@ -14,4 +14,4 @@ Many of the components have additional options that can greatly alter the way th
 
 _* Components that require additional setup or context to function properly or that do not have a simple visual representation are not included in this sticker sheet._
 
-{{ StickerSheet sourcecode=false }}
+{{ StickerSheet SourceCode=false }}

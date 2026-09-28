@@ -1,1 +1,16 @@
-﻿<div class="sticker-row">This card will show a component soon!</div>
+﻿@inject IDialogService DialogService
+
+<div class="sticker-row">
+    <FluentButton OnClick="@ShowSuccessAsync" Appearance="ButtonAppearance.Primary">Success</FluentButton>
+</div>
+
+@code
+{
+    private bool? Canceled;
+
+    private async Task ShowSuccessAsync()
+    {
+        var result = await DialogService.ShowSuccessAsync("The action was a success");
+        Canceled = result.Cancelled;
+    }
+}
