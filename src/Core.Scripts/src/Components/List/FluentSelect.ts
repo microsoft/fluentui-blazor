@@ -65,6 +65,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
    * Resolves the accessible label: the label of the parent fluent-field, then the placeholder, then a default text.
    */
   function getAccessibleLabel(element: HTMLElement): string {
+    const ariaLabel = element.getAttribute('aria-label');
+    if (ariaLabel?.trim()) {
+      return ariaLabel.trim();
+    }
+
     const label = element.closest('fluent-field')?.querySelector('label');
     if (label?.textContent?.trim()) {
       return label.textContent.trim();

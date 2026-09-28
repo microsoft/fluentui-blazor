@@ -52,8 +52,8 @@ The `Native` rendering style uses the default browser styles.
 This mode is useful when you want to use a very simple TimePicker with a **mobile device**.
 In this case, the mobile picker will be used. This could be useful to use the native Android or iOS date picker.
 
-> [!WARNING] This mode is very limited in features and does not support the UI customization.
-> The following parameters are ignored: `Culture`, `StartHour`, `EndHour`, `Increment`,`DisabledTimeFunc`.
+> [!WARNING] This mode is limited in features and does not support the UI customization.
+> The following parameters are ignored: `Culture`, `DisabledTimeFunc`.
 
 {{ TimePickerRendering }}
 
