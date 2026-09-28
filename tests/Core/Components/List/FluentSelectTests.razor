@@ -654,6 +654,20 @@
         Assert.Same(expression, instance.SelectedItemsExpression);
     }
 
+    [Fact]
+    public void FluentSelect_AriaLabel()
+    {
+        // Arrange and Act
+        string ariaLabel = "Digits";
+        // If AriaLabel is provided it should be used instead of the Label or Placeholder for the aria-label attribute
+        var cut = Render(@<FluentSelect AriaLabel="@ariaLabel" Placeholder="Select a digit" Label="All digits" Items="@Digits" TOption="string" TValue="string" />);
+        var dropdown = cut.Find("fluent-dropdown");
+        var value = dropdown.GetAttribute("aria-label");
+
+        // Assert
+        Assert.Equal(ariaLabel, value);
+    }
+
     public record Person
     {
         public int Id { get; set; }

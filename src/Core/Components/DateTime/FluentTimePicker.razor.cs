@@ -92,6 +92,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 
     /// <summary>
     /// Gets or sets the first hour displayed in the time dropdown list, in 24-hour format (e.g., <c>StartHour="9"</c>).
+    /// The value must be between 0 and 23, inclusive.
     /// See also <see cref="EndHour"/>.
     /// </summary>
     [Parameter]
@@ -99,13 +100,14 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
 
     /// <summary>
     /// Gets or sets the last hour displayed in the time dropdown list, in 24-hour format (e.g., <c>EndHour="17"</c>).
+    /// The value must be greater than <see cref="StartHour"/> and less than or equal to 24.
     /// See also <see cref="StartHour"/>.
     /// </summary>
     [Parameter]
     public int EndHour { get; set; } = 18;
 
     /// <summary>
-    /// Gets or sets the increment, in minutes, between each time option in the dropdown list.
+    /// Gets or sets the increment, in minutes, between each time option in the dropdown list (value between 0 and 60, inclusive).
     /// </summary>
     [Parameter]
     public int Increment { get; set; } = 15;
@@ -122,11 +124,17 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     {
         get
         {
+            var increment = Math.Max(1, Increment);
             var totalMinutes = Math.Max(0, (EndHour - StartHour) * 60);
-            var count = totalMinutes / Increment + 1;
+            var count = totalMinutes / increment + 1;
+
+            if (EndHour == 24 && totalMinutes % increment == 0)
+            {
+                count--;
+            }
 
             return Enumerable.Range(0, count)
-                             .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * Increment));
+                             .Select(i => (DateTime?)DefaultTime.AddHours(StartHour).AddMinutes(i * increment));
         }
     }
 
@@ -152,25 +160,60 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     private bool IsFluentUIStyle => RenderStyle == DatePickerRenderStyle.FluentUI;
 
     /// <summary />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (StartHour < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(StartHour), StartHour, $"{nameof(StartHour)} must be greater than or equal to 0.");
+        }
+
+        if (EndHour > 24)
+        {
+            throw new ArgumentOutOfRangeException(nameof(EndHour), EndHour, $"{nameof(EndHour)} must be less than or equal to 24.");
+        }
+
+        if (Increment is < 0 or > 60)
+        {
+            throw new ArgumentOutOfRangeException(nameof(Increment), Increment, $"{nameof(Increment)} must be between 0 and 60, inclusive.");
+        }
+
+        if (EndHour <= StartHour)
+        {
+            throw new ArgumentOutOfRangeException(nameof(EndHour), EndHour, $"{nameof(EndHour)} must be greater than {nameof(StartHour)}.");
+        }
+    }
+
+    /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && !IsFluentUIStyle)
         {
             // Set the attribute min/max/step on the shadow "control" element.
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
-                Id,
-                "[part='control']",
-                "min", DefaultTime.AddHours(StartHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+            if (StartHour > 0)
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                    Id,
+                    "[part='control']",
+                    "min", DefaultTime.AddHours(StartHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+            }
 
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
-                Id,
-                "[part='control']",
-                "max", DefaultTime.AddHours(EndHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+            if (EndHour < 24)
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                    Id,
+                    "[part='control']",
+                    "max", DefaultTime.AddHours(EndHour).ToString("HH:mm", CultureInfo.InvariantCulture));
+            }
 
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
-                Id,
-                "[part='control']",
-                "step", Increment);
+            if (Increment > 0)
+            {
+                await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                    Id,
+                    "[part='control']",
+                    "step", Increment * 60);    // HTML input step is in seconds
+            }
         }
     }
 
