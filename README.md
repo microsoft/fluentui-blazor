@@ -159,12 +159,12 @@ Add this to an interactive Razor page:
 ## Working with Icons and Emoji
 
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections.
-Please refer to the [Icons](https://www.fluentui-blazor.net.net/icon) and [Emojis](https://www.fluentui-blazor.net/emoji) 
+Please refer to the [Icons](https://www.fluentui-blazor.net/icon) and [Emojis](https://www.fluentui-blazor.net/emoji) 
 page for more information.
 
 ## Additional resources
 
-* The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net.net)
+* The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
 
 ## Additional packages
 
@@ -174,7 +174,7 @@ page for more information.
 
 ## Documentation and support
 
-- [v5 documentation and component demos](https://www.fluentui-blazor.net.net)
+- [v5 documentation and component demos](https://www.fluentui-blazor.net)
 - [v4 documentation and component demos](https://v4.fluentui-blazor.net)
 - [GitHub issues](https://github.com/microsoft/fluentui-blazor/issues/new/choose)
 - [Discord community](https://discord.gg/M5cBTfp6J2)
