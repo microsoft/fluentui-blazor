@@ -127,6 +127,6 @@ public partial class CookieConsent(LibraryConfiguration configuration) : FluentC
             _cookieState = new CookieState(false);
         }
 
-        await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROJECT_ID, _cookieState?.AcceptAnalytics, _cookieState?.AcceptAdvertising);
+        await JSModule.ObjectReference.InvokeVoidAsync("initAnalytics", GA_MEASUREMENT_ID, MC_PROJECT_ID, _cookieState);
     }
 }
