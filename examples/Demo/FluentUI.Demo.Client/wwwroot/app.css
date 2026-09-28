@@ -146,40 +146,6 @@ body {
 
 
 @media print {
-  pre, code {
-    white-space: pre-wrap !important;
-    word-wrap: break-word !important;
-  }
-
-  body {
-    overflow: visible !important;
-    height: auto !important;
-  }
-
-  h2:nth-of-type(n+2) {
-    page-break-before: always !important;
-  }
-
-
-  h3, h4, h5, h6 {
-    page-break-after: avoid !important;
-  }
-
-  fluent-tab-panel {
-    page-break-inside: avoid !important;
-  }
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-
-    a::after {
-      content: " (" attr(href) ")";
-      font-size: 12px;
-      color: #555;
-    }
-
   .youtube-title {
     font-weight: bold;
     overflow: hidden;
@@ -191,25 +157,10 @@ body {
     display: none !important; /* Hide embedded videos */
   }
 
-  fluent-tab-panel {
-    display: block !important; /* Make all tab panels visible */
-    visibility: visible !important;
-    page-break-inside: avoid !important;
-  }
-
-    fluent-tab-panel[hidden] {
-      display: block !important; /* Override hidden attribute */
-    }
-
   .video-link {
     display: block;
   }
 
-  img {
-    width: auto !important; /* Shrinks oversized images */
-    max-height: 250px !important; /* Limits vertical size */
-    display: block; /* Prevents inline scaling issues */
-  }
 }
 
 @media screen {
