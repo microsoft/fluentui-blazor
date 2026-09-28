@@ -10,7 +10,7 @@
 **Fluent UI Blazor** is a component library for building Blazor applications with Microsoft's Fluent design language. It includes components based on the official Fluent UI Web Components as well as Blazor-specific components and services.
 
 > [!IMPORTANT]
-> This branch contains Fluent UI Blazor v5. See the [v5 documentation and demos](https://v5.fluentui-blazor.net) and the [v4 to v5 migration guide](https://v5.fluentui-blazor.net/MigrationV5).
+> This branch contains Fluent UI Blazor v5. See the [v5 documentation and demos](https://www.fluentui-blazor.net) and the [v4 to v5 migration guide](https://www.fluentui-blazor.net/MigrationV5).
 
 If you'd like to view the code for version 4, navigate to the [archive-v4](https://github.com/microsoft/fluentui-blazor/tree/archive-v4) branch.
 
@@ -52,10 +52,10 @@ The template package provides ready-to-run Fluent UI versions of the standard Bl
 - Fluent Aspire Starter App
 - Fluent .NET MAUI Blazor Hybrid and Web App
 
-Install the current v5 prerelease of the template package. Replace `<VERSION>` with the version shown on [NuGet](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates):
+Install the current template package.
 
 ```bash
-dotnet new install Microsoft.FluentUI.AspNetCore.Templates::<VERSION>
+dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
 
 Create a Blazor Web App or a standalone WebAssembly app:
@@ -72,7 +72,7 @@ The templates configure the packages, styles, services, providers, and icons for
 ### 1. Install the packages
 
 ```bash
-dotnet add package Microsoft.FluentUI.AspNetCore.Components --prerelease
+dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
 
 Install the optional icons package when your application uses Fluent icons:
@@ -159,12 +159,12 @@ Add this to an interactive Razor page:
 ## Working with Icons and Emoji
 
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections.
-Please refer to the [Icons](https://v5.fluentui-blazor.net/icon) and [Emojis](https://v5.fluentui-blazor.net/emoji) 
+Please refer to the [Icons](https://www.fluentui-blazor.net.net/icon) and [Emojis](https://www.fluentui-blazor.net/emoji) 
 page for more information.
 
 ## Additional resources
 
-* The Microsoft Fluent UI Blazor components [documentation and demo site](https://v5.fluentui-blazor.net)
+* The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net.net)
 
 ## Additional packages
 
@@ -174,7 +174,8 @@ page for more information.
 
 ## Documentation and support
 
-- [v5 documentation and component demos](https://v5.fluentui-blazor.net)
+- [v5 documentation and component demos](https://www.fluentui-blazor.net.net)
+- [v4 documentation and component demos](https://v4.fluentui-blazor.net)
 - [GitHub issues](https://github.com/microsoft/fluentui-blazor/issues/new/choose)
 - [Discord community](https://discord.gg/M5cBTfp6J2)
 - [Contributing guide](docs/contributing.md)
