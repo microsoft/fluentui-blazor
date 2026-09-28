@@ -35,13 +35,8 @@ The pages created from these templates will appear like the following based on t
 You can install the templates by running the following command:
 
 ```cshtml
-dotnet new install Microsoft.FluentUI.AspNetCore.Templates@5.0.0-rc.5-26219.1 (*)
+dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
-
-The current version can be found on the [NuGet site](https://www.nuget.org/packages/Microsoft.FLuentUI.AspNetCore.Templates/).
-
-> **IMPORTANT!!**
-> (*) As long as v5 is not the main version, you'll need to add the exact version number to your install command
 
 ## Usage
 
