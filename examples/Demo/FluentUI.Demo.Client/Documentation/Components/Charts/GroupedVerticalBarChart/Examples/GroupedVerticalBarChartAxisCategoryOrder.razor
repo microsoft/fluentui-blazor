@@ -1,0 +1,67 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Vertical" VerticalGap="10">
+    <FluentSelect Label="xAxisCategoryOrder"
+                  Items="@(Enum.GetValues<ChartCategoryOrder>())"
+                  @bind-Value="@_xAxisCategoryOrder" />
+
+    <FluentGroupedVerticalBarChart ChartTitle="Grouped vertical bar chart axis category order example"
+                                   ChartData="@_chartData"
+                                   Width="650px"
+                                   Height="350px"
+                                   XAxisCategoryOrder="@_xAxisCategoryOrder">
+    </FluentGroupedVerticalBarChart>
+</FluentStack>
+
+@code {
+    private ChartCategoryOrder _xAxisCategoryOrder = ChartCategoryOrder.Default;
+
+    private readonly IReadOnlyList<GroupedVerticalBarChartData> _chartData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Delta",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "North", Data = 18, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "South", Data = 24, Color = DataVizPalette.Color4 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Alpha",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "North", Data = 10, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "South", Data = 6, Color = DataVizPalette.Color4 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Echo",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "North", Data = 29, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "South", Data = 34, Color = DataVizPalette.Color4 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Bravo",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "North", Data = 14, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "South", Data = 18, Color = DataVizPalette.Color4 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Charlie",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "North", Data = 22, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "South", Data = 29, Color = DataVizPalette.Color4 },
+            ],
+        },
+    ];
+}

@@ -1,0 +1,66 @@
+@page "/Charts/VerticalBarChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Use single color" @bind-Value="useSingleColor"></FluentSwitch>
+    <FluentSwitch Label="Enable gradient" @bind-Value="gradient"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentVerticalBarChart ChartTitle="Vertical bar chart interactive example"
+                            ChartData="@chartData"
+                            Width="@($"{width}px")"
+                            Height="@($"{height}px")"
+                            UseSingleColor="@useSingleColor"
+                            EnableGradient="@gradient"
+                            LineLegendText="Target"
+                            HideLabels="@hideLabels"
+                            HideTooltip="@hideTooltips"
+                            HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> chartData =
+    [
+        new VerticalBarChartDataPoint { X = "Item A", Y = 100, Legend = "Item A", Color = DataVizPalette.Color1 },
+        new VerticalBarChartDataPoint { X = "Item B", Y = 150, Legend = "Item B", Color = DataVizPalette.Color2 },
+        new VerticalBarChartDataPoint { X = "Item C", Y = 120, Legend = "Item C", Color = DataVizPalette.Color3 },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private bool useSingleColor;
+    private bool gradient;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}

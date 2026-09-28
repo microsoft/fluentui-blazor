@@ -18,7 +18,7 @@
 			}
 		}
 			<FluentKeyCode Anchor="@($"appbar-more-{Id}")" OnKeyDown="@HandlePopoverKeyDownAsync" />
-			<div id="@($"appbar-more-{Id}")" class="fluent-appbar-more-item" style="min-width: var(--appbar-item-size);" tabindex="0" slot="trigger" title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" @onclick="@TogglePopoverAsync">
+			<button id="@($"appbar-more-{Id}")" class="fluent-appbar-more-item" style="min-width: var(--appbar-item-size);" type="button" slot="trigger" title="@Localizer[Localization.LanguageResource.AppBar_MoreItems]" aria-haspopup="dialog" aria-expanded="@(_showMoreItems ? "true" : "false")" aria-controls="@($"appbar-popover-{Id}")" @onclick="@TogglePopoverAsync">
 				<FluentStack Orientation="Orientation.Vertical"
 							 HorizontalAlignment="HorizontalAlignment.Center"
 							 VerticalAlignment="VerticalAlignment.Center"
@@ -27,16 +27,19 @@
 					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Default" part="icon-rest" />
 					<FluentIcon Width="24" Value="@(new CoreIcons.Regular.Size20.MoreHorizontal())" Color="Color.Primary" part="icon-active" />
 				</FluentStack>
-			</div>
+			</button>
 		</fluent-overflow>
 
 		@if (AppsOverflow.Any())
 		{
 			@*ToDo: Make styling configurable *@
-			<FluentPopover @bind-Opened="_showMoreItems"
+			<FluentPopover Id="@($"appbar-popover-{Id}")"
+						   @bind-Opened="_showMoreItems"
 						   AnchorId="@($"appbar-more-{Id}")"
-						   OffsetVertical="-48"
-						   OffsetHorizontal="320">
+						   OffsetVertical="@(Orientation == Orientation.Vertical ? -58 : -2)"
+						   OffsetHorizontal="@(Orientation == Orientation.Vertical ? 328 : 0)"
+						   role="dialog"
+						   aria-label="@Localizer[Localization.LanguageResource.AppBar_MoreItems]">
 				<ChildContent>
 					<div class="fluent-appbar-popover">
 						@if (PopoverShowSearch)

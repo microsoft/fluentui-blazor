@@ -2,14 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DateTimes.Utilities;
 
@@ -446,7 +440,6 @@ public class RangeOfDatesTests
         Assert.True(result);
     }
 
-    
     [Theory]
     [InlineData(2024, 1, 1, true)]
     [InlineData(2024, 1, 15, false)]

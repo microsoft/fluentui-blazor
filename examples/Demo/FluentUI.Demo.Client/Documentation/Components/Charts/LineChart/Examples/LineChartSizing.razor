@@ -1,0 +1,44 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="line-width" Min="200" Max="1000" Step="25" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="line-height" Min="200" Max="1000" Step="25" Style="width:300px;" />
+</FluentStack>
+
+<FluentLineChart ChartTitle="Line chart sizing example"
+                 ChartData="@data"
+                 Width="@($"{_width}px")"
+                 Height="@($"{_height}px")" />
+
+@code {
+    private int _width = 700;
+    private int _height = 300;
+
+    private readonly IReadOnlyList<LineChartSeries> data =
+    [
+        new LineChartSeries
+        {
+            Legend = "From_Legacy_to_O365",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 216000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 4, 0, 0, 0, DateTimeKind.Utc), Y = 248000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 252000 },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "All",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 297000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 4, 0, 0, 0, DateTimeKind.Utc), Y = 284000 },
+                new LineChartDataPoint { X = new DateTime(2020, 3, 5, 0, 0, 0, DateTimeKind.Utc), Y = 282000 },
+            ],
+        },
+    ];
+}

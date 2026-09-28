@@ -1,0 +1,41 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentSwitch @bind-Value="@_showAxisTitles" Label="Show axis titles" />
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart shared features"
+                               ChartData="@_chartData"
+                               Width="700px"
+                               Height="400px"
+                               BarWidth="auto"
+                               MaxBarWidth="28"
+                               Colors="@_colors"
+                               CalloutVariant="CalloutVariant.Stacked"
+                               XAxisTitle="@(_showAxisTitles ? "Quarter" : null)"
+                               YAxisTitle="@(_showAxisTitles ? "Performance" : null)"
+                               SecondaryYAxisTitle="@(_showAxisTitles ? "Growth index" : null)"
+                               SecondaryYAxisScaleType="ChartAxisScaleType.Log"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private bool _showAxisTitles = true;
+
+    private readonly IReadOnlyList<string> _colors = ["#0f6cbd", "#d13438", "#107c10"];
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        new()
+        {
+            XAxisPoint = "Q1",
+            StackCallOutAccessibilityData = new CalloutAccessibilityData { AriaLabel = "Q1 combined results" },
+            ChartData =
+            [
+                new() { Legend = "North", Data = 35, BarLabel = "Q1 total", YAxisCalloutData = "35 percent", CallOutAccessibilityData = new CalloutAccessibilityData { AriaLabel = "North Q1, 35 percent" } },
+                new() { Legend = "South", Data = 20 },
+            ],
+            LineData = [new VerticalStackedBarChartLineDataPoint { Legend = "Growth", Y = 10, UseSecondaryYScale = true }],
+        },
+        new() { XAxisPoint = "Q2", ChartData = [new() { Legend = "North", Data = 40 }, new() { Legend = "South", Data = 25 }], LineData = [new VerticalStackedBarChartLineDataPoint { Legend = "Growth", Y = 100, UseSecondaryYScale = true }] },
+        new() { XAxisPoint = "Q3", ChartData = [new() { Legend = "North", Data = 30 }, new() { Legend = "South", Data = 35 }], LineData = [new VerticalStackedBarChartLineDataPoint { Legend = "Growth", Y = 1000, UseSecondaryYScale = true }] },
+    ];
+}

@@ -28,16 +28,25 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
       element._control.value = defaultValue;
     }
 
-    // Accessibility: Set the aria-label and aria-expanded attributes for the button element if they are not already set.
-    const controlElement = element.querySelector('button[slot=control], input[slot=control]') as HTMLButtonElement | HTMLInputElement | null;
-    if (controlElement) {
+    // The web component may create its slotted control after Blazor invokes initialization, so retry for a few animation frames.
+    const initWithRetry = (attempt: number = 0) => {
+      const controlElement = element.querySelector('button[slot=control], input[slot=control]') as HTMLButtonElement | HTMLInputElement | null;
+      if (!controlElement) {
+        if (attempt < 10) {
+          requestAnimationFrame(() => initWithRetry(attempt + 1));
+        }
+        return;
+      }
+
       if (!controlElement.hasAttribute('aria-label')) {
         controlElement.setAttribute('aria-label', getAccessibleLabel(element));
       }
       if (!controlElement.hasAttribute('aria-expanded')) {
         controlElement.setAttribute('aria-expanded', 'false');
       }
-    }
+    };
+
+    initWithRetry();
   }
 
   /**
@@ -56,6 +65,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
    * Resolves the accessible label: the label of the parent fluent-field, then the placeholder, then a default text.
    */
   function getAccessibleLabel(element: HTMLElement): string {
+    const ariaLabel = element.getAttribute('aria-label');
+    if (ariaLabel?.trim()) {
+      return ariaLabel.trim();
+    }
+
     const label = element.closest('fluent-field')?.querySelector('label');
     if (label?.textContent?.trim()) {
       return label.textContent.trim();

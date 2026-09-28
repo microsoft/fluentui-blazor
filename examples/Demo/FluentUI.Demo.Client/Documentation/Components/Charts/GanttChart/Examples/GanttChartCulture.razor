@@ -1,0 +1,55 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentGanttChart ChartTitle="@($"Gantt chart culture example ({_selectedCulture})")"
+                  ChartData="@chartData"
+                  Width="650"
+                  Height="350"
+                  Culture="@SelectedCulture"
+                  ShowYAxisLabels="true">
+</FluentGanttChart>
+
+@code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private readonly IReadOnlyList<GanttChartDataPoint> chartData =
+    [
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = new DateTime(2009, 1, 1), End = new DateTime(2009, 2, 28) },
+            Y = "Job A",
+            Legend = "Alex",
+            Color = DataVizPalette.Color1,
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = new DateTime(2009, 3, 5), End = new DateTime(2009, 4, 15) },
+            Y = "Job B",
+            Legend = "Alex",
+            Color = DataVizPalette.Color1,
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = new DateTime(2009, 2, 20), End = new DateTime(2009, 5, 30) },
+            Y = "Job C",
+            Legend = "Max",
+            Color = DataVizPalette.Color2,
+        },
+    ];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}
+
+
+

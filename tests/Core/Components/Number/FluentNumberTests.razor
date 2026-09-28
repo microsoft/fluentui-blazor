@@ -1,4 +1,4 @@
-@using Xunit;
+﻿@using Xunit;
 @inherits FluentUITestContext
 @code
 {
@@ -781,5 +781,19 @@
 
         // Assert - Value should be clamped to Min
         Assert.Equal(10, value);
+    }
+
+    [Fact]
+    public void FluentNumber_ParseValue_NegativeInt()
+    {
+        // Arrange
+        int value = 10;
+        var cut = Render(@<FluentNumberInput TValue="int" Label="number" @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-text-input").Change("-42");
+
+        // Assert
+        Assert.Equal(-42, value);
     }
 }

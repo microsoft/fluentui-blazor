@@ -1,0 +1,17 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentHorizontalBarChartWithAxis ChartTitle="Wrapped x-axis labels"
+                                  WrapXAxisLabels="true"
+                                  ChartData="@_chartData"
+                                  Width="800px">
+</FluentHorizontalBarChartWithAxis>
+
+@code {
+    private readonly IReadOnlyList<HorizontalBarChartWithAxisDataPoint> _chartData =
+    [
+        new HorizontalBarChartWithAxisDataPoint { Y = "String One", X = 2234, Legend = "Oranges", Color = DataVizPalette.Color1, XAxisCalloutData = "1K", YAxisCalloutData = "String One" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Two", X = 6234, Legend = "Grapes", Color = DataVizPalette.Color2, XAxisCalloutData = "5K", YAxisCalloutData = "String Two" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Three", X = 4234, Legend = "Apples", Color = DataVizPalette.Color3, XAxisCalloutData = "3K", YAxisCalloutData = "String Three" },
+        new HorizontalBarChartWithAxisDataPoint { Y = "String Four", X = 3234, Legend = "Bananas", Color = DataVizPalette.Color4, XAxisCalloutData = "2K", YAxisCalloutData = "String Four" },
+    ];
+}

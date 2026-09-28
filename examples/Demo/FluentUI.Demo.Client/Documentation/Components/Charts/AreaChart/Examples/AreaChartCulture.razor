@@ -1,0 +1,49 @@
+﻿@using System.Globalization
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin-bottom: 16px; max-width: 220px;">
+    <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+        @foreach (var cultureName in Cultures)
+        {
+            <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+        }
+    </FluentSelect>
+</div>
+
+<FluentAreaChart ChartData="data"
+                 ChartTitle="@($"Area chart culture example ({_selectedCulture})")"
+                 Width="700"
+                 Height="312"
+                 Culture="@SelectedCulture" />
+
+@code {
+    private static readonly string[] Cultures = ["en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = Cultures[0];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+
+    private readonly IReadOnlyList<AreaChartSeries> data = new List<AreaChartSeries>
+    {
+        new AreaChartSeries
+        {
+            Legend = "legend1",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = new DateTime(2024, 1, 1), Y = 7000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 2, 1), Y = 13000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 3, 1), Y = 9000 },
+            }
+        },
+        new AreaChartSeries
+        {
+            Legend = "legend2",
+            ChartData = new List<AreaChartDataPoint>
+            {
+                new AreaChartDataPoint { X = new DateTime(2024, 1, 1), Y = 12000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 2, 1), Y = 18000 },
+                new AreaChartDataPoint { X = new DateTime(2024, 3, 1), Y = 14000 },
+            }
+        }
+    };
+}

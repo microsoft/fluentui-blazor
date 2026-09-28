@@ -1,0 +1,55 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentRadioGroup Label="Pick one" @bind-Value="@_calloutVariant" Orientation="Orientation.Vertical" Name="vsbar-date-callout">
+    <FluentRadio Value="@CalloutVariant.Single">Single callout</FluentRadio>
+    <FluentRadio Value="@CalloutVariant.Stacked">Stack callout</FluentRadio>
+</FluentRadioGroup>
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart date axis example"
+                               ChartData="@_chartData"
+                               Width="650px"
+                               Height="350px"
+                               BarGapMax="2"
+                               YAxisTickCount="10"
+                               YMaxValue="120"
+                               TickFormat="%m/%d"
+                               DateTickValues="@_tickValues"
+                               CalloutVariant="@_calloutVariant"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private CalloutVariant _calloutVariant = CalloutVariant.Stacked;
+
+    private readonly IReadOnlyList<DateTime> _tickValues =
+    [
+        new(2018, 3, 1), new(2018, 5, 1), new(2018, 7, 1), new(2018, 9, 1), new(2018, 11, 1),
+        new(2019, 2, 1), new(2019, 5, 1), new(2019, 7, 1), new(2019, 9, 1),
+    ];
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        CreateStack(new DateTime(2018, 3, 1), 2, 0.5, 0),
+        CreateStack(new DateTime(2018, 5, 1), 30, 3, 40),
+        CreateStack(new DateTime(2018, 7, 1), 10, 60, 30),
+        CreateStack(new DateTime(2018, 9, 1), 2, 0.5, 0),
+        CreateStack(new DateTime(2018, 11, 1), 10, 60, 30),
+        CreateStack(new DateTime(2019, 2, 1), 2, 0.5, 0),
+        CreateStack(new DateTime(2019, 5, 1), 30, 3, 40),
+        CreateStack(new DateTime(2019, 7, 1), 10, 60, 30),
+        CreateStack(new DateTime(2019, 9, 1), 2, 0.5, 0),
+    ];
+
+    private static VerticalStackedBarChartData CreateStack(DateTime x, double one, double two, double three) => new()
+    {
+        XAxisPoint = x,
+        ChartData =
+        [
+            CreatePoint("meta data 1", one, "qualitative.8"),
+            CreatePoint("meta data 2", two, "qualitative.9"),
+            CreatePoint("meta data 3", three, "qualitative.10"),
+        ],
+    };
+
+    private static VerticalStackedBarChartDataPoint CreatePoint(string legend, double data, string color) => new() { Legend = legend, Data = data, Color = DataVizPalette.Custom, CustomColor = color };
+}

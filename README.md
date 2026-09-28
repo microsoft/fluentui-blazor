@@ -10,11 +10,21 @@
 **Fluent UI Blazor** is a component library for building Blazor applications with Microsoft's Fluent design language. It includes components based on the official Fluent UI Web Components as well as Blazor-specific components and services.
 
 > [!IMPORTANT]
-> This branch contains Fluent UI Blazor v5. See the [v5 documentation and demos](https://v5.fluentui-blazor.net) and the [v4 to v5 migration guide](https://v5.fluentui-blazor.net/MigrationV5).
+> This branch contains Fluent UI Blazor v5. See the [v5 documentation and demos](https://www.fluentui-blazor.net) and the [v4 to v5 migration guide](https://www.fluentui-blazor.net/MigrationV5).
 
 If you'd like to view the code for version 4, navigate to the [archive-v4](https://github.com/microsoft/fluentui-blazor/tree/archive-v4) branch.
 
-**This package is for use in Blazor projects.**
+> ✅ UPDATE 2026-09-17:
+> Active v5 development has moved from the old `dev-v5` branch to
+> the `dev` branch. If your local repository previously used `dev-v5` branch,
+> run the following commands from its folder to switch to and track
+> the new active development branch:
+>
+> ```shell
+> git fetch origin --prune
+> git switch --track -c dev origin/dev
+> git pull --ff-only origin dev
+> ```
 
 ## Introduction
 
@@ -42,10 +52,10 @@ The template package provides ready-to-run Fluent UI versions of the standard Bl
 - Fluent Aspire Starter App
 - Fluent .NET MAUI Blazor Hybrid and Web App
 
-Install the current v5 prerelease of the template package. Replace `<VERSION>` with the version shown on [NuGet](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates):
+Install the current template package.
 
 ```bash
-dotnet new install Microsoft.FluentUI.AspNetCore.Templates::<VERSION>
+dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
 
 Create a Blazor Web App or a standalone WebAssembly app:
@@ -62,7 +72,7 @@ The templates configure the packages, styles, services, providers, and icons for
 ### 1. Install the packages
 
 ```bash
-dotnet add package Microsoft.FluentUI.AspNetCore.Components --prerelease
+dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
 
 Install the optional icons package when your application uses Fluent icons:
@@ -149,12 +159,12 @@ Add this to an interactive Razor page:
 ## Working with Icons and Emoji
 
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections.
-Please refer to the [Icons](https://v5.fluentui-blazor.net/icon) and [Emojis](https://v5.fluentui-blazor.net/emoji) 
+Please refer to the [Icons](https://www.fluentui-blazor.net/icon) and [Emojis](https://www.fluentui-blazor.net/emoji) 
 page for more information.
 
 ## Additional resources
 
-* The Microsoft Fluent UI Blazor components [documentation and demo site](https://v5.fluentui-blazor.net)
+- The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
 
 ## Additional packages
 
@@ -164,7 +174,8 @@ page for more information.
 
 ## Documentation and support
 
-- [v5 documentation and component demos](https://v5.fluentui-blazor.net)
+- [v5 documentation and component demos](https://www.fluentui-blazor.net)
+- [v4 documentation and component demos](https://v4.fluentui-blazor.net)
 - [GitHub issues](https://github.com/microsoft/fluentui-blazor/issues/new/choose)
 - [Discord community](https://discord.gg/M5cBTfp6J2)
 - [Contributing guide](docs/contributing.md)
@@ -180,13 +191,13 @@ We also have a document that explains and shows how to [write and develop unit t
 
 ## Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is  active on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) and [Discord](https://discord.gg/FcSNfg4). Submit requests
+Looking to get answers to questions or engage with us in real-time? Our community is  active on [Discord](https://discord.gg/FcSNfg4). Submit requests
 and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
 ## Contact
 
-* Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2). You can also find us on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im).
-* Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
-* Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
+- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).
+- Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
+- Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).

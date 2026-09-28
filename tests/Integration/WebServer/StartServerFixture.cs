@@ -17,7 +17,7 @@ public class StartServerFixture : IAsyncLifetime
     private const string PROJECT_FILENAME = "Components.IntegrationTests.csproj";
 
     // .NET Framework Version - Change this to net8.0, net9.0, or net10.0 to match Directory.Build.props
-    private const string NET_VERSION = "net9.0";
+    private const string NET_VERSION = "net10.0";
 
     private Process? _serverProcess;
 
@@ -40,7 +40,7 @@ public class StartServerFixture : IAsyncLifetime
         // Kill the existing server process (if the previous DisposeAsync was not called)
         KillExistingServerProcess();
 
-#if DEBUG 
+#if DEBUG
         var mode = "Debug";
 #else
         var mode = "Release";

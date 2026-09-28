@@ -1,0 +1,18 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGaugeChart ChartTitle="Storage capacity"
+                  Segments="@_chartData"
+                  ChartValue="55"
+                  Sublabel="used"
+                  ChartValueFormat="@GaugeValueFormat.Fraction"
+                  Variant="@GaugeChartVariant.SingleSegment">
+</FluentGaugeChart>
+
+@code {
+    private readonly IReadOnlyList<GaugeChartSegment> _chartData =
+    [
+        new GaugeChartSegment { Legend = "Used", Size = 55 },
+        new GaugeChartSegment { Legend = "Available", Size = 45, Color = DataVizPalette.Color5 },
+    ];
+}
+

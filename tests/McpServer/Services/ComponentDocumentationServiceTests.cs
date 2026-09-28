@@ -103,6 +103,36 @@ public class ComponentDocumentationServiceTests
     #region SearchDocumentation Tests
 
     [Fact]
+    public void SearchDocumentation_ForMultiColumnSorting_ShouldFindTheMultiSortPage()
+    {
+        // Arrange
+        var service = new ComponentDocumentationService();
+
+        // Act
+        var results = service.SearchDocumentation("DataGridSortMode.Multiple");
+
+        // Assert: pages under a component's Pages folder are indexed under their own file name, so this is
+        // also a check that the page is embedded at all.
+        Assert.Contains("DataGridMultiSortPage", results, StringComparer.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void GetComponentDocumentation_MultiSortPage_ShouldDescribeTheSortActions()
+    {
+        // Arrange
+        var service = new ComponentDocumentationService();
+
+        // Act
+        var content = service.GetComponentDocumentation("DataGridMultiSortPage");
+
+        // Assert: what an assistant needs to answer "how do I sort by two columns".
+        Assert.NotNull(content);
+        Assert.Contains("SortMode", content, StringComparison.Ordinal);
+        Assert.Contains("AddSortByColumnAsync", content, StringComparison.Ordinal);
+        Assert.Contains("ShowMultiSortActions", content, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void SearchDocumentation_WithEmptyTerm_ShouldReturnEmpty()
     {
         // Arrange

@@ -1,0 +1,95 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="16" Style="margin-top: 16px;">
+    <div style="max-width: 220px;">
+        <FluentSelect TOption="string"
+                      TValue="string"
+                      Label="xScaleType"
+                      Value="@_xScaleType.ToString()"
+                      ValueChanged="@(v => _xScaleType = Enum.Parse<ChartAxisScaleType>(v))">
+            @foreach (var opt in _scaleOptions)
+            {
+                <FluentOptionString Value="@opt.ToString()">@opt.ToString()</FluentOptionString>
+            }
+        </FluentSelect>
+    </div>
+    <div style="max-width: 220px;">
+        <FluentSelect TOption="string"
+                      TValue="string"
+                      Label="yScaleType"
+                      Value="@_yScaleType.ToString()"
+                      ValueChanged="@(v => _yScaleType = Enum.Parse<ChartAxisScaleType>(v))">
+            @foreach (var opt in _scaleOptions)
+            {
+                <FluentOptionString Value="@opt.ToString()">@opt.ToString()</FluentOptionString>
+            }
+        </FluentSelect>
+    </div>
+</FluentStack>
+
+<FluentScatterChart ChartTitle="Scatter Chart"
+                    ChartData="@_chartData"
+                    Width="700px"
+                    XAxisScaleType="@_xScaleType"
+                    YAxisScaleType="@_yScaleType"
+                    HideTickOverlap="true">
+</FluentScatterChart>
+
+@code {
+    private ChartAxisScaleType _xScaleType = ChartAxisScaleType.Log;
+    private ChartAxisScaleType _yScaleType = ChartAxisScaleType.Log;
+
+    private static readonly ChartAxisScaleType[] _scaleOptions =
+        Enum.GetValues<ChartAxisScaleType>();
+
+    private readonly IReadOnlyList<ScatterChartSeries> _chartData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Trace 1",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 1.2589254117941673, Y = 2.4236435587418756, MarkerSize = 7 },
+                new ScatterChartDataPoint { X = 2.39095514427051, Y = 3.209069828287282, MarkerSize = 8 },
+                new ScatterChartDataPoint { X = 4.540909610972476, Y = 6.700279261114452, MarkerSize = 13 },
+                new ScatterChartDataPoint { X = 8.624109968952766, Y = 15.657933357041166, MarkerSize = 6 },
+                new ScatterChartDataPoint { X = 16.378937069540648, Y = 26.410125335101004, MarkerSize = 8 },
+                new ScatterChartDataPoint { X = 31.10692935198609, Y = 21.628233443544943, MarkerSize = 8 },
+                new ScatterChartDataPoint { X = 59.078379115879464, Y = 71.08357068207286, MarkerSize = 8 },
+                new ScatterChartDataPoint { X = 112.20184543019641, Y = 95.45928375106901, MarkerSize = 12 },
+                new ScatterChartDataPoint { X = 213.09410153667977, Y = 175.17899348200768, MarkerSize = 5 },
+                new ScatterChartDataPoint { X = 404.70899507597613, Y = 367.05817591616454, MarkerSize = 6 },
+                new ScatterChartDataPoint { X = 768.6246100397738, Y = 616.3133732775369, MarkerSize = 14 },
+                new ScatterChartDataPoint { X = 1459.7743028861687, Y = 1533.9498528438594, MarkerSize = 14 },
+                new ScatterChartDataPoint { X = 2772.4079967417756, Y = 2371.497871143982, MarkerSize = 5 },
+                new ScatterChartDataPoint { X = 5265.366081044865, Y = 3617.6579249480537, MarkerSize = 9 },
+                new ScatterChartDataPoint { X = 10000, Y = 7149.749744738273, MarkerSize = 12 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Trace 2",
+            Color = DataVizPalette.Warning,
+            Data =
+            [
+                new ScatterChartDataPoint { X = 3.1622776601683795, Y = 2.1949926582336188, MarkerSize = 13 },
+                new ScatterChartDataPoint { X = 6.1054022965853285, Y = 4.772119103737707, MarkerSize = 16 },
+                new ScatterChartDataPoint { X = 11.787686347935873, Y = 5.594480133444149, MarkerSize = 17 },
+                new ScatterChartDataPoint { X = 22.758459260747887, Y = 22.975394675590913, MarkerSize = 21 },
+                new ScatterChartDataPoint { X = 43.939705607607905, Y = 14.632760823223153, MarkerSize = 24 },
+                new ScatterChartDataPoint { X = 84.83428982440716, Y = 49.97794497098575, MarkerSize = 12 },
+                new ScatterChartDataPoint { X = 163.78937069540646, Y = 88.37494969641493, MarkerSize = 21 },
+                new ScatterChartDataPoint { X = 316.22776601683796, Y = 259.59923251477073, MarkerSize = 10 },
+                new ScatterChartDataPoint { X = 610.5402296585327, Y = 486.6059651967493, MarkerSize = 24 },
+                new ScatterChartDataPoint { X = 1178.7686347935867, Y = 671.2364692543704, MarkerSize = 13 },
+                new ScatterChartDataPoint { X = 2275.8459260747863, Y = 1356.3898150565117, MarkerSize = 15 },
+                new ScatterChartDataPoint { X = 4393.97056076079, Y = 1697.3956575634736, MarkerSize = 22 },
+                new ScatterChartDataPoint { X = 8483.428982440717, Y = 1782.902150290326, MarkerSize = 19 },
+                new ScatterChartDataPoint { X = 16378.937069540612, Y = 7474.040318615067, MarkerSize = 20 },
+                new ScatterChartDataPoint { X = 31622.776601683792, Y = 16592.321174954774, MarkerSize = 14 },
+            ],
+        },
+    ];
+}

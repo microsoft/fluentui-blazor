@@ -1,0 +1,27 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGaugeChart ChartTitle="Gauge chart basic example"
+                  Segments="@segments"
+                  ChartValue="50"
+                  MaxValue="100">
+    <TooltipTemplate Context="ctx">
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+            <strong>@ctx.Legend</strong>
+            <div>Value: <strong>@ctx.YValue</strong></div>
+        </div>
+    </TooltipTemplate>
+</FluentGaugeChart>
+
+@code {
+
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+}
+
+
+
+

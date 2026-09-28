@@ -1,0 +1,56 @@
+﻿<FluentStack HorizontalGap="15" VerticalAlignment="VerticalAlignment.Center">
+    <FluentCheckbox @bind-Value="@_headerMenu" Label="Use menu for column actions" />
+    <FluentButton OnClick="@(() => _grid!.ClearSortAsync())">Clear all sorts</FluentButton>
+</FluentStack>
+
+<p>
+    Sorted by: <strong>@_sortDescription</strong>
+</p>
+
+<FluentDataGrid @ref="_grid"
+                TGridItem="Employee"
+                Items="@_employees"
+                SortMode="DataGridSortMode.Multiple"
+                HeaderCellAsButtonWithMenu="@_headerMenu"
+                OnSortChanged="@HandleSortChanged"
+                DisplayMode="DataGridDisplayMode.Table"
+                Style="min-width: max-content;">
+    <PropertyColumn Title="Department" Property="@(e => e.Department)" Sortable="true" IsDefaultSortColumn="true" />
+    @* The title says so too, because a header with no sort actions otherwise looks the same as one that is
+       simply not sorted on yet. *@
+    <PropertyColumn Title="Location (non sortable)" Property="@(e => e.Location)" Sortable="false" />
+    <PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Sortable="true" />
+    <PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true" />
+    <PropertyColumn Title="Salary" Property="@(e => e.Salary)" Width="120px" Sortable="true" Align="DataGridCellAlignment.End" />
+</FluentDataGrid>
+
+@code {
+    private FluentDataGrid<Employee>? _grid;
+    private bool _headerMenu;
+    private string _sortDescription = "Department (ascending)";
+
+    private void HandleSortChanged(DataGridSortEventArgs<Employee> args)
+    {
+        _sortDescription = args.SortColumns.Count == 0
+            ? "nothing"
+            : string.Join(", then ", args.SortColumns.Select(level => $"{level.Column.Title} ({(level.Ascending ? "ascending" : "descending")})"));
+    }
+
+    private record Employee(int Id, string FullName, string Department, string Location, string StartDate, int Salary);
+
+    private readonly IQueryable<Employee> _employees = new[]
+    {
+        new Employee(1, "Denis Voituron", "Engineering", "Brussels", "2019-03-01", 120_000),
+        new Employee(2, "Vincent Baaij", "Engineering", "Amsterdam", "2018-07-15", 130_000),
+        new Employee(3, "Harry Mars", "Executive", "Medina", "1975-04-04", 1_000_000),
+        new Employee(4, "Bruno Styles", "Executive", "Bellevue", "1992-02-17", 950_000),
+        new Employee(5, "Taylor Eilish", "Developer Relations", "Portland", "2007-01-22", 200_000),
+        new Employee(6, "Billie Swift", "Languages", "Seattle", "2005-08-01", 180_000),
+        new Employee(7, "Jacky Bond", "Framework", "Seattle", "2010-06-14", 190_000),
+        new Employee(8, "James Chan", "Framework", "Cambridge", "2009-03-30", 185_000),
+        new Employee(9, "John Cage", "Community", "San Diego", "2011-11-01", 160_000),
+        new Employee(10, "Nick Travolta", "Engineering", "New York", "2016-05-20", 155_000),
+        new Employee(11, "Sam Rivers", "Engineering", "Brussels", "2021-09-06", 118_000),
+        new Employee(12, "Alex Nguyen", "Framework", "Seattle", "2014-02-10", 176_000),
+    }.AsQueryable();
+}

@@ -1,0 +1,42 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="gantt-width" Min="200" Max="1000" Step="25" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="gantt-height" Min="200" Max="1000" Step="25" Style="width:300px;" />
+</FluentStack>
+
+<FluentGanttChart ChartTitle="Gantt chart sizing example"
+                  ChartData="@data"
+                  Width="@($"{_width}px")"
+                  Height="@($"{_height}px")"
+                  ShowYAxisLabels="true" />
+
+@code {
+    private int _width = 600;
+    private int _height = 350;
+
+    private readonly IReadOnlyList<GanttChartDataPoint> data = new List<GanttChartDataPoint>
+    {
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = new DateTime(2009, 1, 1), End = new DateTime(2009, 2, 28) },
+            Y = "Job A",
+            Legend = "Alex",
+            Color = DataVizPalette.Color1,
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = new DateTime(2009, 3, 5), End = new DateTime(2009, 4, 15) },
+            Y = "Job B",
+            Legend = "Alex",
+            Color = DataVizPalette.Color1,
+        },
+        new GanttChartDataPoint
+        {
+            X = new GanttChartXRange { Start = new DateTime(2009, 2, 20), End = new DateTime(2009, 5, 30) },
+            Y = "Job C",
+            Legend = "Max",
+            Color = DataVizPalette.Color2,
+        },
+    };
+}

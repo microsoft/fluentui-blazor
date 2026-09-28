@@ -1,0 +1,99 @@
+@page "/Charts/LineChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:180px;flex:1 1 180px;">
+        <label slot="label" for="stroke-width" id="stroke-width--label">
+            Stroke width
+        </label>
+        <FluentSlider slot="input"
+                      id="stroke-width"
+                      min="1"
+                      max="8"
+                      @bind-Value="@strokeWidth">
+        </FluentSlider>
+        <fluent-label slot="message">@strokeWidth</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Show markers" @bind-Value="showMarkers"></FluentSwitch>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentLineChart ChartTitle="Line chart interactive example"
+                     ChartData="@chartData"
+                     Width="@($"{width}px")"
+                     Height="@($"{height}px")"
+                     StrokeWidth="@strokeWidth"
+                     ShowMarkers="@showMarkers"
+                     SecondaryYAxisTitle="Secondary axis"
+                     HideLabels="@hideLabels"
+                     HideTooltip="@hideTooltips"
+                     HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<LineChartSeries> chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Revenue",
+            Data =
+            [
+                new LineChartDataPoint { X = 1, Y = 100 },
+                new LineChartDataPoint { X = 2, Y = 150 },
+                new LineChartDataPoint { X = 3, Y = 200 },
+                new LineChartDataPoint { X = 4, Y = 180 },
+            ],
+            Color = DataVizPalette.Color1,
+        },
+        new LineChartSeries
+        {
+            Legend = "Expenses",
+            Data =
+            [
+                new LineChartDataPoint { X = 1, Y = 80 },
+                new LineChartDataPoint { X = 2, Y = 110 },
+                new LineChartDataPoint { X = 3, Y = 130 },
+                new LineChartDataPoint { X = 4, Y = 150 },
+            ],
+            Color = DataVizPalette.Color2,
+        },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private int strokeWidth = 2;
+    private bool showMarkers;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}

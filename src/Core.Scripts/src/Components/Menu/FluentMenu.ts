@@ -39,6 +39,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
    * @param dotNetHelper The .NET component notified when the menu's open state changes.
    */
   export function Initialize(id: string, triggerId: string, openMenu: boolean, dotNetHelper?: DotNet.DotNetObject) {
+    // Blazor may invoke initialization before the menu or its generated menu list is rendered, so retry for a few animation frames.
     const initWithRetry = (attempt: number = 0) => {
       const trigger = document.getElementById(triggerId) as HTMLElement | null;
       const menu = document.getElementById(id) as Menu | null;

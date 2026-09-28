@@ -4,7 +4,6 @@
 
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.JSInterop;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.Toast;
@@ -136,10 +135,23 @@ public class NotificationServiceToastTests : Bunit.BunitContext
         var service = GetServiceWithProvider();
 
         // Act
-        _ = service.ShowInfoToastAsync("Title", lifetime: 7);
+        _ = service.ShowInfoToastAsync("Title", lifetime: 2);
 
         // Assert
-        Assert.Equal(TimeSpan.FromSeconds(7), SingleToast(service).Options.Lifetime);
+        Assert.Equal(TimeSpan.FromSeconds(2), SingleToast(service).Options.Lifetime);
+    }
+
+    [Fact]
+    public void ShowSimpleToastAsync_WithoutLifetime_SetsDefaultLifetime()
+    {
+        // Arrange
+        var service = GetServiceWithProvider();
+
+        // Act
+        _ = service.ShowInfoToastAsync("Title");
+
+        // Assert
+        Assert.Null(SingleToast(service).Options.Lifetime);
     }
 
     [Fact]

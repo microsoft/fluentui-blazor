@@ -23,6 +23,15 @@
     height: calc(var(--appbar-item-size) - var(--appbar-item-height-adjustment));
   }
 
+  .fluent-appbar button.fluent-appbar-more-item {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    font: inherit;
+    background: transparent;
+  }
+
 
     .fluent-appbar .fluent-appbar-item:hover,
     .fluent-appbar .fluent-appbar-more-item:hover {

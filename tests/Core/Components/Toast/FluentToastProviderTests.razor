@@ -1,4 +1,4 @@
-@using System.Linq
+﻿@using System.Linq
 @using System.Reflection
 @using Xunit
 @using Microsoft.Extensions.DependencyInjection
@@ -383,10 +383,10 @@
     /// <summary>
     /// Invokes the private <c>GetLifetime</c> method on the provider for the given toast.
     /// </summary>
-    private static TimeSpan InvokeGetLifetime(FluentToastProvider provider, IToastInstance toast)
+    private static TimeSpan? InvokeGetLifetime(FluentToastProvider provider, IToastInstance toast)
     {
         var method = typeof(FluentToastProvider).GetMethod("GetLifetime", BindingFlags.NonPublic | BindingFlags.Instance);
-        return (TimeSpan)method!.Invoke(provider, new object?[] { toast })!;
+        return (TimeSpan?)method!.Invoke(provider, new object?[] { toast });
     }
 
     [Fact]
@@ -456,7 +456,7 @@
     }
 
     [Fact]
-    public void FluentToastProvider_GetLifetime_NoLifetimeNoActionsNoConfiguration_ReturnsZero()
+    public void FluentToastProvider_GetLifetime_NoLifetimeNoActionsNoConfiguration_ReturnsNull()
     {
         // Arrange
         Services.GetRequiredService<LibraryConfiguration>().Toast.Lifetime = null;
@@ -468,6 +468,6 @@
         var lifetime = InvokeGetLifetime(provider, toast);
 
         // Assert
-        Assert.Equal(TimeSpan.Zero, lifetime);
+        Assert.Null(lifetime);
     }
 }

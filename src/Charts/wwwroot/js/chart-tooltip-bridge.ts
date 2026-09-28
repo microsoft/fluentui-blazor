@@ -55,7 +55,18 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
   // This decouples the two async events (Blazor render + FAST .tooltip-body insertion)
   // so whichever arrives second can complete the push — critical for charts like
   // FunnelChart where mouseout/mouseover cycles hide/show .tooltip-body rapidly.
-  let _pendingContent: Element | null = null;
+  let _pendingContent: HTMLDivElement | null = null;
+
+  const clonePortalContent = (): HTMLDivElement | null => {
+    if (!portal?.hasChildNodes()) {
+      return null;
+    }
+
+    const container = document.createElement("div");
+    container.className = "tooltip-custom-content";
+    container.append(...Array.from(portal.childNodes, node => node.cloneNode(true)));
+    return container;
+  };
 
   /**
    * Push _pendingContent into .tooltip-body if both are available.
@@ -77,8 +88,8 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
    * the content is kept in _pendingContent for the shadow observer to push later.
    */
   const pushPortalContent = (): void => {
-    if (!portal?.firstElementChild) return;
-    _pendingContent = portal.firstElementChild.cloneNode(true) as Element;
+    _pendingContent = clonePortalContent();
+    if (!_pendingContent) return;
     tryPushToTooltipBody();
   };
 
@@ -121,30 +132,33 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
     const firstEntry = Array.isArray(dataPoint?.entries) ? dataPoint.entries[0] : null;
 
     // Extract common fields; include AreaChart stacked overlay payload fallbacks.
-    const legend: string = dataPoint?.legend ?? dataPoint?.stage ?? firstEntry?.legend ?? "";
-    const yValue: string =
+    const legend: string = String(dataPoint?.legend ?? dataPoint?.stage ?? firstEntry?.legend ?? "");
+    const yValue: string = String(
       dataPoint?.yValue ??
       dataPoint?.value ??
       dataPoint?.yAxisCalloutData ??
       firstEntry?.value ??
-      (dataPoint?.data != null ? String(dataPoint.data) : null) ??
-      String(dataPoint?.y ?? "");
+      dataPoint?.data ??
+      dataPoint?.y ??
+      "",
+    );
 
     // For GanttChart dataPoint.x is { start, end } — guard against [object Object].
     const rawX: unknown = dataPoint?.x;
     const xIsRange = rawX !== null && typeof rawX === "object";
-    const xValue: string =
+    const xValue: string = String(
       dataPoint?.xValue ??
       dataPoint?.xAxisCalloutData ??
       dataPoint?.xLabel ??
-      (xIsRange ? "" : String(rawX ?? ""));
+      (xIsRange ? "" : rawX ?? ""),
+    );
 
     // XStart / XEnd: ISO date strings for GanttChart ranges; empty for all other charts.
-    const xStart: string = xIsRange ? _toISODateString((rawX as { start: unknown }).start) : "";
-    const xEnd: string = xIsRange ? _toISODateString((rawX as { end: unknown }).end) : "";
+    const xStart: string = String(xIsRange ? _toISODateString((rawX as { start: unknown }).start) : "");
+    const xEnd: string = String(xIsRange ? _toISODateString((rawX as { end: unknown }).end) : "");
 
-    const color: string = dataPoint?.color ?? firstEntry?.color ?? "";
-    const rawJson: string = _safeStringify(dataPoint);
+    const color: string = String(dataPoint?.color ?? firstEntry?.color ?? "");
+    const rawJson: string = String(_safeStringify(dataPoint) ?? "");
 
     // Fire-and-forget: tell Blazor about the new data point.
     // The MutationObserver will push the updated portal content once Blazor re-renders.
@@ -163,8 +177,7 @@ export async function initTooltipBridge(chartId: string, portalId: string, dotNe
         /* component disposed — ignore */
       });
 
-    const portalContent = portal?.firstElementChild;
-    return portalContent ? portalContent.cloneNode(true) : defaultRender(dataPoint);
+    return clonePortalContent() ?? defaultRender(dataPoint);
   };
 
   // Assign the renderer to the element property.

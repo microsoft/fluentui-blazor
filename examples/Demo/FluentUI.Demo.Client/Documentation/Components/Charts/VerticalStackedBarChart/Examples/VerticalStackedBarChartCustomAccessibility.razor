@@ -1,0 +1,51 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<p>Port of the React custom accessibility scenario. The chart has an explicit aria-label and keyboard-accessible legend interactions.</p>
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSwitch @bind-Value="@_hideLabels" Label="Hide labels" />
+    <FluentSwitch @bind-Value="@_roundedCorners" Label="Round corners" />
+    <FluentSwitch @bind-Value="@_allowMultipleLegendSelection" Label="Multiple legend selection" />
+</FluentStack>
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart custom accessibility example"
+                               ChartData="@_chartData"
+                               Width="650px"
+                               Height="350px"
+                               BarGapMax="2"
+                               HideLabels="@_hideLabels"
+                               RoundedCorners="@_roundedCorners"
+                               AllowMultipleLegendSelection="@_allowMultipleLegendSelection"
+                               aria-label="Vertical stacked bar chart custom accessibility example"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private const string BasicCalloutDate = "2026-04-30T00:00:00.000Z";
+
+    private bool _hideLabels;
+    private bool _roundedCorners;
+    private bool _allowMultipleLegendSelection;
+
+    private readonly IReadOnlyList<VerticalStackedBarChartData> _chartData =
+    [
+        CreateStack(0, [CreatePoint("Metadata1", 40, "qualitative.11", "40%"), CreatePoint("Metadata2", 5, "darkblue", "5%"), CreatePoint("Metadata3", 20, "qualitative.6", "20%")]),
+        CreateStack(20, [CreatePoint("Metadata1", 30, "qualitative.11", "33%"), CreatePoint("Metadata2", 20, "darkblue", "22%"), CreatePoint("Metadata3", 40, "qualitative.6", "45%")]),
+        CreateStack(40, [CreatePoint("Metadata1", 44, "qualitative.11", "43%"), CreatePoint("Metadata2", 28, "darkblue", "27%"), CreatePoint("Metadata3", 30, "qualitative.6", "30%")]),
+        CreateStack(60, [CreatePoint("Metadata1", 40, "qualitative.11", "40%"), CreatePoint("Metadata2", 5, "darkblue", "5%"), CreatePoint("Metadata3", 20, "qualitative.6", "20%")]),
+        CreateStack(80, [CreatePoint("Metadata1", 88, "qualitative.11", "63%"), CreatePoint("Metadata2", 22, "darkblue", "16%"), CreatePoint("Metadata3", 30, "qualitative.6", "21%")]),
+        CreateStack(100, [CreatePoint("Metadata1", 40, "qualitative.11", "40%"), CreatePoint("Metadata2", 5, "darkblue", "5%"), CreatePoint("Metadata3", 20, "qualitative.6", "20%")]),
+    ];
+
+    private static VerticalStackedBarChartData CreateStack(double x, IReadOnlyList<VerticalStackedBarChartDataPoint> points) => new() { XAxisPoint = x, ChartData = points };
+
+    private static VerticalStackedBarChartDataPoint CreatePoint(string legend, double data, string color, string yAxisCalloutData) => new()
+    {
+        Legend = legend,
+        Data = data,
+        Color = DataVizPalette.Custom,
+        CustomColor = color,
+        XAxisCalloutData = BasicCalloutDate,
+        YAxisCalloutData = yAxisCalloutData,
+    };
+}

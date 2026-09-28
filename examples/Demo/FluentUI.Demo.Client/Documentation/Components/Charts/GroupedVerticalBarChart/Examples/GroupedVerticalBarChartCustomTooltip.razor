@@ -1,0 +1,68 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentGroupedVerticalBarChart ChartTitle="Grouped Vertical Bar chart basic example"
+                               ChartData="@chartData"
+                               Width="650px"
+                               Height="350px">
+    <TooltipTemplate Context="ctx">
+        <div style="padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+            <strong>@ctx.Legend</strong>
+            <div>Value: <strong>@ctx.YValue</strong></div>
+        </div>
+    </TooltipTemplate>
+</FluentGroupedVerticalBarChart>
+
+@code {
+
+    private readonly IReadOnlyList<GroupedVerticalBarChartData> chartData =
+    [
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jan - Mar",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 24000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 33000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 44000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 54000, Color = DataVizPalette.Color6 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Apr - Jun",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 12000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 33000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 3000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 9000, Color = DataVizPalette.Color6 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Jul - Sep",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 10000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 14000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 50000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 60000, Color = DataVizPalette.Color6 },
+            ],
+        },
+        new GroupedVerticalBarChartData
+        {
+            XAxisPoint = "Oct - Dec",
+            Series =
+            [
+                new GroupedVerticalBarChartDataPoint { Key = "2021", Data = 15000, Color = DataVizPalette.Color3 },
+                new GroupedVerticalBarChartDataPoint { Key = "2022", Data = 33000, Color = DataVizPalette.Color4 },
+                new GroupedVerticalBarChartDataPoint { Key = "2023", Data = 3000, Color = DataVizPalette.Color5 },
+                new GroupedVerticalBarChartDataPoint { Key = "2024", Data = 6000, Color = DataVizPalette.Color6 },
+            ],
+        },
+    ];
+}
+
+
+
+

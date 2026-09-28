@@ -1,0 +1,26 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentCheckbox @bind-Value="@_hideTooltip" Label="Hide tooltip" />
+
+<FluentFunnelChart ChartTitle="Basic Funnel Chart"
+                   ChartData="@chartData"
+                   Width="650"
+                   Height="350"
+                   Orientation="Orientation.Horizontal">
+</FluentFunnelChart>
+
+@code {
+    private bool _hideTooltip = true;
+
+    private readonly IReadOnlyList<FunnelDataPoint> chartData =
+    [
+        new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups", Value = 600 },
+        new FunnelDataPoint { Stage = "Trials", Value = 300 },
+        new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    ];
+}
+
+
+
+

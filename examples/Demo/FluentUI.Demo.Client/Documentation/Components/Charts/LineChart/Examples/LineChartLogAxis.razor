@@ -1,0 +1,42 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="X scale" Items="@(Enum.GetValues<ChartAxisScaleType>())" @bind-Value="@_xScaleType" />
+    <FluentSelect Label="Y scale" Items="@(Enum.GetValues<ChartAxisScaleType>())" @bind-Value="@_yScaleType" />
+</FluentStack>
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="300px"
+                 XAxisScaleType="@_xScaleType"
+                 YAxisScaleType="@_yScaleType"
+                 CalloutVariant="CalloutVariant.Stacked">
+</FluentLineChart>
+
+@code {
+    private ChartAxisScaleType _xScaleType = ChartAxisScaleType.Log;
+    private ChartAxisScaleType _yScaleType = ChartAxisScaleType.Log;
+
+    private readonly IReadOnlyList<LineChartSeries> _chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Series 1",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            Data = Enumerable.Range(1, 8)
+                .Select(value => new LineChartDataPoint { X = (double)value, Y = 9 - value })
+                .ToArray(),
+        },
+        new LineChartSeries
+        {
+            Legend = "Series 2",
+            Color = DataVizPalette.Custom,
+            CustomColor = "semantic.warning",
+            Data = Enumerable.Range(1, 8)
+                .Select(value => new LineChartDataPoint { X = (double)value, Y = value })
+                .ToArray(),
+        },
+    ];
+}

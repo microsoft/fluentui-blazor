@@ -1,0 +1,25 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="4">
+    <FluentSlider Label=@($"Width: {_width}") @bind-Value="_width" Id="funnel-width" Min="200" Max="1000" Step="25" Style="width:300px;" />
+    <FluentSlider Label=@($"Height: {_height}") @bind-Value="_height" Id="funnel-height" Min="200" Max="1000" Step="25" Style="width:300px;" />
+</FluentStack>
+
+<FluentFunnelChart ChartTitle="Funnel chart sizing example"
+                   ChartData="@data"
+                   Width="@($"{_width}px")"
+                   Height="@($"{_height}px")"
+                   Orientation="Orientation.Horizontal" />
+
+@code {
+    private int _width = 600;
+    private int _height = 500;
+
+    private readonly IReadOnlyList<FunnelDataPoint> data = new List<FunnelDataPoint>
+    {
+        new FunnelDataPoint { Stage = "Visitors", Value = 1000 },
+        new FunnelDataPoint { Stage = "Signups", Value = 600 },
+        new FunnelDataPoint { Stage = "Trials", Value = 300 },
+        new FunnelDataPoint { Stage = "Customers", Value = 250 },
+    };
+}

@@ -51,6 +51,12 @@ public partial class FluentHorizontalBarChart : FluentChartBase
     public bool HideRatio { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the legend is shown when each bar has a single data point.
+    /// </summary>
+    [Parameter]
+    public bool ShowLegendForSinglePointBar { get; set; }
+
+    /// <summary>
     /// Gets or sets the chart data mode. Accepted values are <c>"default"</c>, <c>"fraction"</c>, and <c>"percentage"</c>.
     /// </summary>
     [Parameter]

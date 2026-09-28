@@ -1,0 +1,8 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@typeparam TGridItem
+
+@* Built from the same menu components as the header menu (HeaderCellAsButtonWithMenu), so both routes to the
+   multi-column sort actions look and behave the same. *@
+<FluentMenuList sort-options>
+    <ColumnSortMenuItems Column="@Column" TGridItem="TGridItem" AutofocusFirstItem="true" OnActionApplied="@(() => Grid.CloseColumnHeaderUIAsync(restoreFocus: true))" />
+</FluentMenuList>

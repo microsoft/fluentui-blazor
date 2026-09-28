@@ -1,0 +1,237 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly IReadOnlyList<PolarChartSeries> DefaultData =
+    [
+        new PolarChartSeries
+        {
+            Legend = "Series 1",
+            Data =
+            [
+                new PolarChartDataPoint { X = "Speed", Y = 80 },
+                new PolarChartDataPoint { X = "Power", Y = 65 },
+            ],
+            Color = DataVizPalette.Color1,
+        },
+    ];
+
+    public FluentPolarChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentPolarChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentPolarChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" ChartTitle="Stats Radar" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("chart-title");
+        Assert.Equal("Stats Radar", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_ShowMarkers()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" ShowMarkers="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("show-markers");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_Hole()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" Hole="0.5" />);
+
+        // Assert
+        Assert.Equal(0.5, cut.FindComponent<FluentPolarChart>().Instance.Hole);
+    }
+
+    [Fact]
+    public void FluentPolarChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" Width="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("width");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" Height="400px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("height");
+        Assert.Equal("400px", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_HideLabels()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" HideLabels="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("hide-labels");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_HideLegends()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" HideLegends="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("hide-legends");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("es-ES");
+
+        // Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("culture");
+        Assert.Equal("es-ES", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" Class="my-polar-chart" />);
+
+        // Assert
+        var element = cut.Find("fluent-polar-chart");
+        Assert.Contains("my-polar-chart", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-polar-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentPolarChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@DefaultData" aria-label="Polar stats" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("aria-label");
+        Assert.Equal("Polar stats", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var series = new List<PolarChartSeries>
+        {
+            new PolarChartSeries
+            {
+                Legend = "Metric A",
+                Data = [ new PolarChartDataPoint { X = "Speed", Y = 50 } ],
+                Color = DataVizPalette.Color5,
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentPolarChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("Metric A", attribute);
+        Assert.Contains("Speed", attribute);
+        Assert.Contains("50", attribute);
+        Assert.Contains("color5", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_Series_WithCustomColor()
+    {
+        // Arrange
+        var series = new List<PolarChartSeries>
+        {
+            new PolarChartSeries
+            {
+                Legend = "Custom Metric",
+                Data = [ new PolarChartDataPoint { X = "Power", Y = 30 } ],
+                Color = DataVizPalette.Custom,
+                CustomColor = "#665544",
+            },
+        };
+
+        // Act
+        var cut = Render(@<FluentPolarChart ChartData="@series" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-polar-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("#665544", attribute);
+    }
+
+    [Fact]
+    public void FluentPolarChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentPolarChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentPolarChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentPolarChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPolarChart ChartData="@(Array.Empty<PolarChartSeries>())" />);
+
+        // Assert
+        var element = cut.Find("fluent-polar-chart");
+        Assert.NotNull(element);
+    }
+}

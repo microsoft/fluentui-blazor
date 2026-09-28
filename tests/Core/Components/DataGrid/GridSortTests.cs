@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using Microsoft.FluentUI.AspNetCore.Components.DataGrid.Infrastructure;
 using Xunit;
 
 namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
@@ -216,6 +217,83 @@ public class GridSortTests : Bunit.BunitContext
         var ordered = sort.Apply(CreateHierarchicalGridRows().AsQueryable(), ascending).ToList();
 
         Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
+    }
+
+    [Fact]
+    public void GridSortTests_CanApplyThen_IsTrue()
+    {
+        var sort = GridSort<GridRow>.ByAscending(x => x.Group);
+
+        Assert.True(sort.CanApplyThen);
+    }
+
+    [Theory]
+    [InlineData(true, new int[] { 1, 3, 2, 4 })]
+    [InlineData(false, new int[] { 4, 2, 3, 1 })]
+    public void GridSortTests_ApplyThen_AppendsTheSortToAnExistingOrdering(bool ascending, IList<int> expected)
+    {
+        // Two separate sorts, as a grid sorted by two columns uses them.
+        var first = GridSort<GridRow>.ByAscending(x => x.Group);
+        var then = GridSort<GridRow>.ByAscending(x => x.Number);
+
+        var ordered = then.ApplyThen(first.Apply(_gridData.AsQueryable(), ascending), ascending);
+
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual(expected));
+    }
+
+    [Fact]
+    public void GridSortTests_ApplyThen_KeepsTheSortsOwnThenClauses()
+    {
+        var first = GridSort<TripleRow>.ByAscending(x => x.Group);
+        var then = GridSort<TripleRow>.ByAscending(x => x.Name).ThenDescending(x => x.Number);
+
+        var data = new TripleRow[]
+        {
+            new(1, "A", "Bravo"),
+            new(2, "A", "Alpha"),
+            new(3, "A", "Alpha"),
+            new(4, "B", "Alpha"),
+        }.AsQueryable();
+
+        var ordered = then.ApplyThen(first.Apply(data, ascending: true), ascending: true);
+
+        // Group A first, then by Name, and the sort's own ThenDescending breaks the Alpha tie.
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual([3, 2, 1, 4]));
+    }
+
+    [Fact]
+    public void GridSortTests_ApplyThen_HierarchicalData_OrdersChildrenUnderTheirParent()
+    {
+        // How FluentDataGrid applies a multi-column sort to hierarchical data: every level is applied first, and the
+        // parent/child order is restored once, at the end. Restoring it per level would produce a total order and
+        // make each following level a no-op.
+        var first = GridSort<HierarchicalGridRow>.ByAscending(x => x.Group);
+        var then = GridSort<HierarchicalGridRow>.ByDescending(x => x.Number);
+        var queryable = CreateHierarchicalGridRowsWithTies().AsQueryable();
+
+        var sorted = then.ApplyThen(first.ApplyStandardSorting(queryable, ascending: true), ascending: true);
+        var ordered = HierarchicalSortHelper.RestoreHierarchyOrder(queryable, sorted).ToList();
+
+        // Root Alpha (4) first with its children by descending number, then root Bravo (1) with its own.
+        Assert.True(ordered.Select(x => x.Number).SequenceEqual([4, 6, 5, 1, 3, 2]));
+    }
+
+    private static List<HierarchicalGridRow> CreateHierarchicalGridRowsWithTies()
+    {
+        var rootBravo = new HierarchicalGridRow(1, "Bravo", 0);
+        var bravoChildAlpha = new HierarchicalGridRow(2, "Alpha", 1);
+        var bravoChildAlphaToo = new HierarchicalGridRow(3, "Alpha", 1);
+
+        var rootAlpha = new HierarchicalGridRow(4, "Alpha", 0);
+        var alphaChildBravo = new HierarchicalGridRow(5, "Bravo", 1);
+        var alphaChildBravoToo = new HierarchicalGridRow(6, "Bravo", 1);
+
+        rootBravo.ChildRows.Add(bravoChildAlpha);
+        rootBravo.ChildRows.Add(bravoChildAlphaToo);
+        rootAlpha.ChildRows.Add(alphaChildBravo);
+        rootAlpha.ChildRows.Add(alphaChildBravoToo);
+
+        return [rootBravo, bravoChildAlpha, bravoChildAlphaToo, rootAlpha, alphaChildBravo, alphaChildBravoToo];
     }
 
     private static List<HierarchicalGridRow> CreateHierarchicalGridRows()

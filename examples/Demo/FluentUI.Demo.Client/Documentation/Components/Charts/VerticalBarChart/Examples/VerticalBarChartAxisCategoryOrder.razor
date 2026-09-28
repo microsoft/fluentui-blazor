@@ -1,0 +1,38 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="xAxisCategoryOrder"
+                  Items="@(Enum.GetValues<ChartCategoryOrder>())"
+                  @bind-Value="@_order" />
+</FluentStack>
+
+<FluentVerticalBarChart ChartTitle="Vertical bar chart axis category order example"
+                        ChartData="@_chartData"
+                        Width="650px"
+                        Height="350px"
+                        HideLegends="true"
+                        XAxisCategoryOrder="@_order"
+                        Style="margin-top: 20px;">
+</FluentVerticalBarChart>
+
+@code {
+    private ChartCategoryOrder _order = ChartCategoryOrder.Default;
+
+    private readonly IReadOnlyList<VerticalBarChartDataPoint> _chartData =
+    [
+        CreatePoint("Delta", 42, "Delta", "qualitative.1"),
+        CreatePoint("Alpha", 16, "Alpha", "qualitative.2"),
+        CreatePoint("Echo", 63, "Echo", "qualitative.3"),
+        CreatePoint("Bravo", 28, "Bravo", "qualitative.4"),
+        CreatePoint("Charlie", 51, "Charlie", "qualitative.5"),
+    ];
+
+    private static VerticalBarChartDataPoint CreatePoint(string x, double y, string legend, string color) => new()
+    {
+        X = x,
+        Y = y,
+        Legend = legend,
+        Color = DataVizPalette.Custom,
+        CustomColor = color,
+    };
+}

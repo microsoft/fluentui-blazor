@@ -1,0 +1,29 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="Title align"
+                  Items="@(Enum.GetValues<ChartTitleAlign>())"
+                  @bind-Value="@_titleAlign" />
+</FluentStack>
+
+
+<FluentGaugeChart ChartTitle="Gauge chart basic example"
+                  Segments="@segments"
+                  ChartValue="50"
+                  MaxValue="100"
+                 TitleAlign="@_titleAlign">
+</FluentGaugeChart>
+
+@code {
+    private ChartTitleAlign _titleAlign = ChartTitleAlign.Center;
+
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+}
+
+
+

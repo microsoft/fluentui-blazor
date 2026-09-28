@@ -1,0 +1,77 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using System.Globalization
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSwitch @bind-Value="@_allowMultipleShapesForPoints" Label="Multiple shapes" />
+    <div style="max-width: 220px;">
+        <FluentSelect TOption="string" TValue="string" Label="Culture" @bind-Value="_selectedCulture">
+            @foreach (var cultureName in _cultures)
+            {
+                <FluentOptionString Value="@cultureName">@cultureName</FluentOptionString>
+            }
+        </FluentSelect>
+    </div>
+</FluentStack>
+
+<FluentLineChart ChartTitle="Line Chart"
+                 ChartData="@_chartData"
+                 Width="700px"
+                 Height="300px"
+                 Culture="@SelectedCulture"
+                 DateLocalizeOptions="@_dateLocalizeOptions"
+                 YMinValue="200"
+                 YMaxValue="301"
+                 XAxisTickCount="10"
+                 AllowMultipleShapesForPoints="@_allowMultipleShapesForPoints">
+</FluentLineChart>
+
+@code {
+    private static readonly string[] _cultures = ["it-IT", "en-US", "de-DE", "fr-FR", "nl-NL", "ja-JP", "ar-SA"];
+
+    private string _selectedCulture = _cultures[0];
+    private bool _allowMultipleShapesForPoints;
+
+    private readonly Dictionary<string, string> _dateLocalizeOptions = new()
+    {
+        ["month"] = "short",
+        ["year"] = "numeric",
+    };
+
+    private readonly IReadOnlyList<LineChartSeries> _chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "From_Legacy_to_O365",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.1",
+            LineOptions = new LineChartLineOptions { LineBorderWidth = 2 },
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 216000 },
+                new LineChartDataPoint { X = new DateTime(2020, 4, 3, 10, 0, 0, DateTimeKind.Utc), Y = 218123 },
+                new LineChartDataPoint { X = new DateTime(2020, 5, 5, 11, 0, 0, DateTimeKind.Utc), Y = 217124 },
+                new LineChartDataPoint { X = new DateTime(2020, 7, 14, 0, 0, 0, DateTimeKind.Utc), Y = 248000 },
+                new LineChartDataPoint { X = new DateTime(2020, 11, 15, 0, 0, 0, DateTimeKind.Utc), Y = 252000 },
+                new LineChartDataPoint { X = new DateTime(2021, 1, 7, 0, 0, 0, DateTimeKind.Utc), Y = 260000 },
+                new LineChartDataPoint { X = new DateTime(2021, 3, 9, 0, 0, 0, DateTimeKind.Utc), Y = 218000 },
+            ],
+        },
+        new LineChartSeries
+        {
+            Legend = "All",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.2",
+            LineOptions = new LineChartLineOptions { LineBorderWidth = 2 },
+            Data =
+            [
+                new LineChartDataPoint { X = new DateTime(2020, 3, 3, 0, 0, 0, DateTimeKind.Utc), Y = 297000 },
+                new LineChartDataPoint { X = new DateTime(2020, 5, 5, 0, 0, 0, DateTimeKind.Utc), Y = 282000 },
+                new LineChartDataPoint { X = new DateTime(2020, 9, 16, 0, 0, 0, DateTimeKind.Utc), Y = 224000 },
+                new LineChartDataPoint { X = new DateTime(2021, 2, 8, 0, 0, 0, DateTimeKind.Utc), Y = 300000 },
+                new LineChartDataPoint { X = new DateTime(2021, 3, 9, 0, 0, 0, DateTimeKind.Utc), Y = 298000 },
+            ],
+        },
+    ];
+
+    private CultureInfo SelectedCulture => CultureInfo.GetCultureInfo(_selectedCulture);
+}

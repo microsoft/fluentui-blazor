@@ -1,0 +1,34 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSelect Label="Title position"
+                  Items="@(Enum.GetValues<ChartTitlePosition>())"
+                  @bind-Value="@_titlePosition" />
+    <FluentSelect Label="Legend position"
+                  Items="@(Enum.GetValues<ChartLegendPosition>())"
+                  @bind-Value="@_legendPosition" />
+</FluentStack>
+
+
+<FluentGaugeChart ChartTitle="Gauge chart basic example"
+                  Segments="@segments"
+                  ChartValue="50"
+                  MaxValue="100"
+                 TitlePosition="@_titlePosition"
+                 LegendPosition="@_legendPosition">
+</FluentGaugeChart>
+
+@code {
+    private ChartTitlePosition _titlePosition = ChartTitlePosition.Top;
+    private ChartLegendPosition _legendPosition = ChartLegendPosition.Top;
+
+    private readonly IReadOnlyList<GaugeChartSegment> segments =
+    [
+        new GaugeChartSegment { Legend = "Low", Size = 33, Color = DataVizPalette.Color1 },
+        new GaugeChartSegment { Legend = "Medium", Size = 34, Color = DataVizPalette.Color3 },
+        new GaugeChartSegment { Legend = "High", Size = 33, Color = DataVizPalette.Color2 },
+    ];
+}
+
+
+

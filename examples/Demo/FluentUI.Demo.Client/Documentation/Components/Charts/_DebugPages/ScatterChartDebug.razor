@@ -1,0 +1,78 @@
+@page "/Charts/ScatterChart/Debug"
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<div style="margin:20px;display:flex;flex-wrap:wrap;gap:16px 24px;align-items:end;">
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-width" id="basic-width--label">
+            Width
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-width"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@width">
+        </FluentSlider>
+        <fluent-label slot="message">@width</fluent-label>
+    </FluentField>
+    <FluentField LabelPosition="LabelPosition.Above"
+                 Style="min-width:220px;flex:1 1 220px;">
+        <label slot="label" for="basic-height" id="basic-height--label">
+            Height
+        </label>
+        <FluentSlider slot="input"
+                      id="basic-height"
+                      min="200"
+                      max="1000"
+                      @bind-Value="@height">
+        </FluentSlider>
+        <fluent-label slot="message">@height</fluent-label>
+    </FluentField>
+    <FluentSwitch Label="Hide labels" @bind-Value="hideLabels"></FluentSwitch>
+    <FluentSwitch Label="Hide legends" @bind-Value="hideLegends"></FluentSwitch>
+    <FluentSwitch Label="Hide Tooltips" @bind-Value="hideTooltips"></FluentSwitch>
+</div>
+
+<div style="margin:20px;">
+    <FluentScatterChart ChartTitle="Scatter chart interactive example"
+                        ChartData="@chartData"
+                        Width="@($"{width}px")"
+                        Height="@($"{height}px")"
+                        HideLabels="@hideLabels"
+                        HideTooltip="@hideTooltips"
+                        HideLegends="@hideLegends" />
+</div>
+
+@code {
+    private readonly IReadOnlyList<ScatterChartSeries> chartData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Group 1",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 10, Y = 20, MarkerSize = 5 },
+                new ScatterChartDataPoint { X = 15, Y = 35, MarkerSize = 8 },
+                new ScatterChartDataPoint { X = 20, Y = 28, MarkerSize = 7 },
+            ],
+            Color = DataVizPalette.Color1,
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Group 2",
+            Data =
+            [
+                new ScatterChartDataPoint { X = 25, Y = 10, MarkerSize = 6 },
+                new ScatterChartDataPoint { X = 30, Y = 40, MarkerSize = 10 },
+                new ScatterChartDataPoint { X = 35, Y = 25, MarkerSize = 9 },
+            ],
+            Color = DataVizPalette.Color2,
+        },
+    ];
+
+    private int width = 650;
+    private int height = 350;
+    private bool hideLabels = true;
+    private bool hideLegends;
+    private bool hideTooltips;
+}

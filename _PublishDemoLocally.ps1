@@ -169,6 +169,13 @@ if ($fullBuild) {
     Write-Host "👉 Generating API documentation..." -ForegroundColor Yellow
     dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$coreOutput/Microsoft.FluentUI.AspNetCore.Components.xml" --dll "$coreOutput/Microsoft.FluentUI.AspNetCore.Components.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/api-comments.json" --format json -f $NetVersion
 
+    $chartsOutput = "$RootDir/src/Charts/bin/Release/$NetVersion"
+
+    # Generate Charts documentation file
+    Write-Host "👉 Generating Charts documentation..." -ForegroundColor Yellow
+    dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$chartsOutput/Microsoft.FluentUI.AspNetCore.Components.Charts.xml" --dll "$chartsOutput/Microsoft.FluentUI.AspNetCore.Components.Charts.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/chart-comments.json" --format json -f $NetVersion
+
+
     # Generate MCP documentation file
     Write-Host "👉 Generating MCP documentation..." -ForegroundColor Yellow
     dotnet run -c Release --project ".\examples\Tools\FluentUI.Demo.DocApiGen\FluentUI.Demo.DocApiGen.csproj" --xml "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.xml" --dll "$RootDir/src/Tools/McpServer/bin/Publish/Microsoft.FluentUI.AspNetCore.McpServer.dll" --output "$RootDir/examples/Demo/FluentUI.Demo.Client/wwwroot/mcp-documentation.json" --format json --mode mcp -f $NetVersion

@@ -1,0 +1,60 @@
+---
+title: Charts
+route: /Charts/[Default]
+icon: ChartMultiple
+---
+
+# Charts
+
+The Fluent UI Charts are a set of 16 Razor components that allow you to easily use charts in your Blazor applications. The Charts are not part of the core
+Fluent UI Blazor package, but are available as a separate package (`Microsoft.FluentUI.AspNetCore.Components.Charts`). This allows us to keep the core
+package lightweight and focused on the most commonly used components, while still providing a rich set of charting options for those who need them.
+
+Currently, the following chart types are available:
+
+- [Area Chart](/Charts/AreaChart)
+- [Donut Chart](/Charts/DonutChart)
+- [Funnel Chart](/Charts/FunnelChart)
+- [Gantt Chart](/Charts/GanttChart)
+- [Gauge Chart](/Charts/GaugeChart)
+- [Grouped Vertical Bar Chart](/Charts/GroupedVerticalBarChart)
+- [Heat Map Chart](/Charts/HeatMapChart)
+- [Horizontal Bar Chart](/Charts/HorizontalBarChart)
+- [Horizontal Bar Chart with Axis](/Charts/HorizontalBarChartWithAxis)
+- [Line Chart](/Charts/LineChart)
+- [Polar Chart](/Charts/PolarChart)
+- [Sankey Chart](/Charts/SankeyChart)
+- [Scatter Chart](/Charts/ScatterChart)
+- [Sparkline Chart](/Charts/SparklineChart)
+- [Vertical Bar Chart](/Charts/VerticalBarChart)
+- [Vertical Stacked Bar Chart](/Charts/VerticalStackedBarChart)
+
+In the future, the package might be extended with even more chart types (based on the Fluent UI React v9 Charts package).
+
+## Fluent Chart Base
+
+All charts in the Fluent UI Charts package inherit from the `FluentChartBase` component, which provides common parameters for all chart types.
+
+There are common parameters defined that do not apply to all chart types
+
+## Accessibility
+
+All charts in the Fluent UI Charts package are designed with accessibility in mind. They include appropriate ARIA attributes and support
+keyboard navigation to ensure that they are usable by all users, including those with disabilities.
+
+For the chart legends, you can navigate through the items with the arrow keys. The corresponding chart element (arc, bar, etc.) will be highlighted and all
+other elements will appear dimmed. It is also possible to select one (or more, depending on the `EnableMultipleSelection`parameter) legend items and
+corresponding chart elements by using the space bar/enter key when focused. Press space bar/enter key again to toggle all items to an unselected state.
+
+## Colors
+
+The charts use the Fluent UI DataViz color palette by default, but you can customize the colors of the chart segments by providing your own color palette.
+You can also specify a custom color for each segment in the data points.
+
+{{ DataVizPaletteColorsTable SourceCode=false }}
+
+## Rendering
+
+Normally, each chart shows a title and a legend. With the default styling applied, these take up 52 pixels of height (20 for the title and 32 for the legend). The chart area is then sized to fill the remaining height of the chart container.
+Take these heights into account if you want the chart itself to be a specific height. For example, if you want the actual generated AreaChart image to be 260 pixels high, you should set the Height parameter to 312 pixels (260 + 52).
+

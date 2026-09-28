@@ -34,13 +34,29 @@ In the event of an NPM authentication problem (E401), you will probably need to 
 
   -  All **FluentUI WebComponents** are defined and initialized in the `FluentUIWebComponents` file.
 
-## Update the list of FluentUI Web components
+## Server Build Error
 
-To update the list of FluentUI Web components, you can run the `_ExtractWebComponents.ps1` script.
-This script will extract all FluentUI Web Components from the `.\node_modules\@fluentui\web-components\dist\web-components.d.ts` file.
+If the build fails with the `401 Unable to authenticate, your authentication token seems to be invalid.` error, 
+the authentication token might not be the actual cause. The requested package has probably not yet been downloaded 
+and cached by the `dotnet-public-npm` feed.
 
-  1. Set the lastest `@fluentui/web-components` package version in the `package.json`.
-  2. Run `npm install` to install the latest package.
-  3. Open the PowerShell terminal in the `Core.Scripts` directory.
-  4. Run this Script using the following command: `.\_ExtractWebComponents.ps1`
-  5. Copy the output and paste it in the `FluentUIWebComponents.ts` file.
+Clear both the **global** NPM cache and the **local** dependencies in `src\Core.Scripts`, 
+then reinstall all packages and their dependencies. This forces a new package request, causing the 
+`dotnet-public-npm` feed to retrieve and cache any missing packages. Without this procedure, 
+the build server might not find a package in the feed and report the authentication error.
+
+NPM Feed: https://dev.azure.com/dnceng/public/_artifacts/feed/dotnet-public-npm
+
+```powershell
+# Clean global cache: C:\.tools
+npm cache clean --force
+npm cache verify
+
+# Clean local dependencies (src\Core.Scripts)
+Remove-Item package-lock.json -Force
+Remove-Item node_modules -Recurse -Force -ErrorAction SilentlyContinue
+
+# Reinstall all packages
+# To force the download to https://dev.azure.com/dnceng/public/_artifacts/feed/dotnet-public-npm
+npm install
+```

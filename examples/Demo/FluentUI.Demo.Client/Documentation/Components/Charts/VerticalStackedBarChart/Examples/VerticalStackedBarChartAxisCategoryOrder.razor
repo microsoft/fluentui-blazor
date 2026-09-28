@@ -1,0 +1,55 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="10" Style="margin-bottom: 16px;">
+    <FluentSlider Label=@($"Data Size: {_dataSize}") @bind-Value="@_dataSize" @bind-Value:after="@RefreshData" Min="0" Max="50" Step="1" Style="width: 250px;" />
+    <FluentSelect Label="xAxisCategoryOrder" Items="@(Enum.GetValues<ChartCategoryOrder>())" @bind-Value="@_order" />
+    <FluentButton OnClick="@RefreshData">Change data</FluentButton>
+</FluentStack>
+
+<FluentVerticalStackedBarChart ChartTitle="Vertical stacked bar chart axis category order example"
+                               ChartData="@_chartData"
+                               Width="650px"
+                               Height="350px"
+                               HideLegends="true"
+                               HideTickOverlap="true"
+                               BarGapMax="2"
+                               SupportNegativeData="true"
+                               XAxisCategoryOrder="@_order"
+                               YMinValue="@_yMinValue"
+                               YMaxValue="@_yMaxValue"
+                               Style="margin-top: 20px;">
+</FluentVerticalStackedBarChart>
+
+@code {
+    private readonly Random _random = new(42);
+    private int _dataSize = 5;
+    private double _yMinValue;
+    private double _yMaxValue;
+    private ChartCategoryOrder _order = ChartCategoryOrder.Default;
+    private IReadOnlyList<VerticalStackedBarChartData> _chartData = [];
+
+    protected override void OnInitialized() => RefreshData();
+
+    private void RefreshData()
+    {
+        var grouped = new Dictionary<string, List<VerticalStackedBarChartDataPoint>>();
+        for (var i = 0; i < _dataSize; i++)
+        {
+            var value = _random.Next(200) - 100;
+            var xAxisPoint = $"Label {_random.Next(Math.Max(i, 1)) + 1}";
+            var legendIndex = _random.Next(Math.Max(i, 1));
+            grouped.TryAdd(xAxisPoint, []);
+            grouped[xAxisPoint].Add(new()
+            {
+                Data = value,
+                Legend = $"Legend {legendIndex + 1}",
+                Color = DataVizPalette.Custom,
+                CustomColor = $"qualitative.{legendIndex % 20 + 1}",
+            });
+        }
+
+        _chartData = grouped.Select(item => new VerticalStackedBarChartData { XAxisPoint = item.Key, ChartData = item.Value }).ToArray();
+        _yMinValue = _chartData.Select(stack => stack.ChartData.Where(point => point.Data < 0).Sum(point => point.Data)).DefaultIfEmpty(0).Min();
+        _yMaxValue = _chartData.Select(stack => stack.ChartData.Where(point => point.Data >= 0).Sum(point => point.Data)).DefaultIfEmpty(0).Max();
+    }
+}

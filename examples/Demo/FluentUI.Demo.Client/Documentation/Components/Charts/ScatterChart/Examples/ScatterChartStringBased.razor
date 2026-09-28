@@ -1,0 +1,42 @@
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentScatterChart ChartTitle="Sales Performance by Category"
+                    ChartData="@_chartData"
+                    Width="650px"
+                    XAxisTitle="Product Category"
+                    YAxisTitle="Revenue in dollars">
+</FluentScatterChart>
+
+@code {
+    private readonly IReadOnlyList<ScatterChartSeries> _chartData =
+    [
+        new ScatterChartSeries
+        {
+            Legend = "Region 1",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data =
+            [
+                new ScatterChartDataPoint { X = "Electronics", Y = 50000, MarkerSize = 25 },
+                new ScatterChartDataPoint { X = "Furniture", Y = 30000, MarkerSize = 20 },
+                new ScatterChartDataPoint { X = "Clothing", Y = 20000, MarkerSize = 15 },
+                new ScatterChartDataPoint { X = "Toys", Y = 15000, MarkerSize = 10 },
+                new ScatterChartDataPoint { X = "Books", Y = 10000, MarkerSize = 8 },
+            ],
+        },
+        new ScatterChartSeries
+        {
+            Legend = "Region 2",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.4",
+            Data =
+            [
+                new ScatterChartDataPoint { X = "Electronics", Y = 60000, MarkerSize = 30 },
+                new ScatterChartDataPoint { X = "Furniture", Y = 25000, MarkerSize = 18 },
+                new ScatterChartDataPoint { X = "Clothing", Y = 22000, MarkerSize = 16 },
+                new ScatterChartDataPoint { X = "Toys", Y = 12000, MarkerSize = 12 },
+                new ScatterChartDataPoint { X = "Books", Y = 8000, MarkerSize = 6 },
+            ],
+        },
+    ];
+}

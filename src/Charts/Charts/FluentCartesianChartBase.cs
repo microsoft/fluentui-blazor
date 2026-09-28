@@ -156,6 +156,13 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     public IEnumerable<double>? TickValues { get; set; }
 
     /// <summary>
+    /// Gets or sets the explicit set of x-axis tick values to render when the chart uses a date x-axis.
+    /// For numeric axes, use <see cref="TickValues"/> instead.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<DateTime>? DateTickValues { get; set; }
+
+    /// <summary>
     /// Gets or sets a d3-time-format specifier string (e.g. <c>"%m/%d"</c>, <c>"%Y-%m"</c>) for date x-axis tick labels.
     /// Only applicable when the x-axis uses a date/time scale (e.g. in <see cref="FluentGanttChart"/>).
     /// When set, this overrides the locale-aware <c>DateLocalizeOptions</c> / <c>Culture</c> fallback.
@@ -233,14 +240,124 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
     [Parameter]
     public IDictionary<string, string>? DateLocalizeOptions { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether date axes display values in UTC instead of the
+    /// user's local timezone.
+    /// </summary>
+    [Parameter]
+    public bool UseUTC { get; set; }
+
+    /// <summary>
+    /// Gets or sets the sort order applied to a categorical X axis domain.
+    /// Charts with non-categorical x-axes ignore this. Defaults to <see cref="ChartCategoryOrder.Default"/>.
+    /// </summary>
+    [Parameter]
+    public ChartCategoryOrder XAxisCategoryOrder { get; set; } = ChartCategoryOrder.Default;
+
+    /// <summary>
+    /// Gets or sets the scale type applied to a continuous numeric X axis.
+    /// </summary>
+    [Parameter]
+    public ChartAxisScaleType XAxisScaleType { get; set; } = ChartAxisScaleType.Default;
+
+    /// <summary>
+    /// Gets or sets the scale type applied to the primary numeric Y axis.
+    /// </summary>
+    [Parameter]
+    public ChartAxisScaleType YAxisScaleType { get; set; } = ChartAxisScaleType.Default;
+
+    /// <summary>
+    /// Gets or sets the scale type applied to a secondary numeric Y axis, when present.
+    /// </summary>
+    [Parameter]
+    public ChartAxisScaleType SecondaryYAxisScaleType { get; set; } = ChartAxisScaleType.Default;
+
+    /// <summary>
+    /// Gets or sets the fractional inner padding (0–1) between bands on a categorical X axis.
+    /// Applies to categorical bar charts.
+    /// </summary>
+    [Parameter]
+    public double? XAxisInnerPadding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the fractional outer padding (0–1) around the first and last bands on a
+    /// categorical X axis. Applies to categorical bar charts.
+    /// </summary>
+    [Parameter]
+    public double? XAxisOuterPadding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the explicit set of y-axis tick values to render.
+    /// When set, only the specified values appear as tick marks instead of the auto-generated ones.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<double>? YAxisTickValues { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of characters shown in x-axis labels when
+    /// <see cref="ShowXAxisLabelsTooltip"/> is enabled. Longer labels are truncated and the full
+    /// text is available on hover.
+    /// </summary>
+    [Parameter]
+    public int? NoOfCharsToTruncate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the pixel width of an overlaid line stroke, when the chart renders one.
+    /// </summary>
+    [Parameter]
+    public double? LineStrokeWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the dash pattern applied to an overlaid line stroke.
+    /// </summary>
+    [Parameter]
+    public string? LineStrokeDasharray { get; set; }
+
+    /// <summary>
+    /// Gets or sets the dash offset applied to an overlaid line stroke.
+    /// </summary>
+    [Parameter]
+    public string? LineStrokeDashoffset { get; set; }
+
+    /// <summary>
+    /// Gets or sets the line cap style applied to an overlaid line stroke.
+    /// </summary>
+    [Parameter]
+    public ChartStrokeLinecap? LineStrokeLinecap { get; set; }
+
+    /// <summary>
+    /// Gets or sets the pixel width of the border drawn around an overlaid line.
+    /// </summary>
+    [Parameter]
+    public double? LineBorderWidth { get; set; }
+
+    /// <summary>
+    /// Gets or sets the color of the border drawn around an overlaid line.
+    /// </summary>
+    [Parameter]
+    public string? LineBorderColor { get; set; }
+
     // ── Computed JSON helpers ─────────────────────────────────────────────────
 
     /// <summary>
     /// Serializes <see cref="TickValues"/> to a JSON array string for the web component attribute.
-    /// Overridden by <see cref="FluentGanttChart"/> to also handle date tick values.
     /// </summary>
+    /// <remarks>
+    /// <see cref="DateTickValues"/> is normalized through <see cref="ChartAxisValue.ToUtcDateTimeOffset"/>,
+    /// the same date policy used for chart data points, so a <see cref="DateTimeKind.Unspecified"/> tick
+    /// value lines up with an <see cref="DateTimeKind.Unspecified"/> data point instead of drifting by the
+    /// server's local UTC offset.
+    /// </remarks>
     internal virtual string? TickValuesJson =>
-        TickValues is not null ? JsonSerializer.Serialize(TickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
+        DateTickValues is not null
+            ? JsonSerializer.Serialize(DateTickValues.Select(d => (double)ChartAxisValue.ToUtcDateTimeOffset(d).ToUnixTimeMilliseconds()), ChartJsonSerializerContext.Default.IEnumerableDouble)
+            : TickValues is not null ? JsonSerializer.Serialize(TickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
+
+    /// <summary>
+    /// Serializes <see cref="YAxisTickValues"/> to a JSON array string for the web component attribute.
+    /// </summary>
+    internal string? YAxisTickValuesJson =>
+        YAxisTickValues is not null ? JsonSerializer.Serialize(YAxisTickValues, ChartJsonSerializerContext.Default.IEnumerableDouble) : null;
 
     /// <summary>
     /// Serializes <see cref="DateLocalizeOptions"/> to a JSON object string for the web component attribute.
@@ -252,6 +369,9 @@ public abstract partial class FluentCartesianChartBase : FluentChartBase
 [JsonSerializable(typeof(IEnumerable<double>))]
 [JsonSerializable(typeof(double[]))]
 [JsonSerializable(typeof(List<double>))]
+[JsonSerializable(typeof(IEnumerable<string>))]
+[JsonSerializable(typeof(string[]))]
+[JsonSerializable(typeof(List<string>))]
 [JsonSerializable(typeof(IDictionary<string, string>))]
 [JsonSerializable(typeof(Dictionary<string, string>))]
 [JsonSourceGenerationOptions(WriteIndented = false)]

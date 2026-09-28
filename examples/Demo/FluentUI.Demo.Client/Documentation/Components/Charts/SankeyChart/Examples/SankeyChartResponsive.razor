@@ -1,0 +1,42 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<p>Resize the container horizontally to see the chart respond to available width.</p>
+
+<div style="width: 700px; max-width: 100%; min-width: 0; resize: horizontal; overflow: auto; border: 1px solid #ddd; padding: 8px; box-sizing: border-box;">
+    <FluentSankeyChart ChartTitle="Sankey Chart"
+                       ChartData="@_chartData"
+                       Width="100%"
+                       Height="412px"
+                       Style="min-width: 0;">
+    </FluentSankeyChart>
+</div>
+
+@code {
+    private readonly SankeyChartData _chartData = new()
+    {
+        Nodes =
+        [
+            CreateNode("node0", "qualitative.11"),
+            CreateNode("node1", "qualitative.12"),
+            CreateNode("node2", "qualitative.13"),
+            CreateNode("node3", "qualitative.14"),
+            CreateNode("node4", "qualitative.2"),
+            CreateNode("node5", "qualitative.15"),
+        ],
+        Links =
+        [
+            CreateLink(0, 2, 2),
+            CreateLink(1, 2, 2),
+            CreateLink(1, 3, 2),
+            CreateLink(0, 4, 2),
+            CreateLink(2, 3, 2),
+            CreateLink(2, 4, 2),
+            CreateLink(3, 4, 4),
+            CreateLink(3, 5, 4),
+        ],
+    };
+
+    private static SankeyChartNode CreateNode(string name, string color) => new() { Name = name, Color = DataVizPalette.Custom, CustomColor = color };
+
+    private static SankeyChartLink CreateLink(int source, int target, double value) => new() { Source = source, Target = target, Value = value };
+}

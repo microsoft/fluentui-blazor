@@ -1,0 +1,85 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentLineChart ChartTitle="Weekly signups"
+                 ChartData="@_chartData"
+                 Width="960px"
+                 Height="520px"
+                 Annotations="@_annotations">
+</FluentLineChart>
+
+@code {
+    private readonly IReadOnlyList<LineChartSeries> _chartData =
+    [
+        new LineChartSeries
+        {
+            Legend = "Signups",
+            Color = DataVizPalette.Custom,
+            CustomColor = "qualitative.3",
+            Data = new[] { 18, 26, 31, 37, 44, 51, 47 }
+                .Select((y, x) => new LineChartDataPoint { X = (double)x, Y = y })
+                .ToArray(),
+        },
+    ];
+
+    private readonly string _annotations =
+        @"
+        [
+          {
+            ""id"": ""launch"",
+            ""text"": ""Launch day: +18% conversions"",
+            ""textLines"": [
+              {
+                ""runs"": [
+                  { ""text"": ""Launch day: "", ""fontWeight"": 600 },
+                  { ""text"": ""+18%"", ""textColor"": ""#2aa0a4"" },
+                  { ""text"": "" conversions"" }
+                ]
+              }
+            ],
+            ""coordinates"": { ""type"": ""data"", ""x"": 1, ""y"": 26 },
+            ""layout"": { ""align"": ""start"", ""offsetX"": -8, ""offsetY"": -64 },
+            ""style"": { ""fontSize"": ""12px"", ""fontWeight"": 400 },
+            ""connector"": { ""strokeColor"": ""#2aa0a4"", ""strokeWidth"": 2, ""arrow"": true }
+          },
+          {
+            ""id"": ""experiment"",
+            ""text"": ""Pricing experiment. A/B test running. Variant B at 52%. Average order up."",
+            ""textLines"": [
+              { ""runs"": [{ ""text"": ""Pricing experiment"", ""fontWeight"": 600 }] },
+              { ""runs"": [{ ""text"": ""A/B test running"", ""fontStyle"": ""italic"" }] },
+              { ""runs"": [{ ""text"": ""Variant B at 52%"" }], ""bullet"": true, ""indent"": 8 },
+              { ""runs"": [{ ""text"": ""Average order ↑"" }], ""bullet"": true, ""indent"": 8 }
+            ],
+            ""coordinates"": { ""type"": ""data"", ""x"": 3, ""y"": 37 },
+            ""layout"": { ""offsetX"": 100, ""offsetY"": 20 },
+            ""style"": { ""fontSize"": ""12px"", ""fontWeight"": 400 },
+            ""connector"": { ""strokeColor"": ""qualitative.6"", ""strokeWidth"": 2, ""arrow"": true }
+          },
+          {
+            ""id"": ""goal"",
+            ""text"": ""Stretch goal. 5k signups."",
+            ""textLines"": [
+              { ""runs"": [{ ""text"": ""Stretch goal"" }] },
+              { ""runs"": [{ ""text"": ""5k signups"", ""fontWeight"": 600 }] }
+            ],
+            ""coordinates"": { ""type"": ""relative"", ""x"": 0.8, ""y"": 0.28 },
+            ""style"": { ""textColor"": ""#d83b01"", ""fontSize"": ""12px"", ""fontWeight"": 400 }
+          },
+          {
+            ""id"": ""note"",
+            ""text"": ""Note: Values rounded to nearest whole signup."",
+            ""textLines"": [
+              {
+                ""runs"": [
+                  { ""text"": ""Note: "", ""fontWeight"": 600 },
+                  { ""text"": ""Values rounded to nearest whole signup."" }
+                ]
+              }
+            ],
+            ""coordinates"": { ""type"": ""pixel"", ""x"": 24, ""y"": 24 },
+            ""layout"": { ""align"": ""start"" },
+            ""style"": { ""textColor"": ""colorNeutralForeground2"", ""fontSize"": ""10px"", ""fontWeight"": 400 }
+          }
+        ]
+        ";
+}

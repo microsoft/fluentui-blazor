@@ -8,7 +8,7 @@
     // 1. To generate all icons in Icons Lib
     "Generate All Icons": {
       "commandName": "Project",
-      "commandLineArgs": "--Assets=C:/_Temp/Icons --Target=C:/_Temp/Generated-Icons"
+      "commandLineArgs": "--Assets=D:/Source/FluentUI/Icons --Target=../FluentUI.Icons/Icons"
     },
 
     // 2. To generate all emojis in Emojis Lib

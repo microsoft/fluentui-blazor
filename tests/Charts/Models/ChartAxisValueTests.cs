@@ -67,6 +67,53 @@ public class ChartAxisValueTests
     }
 
     [Fact]
+    public void ToUtcDateTimeOffset_Unspecified_TreatedAsUtc()
+    {
+        var dt = new DateTime(2024, 1, 15, 0, 0, 0, DateTimeKind.Unspecified);
+
+        var result = ChartAxisValue.ToUtcDateTimeOffset(dt);
+
+        Assert.Equal(TimeSpan.Zero, result.Offset);
+        Assert.Equal(dt, result.DateTime);
+    }
+
+    [Fact]
+    public void ToUtcDateTimeOffset_Utc_PreservesUtcOffset()
+    {
+        var dt = new DateTime(2024, 1, 15, 12, 0, 0, DateTimeKind.Utc);
+
+        var result = ChartAxisValue.ToUtcDateTimeOffset(dt);
+
+        Assert.Equal(TimeSpan.Zero, result.Offset);
+        Assert.Equal(dt, result.UtcDateTime);
+    }
+
+    [Fact]
+    public void ToUtcDateTimeOffset_Local_PreservesLocalOffset()
+    {
+        var dt = new DateTime(2024, 1, 15, 12, 0, 0, DateTimeKind.Local);
+
+        var result = ChartAxisValue.ToUtcDateTimeOffset(dt);
+
+        Assert.Equal(TimeZoneInfo.Local.GetUtcOffset(dt), result.Offset);
+        Assert.Equal(dt, result.LocalDateTime);
+    }
+
+    [Fact]
+    public void ToUtcDateTimeOffset_MatchesImplicitDateTimeConversion()
+    {
+        // A DateTime tick value normalized via ToUtcDateTimeOffset must represent the exact same
+        // instant as an equivalent Unspecified-kind DateTime converted through the implicit
+        // ChartAxisValue operator, so explicit tick values never drift away from data points.
+        var dt = new DateTime(2024, 6, 1, 10, 20, 30, DateTimeKind.Unspecified);
+
+        ChartAxisValue dataPoint = dt;
+        var tickValue = ChartAxisValue.ToUtcDateTimeOffset(dt);
+
+        Assert.Equal(dataPoint.DateValue, tickValue);
+    }
+
+    [Fact]
     public void Equals_WithSameNumericValue_ReturnsTrue()
     {
         ChartAxisValue left = 12.25;
@@ -125,7 +172,7 @@ public class ChartAxisValueTests
     {
         ChartAxisValue value = 5.5;
 
-        Assert.False(value.Equals(null));
+        Assert.False(value.Equals((object?)null));
         Assert.False(value.Equals("5.5"));
     }
 

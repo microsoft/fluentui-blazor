@@ -1,0 +1,51 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+
+<FluentStack Orientation="Orientation.Horizontal" HorizontalGap="16" Style="margin-bottom: 16px;">
+    <FluentSelect Label="X-axis category order"
+                  Items="@(Enum.GetValues<ChartCategoryOrder>())"
+                  @bind-Value="@_xAxisCategoryOrder" />
+    <FluentSelect Label="Y-axis category order"
+                  Items="@(Enum.GetValues<ChartCategoryOrder>())"
+                  @bind-Value="@_yAxisCategoryOrder" />
+</FluentStack>
+
+<FluentHeatMapChart ChartTitle="Heat map - axis category order"
+                    ChartData="@_chartData"
+                    DomainValuesForColorScale="@_domainValuesForColorScale"
+                    RangeValuesForColorScale="@_rangeValuesForColorScale"
+                    SortOrder="HeatMapSortOrder.None"
+                    XAxisCategoryOrder="@_xAxisCategoryOrder"
+                    YAxisCategoryOrder="@_yAxisCategoryOrder"
+                    Width="450px"
+                    Height="378px">
+</FluentHeatMapChart>
+
+@code {
+    private ChartCategoryOrder _xAxisCategoryOrder = ChartCategoryOrder.CategoryAscending;
+    private ChartCategoryOrder _yAxisCategoryOrder = ChartCategoryOrder.Data;
+
+    private readonly IReadOnlyList<HeatMapChartData> _chartData =
+    [
+        new HeatMapChartData
+        {
+            Value = 50,
+            Legend = "Usage",
+            Data =
+            [
+                new HeatMapChartDataPoint { X = "Banana", Y = "Team A", Value = 40, RectText = "40" },
+                new HeatMapChartDataPoint { X = "Banana", Y = "Team C", Value = 62, RectText = "62" },
+                new HeatMapChartDataPoint { X = "Banana", Y = "Team B", Value = 22, RectText = "22" },
+                new HeatMapChartDataPoint { X = "Apple", Y = "Team A", Value = 55, RectText = "55" },
+                new HeatMapChartDataPoint { X = "Apple", Y = "Team C", Value = 38, RectText = "38" },
+                new HeatMapChartDataPoint { X = "Apple", Y = "Team B", Value = 75, RectText = "75" },
+                new HeatMapChartDataPoint { X = "Cherry", Y = "Team A", Value = 70, RectText = "70" },
+                new HeatMapChartDataPoint { X = "Cherry", Y = "Team C", Value = 48, RectText = "48" },
+                new HeatMapChartDataPoint { X = "Cherry", Y = "Team B", Value = 58, RectText = "58" },
+            ],
+        },
+    ];
+
+    private readonly double[] _domainValuesForColorScale = [0, 50, 100];
+
+    private readonly string[] _rangeValuesForColorScale = ["#d4e8ff", "#0078d4", "#003a78"];
+}

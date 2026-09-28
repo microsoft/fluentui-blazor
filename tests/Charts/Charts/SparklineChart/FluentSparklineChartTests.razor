@@ -1,0 +1,218 @@
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    private static readonly SparklineChartData DefaultData = new()
+    {
+        LineChartData =
+        [
+            new SparklineChartSeries
+            {
+                Legend = "Series 1",
+                Data =
+                [
+                    new SparklineDataPoint { X = 1, Y = 10 },
+                    new SparklineDataPoint { X = 2, Y = 25 },
+                    new SparklineDataPoint { X = 3, Y = 15 },
+                    new SparklineDataPoint { X = 4, Y = 30 },
+                ],
+                Color = DataVizPalette.Color1,
+            },
+        ]
+    };
+
+    public FluentSparklineChartTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Default()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSparklineChart_ChartTitle()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" ChartTitle="Trend" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("chart-title");
+        Assert.Equal("Trend", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Variant()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" Variant="SparklineVariant.Area" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("variant");
+        Assert.Equal("area", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Color()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" Color="#FF5500" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("color");
+        Assert.Equal("#FF5500", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_ShowLegend()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" ShowLegend="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("show-legend");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_ValueTextWidth()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" ValueTextWidth="100" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("value-text-width");
+        Assert.Equal("100", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Width()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" Width="200px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("width");
+        Assert.Equal("200px", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Height()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" Height="50px" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("height");
+        Assert.Equal("50px", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_HideTooltip()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" HideTooltip="true" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("hide-tooltip");
+        Assert.Equal("true", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Culture()
+    {
+        // Arrange
+        var culture = new System.Globalization.CultureInfo("pt-BR");
+
+        // Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" Culture="@culture" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("culture");
+        Assert.Equal("pt-BR", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_Class()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" Class="my-sparkline" />);
+
+        // Assert
+        var element = cut.Find("fluent-sparkline-chart");
+        Assert.Contains("my-sparkline", element.GetAttribute("class") ?? string.Empty);
+        Assert.Contains("fluent-sparkline-chart", element.GetAttribute("class") ?? string.Empty);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_AdditionalAttributes()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@DefaultData" aria-label="Sparkline inline" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("aria-label");
+        Assert.Equal("Sparkline inline", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_DataSerializedAsJson()
+    {
+        // Arrange
+        var data = new SparklineChartData
+        {
+            LineChartData =
+            [
+                new SparklineChartSeries
+                {
+                    Legend = "S",
+                    Data = [ new SparklineDataPoint { X = 1, Y = 999 } ]
+                }
+            ]
+        };
+
+        // Act
+        var cut = Render(@<FluentSparklineChart ChartData="@data" />);
+
+        // Assert
+        var attribute = cut.Find("fluent-sparkline-chart").GetAttribute("data");
+        Assert.NotNull(attribute);
+        Assert.Contains("999", attribute);
+    }
+
+    [Fact]
+    public void FluentSparklineChart_TooltipTemplate()
+    {
+        // Arrange && Act
+        var cut = Render(
+            @<FluentSparklineChart ChartData="@DefaultData">
+                <TooltipTemplate Context="ctx">
+                    <span>@ctx.Legend: @ctx.YValue</span>
+                </TooltipTemplate>
+            </FluentSparklineChart>
+        );
+
+        // Assert
+        Assert.NotNull(cut.Find("[style*='display:none']"));
+    }
+
+    [Fact]
+    public void FluentSparklineChart_EmptyData()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSparklineChart ChartData="@(new SparklineChartData())" />);
+
+        // Assert
+        var element = cut.Find("fluent-sparkline-chart");
+        Assert.NotNull(element);
+    }
+}

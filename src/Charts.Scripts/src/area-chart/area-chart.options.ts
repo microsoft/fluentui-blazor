@@ -4,6 +4,10 @@ import type { AccessibilityData } from '../utils/chart-options.js';
 export interface AreaChartDataPoint {
   /** @public */ x: number | Date;
   /** @public */ y: number;
+  /** Text or date that overrides the x value displayed in the tooltip. Dates are formatted using the chart culture. */
+  /** @public */ xAxisCalloutData?: string | Date;
+  /** Text that overrides the series value displayed in the tooltip. */
+  /** @public */ yAxisCalloutData?: string;
   /** Custom aria-label for the x-axis callout when hovering this data point. */
   xAxisCalloutAccessibilityData?: AccessibilityData;
   /** Custom aria-label for the series callout entry when hovering this data point. */

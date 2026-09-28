@@ -11,7 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Charts;
 /// </summary>
 public partial class FluentDonutChart : FluentChartBase
 {
-
     /// <summary />
     public FluentDonutChart(LibraryConfiguration configuration) : base(configuration)
     {
@@ -48,4 +47,10 @@ public partial class FluentDonutChart : FluentChartBase
     /// </summary>
     [Parameter]
     public string? ValueInsideDonut { get; set; }
+
+    /// <summary>
+    /// Gets or sets the order used to render donut chart segments and legends.
+    /// </summary>
+    [Parameter]
+    public DonutChartOrder? Order { get; set; }
 }

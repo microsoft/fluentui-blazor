@@ -1,7 +1,8 @@
-﻿@using FluentUI.Demo.DocViewer.Components
+﻿@using FluentUI.Demo.Client.Layout.Cookies
+@using FluentUI.Demo.DocViewer.Components
 
 <PageTitle>@App.PageTitle("Demo")</PageTitle>
-
+<CookieConsent @ref="@_cookie"/>
 <FluentLayout @key="@GetLayoutKey()" Height="100dvh" Style="@LayoutStyleHeight" NavigationDeferredLoading="true">
 
     @* ------------------- *@
@@ -55,9 +56,8 @@
             <FluentButton IconStart="@(new Icons.Regular.Size20.WindowConsole().WithColor("var(--colorNeutralForegroundOnBrand)"))"
                           OnClick="@(() => _consoleLogOpened = !_consoleLogOpened)"
                           Appearance="ButtonAppearance.Subtle"
-                          BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackground)" : "var(--colorBrandBackgroundHover)")"
+                          BackgroundColor="@(_consoleLogOpened ? "var(--colorBrandBackgroundHover)" : "var(--colorBrandBackground)")"
                           Title="Open or hide the console" />
-
         </FluentStack>
     </FluentLayoutItem>
 
@@ -125,9 +125,11 @@
                 Powered by @AppVersion.FrameworkDescription
             </a>
             <FluentSpacer />
-
             <div hidden-when="xs">
-                &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
+                <FluentLink Inline="true" OnClick="ManageCookieSettingsAsync">
+                    Manage Cookies
+                </FluentLink>
+                - &copy; Microsoft @AppVersion.CurrentYear. All rights reserved.
             </div>
         </FluentStack>
     </FluentLayoutItem>
