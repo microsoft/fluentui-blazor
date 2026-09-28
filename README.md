@@ -164,7 +164,7 @@ page for more information.
 
 ## Additional resources
 
-* The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
+- The Microsoft Fluent UI Blazor components [documentation and demo site](https://www.fluentui-blazor.net)
 
 ## Additional packages
 
