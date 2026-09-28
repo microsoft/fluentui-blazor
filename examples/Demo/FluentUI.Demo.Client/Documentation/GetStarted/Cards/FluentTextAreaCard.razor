@@ -1,10 +1,6 @@
-﻿<div class="sticker-row">
-    <FluentTextArea Label="TextArea"
-                    Spellcheck="false"
-                    @bind-Value="@value" />
-</div>
-
-<FluentLabel>Value = @value</FluentLabel>
+﻿<FluentTextArea Label="TextArea"
+                Spellcheck="false"
+                @bind-Value="@value" />
 
 @code {
     string value = "This is a text area";

@@ -1,10 +1,9 @@
 ﻿@inject IDialogService DialogService
-<div class="sticker-row">
-    <FluentButton OnClick="@OpenDialogAsync"
-                  Appearance="ButtonAppearance.Primary">
+<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentButton OnClick="@OpenDialogAsync">
         Open Dialog
     </FluentButton>
-</div>
+</FluentStack>
 
 @code
 {
@@ -21,4 +20,3 @@
 
     }
 }
-

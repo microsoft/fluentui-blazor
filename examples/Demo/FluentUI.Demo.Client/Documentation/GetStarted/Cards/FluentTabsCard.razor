@@ -1,5 +1,4 @@
-﻿<div class="sticker-row">
-    <FluentTabs ActiveTabId="@ActiveTabId" @bind-ActiveTab="@ActiveTab" @bind-ActiveTab:after="@OnTabChanged">
+﻿<FluentTabs ActiveTabId="@ActiveTabId" @bind-ActiveTab="@ActiveTab" @bind-ActiveTab:after="@OnTabChanged">
     <FluentTab Id="default-tab1" Header="Chat" IconStart="@(new Icons.Regular.Size16.Chat())">
         Here's some information about the chat.
     </FluentTab>
@@ -13,10 +12,6 @@
     </FluentTab>
 </FluentTabs>
 
-</div>
-<p>
-    ActiveTab: <b>@(ActiveTab?.Header)</b>
-</p>
 
 @code
 {

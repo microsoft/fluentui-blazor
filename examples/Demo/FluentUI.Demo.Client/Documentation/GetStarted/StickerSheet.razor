@@ -3,10 +3,10 @@
     <div class="sticker-sheet">
         @foreach (var card in cards)
         {
-            <section class="sticker-card">
-                <FluentText Size="TextSize.Size500" Weight="TextWeight.Semibold" Id=""><h2 id="@card.Title.Replace(" ", "-").ToLower()">@card.Title</h2></FluentText>
+            <FluentCard Height="300px" Style="align-items: center;">
+                <FluentText As="TextTag.H2" Size="TextSize.Size500" Weight="TextWeight.Semibold" Block="true" Padding="pb-2" >@card.Title</FluentText>
                 <DynamicComponent Type="@card.Type" />
-            </section>
+            </FluentCard>
         }
     </div>
 </div>

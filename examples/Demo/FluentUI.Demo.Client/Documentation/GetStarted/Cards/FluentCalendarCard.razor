@@ -1,9 +1,7 @@
-﻿<div class="sticker-row">
-    <FluentCalendar DisabledDateFunc="@DisabledDay"
-                    @bind-Value="@SelectedDay"
-                    @bind-PickerMonth="@PickerDay"
-                    Style="height: 250px; align-content: start;" />
-</div>
+﻿<FluentCalendar DisabledDateFunc="@DisabledDay"
+                @bind-Value="@SelectedDay"
+                @bind-PickerMonth="@PickerDay"
+                Style="height: 250px; align-content: start;" />
 
 @code {
 

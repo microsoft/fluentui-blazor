@@ -1,4 +1,4 @@
-﻿<div class="sticker-row">
+﻿<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
     <FluentButton Id="LeftButton"
                   OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
     <FluentPopover AnchorId="LeftButton"
@@ -6,7 +6,7 @@
         <p>Example content in a</p>
         <p>Popover component</p>
     </FluentPopover>
-</div>
+</FluentStack>
 
 @code
 {

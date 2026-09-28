@@ -1,7 +1,8 @@
-﻿<div class="sticker-row">
-<FluentSlider @bind-Value="@value" Label="@($"Value: {value}")" />
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <FluentSlider @bind-Value="@value" Label="@($"Value: {value}")" />
     <FluentSlider @bind-Value="@value2" Step="10" Label="@($"Value: {value2}")" />
-</div>
+</FluentStack>
+
 @code
 {
     int value = 50;

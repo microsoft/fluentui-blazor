@@ -1,42 +1,33 @@
-﻿<div class="sticker-row">
-    <FluentWizard DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
-                  Border="WizardBorder.Outside"
-                  StepperPosition="StepperPosition.Top">
-        <Steps>
-            <FluentWizardStep Label="Intro">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut nisi eget dolor semper
-                luctus vitae a nulla. Cras semper eros sed lacinia tincidunt. Mauris dignissim ullamcorper dolor,
-                ut blandit dui ullamcorper faucibus. Interdum et malesuada fames ac ante ipsum.
-            </FluentWizardStep>
-            <FluentWizardStep Label="Get started"
-                              Summary="Begin the tasks">
-                Maecenas sed justo ac sapien venenatis ullamcorper. Sed maximus nunc non venenatis euismod.
-                Fusce vel porta ex, imperdiet molestie nisl. Vestibulum eu ultricies mauris, eget aliquam quam.
-            </FluentWizardStep>
-            <FluentWizardStep Disabled="true"
-                              Label="Disabled step"
-                              Summary="This step is disabled">
-                Nunc dignissim tortor eget lacus porta tristique. Nunc in posuere dui. Cras ligula ex,
-                ullamcorper in gravida in, euismod vitae purus. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Aliquam at velit leo. Suspendisse potenti. Cras dictum eu augue in laoreet.
-            </FluentWizardStep>
-            <FluentWizardStep Label="Set budget"
-                              Summary="Identify the best price"
-                              IconPrevious="@(new Icons.Filled.Size20.Star())"
-                              IconCurrent="@(new Icons.Filled.Size20.StarEmphasis())"
-                              IconNext="@(new Icons.Regular.Size20.Star())"
-                              DisplayStepNumber="false">
-                Phasellus quis augue convallis, congue velit ac, aliquam ex. In egestas porttitor massa
-                aliquet porttitor. Donec bibendum faucibus urna vitae elementum. Phasellus vitae efficitur
-                turpis, eget molestie ipsum.
-            </FluentWizardStep>
-            <FluentWizardStep Label="Summary">
-                Ut iaculis sed magna efficitur tempor. Vestibulum est erat, imperdiet in diam ac,
-                aliquam tempus sapien. Nam rutrum mi at enim mattis, non mollis diam molestie.
-                Cras sodales dui libero, sit amet cursus sapien elementum ac. Nulla euismod nisi sem.
-            </FluentWizardStep>
-        </Steps>
-    </FluentWizard>
-</div>
+﻿<FluentWizard DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
+              Border="WizardBorder.None"
+              StepperPosition="StepperPosition.Top" Height="250px">
+    <Steps>
+        <FluentWizardStep Label="Intro">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut nisi eget dolor semper.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Get started"
+                          Summary="Begin the tasks">
+            Maecenas sed justo ac sapien venenatis ullamcorper. Sed maximus nunc non venenatis euismod.
+        </FluentWizardStep>
+        <FluentWizardStep Disabled="true"
+                          Label="Disabled step"
+                          Summary="This step is disabled">
+            Nunc dignissim tortor eget lacus porta tristique. Nunc in posuere dui.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Set budget"
+                          Summary="Identify the best price"
+                          IconPrevious="@(new Icons.Filled.Size20.Star())"
+                          IconCurrent="@(new Icons.Filled.Size20.StarEmphasis())"
+                          IconNext="@(new Icons.Regular.Size20.Star())"
+                          DisplayStepNumber="false">
+            Phasellus quis augue convallis, congue velit ac, aliquam ex. In egestas porttitor massa
+            aliquet porttitor.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Summary">
+            Ut iaculis sed magna efficitur tempor. Vestibulum est erat, imperdiet in diam ac,
+            aliquam tempus sapien.
+        </FluentWizardStep>
+    </Steps>
+</FluentWizard>
 
 

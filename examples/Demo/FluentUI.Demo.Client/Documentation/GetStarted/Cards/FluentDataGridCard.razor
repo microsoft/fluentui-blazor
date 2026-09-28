@@ -1,9 +1,8 @@
-﻿<div class="sticker-row">
-    <FluentDataGrid Items="@people" >
-        <PropertyColumn Width="75px" Property="@(p => p.PersonId)" Sortable="true" />
-        <PropertyColumn Width="175px" Property="@(p => p.Name)" Sortable="true" />
-        <PropertyColumn Width="110px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
-    </FluentDataGrid>
+﻿<FluentDataGrid Items="@people">
+    <PropertyColumn Width="75px" Property="@(p => p.PersonId)" Sortable="true" />
+    <PropertyColumn Width="175px" Property="@(p => p.Name)" Sortable="true" />
+    <PropertyColumn Width="110px" Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+</FluentDataGrid>
 
 @code {
     PaginationState pagination = new PaginationState() { ItemsPerPage = 2 };
@@ -18,4 +17,3 @@
     }.AsQueryable();
 
 }
-</div>

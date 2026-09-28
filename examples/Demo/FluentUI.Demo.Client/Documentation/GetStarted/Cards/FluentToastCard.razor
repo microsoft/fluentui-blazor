@@ -1,6 +1,5 @@
 ﻿@inject INotificationService NotificationService
-<div class="sticker-row">
-    <FluentStack Wrap="true" HorizontalGap="12px" VerticalGap="5px">
+<FluentStack Wrap="true" HorizontalGap="12px" VerticalGap="10px">
     <FluentButton OnClick="@(async e => await NotificationService.ShowSuccessToastAsync($"Success toast #{counter++}", lifetime: 3))">
         Show Success
     </FluentButton>
@@ -20,8 +19,8 @@
                   Disabled="@(ProgressResult is null)">
         Close Progress
     </FluentButton>
-    </FluentStack>
-</div>
+</FluentStack>
+
 @code {
 
     int counter = 1;

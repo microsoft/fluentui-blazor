@@ -1,31 +1,30 @@
-﻿<div class="sticker-row">
-    <FluentInputFile Id="my-file-uploader"
-                     Mode="InputFileMode.SaveToTemporaryFolder"
-                     Multiple="true"
-                     MaximumFileCount="1"
-                     MaximumFileSize="@FileSizeConverter.FromMegaBytes(1)"
-                     Accept="image/*"
-                     @bind-ProgressPercent="@ProgressPercent"
-                     OnCompleted="@OnCompletedAsync"
-                     Height="200px">
-        <ChildContent>
-            <label for="my-file-uploader">
-                <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" Color="@Color.Primary" />
-            </label>
+﻿<FluentInputFile Id="my-file-uploader"
+                 Mode="InputFileMode.SaveToTemporaryFolder"
+                 Multiple="true"
+                 MaximumFileCount="1"
+                 MaximumFileSize="@FileSizeConverter.FromMegaBytes(1)"
+                 Accept="image/*"
+                 @bind-ProgressPercent="@ProgressPercent"
+                 OnCompleted="@OnCompletedAsync"
+                 Height="200px">
+    <ChildContent>
+        <label for="my-file-uploader">
+            <FluentIcon Value="@(new @Icons.Regular.Size24.ArrowUpload())" Color="@Color.Primary" />
+        </label>
 
-            <div class="@Margin.All2">
-                Drag files here you wish to upload,
-                or <label for="my-file-uploader">browse</label>
-                for them.
-                <br />
-                <em>Maximum of 1 file allowed.</em>
-            </div>
+        <div class="@Margin.All2">
+            Drag files here you wish to upload,
+            or <label for="my-file-uploader">browse</label>
+            for them.
+            <br />
+            <em>Maximum of 1 file allowed.</em>
+        </div>
 
-            <div>
-                <a href="#">Read more about our supported file formats.</a>
-            </div>
-        </ChildContent>
-    </FluentInputFile>
+        <div>
+            <a href="#">Read more about our supported file formats.</a>
+        </div>
+    </ChildContent>
+</FluentInputFile>
 
 @if (Files.Any())
 {
@@ -40,7 +39,6 @@
         }
     </ul>
 }
-</div>
 
 @code
 {

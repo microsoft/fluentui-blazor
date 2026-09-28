@@ -1,15 +1,10 @@
-﻿<div class="sticker-row">
-    <FluentRadioGroup @bind-Value="@Fruit" Label="Favorite fruit" Wrap="true">
-        <FluentRadio Label="Apple" />
-        <FluentRadio Label="Banana" />
-        <FluentRadio Label="Orange" Disabled="true" />
-        <FluentRadio Label="Kiwi" />
-    </FluentRadioGroup>
+﻿<FluentRadioGroup @bind-Value="@Fruit" Label="Favorite fruit" Wrap="true">
+    <FluentRadio Label="Apple" />
+    <FluentRadio Label="Banana" />
+    <FluentRadio Label="Orange" Disabled="true" />
+    <FluentRadio Label="Kiwi" />
+</FluentRadioGroup>
 
-    <FluentDivider Margin="@Margin.Vertical2" />
-
-    <FluentLabel>Selected radio: @Fruit</FluentLabel>
-</div>
 @code
 {
     string Fruit = "Banana";

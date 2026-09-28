@@ -1,8 +1,8 @@
 ﻿@inject IDialogService DialogService
 
-<div class="sticker-row">
-    <FluentButton OnClick="@ShowSuccessAsync" Appearance="ButtonAppearance.Primary">Success</FluentButton>
-</div>
+<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentButton OnClick="@ShowSuccessAsync">Success</FluentButton>
+</FluentStack>
 
 @code
 {

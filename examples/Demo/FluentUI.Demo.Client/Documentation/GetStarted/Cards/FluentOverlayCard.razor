@@ -1,10 +1,11 @@
-﻿    <FluentOverlay FullScreen="false" @bind-Visible="@IsVisible" />
-<div class="sticker-row">
+﻿<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentOverlay FullScreen="false" @bind-Visible="@IsVisible" />
 
     <FluentButton OnClick="@(e => IsVisible = true)">
         Show Overlay
     </FluentButton>
-</div>
+</FluentStack>
+
 @code
 {
     bool IsVisible;

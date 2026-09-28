@@ -1,9 +1,7 @@
-﻿<div class="sticker-row">
-    <FluentTextInput Appearance="@TextInputAppearance.Outline"
-                     Label="Textinput"
-                     @bind-Value="@Value" />
-</div>
+﻿<FluentTextInput Appearance="@TextInputAppearance.Outline"
+                 Label="Textinput"
+                 @bind-Value="@value" />
 
 @code {
-    string Value = "This is a text input";
+    string value = "This is a text input";
 }
