@@ -38,9 +38,6 @@ You can install the templates by running the following command:
 dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 ```
 
-> **IMPORTANT!!**
-> (*) As long as v5 is not the main version, you'll need to add the exact version number to your install command
-
 ## Usage
 
 After installing the templates, you can create a new project from either the CLI or by using the 'Creating a new project'-dialog in Visual Studio 2026.
