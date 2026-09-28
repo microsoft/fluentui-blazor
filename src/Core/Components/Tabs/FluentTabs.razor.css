@@ -2,7 +2,8 @@
   width: 100%;
 }
 
-.fluent-tabs:has(fluent-tablist[orientation="vertical"]) {
+.fluent-tabs:has(> fluent-tablist[orientation="vertical"]),
+.fluent-tabs:has(> div[slot="overflow-header"] > fluent-tablist[orientation="vertical"]) {
   display: flex;
   flex-direction: row;
 }

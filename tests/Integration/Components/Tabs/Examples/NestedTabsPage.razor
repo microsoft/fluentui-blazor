@@ -1,0 +1,23 @@
+@page "/tabs/nested"
+
+<link rel="stylesheet" href="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css" />
+
+<FluentTabs Id="outer-tabs" Orientation="@(OuterVertical ? Orientation.Vertical : Orientation.Horizontal)" Overflow="@Overflow">
+    <FluentTab Header="Outer">
+        <FluentTabs Id="inner-tabs" Orientation="@(InnerVertical ? Orientation.Vertical : Orientation.Horizontal)" Overflow="@Overflow">
+            <FluentTab Header="Inner">Nested content</FluentTab>
+        </FluentTabs>
+    </FluentTab>
+</FluentTabs>
+
+@code
+{
+    [SupplyParameterFromQuery]
+    public bool OuterVertical { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool InnerVertical { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool Overflow { get; set; }
+}
