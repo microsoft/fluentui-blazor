@@ -43,12 +43,12 @@
         var options = new OverlayOptions
         {
             Class = "my-class",
-            Style = "my-inline-style",
+            Style = "color: green; background-color: yellow;",
         };
 
         // Assert
         Assert.Equal("fluent-overlay-global my-class", options.ClassValue);
-        Assert.Equal("my-inline-style", options.StyleValue);
+        Assert.Equal("color: green; background-color: yellow;", options.StyleValue);
     }
 
     [Fact]
@@ -84,20 +84,21 @@
             options.Text = "Loading...";
             options.CardAppearance = CardAppearance.Filled;
             options.Class = "my-overlay";
-            options.Style = "padding-overlay";
+            options.Style = "color: green; background-color: yellow;";
         });
 
-        // Assert: JS interop was invoked
+        // Assert
         JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Overlay.Show");
 
-        // Assert: rendered markup contains the text and applied options
-        var markup = DialogProvider.Markup;
-        Assert.Contains("Loading...", markup);
-        Assert.Contains("my-overlay", markup);
-        Assert.Contains("fluent-overlay-global", markup);
-        Assert.Contains("fluent-card", markup);
-        Assert.Contains("padding-overlay", markup);
-        Assert.Contains("appearance=\"filled\"", markup);
+        var overlay = DialogProvider.Find($"#{Microsoft.FluentUI.AspNetCore.Components.DialogService.GlobalOverlayId}");
+        var overlayContent = overlay.QuerySelector(".fluent-overlay-global");
+
+        Assert.NotNull(overlayContent);
+        Assert.Contains("Loading...", overlayContent.TextContent);
+        Assert.Contains("my-overlay", overlayContent.ClassList);
+        Assert.Contains("fluent-card", overlayContent.ClassList);
+        Assert.Equal("color: green; background-color: yellow;", overlayContent.GetAttribute("style"));
+        Assert.Equal("filled", overlayContent.GetAttribute("appearance"));
     }
 
     [Fact]

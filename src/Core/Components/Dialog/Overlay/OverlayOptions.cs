@@ -44,5 +44,5 @@ public class OverlayOptions
                                         .Build();
 
     /// <summary />
-    internal string? StyleValue => new CssBuilder(Style).Build();
+    internal string? StyleValue => new StyleBuilder(Style).Build();
 }
