@@ -15,9 +15,9 @@
 If you'd like to view the code for version 4, navigate to the [archive-v4](https://github.com/microsoft/fluentui-blazor/tree/archive-v4) branch.
 
 > ✅ UPDATE 2026-09-17:
-> Active v5 development has moved from the old `dev-v5` branch to 
-> the `dev` branch. If your local repository previously used `dev-v5` branch, 
-> run the following commands from its folder to switch to and track 
+> Active v5 development has moved from the old `dev-v5` branch to
+> the `dev` branch. If your local repository previously used `dev-v5` branch,
+> run the following commands from its folder to switch to and track
 > the new active development branch:
 >
 > ```shell
@@ -191,13 +191,13 @@ We also have a document that explains and shows how to [write and develop unit t
 
 ## Joining the Community
 
-Looking to get answers to questions or engage with us in real-time? Our community is  active on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im) and [Discord](https://discord.gg/FcSNfg4). Submit requests
+Looking to get answers to questions or engage with us in real-time? Our community is  active on [Discord](https://discord.gg/FcSNfg4). Submit requests
 and issues on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose), or join us by contributing on [some good first issues via GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
 
 We look forward to building an amazing open source community with you!
 
 ## Contact
 
-* Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2). You can also find us on [Gitter](https://app.gitter.im/#/room/#fluentui-blazor:gitter.im).
-* Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
-* Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
+- Join the DotNetEvolution server and chat with us in real-time on [Discord](https://discord.gg/M5cBTfp6J2).
+- Submit requests and issues (only) on [GitHub](https://github.com/microsoft/fluentui-blazor/issues/new/choose).
+- Contribute by helping out on some of our recommended first issues on [GitHub](https://github.com/microsoft/fluentui-blazor/labels/community:good-first-issue).
