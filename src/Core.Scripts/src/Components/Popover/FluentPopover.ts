@@ -10,6 +10,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     private lastAnchorRect: DOMRect | null = null;
     private positionObserverInterval: number | null = null;
     private positionUpdateFrame: number | null = null;
+    private dialogResizeObserver = new ResizeObserver(() => this.handleWindowChange());
 
     // Add backing field for opened property
     private _opened: boolean = false;
@@ -29,6 +30,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
       // Dispatch the toggle event when the popover is opened or closed
       // For nested popovers, the event is dispatched during showPopover/closePopover methods
       this.dialog.addEventListener('toggle', (e) => {
+        if (e.newState === 'closed') {
+          this.stopAnchorPositionObserver();
+        }
         if (!this.nested) {
           this.dispatchOpenedEvent(e.newState === 'open');
         }
@@ -282,6 +286,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
 
     private startAnchorPositionObserver() {
       this.stopAnchorPositionObserver();
+      this.dialogResizeObserver.observe(this.dialog);
       this.positionObserverInterval = window.setInterval(() => {
         if (this.dialogIsOpen && this.anchorEl) {
           const rect = this.anchorEl.getBoundingClientRect();
@@ -300,6 +305,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Popover {
     }
 
     private stopAnchorPositionObserver() {
+      this.dialogResizeObserver.disconnect();
       if (this.positionObserverInterval !== null) {
         clearInterval(this.positionObserverInterval);
         this.positionObserverInterval = null;
