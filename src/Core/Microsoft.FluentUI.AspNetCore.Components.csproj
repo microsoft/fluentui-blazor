@@ -58,6 +58,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp.Css" />
+    <PackageReference Include="Markdig.Signed" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
 	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
