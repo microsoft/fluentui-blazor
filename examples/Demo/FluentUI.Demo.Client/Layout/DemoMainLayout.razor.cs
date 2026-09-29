@@ -12,6 +12,7 @@ namespace FluentUI.Demo.Client.Layout;
 
 public partial class DemoMainLayout
 {
+    private readonly string[] _noSideBarPages = new string[] { "/sticker-sheet" };
     private bool _consoleLogOpened;
     private bool _useReboot;
     private CookieConsent? _cookie;
@@ -67,6 +68,7 @@ public partial class DemoMainLayout
 
     /// <summary />
     private bool IsHomePage() => Navigation.Uri == Navigation.BaseUri;
+    private bool IsNoSideBarPage() => _noSideBarPages.Any(page => Navigation.Uri.Contains(page, StringComparison.InvariantCultureIgnoreCase) || IsHomePage());
 
     /// <summary />
     private string GetLayoutKey() => IsHomePage() ? "Home" : string.Empty;

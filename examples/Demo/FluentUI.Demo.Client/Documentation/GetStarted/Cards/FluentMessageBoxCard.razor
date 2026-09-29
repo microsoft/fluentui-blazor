@@ -1,0 +1,16 @@
+﻿@inject IDialogService DialogService
+
+<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentButton OnClick="@ShowSuccessAsync">Success</FluentButton>
+</FluentStack>
+
+@code
+{
+    private bool? Canceled;
+
+    private async Task ShowSuccessAsync()
+    {
+        var result = await DialogService.ShowSuccessAsync("The action was a success");
+        Canceled = result.Cancelled;
+    }
+}
