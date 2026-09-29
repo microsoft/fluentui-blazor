@@ -1,0 +1,4 @@
+fluent-checkbox[readonly] {
+  pointer-events: none;
+  user-select: none;
+}

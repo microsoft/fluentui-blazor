@@ -94,6 +94,20 @@
     }
 
     [Fact]
+    public void FluentSwitch_ReadOnly_DoesNotChangeValue()
+    {
+        // Arrange
+        var value = false;
+        var cut = Render(@<FluentSwitch ReadOnly="true" @bind-Value="@value" />);
+
+        // Act
+        cut.Find("fluent-switch").Change("");
+
+        // Assert
+        Assert.False(value);
+    }
+
+    [Fact]
     public void FluentSwitch_TryParseValueFromString()
     {
         // Arrange

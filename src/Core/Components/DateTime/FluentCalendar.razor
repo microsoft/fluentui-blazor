@@ -29,12 +29,12 @@
                 @* Title bar (label, previous and next buttons) *@
                 <div class="title" part="title" aria-label="@titles.Label">
                     <div part="label" class="@GetAnimationClass("label")" readonly="@(ReadOnly || titles.ReadOnly)"
-                         role="button" tabindex="0"
+                     role="@(ReadOnly ? null : "button")" tabindex="@(ReadOnly ? null : 0)"
                          @onclick="@(e => TitleClickHandlerAsync(titles))">
                         @titles.Label
                     </div>
                     <div part="move" class="change-period">
-                        @if (titles.PreviousDisabled)
+                        @if (ReadOnly || titles.PreviousDisabled)
                         {
                             <div class="previous" disabled />
                         }
@@ -45,7 +45,7 @@
                                 @((MarkupString)ArrowUp)
                             </div>
                         }
-                        @if (titles.NextDisabled)
+                        @if (ReadOnly || titles.NextDisabled)
                         {
                             <div class="next" disabled />
                         }
@@ -88,8 +88,8 @@
 
                                         <div part="day"
                                              class="@GetAnimationClass("day")"
-                                             role="@(dayProperties.IsDisabled || dayProperties.IsInactive ? null : "button")"
-                                             tabindex="@(dayProperties.IsDisabled || dayProperties.IsInactive ? null : 0)"
+                                             role="@(ReadOnly || dayProperties.IsDisabled || dayProperties.IsInactive ? null : "button")"
+                                             tabindex="@(ReadOnly || dayProperties.IsDisabled || dayProperties.IsInactive ? null : 0)"
                                              disabled="@dayProperties.IsDisabled"
                                              inactive="@dayProperties.IsInactive"
                                              today="@(DisplayToday && dayProperties.IsToday)"
@@ -132,7 +132,7 @@
                                      aria-label="@monthProperties.Title"
                                      title="@monthProperties.Title"
                                      value="@monthProperties.MonthIdentifier"
-                                     role="button"
+                                     role="@(ReadOnly || monthProperties.IsReadOnly ? null : "button")"
                                      tabindex="@(monthProperties.IsDisabled || monthProperties.IsReadOnly ? null : 0)"
                                      @onclick="@(e => OnSelectMonthHandlerAsync(year, month.Index, monthProperties.IsReadOnly))">
                                     @month.Abbreviated

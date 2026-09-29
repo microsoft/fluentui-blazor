@@ -185,6 +185,11 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
 
     private async Task OnColorPickerSelectedAsync(string color)
     {
+        if (!Enabled)
+        {
+            return;
+        }
+
         if (!string.Equals(CurrentValueAsString, color, StringComparison.OrdinalIgnoreCase))
         {
             CurrentValueAsString = color;

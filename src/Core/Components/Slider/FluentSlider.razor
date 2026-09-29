@@ -15,6 +15,7 @@
                    orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
                    name="@Name"
                    readonly="@ReadOnly"
+                   aria-readonly="@(ReadOnly ? "true" : null)"
                    aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    required="@Required"

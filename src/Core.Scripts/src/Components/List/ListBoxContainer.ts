@@ -84,6 +84,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
 
       // If disabled or readonly, do not set tab index
       if (this.container.hasAttribute('disabled') || this.container.hasAttribute('readonly')) {
+        this.listbox.querySelectorAll('fluent-option[tabindex]').forEach(option => option.removeAttribute('tabindex'));
         return;
       }
 
