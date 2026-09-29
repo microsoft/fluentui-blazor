@@ -1,6 +1,6 @@
 {
   "author": "Microsoft",
-  "name": "Samostatná aplikace Fluent Blazor WebAssembly",
+  "name": "Samostatná aplikace Fluent UI Blazor WebAssembly",
   "description": "Šablona projektu pro vytvoření aplikace Blazor, která běží ve WebAssembly. Tato šablona se dá využít pro webové aplikace s propracovanými dynamickými uživatelskými rozhraními (UI).",
   "symbols/Framework/description": "Cílová architektura pro projekt",
   "symbols/Framework/choices/net9.0/description": "Cílový net9.0",

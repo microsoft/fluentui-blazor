@@ -1,7 +1,7 @@
 {
   "author": "Microsoft",
-  "name": ".NET MAUI Fluent Blazor Hybrid a Web aplikace",
-  "description": "Víceprojektová aplikace pro vytvoření hybridní aplikace .NET MAUI Fluent Blazor s webovým projektem Blazor se sdíleným uživatelským rozhraním.",
+  "name": ".NET MAUI Fluent UI Blazor Hybrid a Web aplikace",
+  "description": "Víceprojektová aplikace pro vytvoření hybridní aplikace .NET MAUI Fluent UI Blazor s webovým projektem Blazor se sdíleným uživatelským rozhraním.",
   "postActions/openInEditor/description": "Otevře SharedPages/Home.razor v editoru.",
   "symbols/applicationId/description": "Přepíše v projektu $(ApplicationId)",
   "symbols/Framework/description": "Cílová architektura pro projekt.",

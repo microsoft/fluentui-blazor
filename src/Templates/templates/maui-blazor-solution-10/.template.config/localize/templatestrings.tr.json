@@ -1,7 +1,7 @@
 {
   "author": "Microsoft",
-  "name": ".NET MAUI Fluent Blazor Hybrid ve Web Uygulaması",
-  "description": "Paylaşımlı kullanıcı arabirimi bulunan bir Blazor Web projesiyle .NET MAUI Fluent Blazor Hybrid uygulaması oluşturmaya yönelik çoklu proje uygulaması.",
+  "name": ".NET MAUI Fluent UI Blazor Hybrid ve Web Uygulaması",
+  "description": "Paylaşımlı kullanıcı arabirimi bulunan bir Blazor Web projesiyle .NET MAUI Fluent UI Blazor Hybrid uygulaması oluşturmaya yönelik çoklu proje uygulaması.",
   "postActions/openInEditor/description": "Düzenleyicide Paylaşılan Sayfaları/Home.razor'ı açar.",
   "symbols/applicationId/description": "Projedeki $(ApplicationId) uygulamasın geçersiz kılar",
   "symbols/Framework/description": "Projenin hedef çerçevesi.",

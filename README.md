@@ -20,6 +20,7 @@ If you'd like to view the code for version 4, navigate to the [archive-v4](https
 > run the following commands from its folder to switch to and track
 > the new active development branch:
 >
+
 > ```shell
 > git fetch origin --prune
 > git switch --track -c dev origin/dev
@@ -61,8 +62,8 @@ dotnet new install Microsoft.FluentUI.AspNetCore.Templates
 Create a Blazor Web App or a standalone WebAssembly app:
 
 ```bash
-dotnet new fluentblazor -o MyApplication
-dotnet new fluentblazorwasm -o MyApplication
+dotnet new fluentuiblazor -o MyApplication
+dotnet new fluentuiblazorwasm -o MyApplication
 ```
 
 The templates configure the packages, styles, services, providers, and icons for you. Run `dotnet new list fluent` to see all installed Fluent templates and their options.
@@ -159,7 +160,7 @@ Add this to an interactive Razor page:
 ## Working with Icons and Emoji
 
 We have additional packages available that include the complete **Fluent UI System icons** and **Fluent UI Emoji** collections.
-Please refer to the [Icons](https://www.fluentui-blazor.net/icon) and [Emojis](https://www.fluentui-blazor.net/emoji) 
+Please refer to the [Icons](https://www.fluentui-blazor.net/icon) and [Emojis](https://www.fluentui-blazor.net/emoji)
 page for more information.
 
 ## Additional resources
