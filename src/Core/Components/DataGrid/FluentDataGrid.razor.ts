@@ -1017,7 +1017,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const colIndex = header.getAttribute('col-index');
       if (!colIndex) { return offset; }
 
-      (gridElement.querySelectorAll(`[col-index="${colIndex}"]`) as NodeListOf<HTMLElement>)
+      (gridElement.querySelectorAll(`:scope > thead > tr > [col-index="${colIndex}"], :scope > tbody > tr:not([row-state='detail-content']) > [col-index="${colIndex}"]`) as NodeListOf<HTMLElement>)
         .forEach(cell => { cell.style[side] = offset + 'px'; });
 
       return offset + headerWidth(header);
@@ -1025,7 +1025,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     // Start-pinned columns: process in DOM order.
     const startPinnedHeaders = Array.from(
-      gridElement.querySelectorAll("th[col-pinned='start']")
+      gridElement.querySelectorAll(":scope > thead > tr > th[col-pinned='start']")
     ) as HTMLElement[];
 
     let startOffset = 0;
@@ -1035,7 +1035,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
     // End-pinned columns: process in reverse DOM order.
     const endPinnedHeaders = Array.from(
-      gridElement.querySelectorAll("th[col-pinned='end']")
+      gridElement.querySelectorAll(":scope > thead > tr > th[col-pinned='end']")
     ) as HTMLElement[];
 
     let endOffset = 0;
