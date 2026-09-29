@@ -1017,7 +1017,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
       const colIndex = header.getAttribute('col-index');
       if (!colIndex) { return offset; }
 
-      (gridElement.querySelectorAll(`:scope > tbody > tr:not([row-state='detail-content']) > [col-index="${colIndex}"]`) as NodeListOf<HTMLElement>)
+      (gridElement.querySelectorAll(`:scope > thead > tr > [col-index="${colIndex}"], :scope > tbody > tr:not([row-state='detail-content']) > [col-index="${colIndex}"]`) as NodeListOf<HTMLElement>)
         .forEach(cell => { cell.style[side] = offset + 'px'; });
 
       return offset + headerWidth(header);
