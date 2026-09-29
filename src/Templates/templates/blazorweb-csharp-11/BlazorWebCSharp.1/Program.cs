@@ -81,15 +81,10 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-#if (UseWebAssembly || IndividualLocalAuth)
+#if (IndividualLocalAuth)
 if (app.Environment.IsDevelopment())
 {
-#if (UseWebAssembly)
-    app.UseWebAssemblyDebugging();
-#endif
-#if (IndividualLocalAuth)
     app.UseMigrationsEndPoint();
-#endif
 }
 else
 #else
@@ -107,8 +102,6 @@ app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages:
 app.UseHttpsRedirection();
 
 #endif
-app.UseAntiforgery();
-
 app.MapStaticAssets();
 #if (UseServer && UseWebAssembly)
 app.MapRazorComponents<App>()

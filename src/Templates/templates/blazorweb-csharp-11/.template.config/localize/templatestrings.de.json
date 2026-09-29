@@ -1,6 +1,6 @@
 {
   "author": "Microsoft",
-  "name": "Fluent Blazor-Web-App",
+  "name": "Fluent UI Blazor-Web-App",
   "description": "Eine Projektvorlage zum Erstellen einer Blazor-Web-App, die sowohl serverseitiges Rendering als auch Clientinteraktivität unterstützt. Diese Vorlage kann für Web-Apps mit umfangreichen dynamischen Benutzeroberflächen (UIs) verwendet werden.",
   "symbols/Framework/description": "Das Zielframework für das Projekt.",
   "symbols/UserSecretsId/description": "Die für Geheimnisse zu verwendende ID (Verwendung mit individueller Authentifizierung).",

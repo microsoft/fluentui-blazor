@@ -33,6 +33,7 @@
     <MicrosoftAspNetCorePackageVersionForNet11>11.0.0-rc.1.26425.128</MicrosoftAspNetCorePackageVersionForNet11>
     <MicrosoftAspNetCoreOpenApiVersion>9.0.16</MicrosoftAspNetCoreOpenApiVersion>
     <MicrosoftAspNetCoreOpenApiPreviewVersion>10.0.8</MicrosoftAspNetCoreOpenApiPreviewVersion>
+    <MicrosoftDataSqlClientExtensionsAzureVersion>1.0.0</MicrosoftDataSqlClientExtensionsAzureVersion>
     <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
     <OpenTelemetryLTSVersion>1.15.1</OpenTelemetryLTSVersion>
     <OpenTelemetryInstrumentationAspNetCoreVersion>1.15.2</OpenTelemetryInstrumentationAspNetCoreVersion>
@@ -90,10 +91,6 @@
     <TemplateFiles Include="$(MSBuildThisFileDirectory)templates\**\*" Exclude="$(MSBuildThisFileDirectory)templates\**\bin\**;$(MSBuildThisFileDirectory)templates\**\obj\**;$(MSBuildThisFileDirectory)templates\**\*.csproj;$(MSBuildThisFileDirectory)templates\aspire-apphost-singlefile\**\apphost.cs">
       <PackagePath>content/templates/%(RecursiveDir)</PackagePath>
     </TemplateFiles>
-
-    <None Remove="templates\blazorweb-csharp-11\**" />
-
-    <None Remove="templates\componentswebassembly-csharp-11\**" />
 
     <TemplateFilesObj Include="@(TemplateFiles->'$(IntermediateOutputPath)content\templates\%(RecursiveDir)%(Filename)%(Extension)')" />
   </ItemGroup>
@@ -160,6 +157,8 @@
       <Replacements Include="$(MicrosoftAspNetCoreOpenApiVersion)" />
       <Replacements Include="!!REPLACE_WITH_ASPNETCORE_OPENAPI_10_VERSION!!" />
       <Replacements Include="$(MicrosoftAspNetCoreOpenApiPreviewVersion)" />
+      <Replacements Include="!!REPLACE_WITH_SQLCLIENTAZURE_VERSION!!" />
+      <Replacements Include="$(MicrosoftDataSqlClientExtensionsAzureVersion)" />
     </ItemGroup>
 
     <!-- Build the .rsp file content as an item group -->

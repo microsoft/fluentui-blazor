@@ -1,6 +1,6 @@
 {
   "author": "Microsoft",
-  "name": "Aplicación web Fluent Blazor",
+  "name": "Aplicación web Fluent UI Blazor",
   "description": "Plantilla de proyecto para crear una aplicación web de Blazor que admita tanto la representación del lado del servidor como la interactividad del cliente. Esta plantilla se puede usar para las aplicaciones web con interfaces de usuario dinámicas enriquecidas.",
   "symbols/Framework/description": "Marco de destino del proyecto.",
   "symbols/UserSecretsId/description": "Identificador que se va a usar para los secretos (se usa con la autenticación individual).",

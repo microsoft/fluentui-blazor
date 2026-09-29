@@ -87,15 +87,10 @@ public class Program
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-#if (UseWebAssembly || IndividualLocalAuth)
+#if (IndividualLocalAuth)
         if (app.Environment.IsDevelopment())
         {
-#if (UseWebAssembly)
-            app.UseWebAssemblyDebugging();
-#endif
-#if (IndividualLocalAuth)
             app.UseMigrationsEndPoint();
-#endif
         }
         else
 #else
@@ -114,8 +109,6 @@ public class Program
         app.UseHttpsRedirection();
 
 #endif
-        app.UseAntiforgery();
-
         app.MapStaticAssets();
         #if (UseServer && UseWebAssembly)
         app.MapRazorComponents<App>()

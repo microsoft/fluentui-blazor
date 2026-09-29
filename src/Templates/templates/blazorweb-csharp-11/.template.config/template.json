@@ -3,14 +3,14 @@
   "author": "Microsoft",
   "classifications": [
     "Web",
-    "Fluent",
+    "Fluent UI",
     "Blazor",
     "WebAssembly"
   ],
-  "name": "Fluent Blazor Web App",
+  "name": "Fluent UI Blazor Web App",
   "defaultName": "BlazorApp",
   "description": "A project template for creating a Blazor web app that supports both server-side rendering and client interactivity. This template can be used for web apps with rich dynamic user interfaces (UIs).",
-  "groupIdentity": "Microsoft.Web.Fluent.Blazor",
+  "groupIdentity": "Microsoft.Web.FluentUI.Blazor",
   "precedence": "10001",
   "guids": [
     "4C26868E-5E7C-458D-82E3-040509D0C72F",
@@ -19,7 +19,7 @@
     "53bc9b9d-9d6a-45d4-8429-2a2761773512",
     "7A8B9C0D-1E2F-3A4B-5C6D-7E8F9A0B1C3D"
   ],
-  "identity": "Microsoft.Web.Fluent.Blazor.CSharp.11.0",
+  "identity": "Microsoft.Web.FluentUI.Blazor.CSharp.11.0",
   "thirdPartyNotices": "https://aka.ms/aspnetcore/11.0-third-party-notices",
   "preferNameDirectory": true,
   "primaryOutputs": [
@@ -40,7 +40,7 @@
       "path": "BlazorWebCSharp.1.Client/BlazorWebCSharp.1.Client.csproj"
     }
   ],
-  "shortName": "fluentblazor",
+  "shortName": "fluentuiblazor",
   "sourceName": "BlazorWebCSharp.1",
   "sources": [
     {

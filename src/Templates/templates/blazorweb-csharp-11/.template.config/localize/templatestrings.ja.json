@@ -1,6 +1,6 @@
 {
   "author": "Microsoft",
-  "name": "Fluent Blazor Web アプリ",
+  "name": "Fluent UI Blazor Web アプリ",
   "description": "サーバー側のレンダリングとクライアントの対話機能の両方をサポートする Blazor Web アプリを作成するためのプロジェクト テンプレートです。このテンプレートは、リッチな動的ユーザー インターフェイス (UI) を持つ Web アプリに使用できます。",
   "symbols/Framework/description": "プロジェクトのターゲット フレームワークです。",
   "symbols/UserSecretsId/description": "シークレットで使用する ID (IndividualAuth で使用)。",
