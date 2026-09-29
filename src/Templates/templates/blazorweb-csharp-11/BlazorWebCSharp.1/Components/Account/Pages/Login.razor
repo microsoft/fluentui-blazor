@@ -17,7 +17,7 @@
 <FluentGrid>
     <FluentGridItem xs="8" sm="4">
         <StatusMessage Message="@errorMessage" />
-        <EditForm EditContext="editContext" method="post" OnValidSubmit="LoginUser" FormName="login">
+        <EditForm EditContext="editContext" method="post" OnSubmit="LoginUser" FormName="login">
             <DataAnnotationsValidator />
             <h2>Use a local account to log in.</h2>
             <FluentValidationSummary class="text-danger" role="alert" />
@@ -25,7 +25,7 @@
                 <FluentTextInput Name="Input.Email" @bind-Value="Input.Email" AutoComplete="username" Required="true" Placeholder="name@example.com" Label="Email" Style="width: 100%" />
                 <FluentTextInput type="password" Name="Input.Password" @bind-Value="Input.Password" AutoComplete="current-password" Required="true" Placeholder="password" Label="Password" Style="width: 100%" />
                 <FluentCheckbox Name="Input.RememberMe" @bind-Value="Input.RememberMe" Label="Remember me" />
-                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary" Style="width: 100%">Log in</FluentButton>
+                <PasskeySubmit Operation="PasskeyOperation.Request" Name="Input.Passkey" EmailName="Input.Email">Log in with a passkey</PasskeySubmit>
                 <div>
                     <p>
                         <FluentLink Href="Account/ForgotPassword">Forgot your password?</FluentLink>
