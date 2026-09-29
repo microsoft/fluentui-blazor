@@ -1,7 +1,7 @@
 {
   "author": "Microsoft",
-  "name": ".NET MAUI Fluent Blazor Hybrid y aplicación Web",
-  "description": "Una aplicación de varios proyectos para crear una aplicación híbrida de Fluent Blazor .NET MAUI con un proyecto web de Blazor con una interfaz de usuario compartida.",
+  "name": ".NET MAUI Fluent UI Blazor Hybrid y aplicación Web",
+  "description": "Una aplicación de varios proyectos para crear una aplicación híbrida de Fluent UI Blazor .NET MAUI con un proyecto web de Blazor con una interfaz de usuario compartida.",
   "postActions/openInEditor/description": "Abre Páginas compartidas/Home.razor en el editor.",
   "symbols/applicationId/description": "Reemplaza $(ApplicationId) en el proyecto",
   "symbols/Framework/description": "Marco de destino del proyecto.",

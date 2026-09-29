@@ -1,6 +1,6 @@
 {
   "author": "Microsoft",
-  "name": "Fluent Blazor Web App",
+  "name": "Fluent UI Blazor Web App",
   "description": "A project template for creating a Blazor web app that supports both server-side rendering and client interactivity and uses the Fluent components library. This template can be used for web apps with rich dynamic user interfaces (UIs).",
   "symbols/Framework/description": "The target framework for the project.",
   "symbols/Framework/choices/net9.0/description": "Target net9.0",

@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BlazorWebCSharp._1.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<FluentNav>
+    <FluentNavItem Href="Account/Manage" Match="NavLinkMatch.All">Profile</FluentNavItem>
+    <FluentNavItem Href="Account/Manage/Email">Email</FluentNavItem>
+    <FluentNavItem Href="Account/Manage/ChangePassword">Password</FluentNavItem>
+    @if (hasExternalLogins)
+    {
+        <FluentNavItem Href="Account/Manage/ExternalLogins">External logins</FluentNavItem>
+    }
+    <FluentNavItem Href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</FluentNavItem>
+    <FluentNavItem Href="Account/Manage/Passkeys">Passkeys</FluentNavItem>
+    <FluentNavItem Href="Account/Manage/PersonalData">Personal data</FluentNavItem>
+</FluentNav>
+
+
+@code {
+    private bool hasExternalLogins;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    }
+}
