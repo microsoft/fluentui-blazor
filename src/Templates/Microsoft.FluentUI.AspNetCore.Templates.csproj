@@ -24,14 +24,13 @@
 
   <PropertyGroup>
     <!-- for templates -->
-    <IconsPackageVersion>4.14.2</IconsPackageVersion>
     <AspirePackageVersion>13.4</AspirePackageVersion>
     <MicrosoftExtensionsHttpResiliencePackageVersion>10.0.0</MicrosoftExtensionsHttpResiliencePackageVersion>
     <MicrosoftExtensionsServiceDiscoveryVersion>10.6.0</MicrosoftExtensionsServiceDiscoveryVersion>
-    <MicrosoftAspNetCorePackageVersionForNet8>8.0.25</MicrosoftAspNetCorePackageVersionForNet8>
-    <MicrosoftAspNetCorePackageVersionForNet9>9.0.16</MicrosoftAspNetCorePackageVersionForNet9>
-    <MicrosoftAspNetCorePackageVersionForNet10>10.0.8</MicrosoftAspNetCorePackageVersionForNet10>
-    <MicrosoftAspNetCorePackageVersionForNet11>11.0.0-preview.4.26230.115</MicrosoftAspNetCorePackageVersionForNet11>
+    <MicrosoftAspNetCorePackageVersionForNet8>8.0.31</MicrosoftAspNetCorePackageVersionForNet8>
+    <MicrosoftAspNetCorePackageVersionForNet9>9.0.20</MicrosoftAspNetCorePackageVersionForNet9>
+    <MicrosoftAspNetCorePackageVersionForNet10>10.0.12</MicrosoftAspNetCorePackageVersionForNet10>
+    <MicrosoftAspNetCorePackageVersionForNet11>11.0.0-rc.1.26425.128</MicrosoftAspNetCorePackageVersionForNet11>
     <MicrosoftAspNetCoreOpenApiVersion>9.0.16</MicrosoftAspNetCoreOpenApiVersion>
     <MicrosoftAspNetCoreOpenApiPreviewVersion>10.0.8</MicrosoftAspNetCoreOpenApiPreviewVersion>
     <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
