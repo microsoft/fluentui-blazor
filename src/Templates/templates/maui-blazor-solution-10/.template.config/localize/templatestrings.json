@@ -1,8 +1,8 @@
 {
   "author": "Microsoft",
-  "name": ".NET MAUI Fluent Blazor Hybrid and Web App",
-  "_name.comment": "{Locked='.NET MAUI Fluent Blazor Hybrid', Locked='Web'}",
-  "description": "A multi-project app for creating a .NET MAUI Fluent Blazor Hybrid application with a Blazor Web project with a shared user interface.",
+  "name": ".NET MAUI Fluent UI Blazor Hybrid and Web App",
+  "_name.comment": "{Locked='.NET MAUI Fluent UI Blazor Hybrid', Locked='Web'}",
+  "description": "A multi-project app for creating a .NET MAUI Fluent UI Blazor Hybrid application with a Blazor Web project with a shared user interface.",
   "postActions/openInEditor/description": "Opens Shared Pages/Home.razor in the editor.",
   "symbols/applicationId/description": "Overrides the $(ApplicationId) in the project",
   "symbols/Framework/description": "The target framework for the project.",

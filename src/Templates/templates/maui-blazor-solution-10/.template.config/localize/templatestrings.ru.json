@@ -1,7 +1,7 @@
 {
   "author": "Майкрософт",
-  "name": "Приложение .NET MAUI Fluent Blazor Hybrid и Web",
-  "description": "Многопроектное приложение для создания приложения .NET MAUI Fluent Blazor Hybrid с проектом Blazor Web с общим пользовательским интерфейсом.",
+  "name": "Приложение .NET MAUI Fluent UI Blazor Hybrid и Web",
+  "description": "Многопроектное приложение для создания приложения .NET MAUI Fluent UI Blazor Hybrid с проектом Blazor Web с общим пользовательским интерфейсом.",
   "postActions/openInEditor/description": "Открывает Shared Pages/Home.razor в редакторе.",
   "symbols/applicationId/description": "Переопределяет $(ApplicationId) в проекте",
   "symbols/Framework/description": "Целевая платформа для проекта.",

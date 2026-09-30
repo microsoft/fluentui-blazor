@@ -17,7 +17,7 @@
     "NUnit",
     "xUnit"
   ],
-  "name": "Fluent Aspire Starter App (ASP.NET Core/Blazor/Fluent UI)",
+  "name": "Fluent UI Aspire Starter App (ASP.NET Core/Blazor/Fluent UI)",
   "defaultName": "AspireApp",
   "description": "A project template for creating an Aspire app with a Fluent UI Blazor web frontend and web API backend service, with optional Redis caching.",
   "shortName": "fluentuiaspire-starter",
@@ -29,9 +29,9 @@
     "editorTreatAs": "solution"
   },
   "precedence": "9003",
-  "identity": "Fluent.Aspire.Starter.CSharp.13.6",
+  "identity": "FluentUI.Aspire.Starter.CSharp.13.6",
   "thirdPartyNotices": "https://aka.ms/aspire/third-party-notices",
-  "groupIdentity": "Fluent.Aspire.Starter",
+  "groupIdentity": "FluentUI.Aspire.Starter",
   "guids": [
     "80B24B1B-1E78-4FCB-BDC9-13678F1789F4",
     "DB7A3AC1-6E4F-4805-B710-2FCD1084E96E",

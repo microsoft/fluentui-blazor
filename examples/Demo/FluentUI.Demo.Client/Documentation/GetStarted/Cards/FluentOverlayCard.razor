@@ -1,0 +1,12 @@
+﻿<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentOverlay FullScreen="false" @bind-Visible="@IsVisible" />
+
+    <FluentButton OnClick="@(e => IsVisible = true)">
+        Show Overlay
+    </FluentButton>
+</FluentStack>
+
+@code
+{
+    bool IsVisible;
+}

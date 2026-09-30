@@ -1,0 +1,9 @@
+﻿<FluentHighlighter HighlightedText="@Highlight"
+                   Delimiters=" ,;"
+                   Text="@Text" />
+
+@code
+{
+    static string Text = SampleData.Text.GenerateLoremIpsum(1,50);
+    string Highlight = "Lorem";
+}
