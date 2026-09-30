@@ -133,6 +133,23 @@
         Assert.Equal(expectedValue, value);
     }
 
+    [Fact]
+    public void FluentCheckbox_ReadOnly_DoesNotChangeValue()
+    {
+        // Arrange
+        var value = false;
+        var cut = Render(@<FluentCheckbox ReadOnly="true" @bind-Value="@value" />);
+        var checkbox = cut.Find("fluent-checkbox");
+
+        // Act
+        checkbox.Change("");
+
+        // Assert
+        Assert.False(value);
+        Assert.Equal("-1", checkbox.GetAttribute("tabindex"));
+        Assert.Equal("true", checkbox.GetAttribute("aria-readonly"));
+    }
+
     [Theory]
     [InlineData(false, false, true)]
     [InlineData(false, true, null)]

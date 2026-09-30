@@ -84,6 +84,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
 
       // If disabled or readonly, do not set tab index
       if (this.container.hasAttribute('disabled') || this.container.hasAttribute('readonly')) {
+        this.listbox.querySelectorAll('fluent-option[tabindex]').forEach(option => option.removeAttribute('tabindex'));
         return;
       }
 
@@ -222,15 +223,20 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     }
 
     /**
-     * Sets up a single MutationObserver on the listbox to detect changes to child fluent-option elements.
+     * Sets up a single MutationObserver to detect listbox option changes and container state changes.
      */
     private setupListboxObserver = (): void => {
 
       const observer = new MutationObserver((mutations) => {
         let hasSelectedOptionsChanged = false;
         let hasNewRemovedOptions = false;
+        let hasInteractionStateChanged = false;
 
         mutations.forEach(mutation => {
+
+          if (mutation.type === 'attributes' && mutation.target === this.container) {
+            hasInteractionStateChanged = true;
+          }
 
           // Detect attribute changes on child nodes (fluent-option elements)
           if (mutation.type === 'attributes' && mutation.target !== this.listbox) {
@@ -247,6 +253,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
             hasNewRemovedOptions = true;
           }
         });
+
+        if (hasInteractionStateChanged) {
+          this.refresh(false);
+        }
 
         if (hasNewRemovedOptions) {
           // Defer to allow FluentUI component to update its internal options array
@@ -271,6 +281,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         attributeFilter: ['current-selected', 'selected'],
         subtree: true,
         childList: true
+      });
+
+      observer.observe(this.container, {
+        attributes: true,
+        attributeFilter: ['disabled', 'readonly']
       });
     }
 

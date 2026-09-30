@@ -324,8 +324,14 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <summary>
     /// Raised when the FluentListbox.SelectedItems property changes.
     /// </summary>
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "The method handles complex logic for updating internal selected items and raising events, which makes it inherently long.")]
     private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         var comparer = OptionSelectedComparer ?? OptionComparer;
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
@@ -394,6 +400,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <returns></returns>
     private async Task OnTextInputKeyDownAsync(KeyboardEventArgs args)
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         switch (args.Key)
         {
             // When Backspace is pressed and there is no text in the input, remove the last selected item
@@ -450,6 +461,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <returns></returns>
     internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         // If the input is empty, we don't show any options in the listbox, and we close it if it was open
         if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
         {
@@ -502,7 +518,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <returns></returns>
     internal async Task RemoveSelectedItemAsync(TOption? item)
     {
-        if (item is null)
+        if (IsUserInteractionDisabled || item is null)
         {
             return;
         }
@@ -533,6 +549,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// </summary>
     private async Task SwitchOptionsPopupAsync()
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         if (_isOpen)
         {
             _isOpen = false;
@@ -549,6 +570,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <returns></returns>
     private async Task ClearSelectionAsync()
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         _isOpen = false;
         _internalSelectedItems.Clear();
         SelectedItem = default;
@@ -569,6 +595,14 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         NotifyValidationFieldChanged();
+    }
+
+    private void ClearInputText()
+    {
+        if (!IsUserInteractionDisabled)
+        {
+            _textInput = string.Empty;
+        }
     }
 
     /// <summary>

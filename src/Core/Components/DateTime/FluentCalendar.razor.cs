@@ -664,4 +664,3 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         Down,
     }
 }
-

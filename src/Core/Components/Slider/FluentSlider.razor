@@ -15,11 +15,13 @@
                    orientation="@(Orientation == Orientation.Horizontal ? null : Orientation.ToAttributeValue())"
                    name="@Name"
                    readonly="@ReadOnly"
+                   aria-readonly="@(ReadOnly ? "true" : null)"
                    aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    required="@Required"
                    tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1" , when: () => ReadOnly)"
                    @onfocusout="@FocusOutHandlerAsync"
+                   @onkeydown:preventDefault="@ReadOnly"
                    @onchange="@ChangeHandlerAsync"
                    @attributes="@AdditionalAttributes">
         @ChildContent

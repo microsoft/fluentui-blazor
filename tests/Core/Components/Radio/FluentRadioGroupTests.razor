@@ -214,6 +214,34 @@
     }
 
     [Fact]
+    public async Task FluentRadioGroup_ReadOnly_DoesNotChangeValue()
+    {
+        // Arrange
+        var selectedValue = "option1";
+        var cut = Render(
+            @<FluentRadioGroup TValue="string" ReadOnly="true" @bind-Value="@selectedValue">
+                <FluentRadio Id="MyOption1" Value="@("option1")" Label="Option 1" />
+                <FluentRadio Id="MyOption2" Value="@("option2")" Label="Option 2" />
+            </FluentRadioGroup>);
+
+        // Act
+        await cut.FindComponent<FluentRadioGroup<string>>().Instance.RadioChangeHandlerAsync(new RadioEventArgs
+        {
+            Id = "MyOption2",
+            Value = "option2"
+        });
+
+        // Assert
+        Assert.Equal("option1", selectedValue);
+        Assert.Equal("true", cut.Find("fluent-radio-group").GetAttribute("aria-readonly"));
+        Assert.All(cut.FindAll("fluent-radio"), radio =>
+        {
+            Assert.Equal("-1", radio.GetAttribute("tabindex"));
+            Assert.False(radio.HasAttribute("aria-readonly"));
+        });
+    }
+
+    [Fact]
     public async Task FluentRadioGroup_RadioChange_MarksFieldModified_AndUpdatesValidationState()
     {
         // Arrange

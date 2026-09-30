@@ -17,6 +17,7 @@
                    id="@Id"
                    name="@Name"
                    readonly="@ReadOnly"
+                   aria-readonly="@(ReadOnly ? "true" : null)"
                    required="@Required"
                    @onfocusout="@FocusOutHandlerAsync"
                    @attributes="AdditionalAttributes"

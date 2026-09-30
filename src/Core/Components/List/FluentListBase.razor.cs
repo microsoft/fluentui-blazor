@@ -344,6 +344,11 @@ public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMember
 
     internal virtual async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         // List of IDs received from the web component.
         var selectedIds = e.SelectedOptions?.Split(';', StringSplitOptions.TrimEntries) ?? [];
 

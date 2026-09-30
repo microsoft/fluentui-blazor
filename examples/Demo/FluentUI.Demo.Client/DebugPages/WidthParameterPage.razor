@@ -11,6 +11,10 @@
                      LabelPosition="LabelPosition.Before" />
     <FluentCheckbox @bind-Value="@showLabelBorder"
                     Label="Show label border" />
+    <FluentCheckbox @bind-Value="@Disabled"
+                    Label="Disabled" />
+    <FluentCheckbox @bind-Value="@ReadOnly"
+                    Label="ReadOnly" />
 
     <FluentStack HorizontalGap="20px">
         <FluentStack Orientation="Orientation.Vertical">
@@ -66,6 +70,8 @@
     RenderFragment RenderTextInput(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentTextInput Width="@Width"
+                                 Disabled="@Disabled"
+                                 ReadOnly="@ReadOnly"
                                  Placeholder="@(sampleLabelUsage.GetDescription())"
                                  LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                  LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -76,6 +82,8 @@
     RenderFragment RenderTextArea(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentTextArea Width="@Width"
+                                Disabled="@Disabled"
+                                ReadOnly="@ReadOnly"
                                 Placeholder="@(sampleLabelUsage.GetDescription())"
                                 LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                 LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -86,6 +94,8 @@
     RenderFragment RenderTextAreaResizable(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentTextArea Width="@Width"
+                                Disabled="@Disabled"
+                                ReadOnly="@ReadOnly"
                                 Resize="TextAreaResize.Both"
                                 Placeholder="@(sampleLabelUsage.GetDescription())"
                                 LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
@@ -100,6 +110,8 @@
                                 LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                                 Label="@(GetLabel(sampleLabelUsage))"
                                 Width="@Width"
+                                Disabled="@Disabled"
+                                ReadOnly="@ReadOnly"
                                 @bind-Value="@checkboxValue" />;
     }
 
@@ -107,6 +119,8 @@
     RenderFragment RenderNumberInput(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentNumberInput Width="@Width"
+                                   Disabled="@Disabled"
+                                   ReadOnly="@ReadOnly"
                                    TValue="int?"
                                    Placeholder="@(sampleLabelUsage.GetDescription())"
                                    LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
@@ -122,6 +136,8 @@
                                   LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                                   Label="@(GetLabel(sampleLabelUsage))"
                                   Width="@Width"
+                                  Disabled="@Disabled"
+                                  ReadOnly="@ReadOnly"
                                   Items="Colors"
                                   Orientation="Orientation.Vertical"
                                   @bind-Value="@SelectedRadioValue" />;
@@ -131,6 +147,8 @@
     RenderFragment RenderAutocomplete(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentAutocomplete Width="@Width"
+                                    Disabled="@Disabled"
+                                    ReadOnly="@ReadOnly"
                                     Placeholder="@(sampleLabelUsage.GetDescription())"
                                     LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                     LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -145,6 +163,8 @@
     RenderFragment RenderColorPickerInput(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentColorPickerInput Width="@Width"
+                                        Disabled="@Disabled"
+                                        ReadOnly="@ReadOnly"
                                         Placeholder="#000000"
                                         LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                         LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -156,6 +176,8 @@
     RenderFragment RenderSelect(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentSelect Width="@Width"
+                              Disabled="@Disabled"
+                              ReadOnly="@ReadOnly"
                               Placeholder="@(sampleLabelUsage.GetDescription())"
                               LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                               LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -169,6 +191,8 @@
     {
         return @<FluentListbox Width="@Width"
                                Height="200px"
+                               Disabled="@Disabled"
+                               ReadOnly="@ReadOnly"
                                Placeholder="@(sampleLabelUsage.GetDescription())"
                                LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -181,6 +205,8 @@
     RenderFragment RenderCombobox(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentCombobox Width="@Width"
+                                Disabled="@Disabled"
+                                ReadOnly="@ReadOnly"
                                 Placeholder="@(sampleLabelUsage.GetDescription())"
                                 LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                 LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -202,6 +228,8 @@
     {
         return @<FluentSlider TValue="int"
                               Width="@Width"
+                              Disabled="@Disabled"
+                              ReadOnly="@ReadOnly"
                               LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                               LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                               Label="@(GetLabel(sampleLabelUsage))"
@@ -215,6 +243,8 @@
     RenderFragment RenderCalendar(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentCalendar TValue="DateOnly?"
+                                Disabled="@Disabled"
+                                ReadOnly="@ReadOnly"
                                 LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                 LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                                 Label="@(GetLabel(sampleLabelUsage))"
@@ -225,6 +255,8 @@
     RenderFragment RenderDatePicker(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentDatePicker Width="@Width"
+                                  Disabled="@Disabled"
+                                  ReadOnly="@ReadOnly"
                                   Placeholder="@(sampleLabelUsage.GetDescription())"
                                   LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                   LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -236,6 +268,8 @@
     RenderFragment RenderTimePicker(SampleLabelUsage sampleLabelUsage)
     {
         return @<FluentTimePicker Width="@Width"
+                                  Disabled="@Disabled"
+                                  ReadOnly="@ReadOnly"
                                   Placeholder="@(sampleLabelUsage.GetDescription())"
                                   LabelWidth="@(GetLabelWidth(sampleLabelUsage))"
                                   LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
@@ -250,6 +284,8 @@
                               LabelPosition="@(GetLabelPosition(sampleLabelUsage))"
                               Label="@(GetLabel(sampleLabelUsage))"
                               Width="@Width"
+                              Disabled="@Disabled"
+                              ReadOnly="@ReadOnly"
                               @bind-Value="@value" />;
     }
 
@@ -292,6 +328,8 @@
     string? Width = "50%";
     string? LabelWidth = "";
     bool showLabelBorder = true;
+    bool Disabled;
+    bool ReadOnly;
 
     IEnumerable<SampleData.Olympics2024.Country> Countries = SampleData.Olympics2024.Countries;
     IEnumerable<SampleData.Olympics2024.Country> SelectedCountries = [];

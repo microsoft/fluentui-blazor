@@ -69,6 +69,11 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     {
         ArgumentNullException.ThrowIfNull(e);
 
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         CurrentValue = !CurrentValue;
 
         await ReportValidityAsync();
