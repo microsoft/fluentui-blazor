@@ -28,8 +28,8 @@
 
                 @* Title bar (label, previous and next buttons) *@
                 <div class="title" part="title" aria-label="@titles.Label">
-                    <div part="label" class="@GetAnimationClass("label")" readonly="@(ReadOnly || titles.ReadOnly)"
-                     role="@(ReadOnly ? null : "button")" tabindex="@(ReadOnly ? null : 0)"
+                    <div part="label" class="@GetAnimationClass("label")" readonly="@titles.ReadOnly"
+                         role="@(titles.ReadOnly ? null : "button")" tabindex="@(titles.ReadOnly ? null : 0)"
                          @onclick="@(e => TitleClickHandlerAsync(titles))">
                         @titles.Label
                     </div>
