@@ -21,6 +21,7 @@
                    required="@Required"
                    tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1" , when: () => ReadOnly)"
                    @onfocusout="@FocusOutHandlerAsync"
+                   @onkeydown:preventDefault="@ReadOnly"
                    @onchange="@ChangeHandlerAsync"
                    @attributes="@AdditionalAttributes">
         @ChildContent
