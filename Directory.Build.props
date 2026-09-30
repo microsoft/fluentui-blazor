@@ -32,8 +32,8 @@
     <NoWarn Condition="'$(TargetFramework)' == 'net11.0' Or '$(ExampleNetVersion)' == 'net11.0'">$(NoWarn);BL0016</NoWarn>
 
     <!-- Versioning -->
-    <VersionFile>5.0.0</VersionFile>
-    <VersionPrefix>5.0.0</VersionPrefix>
+    <VersionFile>5.0.1</VersionFile>
+    <VersionPrefix>5.0.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
 
     <Authors>Microsoft</Authors>
