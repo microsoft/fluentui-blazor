@@ -23,6 +23,7 @@
                      size="@Size.ToAttributeValue()"
                      tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)"
                      @onfocusout="@FocusOutHandlerAsync"
+                     @onclick:preventDefault="@ReadOnly"
                      @attributes="@AdditionalAttributes"
                      @onchange="@OnCheckChangedHandlerAsync"
                      value = "@bool.TrueString"
