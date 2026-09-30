@@ -204,6 +204,25 @@
     }
 
     [Fact]
+    public async Task FluentColorPickerInput_ColorPickerSelection_ReadOnly_DoesNotUpdateValue()
+    {
+        // Arrange
+        var value = DefaultColors.SwatchColors[0];
+        var invocations = 0;
+        var cut = Render(@<FluentColorPickerInput Value="@value"
+                                                   ValueChanged="@((string? newValue) => { value = newValue!; invocations++; })"
+                                                   ReadOnly="true" />);
+        var picker = cut.FindComponent<FluentColorPicker>();
+
+        // Act
+        await cut.InvokeAsync(() => picker.Instance.SelectedColorChanged.InvokeAsync(DefaultColors.SwatchColors[1]));
+
+        // Assert
+        Assert.Equal(DefaultColors.SwatchColors[0], value);
+        Assert.Equal(0, invocations);
+    }
+
+    [Fact]
     public async Task FluentColorPickerInput_ColorPickerSelection_HsvView_KeepsPopoverOpen()
     {
         // Arrange
