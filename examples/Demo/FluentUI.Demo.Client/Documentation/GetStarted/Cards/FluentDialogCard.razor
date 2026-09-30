@@ -1,0 +1,22 @@
+﻿@inject IDialogService DialogService
+<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentButton OnClick="@OpenDialogAsync">
+        Open Dialog
+    </FluentButton>
+</FluentStack>
+
+@code
+{
+
+    private async Task OpenDialogAsync()
+    {
+        var result = await DialogService.ShowDialogAsync<DialogForCard>(options =>
+        {
+            options.Modal = true;
+            options.Size = DialogSize.Small;
+
+        });
+
+
+    }
+}

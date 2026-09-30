@@ -25,6 +25,7 @@ More videos available on our [videos page](/Videos).
 
 ## Getting Started
 
-By far the easiest way to get started is by using our templates. Setting them up is quick and easy.
-See the [templates](/Templates) page for instructions and usage.
+There are two ways to get started:
 
+- Use our ready-to-run [templates](/Templates) for the quickest and easiest setup.
+- Add the NuGet package to a Blazor project by following the [manual installation instructions](/installation).

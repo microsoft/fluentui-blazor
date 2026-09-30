@@ -1,0 +1,11 @@
+﻿<FluentNumberInput Label="Your magic number"
+                   Min="0"
+                   Max="100"
+                   Step="5"
+                   Placeholder="[0-100], step=5"
+                   @bind-Value="@Value" />
+
+@code
+{
+    int? Value;
+}

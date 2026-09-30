@@ -1,0 +1,11 @@
+﻿<FluentStack Orientation="Orientation.Vertical">
+    <FluentSlider @bind-Value="@value" Label="@($"Value: {value}")" />
+    <FluentSlider @bind-Value="@value2" Step="10" Label="@($"Value: {value2}")" />
+</FluentStack>
+
+@code
+{
+    int value = 50;
+    int value2 = 20;
+}
+
