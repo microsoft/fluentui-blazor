@@ -324,13 +324,14 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <summary>
     /// Raised when the FluentListbox.SelectedItems property changes.
     /// </summary>
-    private Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
+    [SuppressMessage("Design", "MA0051:Method is too long", Justification = "The method handles complex logic for updating internal selected items and raising events, which makes it inherently long.")]
+    private async Task InternalSelectedItemsChangedHandlerAsync(IEnumerable<TOption> items)
     {
-        return IsUserInteractionDisabled ? Task.CompletedTask : UpdateInternalSelectedItemsAsync(items);
-    }
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
 
-    private async Task UpdateInternalSelectedItemsAsync(IEnumerable<TOption> items)
-    {
         var comparer = OptionSelectedComparer ?? OptionComparer;
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
