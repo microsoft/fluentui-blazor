@@ -50,6 +50,23 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_ReadOnly_DoesNotOpenOptions()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              ReadOnly="true"
+                                              TOption="string"
+                                              TValue="string"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act
+        cut.Find("fluent-text-input").Click();
+
+        // Assert
+        Assert.Empty(cut.FindAll("fluent-option"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_OnOptionsSearch_Filter()
     {
         // Arrange

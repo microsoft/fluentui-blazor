@@ -197,6 +197,30 @@
         Assert.Equal(new[] { "One", "Two" }, selectedItems);
     }
 
+    [Fact]
+    public async Task FluentSelect_ReadOnly_DoesNotChangeSelection()
+    {
+        // Arrange
+        string? value = "One";
+        IEnumerable<string?> selectedItems = ["One"];
+        var cut = Render(@<FluentSelect ReadOnly="true"
+                                       Items="@Digits"
+                                       @bind-Value="@value"
+                                       @bind-SelectedItems="@selectedItems" />);
+        var twoId = cut.FindAll("fluent-option").Single(option => option.GetAttribute("value") == "Two").GetAttribute("id");
+
+        // Act
+        await cut.FindComponent<FluentSelect<string?, string?>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = twoId,
+        });
+
+        // Assert
+        Assert.Equal("One", value);
+        Assert.Equal(["One"], selectedItems);
+        Assert.Equal("-1", cut.Find("fluent-dropdown").GetAttribute("tabindex"));
+    }
+
     [Theory]
     [InlineData("")]
     [InlineData(null)]

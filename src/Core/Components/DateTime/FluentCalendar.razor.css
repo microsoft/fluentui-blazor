@@ -502,3 +502,7 @@
     transform: translateY(0%);
   }
 }
+.fluent-calendar[readonly] {
+  pointer-events: none;
+  user-select: none;
+}

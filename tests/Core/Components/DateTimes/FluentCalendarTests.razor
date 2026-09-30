@@ -509,6 +509,46 @@ value=""2022-02-20"">20</div>");
         calendar.Verify(suffix: view.GetDescription());
     }
 
+    [Theory]
+    [InlineData(CalendarViews.Years, false)]
+    [InlineData(CalendarViews.Days, true)]
+    public void FluentCalendar_Title_WhenComputedReadOnly_IsNotFocusable(CalendarViews view, bool disabled)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime"
+                                                View="@view"
+                                                Disabled="@disabled"
+                                                PickerMonth="@(new DateTime(2022, 4, 15))" />);
+
+        // Act
+        var title = calendar.Find(".label");
+
+        // Assert
+        Assert.False(title.HasAttribute("role"));
+        Assert.False(title.HasAttribute("tabindex"));
+    }
+
+    [Fact]
+    public void FluentCalendar_Title_WhenBothDirectionsUnavailable_IsNotFocusable()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime"
+                                                PickerMonth="@(new DateTime(2022, 4, 15))"
+                                                MinDate="@(new DateTime(2022, 4, 1))"
+                                                MaxDate="@(new DateTime(2022, 4, 30))" />);
+
+        // Act
+        var title = calendar.Find(".label");
+
+        // Assert
+        Assert.False(title.HasAttribute("role"));
+        Assert.False(title.HasAttribute("tabindex"));
+    }
+
     [Fact]
     public void FluentCalendar_TitleClick_SameMonthSelected()
     {

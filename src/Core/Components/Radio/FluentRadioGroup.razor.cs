@@ -108,6 +108,11 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     /// <summary />
     internal async Task RadioChangeHandlerAsync(RadioEventArgs e)
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         if (InternalRadios.TryGetValue(e.Id ?? "", out var checkedItem))
         {
             var newValue = Items is null && checkedItem.Value is null

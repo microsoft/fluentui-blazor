@@ -15,6 +15,7 @@
                   disabled="@GetDisabled()"
                   slot="@FluentSlot.FieldInput"
                   name="@Owner?.GetGroupName()"
+                  tabindex="@(Owner?.ReadOnly == true ? "-1" : null)"
                   value="@GetValue()"
                   @attributes="AdditionalAttributes">
     </fluent-radio>

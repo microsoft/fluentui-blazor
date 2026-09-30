@@ -1,0 +1,9 @@
+fluent-checkbox[readonly] {
+  pointer-events: none;
+  user-select: none;
+}
+
+fluent-field:has(fluent-checkbox[readonly]) {
+  pointer-events: none;
+  user-select: none;
+}
