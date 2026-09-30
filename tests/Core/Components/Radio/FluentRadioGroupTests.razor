@@ -233,7 +233,12 @@
 
         // Assert
         Assert.Equal("option1", selectedValue);
-        Assert.All(cut.FindAll("fluent-radio"), radio => Assert.Equal("-1", radio.GetAttribute("tabindex")));
+        Assert.Equal("true", cut.Find("fluent-radio-group").GetAttribute("aria-readonly"));
+        Assert.All(cut.FindAll("fluent-radio"), radio =>
+        {
+            Assert.Equal("-1", radio.GetAttribute("tabindex"));
+            Assert.False(radio.HasAttribute("aria-readonly"));
+        });
     }
 
     [Fact]

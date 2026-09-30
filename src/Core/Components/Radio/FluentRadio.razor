@@ -13,7 +13,6 @@
              LabelPosition="@Components.LabelPosition.After">
     <fluent-radio id="@Id"
                   disabled="@GetDisabled()"
-                  aria-readonly="@(Owner?.ReadOnly == true ? "true" : null)"
                   slot="@FluentSlot.FieldInput"
                   name="@Owner?.GetGroupName()"
                   tabindex="@(Owner?.ReadOnly == true ? "-1" : null)"
