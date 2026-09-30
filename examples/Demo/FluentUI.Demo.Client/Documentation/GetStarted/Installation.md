@@ -10,10 +10,6 @@ icon: SettingsCogMultiple
 
 Getting started with **Fluent UI Blazor** for faster and easier .NET web development.
 
-## Online Playground
-
-TODO
-
 ## Using Templates
 
 After installing the `Microsoft/FluentUI.AspNetCore.Templates` package (available starting with RC4) you'll have 4 standard templates available in a ready-to-run Fluent UI version.
