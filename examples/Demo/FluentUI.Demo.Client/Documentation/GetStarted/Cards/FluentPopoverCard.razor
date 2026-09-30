@@ -1,0 +1,14 @@
+﻿<FluentStack HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center" Height="200px;">
+    <FluentButton Id="LeftButton"
+                  OnClick="@(e => LeftOpened = !LeftOpened)">Open Popover</FluentButton>
+    <FluentPopover AnchorId="LeftButton"
+                   @bind-Opened="@LeftOpened">
+        <p>Example content in a</p>
+        <p>Popover component</p>
+    </FluentPopover>
+</FluentStack>
+
+@code
+{
+    bool LeftOpened;
+}

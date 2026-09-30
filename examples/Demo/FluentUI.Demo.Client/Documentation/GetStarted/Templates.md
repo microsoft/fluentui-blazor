@@ -10,9 +10,9 @@ icon: Classification
 
 To make it easier to start a project that uses the Fluent UI Web Components for Blazor out of the box, we have created the [Microsoft.FluentUI.AspNetCore.Templates](https://www.nuget.org/packages/Microsoft.FluentUI.AspNetCore.Templates/) template package. The package contains 4 Blazor templates for creating the following types of applications:
 
-- Fluent Blazor Web App
-- Fluent Blazor WebAssembly Standalone App
-- .NET MAUI Fluent Blazor Hybrid and Web App
+- Fluent UI Blazor Web App
+- Fluent UI Blazor WebAssembly Standalone App
+- .NET MAUI Fluent UI Blazor Hybrid and Web App
 - Aspire Starter app (ASP.NET Core/Blazor/Fluent UI)
 
 All of these templates mimic their standard Blazor template counterpart but have the Fluent UI Blazor library already fully set up. If you choose to add sample pages when creating a project, all components have been replaced with Fluent UI components (and a few extra have been added). All Bootstrap styling is removed of course as well.
@@ -45,13 +45,13 @@ After installing the templates, you can create a new project from either the CLI
 For creating a new Fluent Blazor Web App project from the CLI:
 
 ```cshtml
-dotnet new fluentblazor -o {your project name}
+dotnet new fluentuiblazor -o {your project name}
 ```
 
-For creating a Fluent Blazor WebAssembly Standalone App project from the CLI:
+For creating a Fluent UI Blazor WebAssembly Standalone App project from the CLI:
 
 ```cshtml
-dotnet new fluentblazorwasm -o {your project name}
+dotnet new fluentuiblazorwasm -o {your project name}
 ```
 
 In Visual Studio you can create a new project by selecting on of the templates in the 'File-&gt;New-&gt;Project'-dialog. It looks like this (when you select 'Fluent'

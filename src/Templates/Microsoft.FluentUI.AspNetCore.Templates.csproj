@@ -24,18 +24,17 @@
 
   <PropertyGroup>
     <!-- for templates -->
-    <IconsPackageVersion>4.14.2</IconsPackageVersion>
     <AspirePackageVersion>13.6</AspirePackageVersion>
     <MicrosoftExtensionsHttpResiliencePackageVersion>10.0.0</MicrosoftExtensionsHttpResiliencePackageVersion>
     <MicrosoftExtensionsServiceDiscoveryVersion>10.6.0</MicrosoftExtensionsServiceDiscoveryVersion>
-    <MicrosoftAspNetCorePackageVersionForNet8>8.0.25</MicrosoftAspNetCorePackageVersionForNet8>
-    <MicrosoftAspNetCorePackageVersionForNet9>9.0.16</MicrosoftAspNetCorePackageVersionForNet9>
-    <MicrosoftAspNetCorePackageVersionForNet10>10.0.8</MicrosoftAspNetCorePackageVersionForNet10>
-    <MicrosoftAspNetCorePackageVersionForNet11>11.0.0-preview.4.26230.115</MicrosoftAspNetCorePackageVersionForNet11>
-    <MicrosoftAspNetCoreOpenApiVersion9>9.0.16</MicrosoftAspNetCoreOpenApiVersion9>
-    <MicrosoftAspNetCoreOpenApiVersion10>10.0.8</MicrosoftAspNetCoreOpenApiVersion10>
-    <MicrosoftAspNetCoreOpenApiVersion11>11.0.0-preview.4.26230.115</MicrosoftAspNetCoreOpenApiVersion11>
-
+    <MicrosoftAspNetCorePackageVersionForNet8>8.0.31</MicrosoftAspNetCorePackageVersionForNet8>
+    <MicrosoftAspNetCorePackageVersionForNet9>9.0.20</MicrosoftAspNetCorePackageVersionForNet9>
+    <MicrosoftAspNetCorePackageVersionForNet10>10.0.12</MicrosoftAspNetCorePackageVersionForNet10>
+    <MicrosoftAspNetCorePackageVersionForNet11>11.0.0-rc.1.26425.128</MicrosoftAspNetCorePackageVersionForNet11>
+    <MicrosoftAspNetCoreOpenApiVersion9>9.0.20</MicrosoftAspNetCoreOpenApiVersion9>
+    <MicrosoftAspNetCoreOpenApiVersion10>10.0.12</MicrosoftAspNetCoreOpenApiVersion10>
+	  <MicrosoftAspNetCoreOpenApiVersion11>11.0.0-rc.1.26425.128</MicrosoftAspNetCoreOpenApiVersion11>
+    <MicrosoftDataSqlClientExtensionsAzureVersion>1.0.0</MicrosoftDataSqlClientExtensionsAzureVersion>
     <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
     <OpenTelemetryLTSVersion>1.15.1</OpenTelemetryLTSVersion>
     <OpenTelemetryInstrumentationAspNetCoreVersion>1.15.2</OpenTelemetryInstrumentationAspNetCoreVersion>
@@ -93,10 +92,6 @@
     <TemplateFiles Include="$(MSBuildThisFileDirectory)templates\**\*" Exclude="$(MSBuildThisFileDirectory)templates\**\bin\**;$(MSBuildThisFileDirectory)templates\**\obj\**;$(MSBuildThisFileDirectory)templates\**\*.csproj;$(MSBuildThisFileDirectory)templates\aspire-apphost-singlefile\**\apphost.cs">
       <PackagePath>content/templates/%(RecursiveDir)</PackagePath>
     </TemplateFiles>
-
-    <None Remove="templates\blazorweb-csharp-11\**" />
-
-    <None Remove="templates\componentswebassembly-csharp-11\**" />
 
     <TemplateFilesObj Include="@(TemplateFiles->'$(IntermediateOutputPath)content\templates\%(RecursiveDir)%(Filename)%(Extension)')" />
   </ItemGroup>
@@ -160,11 +155,13 @@
       <Replacements Include="!!REPLACE_WITH_OTEL_RUNTIME_VERSION!!" />
       <Replacements Include="$(OpenTelemetryInstrumentationRuntimeVersion)" />
       <Replacements Include="!!REPLACE_WITH_ASPNETCORE_OPENAPI_9_VERSION!!" />
-      <Replacements Include="$(MicrosoftAspNetCoreOpenApiVersion)" />
+      <Replacements Include="$(MicrosoftAspNetCoreOpenApi9Version)" />
       <Replacements Include="!!REPLACE_WITH_ASPNETCORE_OPENAPI_10_VERSION!!" />
-      <Replacements Include="$(MicrosoftAspNetCoreOpenApiPreviewVersion)" />
+      <Replacements Include="$(MicrosoftAspNetCoreOpenApi10Version)" />
       <Replacements Include="!!REPLACE_WITH_ASPNETCORE_OPENAPI_11_VERSION!!" />
-      <Replacements Include="$(MicrosoftAspNetCoreOpenApiPreviewVersion)" />
+      <Replacements Include="$(MicrosoftAspNetCoreOpenApi11Version)" />
+      <Replacements Include="!!REPLACE_WITH_SQLCLIENTAZURE_VERSION!!" />
+      <Replacements Include="$(MicrosoftDataSqlClientExtensionsAzureVersion)" />
     </ItemGroup>
 
     <!-- Build the .rsp file content as an item group -->

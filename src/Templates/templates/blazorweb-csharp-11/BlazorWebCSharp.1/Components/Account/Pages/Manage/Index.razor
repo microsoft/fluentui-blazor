@@ -1,0 +1,94 @@
+﻿@page "/Account/Manage"
+
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Identity
+@using BlazorWebCSharp._1.Data
+
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IdentityRedirectManager RedirectManager
+
+<PageTitle>Profile</PageTitle>
+
+<h3>Profile</h3>
+<StatusMessage Message="@message" />
+
+<FluentGrid>
+    <FluentGridItem xs="12" sm="6">
+        <EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
+            <DataAnnotationsValidator />
+            <FluentValidationSummary class="text-danger" role="alert" />
+            <FluentTextInput Value="@username" Placeholder="Please choose your username." Disabled="true" Label="Username" Appearance="TextInputAppearance.FilledDarker" Style="width: 100%" />
+            <FluentTextInput Name="Input.PhoneNumber" @bind-Value="Input.PhoneNumber" Placeholder="Please enter your phone number." Label="Phone number" Style="width: 100%" />
+            <p style="margin-top: 10px; text-align: end;">
+                <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Save</FluentButton>
+            </p>
+        </EditForm>
+    </FluentGridItem>
+</FluentGrid>
+
+@code {
+    private string? message;
+    private ApplicationUser? user;
+    private string? username;
+    private string? phoneNumber;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromTempData(Name = IdentityRedirectManager.StatusMessageKey)]
+    private string? IdentityStatusMessage { get; set; }
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        message = IdentityStatusMessage;
+        IdentityStatusMessage = null;
+        Input ??= new();
+
+        user = await UserManager.GetUserAsync(HttpContext.User);
+        if (user is null)
+        {
+            RedirectManager.RedirectTo("Account/InvalidUser");
+            return;
+        }
+
+        username = await UserManager.GetUserNameAsync(user);
+        phoneNumber = await UserManager.GetPhoneNumberAsync(user);
+
+        Input.PhoneNumber ??= phoneNumber;
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        if (user is null)
+        {
+            RedirectManager.RedirectTo("Account/InvalidUser");
+            return;
+        }
+
+        if (Input.PhoneNumber != phoneNumber)
+        {
+            var setPhoneResult = await UserManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+            if (!setPhoneResult.Succeeded)
+            {
+                IdentityStatusMessage = "Error: Failed to set phone number.";
+                RedirectManager.RedirectToCurrentPage();
+                return;
+            }
+        }
+
+        await SignInManager.RefreshSignInAsync(user);
+        IdentityStatusMessage = "Your profile has been updated";
+        RedirectManager.RedirectToCurrentPage();
+    }
+
+    private sealed class InputModel
+    {
+        [Phone]
+        [Display(Name = "Phone number")]
+        public string? PhoneNumber { get; set; }
+    }
+}

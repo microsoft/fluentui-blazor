@@ -1,0 +1,13 @@
+.sticker-sheet-root {
+  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+  padding: var(--spacingVerticalXL) var(--spacingHorizontalXL);
+  border-radius: var(--borderRadiusXLarge);
+}
+
+.sticker-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+  gap: var(--spacingHorizontalL);
+  padding: var(--spacingVerticalS) 0 var(--spacingVerticalXXXL);
+}

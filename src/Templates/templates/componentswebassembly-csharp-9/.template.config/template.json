@@ -3,15 +3,15 @@
   "author": "Microsoft",
   "classifications": [
     "Web",
-    "Fluent",
+    "Fluent UI",
     "Blazor",
     "WebAssembly",
     "PWA"
   ],
-  "name": "Fluent Blazor WebAssembly Standalone App",
+  "name": "Fluent UI Blazor WebAssembly Standalone App",
   "defaultName": "BlazorApp",
-  "description": "A project template for creating a Blazor app that runs on WebAssembly and uses the Fluent component library. This template can be used for web apps with rich dynamic user interfaces (UIs).",
-  "groupIdentity": "Microsoft.Web.Fluent.Blazor.Wasm",
+  "description": "A project template for creating a Blazor app that runs on WebAssembly and uses the Fluent UI component library. This template can be used for web apps with rich dynamic user interfaces (UIs).",
+  "groupIdentity": "Microsoft.Web.FluentUI.Blazor.Wasm",
   "precedence": "9002",
   "guids": [
     "4C26868E-5E7C-458D-82E3-040509D0C71F",
@@ -20,7 +20,7 @@
     "0AFFA7FD-4E37-4636-AB91-3753E746DB98",
     "53bc9b9d-9d6a-45d4-8429-2a2761773502" // Client ID
   ],
-  "identity": "Microsoft.Web.Fluent.Blazor.Wasm.CSharp.9.0",
+  "identity": "Microsoft.Web.FluentUI.Blazor.Wasm.CSharp.9.0",
   "thirdPartyNotices": "https://aka.ms/aspnetcore/9.0-third-party-notices",
   "preferNameDirectory": true,
   "primaryOutputs": [
@@ -28,7 +28,7 @@
       "path": "ComponentsWebAssembly-CSharp.csproj"
     }
   ],
-  "shortName": "fluentblazorwasm",
+  "shortName": "fluentuiblazorwasm",
   "sourceName": "ComponentsWebAssembly-CSharp",
   "sources": [
     {

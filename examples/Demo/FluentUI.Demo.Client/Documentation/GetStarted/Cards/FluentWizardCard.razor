@@ -1,0 +1,33 @@
+﻿<FluentWizard DisplayStepNumber="@(WizardStepStatus.Current | WizardStepStatus.Next)"
+              Border="WizardBorder.None"
+              StepperPosition="StepperPosition.Top" Height="250px">
+    <Steps>
+        <FluentWizardStep Label="Intro">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut nisi eget dolor semper.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Get started"
+                          Summary="Begin the tasks">
+            Maecenas sed justo ac sapien venenatis ullamcorper. Sed maximus nunc non venenatis euismod.
+        </FluentWizardStep>
+        <FluentWizardStep Disabled="true"
+                          Label="Disabled step"
+                          Summary="This step is disabled">
+            Nunc dignissim tortor eget lacus porta tristique. Nunc in posuere dui.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Set budget"
+                          Summary="Identify the best price"
+                          IconPrevious="@(new Icons.Filled.Size20.Star())"
+                          IconCurrent="@(new Icons.Filled.Size20.StarEmphasis())"
+                          IconNext="@(new Icons.Regular.Size20.Star())"
+                          DisplayStepNumber="false">
+            Phasellus quis augue convallis, congue velit ac, aliquam ex. In egestas porttitor massa
+            aliquet porttitor.
+        </FluentWizardStep>
+        <FluentWizardStep Label="Summary">
+            Ut iaculis sed magna efficitur tempor. Vestibulum est erat, imperdiet in diam ac,
+            aliquam tempus sapien.
+        </FluentWizardStep>
+    </Steps>
+</FluentWizard>
+
+
