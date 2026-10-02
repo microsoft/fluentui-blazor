@@ -8,10 +8,8 @@
 ## Install the NuGet Package
 
 ```bash
-dotnet add package Microsoft.FluentUI.AspNetCore.Components --prerelease
+dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
-
-> During the preview period, use `--prerelease`. Once stable, drop the flag.
 
 ## Register Services — Program.cs
 
