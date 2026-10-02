@@ -52,7 +52,7 @@ public class SetupProjectPrompts
         sb.AppendLine();
         sb.AppendLine("### 1. Install the NuGet Package");
         sb.AppendLine();
-        sb.AppendLine("Install `Microsoft.FluentUI.AspNetCore.Components` package (with `--prerelease` flag for v5).");
+        sb.AppendLine("Install `Microsoft.FluentUI.AspNetCore.Components` package.");
 
         if (includeIcons)
         {
@@ -104,7 +104,6 @@ public class SetupProjectPrompts
         sb.AppendLine();
         sb.AppendLine("## Important Notes");
         sb.AppendLine();
-        sb.AppendLine("- For v5 prerelease, you may need to add a custom NuGet source.");
         sb.AppendLine("- Check the [Installation documentation](https://www.fluentui-blazor.net/installation) for the latest instructions.");
         sb.AppendLine("- Explore the [FluentLayout](https://www.fluentui-blazor.net/layout) documentation to understand layout strategies.");
         sb.AppendLine();
