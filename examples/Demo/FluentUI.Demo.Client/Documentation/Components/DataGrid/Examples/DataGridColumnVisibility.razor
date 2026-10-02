@@ -1,0 +1,22 @@
+@using static FluentUI.Demo.SampleData.People
+
+<FluentStack HorizontalGap="20">
+    Show:
+    <FluentCheckbox @bind-Value="showJobTitle" Label="Job title" />
+    <FluentCheckbox @bind-Value="showDepartment" Label="Department" />
+    <FluentCheckbox @bind-Value="showLocation" Label="Location" />
+</FluentStack>
+
+<FluentDataGrid Items="@people" ReorderableColumns="true" HeaderCellAsButtonWithMenu="true" Style="width: 700px;">
+    <PropertyColumn Title="Name" Property="@(p => p.LastName)" Sortable="true" />
+    <PropertyColumn Title="Job title" Property="@(p => p.JobTitle)" Sortable="true" Visible="@showJobTitle" />
+    <PropertyColumn Title="Department" Property="@(p => p.Department)" Sortable="true" Visible="@showDepartment" />
+    <PropertyColumn Title="Location" Property="@(p => p.Location)" Sortable="true" Visible="@showLocation" />
+</FluentDataGrid>
+
+@code {
+    readonly IQueryable<Person> people = Persons.Take(10).AsQueryable();
+    bool showJobTitle = true;
+    bool showDepartment = true;
+    bool showLocation = true;
+}
