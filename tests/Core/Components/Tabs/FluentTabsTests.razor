@@ -76,7 +76,7 @@
     }
 
     [Fact]
-    public async Task FluentTabs_UserSelection_DoesNotRewriteActiveId()
+    public async Task FluentTabs_UserSelection_SynchronizesActiveId()
     {
         string? activeTabId = "tab1";
 
@@ -96,7 +96,7 @@
 
         // Assert
         Assert.Equal("tab2", activeTabId);
-        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
     }
 
     [Fact]
@@ -123,6 +123,33 @@
 
         // Assert
         Assert.Equal("tab3", tabList.GetAttribute("activeid"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_ParameterSelection_ReappliesPreviousValueAfterUserSelection()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+        tabList.SetAttribute("activeid", "tab1");
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab1",
+        });
+
+        // Act
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+
+        // Assert
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
     }
 
     [Theory]

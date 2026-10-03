@@ -170,6 +170,11 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     {
         ArgumentNullException.ThrowIfNull(e);
 
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         if (ThreeState)
         {
             if (_checked)

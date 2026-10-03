@@ -11,3 +11,8 @@ fluent-radio-group[wrap] {
   display: flex;
   flex-wrap: wrap;
 }
+
+fluent-radio-group[readonly] {
+  pointer-events: none;
+  user-select: none;
+}

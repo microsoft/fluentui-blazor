@@ -224,12 +224,15 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual string? Name { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the control will be immutable by user interaction. In line with the HTML specification,
-    /// only text controls can be made read-only, since for other controls (such as checkboxes and buttons) there is no
-    /// useful distinction between being read-only and being disabled
+    /// Gets or sets whether the control will be immutable by user interaction.
     /// </summary>
     [Parameter]
     public virtual bool ReadOnly { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether user interaction must not change the control value.
+    /// </summary>
+    protected bool IsUserInteractionDisabled => ReadOnly || Disabled == true;
 
     /// <summary>
     /// Gets or sets whether the control will use the native browser constraint validation UI.
@@ -241,6 +244,11 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
     {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
         var isValid = TryParseValueFromString(e.Value?.ToString(), out var result, out var validationErrorMessage);
 
         if (isValid)
