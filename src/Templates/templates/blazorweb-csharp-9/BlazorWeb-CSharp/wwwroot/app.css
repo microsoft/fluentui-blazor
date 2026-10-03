@@ -1,19 +1,39 @@
-@import '_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+
+.content {
+  padding: 0.5rem 1.5rem;
+  width: 100%;
+  min-height: 100%;
+}
 
 #main-menu {
   padding-top: 12px;
   height: 100%;
 }
 
-.content {
-  padding: 0.5rem 1.5rem;
-  align-self: stretch !important;
-  width: 100%;
+.fluent-layout-item[area="footer"] {
+  align-items: center;
+  padding: 10px 10px;
 }
 
-  .content .fluent-nav {
-    padding-top: calc(var(--spacingHorizontalXXL) + 1px);
+  .fluent-layout-item[area="footer"] fluent-link {
+    color: var(--colorNeutralForeground1);
+    text-decoration: none;
   }
+
+    .fluent-layout-item[area="footer"] fluent-link:focus {
+      outline: -webkit-focus-ring-color auto 1px;
+      outline-offset: 3px;
+    }
+
+    .fluent-layout-item[area="footer"] fluent-link:hover {
+      text-decoration: underline;
+    }
+
+.alert {
+  border: 1px dashed var(--colorBrandForeground1);
+  padding: 5px;
+}
 
 
 #blazor-error-ui {
@@ -78,13 +98,3 @@
   .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
   }
-
-code {
-  color: #c02d76;
-}
-
-@media (max-width: 768px) {
-  #main-menu {
-    width: 100% !important;
-  }
-}
