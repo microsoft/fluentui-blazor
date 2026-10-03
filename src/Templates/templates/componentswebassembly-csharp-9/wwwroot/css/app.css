@@ -1,49 +1,28 @@
-@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
-
-body {
-  --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
-  font-family: var(--body-font);
-  font-size: var(--type-ramp-base-font-size);
-  line-height: var(--type-ramp-base-line-height);
-  margin: 0;
-}
-
-.main {
-  min-height: calc(100dvh - 86px);
-  color: var(--neutral-foreground-rest);
-  align-items: stretch !important;
-}
-
-nav {
-  align-self: stretch;
-  height: calc(100dvh - 80px) !important;
-  display: flex;
-}
+@import url('/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css');
 
 .content {
   padding: 0.5rem 1.5rem;
-  align-self: stretch !important;
   width: 100%;
+  min-height: 100%;
 }
 
-.manage {
-  width: 100dvw;
+#main-menu {
+  padding-top: 12px;
+  height: 100%;
 }
 
 .fluent-layout-item[area="footer"] {
-  background: var(--neutral-layer-4);
-  color: var(--neutral-foreground-rest);
   align-items: center;
   padding: 10px 10px;
 }
 
   .fluent-layout-item[area="footer"] fluent-link {
-    color: var(--neutral-foreground-rest);
+    color: var(--colorNeutralForeground1);
     text-decoration: none;
   }
 
     .fluent-layout-item[area="footer"] fluent-link:focus {
-      outline: 1px dashed;
+      outline: -webkit-focus-ring-color auto 1px;
       outline-offset: 3px;
     }
 
@@ -51,9 +30,8 @@ nav {
       text-decoration: underline;
     }
 
-
 .alert {
-  border: 1px dashed var(--accent-fill-rest);
+  border: 1px dashed var(--colorBrandForeground1);
   padding: 5px;
 }
 
@@ -120,14 +98,3 @@ nav {
   .loading-progress-text:after {
     content: var(--blazor-load-percentage-text, "Loading");
   }
-
-code {
-  color: #c02d76;
-}
-
-@media (max-width: 600px) {
-  .main {
-    flex-direction: column !important;
-    row-gap: 0 !important;
-  }
-}
