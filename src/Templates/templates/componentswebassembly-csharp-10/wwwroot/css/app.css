@@ -1,4 +1,4 @@
-@import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
+@import url('/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css');
 
 .content {
   padding: 0.5rem 1.5rem;
