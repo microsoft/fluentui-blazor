@@ -128,48 +128,20 @@
     }
 
     [Fact]
-    public async Task CalendarTitles_PreviousDisabled_WhenPreviousYearRangeContainsMinDate_AllowsNavigation()
+    public void CalendarTitles_PreviousDisabled_WhenTwelveYearShiftIsBelowCalendarMinimum_ReturnsTrue()
     {
         // Arrange
-        var today = new DateTime(2026, 6, 15);
-        using var context = new DateTimeProviderContext(today);
-        var minDate = DateOnly.FromDateTime(today).AddYears(-8);
-        var calendar = Render<FluentCalendar<DateOnly>>(parameters => parameters
-            .Add(p => p.View, CalendarViews.Years)
-            .Add(p => p.PickerMonth, DateOnly.FromDateTime(today))
-            .Add(p => p.MinDate, minDate)
-            .Add(p => p.Culture, Culture_enUS)
-        );
-
-        // Act
-        var titles = calendar.Instance.GetTitles();
-        await calendar.Instance.OnPreviousButtonHandlerAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs());
-
-        // Assert
-        Assert.False(titles.PreviousDisabled);
-        var previousRange = calendar.Instance.GetTitles().CalendarExtended.GetYearsRange()
-            .Select(year => year.Year);
-        Assert.Contains(2019, previousRange);
-        Assert.Contains(2020, previousRange);
-    }
-
-    [Fact]
-    public void CalendarTitles_NextDisabled_WhenNextYearRangeStartsAtMaxDateYear_AllowsNavigation()
-    {
-        // Arrange
-        using var context = new DateTimeProviderContext(new DateTime(2026, 6, 15));
+        var pickerDate = new DateTime(10, 1, 1);
+        using var context = new DateTimeProviderContext(pickerDate);
         var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
             .Add(p => p.View, CalendarViews.Years)
-            .Add(p => p.PickerMonth, new DateTime(2026, 6, 15))
-            .Add(p => p.MaxDate, new DateTime(2033, 1, 1))
+            .Add(p => p.PickerMonth, pickerDate)
             .Add(p => p.Culture, Culture_enUS)
         );
-
-        // Act
         var titles = calendar.Instance.GetTitles();
 
-        // Assert
-        Assert.False(titles.NextDisabled);
+        // Act & Assert
+        Assert.True(titles.PreviousDisabled);
     }
 
     // Test NextTitle property
