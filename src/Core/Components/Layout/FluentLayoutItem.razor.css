@@ -65,11 +65,6 @@
 }
 
 /* For the Mobile view */
-.fluent-layout[mobile] .fluent-layout-item[area="content"] {
-  grid-area: content !important;
-  padding-right: unset !important;
-}
-
 .fluent-layout[mobile] .fluent-layout-item[area="footer"] {
   line-height: var(--lineHeightBase100);
 }
