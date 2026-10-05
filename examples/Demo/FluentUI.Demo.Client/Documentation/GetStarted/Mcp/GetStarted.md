@@ -30,10 +30,6 @@ The easiest way to install is via the .NET tool:
 dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer
 ```
 
-```bash
-dotnet tool install -g Microsoft.FluentUI.AspNetCore.McpServer --prerelease
-```
-
 See [How to Install](/Mcp/Installation) for alternative installation methods.
 
 > [!NOTE] Use this command to update the MCP Server: `dotnet tool update -g Microsoft.FluentUI.AspNetCore.McpServer`.
