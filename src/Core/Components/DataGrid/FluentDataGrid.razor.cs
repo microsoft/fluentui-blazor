@@ -2224,12 +2224,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
                     return GridItemsProviderResult.From(resultArray, totalItemCount);
                 }
-                else
-                {
-                    var totalItemCount = Items.Count();
-                    _internalGridContext.TotalItemCount = totalItemCount;
-                    return GridItemsProviderResult.From([.. result], totalItemCount);
-                }
+
+                var totalItemCountSync = Items.Count();
+                _internalGridContext.TotalItemCount = totalItemCountSync;
+                return GridItemsProviderResult.From([.. result], totalItemCountSync);
             }
         }
         catch (OperationCanceledException oce) when (oce.CancellationToken == request.CancellationToken) // No-op; we canceled the operation, so it's fine to suppress this exception.
