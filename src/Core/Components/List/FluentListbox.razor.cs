@@ -16,7 +16,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>
 {
     /// <summary />
-    public FluentListbox(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentListbox(LibraryConfiguration configuration) : base(configuration)
+    {
+        MessageCondition = CreateRequiredMessageCondition(() => !SelectedItems.Any());
+    }
 
     /// <summary />
     protected virtual string? ListStyle => new StyleBuilder()

@@ -78,8 +78,7 @@ else
             else {
                 if (!HasValidationMessages && HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
                 {
-                    <FluentText slot="@FluentSlot.FieldMessage"
-                    size="@TextSize.Size200">
+                    <FluentText slot="@FluentSlot.FieldMessage" Size="@TextSize.Size200" Style="@(Parameters.MessageIcon == FluentStatus.ErrorIcon ? "color: var(--error);" : "")">
 
                         @CreateIcon(Parameters.MessageIcon)
 

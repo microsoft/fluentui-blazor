@@ -15,7 +15,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentListBase<TOption, TValue>, IFluentControlStyle, IFluentComponentElementBase
 {
     /// <summary />
-    public FluentSelect(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentSelect(LibraryConfiguration configuration) : base(configuration)
+    {
+        MessageCondition = CreateRequiredMessageCondition(() => !SelectedItems.Any());
+    }
 
     /// <summary />
     protected virtual string DropdownType => "dropdown";

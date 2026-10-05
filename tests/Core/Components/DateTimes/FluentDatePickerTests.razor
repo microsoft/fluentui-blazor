@@ -17,6 +17,28 @@
     }
 
     [Fact]
+    public void FluentDatePicker_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
+    {
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Label="Production Date" Required="true" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentDatePicker_Required_WithDateFocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Label="Production Date" Required="true" Value="@(new DateTime?(new DateTime(2024, 3, 15)))" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentDatePicker_Default()
     {
         // Arrange

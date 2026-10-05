@@ -32,6 +32,22 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentInputText_Required_UsesModelErrorMessage()
+    {
+        var model = new RequiredTextInputModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentTextInput @bind-Value="model.Name" Required="true" />
+            <FluentTextInput @bind-Value="model.ResourceName" Required="true" />
+        </EditForm>);
+
+        cut.FindAll("fluent-text-input")[0].TriggerEvent("onfocusout", new FocusEventArgs());
+        cut.FindAll("fluent-text-input")[1].TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Custom name is required", cut.Markup);
+        Assert.Contains("Resource name is required", cut.Markup);
+    }
+
     [Theory]
     [InlineData(TextInputAppearance.Outline, "outline")]
     [InlineData(TextInputAppearance.Underline, "underline")]
@@ -521,5 +537,19 @@ expectedAriaLabel)
         public string Name { get; set; } = string.Empty;
 
         public string Alias { get; set; } = string.Empty;
+    }
+
+    private sealed class RequiredTextInputModel
+    {
+        [Required(ErrorMessage = "Custom name is required")]
+        public string? Name { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(RequiredTextInputResources), ErrorMessageResourceName = nameof(RequiredTextInputResources.ResourceNameRequired))]
+        public string? ResourceName { get; set; }
+    }
+
+    public sealed class RequiredTextInputResources
+    {
+        public static string ResourceNameRequired => "Resource name is required";
     }
 }

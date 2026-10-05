@@ -14,6 +14,26 @@
     }
 
     [Fact]
+    public void FluentCheckbox_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentCheckbox Label="Engineering approval" Required="true" />);
+
+        cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentCheckbox_Required_Checked_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentCheckbox Label="Engineering approval" Required="true" Value="true" />);
+
+        cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentCheckbox_Default()
     {
         // Arrange && Act

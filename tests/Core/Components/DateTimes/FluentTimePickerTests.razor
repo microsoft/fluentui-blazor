@@ -415,6 +415,16 @@
     }
 
     [Fact]
+    public void FluentTimePicker_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
+    {
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" Required="true" RenderStyle="DatePickerRenderStyle.Native" />);
+
+        timePicker.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", timePicker.Markup);
+    }
+
+    [Fact]
     public void FluentTimePicker_ReadOnly_SetsCorrectValue()
     {
         // Arrange & Act

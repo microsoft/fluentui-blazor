@@ -1339,6 +1339,25 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_Required_FocusOut_ShowsModelRequiredMessage()
+    {
+        var model = new AutocompleteValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentAutocomplete TOption="string"
+                                TValue="string"
+                                Label="Countries"
+                                Required="true"
+                                Multiple="true"
+                                Items="@Digits"
+                                @bind-SelectedItems="@model.Countries" />
+        </EditForm>);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Countries are required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentAutocomplete_Required_SelectItemAndFocusOut_DoesNotShowDefaultRequiredMessage()
     {
         var cut = Render(@<FluentAutocomplete TOption="string"

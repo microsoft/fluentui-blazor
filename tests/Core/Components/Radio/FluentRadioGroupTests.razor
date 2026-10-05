@@ -126,6 +126,19 @@
         }
     }
 
+    [Fact]
+    public void FluentRadioGroup_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentRadioGroup TValue="string" Required="true">
+            <FluentRadio Value="@("option1")" Label="Option 1" />
+            <FluentRadio Value="@("option2")" Label="Option 2" />
+        </FluentRadioGroup>);
+
+        cut.Find("fluent-radio-group").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]

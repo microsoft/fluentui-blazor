@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits FluentUITestContext
@@ -37,6 +37,33 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentListbox TOption="string" TValue="string" Label="Countries" Required="true" Items="@Digits" />);
+
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Required_WithSelection_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentListbox TOption="string"
+                                         TValue="string"
+                                         Label="Countries"
+                                         Required="true"
+                                         Items="@Digits" />);
+
+        var option = cut.Find("fluent-option[value='One']");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
     }
 
     [Fact]

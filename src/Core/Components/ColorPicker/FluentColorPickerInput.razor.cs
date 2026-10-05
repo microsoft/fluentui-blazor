@@ -30,22 +30,21 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
         // Default message displayed when the value is invalid
         MessageCondition = (field) =>
         {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
-
             if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
             {
+                if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+                {
+                    return false;
+                }
+
                 field.MessageIcon = FluentStatus.ErrorIcon;
                 field.Message = Localizer[Localization.LanguageResource.ColorPickerInput_InvalidHexMessage];
                 return true;
             }
 
-            if (FocusLost && (Required ?? false) && !(Disabled ?? false) && !ReadOnly && string.IsNullOrEmpty(CurrentValueAsString))
+            if (IsRequiredMessageConditionMet(field, () => string.IsNullOrEmpty(CurrentValueAsString), useFieldFocusLost: true))
             {
-                field.MessageIcon = FluentStatus.ErrorIcon;
-                field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+                SetRequiredErrorMessage(field);
                 return true;
             }
 

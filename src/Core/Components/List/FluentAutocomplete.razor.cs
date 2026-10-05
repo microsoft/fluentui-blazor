@@ -50,6 +50,13 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         // Set default value: if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
         // (not used since the Multiple is overridden with a default value of true directly in this class)
         // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
+
+        MessageCondition = CreateRequiredMessageCondition(
+            () => !SelectedItems.Any(),
+            useFieldFocusLost: true,
+            fieldIdentifierProvider: () => Multiple
+                ? Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression!)
+                : Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression!));
     }
 
     private IReadOnlyDictionary<string, object> TextInputAttributes

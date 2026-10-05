@@ -40,6 +40,33 @@
     }
 
     [Fact]
+    public void FluentSelect_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" Label="Countries" Required="true" Items="@Digits" />);
+
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentSelect_Required_WithSelection_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Label="Countries"
+                                        Required="true"
+                                        Items="@Digits" />);
+
+        var option = cut.Find("fluent-option[value='One']");
+        cut.Find("fluent-dropdown")
+           .TriggerEvent("ondropdownchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentSelect_Manual()
     {
         // Arrange and Act

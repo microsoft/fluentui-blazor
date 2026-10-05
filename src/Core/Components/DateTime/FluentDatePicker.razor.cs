@@ -28,23 +28,9 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     /// <param name="configuration">The configuration settings to apply to the date picker. Cannot be null.</param>
     public FluentDatePicker(LibraryConfiguration configuration) : base(configuration)
     {
-        // Default conditions for the message
-        MessageCondition = (field) =>
-        {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
-
-            field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
-
-            return FocusLost &&
-                   (Required ?? false)
-                   && !(Disabled ?? false)
-                   && !ReadOnly
-                   && CurrentValue.IsNullOrDefault();
-        };
+        MessageCondition = CreateRequiredMessageCondition(
+            () => CurrentValue.IsNullOrDefault(),
+            useFieldFocusLost: true);
     }
 
     /// <summary />
