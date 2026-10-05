@@ -115,7 +115,7 @@ internal class CalendarTitles<TValue>
 #pragma warning restore MA0011
             var previousRangeLastYear = Date.GetYear(_calendar.Culture) - CalendarExtended.YearShiftCentered - 1;
             var minYear = minDate.GetYear(_calendar.Culture);
-            var minimumPreviousNavigationDate = calendarMinDate.AddYears(12, _calendar.Culture);
+            var minimumPreviousNavigationDate = _calendar.Culture.Calendar.AddYears(calendarMinDate, 12);
 
             return View switch
             {
