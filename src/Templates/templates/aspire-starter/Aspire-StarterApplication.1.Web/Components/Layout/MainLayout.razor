@@ -3,7 +3,7 @@
 <FluentLayout>
     <FluentLayoutItem Area="LayoutArea.Header">
         <FluentLayoutHamburger />
-         Aspire-StarterApplication.1
+        <FluentText Weight="TextWeight.Bold" Size="TextSize.Size600">Aspire-StarterApplication.1</FluentText>
     </FluentLayoutItem>
     <FluentLayoutItem Area="LayoutArea.Navigation">
         <NavMenu />
@@ -18,9 +18,12 @@
         <div style="display: flex">
             <FluentLink Href="https://www.fluentui-blazor.net" Target="LinkTarget.Blank" IconEnd="@(new Icons.Regular.Size16.ArrowExit())">
                 Documentation and demos
-                </FluentLink>
+            </FluentLink>
             <FluentSpacer />
-                <FluentLink Href="https://learn.microsoft.com/en-us/aspnet/core/blazor" Target="LinkTarget.Blank" IconEnd="@(new Icons.Regular.Size16.ArrowExit())">
+            <FluentLink Href="https://aspire.dev/" Target="LinkTarget.Blank" IconEnd="@(new Icons.Regular.Size16.ArrowExit())" Margin="mr-3">
+                About Aspire
+            </FluentLink>
+            <FluentLink Href="https://learn.microsoft.com/en-us/aspnet/core/blazor" Target="LinkTarget.Blank" IconEnd="@(new Icons.Regular.Size16.ArrowExit())">
                 About Blazor
             </FluentLink>
         </div>
