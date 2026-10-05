@@ -92,6 +92,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
     if (element) {
 
+      dialog?.addEventListener('click', (event: MouseEvent) => {
+        const target = event.target;
+
+        if (target instanceof Element && target.closest('.fluent-navitem')) {
+          dialog.hide();
+        }
+      });
+
       element.addEventListener('click', (event: MouseEvent) => {
         const layoutNav = layoutContainer ? layoutContainer.querySelector('.fluent-layout-item[area="nav"]') : null;
         const isExpanded = element.getAttribute('aria-expanded') === 'true';
