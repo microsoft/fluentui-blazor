@@ -111,7 +111,18 @@ internal class CalendarTitles<TValue>
 #pragma warning disable MA0011
             var userMinDate = _calendar.MinDate.ConvertToDateTime();
             var calendarMinDate = _calendar.Culture.Calendar.MinSupportedDateTime;
-            var minDate = userMinDate is null || userMinDate.Value < calendarMinDate ? calendarMinDate.AddMonths(1) : userMinDate.Value;
+            var calendarMaxDate = _calendar.Culture.Calendar.MaxSupportedDateTime;
+            var minDate = userMinDate ?? calendarMinDate.AddMonths(1);
+
+            if (minDate < calendarMinDate)
+            {
+                minDate = calendarMinDate.AddMonths(1);
+            }
+
+            if (minDate > calendarMaxDate)
+            {
+                minDate = calendarMaxDate;
+            }
 #pragma warning restore MA0011
             var previousRangeLastYear = Date.GetYear(_calendar.Culture) - CalendarExtended.YearShiftCentered - 1;
             var minYear = minDate.GetYear(_calendar.Culture);
@@ -152,8 +163,15 @@ internal class CalendarTitles<TValue>
         get
         {
             var userMaxDate = _calendar.MaxDate.ConvertToDateTime();
+            var calendarMinDate = _calendar.Culture.Calendar.MinSupportedDateTime;
             var calendarMaxDate = _calendar.Culture.Calendar.MaxSupportedDateTime;
             var maxDate = userMaxDate is null || userMaxDate.Value > calendarMaxDate ? calendarMaxDate : userMaxDate.Value;
+
+            if (maxDate < calendarMinDate)
+            {
+                maxDate = calendarMinDate;
+            }
+
             var nextRangeFirstYear = Date.GetYear(_calendar.Culture) + 12 - CalendarExtended.YearShiftCentered;
             var maxYear = maxDate.GetYear(_calendar.Culture);
 
