@@ -1329,6 +1329,32 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentAutocomplete TOption="string" TValue="string" Label="Countries" Required="true" Items="@Digits" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_CustomMessageCondition_IsPassedToInnerTextInput()
+    {
+        Func<IFluentField, bool> messageCondition = _ => true;
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Label="Countries"
+                                              Required="true"
+                                              Items="@Digits"
+                                              data-testid="countries"
+                                              MessageCondition="@messageCondition" />);
+
+        Assert.Same(messageCondition, cut.FindComponent<FluentTextInput>().Instance.MessageCondition);
+        Assert.Equal("countries", cut.Find("fluent-text-input").GetAttribute("data-testid"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_RendersFieldWithTextInput()
     {
         // Arrange && Act
