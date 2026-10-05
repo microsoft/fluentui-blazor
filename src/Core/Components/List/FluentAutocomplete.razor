@@ -30,7 +30,7 @@
                          LabelTemplate="@LabelTemplate"
                          Margin="@Margin"
                          Padding="@Padding"
-                         Required="@Required"
+                         Required="@(_internalSelectedItems.Count == 0 ? Required : false)"
                          FieldStartTemplate="@FieldStartTemplate"
                          FieldEndTemplate="@FieldEndTemplate"
                          LabelInfo="@LabelInfo"
@@ -141,7 +141,16 @@
 
             @if (IsReachedMaxItems)
             {
-                @MaximumSelectedOptionsMessage
+                @if (MaximumSelectedOptionsMessage is not null)
+                {
+                    @MaximumSelectedOptionsMessage
+                }
+                else
+                {
+                    <FluentText>
+                        @string.Format(Localizer[Localization.LanguageResource.AutoComplete_MaximumSelectedOptionsMessage], MaximumSelectedOptions)
+                    </FluentText>
+                }
             }
             else
             {

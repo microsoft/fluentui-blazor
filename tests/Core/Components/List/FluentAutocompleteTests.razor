@@ -1339,6 +1339,31 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_Required_SelectItemAndFocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentAutocomplete TOption="string"
+                                              TValue="string"
+                                              Label="Countries"
+                                              Required="true"
+                                              Multiple="true"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        cut.Find("fluent-text-input").Click();
+
+        var option = cut.Find("fluent-option");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+
+        var textInput = cut.FindComponent<FluentTextInput>();
+        Assert.False(textInput.Instance.Required);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+        Assert.False(cut.FindComponent<FluentTextInput>().Instance.Required);
+    }
+
+    [Fact]
     public void FluentAutocomplete_CustomMessageCondition_IsPassedToInnerTextInput()
     {
         Func<IFluentField, bool> messageCondition = _ => true;

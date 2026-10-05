@@ -75,23 +75,24 @@ else
                 <FluentValidationMessage TValue="object"
                                          Field="@_fieldIdentifier" />
             }
+            else {
+                if (!HasValidationMessages && HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
+                {
+                    <FluentText slot="@FluentSlot.FieldMessage"
+                    size="@TextSize.Size200">
 
-            @if (HasMessageOrCondition && Parameters.MessageCondition?.Invoke(InputComponent ?? this) == true)
-            {
-                <FluentText slot="@FluentSlot.FieldMessage"
-                            size="@TextSize.Size200">
+                        @CreateIcon(Parameters.MessageIcon)
 
-                    @CreateIcon(Parameters.MessageIcon)
-
-                    @if (Parameters.MessageTemplate is not null)
-                    {
-                        @Parameters.MessageTemplate
-                    }
-                    else
-                    {
-                        @Parameters.Message
-                    }
-                </FluentText>
+                        @if (Parameters.MessageTemplate is not null)
+                        {
+                            @Parameters.MessageTemplate
+                        }
+                        else
+                        {
+                            @Parameters.Message
+                        }
+                    </FluentText>
+                }
             }
 
         </fluent-field>
