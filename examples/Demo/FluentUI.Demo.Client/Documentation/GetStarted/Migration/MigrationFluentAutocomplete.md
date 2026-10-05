@@ -31,7 +31,7 @@ The component now requires **two** type parameters: `TOption` and `TValue`.
 - `OptionStyle` / `OptionClass` — use `OptionTemplate` to customize option rendering.
 - `TitleScrollToPrevious` / `TitleScrollToNext` — horizontal scroll navigation has been removed.
 - `ShowOverlayOnEmptyResults` — overlay behavior has been removed.
-- `Virtualize` / `ItemSize` — virtualization support has not yet implemented.
+- `Virtualize` / `ItemSize` — virtualization support has been removed, use `OnOptionsSearch` instead to limit the number of options.
 - `SelectValueOnTab` — tab key behavior has been removed.
 - `KeepOpen` — dropdown close behavior is now managed internally.
 
@@ -89,7 +89,7 @@ This may break existing layouts if you relied on the fixed-height behavior.
 ### Migrating to v5
 
 | v4 | v5 |
-|---|---|
+| --- | --- |
 | `TOption` only | `TOption` + `TValue` |
 | `@bind-SelectedOptions` | `@bind-SelectedItems` |
 | `@bind-SelectedOption` | `Multiple="false"` + `@bind-SelectedItems` |
@@ -99,4 +99,3 @@ This may break existing layouts if you relied on the fixed-height behavior.
 | `HeaderFooterContent<T>` | `AutocompleteHeaderFooterContent<T>` |
 | `SelectValueOnTab="true"` | _(removed)_ |
 | `KeepOpen="true"` | _(removed)_ |
-
