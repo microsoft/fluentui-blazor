@@ -31,7 +31,7 @@ The component now requires **two** type parameters: `TOption` and `TValue`.
 - `OptionStyle` / `OptionClass` — use `OptionTemplate` to customize option rendering.
 - `TitleScrollToPrevious` / `TitleScrollToNext` — horizontal scroll navigation has been removed.
 - `ShowOverlayOnEmptyResults` — overlay behavior has been removed.
-- `Virtualize` / `ItemSize` — virtualization support has been removed, use `OnOptionsSearch` instead to limit the number of options.
+- `Virtualize` / `ItemSize` — virtualization support has been removed; use `OnOptionsSearch` instead to limit the number of options.
 - `SelectValueOnTab` — tab key behavior has been removed.
 - `KeepOpen` — dropdown close behavior is now managed internally.
 
