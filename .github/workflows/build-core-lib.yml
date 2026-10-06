@@ -50,22 +50,22 @@ jobs:
 
     steps:
      - name: Checkout source
-       uses: actions/checkout@v7
+       uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
      - name: Setup .NET 9.0
-       uses: actions/setup-dotnet@v6
+       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
        with:
         dotnet-version: 9.0.305
         dotnet-quality: ga
 
      - name: Setup .NET 10.0
-       uses: actions/setup-dotnet@v6
+       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
        with:
         dotnet-version: 10.0.x
         dotnet-quality: preview
 
      - name: Setup .NET 11.0
-       uses: actions/setup-dotnet@v6
+       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
        with:
         dotnet-version: 11.0.100-rc.1.26425.128
 
@@ -104,7 +104,7 @@ jobs:
      - name: Publish Unit Tests
        if: success() || failure()
        continue-on-error: true
-       uses: dorny/test-reporter@v3
+       uses: dorny/test-reporter@d1b5dff021aa968b288b02285a8bf47471c5928a # v3.2.0
        with:
          name: Core Tests
          path: '**/*.trx'
@@ -151,7 +151,7 @@ jobs:
      - name: Publish unit tests summary
        if: success() || failure()
        continue-on-error: true
-       uses: marocchino/sticky-pull-request-comment@v3.0.5
+       uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
        with:
          header: Test Results
          path: ./TestResults/ExtractedTests.md
@@ -159,7 +159,7 @@ jobs:
      # Test Coverage
 
      - name: Report Generator
-       uses: danielpalme/ReportGenerator-GitHub-Action@5.5.11
+       uses: danielpalme/ReportGenerator-GitHub-Action@d3ebf1f760f7d8ab92cc44d9bcfee7ad73722a31 # v5.5.11
        with:
          reports: '**/*.cobertura.xml'
          targetdir: 'CoverageReports'
@@ -171,13 +171,13 @@ jobs:
          reporttypes: 'HtmlInline;MarkdownSummaryGithub'
 
      - name: Upload coverage report
-       uses: actions/upload-artifact@v7
+       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
        with:
          name: CoverageReports
          path: CoverageReports
 
      - name: Publish coverage summary
-       uses: marocchino/sticky-pull-request-comment@v3.0.5
+       uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
        continue-on-error: true
        with:
          path: CoverageReports/SummaryGithub.md
@@ -224,27 +224,27 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Setup .NET 9.0
-      uses: actions/setup-dotnet@v6
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
       with:
         dotnet-version: 9.0.305
         dotnet-quality: ga
 
     - name: Setup .NET 10.0
-      uses: actions/setup-dotnet@v6
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
       with:
         dotnet-version: 10.0.x
         dotnet-quality: preview
 
     - name: Setup .NET 11.0
-      uses: actions/setup-dotnet@v6
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
       with:
         dotnet-version: 11.0.100-rc.1.26425.128
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v4
+      uses: github/codeql-action/init@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
       with:
         languages: ${{ matrix.language }}
 
@@ -257,4 +257,4 @@ jobs:
         done
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v4
+      uses: github/codeql-action/analyze@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
