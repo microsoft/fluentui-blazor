@@ -2,7 +2,7 @@
 	<head></head>
 	<body>
 		<fluent-field id="xxx" label-position="above">
-			<fluent-dropdown id="xxx" slot="input" type="combobox" blazor:ondropdownchange="1" blazor:onfocusout="2">
+			<fluent-dropdown id="xxx" slot="input" type="combobox" blazor:ondropdownchange="1" blazor:onfocusin="2" blazor:onfocusout="3" blazor:ontextimmediate="4" blazor:elementreference="xxx">
 				<fluent-listbox>
 					<fluent-option id="xxx" value="value-"></fluent-option>
 					<fluent-option id="xxx" text="ONE" value="value-One">ONE</fluent-option>
@@ -10,7 +10,6 @@
 					<fluent-option id="xxx" text="THREE" value="value-Three">THREE</fluent-option>
 				</fluent-listbox>
 			</fluent-dropdown>
-			<fluent-text size="200" slot="message"></fluent-text>
 		</fluent-field>
 	</body>
 </html>
