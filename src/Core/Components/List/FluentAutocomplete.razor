@@ -30,12 +30,7 @@
                          LabelTemplate="@LabelTemplate"
                          Margin="@Margin"
                          Padding="@Padding"
-                         Required="@Required"
-                         Message="@Message"
-                         MessageTemplate="@MessageTemplate"
-                         MessageCondition="@MessageCondition"
-                         MessageIcon="@MessageIcon"
-                         MessageState="@MessageState"
+                         Required="@(_internalSelectedItems.Count == 0 ? Required : false)"
                          FieldStartTemplate="@FieldStartTemplate"
                          FieldEndTemplate="@FieldEndTemplate"
                          LabelInfo="@LabelInfo"
@@ -48,7 +43,7 @@
                          Width="@Width"
                          AutoComplete="off"
                          Tooltip="@Tooltip"
-                         @attributes="AdditionalAttributes"
+                         @attributes="TextInputAttributes"
                          @onkeydown="@OnTextInputKeyDownAsync"
                          @onclick="@(e => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true))"
                          @bind-Value="@_textInput"
@@ -58,8 +53,8 @@
                 @if (Multiple)
                 {
                     <div style="@($"{(string.IsNullOrEmpty(MaxAutoHeight) ? null : $"max-height: {MaxAutoHeight};")}")">
-                        @* Show selected items as badges with an "x" button to remove them. 
-                           This is shown when the listbox is closed, when it's open the selected items are highlighted 
+                        @* Show selected items as badges with an "x" button to remove them.
+                           This is shown when the listbox is closed, when it's open the selected items are highlighted
                            in the listbox and we don't show the badges in the input. *@
                         @if (_internalSelectedItems is not null)
                         {
@@ -122,7 +117,7 @@
                     {
                         if (_internalSelectedItems.Any())
                         {
-                            <FluentIcon Value="@IconDismiss" 
+                            <FluentIcon Value="@IconDismiss"
                                         Focusable="true"
                                         @onfocus="@(e => _isOpen = false)"
                                         OnClick="@ClearSelectionAsync"
@@ -130,7 +125,7 @@
                         }
                         else
                         {
-                            <FluentIcon Value="@IconSearch" 
+                            <FluentIcon Value="@IconSearch"
                                         Focusable="true"
                                         @onfocus="@(e => _isOpen = false)"
                                         OnClick="@SwitchOptionsPopupAsync"
@@ -146,7 +141,16 @@
 
             @if (IsReachedMaxItems)
             {
-                @MaximumSelectedOptionsMessage
+                @if (MaximumSelectedOptionsMessage is not null)
+                {
+                    @MaximumSelectedOptionsMessage
+                }
+                else
+                {
+                    <FluentText>
+                        @string.Format(Localizer[Localization.LanguageResource.AutoComplete_MaximumSelectedOptionsMessage], MaximumSelectedOptions)
+                    </FluentText>
+                }
             }
             else
             {
@@ -164,7 +168,7 @@
                     @if (_internalFilteredItems.Count > 0 && !IsReachedMaxItems)
                     {
                         @* The listbox is always in multiple selection mode, because the Listbox with Multiple=false does not support the items changes correctly *@
-                        <FluentListbox auto-complete="true"                           
+                        <FluentListbox auto-complete="true"
                                        TValue="TValue"
                                        TOption="TOption"
                                        Appearance="@Appearance"

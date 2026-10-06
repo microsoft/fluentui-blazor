@@ -26,23 +26,9 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
             throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, TimeOnly, and TimeOnly?.");
         }
 
-        // Default conditions for the message
-        MessageCondition = (field) =>
-        {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
-
-            field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
-
-            return FocusLost &&
-                   (Required ?? false)
-                   && !(Disabled ?? false)
-                   && !ReadOnly
-                   && CurrentValue.IsNullOrDefault();
-        };
+        MessageCondition = CreateRequiredMessageCondition(
+            () => CurrentValue.IsNullOrDefault(),
+            useFieldFocusLost: true);
     }
 
     /// <summary />

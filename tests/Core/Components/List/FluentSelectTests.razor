@@ -1,4 +1,5 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits FluentUITestContext
@@ -37,6 +38,72 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSelect_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentSelect TOption="string" TValue="string" Label="Countries" Required="true" Items="@Digits" />);
+
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentSelect_Multiple_Required_FocusOut_ShowsModelRequiredMessage()
+    {
+        var model = new SelectValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentSelect TOption="string"
+                          TValue="string"
+                          Multiple="true"
+                          Required="true"
+                          Items="@Digits"
+                          @bind-SelectedItems="@model.Items" />
+        </EditForm>);
+
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Items are required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentSelect_Multiple_EditFormValidation_ShowsModelMessage()
+    {
+        var model = new SelectValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentSelect TOption="string"
+                          TValue="string"
+                          Multiple="true"
+                          Required="true"
+                          Items="@Digits"
+                          @bind-SelectedItems="@model.Items" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        cut.Find("button[type='submit']").Click();
+
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Contains(messages, message => message.TextContent.Contains("Items are required", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public void FluentSelect_Required_WithSelection_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentSelect TOption="string"
+                                        TValue="string"
+                                        Label="Countries"
+                                        Required="true"
+                                        Items="@Digits" />);
+
+        var option = cut.Find("fluent-option[value='One']");
+        cut.Find("fluent-dropdown")
+           .TriggerEvent("ondropdownchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
     }
 
     [Fact]
@@ -696,5 +763,11 @@
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+    }
+
+    private sealed class SelectValidationModel
+    {
+        [Required(ErrorMessage = "Items are required")]
+        public IEnumerable<string>? Items { get; set; }
     }
 }

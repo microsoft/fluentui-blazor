@@ -1,3 +1,4 @@
+﻿@using System.ComponentModel.DataAnnotations
 @using Microsoft.FluentUI.AspNetCore.Components.ColorPicker
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
@@ -360,13 +361,8 @@
         var cut = Render(@<FluentColorPickerInput Required="true" Value="" />);
         var input = cut.FindComponent<FluentColorPickerInput>().Instance;
 
-        // Force FocusLost = true on the outer component (protected setter).
-        // The actual focusout event is captured on the inner FluentTextInput,
-        // so we simulate the post-focusout state on the outer input directly.
-        SetFocusLost(input, true);
-
-        // Act - evaluate the MessageCondition lambda (as FluentField does on render)
-        var field = new TestField();
+        // Act - evaluate the MessageCondition with the inner field's post-focusout state.
+        var field = new TestField { FocusLost = true };
         var shouldShow = input.MessageCondition!.Invoke(field);
 
         // Assert
@@ -376,15 +372,40 @@
     }
 
     [Fact]
+    public void FluentColorPickerInput_Required_EmptyValue_FocusOut_ShowsRequiredMessage()
+    {
+        var cut = Render(@<FluentColorPickerInput Required="true" Value="" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentColorPickerInput_EditFormValidation_ShowsModelMessage()
+    {
+        var model = new ColorPickerValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentColorPickerInput Label="Color" Required="true" @bind-Value="@model.Color" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        cut.Find("button[type='submit']").Click();
+
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Contains(messages, message => message.TextContent.Contains("Color is required", StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void FluentColorPickerInput_Required_FocusLost_Disabled_DoesNotShowRequiredMessage()
     {
         // Arrange - Disabled inputs should not trigger the required validation
         var cut = Render(@<FluentColorPickerInput Required="true" Disabled="true" Value="" />);
         var input = cut.FindComponent<FluentColorPickerInput>().Instance;
-        SetFocusLost(input, true);
 
         // Act
-        var shouldShow = input.MessageCondition!.Invoke(new TestField());
+        var shouldShow = input.MessageCondition!.Invoke(new TestField { FocusLost = true });
 
         // Assert
         Assert.False(shouldShow);
@@ -396,10 +417,9 @@
         // Arrange - ReadOnly inputs should not trigger the required validation
         var cut = Render(@<FluentColorPickerInput Required="true" ReadOnly="true" Value="" />);
         var input = cut.FindComponent<FluentColorPickerInput>().Instance;
-        SetFocusLost(input, true);
 
         // Act
-        var shouldShow = input.MessageCondition!.Invoke(new TestField());
+        var shouldShow = input.MessageCondition!.Invoke(new TestField { FocusLost = true });
 
         // Assert
         Assert.False(shouldShow);
@@ -411,10 +431,9 @@
         // Arrange - without Required, the empty-value branch should not trigger
         var cut = Render(@<FluentColorPickerInput Value="" />);
         var input = cut.FindComponent<FluentColorPickerInput>().Instance;
-        SetFocusLost(input, true);
 
         // Act
-        var shouldShow = input.MessageCondition!.Invoke(new TestField());
+        var shouldShow = input.MessageCondition!.Invoke(new TestField { FocusLost = true });
 
         // Assert
         Assert.False(shouldShow);
@@ -445,6 +464,12 @@
         public Func<IFluentField, bool>? MessageCondition { get; set; }
         public MessageState? MessageState { get; set; }
         public ILabelInfo? LabelInfo { get; set; }
+    }
+
+    private sealed class ColorPickerValidationModel
+    {
+        [Required(ErrorMessage = "Color is required")]
+        public string? Color { get; set; }
     }
 
     [Fact]
