@@ -48,6 +48,16 @@
         Assert.Contains("Resource name is required", cut.Markup);
     }
 
+    [Fact]
+    public void FluentInputText_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentTextInput Required="true" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
     [Theory]
     [InlineData(TextInputAppearance.Outline, "outline")]
     [InlineData(TextInputAppearance.Underline, "underline")]

@@ -27,6 +27,16 @@
         cut.Verify();
     }
 
+    [Fact]
+    public void FluentTextArea_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentTextArea Required="true" />);
+
+        cut.Find("fluent-textarea").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
     [Theory]
     [InlineData(TextAreaAppearance.Outline, "outline")]
     [InlineData(TextAreaAppearance.FilledLighter, "filled-lighter")]
