@@ -22,7 +22,7 @@
     <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.14.5" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
     <!-- MCP SDK (aligned with the MCP 2026-07-28 specification) -->
-    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.11.2" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.12.0" />
     <PackageVersion Include="ModelContextProtocol" Version="2.2.0" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="2.11.3" />
@@ -34,7 +34,7 @@
     <PackageVersion Include="Microsoft.Playwright" Version="1.63.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.15" />
     <PackageVersion Include="Microsoft.Testing.Platform" Version="2.4.0" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.4.1" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.0" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="1.4.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.290" />
@@ -64,7 +64,7 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.12" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion8)" />
