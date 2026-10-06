@@ -54,9 +54,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         MessageCondition = CreateRequiredMessageCondition(
             () => !SelectedItems.Any(),
             useFieldFocusLost: true,
-            fieldIdentifierProvider: () => Multiple
-                ? Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression!)
-                : Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression!));
+            fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldAccessor!));
     }
 
     private IReadOnlyDictionary<string, object> TextInputAttributes

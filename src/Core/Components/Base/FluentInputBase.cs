@@ -15,8 +15,9 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A base class for Fluent UI form input components. This base class automatically integrates with an
-/// <see cref="EditContext"/>, which must be supplied as a cascading parameter.
+/// A base class for Fluent UI form input components. This base class automatically
+/// integrates with an <see cref="EditContext"/>, which must be supplied
+/// as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
@@ -61,9 +62,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
     /// </summary>
     /// <remarks>
-    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in
-    /// <see cref="ComponentBase.OnAfterRenderAsync"/> and check that it returns <see langword="true"/> before using the
-    /// module.
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
+    /// and check that it returns <see langword="true"/> before using the module.
     /// </remarks>
     internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
 
@@ -311,8 +311,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <summary>
     /// Gets a CSS class string that combines the `Class` attribute and and a string indicating the status of the field
-    /// being edited (a combination of "modified", "valid", and "invalid"). Derived components should typically use this
-    /// value for the primary HTML element class attribute.
+    /// being edited (a combination of "modified", "valid", and "invalid").
+    /// Derived components should typically use this value for the primary HTML element class attribute.
     /// </summary>
     protected virtual string? ClassValue => DefaultClassBuilder
         .AddClass(base.CssClass)
@@ -337,8 +337,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the element. Allows access by name from the associated form. ⚠️ This value needs to be
-    /// set manually for SSR scenarios to work correctly.
+    /// Gets or sets the name of the element. Allows access by name from the associated form.
+    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
     public virtual string? Name { get; set; }
@@ -473,8 +473,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     }
 
     /// <summary>
-    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found. Keep
-    /// in mind that this method will cache the service in the component memory for future use.
+    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found.
+    /// Keep in mind that this method will cache the service in the component memory for future use.
     /// </summary>
     /// <typeparam name="T">The type of service object to get.</typeparam>
     /// <returns></returns>

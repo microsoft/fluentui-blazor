@@ -1358,6 +1358,44 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_Required_ValueBinding_FocusOut_ShowsModelRequiredMessage()
+    {
+        var model = new AutocompleteValueValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentAutocomplete TOption="string"
+                                TValue="string"
+                                Label="Country"
+                                Required="true"
+                                Multiple="false"
+                                Items="@Digits"
+                                @bind-Value="@model.Country" />
+        </EditForm>);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Country is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_Required_CustomValidationField_FocusOut_ShowsModelRequiredMessage()
+    {
+        var model = new AutocompleteValueValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentAutocomplete TOption="string"
+                                TValue="string"
+                                Label="Country"
+                                Required="true"
+                                Multiple="false"
+                                Items="@Digits"
+                                ValidationFieldFor="@(() => model.Country)" />
+        </EditForm>);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Country is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentAutocomplete_Required_SelectItemAndFocusOut_DoesNotShowDefaultRequiredMessage()
     {
         var cut = Render(@<FluentAutocomplete TOption="string"
@@ -1498,5 +1536,11 @@
         [Required(ErrorMessage = "Countries are required")]
         [MinLength(1, ErrorMessage = "Countries are required")]
         public IEnumerable<string>? Countries { get; set; }
+    }
+
+    private class AutocompleteValueValidationModel
+    {
+        [Required(ErrorMessage = "Country is required")]
+        public string? Country { get; set; }
     }
 }
