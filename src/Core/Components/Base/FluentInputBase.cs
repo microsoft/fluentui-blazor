@@ -2,9 +2,9 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -15,9 +15,8 @@ using Microsoft.JSInterop;
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A base class for Fluent UI form input components. This base class automatically
-/// integrates with an <see cref="EditContext"/>, which must be supplied
-/// as a cascading parameter.
+/// A base class for Fluent UI form input components. This base class automatically integrates with an
+/// <see cref="EditContext"/>, which must be supplied as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
 public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
@@ -62,8 +61,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Gets the JavaScript module imported with <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/>.
     /// </summary>
     /// <remarks>
-    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in <see cref="ComponentBase.OnAfterRenderAsync"/>
-    /// and check that it returns <see langword="true"/> before using the module.
+    /// Await <see cref="FluentJSModule.TryImportJavaScriptModuleAsync"/> in
+    /// <see cref="ComponentBase.OnAfterRenderAsync"/> and check that it returns <see langword="true"/> before using the
+    /// module.
     /// </remarks>
     internal FluentJSModule JSModule => _jsModule ??= new FluentJSModule(JSRuntime, this);
 
@@ -79,7 +79,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <param name="field">The field whose focus state may be used.</param>
     /// <param name="isEmpty">Determines whether the current value is empty.</param>
     /// <param name="useFieldFocusLost">Whether to use the field's focus state instead of this component's.</param>
-    /// <param name="fieldIdentifier">The field identifier to use for validation messages, if different from this component's.</param>
+    /// <param name="fieldIdentifier">
+    /// The field identifier to use for validation messages, if different from this component's.
+    /// </param>
     protected bool IsRequiredMessageConditionMet(IFluentField field, Func<bool> isEmpty, bool useFieldFocusLost = false, FieldIdentifier? fieldIdentifier = null)
     {
         return EditContext?.GetValidationMessages(fieldIdentifier ?? FieldIdentifier).Any() != true &&
@@ -95,7 +97,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// </summary>
     /// <param name="field">The field receiving the message.</param>
     /// <param name="defaultMessage">An optional message to use when the model has no custom required message.</param>
-    /// <param name="fieldIdentifier">The field identifier whose RequiredAttribute should supply the message, if different from this component's.</param>
+    /// <param name="fieldIdentifier">
+    /// The field identifier whose RequiredAttribute should supply the message, if different from this component's.
+    /// </param>
     protected void SetRequiredErrorMessage(IFluentField field, string? defaultMessage = null, FieldIdentifier? fieldIdentifier = null)
     {
         field.MessageIcon = FluentStatus.ErrorIcon;
@@ -108,7 +112,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <param name="isEmpty">Determines whether the current value is empty.</param>
     /// <param name="useFieldFocusLost">Whether to use the field's focus state instead of this component's.</param>
     /// <param name="defaultMessage">An optional message to use when the model has no custom required message.</param>
-    /// <param name="fieldIdentifierProvider">Provides the field identifier when it differs from this component's value expression.</param>
+    /// <param name="fieldIdentifierProvider">
+    /// Provides the field identifier when it differs from this component's value expression.
+    /// </param>
     protected Func<IFluentField, bool> CreateRequiredMessageCondition(Func<bool> isEmpty, bool useFieldFocusLost = false, string? defaultMessage = null, Func<FieldIdentifier>? fieldIdentifierProvider = null)
     {
         return field =>
@@ -126,17 +132,65 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     private string GetRequiredErrorMessage(string? defaultMessage, FieldIdentifier fieldIdentifier)
     {
-        var property = fieldIdentifier.Model.GetType().GetProperty(fieldIdentifier.FieldName);
-        var requiredAttribute = property?.GetCustomAttribute<RequiredAttribute>();
+        var property = FindValidationProperty(fieldIdentifier);
+
+        var requiredAttribute =
+            property?.GetCustomAttribute<RequiredAttribute>();
+
         if (requiredAttribute is null ||
-            (requiredAttribute.ErrorMessage is null && requiredAttribute.ErrorMessageResourceName is null))
+            (requiredAttribute.ErrorMessage is null &&
+             requiredAttribute.ErrorMessageResourceName is null))
         {
-            return defaultMessage ?? Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+            return defaultMessage ??
+                   Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
         }
 
-        var displayName = property?.GetCustomAttribute<DisplayAttribute>()?.GetName() ?? fieldIdentifier.FieldName;
+        var displayName =
+            property?.GetCustomAttribute<DisplayAttribute>()?.GetName() ??
+            fieldIdentifier.FieldName;
+
         return requiredAttribute.FormatErrorMessage(displayName);
     }
+
+    private PropertyInfo? FindValidationProperty(FieldIdentifier fieldIdentifier)
+    {
+        var property = GetProperty(ValidationFieldExpression);
+
+        return property is not null &&
+               string.Equals(property.Name, fieldIdentifier.FieldName, StringComparison.Ordinal)
+            ? property
+            : null;
+    }
+
+    private static PropertyInfo? GetProperty(LambdaExpression? expression)
+    {
+        if (expression is null)
+        {
+            return null;
+        }
+
+        var body = expression.Body;
+
+        while (body is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked, } conversion)
+        {
+            body = conversion.Operand;
+        }
+
+        return body is MemberExpression { Member: PropertyInfo property, } ? property : null;
+    }
+
+    /// <summary>
+    /// Gets the expression identifying the model field used for validation.
+    /// </summary>
+    protected virtual LambdaExpression? ValidationFieldExpression => ValidationFieldFor ?? ValueExpression;
+
+    /// <summary>
+    /// Gets a value indicating whether the value expression was supplied for a bound model field.
+    /// </summary>
+    protected bool HasExplicitValueExpression
+        => GetProperty(ValueExpression) is { } property &&
+           (property.DeclaringType != typeof(FluentInputBase<TValue>) ||
+            !string.Equals(property.Name, nameof(CurrentValueOrDefault), StringComparison.Ordinal));
 
     #region IFluentComponentBase
 
@@ -231,8 +285,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual ILabelInfo? LabelInfo { get; set; }
 
     /// <summary>
-    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers
-    /// to retrieve validation messages when the component value binding differs from the input text binding.
+    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers to retrieve validation
+    /// messages when the component value binding differs from the input text binding.
     /// </summary>
     [Parameter]
     public virtual LambdaExpression? ValidationFieldFor { get; set; }
@@ -256,9 +310,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         .AddStyle("padding", Padding.ConvertSpacing().Style);
 
     /// <summary>
-    /// Gets a CSS class string that combines the `Class` attribute and and a string indicating
-    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
-    /// Derived components should typically use this value for the primary HTML element class attribute.
+    /// Gets a CSS class string that combines the `Class` attribute and and a string indicating the status of the field
+    /// being edited (a combination of "modified", "valid", and "invalid"). Derived components should typically use this
+    /// value for the primary HTML element class attribute.
     /// </summary>
     protected virtual string? ClassValue => DefaultClassBuilder
         .AddClass(base.CssClass)
@@ -283,9 +337,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the element.
-    /// Allows access by name from the associated form.
-    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
+    /// Gets or sets the name of the element. Allows access by name from the associated form. ⚠️ This value needs to be
+    /// set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
     public virtual string? Name { get; set; }
@@ -420,8 +473,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     }
 
     /// <summary>
-    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found.
-    /// Keep in mind that this method will cache the service in the component memory for future use.
+    /// Get service of type <typeparamref name="T"/> from the <see cref="IServiceProvider"/> or null if not found. Keep
+    /// in mind that this method will cache the service in the component memory for future use.
     /// </summary>
     /// <typeparam name="T">The type of service object to get.</typeparam>
     /// <returns></returns>
@@ -440,18 +493,19 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Sets parameters supplied by the component's parent in the render tree.
     /// </summary>
     /// <param name="parameters">The parameters.</param>
-    /// <returns>A <see cref="Task"/> that completes when the component has finished updating and rendering itself.</returns>
+    /// <returns>
+    /// A <see cref="Task"/> that completes when the component has finished updating and rendering itself.
+    /// </returns>
     /// <remarks>
-    /// <para>
-    /// Parameters are passed when <see cref="SetParametersAsync(ParameterView)"/> is called. It is not required that
-    /// the caller supply a parameter value for all of the parameters that are logically understood by the component.
-    /// </para>
-    /// <para>
-    /// The default implementation of <see cref="SetParametersAsync(ParameterView)"/> will set the value of each property
-    /// decorated with <see cref="ParameterAttribute" /> or <see cref="CascadingParameterAttribute" /> that has
+    ///
+    /// <para>Parameters are passed when <see cref="SetParametersAsync(ParameterView)"/> is called. It is not required
+    /// that the caller supply a parameter value for all of the parameters that are logically understood by the
+    /// component. </para>
+    ///
+    /// <para>The default implementation of <see cref="SetParametersAsync(ParameterView)"/> will set the value of each
+    /// property decorated with <see cref="ParameterAttribute" /> or <see cref="CascadingParameterAttribute" /> that has
     /// a corresponding value in the <see cref="ParameterView" />. Parameters that do not have a corresponding value
-    /// will be unchanged.
-    /// </para>
+    /// will be unchanged. </para>
     /// </remarks>
     public override Task SetParametersAsync(ParameterView parameters)
     {

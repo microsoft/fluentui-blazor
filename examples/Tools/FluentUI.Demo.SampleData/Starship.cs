@@ -52,7 +52,7 @@ public class Starship
     /// <summary>
     /// Indicates whether the starship design has been validated.
     /// </summary>
-    [Required]
+    [Required(ErrorMessage = "Validation is required")]
     [Range(typeof(bool), "true", "true",
         ErrorMessage = "This form disallows unapproved ships")]
     public bool IsValidatedDesign { get; set; }

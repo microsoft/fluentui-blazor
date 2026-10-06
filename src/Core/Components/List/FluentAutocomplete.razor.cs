@@ -2,8 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Linq.Expressions;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -267,9 +267,28 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// </summary>
     public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
 
-    private LambdaExpression? ValidationFieldAccessor => Multiple
-        ? SelectedItemsExpression
-        : SelectedItemExpression;
+    /// <inheritdoc />
+    protected override LambdaExpression? ValidationFieldExpression => ValidationFieldAccessor;
+
+    private LambdaExpression? ValidationFieldAccessor
+    {
+        get
+        {
+            if (ValidationFieldFor is not null)
+            {
+                return ValidationFieldFor;
+            }
+
+            if (HasExplicitValueExpression)
+            {
+                return ValueExpression;
+            }
+
+            return Multiple
+                ? SelectedItemsExpression
+                : SelectedItemExpression;
+        }
+    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
