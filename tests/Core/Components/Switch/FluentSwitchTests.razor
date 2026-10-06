@@ -13,7 +13,7 @@
     [Fact]
     public void FluentSwitch_Required_UncheckedFocusOut_ShowsDefaultRequiredMessage()
     {
-        var cut = Render(@<FluentSwitch Label="Has a Teleporter" Required="true" />);
+        var cut = Render(@<FluentSwitch Label="Test label" Required="true" />);
 
         cut.Find("fluent-switch").TriggerEvent("onfocusout", new FocusEventArgs());
 
@@ -23,7 +23,7 @@
     [Fact]
     public void FluentSwitch_Required_CheckedFocusOut_DoesNotShowDefaultRequiredMessage()
     {
-        var cut = Render(@<FluentSwitch Label="Has a Teleporter" Required="true" Value="true" />);
+        var cut = Render(@<FluentSwitch Label="Test label" Required="true" Value="true" />);
 
         cut.Find("fluent-switch").TriggerEvent("onfocusout", new FocusEventArgs());
 
@@ -36,19 +36,12 @@
         var model = new RequiredSwitchModel();
         var cut = Render(@<EditForm Model="@model">
             <DataAnnotationsValidator />
-            <FluentSwitch @bind-Value="model.HasTeleporter" Required="true" />
+            <FluentSwitch @bind-Value="model.SwitchValue" Required="true" />
         </EditForm>);
 
         cut.Find("fluent-switch").TriggerEvent("onfocusout", new FocusEventArgs());
 
         Assert.Contains("This field is required", cut.Markup);
-    }
-
-    private sealed class RequiredSwitchModel
-    {
-        [Required]
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Having a teleporter is required")]
-        public bool HasTeleporter { get; set; }
     }
 
     [Fact]
@@ -214,6 +207,12 @@
         // Assert
         Assert.Equal(expectedLabel, label);
     }
-
 #pragma warning restore
+
+    private sealed class RequiredSwitchModel
+    {
+        [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Switch must be on!")]
+        public bool SwitchValue { get; set; }
+    }
 }

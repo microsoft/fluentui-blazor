@@ -16,7 +16,7 @@
     [Fact]
     public void FluentCheckbox_Required_FocusOut_ShowsDefaultRequiredMessage()
     {
-        var cut = Render(@<FluentCheckbox Label="Engineering approval" Required="true" />);
+        var cut = Render(@<FluentCheckbox Label="Test label" Required="true" />);
 
         cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
 
@@ -26,7 +26,7 @@
     [Fact]
     public void FluentCheckbox_Required_Checked_FocusOut_DoesNotShowDefaultRequiredMessage()
     {
-        var cut = Render(@<FluentCheckbox Label="Engineering approval" Required="true" Value="true" />);
+        var cut = Render(@<FluentCheckbox Label="Test label" Required="true" Value="true" />);
 
         cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
 

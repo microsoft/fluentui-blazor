@@ -36,6 +36,16 @@
     }
 
     [Fact]
+    public void FluentNumber_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentNumberInput TValue="int?" Required="true" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new Microsoft.AspNetCore.Components.Web.FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentNumber_NoStepButtons()
     {        
         // Arrange and Act

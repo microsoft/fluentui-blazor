@@ -704,6 +704,17 @@ value=""2022-02-20"">20</div>");
     }
 
     [Fact]
+    public void FluentCalendar_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        var cut = Render(@<FluentCalendar TValue="DateTime?" Required="true" />);
+
+        cut.Find(".fluent-calendar").TriggerEvent("onfocusout", new Microsoft.AspNetCore.Components.Web.FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentCalendar_AllDaysAreDisabled_WithDisabledDateFunc()
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
