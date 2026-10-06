@@ -24,6 +24,18 @@ public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(Dynamical
     }
 
     /// <inheritdoc />
+    protected override void NotifyValidationFieldChanged()
+    {
+        if (ValidationFieldFor is not null)
+        {
+            EditContext?.NotifyFieldChanged(FluentField.CreateFieldIdentifier(ValidationFieldFor));
+            return;
+        }
+
+        base.NotifyValidationFieldChanged();
+    }
+
+    /// <inheritdoc />
     protected override LambdaExpression? ValidationFieldExpression => Multiple
         ? ValidationFieldFor ?? SelectedItemsExpression
         : base.ValidationFieldExpression;
