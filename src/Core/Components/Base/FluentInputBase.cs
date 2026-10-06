@@ -285,8 +285,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual ILabelInfo? LabelInfo { get; set; }
 
     /// <summary>
-    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers to retrieve validation
-    /// messages when the component value binding differs from the input text binding.
+    /// Gets or sets the field expression used by internal <see cref="FluentField"/> wrappers
+    /// to retrieve validation messages when the component value binding differs from the input text binding.
     /// </summary>
     [Parameter]
     public virtual LambdaExpression? ValidationFieldFor { get; set; }
@@ -310,8 +310,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
         .AddStyle("padding", Padding.ConvertSpacing().Style);
 
     /// <summary>
-    /// Gets a CSS class string that combines the `Class` attribute and and a string indicating the status of the field
-    /// being edited (a combination of "modified", "valid", and "invalid").
+    /// Gets a CSS class string that combines the `Class` attribute and and a string indicating
+    /// the status of the field being edited (a combination of "modified", "valid", and "invalid").
     /// Derived components should typically use this value for the primary HTML element class attribute.
     /// </summary>
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -337,7 +337,8 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     public virtual string? AriaLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the element. Allows access by name from the associated form.
+    /// Gets or sets the name of the element.
+    /// Allows access by name from the associated form.
     /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
     /// </summary>
     [Parameter]
@@ -493,19 +494,18 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Sets parameters supplied by the component's parent in the render tree.
     /// </summary>
     /// <param name="parameters">The parameters.</param>
-    /// <returns>
-    /// A <see cref="Task"/> that completes when the component has finished updating and rendering itself.
-    /// </returns>
+    /// <returns>A <see cref="Task"/> that completes when the component has finished updating and rendering itself.</returns>
     /// <remarks>
-    ///
-    /// <para>Parameters are passed when <see cref="SetParametersAsync(ParameterView)"/> is called. It is not required
-    /// that the caller supply a parameter value for all of the parameters that are logically understood by the
-    /// component. </para>
-    ///
-    /// <para>The default implementation of <see cref="SetParametersAsync(ParameterView)"/> will set the value of each
-    /// property decorated with <see cref="ParameterAttribute" /> or <see cref="CascadingParameterAttribute" /> that has
+    /// <para>
+    /// Parameters are passed when <see cref="SetParametersAsync(ParameterView)"/> is called. It is not required that
+    /// the caller supply a parameter value for all of the parameters that are logically understood by the component.
+    /// </para>
+    /// <para>
+    /// The default implementation of <see cref="SetParametersAsync(ParameterView)"/> will set the value of each property
+    /// decorated with <see cref="ParameterAttribute" /> or <see cref="CascadingParameterAttribute" /> that has
     /// a corresponding value in the <see cref="ParameterView" />. Parameters that do not have a corresponding value
-    /// will be unchanged. </para>
+    /// will be unchanged.
+    /// </para>
     /// </remarks>
     public override Task SetParametersAsync(ParameterView parameters)
     {

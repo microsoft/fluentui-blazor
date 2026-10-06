@@ -1,4 +1,5 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
 @inherits FluentUITestContext
@@ -64,6 +65,45 @@
         cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
 
         Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Multiple_Required_FocusOut_ShowsModelMessage_WhenSelectionIsNull()
+    {
+        var model = new ListboxValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentListbox TOption="string"
+                           TValue="string"
+                           Multiple="true"
+                           Required="true"
+                           Items="@Digits"
+                           @bind-SelectedItems="@model.Items" />
+        </EditForm>);
+
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Items are required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Multiple_EditFormValidation_ShowsModelMessage()
+    {
+        var model = new ListboxValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentListbox TOption="string"
+                           TValue="string"
+                           Multiple="true"
+                           Required="true"
+                           Items="@Digits"
+                           @bind-SelectedItems="@model.Items" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        cut.Find("button[type='submit']").Click();
+
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Contains(messages, message => message.TextContent.Contains("Items are required", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -452,5 +492,11 @@
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+    }
+
+    private sealed class ListboxValidationModel
+    {
+        [Required(ErrorMessage = "Items are required")]
+        public IEnumerable<string>? Items { get; set; }
     }
 }

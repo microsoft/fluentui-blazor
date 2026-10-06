@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
@@ -18,8 +19,15 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
     /// <summary />
     public FluentListbox(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(() => !SelectedItems.Any());
+        MessageCondition = CreateRequiredMessageCondition(
+            () => SelectedItems?.Any() != true,
+            fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldExpression!));
     }
+
+    /// <inheritdoc />
+    protected override LambdaExpression? ValidationFieldExpression => Multiple
+        ? ValidationFieldFor ?? SelectedItemsExpression
+        : base.ValidationFieldExpression;
 
     /// <summary />
     protected virtual string? ListStyle => new StyleBuilder()
