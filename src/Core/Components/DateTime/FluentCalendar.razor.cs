@@ -41,23 +41,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <param name="configuration">The configuration settings used to initialize the calendar. Cannot be null.</param>
     public FluentCalendar(LibraryConfiguration configuration) : base(configuration)
     {
-        // Default conditions for the message
-        MessageCondition = (field) =>
-        {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
-
-            field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.Calendar_RequiredMessage];
-
-            return FocusLost &&
-                   (Required ?? false)
-                   && !(Disabled ?? false)
-                   && !ReadOnly
-                   && CurrentValue.IsNullOrDefault();
-        };
+        MessageCondition = CreateRequiredMessageCondition(
+            () => CurrentValue.IsNullOrDefault(),
+            defaultMessage: Localizer[Localization.LanguageResource.Calendar_RequiredMessage]);
     }
 
     /// <summary />

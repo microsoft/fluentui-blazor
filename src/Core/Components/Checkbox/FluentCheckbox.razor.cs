@@ -21,6 +21,8 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     public FluentCheckbox(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition = Components.LabelPosition.After;
+
+        MessageCondition = CreateRequiredMessageCondition(() => !Value);
     }
 
     /// <inheritdoc />
