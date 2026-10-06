@@ -65,6 +65,7 @@ public class Starship
     /// <summary>
     /// Gets or sets a value indicating whether the starship is equipped with a teleporter.
     /// </summary>
+    [Required]
     [Range(typeof(bool), "true", "true", ErrorMessage = "Having a teleporter is required")]
     public bool HasTeleporter { get; set; }
 }
