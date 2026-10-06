@@ -51,6 +51,18 @@
     }
 
     [Fact]
+    public void FluentListbox_Required_InitialValue_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        string? value = "One";
+        var cut = Render(@<FluentListbox TOption="string" TValue="string" Required="true" Items="@Digits" @bind-Value="@value" />);
+
+        Assert.True(cut.Find("fluent-option[value='One']").HasAttribute("selected"));
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentListbox_Required_WithSelection_FocusOut_DoesNotShowDefaultRequiredMessage()
     {
         var cut = Render(@<FluentListbox TOption="string"

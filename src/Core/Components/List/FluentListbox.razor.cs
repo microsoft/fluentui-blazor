@@ -20,8 +20,20 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
     public FluentListbox(LibraryConfiguration configuration) : base(configuration)
     {
         MessageCondition = CreateRequiredMessageCondition(
-            () => SelectedItems?.Any() != true,
+            () => IsSelectionEmptyForRequiredValidation,
             fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldExpression!));
+    }
+
+    /// <inheritdoc />
+    protected override void NotifyValidationFieldChanged()
+    {
+        if (ValidationFieldFor is not null)
+        {
+            EditContext?.NotifyFieldChanged(FluentField.CreateFieldIdentifier(ValidationFieldFor));
+            return;
+        }
+
+        base.NotifyValidationFieldChanged();
     }
 
     /// <inheritdoc />

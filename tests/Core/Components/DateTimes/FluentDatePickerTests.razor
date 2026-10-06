@@ -42,7 +42,7 @@
     public void FluentDatePicker_Default()
     {
         // Arrange
-        using var context = new DateTimeProviderContext(DateTime.Now);
+        using var context = new DateTimeProviderContext(new DateTime(2026, 09, 30));
 
         // Act
         var calendar = Render(@<FluentDatePicker TValue="DateTime" Id="myPicker" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
@@ -56,7 +56,7 @@
     public void FluentDatePicker_ClickToOpenCalendar()
     {
         // Arrange
-        using var context = new DateTimeProviderContext(DateTime.Now);
+        using var context = new DateTimeProviderContext(new DateTime(2026, 09, 30));
 
         // Act
         var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" />);
@@ -720,7 +720,7 @@
     public void FluentDatePicker_GetInputType(DatePickerRenderStyle renderingStyle, CalendarViews view, string? expectedInputType, TextInputMode? expectedInputMode)
     {
         // Arrange
-        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        using var context = new DateTimeProviderContext(new DateTime(2026, 09, 30));
         var picker = Render(@<FluentDatePicker TValue="DateTime" Culture="@InvariantCulture" RenderStyle="@renderingStyle" View="@view" />);
 
         // Act
