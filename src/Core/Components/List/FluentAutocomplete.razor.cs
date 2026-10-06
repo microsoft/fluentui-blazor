@@ -52,7 +52,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
 
         MessageCondition = CreateRequiredMessageCondition(
-            () => !SelectedItems.Any(),
+            () => IsSelectionEmptyForRequiredValidation,
             useFieldFocusLost: true,
             fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldAccessor!));
     }
@@ -341,6 +341,13 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// </summary>
     protected override void NotifyValidationFieldChanged()
     {
+        if (ValidationFieldFor is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                FluentField.CreateFieldIdentifier(ValidationFieldFor));
+            return;
+        }
+
         if (Multiple && SelectedItemsExpression is not null)
         {
             EditContext?.NotifyFieldChanged(

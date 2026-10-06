@@ -165,6 +165,20 @@ public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMember
     }
 
     /// <summary />
+    protected bool IsSelectionEmptyForRequiredValidation
+    {
+        get
+        {
+            if (SelectedItems?.Any() == true)
+            {
+                return false;
+            }
+
+            return Multiple || Value is null || Value is string value && string.IsNullOrEmpty(value);
+        }
+    }
+
+    /// <summary />
     string? IInternalListBase<TValue>.AddOption(FluentOption<TValue> option)
     {
         var id = option.Id ?? "";

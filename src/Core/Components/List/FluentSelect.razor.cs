@@ -19,7 +19,7 @@ public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(Dynamical
     public FluentSelect(LibraryConfiguration configuration) : base(configuration)
     {
         MessageCondition = CreateRequiredMessageCondition(
-            () => SelectedItems?.Any() != true,
+            () => IsSelectionEmptyForRequiredValidation,
             fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldExpression!));
     }
 

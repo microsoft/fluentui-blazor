@@ -1339,6 +1339,17 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_Required_InitialValue_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        string? value = "One";
+        var cut = Render(@<FluentAutocomplete TOption="string" TValue="string" Required="true" Multiple="false" Items="@Digits" @bind-Value="@value" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentAutocomplete_Required_FocusOut_ShowsModelRequiredMessage()
     {
         var model = new AutocompleteValidationModel();
@@ -1393,6 +1404,34 @@
         cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
 
         Assert.Contains("Country is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_CustomValidationField_Selection_ClearsModelValidationMessage()
+    {
+        var model = new AutocompleteValueValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentAutocomplete TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                Items="@Digits"
+                                @bind-Value="@model.Country"
+                                ValidationFieldFor="@(() => model.Country)" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        cut.Find("button[type='submit']").Click();
+
+        Assert.Contains("Country is required", cut.Markup);
+
+        cut.Find("fluent-text-input").Click();
+        var option = cut.Find("fluent-option");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+
+        Assert.NotNull(model.Country);
+        Assert.DoesNotContain("Country is required", cut.Markup);
     }
 
     [Fact]
