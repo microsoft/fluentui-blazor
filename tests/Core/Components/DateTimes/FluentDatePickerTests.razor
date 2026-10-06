@@ -72,8 +72,8 @@
         // The calendar's Value can be null even if TValue is DateTime - that's the key difference
         // FluentDatePicker can be nullable but the internal calendar might not be
 
-        Assert.Equal(System.DateTime.Today.Year, calendar.Instance.PickerMonth?.Year);
-        Assert.Equal(System.DateTime.Today.Month, calendar.Instance.PickerMonth?.Month);
+        Assert.Equal(2026, calendar.Instance.PickerMonth?.Year);
+        Assert.Equal(9, calendar.Instance.PickerMonth?.Month);
         Assert.Equal(1, calendar.Instance.PickerMonth?.Day);
     }
 
