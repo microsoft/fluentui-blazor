@@ -38,6 +38,7 @@ public abstract partial class FluentInputBase<TValue>
     /// Sets the default required-field message on the supplied field.
     /// </summary>
     /// <param name="field">The field receiving the message.</param>
+    /// <param name="defaultMessage">An optional message to use when the model has no custom required message.</param>
     /// <param name="fieldIdentifier">
     /// The field identifier whose RequiredAttribute should supply the message, if different from this component's.
     /// </param>
@@ -73,6 +74,7 @@ public abstract partial class FluentInputBase<TValue>
     /// </summary>
     /// <param name="isEmpty">Determines whether the current value is empty.</param>
     /// <param name="useFieldFocusLost">Whether to use the field's focus state instead of this component's.</param>
+    /// <param name="defaultMessage">An optional message to use when the model has no custom required message.</param>
     /// <param name="fieldIdentifierProvider">
     /// Provides the field identifier when it differs from this component's value expression.
     /// </param>
@@ -92,6 +94,8 @@ public abstract partial class FluentInputBase<TValue>
                 (MessageIcon is not null && !hasGeneratedMessage);
 
             if (hasExplicitMessage)
+            {
+                if (_autoRequiredMessageSet)
             {
                 if (_autoRequiredMessageSet)
                 {
