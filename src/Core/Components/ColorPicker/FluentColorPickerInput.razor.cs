@@ -45,7 +45,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
             if (FocusLost && (Required ?? false) && !(Disabled ?? false) && !ReadOnly && string.IsNullOrEmpty(CurrentValueAsString))
             {
                 field.MessageIcon = FluentStatus.ErrorIcon;
-                field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+                field.Message = Localizer[Localization.LanguageResource.FluentInputBase_RequiredMessage];
                 return true;
             }
 

@@ -34,14 +34,13 @@ public abstract partial class FluentInputBase<TValue>
     /// Sets the default required-field message on the supplied field.
     /// </summary>
     /// <param name="field">The field receiving the message.</param>
-    /// <param name="defaultMessage">An optional message to use when the model has no custom required message.</param>
     /// <param name="fieldIdentifier">
     /// The field identifier whose RequiredAttribute should supply the message, if different from this component's.
     /// </param>
-    protected void SetRequiredErrorMessage(IFluentField field, string? defaultMessage = null, FieldIdentifier? fieldIdentifier = null)
+    protected void SetRequiredErrorMessage(IFluentField field, FieldIdentifier? fieldIdentifier = null)
     {
         field.MessageIcon = FluentStatus.ErrorIcon;
-        field.Message = GetRequiredErrorMessage(defaultMessage, fieldIdentifier ?? FieldIdentifier);
+        field.Message = GetRequiredErrorMessage(fieldIdentifier ?? FieldIdentifier);
     }
 
     /// <summary>
@@ -49,11 +48,10 @@ public abstract partial class FluentInputBase<TValue>
     /// </summary>
     /// <param name="isEmpty">Determines whether the current value is empty.</param>
     /// <param name="useFieldFocusLost">Whether to use the field's focus state instead of this component's.</param>
-    /// <param name="defaultMessage">An optional message to use when the model has no custom required message.</param>
     /// <param name="fieldIdentifierProvider">
     /// Provides the field identifier when it differs from this component's value expression.
     /// </param>
-    protected Func<IFluentField, bool> CreateRequiredMessageCondition(Func<bool> isEmpty, bool useFieldFocusLost = false, string? defaultMessage = null, Func<FieldIdentifier>? fieldIdentifierProvider = null)
+    protected Func<IFluentField, bool> CreateRequiredMessageCondition(Func<bool> isEmpty, bool useFieldFocusLost = false, Func<FieldIdentifier>? fieldIdentifierProvider = null)
     {
         return field =>
         {
@@ -63,12 +61,12 @@ public abstract partial class FluentInputBase<TValue>
                 return false;
             }
 
-            SetRequiredErrorMessage(field, defaultMessage, fieldIdentifier);
+            SetRequiredErrorMessage(field, fieldIdentifier);
             return IsRequiredMessageConditionMet(field, isEmpty, useFieldFocusLost, fieldIdentifier);
         };
     }
 
-    private string GetRequiredErrorMessage(string? defaultMessage, FieldIdentifier fieldIdentifier)
+    private string GetRequiredErrorMessage(FieldIdentifier fieldIdentifier)
     {
         var property = FindValidationProperty(fieldIdentifier);
 
@@ -79,8 +77,7 @@ public abstract partial class FluentInputBase<TValue>
             (requiredAttribute.ErrorMessage is null &&
              requiredAttribute.ErrorMessageResourceName is null))
         {
-            return defaultMessage ??
-                   Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+            return Localizer[Localization.LanguageResource.FluentInputBase_RequiredMessage];
         }
 
         var displayName =
