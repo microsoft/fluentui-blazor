@@ -55,16 +55,26 @@ public abstract partial class FluentInputBase<TValue>
     {
         return field =>
         {
-            var fieldIdentifier = fieldIdentifierProvider?.Invoke() ?? FieldIdentifier;
-            if (EditContext?.GetValidationMessages(fieldIdentifier).Any() == true)
+            if (field.Message is not null || field.MessageIcon is not null || field.MessageTemplate is not null)
+            {
+                return true;
+            }
+
+            var fieldIdentifier = fieldIdentifierProvider?.Invoke() ?? ValidationFieldIdentifier;
+            if (!IsRequiredMessageConditionMet(field, isEmpty, useFieldFocusLost, fieldIdentifier))
             {
                 return false;
             }
 
             SetRequiredErrorMessage(field, fieldIdentifier);
-            return IsRequiredMessageConditionMet(field, isEmpty, useFieldFocusLost, fieldIdentifier);
+            return true;
         };
     }
+
+    private FieldIdentifier ValidationFieldIdentifier
+        => ValidationFieldFor is not null
+            ? FluentField.CreateFieldIdentifier(ValidationFieldFor)
+            : FieldIdentifier;
 
     private string GetRequiredErrorMessage(FieldIdentifier fieldIdentifier)
     {
