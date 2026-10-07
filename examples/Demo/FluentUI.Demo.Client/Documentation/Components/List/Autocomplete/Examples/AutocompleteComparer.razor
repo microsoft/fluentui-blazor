@@ -1,19 +1,32 @@
+﻿<FluentAutocomplete TOption="MyUser"
+                    TValue="int"
+                    Width="100%"
+                    Label="Without OptionSelectedComparer"
+                    Placeholder="Select a user"
+                    OptionText="(option) => option.Name"
+                    OptionValue="(option) => option.UserId"
+                    OnOptionsSearch="@OnSearchAsync"
+                    @bind-SelectedItems="@Selected" />
+
 <div>Selected: <b>@string.Join("; ", Selected.Select(x => x.Name))</b></div>
 
-<FluentAutocomplete TOption="MyUser" 
-                    TValue="int" 
-                    Width="100%" 
-                    Label="Name" 
+<FluentAutocomplete TOption="MyUser"
+                    TValue="int"
+                    Width="100%"
+                    Label="With OptionSelectedComparer"
                     Placeholder="Select a user"
-                    OptionText="(option) => option.Name" 
-                    OptionValue="(option) => option.UserId" 
+                    OptionText="(option) => option.Name"
+                    OptionValue="(option) => option.UserId"
                     OptionSelectedComparer="MyComparer.Instance"
-                    OnOptionsSearch="@OnSearchAsync" 
-                    @bind-SelectedItems="@Selected" />
+                    OnOptionsSearch="@OnSearchAsync"
+                    @bind-SelectedItems="@Selected2" />
+
+<div>Selected: <b>@string.Join("; ", Selected2.Select(x => x.Name))</b></div>
 
 @code
 {
-    IEnumerable<MyUser> Selected { get; set; } = [];
+    IEnumerable<MyUser> Selected { get; set; } = [new MyUser(1, "Marvin Klein")];
+    IEnumerable<MyUser> Selected2 { get; set; } = [new MyUser(1, "Marvin Klein")];
 
     /// Search method called when the user types in the input or opens the options list.
     /// A new list of MyUser is assigned with new object instances.
@@ -23,12 +36,22 @@
         e.Items = [
             new MyUser(1, "Marvin Klein"),
             new MyUser(2, "Denis Voituron"),
-        ];
+    ];
 
         return Task.CompletedTask;
     }
 
-    record MyUser(int UserId, string Name);
+    class MyUser
+    {
+        public int UserId { get; }
+        public string Name { get; }
+
+        public MyUser(int userId, string name)
+        {
+            UserId = userId;
+            Name = name;
+        }
+    };
 
     class MyComparer : IEqualityComparer<MyUser>
     {
