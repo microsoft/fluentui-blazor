@@ -244,7 +244,7 @@ public partial class FluentTreeItem : FluentComponentBase
     }
 
     /// <summary />
-    internal async Task OnCheckChangedHandlerAsync()
+    internal async Task OnCheckChangedHandlerAsync(bool? newState = null)
     {
         var checkedItem = TreeViewItem.FindItemById(OwnerTreeView?.Items, Id);
 
@@ -254,20 +254,162 @@ public partial class FluentTreeItem : FluentComponentBase
         }
 
         var selectedItems = OwnerTreeView.SelectedItems?.ToList() ?? [];
-        var isSelected = selectedItems.Contains(checkedItem);
-
-        if (isSelected)
+        if (OwnerTreeView.SelectionMode != TreeSelectionMode.MultipleRecursive)
         {
-            selectedItems.Remove(checkedItem);
+            if (newState.HasValue)
+            {
+                SetSelection(selectedItems, checkedItem, newState.Value);
+            }
+            else
+            {
+                ToggleSelection(selectedItems, checkedItem);
+            }
+
+            if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
+            {
+                await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedItems);
+            }
+
+            return;
+        }
+
+        var currentState = GetSelectionState(checkedItem, selectedItems);
+        var selectDescendants = newState switch
+        {
+            true when currentState is not null => true,
+            null when currentState is false => true,
+            _ => false,
+        };
+
+        if (selectDescendants)
+        {
+            foreach (var item in GetDescendantsAndSelf(checkedItem))
+            {
+                AddIfMissing(selectedItems, item);
+            }
         }
         else
         {
-            selectedItems.Add(checkedItem);
+            foreach (var item in GetDescendantsAndSelf(checkedItem))
+            {
+                selectedItems.Remove(item);
+            }
         }
+
+        SynchronizeParentSelection(OwnerTreeView.Items, checkedItem, selectedItems);
 
         if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
         {
             await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedItems);
+        }
+    }
+
+    private static void ToggleSelection(List<ITreeViewItem> selectedItems, ITreeViewItem item)
+    {
+        if (!selectedItems.Remove(item))
+        {
+            selectedItems.Add(item);
+        }
+    }
+
+    private static void SetSelection(List<ITreeViewItem> selectedItems, ITreeViewItem item, bool isSelected)
+    {
+        if (isSelected)
+        {
+            AddIfMissing(selectedItems, item);
+        }
+        else
+        {
+            selectedItems.Remove(item);
+        }
+    }
+
+    private static bool? GetSelectionState(ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
+    {
+        var descendants = GetDescendantsAndSelf(item).ToList();
+        if (descendants.All(selectedItems.Contains))
+        {
+            return true;
+        }
+
+        if (descendants.Any(selectedItems.Contains))
+        {
+            return null;
+        }
+
+        return false;
+    }
+
+    private static IEnumerable<ITreeViewItem> GetDescendantsAndSelf(ITreeViewItem item)
+    {
+        yield return item;
+
+        if (item.Items is null)
+        {
+            yield break;
+        }
+
+        foreach (var child in item.Items)
+        {
+            foreach (var descendant in GetDescendantsAndSelf(child))
+            {
+                yield return descendant;
+            }
+        }
+    }
+
+    private static bool SynchronizeParentSelection(IEnumerable<ITreeViewItem>? items, ITreeViewItem changedItem, List<ITreeViewItem> selectedItems)
+    {
+        if (items is null)
+        {
+            return false;
+        }
+
+        foreach (var item in items)
+        {
+            if (SynchronizeParentSelection(item, changedItem, selectedItems))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static bool SynchronizeParentSelection(ITreeViewItem item, ITreeViewItem changedItem, List<ITreeViewItem> selectedItems)
+    {
+        var children = item.Items?.ToList();
+        if (children is null or { Count: 0 })
+        {
+            return false;
+        }
+
+        if (!children.Any(child => string.Equals(child.Id, changedItem.Id, StringComparison.Ordinal)) &&
+            !children.Any(child => SynchronizeParentSelection(child, changedItem, selectedItems)))
+        {
+            return false;
+        }
+
+        var childStates = children.Select(child => GetSelectionState(child, selectedItems)).ToList();
+        var state = childStates.All(childState => childState == true);
+
+        if (state)
+        {
+            AddIfMissing(selectedItems, item);
+        }
+        else
+        {
+            selectedItems.Remove(item);
+        }
+
+        return true;
+    }
+
+    private static void AddIfMissing(List<ITreeViewItem> selectedItems, ITreeViewItem item)
+    {
+        if (!selectedItems.Contains(item))
+        {
+            selectedItems.Add(item);
         }
     }
 
@@ -323,28 +465,35 @@ public partial class FluentTreeItem : FluentComponentBase
                 break;
 
             case TreeSelectionMode.Multiple:
+            case TreeSelectionMode.MultipleRecursive:
                 builder.AddAttribute(10, nameof(ChildContent), (RenderFragment)(childBuilder =>
                 {
                     var visibility = owner.MultipleSelectionVisibility?.Invoke(item) ?? TreeSelectionVisibility.Visible;
+                    var selectionState = owner.SelectionMode == TreeSelectionMode.MultipleRecursive
+                        ? GetSelectionState(item, owner.SelectedItems ?? [])
+                        : owner.SelectedItems?.Contains(item) == true ? true : false;
 
                     // Checkbox
                     switch (visibility)
                     {
                         // Visible
                         case TreeSelectionVisibility.Visible:
-                            childBuilder.OpenElement(0, "fluent-checkbox");
-                            childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
-                            childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
-                            {
-                                // Call the handler on the FluentTreeItem instance
-                                var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
-                                if (fluentTreeItem != null)
-                                {
-                                    await fluentTreeItem.OnCheckChangedHandlerAsync();
-                                }
-                            }));
-                            childBuilder.AddAttribute(3, "tabindex", -1);
-                            childBuilder.CloseElement();
+                            childBuilder.OpenComponent<FluentCheckbox>(0);
+                            childBuilder.AddAttribute(1, nameof(FluentCheckbox.CheckState), selectionState);
+                            childBuilder.AddAttribute(2, nameof(FluentCheckbox.Value), selectionState == true);
+                            childBuilder.AddAttribute(3, nameof(FluentCheckbox.ThreeState), true);
+                            childBuilder.AddAttribute(4, nameof(FluentCheckbox.ThreeStateOrderUncheckToIntermediate), true);
+                            childBuilder.AddAttribute(5, nameof(FluentCheckbox.CheckStateChanged), EventCallback.Factory.Create<bool?>(owner, async state =>
+                                                        {
+                                                            // Call the handler on the FluentTreeItem instance
+                                                            var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
+                                                            if (fluentTreeItem != null)
+                                                            {
+                                                                await fluentTreeItem.OnCheckChangedHandlerAsync(state);
+                                                            }
+                                                        }));
+                            childBuilder.AddAttribute(6, "tabindex", -1);
+                            childBuilder.CloseComponent();
                             break;
 
                         // Hidden

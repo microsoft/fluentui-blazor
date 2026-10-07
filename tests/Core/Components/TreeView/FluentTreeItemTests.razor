@@ -102,6 +102,54 @@
     }
 
     [Fact]
+    public async Task FluentTreeItem_TreeChanged_MismatchedId_DoesNothing()
+    {
+        var selectedChanged = false;
+        var ownerSelected = false;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView OnSelectedChanged="@(_ => ownerSelected = true)">
+            <FluentTreeItem Id="item1" SelectedChanged="@(_ => selectedChanged = true)" />
+        </FluentTreeView>);
+        var item = cut.FindComponent<FluentTreeItem>().Instance;
+
+        // Act
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = "other",
+            Selected = true,
+        });
+
+        // Assert
+        Assert.False(selectedChanged);
+        Assert.False(ownerSelected);
+    }
+
+    [Fact]
+    public async Task FluentTreeItem_TreeChanged_Deselected_DoesNotNotifyOwner()
+    {
+        var selectedChanged = (bool?)null;
+        var selectedItem = null as FluentTreeItem;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView OnSelectedChanged="@(item => selectedItem = item)">
+            <FluentTreeItem Id="item1" SelectedChanged="@(value => selectedChanged = value)" />
+        </FluentTreeView>);
+        var item = cut.FindComponent<FluentTreeItem>().Instance;
+
+        // Act
+        await item.OnTreeChangedAsync(new()
+        {
+            Id = "item1",
+            Selected = false,
+        });
+
+        // Assert
+        Assert.False(selectedChanged);
+        Assert.Null(selectedItem);
+    }
+
+    [Fact]
     public void FluentTreeItem_Expanded()
     {
         // Arrange && Act
@@ -119,6 +167,56 @@
         Assert.Equal(2, treeItems.Count);
         Assert.Equal("item1", treeItems[0].GetAttribute("id"));
         Assert.Equal("item2", treeItems[1].GetAttribute("id"));
+    }
+
+    [Fact]
+    public async Task FluentTreeItem_TreeToggle_SameState_DoesNotInvokeExpandedChanged()
+    {
+        var expandedChanged = false;
+        var ownerExpanded = false;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView OnExpandedChanged="@(_ => ownerExpanded = true)">
+            <FluentTreeItem Id="item1" Expanded="true" ExpandedChanged="@(_ => expandedChanged = true)" />
+        </FluentTreeView>);
+        var item = cut.FindComponent<FluentTreeItem>().Instance;
+
+        // Act
+        await item.OnTreeToggleAsync(new()
+        {
+            Id = "item1",
+            NewState = "open",
+        });
+
+        // Assert
+        Assert.True(item.Expanded);
+        Assert.False(expandedChanged);
+        Assert.True(ownerExpanded);
+    }
+
+    [Fact]
+    public async Task FluentTreeItem_TreeToggle_MismatchedId_DoesNothing()
+    {
+        var expandedChanged = false;
+        var ownerExpanded = false;
+
+        // Arrange
+        var cut = Render(@<FluentTreeView OnExpandedChanged="@(_ => ownerExpanded = true)">
+            <FluentTreeItem Id="item1" ExpandedChanged="@(_ => expandedChanged = true)" />
+        </FluentTreeView>);
+        var item = cut.FindComponent<FluentTreeItem>().Instance;
+
+        // Act
+        await item.OnTreeToggleAsync(new()
+        {
+            Id = "other",
+            NewState = "open",
+        });
+
+        // Assert
+        Assert.False(item.Expanded);
+        Assert.False(expandedChanged);
+        Assert.False(ownerExpanded);
     }
 
     [Fact]

@@ -92,6 +92,14 @@ parameter is set. This is more user-friendly and allows the user to see the sele
 
 {{ TreeViewMultiSelect }}
 
+## Recursive multiple selection
+
+Set `SelectionMode` to `TreeSelectionMode.MultipleRecursive` to select or deselect
+an item and all its descendants. Parent checkboxes show a checked state when all
+descendants are selected and an indeterminate state when only some descendants are selected.
+
+{{ TreeViewMultiSelectRecursive }}
+
 
 ## Mutliple Selection with customized checkbox visibility
 
