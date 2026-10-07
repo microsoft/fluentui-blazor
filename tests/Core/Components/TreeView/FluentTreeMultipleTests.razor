@@ -1,4 +1,4 @@
-﻿@using Xunit;
+@using Xunit;
 @inherits FluentUITestContext
 
 @code
@@ -34,12 +34,8 @@
 
         // Assert
         cut.Verify();
-        Assert.NotEmpty(cut.FindComponents<FluentCheckbox>());
-        Assert.All(cut.FindComponents<FluentCheckbox>(), checkbox =>
-        {
-            Assert.True(checkbox.Instance.ThreeState);
-            Assert.False(checkbox.Instance.CheckState);
-        });
+        Assert.Empty(cut.FindComponents<FluentCheckbox>());
+        Assert.Equal(8, cut.FindAll("fluent-checkbox").Count);
     }
 
     [Fact]
@@ -136,7 +132,7 @@
                         @bind-SelectedItems="@selectedItems" />);
 
         // Act
-        var checkbox = cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox");
+        var checkbox = cut.Find("fluent-tree-item#id1 > fluent-checkbox");
         checkbox.Change(new ChangeEventArgs());
 
         // Assert

@@ -478,22 +478,15 @@ public partial class FluentTreeItem : FluentComponentBase
                     {
                         // Visible
                         case TreeSelectionVisibility.Visible:
-                            childBuilder.OpenComponent<FluentCheckbox>(0);
-                            childBuilder.AddAttribute(1, nameof(FluentCheckbox.CheckState), selectionState);
-                            childBuilder.AddAttribute(2, nameof(FluentCheckbox.Value), selectionState == true);
-                            childBuilder.AddAttribute(3, nameof(FluentCheckbox.ThreeState), true);
-                            childBuilder.AddAttribute(4, nameof(FluentCheckbox.ThreeStateOrderUncheckToIntermediate), true);
-                            childBuilder.AddAttribute(5, nameof(FluentCheckbox.CheckStateChanged), EventCallback.Factory.Create<bool?>(owner, async state =>
-                                                        {
-                                                            // Call the handler on the FluentTreeItem instance
-                                                            var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
-                                                            if (fluentTreeItem != null)
-                                                            {
-                                                                await fluentTreeItem.OnCheckChangedHandlerAsync(state);
-                                                            }
-                                                        }));
-                            childBuilder.AddAttribute(6, "tabindex", -1);
-                            childBuilder.CloseComponent();
+                            if (owner.SelectionMode == TreeSelectionMode.Multiple)
+                            {
+                                AddPlainCheckbox(childBuilder, owner, item, selectionState);
+                            }
+                            else
+                            {
+                                AddRecursiveCheckbox(childBuilder, owner, item, selectionState);
+                            }
+
                             break;
 
                         // Hidden
@@ -510,6 +503,41 @@ public partial class FluentTreeItem : FluentComponentBase
 
                 break;
         }
+    }
+
+    private static void AddPlainCheckbox(RenderTreeBuilder builder, FluentTreeView owner, ITreeViewItem item, bool? selectionState)
+    {
+        builder.OpenElement(0, "fluent-checkbox");
+        builder.AddAttribute(1, "checked", selectionState == true ? "true" : null);
+        builder.AddAttribute(3, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async _ =>
+        {
+            var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
+            if (fluentTreeItem != null)
+            {
+                await fluentTreeItem.OnCheckChangedHandlerAsync(selectionState != true);
+            }
+        }));
+        builder.AddAttribute(4, "tabindex", -1);
+        builder.CloseElement();
+    }
+
+    private static void AddRecursiveCheckbox(RenderTreeBuilder builder, FluentTreeView owner, ITreeViewItem item, bool? selectionState)
+    {
+        builder.OpenComponent<FluentCheckbox>(0);
+        builder.AddAttribute(1, nameof(FluentCheckbox.CheckState), selectionState);
+        builder.AddAttribute(2, nameof(FluentCheckbox.Value), selectionState == true);
+        builder.AddAttribute(3, nameof(FluentCheckbox.ThreeState), true);
+        builder.AddAttribute(4, nameof(FluentCheckbox.ThreeStateOrderUncheckToIntermediate), true);
+        builder.AddAttribute(5, nameof(FluentCheckbox.CheckStateChanged), EventCallback.Factory.Create<bool?>(owner, async state =>
+        {
+            var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
+            if (fluentTreeItem != null)
+            {
+                await fluentTreeItem.OnCheckChangedHandlerAsync(state);
+            }
+        }));
+        builder.AddAttribute(6, "tabindex", -1);
+        builder.CloseComponent();
     }
 
     /// <summary />
