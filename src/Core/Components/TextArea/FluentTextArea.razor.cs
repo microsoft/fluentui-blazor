@@ -20,7 +20,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// </summary>
     public FluentTextArea(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(() => string.IsNullOrEmpty(CurrentValueAsString));
+        MessageCondition = Validation.CreateRequiredMessageCondition(() => string.IsNullOrEmpty(CurrentValueAsString));
     }
 
     /// <inheritdoc />

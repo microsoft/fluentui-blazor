@@ -30,6 +30,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <param name="configuration">The configuration object used to apply default values to the component.</param>
     protected FluentInputBase(LibraryConfiguration configuration)
     {
+        Validation = new(this);
         ValueExpression = () => CurrentValueOrDefault;
         configuration?.DefaultValues.ApplyDefaults(this);
 
@@ -52,6 +53,9 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <summary />
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
+
+    /// <summary />
+    protected FluentInputBaseValidation<TValue> Validation { get; }
 
     /// <inheritdoc cref="IFluentComponentBase.IsDisposed" />
     bool IFluentComponentBase.IsDisposed => _isDisposed;

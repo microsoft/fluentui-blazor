@@ -29,7 +29,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(RadioEventArgs))]
     public FluentRadioGroup(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(
+        MessageCondition = Validation.CreateRequiredMessageCondition(
             () => !InternalRadios.Values.Any(radio => EqualityComparer<TValue?>.Default.Equals(radio.Value, Value)),
             useFieldFocusLost: true);
     }

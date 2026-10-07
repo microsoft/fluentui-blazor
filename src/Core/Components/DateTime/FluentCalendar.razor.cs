@@ -41,7 +41,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <param name="configuration">The configuration settings used to initialize the calendar. Cannot be null.</param>
     public FluentCalendar(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(() => CurrentValue.IsNullOrDefault());
+        MessageCondition = Validation.CreateRequiredMessageCondition(() => CurrentValue.IsNullOrDefault());
     }
 
     /// <summary />

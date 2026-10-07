@@ -22,7 +22,7 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     {
         LabelPosition = Components.LabelPosition.After;
 
-        MessageCondition = CreateRequiredMessageCondition(() => !Value);
+        MessageCondition = Validation.CreateRequiredMessageCondition(() => !Value);
     }
 
     /// <inheritdoc />

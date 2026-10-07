@@ -21,7 +21,7 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     {
         LabelPosition ??= Components.LabelPosition.After;
 
-        MessageCondition = CreateRequiredMessageCondition(() => !Value);
+        MessageCondition = Validation.CreateRequiredMessageCondition(() => !Value);
     }
 
     /// <inheritdoc />
