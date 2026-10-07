@@ -1,0 +1,281 @@
+﻿@using Xunit;
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentTreeMultipleRecursiveTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    private readonly TreeViewItem[] Items =
+    {
+        new TreeViewItem("id1", "Item 1",
+        [
+            new TreeViewItem("id11", "Item 1.1",
+            [
+                new TreeViewItem("id111", "Item 1.1.1"),
+                new TreeViewItem("id112", "Item 1.1.2"),
+            ]),
+            new TreeViewItem("id12", "Item 1.2"),
+            new TreeViewItem("id13", "Item 1.3"),
+        ]),
+        new TreeViewItem("id2", "Item 2",
+        [
+            new TreeViewItem("id21", "Item 2.1"),
+            new TreeViewItem("id22", "Item 2.2"),
+            new TreeViewItem("id23", "Item 2.3"),
+        ]),
+    };
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_SelectingParent_SelectsDescendants()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+
+        var checkbox = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Find("fluent-checkbox");
+        checkbox.Change(new ChangeEventArgs());
+
+        Assert.Equal(["id1", "id11", "id111", "id112", "id12", "id13"], selectedItems!.Select(item => item.Id));
+    }
+
+    [Fact]
+    public async Task FluentTreeMultipleRecursive_CheckedParent_DeselectsDescendants()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+
+        var checkbox = cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox");
+        checkbox.Change(new ChangeEventArgs());
+        Assert.Equal(["id1", "id11", "id111", "id112", "id12", "id13"], selectedItems!.Select(item => item.Id));
+
+        var checkboxComponent = cut.FindComponents<FluentCheckbox>()
+            .Single(component => component.Instance.Id == checkbox.GetAttribute("id"));
+        await checkboxComponent.InvokeAsync(() => checkboxComponent.Instance.CheckStateChanged.InvokeAsync(false));
+
+        Assert.Empty(selectedItems!);
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_ChildSelection_UpdatesParentState()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [Items[0].Items!.First()];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+
+        var parentCheckbox = cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox");
+        Assert.True(parentCheckbox.HasAttribute("indeterminate"));
+        Assert.False(parentCheckbox.HasAttribute("checked"));
+        Assert.DoesNotContain(selectedItems!, item => item.Id == "id1");
+    }
+
+    [Fact]
+    public async Task FluentTreeMultipleRecursive_DeselectingGrandchild_SetsAllAncestorsIndeterminate()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        var parent = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Instance;
+
+        await parent.OnCheckChangedHandlerAsync(true);
+
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        var grandchild = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id111").Instance;
+
+        await grandchild.OnCheckChangedHandlerAsync(false);
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        SelectedItems="@selectedItems" />);
+
+        Assert.True(cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.True(cut.Find("fluent-tree-item#id11 > fluent-field fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.False(cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox").HasAttribute("checked"));
+        Assert.False(cut.Find("fluent-tree-item#id11 > fluent-field fluent-checkbox").HasAttribute("checked"));
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_SelectedBranchWithUnselectedDescendants_UpdatesAncestors()
+    {
+        var items = new[]
+        {
+            new TreeViewItem("root", "Root",
+            [
+                new TreeViewItem("branch", "Branch",
+                [
+                    new TreeViewItem("leaf1", "Leaf 1"),
+                    new TreeViewItem("leaf2", "Leaf 2"),
+                ]),
+            ]),
+        };
+        IEnumerable<ITreeViewItem>? selectedItems = [items[0].Items!.First()];
+
+        var cut = Render(@<FluentTreeView Items="@items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        SelectedItems="@selectedItems" />);
+
+        Assert.True(cut.Find("fluent-tree-item#root > fluent-field fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.True(cut.Find("fluent-tree-item#branch > fluent-field fluent-checkbox").HasAttribute("indeterminate"));
+    }
+
+    [Fact]
+    public async Task FluentTreeMultipleRecursive_SelectingNestedBranch_SynchronizesAllAncestors()
+    {
+        var items = new[]
+        {
+            new TreeViewItem("root", "Root",
+            [
+                new TreeViewItem("branch", "Branch",
+                [
+                    new TreeViewItem("leaf1", "Leaf 1"),
+                    new TreeViewItem("leaf2", "Leaf 2"),
+                ]),
+            ]),
+        };
+        IEnumerable<ITreeViewItem>? selectedItems = [];
+
+        var cut = Render(@<FluentTreeView Items="@items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        var branch = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "branch").Instance;
+
+        await branch.OnCheckChangedHandlerAsync(true);
+
+        Assert.Equal(["branch", "leaf1", "leaf2", "root"], selectedItems!.Select(item => item.Id));
+    }
+
+    [Fact]
+    public async Task FluentTreeMultipleRecursive_DeselectingNestedLeaf_RemovesIncompleteAncestors()
+    {
+        var items = new[]
+        {
+            new TreeViewItem("root", "Root",
+            [
+                new TreeViewItem("branch", "Branch",
+                [
+                    new TreeViewItem("leaf1", "Leaf 1"),
+                    new TreeViewItem("leaf2", "Leaf 2"),
+                ]),
+            ]),
+        };
+        IEnumerable<ITreeViewItem>? selectedItems =
+        [
+            items[0],
+            items[0].Items!.First(),
+            items[0].Items!.First().Items!.First(),
+            items[0].Items!.First().Items!.ElementAt(1),
+        ];
+
+        var cut = Render(@<FluentTreeView Items="@items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        var leaf = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "leaf1").Instance;
+
+        await leaf.OnCheckChangedHandlerAsync(false);
+
+        Assert.Equal(["leaf2"], selectedItems!.Select(item => item.Id));
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_HiddenSelection_DoesNotRenderCheckbox()
+    {
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        MultipleSelectionVisibility="@(item => item.Id == "id1" ? TreeSelectionVisibility.Hidden : TreeSelectionVisibility.Visible)" />);
+
+        Assert.Equal(9, cut.FindComponents<FluentCheckbox>().Count);
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_IndeterminateParent_DeselectsDescendants()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [Items[0].Items!.First()];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+
+        var parentCheckbox = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Find("fluent-checkbox");
+        Assert.True(parentCheckbox.HasAttribute("indeterminate"));
+
+        parentCheckbox = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Find("fluent-checkbox");
+        parentCheckbox.Change(new ChangeEventArgs());
+
+        Assert.Empty(selectedItems!);
+    }
+
+    [Fact]
+    public async Task FluentTreeMultipleRecursive_ChildToggle_RendersIndeterminateParent()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+
+        var parentItem = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Instance;
+        var childItem = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id11").Instance;
+
+        await parentItem.OnCheckChangedHandlerAsync(true);
+        Assert.Equal(["id1", "id11", "id111", "id112", "id12", "id13"], selectedItems!.Select(item => item.Id));
+
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        childItem = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id11").Instance;
+        await childItem.OnCheckChangedHandlerAsync(false);
+
+        Assert.Equal(["id12", "id13"], selectedItems!.Select(item => item.Id));
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        SelectedItems="@selectedItems" />);
+        var parentCheckbox = cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox");
+        Assert.True(parentCheckbox.HasAttribute("indeterminate"));
+        Assert.False(parentCheckbox.HasAttribute("checked"));
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_LeafRechecked_DoesNotRenderCheckedIndeterminateParent()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems = [];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        var leaf = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id111").Find("fluent-checkbox");
+
+        leaf.Change(new ChangeEventArgs());
+
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        var parent = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Find("fluent-checkbox");
+        parent.Change(new ChangeEventArgs());
+
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+        leaf = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id111").Find("fluent-checkbox");
+        leaf.Change(new ChangeEventArgs());
+        cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        SelectedItems="@selectedItems" />);
+
+        parent = cut.FindComponents<FluentTreeItem>().First(i => i.Instance.Id == "id1").Find("fluent-checkbox");
+        Assert.True(parent.HasAttribute("indeterminate"));
+        Assert.False(parent.HasAttribute("checked"));
+    }
+}

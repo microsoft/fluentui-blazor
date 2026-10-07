@@ -326,13 +326,20 @@ public partial class FluentTreeItem : FluentComponentBase
 
     private static bool? GetSelectionState(ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
     {
-        var descendants = GetDescendantsAndSelf(item).ToList();
-        if (descendants.All(selectedItems.Contains))
+        var children = item.Items?.ToList();
+        if (children is null or { Count: 0 })
+        {
+            return selectedItems.Contains(item);
+        }
+
+        var childStates = children.Select(child => GetSelectionState(child, selectedItems)).ToList();
+        if (childStates.All(childState => childState == true))
+
         {
             return true;
         }
 
-        if (descendants.Any(selectedItems.Contains))
+        if (selectedItems.Contains(item) || childStates.Any(childState => childState != false))
         {
             return null;
         }
