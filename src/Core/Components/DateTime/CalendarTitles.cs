@@ -108,17 +108,25 @@ internal class CalendarTitles<TValue>
     {
         get
         {
-#pragma warning disable MA0011
-            var userMinDate = _calendar.MinDate.ConvertToDateTime();
-            var minDate = userMinDate ?? _calendar.Culture.Calendar.MinSupportedDateTime.AddMonths(1);
-#pragma warning restore MA0011
+            var calendar = _calendar.Culture.Calendar;
+            var minDate = _calendar.MinDate.ConvertToDateTime() ?? calendar.MinSupportedDateTime.AddMonths(1);
+
+            if (minDate < calendar.MinSupportedDateTime)
+            {
+                minDate = calendar.MinSupportedDateTime.AddMonths(1);
+            }
+            else if (minDate > calendar.MaxSupportedDateTime)
+            {
+                minDate = calendar.MaxSupportedDateTime;
+            }
 
             return View switch
             {
                 CalendarViews.Days => Date.Year == minDate.Year && Date.Month == minDate.Month,
                 CalendarViews.Months => Date.Year == minDate.Year,
-                CalendarViews.Years => Date.Year - CalendarExtended.YearShiftCentered <= minDate.Year + 12,
-                _ => false
+                CalendarViews.Years => Date < calendar.AddYears(calendar.MinSupportedDateTime, 12)
+                    || Date.GetYear(_calendar.Culture) - CalendarExtended.YearShiftCentered <= minDate.GetYear(_calendar.Culture),
+                _ => false,
             };
         }
     }
@@ -147,15 +155,24 @@ internal class CalendarTitles<TValue>
     {
         get
         {
-            var userMaxDate = _calendar.MaxDate.ConvertToDateTime();
-            var maxDate = userMaxDate ?? _calendar.Culture.Calendar.MaxSupportedDateTime;
+            var calendar = _calendar.Culture.Calendar;
+            var maxDate = _calendar.MaxDate.ConvertToDateTime() ?? calendar.MaxSupportedDateTime;
+
+            if (maxDate > calendar.MaxSupportedDateTime)
+            {
+                maxDate = calendar.MaxSupportedDateTime;
+            }
+            else if (maxDate < calendar.MinSupportedDateTime)
+            {
+                maxDate = calendar.MinSupportedDateTime;
+            }
 
             return View switch
             {
                 CalendarViews.Days => Date.Year == maxDate.Year && Date.Month == maxDate.Month,
                 CalendarViews.Months => Date.Year == maxDate.Year,
-                CalendarViews.Years => Date.Year + 12 - CalendarExtended.YearShiftCentered >= maxDate.Year,
-                _ => false
+                CalendarViews.Years => Date.GetYear(_calendar.Culture) + 12 - CalendarExtended.YearShiftCentered > maxDate.GetYear(_calendar.Culture),
+                _ => false,
             };
         }
     }

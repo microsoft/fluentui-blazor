@@ -403,6 +403,40 @@ value=""2022-02-20"">20</div>");
     [InlineData(CalendarViews.Days)]
     [InlineData(CalendarViews.Months)]
     [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_MinDateBeyondCalendarMaximum(CalendarViews view)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var culture = CultureInfo.GetCultureInfo("ar-SA");
+        DateTime? value = DateTime.Parse("2022-04-15", CultureInfo.InvariantCulture);
+        DateTime minDate = DateTime.MaxValue;
+
+        var calendar = Render(@<FluentCalendar TValue="DateTime?" Culture="@culture" View="@view" Value="@value" MinDate="@minDate" />);
+
+        Assert.NotEmpty(calendar.Find(".label").TextContent);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public void FluentCalendar_MaxDateBeforeCalendarMinimum(CalendarViews view)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        var culture = CultureInfo.GetCultureInfo("ar-SA");
+        DateTime? value = DateTime.Parse("2022-04-15", CultureInfo.InvariantCulture);
+        DateTime maxDate = DateTime.MinValue;
+
+        var calendar = Render(@<FluentCalendar TValue="DateTime?" Culture="@culture" View="@view" Value="@value" MaxDate="@maxDate" />);
+
+        Assert.NotEmpty(calendar.Find(".label").TextContent);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
     public void FluentCalendar_Maximum_View(CalendarViews view)
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
