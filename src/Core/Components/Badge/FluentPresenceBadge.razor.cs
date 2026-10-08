@@ -11,9 +11,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentPresenceBadge : FluentComponentBase
 {
-    private int _iconWidth;
-    private string _ariaLabel = string.Empty;
-
     private bool _isAttached => AnchorContent is not null;
 
     /// <summary />
@@ -90,9 +87,6 @@ public partial class FluentPresenceBadge : FluentComponentBase
             Positioning = Components.Positioning.BelowEnd;
         }
 
-        _ariaLabel = GetAriaLabel(Status, OutOfOffice);
-        _iconWidth = GetIconSize(Size);
-
         if (AdditionalAttributes is not null && AdditionalAttributes.ContainsKey("slot"))
         {
             Size ??= AdditionalAttributes["slot"] == (object)FluentSlot.Badge ? BadgeSize.ExtraSmall : null;
@@ -116,9 +110,9 @@ public partial class FluentPresenceBadge : FluentComponentBase
         };
     }
 
-    private static int GetIconSize(BadgeSize? size)
+    private int GetIconSize()
     {
-        return size switch
+        return Size switch
         {
             BadgeSize.Tiny => 6,
             BadgeSize.ExtraSmall => 10,
@@ -156,9 +150,9 @@ public partial class FluentPresenceBadge : FluentComponentBase
         };
     }
 
-    private string GetAriaLabel(PresenceStatus? status, bool outOfOffice)
+    private string GetAriaLabel()
     {
-        var statusText = status switch
+        var statusText = Status switch
         {
             PresenceStatus.Available => Localizer[Localization.LanguageResource.PresenceStatus_Available],
             PresenceStatus.Busy => Localizer[Localization.LanguageResource.PresenceStatus_Busy],
@@ -171,7 +165,7 @@ public partial class FluentPresenceBadge : FluentComponentBase
             _ => Localizer[Localization.LanguageResource.PresenceStatus_Unknown],
         };
 
-        var oofText = outOfOffice && status != PresenceStatus.OutOfOffice ? $" {Localizer[Localization.LanguageResource.PresenceStatus_OutOfOffice]}" : "";
+        var oofText = OutOfOffice && Status != PresenceStatus.OutOfOffice ? $" {Localizer[Localization.LanguageResource.PresenceStatus_OutOfOffice]}" : "";
         return statusText + oofText;
     }
 }

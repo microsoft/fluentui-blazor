@@ -13,9 +13,9 @@
                   style="@StyleValue"
                   size="@Size.ToAttributeValue()"
                   positioning="@Positioning.ToAttributeValue()"
-                  aria-label="@_ariaLabel"
+                  aria-label="@GetAriaLabel()"
                   @attributes="@AdditionalAttributes">
-        <FluentIcon Width="@($"{_iconWidth}px")" Value="@(GetPresenceIcon())" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" Style="margin: -1px;" />
+        <FluentIcon Width="@($"{GetIconSize()}px")" Value="@(GetPresenceIcon())" Slot="@FluentSlot.Start" Color="Components.Color.Custom" CustomColor="@GetIconColor()" Style="margin: -1px;" />
     </fluent-badge>
 </AddTag>
 
