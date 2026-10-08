@@ -692,9 +692,38 @@
         Assert.Equal(ariaLabel, value);
     }
 
+    [Fact]
+    public async Task FluentSelect_Uses_ValidationFieldFor_WhenProvided()
+    {
+        var model = new SelectValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var cut = Render(@<CascadingValue Value="@editContext">
+            <FluentSelect Items="@Digits" TOption="string" TValue="string" ValidationFieldFor="@(() => model.Alias)" @bind-Value="@model.Digit" />
+        </CascadingValue>);
+
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(SelectValidationModel.Digit)), "Digit is invalid");
+            messageStore.Add(editContext.Field(nameof(SelectValidationModel.Alias)), "Alias is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        Assert.Contains("Alias is invalid", cut.Markup);
+        Assert.DoesNotContain("Digit is invalid", cut.Markup);
+    }
+
     public record Person
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+    }
+
+    private sealed class SelectValidationModel
+    {
+        public string Digit { get; set; } = string.Empty;
+
+        public string Alias { get; set; } = string.Empty;
     }
 }
