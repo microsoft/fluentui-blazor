@@ -273,54 +273,11 @@ public partial class FluentTreeItem : FluentComponentBase
             return;
         }
 
-        var selectedSet = GetUpdatedSelectionSet(OwnerTreeView, checkedItem, selectedItems, newState);
+        var selectedSet = FluentTreeView.GetUpdatedSelectionSet(OwnerTreeView, checkedItem, selectedItems, newState);
         if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
         {
             await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedSet.ToList());
         }
-    }
-
-    private static HashSet<ITreeViewItem> GetUpdatedSelectionSet(
-        FluentTreeView ownerTreeView,
-        ITreeViewItem checkedItem,
-        IReadOnlyCollection<ITreeViewItem> selectedItems,
-        bool? newState)
-    {
-        var currentState = GetSelectionState(checkedItem, selectedItems);
-        var selectDescendants = newState switch
-        {
-            true when currentState is not null => true,
-            null when currentState is false => true,
-            _ => false,
-        };
-
-        var selectedSet = new HashSet<ITreeViewItem>(selectedItems);
-        foreach (var item in GetDescendantsAndSelf(checkedItem))
-        {
-            if (selectDescendants)
-            {
-                selectedSet.Add(item);
-            }
-            else
-            {
-                selectedSet.Remove(item);
-            }
-        }
-
-        foreach (var ancestor in ownerTreeView.GetAncestors(checkedItem))
-        {
-            var ancestorState = FluentTreeView.GetSelectionState(ancestor, selectedSet);
-            if (ancestorState == true)
-            {
-                selectedSet.Add(ancestor);
-            }
-            else
-            {
-                selectedSet.Remove(ancestor);
-            }
-        }
-
-        return selectedSet;
     }
 
     private static void ToggleSelection(List<ITreeViewItem> selectedItems, ITreeViewItem item)
@@ -340,27 +297,6 @@ public partial class FluentTreeItem : FluentComponentBase
         else
         {
             selectedItems.Remove(item);
-        }
-    }
-
-    private static bool? GetSelectionState(ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
-        => FluentTreeView.GetSelectionState(item, selectedItems);
-
-    private static IEnumerable<ITreeViewItem> GetDescendantsAndSelf(ITreeViewItem item)
-    {
-        yield return item;
-
-        if (item.Items is null)
-        {
-            yield break;
-        }
-
-        foreach (var child in item.Items)
-        {
-            foreach (var descendant in GetDescendantsAndSelf(child))
-            {
-                yield return descendant;
-            }
         }
     }
 

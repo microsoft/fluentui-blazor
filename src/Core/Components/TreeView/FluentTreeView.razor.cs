@@ -18,7 +18,6 @@ public partial class FluentTreeView : FluentComponentBase
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
     private readonly Dictionary<ITreeViewItem, ITreeViewItem?> _parentByItem = [];
     private readonly Dictionary<ITreeViewItem, bool?> _selectionStates = [];
-    private IReadOnlyList<ITreeViewItem>? _lastNormalizedSelectedItems;
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
@@ -53,11 +52,7 @@ public partial class FluentTreeView : FluentComponentBase
 
         if (SelectionMode == TreeSelectionMode.MultipleRecursive)
         {
-            var normalizedItems = BuildSelectionStateCache();
-            if (!AreEquivalentSelectionSets(_lastNormalizedSelectedItems, normalizedItems))
-            {
-                _lastNormalizedSelectedItems = normalizedItems.OrderBy(item => item.Id, StringComparer.Ordinal).ToList();
-            }
+            BuildSelectionStateCache();
         }
     }
 
@@ -95,35 +90,93 @@ public partial class FluentTreeView : FluentComponentBase
         return false;
     }
 
-    private List<ITreeViewItem> BuildSelectionStateCache()
+    internal static HashSet<ITreeViewItem> GetUpdatedSelectionSet(
+        FluentTreeView ownerTreeView,
+        ITreeViewItem checkedItem,
+        IReadOnlyCollection<ITreeViewItem> selectedItems,
+        bool? newState)
+    {
+        var currentState = GetSelectionState(checkedItem, selectedItems);
+        var selectDescendants = newState switch
+        {
+            true when currentState is not null => true,
+            null when currentState is false => true,
+            _ => false,
+        };
+
+        var selectedSet = new HashSet<ITreeViewItem>(selectedItems);
+        foreach (var item in GetDescendantsAndSelf(checkedItem))
+        {
+            if (selectDescendants)
+            {
+                selectedSet.Add(item);
+            }
+            else
+            {
+                selectedSet.Remove(item);
+            }
+        }
+
+        foreach (var ancestor in ownerTreeView.GetAncestors(checkedItem))
+        {
+            var ancestorState = GetSelectionState(ancestor, selectedSet);
+            if (ancestorState == true)
+            {
+                selectedSet.Add(ancestor);
+            }
+            else
+            {
+                selectedSet.Remove(ancestor);
+            }
+        }
+
+        return selectedSet;
+    }
+
+    private static IEnumerable<ITreeViewItem> GetDescendantsAndSelf(ITreeViewItem item)
+    {
+        yield return item;
+
+        if (item.Items is null)
+        {
+            yield break;
+        }
+
+        foreach (var child in item.Items)
+        {
+            foreach (var descendant in GetDescendantsAndSelf(child))
+            {
+                yield return descendant;
+            }
+        }
+    }
+
+    private void BuildSelectionStateCache()
     {
         _parentByItem.Clear();
         _selectionStates.Clear();
 
         if (SelectionMode != TreeSelectionMode.MultipleRecursive)
         {
-            return SelectedItems?.ToList() ?? [];
+            return;
         }
 
         var selectedItems = new HashSet<ITreeViewItem>(SelectedItems ?? []);
-        var normalizedItems = new List<ITreeViewItem>();
 
         foreach (var item in Items ?? [])
         {
-            BuildSelectionState(item, selectedItems, normalizedItems);
+            BuildSelectionState(item, selectedItems);
         }
-
-        return normalizedItems;
     }
 
-    private bool? BuildSelectionState(ITreeViewItem item, HashSet<ITreeViewItem> selectedItems, List<ITreeViewItem> normalizedItems)
+    private bool? BuildSelectionState(ITreeViewItem item, HashSet<ITreeViewItem> selectedItems)
     {
         var children = item.Items?.ToArray() ?? [];
 
         foreach (var child in children)
         {
             _parentByItem[child] = item;
-            BuildSelectionState(child, selectedItems, normalizedItems);
+            BuildSelectionState(child, selectedItems);
         }
 
         if (children.Length == 0)
@@ -135,12 +188,6 @@ public partial class FluentTreeView : FluentComponentBase
 
         var itemState = GetSelectionState(item, selectedItems);
         _selectionStates[item] = itemState;
-
-        if (itemState == true)
-        {
-            normalizedItems.Add(item);
-        }
-
         return itemState;
     }
 
@@ -158,17 +205,6 @@ public partial class FluentTreeView : FluentComponentBase
         }
 
         return snapshot;
-    }
-
-    private static bool AreEquivalentSelectionSets(IEnumerable<ITreeViewItem>? first, IEnumerable<ITreeViewItem>? second)
-    {
-        if (first is null || second is null)
-        {
-            return first is null && second is null;
-        }
-
-        var firstSet = new HashSet<ITreeViewItem>(first);
-        return firstSet.SetEquals(second);
     }
 
     /// <summary>
