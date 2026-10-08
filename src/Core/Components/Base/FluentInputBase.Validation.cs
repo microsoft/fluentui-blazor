@@ -11,6 +11,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public abstract partial class FluentInputBase<TValue>
 {
+    private bool _autoRequiredMessageSet;
+    private string? _autoRequiredMessageText;
+    private Icon? _autoRequiredMessageIcon;
+
     /// <summary>
     /// Determines whether a required-field message condition is met.
     /// </summary>
@@ -39,8 +43,29 @@ public abstract partial class FluentInputBase<TValue>
     /// </param>
     protected void SetRequiredErrorMessage(IFluentField field, FieldIdentifier? fieldIdentifier = null)
     {
+        var requiredMessage = GetRequiredErrorMessage(fieldIdentifier ?? FieldIdentifier);
+
         field.MessageIcon = FluentStatus.ErrorIcon;
-        field.Message = GetRequiredErrorMessage(fieldIdentifier ?? FieldIdentifier);
+        field.Message = requiredMessage;
+
+        _autoRequiredMessageSet = true;
+        _autoRequiredMessageText = requiredMessage;
+        _autoRequiredMessageIcon = FluentStatus.ErrorIcon;
+    }
+
+    private void ClearGeneratedRequiredErrorMessage(IFluentField field)
+    {
+        if (!_autoRequiredMessageSet)
+        {
+            return;
+        }
+
+        field.Message = null;
+        field.MessageIcon = null;
+
+        _autoRequiredMessageSet = false;
+        _autoRequiredMessageText = null;
+        _autoRequiredMessageIcon = null;
     }
 
     /// <summary>
@@ -55,15 +80,37 @@ public abstract partial class FluentInputBase<TValue>
     {
         return field =>
         {
-            if (field.Message is not null || field.MessageIcon is not null || field.MessageTemplate is not null)
+            var hasGeneratedMessage = _autoRequiredMessageSet &&
+                string.Equals(_autoRequiredMessageText, field.Message, StringComparison.Ordinal) &&
+                Equals(_autoRequiredMessageIcon, field.MessageIcon);
+
+            var hasExplicitMessage = field.MessageState is not null || MessageState is not null ||
+                (field.Message is not null && !hasGeneratedMessage) ||
+                (field.MessageIcon is not null && !hasGeneratedMessage) ||
+                field.MessageTemplate is not null ||
+                (Message is not null && !hasGeneratedMessage) ||
+                (MessageIcon is not null && !hasGeneratedMessage);
+
+            if (hasExplicitMessage)
             {
+                if (_autoRequiredMessageSet)
+                {
+                    ClearGeneratedRequiredErrorMessage(field);
+                }
+
                 return true;
             }
 
             var fieldIdentifier = fieldIdentifierProvider?.Invoke() ?? ValidationFieldIdentifier;
             if (!IsRequiredMessageConditionMet(field, isEmpty, useFieldFocusLost, fieldIdentifier))
             {
+                ClearGeneratedRequiredErrorMessage(field);
                 return false;
+            }
+
+            if (hasGeneratedMessage)
+            {
+                return true;
             }
 
             SetRequiredErrorMessage(field, fieldIdentifier);

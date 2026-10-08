@@ -58,6 +58,31 @@
         Assert.Contains("This field is required", cut.Markup);
     }
 
+    [Fact]
+    public void FluentInputText_Required_FocusOut_ClearsGeneratedMessage_WhenValueIsCorrected()
+    {
+        string? value = string.Empty;
+        var cut = Render(@<FluentTextInput Required="true" @bind-Value="@value" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+        Assert.Contains("This field is required", cut.Markup);
+
+        cut.Find("fluent-text-input").Change("updated");
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentInputText_Required_MessageState_IsNotReplacedByRequiredMessage()
+    {
+        var cut = Render(@<FluentTextInput Required="true" MessageState="MessageState.Warning" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Please, check this value", cut.Markup);
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
     [Theory]
     [InlineData(TextInputAppearance.Outline, "outline")]
     [InlineData(TextInputAppearance.Underline, "underline")]
