@@ -477,7 +477,7 @@ public partial class FluentTreeItem : FluentComponentBase
                 {
                     var visibility = owner.MultipleSelectionVisibility?.Invoke(item) ?? TreeSelectionVisibility.Visible;
                     var selectionState = owner.SelectionMode == TreeSelectionMode.MultipleRecursive
-                        ? GetSelectionState(item, owner.SelectedItems ?? [])
+                        ? owner.GetSelectionState(item)
                         : owner.SelectedItems?.Contains(item) == true ? true : false;
 
                     // Checkbox
@@ -535,7 +535,8 @@ public partial class FluentTreeItem : FluentComponentBase
         builder.AddAttribute(2, nameof(FluentCheckbox.Value), selectionState == true);
         builder.AddAttribute(3, nameof(FluentCheckbox.ThreeState), true);
         builder.AddAttribute(4, nameof(FluentCheckbox.ThreeStateOrderUncheckToIntermediate), true);
-        builder.AddAttribute(5, nameof(FluentCheckbox.CheckStateChanged), EventCallback.Factory.Create<bool?>(owner, async state =>
+        builder.AddAttribute(5, nameof(FluentCheckbox.AriaLabel), item.Text);
+        builder.AddAttribute(6, nameof(FluentCheckbox.CheckStateChanged), EventCallback.Factory.Create<bool?>(owner, async state =>
         {
             var fluentTreeItem = owner.InternalItems.TryGetValue(item.Id, out var ti) ? ti : null;
             if (fluentTreeItem != null)
@@ -543,7 +544,7 @@ public partial class FluentTreeItem : FluentComponentBase
                 await fluentTreeItem.OnCheckChangedHandlerAsync(state);
             }
         }));
-        builder.AddAttribute(6, "tabindex", -1);
+        builder.AddAttribute(7, "tabindex", -1);
         builder.CloseComponent();
     }
 

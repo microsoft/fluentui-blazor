@@ -16,6 +16,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTreeView : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
+    private readonly Dictionary<ITreeViewItem, IReadOnlyList<ITreeViewItem>> _childrenByItem = [];
+    private readonly Dictionary<ITreeViewItem, bool?> _selectionStates = [];
+    private readonly HashSet<ITreeViewItem> _selectedItemSet = [];
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
@@ -34,6 +37,88 @@ public partial class FluentTreeView : FluentComponentBase
     /// <summary/>
     protected string? StyleValue => DefaultStyleBuilder
         .Build();
+
+    /// <summary />
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (LazyLoadItems && SelectionMode == TreeSelectionMode.MultipleRecursive)
+        {
+            throw new InvalidOperationException(
+                $"{nameof(LazyLoadItems)} cannot be used together with {nameof(TreeSelectionMode.MultipleRecursive)} selection.");
+        }
+
+        var normalizedItems = BuildSelectionStateCache();
+        if (SelectedItems is not null && !AreSameItems(SelectedItems, normalizedItems))
+        {
+            SelectedItems = normalizedItems;
+
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
+        }
+    }
+
+    internal bool? GetSelectionState(ITreeViewItem item)
+        => _selectionStates.TryGetValue(item, out var state) ? state : false;
+
+    private List<ITreeViewItem> BuildSelectionStateCache()
+    {
+        _childrenByItem.Clear();
+        _selectionStates.Clear();
+        _selectedItemSet.Clear();
+
+        if (SelectionMode != TreeSelectionMode.MultipleRecursive)
+        {
+            return SelectedItems?.ToList() ?? [];
+        }
+
+        var normalizedItems = SelectedItems?.ToList() ?? [];
+        foreach (var selectedItem in SelectedItems ?? [])
+        {
+            _selectedItemSet.Add(selectedItem);
+        }
+
+        foreach (var item in Items ?? [])
+        {
+            BuildSelectionState(item, normalizedItems);
+        }
+
+        return normalizedItems;
+    }
+
+    private bool? BuildSelectionState(ITreeViewItem item, List<ITreeViewItem> normalizedItems)
+    {
+        var children = item.Items?.ToArray() ?? [];
+        _childrenByItem[item] = children;
+
+        if (children.Length == 0)
+        {
+            var leafState = _selectedItemSet.Contains(item);
+            _selectionStates[item] = leafState;
+            return leafState;
+        }
+
+        var childStates = children.Select(child => BuildSelectionState(child, normalizedItems)).ToList();
+        bool? itemState = childStates.All(childState => childState == true)
+            ? true
+            : _selectedItemSet.Contains(item) || childStates.Any(childState => childState != false)
+                ? null
+                : false;
+
+        _selectionStates[item] = itemState;
+        if (itemState == true && _selectedItemSet.Add(item))
+        {
+            normalizedItems.Add(item);
+        }
+
+        return itemState;
+    }
+
+    private static bool AreSameItems(IEnumerable<ITreeViewItem>? first, IEnumerable<ITreeViewItem> second)
+        => first is not null && first.SequenceEqual(second);
 
     /// <summary>
     /// Gets or sets the size of the tree. Default is <see cref="TreeSize.Medium"/>.
@@ -70,6 +155,7 @@ public partial class FluentTreeView : FluentComponentBase
     /// Can only be used when the <see cref="Items"/> is defined.
     /// Gets or sets whether the tree should use lazy loading when expanding nodes.
     /// If True, the tree will only render the children of a node when it is expanded and will remove them when it is collapsed.
+    /// This cannot be combined with <see cref="TreeSelectionMode.MultipleRecursive"/>.
     /// </summary>
     [Parameter]
     public bool LazyLoadItems { get; set; } = false;
@@ -139,6 +225,8 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
+    /// In <see cref="TreeSelectionMode.MultipleRecursive"/> mode, fully selected
+    /// branches include their ancestors in this collection.
     /// </summary>
     [Parameter]
     public IEnumerable<ITreeViewItem>? SelectedItems { get; set; }

@@ -51,6 +51,19 @@
     }
 
     [Fact]
+    public void FluentTreeViewItems_LazyLoadingAndRecursiveSelection_Throws()
+    {
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            Render(@<FluentTreeView Items="@Items"
+                                    LazyLoadItems="true"
+                                    SelectionMode="@TreeSelectionMode.MultipleRecursive" />));
+
+        Assert.Equal(
+            "LazyLoadItems cannot be used with MultipleRecursive selection.",
+            exception.Message);
+    }
+
+    [Fact]
     public async Task FluentTreeViewItems_LazyLoading_Expanded()
     {
         // Arrange && Act

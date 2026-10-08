@@ -80,6 +80,28 @@
     }
 
     [Fact]
+    public void FluentTreeMultipleRecursive_FullySelectedBranch_NormalizesAncestors()
+    {
+        IEnumerable<ITreeViewItem>? selectedItems =
+        [
+            Items[0].Items!.First().Items!.First(),
+            Items[0].Items!.First().Items!.ElementAt(1),
+            Items[0].Items!.ElementAt(1),
+            Items[0].Items!.ElementAt(2),
+        ];
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        @bind-SelectedItems="@selectedItems" />);
+
+        Assert.Equal(
+            ["id1", "id11", "id111", "id112", "id12", "id13"],
+            selectedItems!.Select(item => item.Id).OrderBy(id => id));
+        Assert.True(cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox").HasAttribute("checked"));
+        Assert.True(cut.Find("fluent-tree-item#id11 > fluent-field fluent-checkbox").HasAttribute("checked"));
+    }
+
+    [Fact]
     public async Task FluentTreeMultipleRecursive_DeselectingGrandchild_SetsAllAncestorsIndeterminate()
     {
         IEnumerable<ITreeViewItem>? selectedItems = [];
@@ -197,6 +219,37 @@
                         MultipleSelectionVisibility="@(item => item.Id == "id1" ? TreeSelectionVisibility.Hidden : TreeSelectionVisibility.Visible)" />);
 
         Assert.Equal(9, cut.FindComponents<FluentCheckbox>().Count);
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_Checkboxes_HaveAccessibleNames()
+    {
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive" />);
+
+        var checkboxes = cut.FindComponents<FluentCheckbox>();
+        var accessibleNames = checkboxes.Select(checkbox => checkbox.Instance.AriaLabel).ToList();
+        var itemNames = GetDescendants(Items).Select(item => item.Text).ToList();
+
+        Assert.Equal(10, checkboxes.Count);
+        Assert.All(checkboxes, checkbox => Assert.False(string.IsNullOrWhiteSpace(checkbox.Instance.AriaLabel)));
+        Assert.Equal(itemNames.OrderBy(name => name), accessibleNames.OrderBy(name => name));
+    }
+
+    private static IEnumerable<ITreeViewItem> GetDescendants(IEnumerable<ITreeViewItem> items)
+    {
+        foreach (var item in items)
+        {
+            yield return item;
+
+            if (item.Items is not null)
+            {
+                foreach (var descendant in GetDescendants(item.Items))
+                {
+                    yield return descendant;
+                }
+            }
+        }
     }
 
     [Fact]
