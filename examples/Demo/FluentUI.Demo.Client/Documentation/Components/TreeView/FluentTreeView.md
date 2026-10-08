@@ -133,9 +133,10 @@ or indeterminate item requests its addition, without adding duplicates.
 Handle `SelectedItemsChanged` to update the data used by the function.
 Keep fully checked items in `SelectedItems` if your handler needs to identify removals.
 
-The following example calculates parent states recursively. Selection propagation is implemented
-in the example's `SelectedItemsChanged` handler, not by the TreeView itself.
-All data is available in this example; `LazyLoadItems` only defers rendering.
+The following example keeps items independently selectable using `@bind-SelectedItems`.
+A selected item is checked. An unselected item is indeterminate when at least one descendant
+is selected, and unchecked otherwise. Even when all children are selected, their parent remains
+indeterminate until it is explicitly selected. Checking a parent does not select its descendants.
 
 {{ TreeViewCheckState }}
 
