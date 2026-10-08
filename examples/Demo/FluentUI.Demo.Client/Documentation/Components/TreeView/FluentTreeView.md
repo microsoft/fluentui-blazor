@@ -119,8 +119,29 @@ TreeSelectionVisibility GetTreeSelectionVisibility(ITreeViewItem item)
 
 {{ TreeViewMultipleSelectionVisibility }}
 
-We don't have a possibility to customize the type of checkbox used in the `FluentTreeView` component.
-For example, if you want to use a mixed checkbox, you can use the `ItemTemplate` part to create your own checkbox logic.
+## Custom checkbox state
+
+Use `CheckState`, a `Func<ITreeViewItem, bool?>`, to calculate each visible checkbox's state:
+`true` for checked, `false` for unchecked, or `null` for indeterminate.
+When the function is omitted, the existing behavior based on `SelectedItems` is unchanged.
+This parameter applies only to trees generated from `Items` in `TreeSelectionMode.Multiple`.
+
+The function should be synchronous and free of side effects. It controls the displayed state;
+it does not modify `SelectedItems`, select descendants, or load missing children.
+A click on a checked item requests its removal from `SelectedItems`; a click on an unchecked
+or indeterminate item requests its addition, without adding duplicates.
+Handle `SelectedItemsChanged` to update the data used by the function.
+Keep fully checked items in `SelectedItems` if your handler needs to identify removals.
+
+The following example calculates parent states recursively. Selection propagation is implemented
+in the example's `SelectedItemsChanged` handler, not by the TreeView itself.
+All data is available in this example; `LazyLoadItems` only defers rendering.
+
+{{ TreeViewCheckState }}
+
+When children are fetched on demand, calculate the state from your application's selection
+metadata instead. Unloaded children (or loading placeholders) must not be treated as unchecked
+children. Refresh the component after that metadata changes; `CheckState` is reevaluated on render.
 
 ## API FluentTreeView
 

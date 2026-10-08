@@ -16,6 +16,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTreeView : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
+    private bool _hadCheckState;
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
@@ -138,6 +139,21 @@ public partial class FluentTreeView : FluentComponentBase
     public Func<ITreeViewItem, TreeSelectionVisibility>? MultipleSelectionVisibility { get; set; }
 
     /// <summary>
+    /// Gets or sets a function that determines each checkbox's state:
+    /// <see langword="true"/> (checked), <see langword="false"/> (unchecked),
+    /// or <see langword="null"/> (indeterminate).
+    /// Only applies when <see cref="Items"/> is used with <see cref="TreeSelectionMode.Multiple"/>.
+    /// When omitted, checkbox states are determined by <see cref="SelectedItems"/>.
+    /// </summary>
+    /// <remarks>
+    /// The function is evaluated during rendering and must not modify the selection.
+    /// It does not select descendants automatically or load missing items.
+    /// Handle <see cref="SelectedItemsChanged"/> to update the selection used by the function.
+    /// </remarks>
+    [Parameter]
+    public Func<ITreeViewItem, bool?>? CheckState { get; set; }
+
+    /// <summary>
     /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
     /// </summary>
     [Parameter]
@@ -163,6 +179,10 @@ public partial class FluentTreeView : FluentComponentBase
     [Parameter]
     public EventCallback<FluentTreeItem> OnSelectedChanged { get; set; }
 
+    internal bool? GetCheckState(ITreeViewItem item) => CheckState is null
+        ? SelectedItems?.Contains(item) == true
+        : CheckState(item);
+
     /// <summary />
     [ExcludeFromCodeCoverage(Justification = "JavaScript is not covered by unit tests")]
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -178,5 +198,17 @@ public partial class FluentTreeView : FluentComponentBase
             // Call a function from the JavaScript module
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, true);
         }
+
+        if (SelectionMode == TreeSelectionMode.Multiple && (CheckState is not null || _hadCheckState))
+        {
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.UpdateCheckStates", Id);
+        }
+
+        _hadCheckState = CheckState is not null;
     }
 }

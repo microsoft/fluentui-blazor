@@ -254,13 +254,13 @@ public partial class FluentTreeItem : FluentComponentBase
         }
 
         var selectedItems = OwnerTreeView.SelectedItems?.ToList() ?? [];
-        var isSelected = selectedItems.Contains(checkedItem);
+        var isSelected = OwnerTreeView.GetCheckState(checkedItem) == true;
 
         if (isSelected)
         {
             selectedItems.Remove(checkedItem);
         }
-        else
+        else if (!selectedItems.Contains(checkedItem))
         {
             selectedItems.Add(checkedItem);
         }
@@ -332,8 +332,9 @@ public partial class FluentTreeItem : FluentComponentBase
                     {
                         // Visible
                         case TreeSelectionVisibility.Visible:
+                            var checkState = owner.GetCheckState(item);
                             childBuilder.OpenElement(0, "fluent-checkbox");
-                            childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
+                            childBuilder.AddAttribute(1, "checked", checkState == true ? "true" : null);
                             childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
                             {
                                 // Call the handler on the FluentTreeItem instance
@@ -344,6 +345,8 @@ public partial class FluentTreeItem : FluentComponentBase
                                 }
                             }));
                             childBuilder.AddAttribute(3, "tabindex", -1);
+                            childBuilder.AddAttribute(4, "indeterminate", checkState is null ? "true" : null);
+                            childBuilder.AddAttribute(5, "data-tree-check-state", owner.CheckState is not null ? "true" : null);
                             childBuilder.CloseElement();
                             break;
 
@@ -356,7 +359,7 @@ public partial class FluentTreeItem : FluentComponentBase
                     }
 
                     // Content
-                    childBuilder.AddContent(4, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
+                    childBuilder.AddContent(6, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
                 }));
 
                 break;

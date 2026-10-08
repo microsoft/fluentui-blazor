@@ -1,0 +1,106 @@
+<FluentTreeView Items="@_items"
+                SelectionMode="TreeSelectionMode.Multiple"
+                HideSelection="true"
+                LazyLoadItems="true"
+                CheckState="@GetCheckState"
+                SelectedItems="@_selectedItems"
+                SelectedItemsChanged="@OnSelectedItemsChanged" />
+
+@code {
+    private readonly TreeViewItem[] _items =
+    [
+        new("documents", "Documents",
+        [
+            new TreeViewItem("reports", "Reports",
+            [
+                new TreeViewItem("annual", "Annual report"),
+                new TreeViewItem("monthly", "Monthly report"),
+            ]) { Expanded = true },
+            new TreeViewItem("notes", "Notes"),
+        ]) { Expanded = true },
+    ];
+
+    private readonly HashSet<ITreeViewItem> _selectedItems = [];
+
+    protected override void OnInitialized()
+    {
+        _selectedItems.Add(_items[0].Items!.First().Items!.First());
+    }
+
+    private bool? GetCheckState(ITreeViewItem item)
+    {
+        var children = item.Items?.ToArray() ?? [];
+        if (children.Length == 0)
+        {
+            return _selectedItems.Contains(item);
+        }
+
+        var states = children.Select(GetCheckState).ToArray();
+        return states.All(state => state == true) ? true
+            : states.All(state => state == false) ? false
+            : null;
+    }
+
+    private void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? items)
+    {
+        var selection = items?.ToHashSet() ?? [];
+        var added = selection.Except(_selectedItems).ToArray();
+        var removed = _selectedItems.Except(selection).ToArray();
+
+        foreach (var item in added)
+        {
+            SetSelected(item, true);
+        }
+
+        foreach (var item in removed)
+        {
+            SetSelected(item, false);
+        }
+
+        foreach (var item in _items)
+        {
+            UpdateParentSelection(item);
+        }
+    }
+
+    private void SetSelected(ITreeViewItem item, bool selected)
+    {
+        if (selected)
+        {
+            _selectedItems.Add(item);
+        }
+        else
+        {
+            _selectedItems.Remove(item);
+        }
+
+        foreach (var child in item.Items ?? [])
+        {
+            SetSelected(child, selected);
+        }
+    }
+
+    private void UpdateParentSelection(ITreeViewItem item)
+    {
+        var children = item.Items?.ToArray() ?? [];
+        if (children.Length == 0)
+        {
+            return;
+        }
+
+        foreach (var child in children)
+        {
+            UpdateParentSelection(child);
+        }
+
+        // Keep fully checked parents in the selection so a click can remove them.
+        if (children.All(_selectedItems.Contains))
+        {
+            _selectedItems.Add(item);
+        }
+        else
+        {
+            _selectedItems.Remove(item);
+        }
+    }
+}
