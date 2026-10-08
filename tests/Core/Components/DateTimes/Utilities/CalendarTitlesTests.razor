@@ -127,6 +127,59 @@
         Assert.Equal(expected, titles.PreviousDisabled);
     }
 
+    [Fact]
+    public void CalendarTitles_PreviousDisabled_WhenTwelveYearShiftIsBelowCalendarMinimum_ReturnsTrue()
+    {
+        // Arrange
+        var pickerDate = new DateTime(10, 1, 1);
+        using var context = new DateTimeProviderContext(pickerDate);
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
+            .Add(p => p.View, CalendarViews.Years)
+            .Add(p => p.PickerMonth, pickerDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+        var titles = calendar.Instance.GetTitles();
+
+        // Act & Assert
+        Assert.True(titles.PreviousDisabled);
+    }
+
+    [Fact]
+    public void CalendarTitles_PreviousDisabled_WhenPreviousRangeLastYearEqualsMinYear_ReturnsFalse()
+    {
+        // Arrange
+        var pickerDate = new DateTime(2024, 7, 1);
+        using var context = new DateTimeProviderContext(pickerDate);
+        var minDate = new DateTime(2018, 1, 1);
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
+            .Add(p => p.View, CalendarViews.Years)
+            .Add(p => p.PickerMonth, pickerDate)
+            .Add(p => p.MinDate, minDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        // Act & Assert
+        Assert.False(calendar.Instance.GetTitles().PreviousDisabled);
+    }
+
+    [Fact]
+    public void CalendarTitles_PreviousDisabled_WhenPreviousRangeLastYearIsBeforeMaxYear_ReturnsFalse()
+    {
+        // Arrange
+        var pickerDate = new DateTime(2024, 7, 1);
+        using var context = new DateTimeProviderContext(pickerDate);
+        var maxDate = new DateTime(2019, 1, 1);
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
+            .Add(p => p.View, CalendarViews.Years)
+            .Add(p => p.PickerMonth, pickerDate)
+            .Add(p => p.MaxDate, maxDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+
+        // Act & Assert
+        Assert.False(calendar.Instance.GetTitles().PreviousDisabled);
+    }
+
     // Test NextTitle property
     [Theory]
     [InlineData(CalendarViews.Days, "August")]
@@ -172,5 +225,43 @@
 
         // Act & Assert
         Assert.Equal(expected, titles.NextDisabled);
+    }
+
+    [Fact]
+    public void CalendarTitles_NextDisabled_WhenNextRangeFirstYearEqualsMaxYear_ReturnsFalse()
+    {
+        // Arrange
+        var pickerDate = new DateTime(2024, 7, 1);
+        using var context = new DateTimeProviderContext(pickerDate);
+        var maxDate = new DateTime(2031, 1, 1);
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
+            .Add(p => p.View, CalendarViews.Years)
+            .Add(p => p.PickerMonth, pickerDate)
+            .Add(p => p.MaxDate, maxDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+        var titles = calendar.Instance.GetTitles();
+
+        // Act & Assert
+        Assert.False(titles.NextDisabled);
+    }
+
+    [Fact]
+    public void CalendarTitles_NextDisabled_WhenNextRangeFirstYearIsAfterMinYear_ReturnsFalse()
+    {
+        // Arrange
+        var pickerDate = new DateTime(2024, 7, 1);
+        using var context = new DateTimeProviderContext(pickerDate);
+        var minDate = new DateTime(2030, 1, 1);
+        var calendar = Render<FluentCalendar<DateTime>>(parameters => parameters
+            .Add(p => p.View, CalendarViews.Years)
+            .Add(p => p.PickerMonth, pickerDate)
+            .Add(p => p.MinDate, minDate)
+            .Add(p => p.Culture, Culture_enUS)
+        );
+        var titles = calendar.Instance.GetTitles();
+
+        // Act & Assert
+        Assert.False(titles.NextDisabled);
     }
 }
