@@ -1,7 +1,6 @@
 // ------------------------------------------------------------------------
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
-
 using Microsoft.AspNetCore.Components;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -93,7 +92,6 @@ public partial class FluentPresenceBadge : FluentComponentBase
 
         _ariaLabel = GetAriaLabel(Status, OutOfOffice);
         _iconWidth = GetIconSize(Size);
-        Icon = GetPresenceIcon(Status, OutOfOffice);
 
         if (AdditionalAttributes is not null && AdditionalAttributes.ContainsKey("slot"))
         {
@@ -132,9 +130,14 @@ public partial class FluentPresenceBadge : FluentComponentBase
         };
     }
 
-    private static Icon GetPresenceIcon(PresenceStatus? status, bool outOfOffice)
+    private Icon GetPresenceIcon()
     {
-        return (status, outOfOffice) switch
+        if (Icon is not null)
+        {
+            return Icon;
+        }
+
+        return (Status, OutOfOffice) switch
         {
             (PresenceStatus.Available, false) => new CoreIcons.Filled.Size20.PresenceAvailable(),  // Filled for available when not OOF
             (PresenceStatus.Available, true) => new CoreIcons.Regular.Size20.PresenceAvailable(),  // Regular for OOF
