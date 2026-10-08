@@ -31,6 +31,11 @@ fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
 
+fluent-field label .required-indicator {
+  color: var(--colorPaletteRedForeground1);
+  margin-inline-start: var(--spacingHorizontalXS);
+}
+
 fluent-field.invalid div::part('root') {
   border-color: var(--colorPaletteRedBorder2);
 }

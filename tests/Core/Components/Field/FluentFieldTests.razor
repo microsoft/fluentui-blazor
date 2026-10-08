@@ -307,6 +307,27 @@
         Assert.Equal(expectedContent, content);
     }
 
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(true, true)]
+    public void FluentField_RequiredWithFieldTemplates_RendersRequiredIndicator(bool hasStartTemplate, bool hasEndTemplate)
+    {
+        // Arrange & Act
+        var cut = Render<FluentField>(parameters => parameters
+            .Add(p => p.Label, "Required field")
+            .Add(p => p.Required, true)
+            .Add(p => p.FieldStartTemplate, hasStartTemplate ? CreateContent("Start") : null)
+            .Add(p => p.ChildContent, CreateContent("Field content"))
+            .Add(p => p.FieldEndTemplate, hasEndTemplate ? CreateContent("End") : null));
+
+        // Assert
+        var indicator = cut.Find("label .required-indicator");
+
+        Assert.Equal("*", indicator.TextContent);
+        Assert.Equal("true", indicator.GetAttribute("aria-hidden"));
+    }
+
     [Fact]
     public void FluentField_FieldTemplate_StandaloneWrapperOwnsInputId()
     {

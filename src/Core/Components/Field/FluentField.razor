@@ -42,12 +42,18 @@ else
                         @Parameters.Label
                         @Parameters.LabelTemplate
                     }
+
+                    @if (Parameters.Required == true && HasInputAdornments)
+                    {
+                        <span class="required-indicator"
+                              aria-hidden="true">*</span>
+                    }
                 </label>
             }
 
             @if (ChildContent is not null)
             {
-                @if (Parameters.FieldStartTemplate is not null || Parameters.FieldEndTemplate is not null)
+                @if (HasInputAdornments)
                 {
                     <div part="input-adornments"
                          slot="@FluentSlot.FieldInput"

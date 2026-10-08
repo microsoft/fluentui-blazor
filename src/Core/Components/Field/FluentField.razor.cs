@@ -44,6 +44,9 @@ public partial class FluentField : FluentComponentBase, IFluentField
         .AddStyle("width", Parameters.LabelWidth)
         .Build();
 
+    private bool HasInputAdornments
+        => Parameters.FieldStartTemplate is not null || Parameters.FieldEndTemplate is not null;
+
     /// <summary>
     /// Gets or sets a value indicating whether the Fluent field should be hidden. For internal use only.
     /// </summary>
