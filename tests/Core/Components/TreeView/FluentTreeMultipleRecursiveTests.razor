@@ -29,6 +29,61 @@
         ]),
     };
 
+    private sealed class SingleUseEnumerable<T> : IEnumerable<T>
+    {
+        private readonly IReadOnlyList<T> _items;
+        private int _enumerations;
+
+        public SingleUseEnumerable(params T[] items)
+        {
+            _items = items;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            if (++_enumerations > 1)
+            {
+                throw new InvalidOperationException("The sequence was enumerated more than once.");
+            }
+
+            return _items.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_SinglePassTreeSnapshot_IsStableAcrossRecursionAndRender()
+    {
+        var child = new TreeViewItem("id1", "Item 1");
+        var root = new TreeViewItem("root", "Root", new SingleUseEnumerable<ITreeViewItem>(child));
+
+        var cut = Render(@<FluentTreeView Items="@(new SingleUseEnumerable<ITreeViewItem>(root))"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive" />);
+
+        Assert.NotNull(cut.Find("fluent-tree-item#root"));
+        Assert.NotNull(cut.Find("fluent-tree-item#id1"));
+    }
+
+    [Fact]
+    public void FluentTreeMultipleRecursive_ReorderedEquivalentSelection_DoesNotRaiseCallbackOnRender()
+    {
+        var selectedItems = new[]
+        {
+            Items[0].Items!.ElementAt(1),
+            Items[0].Items!.ElementAt(0),
+        };
+        var callbackCalls = 0;
+
+        var cut = Render(@<FluentTreeView Items="@Items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive"
+                        SelectedItems="@selectedItems"
+                        SelectedItemsChanged="@(items => callbackCalls++)" />);
+
+        cut.Render();
+        Assert.Equal(0, callbackCalls);
+    }
+
     [Fact]
     public void FluentTreeMultipleRecursive_SelectingParent_SelectsDescendants()
     {
@@ -92,11 +147,8 @@
 
         var cut = Render(@<FluentTreeView Items="@Items"
                         SelectionMode="@TreeSelectionMode.MultipleRecursive"
-                        @bind-SelectedItems="@selectedItems" />);
+                        SelectedItems="@selectedItems" />);
 
-        Assert.Equal(
-            ["id1", "id11", "id111", "id112", "id12", "id13"],
-            selectedItems!.Select(item => item.Id).OrderBy(id => id));
         Assert.True(cut.Find("fluent-tree-item#id1 > fluent-field fluent-checkbox").HasAttribute("checked"));
         Assert.True(cut.Find("fluent-tree-item#id11 > fluent-field fluent-checkbox").HasAttribute("checked"));
     }

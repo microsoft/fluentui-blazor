@@ -16,9 +16,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentTreeView : FluentComponentBase
 {
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
-    private readonly Dictionary<ITreeViewItem, IReadOnlyList<ITreeViewItem>> _childrenByItem = [];
+    private readonly Dictionary<ITreeViewItem, ITreeViewItem?> _parentByItem = [];
     private readonly Dictionary<ITreeViewItem, bool?> _selectionStates = [];
-    private readonly HashSet<ITreeViewItem> _selectedItemSet = [];
+    private IReadOnlyList<ITreeViewItem>? _lastNormalizedSelectedItems;
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
@@ -49,14 +49,14 @@ public partial class FluentTreeView : FluentComponentBase
                 $"{nameof(LazyLoadItems)} cannot be used together with {nameof(TreeSelectionMode.MultipleRecursive)} selection.");
         }
 
-        var normalizedItems = BuildSelectionStateCache();
-        if (SelectedItems is not null && !AreSameItems(SelectedItems, normalizedItems))
-        {
-            SelectedItems = normalizedItems;
+        Items = SnapshotItems(Items);
 
-            if (SelectedItemsChanged.HasDelegate)
+        if (SelectionMode == TreeSelectionMode.MultipleRecursive)
+        {
+            var normalizedItems = BuildSelectionStateCache();
+            if (!AreEquivalentSelectionSets(_lastNormalizedSelectedItems, normalizedItems))
             {
-                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+                _lastNormalizedSelectedItems = normalizedItems.OrderBy(item => item.Id, StringComparer.Ordinal).ToList();
             }
         }
     }
@@ -64,52 +64,79 @@ public partial class FluentTreeView : FluentComponentBase
     internal bool? GetSelectionState(ITreeViewItem item)
         => _selectionStates.TryGetValue(item, out var state) ? state : false;
 
+    internal IEnumerable<ITreeViewItem> GetAncestors(ITreeViewItem item)
+    {
+        while (_parentByItem.TryGetValue(item, out var parent) && parent is not null)
+        {
+            yield return parent;
+            item = parent;
+        }
+    }
+
+    internal static bool? GetSelectionState(ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
+    {
+        var children = item.Items?.ToArray() ?? [];
+        if (children.Length == 0)
+        {
+            return selectedItems.Contains(item);
+        }
+
+        var childStates = children.Select(child => GetSelectionState(child, selectedItems)).ToList();
+        if (childStates.All(childState => childState == true))
+        {
+            return true;
+        }
+
+        if (selectedItems.Contains(item) || childStates.Any(childState => childState != false))
+        {
+            return null;
+        }
+
+        return false;
+    }
+
     private List<ITreeViewItem> BuildSelectionStateCache()
     {
-        _childrenByItem.Clear();
+        _parentByItem.Clear();
         _selectionStates.Clear();
-        _selectedItemSet.Clear();
 
         if (SelectionMode != TreeSelectionMode.MultipleRecursive)
         {
             return SelectedItems?.ToList() ?? [];
         }
 
-        var normalizedItems = SelectedItems?.ToList() ?? [];
-        foreach (var selectedItem in SelectedItems ?? [])
-        {
-            _selectedItemSet.Add(selectedItem);
-        }
+        var selectedItems = new HashSet<ITreeViewItem>(SelectedItems ?? []);
+        var normalizedItems = new List<ITreeViewItem>();
 
         foreach (var item in Items ?? [])
         {
-            BuildSelectionState(item, normalizedItems);
+            BuildSelectionState(item, selectedItems, normalizedItems);
         }
 
         return normalizedItems;
     }
 
-    private bool? BuildSelectionState(ITreeViewItem item, List<ITreeViewItem> normalizedItems)
+    private bool? BuildSelectionState(ITreeViewItem item, HashSet<ITreeViewItem> selectedItems, List<ITreeViewItem> normalizedItems)
     {
         var children = item.Items?.ToArray() ?? [];
-        _childrenByItem[item] = children;
+
+        foreach (var child in children)
+        {
+            _parentByItem[child] = item;
+            BuildSelectionState(child, selectedItems, normalizedItems);
+        }
 
         if (children.Length == 0)
         {
-            var leafState = _selectedItemSet.Contains(item);
+            var leafState = selectedItems.Contains(item);
             _selectionStates[item] = leafState;
             return leafState;
         }
 
-        var childStates = children.Select(child => BuildSelectionState(child, normalizedItems)).ToList();
-        bool? itemState = childStates.All(childState => childState == true)
-            ? true
-            : _selectedItemSet.Contains(item) || childStates.Any(childState => childState != false)
-                ? null
-                : false;
-
+        var itemState = GetSelectionState(item, selectedItems);
         _selectionStates[item] = itemState;
-        if (itemState == true && _selectedItemSet.Add(item))
+
+        if (itemState == true)
         {
             normalizedItems.Add(item);
         }
@@ -117,8 +144,32 @@ public partial class FluentTreeView : FluentComponentBase
         return itemState;
     }
 
-    private static bool AreSameItems(IEnumerable<ITreeViewItem>? first, IEnumerable<ITreeViewItem> second)
-        => first is not null && first.SequenceEqual(second);
+    private static IReadOnlyList<ITreeViewItem> SnapshotItems(IEnumerable<ITreeViewItem>? items)
+    {
+        if (items is null)
+        {
+            return [];
+        }
+
+        var snapshot = items as ITreeViewItem[] ?? items.ToArray();
+        foreach (var item in snapshot)
+        {
+            item.Items = SnapshotItems(item.Items);
+        }
+
+        return snapshot;
+    }
+
+    private static bool AreEquivalentSelectionSets(IEnumerable<ITreeViewItem>? first, IEnumerable<ITreeViewItem>? second)
+    {
+        if (first is null || second is null)
+        {
+            return first is null && second is null;
+        }
+
+        var firstSet = new HashSet<ITreeViewItem>(first);
+        return firstSet.SetEquals(second);
+    }
 
     /// <summary>
     /// Gets or sets the size of the tree. Default is <see cref="TreeSize.Medium"/>.

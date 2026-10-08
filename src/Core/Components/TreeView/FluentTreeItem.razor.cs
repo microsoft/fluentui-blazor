@@ -273,6 +273,19 @@ public partial class FluentTreeItem : FluentComponentBase
             return;
         }
 
+        var selectedSet = GetUpdatedSelectionSet(OwnerTreeView, checkedItem, selectedItems, newState);
+        if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
+        {
+            await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedSet.ToList());
+        }
+    }
+
+    private static HashSet<ITreeViewItem> GetUpdatedSelectionSet(
+        FluentTreeView ownerTreeView,
+        ITreeViewItem checkedItem,
+        IReadOnlyCollection<ITreeViewItem> selectedItems,
+        bool? newState)
+    {
         var currentState = GetSelectionState(checkedItem, selectedItems);
         var selectDescendants = newState switch
         {
@@ -281,27 +294,33 @@ public partial class FluentTreeItem : FluentComponentBase
             _ => false,
         };
 
-        if (selectDescendants)
+        var selectedSet = new HashSet<ITreeViewItem>(selectedItems);
+        foreach (var item in GetDescendantsAndSelf(checkedItem))
         {
-            foreach (var item in GetDescendantsAndSelf(checkedItem))
+            if (selectDescendants)
             {
-                AddIfMissing(selectedItems, item);
+                selectedSet.Add(item);
             }
-        }
-        else
-        {
-            foreach (var item in GetDescendantsAndSelf(checkedItem))
+            else
             {
-                selectedItems.Remove(item);
+                selectedSet.Remove(item);
             }
         }
 
-        SynchronizeParentSelection(OwnerTreeView.Items, checkedItem, selectedItems);
-
-        if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
+        foreach (var ancestor in ownerTreeView.GetAncestors(checkedItem))
         {
-            await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedItems);
+            var ancestorState = FluentTreeView.GetSelectionState(ancestor, selectedSet);
+            if (ancestorState == true)
+            {
+                selectedSet.Add(ancestor);
+            }
+            else
+            {
+                selectedSet.Remove(ancestor);
+            }
         }
+
+        return selectedSet;
     }
 
     private static void ToggleSelection(List<ITreeViewItem> selectedItems, ITreeViewItem item)
@@ -325,27 +344,7 @@ public partial class FluentTreeItem : FluentComponentBase
     }
 
     private static bool? GetSelectionState(ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
-    {
-        var children = item.Items?.ToList();
-        if (children is null or { Count: 0 })
-        {
-            return selectedItems.Contains(item);
-        }
-
-        var childStates = children.Select(child => GetSelectionState(child, selectedItems)).ToList();
-        if (childStates.All(childState => childState == true))
-
-        {
-            return true;
-        }
-
-        if (selectedItems.Contains(item) || childStates.Any(childState => childState != false))
-        {
-            return null;
-        }
-
-        return false;
-    }
+        => FluentTreeView.GetSelectionState(item, selectedItems);
 
     private static IEnumerable<ITreeViewItem> GetDescendantsAndSelf(ITreeViewItem item)
     {
@@ -363,53 +362,6 @@ public partial class FluentTreeItem : FluentComponentBase
                 yield return descendant;
             }
         }
-    }
-
-    private static bool SynchronizeParentSelection(IEnumerable<ITreeViewItem>? items, ITreeViewItem changedItem, List<ITreeViewItem> selectedItems)
-    {
-        if (items is null)
-        {
-            return false;
-        }
-
-        foreach (var item in items)
-        {
-            if (SynchronizeParentSelection(item, changedItem, selectedItems))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static bool SynchronizeParentSelection(ITreeViewItem item, ITreeViewItem changedItem, List<ITreeViewItem> selectedItems)
-    {
-        var children = item.Items?.ToList();
-        if (children is null or { Count: 0 })
-        {
-            return false;
-        }
-
-        if (!children.Any(child => string.Equals(child.Id, changedItem.Id, StringComparison.Ordinal)) &&
-            !children.Any(child => SynchronizeParentSelection(child, changedItem, selectedItems)))
-        {
-            return false;
-        }
-
-        var childStates = children.Select(child => GetSelectionState(child, selectedItems)).ToList();
-        var state = childStates.All(childState => childState == true);
-
-        if (state)
-        {
-            AddIfMissing(selectedItems, item);
-        }
-        else
-        {
-            selectedItems.Remove(item);
-        }
-
-        return true;
     }
 
     private static void AddIfMissing(List<ITreeViewItem> selectedItems, ITreeViewItem item)

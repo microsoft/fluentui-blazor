@@ -59,7 +59,7 @@
                                     SelectionMode="@TreeSelectionMode.MultipleRecursive" />));
 
         Assert.Equal(
-            "LazyLoadItems cannot be used with MultipleRecursive selection.",
+            "LazyLoadItems cannot be used together with MultipleRecursive selection.",
             exception.Message);
     }
 
