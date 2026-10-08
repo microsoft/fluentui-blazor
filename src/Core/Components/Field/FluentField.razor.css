@@ -31,7 +31,8 @@ fluent-field label[disabled] {
   color: var(--colorNeutralForegroundDisabled);
 }
 
-fluent-field label .required-indicator {
+fluent-field:has(> div[part="input-adornments"][slot="input"]) > label[slot="label"][required]::after {
+  content: '*' / '';
   color: var(--colorPaletteRedForeground1);
   margin-inline-start: var(--spacingHorizontalXS);
 }
