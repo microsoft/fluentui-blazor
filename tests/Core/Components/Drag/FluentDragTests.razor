@@ -383,7 +383,7 @@
 		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
 
 		// Assert
-		Assert.Equal(200, container.TouchDragDelay);
+		Assert.Equal(100, container.TouchDragDelay);
 		Assert.False(string.IsNullOrEmpty(container.Id));
 	}
 

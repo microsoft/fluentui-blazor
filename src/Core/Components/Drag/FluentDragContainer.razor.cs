@@ -25,10 +25,10 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the time (in milliseconds) a touch must be held before a drag starts.
-    /// Default is 200.
+    /// Default is 100.
     /// </summary>
     [Parameter]
-    public int TouchDragDelay { get; set; } = 200;
+    public int TouchDragDelay { get; set; } = 100;
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
