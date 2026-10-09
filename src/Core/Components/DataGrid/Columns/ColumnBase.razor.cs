@@ -305,6 +305,15 @@ public abstract partial class ColumnBase<TGridItem>
     public bool DisableCellFocus { get; set; }
 
     /// <summary>
+    /// Gets or sets whether this column is displayed. The default value is <see langword="true"/>.
+    ///
+    /// Unlike leaving the column out with <c>@if</c>, a hidden column stays part of the grid: the data stays sorted
+    /// by it, and it comes back at the place it had in the column order when it is shown again.
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
     /// Sets the column index for the current instance.
     /// </summary>
     internal void SetColumnIndex(int index)

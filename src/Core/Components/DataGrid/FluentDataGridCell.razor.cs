@@ -19,7 +19,7 @@ public partial class FluentDataGridCell<TGridItem> : FluentComponentBase
     /// <summary>
     /// Gets a reference to the column that this cell belongs to.
     /// </summary>
-    public ColumnBase<TGridItem>? Column => Grid._columns.ElementAtOrDefault(GridColumn - 1);
+    public ColumnBase<TGridItem>? Column => Grid.GetVisibleColumn(GridColumn);
 
     internal string CellId { get; set; } = string.Empty;
 

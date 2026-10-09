@@ -144,11 +144,12 @@
         var rowClass = RowClass?.Invoke(item) ?? null;
         var rowStyle = RowStyle?.Invoke(item) ?? null;
         var rowDetailsExpanded = RowDetails is not null && IsRowDetailsExpanded(item);
+        var columns = VisibleColumns;
 
         <FluentDataGridRow @key="@(ItemKey(item))" aria-rowindex="@rowIndex" Class="@rowClass" Style="@rowStyle" TGridItem="TGridItem" Item="@item">
-            @for (var colIndex = 0; colIndex < _columns.Count; colIndex++)
+            @for (var colIndex = 0; colIndex < columns.Count; colIndex++)
             {
-                var col = _columns[colIndex];
+                var col = columns[colIndex];
 
                 string? tooltip = col.Tooltip ? @col.RawCellContent(item) : null;
 
@@ -190,11 +191,11 @@
             string? detailsColspan = null;
             if (DisplayMode == DataGridDisplayMode.Grid)
             {
-                detailsStyle = $"grid-column: 1 / {_columns.Count + 1}";
+                detailsStyle = $"grid-column: 1 / {columns.Count + 1}";
             }
             else
             {
-                detailsColspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
+                detailsColspan = columns.Count.ToString(CultureInfo.InvariantCulture);
             }
 
             <FluentDataGridRow @key="@RowDetailsKey(item)" RowState="@DataGridRowState.RowDetails" TGridItem="TGridItem" Item="@item">
@@ -246,11 +247,12 @@
     private void RenderPlaceholderRow(RenderTreeBuilder __builder, PlaceholderContext placeholderContext)
     {
         string? _rowsDataSize = $"height: {ItemSize}px";
+        var columns = VisibleColumns;
 
         <FluentDataGridRow aria-rowindex="@(placeholderContext.Index + 1)" Style="@_rowsDataSize" TGridItem="TGridItem">
-            @for (var i = 0; i < _columns.Count; i++)
+            @for (var i = 0; i < columns.Count; i++)
             {
-                var col = _columns[i];
+                var col = columns[i];
 
                 <FluentDataGridCell Class="@ColumnClass(col)"
                                     Style="@col.Style"
@@ -266,9 +268,10 @@
 
     private void RenderColumnHeaders(RenderTreeBuilder __builder)
     {
-        @for (var i = 0; i < _columns.Count; i++)
+        var columns = VisibleColumns;
+        @for (var i = 0; i < columns.Count; i++)
         {
-            var col = _columns[i];
+            var col = columns[i];
             var headerCapabilities = GetHeaderCapabilities(col);
 
             var columnHeaderAttributes = new Dictionary<string, object?>(StringComparer.OrdinalIgnoreCase);
@@ -352,11 +355,11 @@
         string? colspan = null;
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
-            style = $"grid-column: 1 / {_columns.Count + 1}";
+            style = $"grid-column: 1 / {VisibleColumns.Count + 1}";
         }
         else
         {
-            colspan = _columns.Count.ToString();
+            colspan = VisibleColumns.Count.ToString();
         }
 
         <FluentDataGridRow RowState="@DataGridRowState.EmptyContent" TGridItem="TGridItem">
@@ -380,11 +383,11 @@
         string? colspan = null;
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
-            style = $"grid-column: 1 / {_columns.Count + 1}";
+            style = $"grid-column: 1 / {VisibleColumns.Count + 1}";
         }
         else
         {
-            colspan = _columns.Count.ToString(CultureInfo.InvariantCulture);
+            colspan = VisibleColumns.Count.ToString(CultureInfo.InvariantCulture);
         }
 
         <FluentDataGridRow RowState="@DataGridRowState.LoadingContent" TGridItem="TGridItem">
@@ -415,11 +418,11 @@
         string? colspan = null;
         if (DisplayMode == DataGridDisplayMode.Grid)
         {
-            style = $"grid-column: 1 / {_columns.Count + 1}";
+            style = $"grid-column: 1 / {VisibleColumns.Count + 1}";
         }
         else
         {
-            colspan = _columns.Count.ToString();
+            colspan = VisibleColumns.Count.ToString();
         }
 
         <FluentDataGridRow RowState="@DataGridRowState.ErrorContent" TGridItem="TGridItem">
