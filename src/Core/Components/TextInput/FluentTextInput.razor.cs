@@ -29,23 +29,7 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
     /// </summary>
     public FluentTextInput(LibraryConfiguration configuration) : base(configuration)
     {
-        // Default conditions for the message
-        MessageCondition = (field) =>
-        {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
-
-            field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
-
-            return FocusLost &&
-                   (Required ?? false)
-                   && !(Disabled ?? false)
-                   && !ReadOnly
-                   && string.IsNullOrEmpty(CurrentValueAsString);
-        };
+        MessageCondition = CreateRequiredMessageCondition(() => string.IsNullOrEmpty(CurrentValueAsString));
 
     }
 

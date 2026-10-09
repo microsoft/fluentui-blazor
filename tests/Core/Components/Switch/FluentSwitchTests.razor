@@ -1,4 +1,5 @@
 ﻿@using Xunit;
+@using System.ComponentModel.DataAnnotations
 @inherits FluentUITestContext
 
 @code
@@ -7,6 +8,40 @@
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSwitch_Required_UncheckedFocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentSwitch Label="Test label" Required="true" />);
+
+        cut.Find("fluent-switch").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentSwitch_Required_CheckedFocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentSwitch Label="Test label" Required="true" Value="true" />);
+
+        cut.Find("fluent-switch").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentSwitch_Required_InEditForm_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var model = new RequiredSwitchModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentSwitch @bind-Value="model.SwitchValue" Required="true" />
+        </EditForm>);
+
+        cut.Find("fluent-switch").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
     }
 
     [Fact]
@@ -172,6 +207,12 @@
         // Assert
         Assert.Equal(expectedLabel, label);
     }
-
 #pragma warning restore
+
+    private sealed class RequiredSwitchModel
+    {
+        [Required]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Switch must be on!")]
+        public bool SwitchValue { get; set; }
+    }
 }
