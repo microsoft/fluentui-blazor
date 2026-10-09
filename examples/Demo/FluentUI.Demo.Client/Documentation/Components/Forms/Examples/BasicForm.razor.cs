@@ -14,7 +14,6 @@ public partial class BasicForm
 
     protected override void OnInitialized()
     {
-        //starship.ProductionDate = System.DateTime.Now;
     }
 
     private static void OnSearch(OptionsSearchEventArgs<Country> e)
