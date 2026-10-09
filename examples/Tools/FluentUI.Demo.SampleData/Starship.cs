@@ -59,11 +59,11 @@ public class Starship
     /// <summary>
     /// The production date of the starship.
     /// </summary>
-    [Required(ErrorMessage = "Production date isrequired")]
+    [Required(ErrorMessage = "Production date is required")]
     public DateTime? ProductionDate { get; set; }
 
     /// <summary>
-    /// The production date of the starship.
+    /// The production time of the starship.
     /// </summary>
     [Required(ErrorMessage = "Production time isrequired")]
     public TimeOnly? ProductionTime { get; set; }
