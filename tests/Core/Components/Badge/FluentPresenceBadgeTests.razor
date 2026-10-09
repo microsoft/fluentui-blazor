@@ -97,7 +97,7 @@
         var style = badge.GetAttribute("style") ?? string.Empty;
         if (string.IsNullOrEmpty(expectedStyle))
         {
-             Assert.DoesNotContain("width:", style);
+            Assert.DoesNotContain("width:", style);
         }
         else
         {
@@ -136,7 +136,7 @@
     [InlineData(PresenceStatus.Offline, false)]
     [InlineData(PresenceStatus.OutOfOffice, false)]
     [InlineData(PresenceStatus.Unknown, false)]
-	[InlineData(null, false)]
+    [InlineData(null, false)]
     public void FluentPresenceBadge_IsBusyStatus(PresenceStatus? status, bool expected)
     {
         // Arrange
@@ -150,7 +150,7 @@
         Assert.Equal(expected, result);
     }
 
-	 [Theory]
+    [Theory]
     [InlineData(PresenceStatus.Available, false, "PresenceAvailable", IconVariant.Filled)]
     [InlineData(PresenceStatus.Available, true, "PresenceAvailable", IconVariant.Regular)]
     [InlineData(PresenceStatus.Away, false, "PresenceAway", IconVariant.Filled)]
@@ -167,7 +167,7 @@
     [InlineData(PresenceStatus.Unknown, true, "PresenceUnknown", IconVariant.Regular)]
     [InlineData(PresenceStatus.Blocked, false, "PresenceBlocked", IconVariant.Regular)]
     [InlineData(PresenceStatus.Blocked, true, "PresenceBlocked", IconVariant.Regular)]
-	[InlineData(null, false, "PresenceUnknown", IconVariant.Regular)]
+    [InlineData(null, false, "PresenceUnknown", IconVariant.Regular)]
     [InlineData(null, true, "PresenceUnknown", IconVariant.Regular)]
     public void FluentPresenceBadge_Status_PresenceIcon(PresenceStatus? status, bool outOfOffice, string expectedName, IconVariant expectedVariant)
     {
@@ -185,10 +185,10 @@
     {
         // Arrange && Act
         var cut = Render(@<FluentPresenceBadge>
-                            <AnchorContent>
-                              <div id="target">Target</div>
-                            </AnchorContent>
-                          </FluentPresenceBadge>);
+            <AnchorContent>
+                <div id="target">Target</div>
+            </AnchorContent>
+        </FluentPresenceBadge>);
 
         // Assert
         var badge = cut.Find("fluent-badge");
@@ -207,30 +207,73 @@
         Assert.Equal("extra-small", badge.GetAttribute("size"));
     }
 
-	[Fact]
-	public void FluentPresenceBadge_Slot_NotEqualToBadge()
-	{
-		// Arrange && Act
-		var cut = Render(@<FluentPresenceBadge slot="@FluentSlot.Start" />);
+    [Fact]
+    public void FluentPresenceBadge_Slot_NotEqualToBadge()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentPresenceBadge slot="@FluentSlot.Start" />);
 
-		// Assert
-		var badge = cut.Find("fluent-badge");
-		Assert.Equal("start", badge.GetAttribute("slot"));
-		Assert.Null(badge.GetAttribute("size"));
-	}
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.Equal("start", badge.GetAttribute("slot"));
+        Assert.Null(badge.GetAttribute("size"));
+    }
 
-	[Fact]
-	public void FluentPresenceBadge_Attached()
-	{
-		// Arrange && Act
-		var cut = Render(@<FluentAvatar Color="AvatarColor.Colorful" Name="Jan Smith" Shape="AvatarShape.Square">
-							<FluentPresenceBadge Status="PresenceStatus.DoNotDisturb"/>
-						  </FluentAvatar>);
+    [Fact]
+    public void FluentPresenceBadge_Attached()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAvatar Color="AvatarColor.Colorful" Name="Jan Smith" Shape="AvatarShape.Square">
+            <FluentPresenceBadge Status="PresenceStatus.DoNotDisturb" />
+        </FluentAvatar>);
 
-		// Assert
-		var badge = cut.Find("fluent-badge");
-		Assert.NotNull(badge);
-	}
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.NotNull(badge);
+    }
 
+    
+    [Fact]
+    public void FluentPresenceBadge_ReactToParameterChanges()
+    {
+        // Arrange
+        var cut = Render<FluentPresenceBadge>(parameters => parameters
+            .Add(p => p.Status, PresenceStatus.Available)
+            .Add(p => p.OutOfOffice, false)
+            .Add(p => p.Size, BadgeSize.Medium));
 
+        Assert.Equal("available", cut.Find("fluent-badge").GetAttribute("aria-label"));
+        Assert.Contains("width: 16px", cut.Find("svg").GetAttribute("style"));
+
+        // Act - Change Status
+        cut.Render(parameters => parameters
+            .Add(p => p.Status, PresenceStatus.Away));
+
+        // Assert
+        Assert.Equal("away", cut.Find("fluent-badge").GetAttribute("aria-label"));
+        Assert.Equal("PresenceAway", cut.FindComponent<FluentIcon<Icon>>().Instance.Value?.Name);
+
+        // Act - Change OutOfOffice
+        cut.Render(parameters => parameters
+            .Add(p => p.OutOfOffice, true));
+
+        // Assert
+        Assert.Equal("away out of office", cut.Find("fluent-badge").GetAttribute("aria-label"));
+        Assert.Equal("PresenceOof", cut.FindComponent<FluentIcon<Icon>>().Instance.Value?.Name);
+
+        // Act - Change Size
+        cut.Render(parameters => parameters
+            .Add(p => p.Size, BadgeSize.Large));
+
+        // Assert
+        Assert.Contains("width: 20px", cut.Find("svg").GetAttribute("style"));
+        Assert.Equal("away out of office", cut.Find("fluent-badge").GetAttribute("aria-label"));
+
+        // Act - Change Size again
+        cut.Render(parameters => parameters
+            .Add(p => p.Size, BadgeSize.ExtraLarge));
+
+        // Assert
+        Assert.Contains("width: 28px", cut.Find("svg").GetAttribute("style"));
+    }
 }
