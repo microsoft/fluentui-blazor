@@ -431,12 +431,10 @@
 		var none = cut.Find("#none");
 
 		// Assert
-		Assert.True(both.HasAttribute("data-fluent-dropzone"));
 		Assert.Equal("true", both.GetAttribute("data-draggable"));
 		Assert.Equal("true", both.GetAttribute("data-droppable"));
 		Assert.Equal("owner", both.GetAttribute("data-container-id"));
 
-		Assert.True(none.HasAttribute("data-fluent-dropzone"));
 		Assert.Null(none.GetAttribute("data-draggable"));
 		Assert.Null(none.GetAttribute("data-droppable"));
 	}

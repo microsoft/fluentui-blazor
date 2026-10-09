@@ -4,7 +4,7 @@ export namespace Microsoft.FluentUI.Blazor.DragContainer {
     invokeMethodAsync(methodName: string, ...args: any[]): Promise<any>;
   }
 
-  const ZONE_SELECTOR = '[data-fluent-dropzone]';
+  const ZONE_SELECTOR = '[data-droppable]';
   const DEFAULT_LONG_PRESS_DELAY = 200;
   const MOVE_TOLERANCE = 10;
   const OVER_THROTTLE = 100;
@@ -275,7 +275,7 @@ export namespace Microsoft.FluentUI.Blazor.DragContainer {
     private createGhost(zone: HTMLElement, rect: DOMRect): HTMLElement {
       const ghost = zone.cloneNode(true) as HTMLElement;
       ghost.removeAttribute('id');
-      ghost.removeAttribute('data-fluent-dropzone');
+      ghost.removeAttribute('data-droppable');
       ghost.removeAttribute('dragged-over');
       ghost.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
 
