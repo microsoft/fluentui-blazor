@@ -58,7 +58,7 @@
             <FluentDatePicker Name="production_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required="true" />
         </div>
         <div>
-            <FluentSwitch Name="teleporter" @bind-Value="starship.HasTeleporter" Label="Has a Teleporter" />
+            <FluentSwitch Name="teleporter" @bind-Value="starship.HasTeleporter" Label="Has a Teleporter" Required="true" />
         </div>
         <FluentButton Type="ButtonType.Submit" Appearance="ButtonAppearance.Primary">Submit</FluentButton>
     </FluentStack>

@@ -17,6 +17,37 @@
     }
 
     [Fact]
+    public void FluentCheckbox_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentCheckbox Label="Test label" Required="true" />);
+
+        cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentCheckbox_Required_Checked_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentCheckbox Label="Test label" Required="true" Value="true" />);
+
+        cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentCheckbox_Message_IsNotReplacedByDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentCheckbox Label="Test label" Required="true" Message="Custom message" />);
+
+        cut.Find("fluent-checkbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Custom message", cut.Markup);
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentCheckbox_Default()
     {
         // Arrange && Act

@@ -153,9 +153,6 @@
   <data name="MessageBox_ButtonCancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="TextInput_RequiredMessage" xml:space="preserve">
-    <value>This field is required</value>
-  </data>
   <data name="ColorPickerInput_InvalidHexMessage" xml:space="preserve">
     <value>Invalid hexadecimal color value</value>
   </data>
@@ -364,9 +361,6 @@
   <data name="DataGrid_SelectColumn_RowUnchecked" xml:space="preserve">
     <value>Row not selected</value>
   </data>
-  <data name="Calendar_RequiredMessage" xml:space="preserve">
-    <value>This field is required</value>
-  </data>
   <data name="DatePicker_ButtonTitle" xml:space="preserve">
     <value>Show date picker</value>
   </data>
@@ -447,5 +441,8 @@
   </data>
   <data name="Tabs_MoreItems" xml:space="preserve">
     <value>View {0} more tabs</value>
+  </data>
+  <data name="FluentInputBase_RequiredMessage" xml:space="preserve">
+    <value>This field is required</value>
   </data>
 </root>

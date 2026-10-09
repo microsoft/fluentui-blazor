@@ -37,7 +37,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
             }
 
             field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
+            field.Message = Localizer[Localization.LanguageResource.FluentInputBase_RequiredMessage];
 
             return FocusLost &&
                    (Required ?? false)
