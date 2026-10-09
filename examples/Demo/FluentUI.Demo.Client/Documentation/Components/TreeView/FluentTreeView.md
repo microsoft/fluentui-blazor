@@ -142,6 +142,20 @@ The following example opts into recursive selection using a `TreeViewThreeStateS
   `SelectedItemsChanged`. The handler updates the instance's selection automatically without modifying
   the input collections. Use a separate instance for each independent tree selection.
 
+The helper stores the selection and calculated checkbox states in a single dictionary.
+Assigning `Selection.SelectedItems` copies the supplied selection once, removes duplicates,
+and discards calculated states. Assign `null` to clear the selection. The getter filters
+the stored states to enumerate selected items without creating another stored collection.
+Changes to an external selection list are not tracked: reassign `Selection.SelectedItems`
+to apply them.
+
+Assigning `Selection.Items` or calling `Selection.Refresh()` discards calculated states
+while preserving the selection. Call `Selection.Refresh()` after modifying the tree's
+root collection or a node's children in place, then render again. It does not trigger a
+component render or read changes from an external selection list.
+`Selection.OnSelectedItemsChanged` continues to update the selection and invalidate calculated
+states automatically.
+
 Checking or unchecking a parent applies the same selection to all its descendants.
 The helper then updates parents from the bottom up: a parent is selected only when all its
 children are selected. `CheckState` displays an unselected parent as indeterminate when at least
@@ -152,7 +166,9 @@ recursive selection is only enabled by explicitly wiring this selection instance
 
 ### Detailed implementation
 
-This equivalent example keeps the functions inline so you can inspect or customize their behavior.
+This example keeps the selection logic inline so you can inspect or customize its behavior.
+Unlike the helper, it does not cache checkbox states and is intended to illustrate the algorithm,
+not to optimize rendering of large trees.
 
 {{ TreeViewCheckStateDetailled }}
 

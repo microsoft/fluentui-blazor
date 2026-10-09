@@ -13,15 +13,50 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </remarks>
 public class TreeViewThreeStateSelection
 {
+    private Dictionary<ITreeViewItem, bool?> _states = [];
+    private IEnumerable<ITreeViewItem>? _rootItems = [];
+
     /// <summary>
     /// Gets or sets the tree's root items used to recalculate ancestor selection.
     /// </summary>
-    public IEnumerable<ITreeViewItem>? Items { get; set; } = [];
+    /// <remarks>
+    /// Assigning this property invalidates cached checkbox states, even for the same collection.
+    /// Call <see cref="Refresh"/> after modifying the collection or its descendants in place.
+    /// </remarks>
+    public IEnumerable<ITreeViewItem>? Items
+    {
+        get => _rootItems;
+        set
+        {
+            _rootItems = value;
+            Refresh();
+        }
+    }
 
     /// <summary>
-    /// Gets or sets the selected items. A <see langword="null"/> value represents an empty selection.
+    /// Gets the selected items or replaces the selection with a copy of the supplied items.
+    /// Assigning <see langword="null"/> clears the selection.
     /// </summary>
-    public IEnumerable<ITreeViewItem>? SelectedItems { get; set; } = [];
+    /// <remarks>
+    /// The supplied collection is enumerated once during assignment and is not retained.
+    /// Reassign this property to apply later changes to that collection.
+    /// The getter enumerates selected items without duplicates by filtering the stored states.
+    /// Assigning this property invalidates calculated checkbox states.
+    /// </remarks>
+    public IEnumerable<ITreeViewItem>? SelectedItems
+    {
+        get => _states.Where(entry => entry.Value == true).Select(entry => entry.Key);
+        set
+        {
+            var states = new Dictionary<ITreeViewItem, bool?>();
+            foreach (var item in value ?? [])
+            {
+                states[item] = true;
+            }
+
+            _states = states;
+        }
+    }
 
     /// <summary>
     /// Gets the checkbox state of an item using the recursive selection maintained by <see cref="OnSelectedItemsChanged"/>.
@@ -34,24 +69,41 @@ public class TreeViewThreeStateSelection
     /// <remarks>
     /// This method does not modify the selection or load missing descendants.
     /// Use it with <see cref="FluentTreeView.CheckState"/> when all descendant data is available.
+    /// Node states are cached alongside the selection until <see cref="Items"/> or
+    /// <see cref="SelectedItems"/> is assigned, or <see cref="Refresh"/> is called.
     /// </remarks>
     public bool? GetCheckState(ITreeViewItem item)
     {
         ArgumentNullException.ThrowIfNull(item);
 
-        var selection = SelectedItems?.ToHashSet() ?? [];
-        return GetState(item);
-
-        bool? GetState(ITreeViewItem current)
+        if (_states.TryGetValue(item, out var state))
         {
-            if (selection.Contains(current))
-            {
-                return true;
-            }
+            return state;
+        }
 
-            return current.Items?.Any(child => GetState(child) != false) == true
-                ? null
-                : false;
+        state = item.Items?.Any(child => GetCheckState(child) != false) == true
+            ? null
+            : false;
+
+        _states.Add(item, state);
+        return state;
+    }
+
+    /// <summary>
+    /// Invalidates calculated checkbox states after in-place changes to the tree, preserving the selection.
+    /// </summary>
+    /// <remarks>
+    /// States are recalculated on subsequent calls to <see cref="GetCheckState"/>.
+    /// This method does not modify the selection or request a component render.
+    /// </remarks>
+    public void Refresh()
+    {
+        foreach (var entry in _states)
+        {
+            if (entry.Value != true)
+            {
+                _states.Remove(entry.Key);
+            }
         }
     }
 
@@ -67,10 +119,9 @@ public class TreeViewThreeStateSelection
     /// </remarks>
     public void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? newSelectedItems)
     {
-        var previousSelection = SelectedItems?.ToHashSet() ?? [];
         var selection = newSelectedItems?.ToHashSet() ?? [];
-        var added = selection.Except(previousSelection).ToArray();
-        var removed = previousSelection.Except(selection).ToArray();
+        var added = selection.Where(item => !_states.TryGetValue(item, out var state) || state != true).ToArray();
+        var removed = (SelectedItems ?? []).Where(item => !selection.Contains(item)).ToArray();
 
         foreach (var item in added)
         {
