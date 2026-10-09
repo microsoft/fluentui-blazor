@@ -142,9 +142,13 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary>
     /// Gets the item associated with the current element, based on its Id.
     /// </summary>
-    public ITreeViewItem? Item => OwnerTreeView is null || OwnerTreeView.Items is null
+    public ITreeViewItem? Item => OwnerTreeView is null || string.IsNullOrEmpty(Id)
                                 ? null
-                                : TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
+                                : OwnerTreeView.SelectionMode == TreeSelectionMode.MultipleRecursive
+                                    ? FindItemByIdInSnapshot(OwnerTreeView, Id)
+                                    : OwnerTreeView.Items is null
+                                        ? null
+                                        : TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
 
     /// <summary />
     private bool IsSelected => string.CompareOrdinal(OwnerTreeView?.SelectedId, Id) == 0 ||
@@ -194,10 +198,13 @@ public partial class FluentTreeItem : FluentComponentBase
             }
 
             // SelectedItem
-            if (OwnerTreeView.Items is not null &&
-                OwnerTreeView.SelectedItemChanged.HasDelegate)
+            if (OwnerTreeView.SelectedItemChanged.HasDelegate && !string.IsNullOrEmpty(Id))
             {
-                var selectedItem = TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
+                var selectedItem = OwnerTreeView.SelectionMode == TreeSelectionMode.MultipleRecursive
+                    ? FindItemByIdInSnapshot(OwnerTreeView, Id)
+                    : OwnerTreeView.Items is null
+                        ? null
+                        : TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
 
                 if (OwnerTreeView.SelectedItem != selectedItem)
                 {
@@ -246,9 +253,18 @@ public partial class FluentTreeItem : FluentComponentBase
     /// <summary />
     internal async Task OnCheckChangedHandlerAsync(bool? newState = null)
     {
-        var checkedItem = TreeViewItem.FindItemById(OwnerTreeView?.Items, Id);
+        if (OwnerTreeView is null)
+        {
+            return;
+        }
 
-        if (OwnerTreeView is null || checkedItem is null)
+        var checkedItem = string.IsNullOrEmpty(Id)
+            ? null
+            : OwnerTreeView.SelectionMode == TreeSelectionMode.MultipleRecursive
+                ? FindItemByIdInSnapshot(OwnerTreeView, Id)
+                : TreeViewItem.FindItemById(OwnerTreeView.Items, Id);
+
+        if (checkedItem is null)
         {
             return;
         }
@@ -278,6 +294,50 @@ public partial class FluentTreeItem : FluentComponentBase
         {
             await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedSet.ToList());
         }
+    }
+
+    private static ITreeViewItem? FindItemByIdInSnapshot(FluentTreeView ownerTreeView, string id)
+    {
+        if (ownerTreeView.SelectionMode != TreeSelectionMode.MultipleRecursive)
+        {
+            return null;
+        }
+
+        var roots = ownerTreeView.Items is null ? [] : ownerTreeView.Items.ToArray();
+        foreach (var item in roots)
+        {
+            var match = FindItemByIdInSnapshot(ownerTreeView, item, id);
+            if (match is not null)
+            {
+                return match;
+            }
+        }
+
+        return null;
+    }
+
+    private static ITreeViewItem? FindItemByIdInSnapshot(FluentTreeView ownerTreeView, ITreeViewItem? item, string id)
+    {
+        if (item is null)
+        {
+            return null;
+        }
+
+        if (string.Equals(item.Id, id, StringComparison.Ordinal))
+        {
+            return item;
+        }
+
+        foreach (var child in ownerTreeView.GetChildren(item))
+        {
+            var match = FindItemByIdInSnapshot(ownerTreeView, child, id);
+            if (match is not null)
+            {
+                return match;
+            }
+        }
+
+        return null;
     }
 
     private static void ToggleSelection(List<ITreeViewItem> selectedItems, ITreeViewItem item)
