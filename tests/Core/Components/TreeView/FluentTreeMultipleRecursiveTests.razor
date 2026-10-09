@@ -57,9 +57,15 @@
     {
         var child = new TreeViewItem("id1", "Item 1");
         var root = new TreeViewItem("root", "Root", new SingleUseEnumerable<ITreeViewItem>(child));
+        var items = new SingleUseEnumerable<ITreeViewItem>(root);
 
-        var cut = Render(@<FluentTreeView Items="@(new SingleUseEnumerable<ITreeViewItem>(root))"
+        var cut = Render(@<FluentTreeView Items="@items"
                         SelectionMode="@TreeSelectionMode.MultipleRecursive" />);
+
+        Assert.NotNull(cut.Find("fluent-tree-item#root"));
+        Assert.NotNull(cut.Find("fluent-tree-item#id1"));
+
+        cut.Render();
 
         Assert.NotNull(cut.Find("fluent-tree-item#root"));
         Assert.NotNull(cut.Find("fluent-tree-item#id1"));

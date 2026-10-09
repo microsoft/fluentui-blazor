@@ -19,6 +19,8 @@ public partial class FluentTreeView : FluentComponentBase
     private readonly Dictionary<ITreeViewItem, ITreeViewItem?> _parentByItem = [];
     private readonly Dictionary<ITreeViewItem, bool?> _selectionStates = [];
     private readonly Dictionary<ITreeViewItem, IReadOnlyList<ITreeViewItem>> _childrenByItem = [];
+    private readonly Dictionary<ITreeViewItem, IEnumerable<ITreeViewItem>?> _childItemsSourcesByItem = [];
+    private IEnumerable<ITreeViewItem>? _rootItemsSource;
     private IReadOnlyList<ITreeViewItem>? _rootItemsSnapshot;
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
@@ -52,14 +54,22 @@ public partial class FluentTreeView : FluentComponentBase
 
         if (SelectionMode == TreeSelectionMode.MultipleRecursive)
         {
-            _childrenByItem.Clear();
-            _rootItemsSnapshot = SnapshotRootItems(Items);
+            if (!ReferenceEquals(_rootItemsSource, Items))
+            {
+                _rootItemsSource = Items;
+                _rootItemsSnapshot = SnapshotRootItems(Items);
+                _childrenByItem.Clear();
+                _childItemsSourcesByItem.Clear();
+            }
+
             SnapshotChildren(_rootItemsSnapshot);
             BuildSelectionStateCache();
         }
         else
         {
             _childrenByItem.Clear();
+            _childItemsSourcesByItem.Clear();
+            _rootItemsSource = null;
             _rootItemsSnapshot = null;
             _parentByItem.Clear();
             _selectionStates.Clear();
@@ -226,8 +236,21 @@ public partial class FluentTreeView : FluentComponentBase
 
         foreach (var item in items)
         {
-            _childrenByItem[item] = item.Items is null ? [] : item.Items.ToArray();
-            SnapshotChildren(_childrenByItem[item]);
+            EnsureChildSnapshot(item);
+            if (_childrenByItem.TryGetValue(item, out var children))
+            {
+                SnapshotChildren(children);
+            }
+        }
+    }
+
+    private void EnsureChildSnapshot(ITreeViewItem item)
+    {
+        var source = item.Items;
+        if (!_childItemsSourcesByItem.TryGetValue(item, out var previousSource) || !ReferenceEquals(previousSource, source))
+        {
+            _childItemsSourcesByItem[item] = source;
+            _childrenByItem[item] = source is null ? [] : source.ToArray();
         }
     }
 
@@ -336,8 +359,8 @@ public partial class FluentTreeView : FluentComponentBase
 
     /// <summary>
     /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
-    /// In <see cref="TreeSelectionMode.MultipleRecursive"/> mode, fully selected
-    /// branches include their ancestors in this collection.
+    /// In <see cref="TreeSelectionMode.MultipleRecursive"/> mode, selection changes raised by
+    /// the component include ancestors of fully selected branches in this collection.
     /// </summary>
     [Parameter]
     public IEnumerable<ITreeViewItem>? SelectedItems { get; set; }
