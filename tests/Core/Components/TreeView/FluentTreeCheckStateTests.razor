@@ -25,6 +25,7 @@
                                          CheckState="@(_ => state)" />);
 
         var checkbox = cut.Find("fluent-checkbox");
+        Assert.Equal("true", checkbox.GetAttribute("check-state"));
         Assert.Equal(state == true, checkbox.HasAttribute("checked"));
         Assert.Equal(state is null, checkbox.HasAttribute("indeterminate"));
         Assert.Equal(selected, selection.Contains(item));
@@ -96,7 +97,7 @@
         var checkbox = cut.Find("fluent-checkbox");
         Assert.Equal(selected, checkbox.HasAttribute("checked"));
         Assert.False(checkbox.HasAttribute("indeterminate"));
-        Assert.False(checkbox.HasAttribute("data-tree-check-state"));
+        Assert.False(checkbox.HasAttribute("check-state"));
     }
 
     [Fact]

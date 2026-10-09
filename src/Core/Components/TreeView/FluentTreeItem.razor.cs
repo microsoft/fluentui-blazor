@@ -346,7 +346,7 @@ public partial class FluentTreeItem : FluentComponentBase
                             }));
                             childBuilder.AddAttribute(3, "tabindex", -1);
                             childBuilder.AddAttribute(4, "indeterminate", checkState is null ? "true" : null);
-                            childBuilder.AddAttribute(5, "data-tree-check-state", owner.CheckState is not null ? "true" : null);
+                            childBuilder.AddAttribute(5, "check-state", owner.CheckState is not null ? "true" : null);
                             childBuilder.CloseElement();
                             break;
 

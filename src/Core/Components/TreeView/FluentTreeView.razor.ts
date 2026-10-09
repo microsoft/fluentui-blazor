@@ -22,7 +22,7 @@ export namespace Microsoft.FluentUI.Blazor.TreeView {
         continue;
       }
 
-      const controlled = checkbox.hasAttribute('data-tree-check-state');
+      const controlled = checkbox.hasAttribute('check-state');
       if (controlled || controlledCheckboxes.has(checkbox)) {
         checkbox.checked = checkbox.hasAttribute('checked');
         checkbox.indeterminate = checkbox.hasAttribute('indeterminate');
