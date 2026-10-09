@@ -72,6 +72,27 @@
     }
 
     [Fact]
+    public void FluentTreeMultipleRecursive_MutableRootList_RefreshesSnapshotOnRender()
+    {
+        var items = new List<ITreeViewItem>
+        {
+            new TreeViewItem("root", "Root", [new TreeViewItem("leaf", "Leaf")]),
+        };
+
+        var cut = Render(@<FluentTreeView Items="@items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive" />);
+
+        Assert.NotNull(cut.Find("fluent-tree-item#root"));
+        Assert.NotNull(cut.Find("fluent-tree-item#leaf"));
+
+        items.Add(new TreeViewItem("second", "Second"));
+        cut = Render(@<FluentTreeView Items="@items"
+                        SelectionMode="@TreeSelectionMode.MultipleRecursive" />);
+
+        Assert.NotNull(cut.Find("fluent-tree-item#second"));
+    }
+
+    [Fact]
     public void FluentTreeMultipleRecursive_ReorderedEquivalentSelection_DoesNotRaiseCallbackOnRender()
     {
         var selectedItems = new[]

@@ -54,7 +54,7 @@ public partial class FluentTreeView : FluentComponentBase
 
         if (SelectionMode == TreeSelectionMode.MultipleRecursive)
         {
-            if (!ReferenceEquals(_rootItemsSource, Items))
+            if (ShouldRefreshSnapshot(Items, _rootItemsSource, _rootItemsSnapshot))
             {
                 _rootItemsSource = Items;
                 _rootItemsSnapshot = SnapshotRootItems(Items);
@@ -227,6 +227,42 @@ public partial class FluentTreeView : FluentComponentBase
     private static IReadOnlyList<ITreeViewItem>? SnapshotRootItems(IEnumerable<ITreeViewItem>? items)
         => items is null ? null : items as ITreeViewItem[] ?? items.ToArray();
 
+    private static bool ShouldRefreshSnapshot(IEnumerable<ITreeViewItem>? source, IEnumerable<ITreeViewItem>? previousSource, IReadOnlyList<ITreeViewItem>? previousSnapshot)
+    {
+        if (!ReferenceEquals(previousSource, source))
+        {
+            return true;
+        }
+
+        if (source is null)
+        {
+            return false;
+        }
+
+        if (previousSnapshot is null)
+        {
+            return true;
+        }
+
+        if (source is IReadOnlyList<ITreeViewItem> list && previousSnapshot is IReadOnlyList<ITreeViewItem> previousList)
+        {
+            if (list.Count != previousList.Count)
+            {
+                return true;
+            }
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                if (!ReferenceEquals(list[i], previousList[i]))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     private void SnapshotChildren(IEnumerable<ITreeViewItem>? items)
     {
         if (items is null)
@@ -247,7 +283,10 @@ public partial class FluentTreeView : FluentComponentBase
     private void EnsureChildSnapshot(ITreeViewItem item)
     {
         var source = item.Items;
-        if (!_childItemsSourcesByItem.TryGetValue(item, out var previousSource) || !ReferenceEquals(previousSource, source))
+        var previousSource = _childItemsSourcesByItem.TryGetValue(item, out var existingSource) ? existingSource : null;
+        var previousSnapshot = _childrenByItem.TryGetValue(item, out var existingChildren) ? existingChildren : null;
+
+        if (ShouldRefreshSnapshot(source, previousSource, previousSnapshot))
         {
             _childItemsSourcesByItem[item] = source;
             _childrenByItem[item] = source is null ? [] : source.ToArray();
