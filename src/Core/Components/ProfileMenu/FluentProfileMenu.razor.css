@@ -1,0 +1,87 @@
+.fluent-profile-menu {
+    display: inline-flex;
+    position: relative;
+}
+
+.fluent-profile-menu > div[profile-menu-trigger-container] {
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    gap: 4px;
+}
+
+.fluent-profile-menu > div[profile-menu-trigger-container] > button[profile-menu-trigger] {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
+    min-height: var(--fluent-profile-menu-button-size);
+    padding: 0;
+}
+
+.fluent-profile-menu > div[profile-menu-trigger-container]:hover > button[profile-menu-trigger] {
+    background-color: var(--fluent-profile-menu-hover, var(--colorNeutralBackground1Hover));
+}
+
+.fluent-profile-menu > div[profile-menu-trigger-container] > button[profile-menu-trigger]:focus-visible {
+    outline: 2px solid var(--colorStrokeFocus2);
+    outline-offset: 2px;
+}
+
+.fluent-profile-menu ::deep fluent-popover-b {
+    background: var(--colorNeutralBackground1);
+    border: 1px solid var(--colorNeutralStroke2);
+    border-radius: var(--borderRadiusMedium);
+    box-shadow: var(--shadow16);
+    color: var(--colorNeutralForeground1);
+}
+
+.fluent-profile-menu div[profile-menu-popover] {
+    min-width: 280px;
+}
+
+.fluent-profile-menu header,
+.fluent-profile-menu footer {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+.fluent-profile-menu header {
+    border-bottom: 1px solid var(--colorNeutralStroke2);
+}
+
+.fluent-profile-menu main {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+}
+
+.fluent-profile-menu div[profile-menu-identity] {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.fluent-profile-menu div[profile-menu-identity] > span {
+    color: var(--colorNeutralForeground2);
+}
+
+.fluent-profile-menu footer {
+    border-top: 1px solid var(--colorNeutralStroke2);
+}
+
+.fluent-profile-menu span[profile-menu-header-label],
+.fluent-profile-menu span[profile-menu-footer-label] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

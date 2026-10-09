@@ -1,0 +1,27 @@
+<div id="xxx" class="fluent-profile-menu" style="--fluent-profile-menu-button-size: 32px;" blazor:onkeydown="x">
+  <div profile-menu-trigger-container="" blazor:onclick="x">
+    <button id="xxx" type="button" profile-menu-trigger="" aria-expanded="false" aria-controls="profile-menu-popover" aria-label="Ada Lovelace">
+      <fluent-avatar initials="AL" name="Ada Lovelace" size="32" blazor:onclick="x" blazor:onkeydown="x"></fluent-avatar>
+    </button>
+  </div>
+  <fluent-popover-b id="xxx" anchor-id="profile-menu-trigger" opened="false" blazor:onpopovertoggle="5">
+    <div profile-menu-popover="" role="region" aria-label="Ada Lovelace">
+      <header>
+        <span profile-menu-header-label="">Contoso</span>
+        <fluent-button appearance="transparent" blazor:onclick="x" blazor:elementreference="xxx">
+          Sign out</fluent-button>
+      </header>
+      <main>
+        <fluent-avatar initials="AL" name="Ada Lovelace" size="64" blazor:onclick="x" blazor:onkeydown="x"></fluent-avatar>
+        <div profile-menu-identity="">
+          <strong>Ada Lovelace</strong>
+          <span>ada@example.com</span>
+        </div>
+      </main>
+      <footer>
+        <span profile-menu-footer-label="">v5</span>
+        <fluent-link blazor:onclick="x">View account</fluent-link>
+      </footer>
+    </div>
+  </fluent-popover-b>
+</div>

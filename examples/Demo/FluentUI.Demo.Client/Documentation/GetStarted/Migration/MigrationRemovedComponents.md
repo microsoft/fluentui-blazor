@@ -87,21 +87,7 @@ hidden: true
 
 ---
 
-## FluentProfileMenu
-
-  `FluentProfileMenu` (user profile dropdown with avatar) has been removed.
-
-  | V4 Parameter | Type |
-  |-------------|------|
-  | `Image` | `string?` |
-  | `Initials` | `string?` |
-  | `FullName` | `string?` |
-  | `EMail` | `string?` |
-  | `Status` | `PresenceStatus?` |
-  | *(and more)* | |
-
-  **Migration**: Build a custom profile menu using `FluentPopover`, `FluentAvatar`, and `FluentButton`.
-
-  > **Note**: `FluentMenuButton` and `FluentPresenceBadge` were initially listed here but are
-  > still present in V5 with significant changes. See their dedicated migration pages:
-  > [FluentMenuButton](/Migration/MenuButton) and [FluentPresenceBadge](/Migration/PresenceBadge).
+> **Note**: `FluentMenuButton`, `FluentPresenceBadge`, and `FluentProfileMenu` were initially
+> listed here but are present in V5 with significant changes. See their dedicated migration pages:
+> [FluentMenuButton](/Migration/MenuButton), [FluentPresenceBadge](/Migration/PresenceBadge),
+> and [FluentProfileMenu](/Migration/ProfileMenu).

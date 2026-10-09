@@ -1,0 +1,100 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div @attributes="@AdditionalAttributes"
+     id="@ComponentId"
+     class="@ClassValue"
+     style="@StyleValue"
+     @onkeydown="@HandleKeyDownAsync">
+    <div profile-menu-trigger-container
+         @onclick="@ToggleAsync">
+        @StartTemplate
+
+        <button id="@TriggerId"
+                type="button"
+                profile-menu-trigger
+                aria-expanded="@(Open ? "true" : "false")"
+                aria-controls="@PopoverId"
+                aria-label="@GetAriaLabel()">
+            <FluentAvatar Image="@Image"
+                          Initials="@Initials"
+                          Name="@FullName"
+                          Size="@ButtonSize">
+                @if (Status is not null)
+                {
+                <FluentPresenceBadge Status="@Status"
+                                     title="@GetStatusTitle()"
+                                     slot="@FluentSlot.Badge" />
+                }
+            </FluentAvatar>
+        </button>
+
+        @EndTemplate
+    </div>
+
+    <FluentPopover Id="@PopoverId"
+                   AnchorId="@TriggerId"
+                   Opened="@Open"
+                   OpenedChanged="@HandleOpenChangedAsync"
+                   Class="@PopoverClass"
+                   Style="@PopoverStyleValue">
+        <div profile-menu-popover
+             role="region"
+             aria-label="@GetAriaLabel()">
+            @if (HeaderTemplate is not null)
+            {
+                <header>
+                    @HeaderTemplate
+                </header>
+            }
+            else if (!string.IsNullOrWhiteSpace(HeaderLabel) || !string.IsNullOrWhiteSpace(HeaderButtonLabel))
+            {
+                <header>
+                    <span profile-menu-header-label>@HeaderLabel</span>
+                    @if (!string.IsNullOrWhiteSpace(HeaderButtonLabel))
+                    {
+                        <FluentButton Appearance="@ButtonAppearance.Transparent"
+                                      OnClick="@OnHeaderButtonClick">
+                            @HeaderButtonLabel
+                        </FluentButton>
+                    }
+                </header>
+            }
+
+            <main>
+                @if (ChildContent is not null)
+                {
+                    @ChildContent
+                }
+                else
+                {
+                    <FluentAvatar Image="@Image"
+                                  Initials="@Initials"
+                                  Name="@FullName"
+                                  Size="@ImageSize" />
+                    <div profile-menu-identity>
+                        <strong>@FullName</strong>
+                        <span>@EMail</span>
+                    </div>
+                }
+            </main>
+
+            @if (FooterTemplate is not null)
+            {
+                <footer>
+                    @FooterTemplate
+                </footer>
+            }
+            else if (!string.IsNullOrWhiteSpace(FooterLabel) || !string.IsNullOrWhiteSpace(FooterLinkLabel))
+            {
+                <footer>
+                    <span profile-menu-footer-label>@FooterLabel</span>
+                    @if (!string.IsNullOrWhiteSpace(FooterLinkLabel))
+                    {
+                        <FluentLink OnClick="@OnFooterLinkClick">@FooterLinkLabel</FluentLink>
+                    }
+                </footer>
+            }
+        </div>
+    </FluentPopover>
+</div>

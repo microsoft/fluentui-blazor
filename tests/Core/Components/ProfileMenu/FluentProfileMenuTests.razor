@@ -1,0 +1,192 @@
+﻿@using Xunit
+@inherits FluentUITestContext
+
+@code
+{
+    public FluentProfileMenuTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Default()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentProfileMenu Id="profile-menu"
+                                            FullName="Ada Lovelace"
+                                            EMail="ada@example.com"
+                                            Initials="AL"
+                                            HeaderLabel="Contoso"
+                                            FooterLabel="v5" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Click_UpdatesBoundOpenState()
+    {
+        var open = false;
+        var cut = Render(@<FluentProfileMenu @bind-Open="@open" />);
+
+        // Act
+        cut.Find("button[profile-menu-trigger]").Click();
+
+        // Assert
+        Assert.True(open);
+        Assert.Equal("true", cut.Find("button[profile-menu-trigger]").GetAttribute("aria-expanded"));
+        Assert.Equal("true", cut.Find("fluent-popover-b").GetAttribute("opened"));
+    }
+
+    [Fact]
+    public async Task FluentProfileMenu_PopoverToggle_UpdatesBoundOpenState()
+    {
+        var open = true;
+        var cut = Render(@<FluentProfileMenu Id="profile" @bind-Open="@open" />);
+
+        // Act
+        await cut.Find("fluent-popover-b").TriggerEventAsync("onpopovertoggle", new DialogToggleEventArgs
+        {
+            Id = "profile-popover",
+            OldState = "open",
+            NewState = "closed"
+        });
+
+        // Assert
+        Assert.False(open);
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Actions_InvokeCallbacks()
+    {
+        var headerClicked = false;
+        var footerClicked = false;
+        var cut = Render(@<FluentProfileMenu HeaderButton="Sign out"
+                                            FooterLink="View account"
+                                            OnHeaderButtonClick="@(() => headerClicked = true)"
+                                            OnFooterLinkClick="@(() => footerClicked = true)" />);
+
+        // Act
+        cut.Find("header fluent-button").Click();
+        cut.Find("footer fluent-link").Click();
+
+        // Assert
+        Assert.True(headerClicked);
+        Assert.True(footerClicked);
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Templates_ReplaceDefaultSections()
+    {
+        var cut = Render(
+            @<FluentProfileMenu HeaderLabel="Default header"
+                               FooterLabel="Default footer"
+                               FullName="Default name">
+                <StartTemplate>Start</StartTemplate>
+                <EndTemplate>End</EndTemplate>
+                <HeaderTemplate>Custom header</HeaderTemplate>
+                <ChildContent>Custom body</ChildContent>
+                <FooterTemplate>Custom footer</FooterTemplate>
+            </FluentProfileMenu>);
+
+        // Assert
+        Assert.Contains("Start", cut.Markup);
+        Assert.Contains("End", cut.Markup);
+        Assert.Contains("Custom header", cut.Markup);
+        Assert.Contains("Custom body", cut.Markup);
+        Assert.Contains("Custom footer", cut.Markup);
+        Assert.DoesNotContain("Default header", cut.Markup);
+        Assert.DoesNotContain("Default name", cut.Find("main").TextContent);
+        Assert.DoesNotContain("Default footer", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Status_RendersPresenceBadgeAndTitle()
+    {
+        var cut = Render(@<FluentProfileMenu Status="@PresenceStatus.Available"
+                                            StatusTitle="Available" />);
+
+        // Assert
+        var badge = cut.Find("fluent-badge");
+        Assert.Equal("Available", badge.GetAttribute("title"));
+        Assert.Equal(FluentSlot.Badge, badge.GetAttribute("slot"));
+        Assert.NotNull(badge.ParentElement?.Closest("fluent-avatar"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_StatusWithoutTitle_UsesLocalizedStatus()
+    {
+        var cut = Render(@<FluentProfileMenu Status="@PresenceStatus.Available" />);
+
+        // Assert
+        Assert.Equal("available", cut.Find("fluent-badge").GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_Escape_ClosesMenu()
+    {
+        var open = true;
+        var cut = Render(@<FluentProfileMenu @bind-Open="@open" />);
+
+        // Act
+        cut.Find(".fluent-profile-menu").KeyDown("Escape");
+
+        // Assert
+        Assert.False(open);
+        Assert.Equal("false", cut.Find("button[profile-menu-trigger]").GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_EmptyId_UsesStableGeneratedAnchor()
+    {
+        var cut = Render(@<FluentProfileMenu Id="" />);
+
+        // Assert
+        var triggerId = cut.Find("button[profile-menu-trigger]").Id;
+        Assert.False(string.IsNullOrWhiteSpace(triggerId));
+        Assert.Equal(triggerId, cut.Find("fluent-popover-b").GetAttribute("anchor-id"));
+        Assert.Equal($"{cut.Find(".fluent-profile-menu").Id}-popover", cut.Find("button[profile-menu-trigger]").GetAttribute("aria-controls"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_EmptyAccessibleNames_UseLocalizedLabel()
+    {
+        var cut = Render(@<FluentProfileMenu AriaLabel=" " FullName=" " />);
+
+        // Assert
+        Assert.Equal("Profile menu", cut.Find("button[profile-menu-trigger]").GetAttribute("aria-label"));
+        Assert.Equal("Profile menu", cut.Find("div[profile-menu-popover]").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_StartTemplateClick_UpdatesBoundOpenState()
+    {
+        var open = false;
+        var cut = Render(
+            @<FluentProfileMenu @bind-Open="@open">
+                <StartTemplate>Profile</StartTemplate>
+            </FluentProfileMenu>);
+
+        // Act
+        cut.Find("div[profile-menu-trigger-container]").Click();
+
+        // Assert
+        Assert.True(open);
+    }
+
+    [Fact]
+    public void FluentProfileMenu_TopCorner_ComposesPopoverStyle()
+    {
+        var cut = Render(@<FluentProfileMenu TopCorner="true"
+                                            PopoverStyle="min-width: 320px;" />);
+
+        // Assert
+        var style = cut.Find("fluent-popover-b").GetAttribute("style");
+        Assert.Contains("min-width: 320px", style);
+        Assert.Contains("inset-block-start: calc(var(--fluent-profile-menu-button-size) + 4px) !important", style);
+        Assert.Contains("inset-inline-end: 4px !important", style);
+        Assert.Contains("inset-inline-start: auto !important", style);
+        Assert.Contains("transform: none !important", style);
+    }
+}

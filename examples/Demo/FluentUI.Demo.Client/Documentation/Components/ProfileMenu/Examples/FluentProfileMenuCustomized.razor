@@ -1,0 +1,22 @@
+<FluentProfileMenu Initials="BG"
+                   Style="--fluent-profile-menu-hover: var(--colorNeutralStrokeOnBrand2); padding: 4px;">
+    <StartTemplate>
+        Bill Gates
+    </StartTemplate>
+    <HeaderTemplate>
+        <FluentText As="@TextTag.H3" Size="@TextSize.Size500">Login</FluentText>
+    </HeaderTemplate>
+    <ChildContent>
+        <div style="width: 250px; height: 80px">
+            <FluentText Weight="@TextWeight.Bold">Bill Gates</FluentText>
+            <FluentText>bill.gates@microsoft.com</FluentText>
+        </div>
+    </ChildContent>
+    <FooterTemplate>
+        <FluentStack>
+            <FluentSpacer />
+            <FluentLink Href="https://microsoft.com"
+                        Target="@LinkTarget.Blank">About</FluentLink>
+        </FluentStack>
+    </FooterTemplate>
+</FluentProfileMenu>

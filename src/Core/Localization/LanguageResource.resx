@@ -403,6 +403,15 @@
   <data name="PresenceStatus_Blocked" xml:space="preserve">
     <value>blocked</value>
   </data>
+  <data name="ProfileMenu_Label" xml:space="preserve">
+    <value>Profile menu</value>
+  </data>
+  <data name="ProfileMenu_SignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="ProfileMenu_ViewAccount" xml:space="preserve">
+    <value>View account</value>
+  </data>
   <data name="DataGrid_ToggleNesting" xml:space="preserve">
     <value>Toggle nesting</value>
   </data>
