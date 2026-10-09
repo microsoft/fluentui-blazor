@@ -11,10 +11,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary />
 public partial class FluentDragContainer<TItem> : FluentComponentBase
 {
-    private const string JAVASCRIPT_FILE =
-        FluentJSModule.JAVASCRIPT_ROOT + "Drag/FluentDragContainer.razor.js";
+    private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "Drag/FluentDragContainer.razor.js";
 
-    private readonly Dictionary<string, FluentDropZone<TItem>> _zones = [];
+    private readonly Dictionary<string, FluentDropZone<TItem>> _zones = new(StringComparer.Ordinal);
     private DotNetObjectReference<FluentDragContainer<TItem>>? _dotNetRef;
     private bool _touchInitialized;
 
@@ -23,14 +22,6 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     {
         Id = Identifier.NewId();
     }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether items can be dragged using touch (long press, then move).
-    /// This is required on devices such as iPhone and iPad where HTML5 drag and drop is not available.
-    /// Default is true.
-    /// </summary>
-    [Parameter]
-    public bool EnableTouchDrag { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the time (in milliseconds) a touch must be held before a drag starts.
@@ -122,17 +113,19 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && EnableTouchDrag)
+        if (!firstRender)
         {
-            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
-            {
-                return;
-            }
-
-            _dotNetRef = DotNetObjectReference.Create(this);
-            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DragContainer.Initialize", Id, _dotNetRef, TouchDragDelay);
-            _touchInitialized = true;
+            return;
         }
+
+        if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+        {
+            return;
+        }
+
+        _dotNetRef = DotNetObjectReference.Create(this);
+        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DragContainer.Initialize", Id, _dotNetRef, TouchDragDelay);
+        _touchInitialized = true;
     }
 
     /// <summary />
