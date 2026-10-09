@@ -1,6 +1,5 @@
-
 <fluent-field id="xxx" label-position="above" class="fluent-datepicker">
-  <fluent-text-input appearance="outline" autocomplete="off" id="xxx" placeholder="MM/dd/yyyy" slot="input" value="02/15/2022" blazor:onfocusout="2" blazor:onchange="3" blazor:oninput="4" blazor:onclick="x" blazor:elementreference="xxx">
+  <fluent-text-input appearance="outline" autocomplete="off" id="xxx" placeholder="MM/dd/yyyy" slot="input" value="02/15/2022" blazor:onfocusin="2" blazor:onfocusout="3" blazor:onchange="4" blazor:ontextimmediate="5" blazor:onclick="x" blazor:elementreference="xxx">
     <div slot="end">
       <svg style="width: 20px; fill: currentColor;" focusable="true" tabindex="0" role="button" viewBox="0 0 20 20" blazor:onclick="x" blazor:onkeydown="x" aria-label="Show date picker" blazor:elementreference="xxx">
         <title>Show date picker</title>
@@ -9,9 +8,9 @@
     </div>
   </fluent-text-input>
 </fluent-field>
-<fluent-popover-b id="xxx" anchor-id="myPicker" opened="false" blazor:ondialogtoggle="1">
+<fluent-popover-b id="xxx" anchor-id="myPicker" opened="false" blazor:onpopovertoggle="1">
   <fluent-field id="xxx" label-position="above">
-    <div id="xxx" class="fluent-calendar fluent-day-view" slot="input" blazor:onfocusout="8" blazor:elementreference="xxx">
+    <div id="xxx" class="fluent-calendar fluent-day-view" slot="input" blazor:onfocusout="9" blazor:elementreference="xxx">
       <input type="datetime" value="2022-02-15" hidden="">
       <div>
         <div class="title" part="title" aria-label="February 2022">
@@ -29,7 +28,7 @@
             </div>
           </div>
         </div>
-        <div class="days" part="days" blazor:onmouseleave="12">
+        <div class="days" part="days" blazor:onmouseleave="13">
           <div class="week-days" part="week-days">
             <div class="week-day" part="week-day" title="Sunday" abbr="Sunday">S</div>
             <div class="week-day" part="week-day" title="Monday" abbr="Monday">M</div>
@@ -40,58 +39,58 @@
             <div class="week-day" part="week-day" title="Saturday" abbr="Saturday">S</div>
           </div>
           <div class="week">
-            <div part="day" class="day" inactive="" aria-label="January 30" value="2022-01-30" blazor:onclick="x" blazor:onmouseover="14">30</div>
-            <div part="day" class="day" inactive="" aria-label="January 31" value="2022-01-31" blazor:onclick="x" blazor:onmouseover="16">31</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 1" value="2022-02-01" blazor:onclick="x" blazor:onmouseover="18">1</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 2" value="2022-02-02" blazor:onclick="x" blazor:onmouseover="20">2</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 3" value="2022-02-03" blazor:onclick="x" blazor:onmouseover="22">3</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 4" value="2022-02-04" blazor:onclick="x" blazor:onmouseover="24">4</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 5" value="2022-02-05" blazor:onclick="x" blazor:onmouseover="26">5</div>
+            <div part="day" class="day" inactive="" aria-label="January 30" value="2022-01-30" blazor:onclick="x" blazor:onmouseover="15">30</div>
+            <div part="day" class="day" inactive="" aria-label="January 31" value="2022-01-31" blazor:onclick="x" blazor:onmouseover="17">31</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 1" value="2022-02-01" blazor:onclick="x" blazor:onmouseover="19">1</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 2" value="2022-02-02" blazor:onclick="x" blazor:onmouseover="21">2</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 3" value="2022-02-03" blazor:onclick="x" blazor:onmouseover="23">3</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 4" value="2022-02-04" blazor:onclick="x" blazor:onmouseover="25">4</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 5" value="2022-02-05" blazor:onclick="x" blazor:onmouseover="27">5</div>
           </div>
           <div class="week">
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 6" value="2022-02-06" blazor:onclick="x" blazor:onmouseover="28">6</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 7" value="2022-02-07" blazor:onclick="x" blazor:onmouseover="30">7</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 8" value="2022-02-08" blazor:onclick="x" blazor:onmouseover="32">8</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 9" value="2022-02-09" blazor:onclick="x" blazor:onmouseover="34">9</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 10" value="2022-02-10" blazor:onclick="x" blazor:onmouseover="36">10</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 11" value="2022-02-11" blazor:onclick="x" blazor:onmouseover="38">11</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 12" value="2022-02-12" blazor:onclick="x" blazor:onmouseover="40">12</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 6" value="2022-02-06" blazor:onclick="x" blazor:onmouseover="29">6</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 7" value="2022-02-07" blazor:onclick="x" blazor:onmouseover="31">7</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 8" value="2022-02-08" blazor:onclick="x" blazor:onmouseover="33">8</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 9" value="2022-02-09" blazor:onclick="x" blazor:onmouseover="35">9</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 10" value="2022-02-10" blazor:onclick="x" blazor:onmouseover="37">10</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 11" value="2022-02-11" blazor:onclick="x" blazor:onmouseover="39">11</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 12" value="2022-02-12" blazor:onclick="x" blazor:onmouseover="41">12</div>
           </div>
           <div class="week">
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 13" value="2022-02-13" blazor:onclick="x" blazor:onmouseover="42">13</div>
-            <div part="day" class="day" disabled="" aria-label="February 14" value="2022-02-14" blazor:onclick="x" blazor:onmouseover="44">14</div>
-            <div part="day" class="day" role="button" tabindex="0" selected="" aria-label="February 15" value="2022-02-15" blazor:onclick="x" blazor:onmouseover="46">15</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 16" value="2022-02-16" blazor:onclick="x" blazor:onmouseover="48">16</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 17" value="2022-02-17" blazor:onclick="x" blazor:onmouseover="50">17</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 18" value="2022-02-18" blazor:onclick="x" blazor:onmouseover="52">18</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 19" value="2022-02-19" blazor:onclick="x" blazor:onmouseover="54">19</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 13" value="2022-02-13" blazor:onclick="x" blazor:onmouseover="43">13</div>
+            <div part="day" class="day" disabled="" aria-label="February 14" value="2022-02-14" blazor:onclick="x" blazor:onmouseover="45">14</div>
+            <div part="day" class="day" role="button" tabindex="0" selected="" aria-label="February 15" value="2022-02-15" blazor:onclick="x" blazor:onmouseover="47">15</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 16" value="2022-02-16" blazor:onclick="x" blazor:onmouseover="49">16</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 17" value="2022-02-17" blazor:onclick="x" blazor:onmouseover="51">17</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 18" value="2022-02-18" blazor:onclick="x" blazor:onmouseover="53">18</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 19" value="2022-02-19" blazor:onclick="x" blazor:onmouseover="55">19</div>
           </div>
           <div class="week">
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 20" value="2022-02-20" blazor:onclick="x" blazor:onmouseover="56">20</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 21" value="2022-02-21" blazor:onclick="x" blazor:onmouseover="58">21</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 22" value="2022-02-22" blazor:onclick="x" blazor:onmouseover="60">22</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 23" value="2022-02-23" blazor:onclick="x" blazor:onmouseover="62">23</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 24" value="2022-02-24" blazor:onclick="x" blazor:onmouseover="64">24</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 25" value="2022-02-25" blazor:onclick="x" blazor:onmouseover="66">25</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 26" value="2022-02-26" blazor:onclick="x" blazor:onmouseover="68">26</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 20" value="2022-02-20" blazor:onclick="x" blazor:onmouseover="57">20</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 21" value="2022-02-21" blazor:onclick="x" blazor:onmouseover="59">21</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 22" value="2022-02-22" blazor:onclick="x" blazor:onmouseover="61">22</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 23" value="2022-02-23" blazor:onclick="x" blazor:onmouseover="63">23</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 24" value="2022-02-24" blazor:onclick="x" blazor:onmouseover="65">24</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 25" value="2022-02-25" blazor:onclick="x" blazor:onmouseover="67">25</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 26" value="2022-02-26" blazor:onclick="x" blazor:onmouseover="69">26</div>
           </div>
           <div class="week">
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 27" value="2022-02-27" blazor:onclick="x" blazor:onmouseover="70">27</div>
-            <div part="day" class="day" role="button" tabindex="0" aria-label="February 28" value="2022-02-28" blazor:onclick="x" blazor:onmouseover="72">28</div>
-            <div part="day" class="day" inactive="" aria-label="March 1" value="2022-03-01" blazor:onclick="x" blazor:onmouseover="74">1</div>
-            <div part="day" class="day" inactive="" aria-label="March 2" value="2022-03-02" blazor:onclick="x" blazor:onmouseover="76">2</div>
-            <div part="day" class="day" inactive="" aria-label="March 3" value="2022-03-03" blazor:onclick="x" blazor:onmouseover="78">3</div>
-            <div part="day" class="day" inactive="" aria-label="March 4" value="2022-03-04" blazor:onclick="x" blazor:onmouseover="80">4</div>
-            <div part="day" class="day" inactive="" aria-label="March 5" value="2022-03-05" blazor:onclick="x" blazor:onmouseover="82">5</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 27" value="2022-02-27" blazor:onclick="x" blazor:onmouseover="71">27</div>
+            <div part="day" class="day" role="button" tabindex="0" aria-label="February 28" value="2022-02-28" blazor:onclick="x" blazor:onmouseover="73">28</div>
+            <div part="day" class="day" inactive="" aria-label="March 1" value="2022-03-01" blazor:onclick="x" blazor:onmouseover="75">1</div>
+            <div part="day" class="day" inactive="" aria-label="March 2" value="2022-03-02" blazor:onclick="x" blazor:onmouseover="77">2</div>
+            <div part="day" class="day" inactive="" aria-label="March 3" value="2022-03-03" blazor:onclick="x" blazor:onmouseover="79">3</div>
+            <div part="day" class="day" inactive="" aria-label="March 4" value="2022-03-04" blazor:onclick="x" blazor:onmouseover="81">4</div>
+            <div part="day" class="day" inactive="" aria-label="March 5" value="2022-03-05" blazor:onclick="x" blazor:onmouseover="83">5</div>
           </div>
           <div class="week">
-            <div part="day" class="day" inactive="" aria-label="March 6" value="2022-03-06" blazor:onclick="x" blazor:onmouseover="84">6</div>
-            <div part="day" class="day" inactive="" aria-label="March 7" value="2022-03-07" blazor:onclick="x" blazor:onmouseover="86">7</div>
-            <div part="day" class="day" inactive="" aria-label="March 8" value="2022-03-08" blazor:onclick="x" blazor:onmouseover="88">8</div>
-            <div part="day" class="day" inactive="" aria-label="March 9" value="2022-03-09" blazor:onclick="x" blazor:onmouseover="90">9</div>
-            <div part="day" class="day" inactive="" aria-label="March 10" value="2022-03-10" blazor:onclick="x" blazor:onmouseover="92">10</div>
-            <div part="day" class="day" inactive="" aria-label="March 11" value="2022-03-11" blazor:onclick="x" blazor:onmouseover="94">11</div>
-            <div part="day" class="day" inactive="" aria-label="March 12" value="2022-03-12" blazor:onclick="x" blazor:onmouseover="96">12</div>
+            <div part="day" class="day" inactive="" aria-label="March 6" value="2022-03-06" blazor:onclick="x" blazor:onmouseover="85">6</div>
+            <div part="day" class="day" inactive="" aria-label="March 7" value="2022-03-07" blazor:onclick="x" blazor:onmouseover="87">7</div>
+            <div part="day" class="day" inactive="" aria-label="March 8" value="2022-03-08" blazor:onclick="x" blazor:onmouseover="89">8</div>
+            <div part="day" class="day" inactive="" aria-label="March 9" value="2022-03-09" blazor:onclick="x" blazor:onmouseover="91">9</div>
+            <div part="day" class="day" inactive="" aria-label="March 10" value="2022-03-10" blazor:onclick="x" blazor:onmouseover="93">10</div>
+            <div part="day" class="day" inactive="" aria-label="March 11" value="2022-03-11" blazor:onclick="x" blazor:onmouseover="95">11</div>
+            <div part="day" class="day" inactive="" aria-label="March 12" value="2022-03-12" blazor:onclick="x" blazor:onmouseover="97">12</div>
           </div>
         </div>
       </div>

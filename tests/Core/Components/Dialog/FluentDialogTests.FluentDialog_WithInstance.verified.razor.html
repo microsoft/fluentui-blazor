@@ -1,4 +1,3 @@
-
 <div id="xxx" class="fluent-dialog-provider" style="z-index: 999;">
   <fluent-dialog fuib="" id="xxx" type="alert" blazor:onkeydown="x" blazor:ondialogbeforetoggle="2" blazor:ondialogtoggle="3">
     <fluent-dialog-body fuib="">
@@ -6,8 +5,10 @@
       <div>
         Hello John</div>
       <div slot="action">
-        <fluent-button appearance="primary" blazor:onclick="x">OK</fluent-button>
-        <fluent-button blazor:onclick="x">Cancel</fluent-button>
+        <fluent-button appearance="primary" blazor:onclick="x" blazor:elementreference="xxx">
+          OK</fluent-button>
+        <fluent-button blazor:onclick="x" blazor:elementreference="xxx">
+          Cancel</fluent-button>
       </div>
     </fluent-dialog-body>
   </fluent-dialog>
