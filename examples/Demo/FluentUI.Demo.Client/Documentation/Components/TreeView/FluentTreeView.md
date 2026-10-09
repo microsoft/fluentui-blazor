@@ -122,59 +122,27 @@ TreeSelectionVisibility GetTreeSelectionVisibility(ITreeViewItem item)
 ## Custom checkbox state
 
 Use `CheckState`, a `Func<ITreeViewItem, bool?>`, to calculate each visible checkbox's state:
-`true` for checked, `false` for unchecked, or `null` for indeterminate.
-When the function is omitted, the existing behavior based on `SelectedItems` is unchanged.
-This parameter applies only to trees generated from `Items` in `TreeSelectionMode.Multiple`.
 
-The function should be synchronous and free of side effects. It controls the displayed state;
-it does not modify `SelectedItems`, select descendants, or load missing children.
-A click on a checked item requests its removal from `SelectedItems`; a click on an unchecked
-or indeterminate item requests its addition, without adding duplicates.
-Handle `SelectedItemsChanged` to update the data used by the function.
-Keep fully checked items in `SelectedItems` if your handler needs to identify removals.
+- `true`: checked.
+- `false`: unchecked.
+- `null`: indeterminate.
 
-The following example opts into recursive selection using a `TreeViewThreeStateSelection` instance:
+This parameter applies to trees generated from `Items` in `TreeSelectionMode.Multiple`.
+When omitted, checkbox states are based on `SelectedItems`.
 
-- Set `Selection.Items` to the same root items passed to the TreeView so ancestors can be recalculated.
-  Update this property if you replace the tree's root collection.
-- Pass `Selection.GetCheckState` to `CheckState` to calculate each checkbox's state.
-- Pass `Selection.SelectedItems` to `SelectedItems` and `Selection.OnSelectedItemsChanged` to
-  `SelectedItemsChanged`. The handler updates the instance's selection automatically without modifying
-  the input collections. Use a separate instance for each independent tree selection.
+`CheckState` controls the displayed state only. Keep the function synchronous and free of
+side effects, and handle `SelectedItemsChanged` to update the selection. Selecting descendants
+is not automatic.
 
-The helper stores the selection and calculated checkbox states in a single dictionary.
-Assigning `Selection.SelectedItems` copies the supplied selection once, removes duplicates,
-and discards calculated states. Assign `null` to clear the selection. The getter filters
-the stored states to enumerate selected items without creating another stored collection.
-Changes to an external selection list are not tracked: reassign `Selection.SelectedItems`
-to apply them.
+The following example uses `TreeViewThreeStateSelection` to select or deselect descendants
+and update parent states automatically. This helper requires all descendant data to be available.
+To implement your own selection rules instead, open the **Detailled** tab: it shows the logic
+inline, without the helper, so you can fully customize it.
 
-Assigning `Selection.Items` or calling `Selection.Refresh()` discards calculated states
-while preserving the selection. Call `Selection.Refresh()` after modifying the tree's
-root collection or a node's children in place, then render again. It does not trigger a
-component render or read changes from an external selection list.
-`Selection.OnSelectedItemsChanged` continues to update the selection and invalidate calculated
-states automatically.
+When using the helper, reassign `SelectedItems` after changing an external selection list.
+Call `Refresh()` after modifying the tree in place, then render again.
 
-Checking or unchecking a parent applies the same selection to all its descendants.
-The helper then updates parents from the bottom up: a parent is selected only when all its
-children are selected. `CheckState` displays an unselected parent as indeterminate when at least
-one descendant is selected, and unchecked otherwise. All descendants are available in this example;
-recursive selection is only enabled by explicitly wiring this selection instance.
-
-{{ TreeViewCheckState }}
-
-### Detailed implementation
-
-This example keeps the selection logic inline so you can inspect or customize its behavior.
-Unlike the helper, it does not cache checkbox states and is intended to illustrate the algorithm,
-not to optimize rendering of large trees.
-
-{{ TreeViewCheckStateDetailled }}
-
-When children are fetched on demand, calculate the state from your application's selection
-metadata instead. Unloaded children (or loading placeholders) must not be treated as unchecked
-children. Refresh the component after that metadata changes; `CheckState` is reevaluated on render.
+{{ TreeViewCheckState Files=Code:TreeViewCheckState.razor;Detailled:TreeViewCheckStateDetailled.razor }}
 
 ## API FluentTreeView
 
