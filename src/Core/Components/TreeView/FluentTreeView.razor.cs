@@ -193,18 +193,11 @@ public partial class FluentTreeView : FluentComponentBase
         // If SelectionMode is MultipleRecursive
         if (RecursiveSelection.IsRecursive)
         {
-            var selection = new TreeViewThreeStateSelection
-            {
-                Items = Items,
-                SelectedItems = SelectedItems,
-            };
-
-            // Applies a checkbox selection change recursively and recalculates the selection of ancestors.
-            selection.OnSelectedItemsChanged(selectedItems);
+            RecursiveSelection.OnSelectedItemsChanged(selectedItems);
 
             if (SelectedItemsChanged.HasDelegate)
             {
-                await SelectedItemsChanged.InvokeAsync(selection.SelectedItems);
+                await SelectedItemsChanged.InvokeAsync(RecursiveSelection.SelectedItems);
             }
         }
 
