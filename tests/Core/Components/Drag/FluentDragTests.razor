@@ -15,7 +15,7 @@
 	public void FluentDrag_Default()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+		var cut = Render(@<FluentDragContainer Id="test-drag-container" TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
 			<FluentDropZone Draggable="true" TItem="int" Item="1" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
 				Item 1
 			</FluentDropZone>
@@ -33,7 +33,7 @@
 	public void FluentDrag_StopPropagation()
 	{
 		// Arrange && Act
-		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
+		var cut = Render(@<FluentDragContainer Id="test-drag-container" TItem="int" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
 			<FluentDropZone Draggable="true" StopPropagation="true" TItem="int" Item="1" OnDragStart="(e) => { }" OnDragEnd="(e) => { }" OnDragEnter="(e) => { }" OnDragOver="(e) => { }" OnDragLeave="(e) => { }" OnDropEnd="(e) => { }">
 				Item 1
 			</FluentDropZone>
