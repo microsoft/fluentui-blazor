@@ -2,11 +2,14 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.JSInterop
 @using Xunit;
 @inherits FluentUITestContext
 
 @code
 {
+    private const string ObserveAttributeChange = "Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange";
+
     public FluentCheckboxTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -24,6 +27,71 @@
     );
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void OnAfterRenderAsync_FirstRender_RegistersBothObservers()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentCheckbox />);
+
+        // Assert
+        var element = cut.FindComponent<FluentCheckbox>().Instance.Element;
+        var invocations = JSInterop.Invocations[ObserveAttributeChange];
+        Assert.Equal(2, invocations.Count);
+        Assert.Equal(new object?[] { element, "checked", "boolean" }, invocations[0].Arguments);
+        Assert.Equal(new object?[] { element, "indeterminate", "boolean", "", true }, invocations[1].Arguments);
+    }
+
+    [Fact]
+    public void OnAfterRenderAsync_SubsequentRender_DoesNotRegisterObserversAgain()
+    {
+        // Arrange
+        var cut = Render(@<FluentCheckbox />);
+        var checkbox = cut.FindComponent<FluentCheckbox>();
+
+        // Act
+        checkbox.Render();
+
+        // Assert
+        Assert.Equal(2, JSInterop.Invocations[ObserveAttributeChange].Count);
+    }
+
+    [Theory]
+    [InlineData("checked", 1)]
+    [InlineData("indeterminate", 2)]
+    public void OnAfterRenderAsync_CircuitDisconnected_StopsObserverRegistration(string attribute, int expectedCalls)
+    {
+        // Arrange
+        JSInterop.SetupVoid(ObserveAttributeChange, invocation => Equals(invocation.Arguments[1], attribute))
+            .SetException(new JSDisconnectedException("disconnected"));
+
+        // Act
+        var cut = Render(@<FluentCheckbox />);
+
+        // Assert
+        Assert.NotNull(cut.Find("fluent-checkbox"));
+        var invocations = JSInterop.Invocations[ObserveAttributeChange];
+        Assert.Equal(expectedCalls, invocations.Count);
+        Assert.Equal(attribute, invocations[expectedCalls - 1].Arguments[1]);
+    }
+
+    [Theory]
+    [InlineData("checked", 1)]
+    [InlineData("indeterminate", 2)]
+    public void OnAfterRenderAsync_JavaScriptError_PropagatesException(string attribute, int expectedCalls)
+    {
+        // Arrange
+        var exception = new JSException("script failed");
+        JSInterop.SetupVoid(ObserveAttributeChange, invocation => Equals(invocation.Arguments[1], attribute))
+            .SetException(exception);
+
+        // Act
+        var actual = Assert.Throws<JSException>(() => Render(@<FluentCheckbox />));
+
+        // Assert
+        Assert.Same(exception, actual);
+        Assert.Equal(expectedCalls, JSInterop.Invocations[ObserveAttributeChange].Count);
     }
 
     [Theory]
