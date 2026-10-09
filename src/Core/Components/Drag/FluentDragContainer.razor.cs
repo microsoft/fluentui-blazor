@@ -133,14 +133,7 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     {
         if (_touchInitialized && JSModule.Imported)
         {
-            try
-            {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DragContainer.Dispose", Id);
-            }
-            catch (Exception ex) when (ex is JSDisconnectedException or OperationCanceledException or ObjectDisposedException)
-            {
-                // The JS runtime may already be gone.
-            }
+            await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.DragContainer.Dispose", Id);
         }
 
         _dotNetRef?.Dispose();
