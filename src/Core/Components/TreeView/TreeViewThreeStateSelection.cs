@@ -105,6 +105,13 @@ public class TreeViewThreeStateSelection
     {
         ArgumentNullException.ThrowIfNull(item);
 
+        if (_treeView is not null && !IsRecursive)
+        {
+            return _treeView.CheckState is null
+                ? _treeView.SelectedItems?.Contains(item) == true
+                : _treeView.CheckState(item);
+        }
+
         if (_states.TryGetValue(item, out var state))
         {
             return state;
@@ -169,17 +176,6 @@ public class TreeViewThreeStateSelection
 
         SelectedItems = selection;
     }
-
-    /// <summary>
-    /// Resolves the owning tree's checkbox state using recursive selection, a custom projection,
-    /// or membership in the supplied selection.
-    /// </summary>
-    internal bool? GetCheckState(
-        ITreeViewItem item,
-        IEnumerable<ITreeViewItem>? selectedItems,
-        Func<ITreeViewItem, bool?>? checkState) => IsRecursive
-            ? GetCheckState(item)
-            : checkState is null ? selectedItems?.Contains(item) == true : checkState(item);
 
     /// <summary>
     /// Adds or removes an item and its descendants from the working selection.

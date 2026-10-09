@@ -333,7 +333,7 @@ public partial class FluentTreeItem : FluentComponentBase
                     {
                         // Visible
                         case TreeSelectionVisibility.Visible:
-                            var checkState = owner.RecursiveSelection.GetCheckState(item, owner.SelectedItems, owner.CheckState);
+                            var checkState = owner.RecursiveSelection.GetCheckState(item);
                             childBuilder.OpenElement(0, "fluent-checkbox");
                             childBuilder.AddAttribute(1, "checked", checkState == true ? "true" : null);
                             childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>

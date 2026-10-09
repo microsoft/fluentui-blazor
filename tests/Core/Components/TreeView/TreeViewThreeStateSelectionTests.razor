@@ -39,44 +39,6 @@
     }
 
     [Fact]
-    public void GetCheckState_RecursiveMode_IgnoresCustomProjection()
-    {
-        var model = new TreeViewThreeStateSelection
-        {
-            SelectedItems = [_first],
-        };
-
-        var state = model.GetCheckState(_root, [_root], _ => throw new InvalidOperationException());
-
-        Assert.Null(state);
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    [InlineData(null)]
-    public void GetCheckState_NonRecursiveMode_UsesCustomProjection(bool? expected)
-    {
-        var model = new TreeViewThreeStateSelection { SelectedItems = [_root] };
-
-        var state = model.GetCheckState(_root, [_root], _ => expected);
-
-        Assert.Equal(expected, state);
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void GetCheckState_NoCustomProjection_UsesSuppliedSelection(bool selected)
-    {
-        var model = new TreeViewThreeStateSelection { SelectedItems = [_root] };
-
-        var state = model.GetCheckState(_root, selected ? [_root] : null, null);
-
-        Assert.Equal(selected, state);
-    }
-
-    [Fact]
     public void GetCheckState_NullSelection_ReturnsUnchecked()
     {
         var model = new TreeViewThreeStateSelection { SelectedItems = null };
