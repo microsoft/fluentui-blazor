@@ -324,7 +324,8 @@ export namespace Microsoft.FluentUI.Blazor.DragContainer {
 
     private findZone(element: Element | null): HTMLElement | null {
       // Nested containers share the same DOM: each one only handles the zones registered with it.
-      const zone = element?.closest(`${ZONE_SELECTOR}[data-container-id="${this.container.id}"]`) as HTMLElement | null;
+      const escapedContainerId = CSS.escape(this.container.id);
+      const zone = element?.closest(`${ZONE_SELECTOR}[data-container-id="${escapedContainerId}"]`) as HTMLElement | null;
       return zone && this.container.contains(zone) ? zone : null;
     }
 
