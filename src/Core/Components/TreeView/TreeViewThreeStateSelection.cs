@@ -14,8 +14,25 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </remarks>
 public class TreeViewThreeStateSelection
 {
+    private readonly FluentTreeView? _treeView;
     private Dictionary<ITreeViewItem, bool?> _states = [];
     private IEnumerable<ITreeViewItem>? _rootItems = [];
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TreeViewThreeStateSelection"/> class.
+    /// </summary>
+    public TreeViewThreeStateSelection()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TreeViewThreeStateSelection"/> class with the specified tree view.
+    /// </summary>
+    /// <param name="treeView"></param>
+    internal TreeViewThreeStateSelection(FluentTreeView treeView)
+    {
+        _treeView = treeView;
+    }
 
     /// <summary>
     /// Gets or sets the tree's root items used to recalculate ancestor selection.
@@ -60,6 +77,17 @@ public class TreeViewThreeStateSelection
     }
 
     /// <summary>
+    /// Gets whether the owning tree controls checkbox states.
+    /// </summary>
+    internal bool HasCheckState => IsRecursive
+                                || (_treeView?.SelectionMode == TreeSelectionMode.Multiple && _treeView?.CheckState is not null);
+
+    /// <summary>
+    /// Gets whether the owning tree uses recursive multiple selection.
+    /// </summary>
+    internal bool IsRecursive => _treeView?.SelectionMode == TreeSelectionMode.MultipleRecursive;
+
+    /// <summary>
     /// Gets the checkbox state of an item using the recursive selection maintained by <see cref="OnSelectedItemsChanged"/>.
     /// </summary>
     /// <param name="item">The item whose state is evaluated.</param>
@@ -94,7 +122,7 @@ public class TreeViewThreeStateSelection
     /// Invalidates calculated checkbox states after in-place changes to the tree, preserving the selection.
     /// </summary>
     /// <remarks>
-    /// States are recalculated on subsequent calls to <see cref="GetCheckState"/>.
+    /// States are recalculated on subsequent calls to <see cref="GetCheckState(ITreeViewItem)"/>.
     /// This method does not modify the selection or request a component render.
     /// </remarks>
     public virtual void Refresh()
@@ -141,6 +169,17 @@ public class TreeViewThreeStateSelection
 
         SelectedItems = selection;
     }
+
+    /// <summary>
+    /// Resolves the owning tree's checkbox state using recursive selection, a custom projection,
+    /// or membership in the supplied selection.
+    /// </summary>
+    internal bool? GetCheckState(
+        ITreeViewItem item,
+        IEnumerable<ITreeViewItem>? selectedItems,
+        Func<ITreeViewItem, bool?>? checkState) => IsRecursive
+            ? GetCheckState(item)
+            : checkState is null ? selectedItems?.Contains(item) == true : checkState(item);
 
     /// <summary>
     /// Adds or removes an item and its descendants from the working selection.

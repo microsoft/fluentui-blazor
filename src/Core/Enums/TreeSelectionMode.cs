@@ -18,4 +18,10 @@ public enum TreeSelectionMode
     /// The user can select multiple items at a time, at any level.
     /// </summary>
     Multiple,
+
+    /// <summary>
+    /// The user can select multiple items recursively, selecting or deselecting descendants
+    /// and updating ancestor states. All descendant data must be available.
+    /// </summary>
+    MultipleRecursive,
 }

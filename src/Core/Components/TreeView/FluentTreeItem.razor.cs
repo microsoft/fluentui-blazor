@@ -267,7 +267,7 @@ public partial class FluentTreeItem : FluentComponentBase
 
         if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
         {
-            await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedItems);
+            await OwnerTreeView.OnSelectedItemsChangedAsync(selectedItems);
         }
     }
 
@@ -323,6 +323,7 @@ public partial class FluentTreeItem : FluentComponentBase
                 break;
 
             case TreeSelectionMode.Multiple:
+            case TreeSelectionMode.MultipleRecursive:
                 builder.AddAttribute(10, nameof(ChildContent), (RenderFragment)(childBuilder =>
                 {
                     var visibility = owner.MultipleSelectionVisibility?.Invoke(item) ?? TreeSelectionVisibility.Visible;
@@ -332,7 +333,7 @@ public partial class FluentTreeItem : FluentComponentBase
                     {
                         // Visible
                         case TreeSelectionVisibility.Visible:
-                            var checkState = owner.GetCheckState(item);
+                            var checkState = owner.RecursiveSelection.GetCheckState(item, owner.SelectedItems, owner.CheckState);
                             childBuilder.OpenElement(0, "fluent-checkbox");
                             childBuilder.AddAttribute(1, "checked", checkState == true ? "true" : null);
                             childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
@@ -346,7 +347,7 @@ public partial class FluentTreeItem : FluentComponentBase
                             }));
                             childBuilder.AddAttribute(3, "tabindex", -1);
                             childBuilder.AddAttribute(4, "indeterminate", checkState is null ? "true" : null);
-                            childBuilder.AddAttribute(5, "check-state", owner.CheckState is not null ? "true" : null);
+                            childBuilder.AddAttribute(5, "check-state", owner.RecursiveSelection.HasCheckState ? "true" : null);
                             childBuilder.CloseElement();
                             break;
 

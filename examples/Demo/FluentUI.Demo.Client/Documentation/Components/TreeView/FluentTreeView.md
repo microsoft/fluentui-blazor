@@ -119,7 +119,15 @@ TreeSelectionVisibility GetTreeSelectionVisibility(ITreeViewItem item)
 
 {{ TreeViewMultipleSelectionVisibility }}
 
-## Custom checkbox state
+## Recursive multiple selection
+
+Use `SelectionMode="TreeSelectionMode.MultipleRecursive"` to select or deselect an item and 
+all its descendants. Ancestors are selected when all their children are selected and displayed 
+as indeterminate when only part of their subtree is selected.
+
+This mode uses `TreeViewThreeStateSelection` class internally (see below). 
+All descendant data must be available. `LazyLoadItems` may defer rendering of children,
+but recursive selection does not load missing data. `CheckState` is ignored in this mode because checkbox states are calculated automatically.
 
 Use `CheckState`, a `Func<ITreeViewItem, bool?>`, to calculate each visible checkbox's state:
 
@@ -129,6 +137,7 @@ Use `CheckState`, a `Func<ITreeViewItem, bool?>`, to calculate each visible chec
 
 This parameter applies to trees generated from `Items` in `TreeSelectionMode.Multiple`.
 When omitted, checkbox states are based on `SelectedItems`.
+It is ignored in `TreeSelectionMode.MultipleRecursive`.
 
 `CheckState` controls the displayed state only and must be a projection of `SelectedItems`.
 Return `true` only when the item belongs to `SelectedItems`; return `null` only for an
@@ -138,15 +147,21 @@ item's membership in `SelectedItems`, not from the state returned by `CheckState
 Keep the function synchronous and free of side effects, and handle `SelectedItemsChanged`
 to update the selection. Selecting descendants is not automatic.
 
-The following example uses `TreeViewThreeStateSelection` to select or deselect descendants
-and update parent states automatically. This helper requires all descendant data to be available.
-To implement your own selection rules instead, open the **Detailed** tab: it shows the logic
-inline, without the helper, so you can fully customize it.
+For custom selection rules, use `TreeSelectionMode.Multiple` with your own handlers or a
+customized `TreeViewThreeStateSelection`. This helper requires all descendant data to be available.
 
 When using the helper, reassign `SelectedItems` after changing an external selection list.
 Call `Refresh()` after modifying the tree in place, then render again.
 
-{{ TreeViewCheckState Files=Code:TreeViewCheckState.razor;Detailed:TreeViewCheckStateDetailed.razor }}
+The **Code** tab shows how to use `TreeSelectionMode.MultipleRecursive`.
+The **CheckState** tab shows how to use `TreeViewThreeStateSelection` explicitly with
+`TreeSelectionMode.Multiple` and `CheckState`. The **Detailed** tab implements equivalent
+rules manually without the helper.
+
+{{ TreeViewCheckStateMultipleRecursive Files=Code:TreeViewCheckStateMultipleRecursive.razor;CheckState:TreeViewCheckState.razor;Detailed:TreeViewCheckStateDetailed.razor }}
+
+{{ TreeViewCheckState }}
+{{ TreeViewCheckStateDetailed }}
 
 ## API FluentTreeView
 
