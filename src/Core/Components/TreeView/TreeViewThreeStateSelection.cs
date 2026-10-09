@@ -88,6 +88,23 @@ public class TreeViewThreeStateSelection
     internal bool IsRecursive => _treeView?.SelectionMode == TreeSelectionMode.MultipleRecursive;
 
     /// <summary>
+    /// Calculates the recursive selection resulting from a change without modifying the current state.
+    /// </summary>
+    /// <param name="newSelectedItems">The proposed selection.</param>
+    /// <returns>The recursively calculated selection.</returns>
+    internal IEnumerable<ITreeViewItem>? CalculateSelectedItems(IEnumerable<ITreeViewItem>? newSelectedItems)
+    {
+        var selection = new TreeViewThreeStateSelection
+        {
+            Items = Items,
+            SelectedItems = SelectedItems,
+        };
+
+        selection.OnSelectedItemsChanged(newSelectedItems);
+        return selection.SelectedItems;
+    }
+
+    /// <summary>
     /// Gets the checkbox state of an item using the recursive selection maintained by <see cref="OnSelectedItemsChanged"/>.
     /// </summary>
     /// <param name="item">The item whose state is evaluated.</param>

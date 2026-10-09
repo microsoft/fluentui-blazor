@@ -160,9 +160,6 @@ rules manually without the helper.
 
 {{ TreeViewCheckStateMultipleRecursive Files=Code:TreeViewCheckStateMultipleRecursive.razor;CheckState:TreeViewCheckState.razor;Detailed:TreeViewCheckStateDetailed.razor }}
 
-{{ TreeViewCheckState }}
-{{ TreeViewCheckStateDetailed }}
-
 ## API FluentTreeView
 
 {{ API Type=FluentTreeView }}

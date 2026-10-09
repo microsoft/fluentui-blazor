@@ -193,11 +193,10 @@ public partial class FluentTreeView : FluentComponentBase
         // If SelectionMode is MultipleRecursive
         if (RecursiveSelection.IsRecursive)
         {
-            RecursiveSelection.OnSelectedItemsChanged(selectedItems);
-
             if (SelectedItemsChanged.HasDelegate)
             {
-                await SelectedItemsChanged.InvokeAsync(RecursiveSelection.SelectedItems);
+                var calculatedSelectedItems = RecursiveSelection.CalculateSelectedItems(selectedItems);
+                await SelectedItemsChanged.InvokeAsync(calculatedSelectedItems);
             }
         }
 
