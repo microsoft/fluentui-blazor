@@ -367,4 +367,260 @@
 		Assert.False(zoneLeaveCalled);
 		Assert.False(containerLeaveCalled);
 	}
+
+	private BunitJSModuleInterop SetupDragModule()
+	{
+		var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("Drag/FluentDragContainer.razor.js") == true));
+		module.Mode = JSRuntimeMode.Loose;
+		return module;
+	}
+
+	[Fact]
+	public void FluentDragContainer_TouchParameters_Defaults()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentDragContainer TItem="int" />);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Assert
+		Assert.Equal(200, container.TouchDragDelay);
+		Assert.False(string.IsNullOrEmpty(container.Id));
+	}
+
+	[Fact]
+	public void FluentDragContainer_Initializes_JavaScript()
+	{
+		// Arrange
+		var module = SetupDragModule();
+
+		// Act
+		Render(@<FluentDragContainer TItem="int" Id="touch-container" TouchDragDelay="350" />);
+
+		// Assert
+		var invocation = module.VerifyInvoke("Microsoft.FluentUI.Blazor.DragContainer.Initialize");
+		Assert.Equal("touch-container", invocation.Arguments[0]);
+		Assert.Equal(350, invocation.Arguments[2]);
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_Dispose_Disposes_JavaScript()
+	{
+		// Arrange
+		var module = SetupDragModule();
+		var cut = Render(@<FluentDragContainer TItem="int" Id="touch-dispose" />);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act
+		await container.DisposeAsync();
+
+		// Assert
+		var invocation = module.VerifyInvoke("Microsoft.FluentUI.Blazor.DragContainer.Dispose");
+		Assert.Equal("touch-dispose", invocation.Arguments[0]);
+	}
+
+	[Fact]
+	public void FluentDropZone_Renders_Touch_Data_Attributes()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentDragContainer TItem="int" Id="owner">
+			<FluentDropZone Id="both" Draggable="true" Droppable="true" TItem="int" Item="1">A</FluentDropZone>
+			<FluentDropZone Id="none" TItem="int" Item="2">B</FluentDropZone>
+		</FluentDragContainer>);
+
+		var both = cut.Find("#both");
+		var none = cut.Find("#none");
+
+		// Assert
+		Assert.True(both.HasAttribute("data-fluent-dropzone"));
+		Assert.Equal("true", both.GetAttribute("data-draggable"));
+		Assert.Equal("true", both.GetAttribute("data-droppable"));
+		Assert.Equal("owner", both.GetAttribute("data-container-id"));
+
+		Assert.True(none.HasAttribute("data-fluent-dropzone"));
+		Assert.Null(none.GetAttribute("data-draggable"));
+		Assert.Null(none.GetAttribute("data-droppable"));
+	}
+
+	[Fact]
+	public void FluentDropZone_Has_Generated_Id_By_Default()
+	{
+		// Arrange & Act
+		var cut = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone TItem="int" Item="1">A</FluentDropZone>
+			<FluentDropZone TItem="int" Item="2">B</FluentDropZone>
+		</FluentDragContainer>);
+
+		var zones = cut.FindComponents<FluentDropZone<int>>().Select(z => z.Instance.Id).ToList();
+
+		// Assert
+		Assert.All(zones, id => Assert.False(string.IsNullOrEmpty(id)));
+		Assert.Equal(2, zones.Distinct().Count());
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_Touch_Flow_Invokes_Handlers()
+	{
+		// Arrange
+		FluentDragEventArgs<int>? start = null, end = null, enter = null, over = null, leave = null, drop = null;
+		FluentDragEventArgs<int>? zoneEnter = null, zoneOver = null, zoneLeave = null, zoneDrop = null;
+
+		var cut = Render(@<FluentDragContainer TItem="int"
+											   OnDragStart="(e) => start = e"
+											   OnDragEnd="(e) => end = e"
+											   OnDragEnter="(e) => enter = e"
+											   OnDragOver="(e) => over = e"
+											   OnDragLeave="(e) => leave = e"
+											   OnDropEnd="(e) => drop = e">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+			<FluentDropZone Id="dst" Droppable="true" TItem="int" Item="2"
+							OnDragEnter="(e) => zoneEnter = e"
+							OnDragOver="(e) => zoneOver = e"
+							OnDragLeave="(e) => zoneLeave = e"
+							OnDropEnd="(e) => zoneDrop = e">Target</FluentDropZone>
+		</FluentDragContainer>);
+
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act & Assert: start
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("src"));
+		Assert.NotNull(start);
+		Assert.Equal(1, start!.Source.Item);
+
+		// enter
+		await cut.InvokeAsync(() => container.TouchDragEnterAsync("src", "dst"));
+		Assert.Equal(2, enter!.Target.Item);
+		Assert.Equal(1, enter.Source.Item);
+		Assert.Equal(2, zoneEnter!.Target.Item);
+		Assert.True(cut.Find("#dst").HasAttribute("dragged-over"));
+
+		// over
+		await cut.InvokeAsync(() => container.TouchDragOverAsync("src", "dst"));
+		Assert.Equal(2, over!.Target.Item);
+		Assert.Equal(2, zoneOver!.Target.Item);
+
+		// leave
+		await cut.InvokeAsync(() => container.TouchDragLeaveAsync("src", "dst"));
+		Assert.Equal(2, leave!.Target.Item);
+		Assert.Equal(2, zoneLeave!.Target.Item);
+		Assert.False(cut.Find("#dst").HasAttribute("dragged-over"));
+
+		// enter again then drop
+		await cut.InvokeAsync(() => container.TouchDragEnterAsync("src", "dst"));
+		await cut.InvokeAsync(() => container.TouchDropAsync("src", "dst"));
+		Assert.Equal(1, drop!.Source.Item);
+		Assert.Equal(2, drop.Target.Item);
+		Assert.Equal(2, zoneDrop!.Target.Item);
+		Assert.False(cut.Find("#dst").HasAttribute("dragged-over"));
+
+		// end
+		await cut.InvokeAsync(() => container.TouchDragEndAsync("src"));
+		Assert.Equal(1, end!.Source.Item);
+		Assert.Null(container.StartedZone);
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_TouchDragEnd_Without_Drop_Clears_StartedZone()
+	{
+		// Arrange
+		FluentDragEventArgs<int>? end = null;
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragEnd="(e) => end = e">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("src"));
+		Assert.NotNull(container.StartedZone);
+
+		// Act
+		await cut.InvokeAsync(() => container.TouchDragEndAsync("src"));
+
+		// Assert
+		Assert.NotNull(end);
+		Assert.Null(container.StartedZone);
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_Touch_Unknown_Zone_Is_Ignored()
+	{
+		// Arrange
+		var called = false;
+		var cut = Render(@<FluentDragContainer TItem="int"
+											   OnDragStart="(e) => called = true"
+											   OnDragEnter="(e) => called = true"
+											   OnDragOver="(e) => called = true"
+											   OnDragLeave="(e) => called = true"
+											   OnDropEnd="(e) => called = true"
+											   OnDragEnd="(e) => called = true">
+			<FluentDropZone Id="known" Draggable="true" Droppable="true" TItem="int" Item="1">A</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("unknown"));
+		await cut.InvokeAsync(() => container.TouchDragEnterAsync("unknown", "unknown"));
+		await cut.InvokeAsync(() => container.TouchDragOverAsync("unknown", "unknown"));
+		await cut.InvokeAsync(() => container.TouchDragLeaveAsync("unknown", "unknown"));
+		await cut.InvokeAsync(() => container.TouchDropAsync("unknown", "unknown"));
+		await cut.InvokeAsync(() => container.TouchDragEndAsync("unknown"));
+
+		// Assert
+		Assert.False(called);
+		Assert.Null(container.StartedZone);
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_Touch_Ignores_Non_Droppable_Target()
+	{
+		// Arrange
+		var entered = false;
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragEnter="(e) => entered = true">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+			<FluentDropZone Id="dst" Droppable="false" TItem="int" Item="2">Target</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("src"));
+		await cut.InvokeAsync(() => container.TouchDragEnterAsync("src", "dst"));
+
+		// Assert
+		Assert.False(entered);
+		Assert.False(cut.Find("#dst").HasAttribute("dragged-over"));
+	}
+
+	[Fact]
+	public async Task FluentDropZone_Dispose_Unregisters_From_Container()
+	{
+		// Arrange
+		var started = false;
+		var cut = Render(@<FluentDragContainer TItem="int" OnDragStart="(e) => started = true">
+			<FluentDropZone Id="disposable" Draggable="true" TItem="int" Item="1">A</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+		var zone = cut.FindComponent<FluentDropZone<int>>().Instance;
+
+		// Act
+		await zone.DisposeAsync();
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("disposable"));
+
+		// Assert
+		Assert.False(started);
+	}
+
+	[Fact]
+	public void FluentDropZone_Refresh_Rerenders_Component()
+	{
+		// Arrange
+		var cut = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone Id="r" TItem="int" Item="1">A</FluentDropZone>
+		</FluentDragContainer>);
+		var zone = cut.FindComponent<FluentDropZone<int>>();
+		var renderCount = zone.RenderCount;
+
+		// Act
+		cut.InvokeAsync(() => zone.Instance.Refresh());
+
+		// Assert
+		Assert.True(zone.RenderCount > renderCount);
+	}
 }
