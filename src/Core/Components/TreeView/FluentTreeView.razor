@@ -13,9 +13,9 @@
 
         @ChildContent
 
-        @if (Items != null)
+        @if (SelectionMode == TreeSelectionMode.MultipleRecursive ? _rootItemsSnapshot is not null : Items != null)
         {
-            foreach (var item in Items)
+            foreach (var item in SelectionMode == TreeSelectionMode.MultipleRecursive ? _rootItemsSnapshot! : Items!)
             {
                 @FluentTreeItem.GetFluentTreeItem(this, item)
             }

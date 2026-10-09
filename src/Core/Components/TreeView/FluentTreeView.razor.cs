@@ -18,6 +18,8 @@ public partial class FluentTreeView : FluentComponentBase
     private const string JAVASCRIPT_FILE = FluentJSModule.JAVASCRIPT_ROOT + "TreeView/FluentTreeView.razor.js";
     private readonly Dictionary<ITreeViewItem, ITreeViewItem?> _parentByItem = [];
     private readonly Dictionary<ITreeViewItem, bool?> _selectionStates = [];
+    private readonly Dictionary<ITreeViewItem, IReadOnlyList<ITreeViewItem>> _childrenByItem = [];
+    private IReadOnlyList<ITreeViewItem>? _rootItemsSnapshot;
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
@@ -50,8 +52,17 @@ public partial class FluentTreeView : FluentComponentBase
 
         if (SelectionMode == TreeSelectionMode.MultipleRecursive)
         {
-            Items = SnapshotItems(Items);
+            _childrenByItem.Clear();
+            _rootItemsSnapshot = SnapshotRootItems(Items);
+            SnapshotChildren(_rootItemsSnapshot);
             BuildSelectionStateCache();
+        }
+        else
+        {
+            _childrenByItem.Clear();
+            _rootItemsSnapshot = null;
+            _parentByItem.Clear();
+            _selectionStates.Clear();
         }
     }
 
@@ -67,15 +78,15 @@ public partial class FluentTreeView : FluentComponentBase
         }
     }
 
-    internal static bool? GetSelectionState(ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
+    internal static bool? GetSelectionState(FluentTreeView ownerTreeView, ITreeViewItem item, IEnumerable<ITreeViewItem> selectedItems)
     {
-        var children = item.Items?.ToArray() ?? [];
-        if (children.Length == 0)
+        var children = ownerTreeView.GetChildren(item);
+        if (children.Count == 0)
         {
             return selectedItems.Contains(item);
         }
 
-        var childStates = children.Select(child => GetSelectionState(child, selectedItems)).ToList();
+        var childStates = children.Select(child => GetSelectionState(ownerTreeView, child, selectedItems)).ToList();
         if (childStates.All(childState => childState == true))
         {
             return true;
@@ -95,7 +106,7 @@ public partial class FluentTreeView : FluentComponentBase
         IReadOnlyCollection<ITreeViewItem> selectedItems,
         bool? newState)
     {
-        var currentState = GetSelectionState(checkedItem, selectedItems);
+        var currentState = GetSelectionState(ownerTreeView, checkedItem, selectedItems);
         var selectDescendants = newState switch
         {
             true when currentState is not null => true,
@@ -104,7 +115,7 @@ public partial class FluentTreeView : FluentComponentBase
         };
 
         var selectedSet = new HashSet<ITreeViewItem>(selectedItems);
-        foreach (var item in GetDescendantsAndSelf(checkedItem))
+        foreach (var item in GetDescendantsAndSelf(ownerTreeView, checkedItem))
         {
             if (selectDescendants)
             {
@@ -118,7 +129,7 @@ public partial class FluentTreeView : FluentComponentBase
 
         foreach (var ancestor in ownerTreeView.GetAncestors(checkedItem))
         {
-            var ancestorState = GetSelectionState(ancestor, selectedSet);
+            var ancestorState = GetSelectionState(ownerTreeView, ancestor, selectedSet);
             if (ancestorState == true)
             {
                 selectedSet.Add(ancestor);
@@ -132,18 +143,14 @@ public partial class FluentTreeView : FluentComponentBase
         return selectedSet;
     }
 
-    private static IEnumerable<ITreeViewItem> GetDescendantsAndSelf(ITreeViewItem item)
+    private static IEnumerable<ITreeViewItem> GetDescendantsAndSelf(FluentTreeView ownerTreeView, ITreeViewItem item)
     {
         yield return item;
 
-        if (item.Items is null)
+        var children = ownerTreeView.GetChildren(item);
+        foreach (var child in children)
         {
-            yield break;
-        }
-
-        foreach (var child in item.Items)
-        {
-            foreach (var descendant in GetDescendantsAndSelf(child))
+            foreach (var descendant in GetDescendantsAndSelf(ownerTreeView, child))
             {
                 yield return descendant;
             }
@@ -162,7 +169,7 @@ public partial class FluentTreeView : FluentComponentBase
 
         var selectedItems = new HashSet<ITreeViewItem>(SelectedItems ?? []);
 
-        foreach (var item in Items ?? [])
+        foreach (var item in _rootItemsSnapshot ?? [])
         {
             BuildSelectionState(item, selectedItems);
         }
@@ -170,7 +177,7 @@ public partial class FluentTreeView : FluentComponentBase
 
     private bool? BuildSelectionState(ITreeViewItem item, HashSet<ITreeViewItem> selectedItems)
     {
-        var children = item.Items?.ToArray() ?? [];
+        var children = GetChildren(item);
         var childStates = new List<bool?>();
 
         foreach (var child in children)
@@ -179,7 +186,7 @@ public partial class FluentTreeView : FluentComponentBase
             childStates.Add(BuildSelectionState(child, selectedItems));
         }
 
-        if (children.Length == 0)
+        if (children.Count == 0)
         {
             var leafState = selectedItems.Contains(item);
             _selectionStates[item] = leafState;
@@ -202,20 +209,26 @@ public partial class FluentTreeView : FluentComponentBase
         return false;
     }
 
-    private static IReadOnlyList<ITreeViewItem> SnapshotItems(IEnumerable<ITreeViewItem>? items)
+    internal IReadOnlyList<ITreeViewItem> GetChildren(ITreeViewItem item)
+        => SelectionMode == TreeSelectionMode.MultipleRecursive && _childrenByItem.TryGetValue(item, out var children)
+            ? children
+            : (item.Items is null ? [] : item.Items.ToArray());
+
+    private static IReadOnlyList<ITreeViewItem>? SnapshotRootItems(IEnumerable<ITreeViewItem>? items)
+        => items is null ? null : items as ITreeViewItem[] ?? items.ToArray();
+
+    private void SnapshotChildren(IEnumerable<ITreeViewItem>? items)
     {
         if (items is null)
         {
-            return [];
+            return;
         }
 
-        var snapshot = items as ITreeViewItem[] ?? items.ToArray();
-        foreach (var item in snapshot)
+        foreach (var item in items)
         {
-            item.Items = SnapshotItems(item.Items);
+            _childrenByItem[item] = item.Items is null ? [] : item.Items.ToArray();
+            SnapshotChildren(_childrenByItem[item]);
         }
-
-        return snapshot;
     }
 
     /// <summary>

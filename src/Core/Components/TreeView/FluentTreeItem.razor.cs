@@ -320,7 +320,7 @@ public partial class FluentTreeItem : FluentComponentBase
         {
             builder.OpenComponent<FluentTreeItem>(0);
             builder.AddAttribute(1, nameof(Id), item.Id);
-            builder.AddAttribute(2, nameof(Items), item.Items);
+            builder.AddAttribute(2, nameof(Items), owner.GetChildren(item));
             builder.AddAttribute(3, nameof(Text), owner.ItemTemplate is null && owner.SelectionMode == TreeSelectionMode.Single ? item.Text : null);
             builder.AddAttribute(4, nameof(Expanded), item.Expanded);
             builder.AddAttribute(5, nameof(IconStart), item.IconStart);
