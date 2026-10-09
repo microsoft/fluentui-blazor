@@ -48,10 +48,9 @@ public partial class FluentTreeView : FluentComponentBase
                 $"{nameof(LazyLoadItems)} cannot be used together with {nameof(TreeSelectionMode.MultipleRecursive)} selection.");
         }
 
-        Items = SnapshotItems(Items);
-
         if (SelectionMode == TreeSelectionMode.MultipleRecursive)
         {
+            Items = SnapshotItems(Items);
             BuildSelectionStateCache();
         }
     }

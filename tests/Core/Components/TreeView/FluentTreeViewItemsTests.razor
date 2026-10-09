@@ -64,6 +64,26 @@
     }
 
     [Fact]
+    public void FluentTreeViewItems_LazyLoading_DoesNotEnumerateChildrenInNonRecursiveSelection()
+    {
+        var child = new TreeViewItem("child", "Child");
+        var root = new TreeViewItem("root", "Root")
+        {
+            Expanded = false,
+            Items = new SinglePassEnumerable([child]),
+        };
+
+        var items = new[] { root };
+
+        var exception = Record.Exception(() =>
+            Render(@<FluentTreeView Items="@items"
+                                    LazyLoadItems="true"
+                                    SelectionMode="@TreeSelectionMode.Multiple" />));
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public async Task FluentTreeViewItems_LazyLoading_Expanded()
     {
         // Arrange && Act
@@ -259,5 +279,29 @@
         Assert.Equal("id1", TreeViewItem.FindItemById(Items, "id1")?.Id);
         Assert.Equal("id11", TreeViewItem.FindItemById(Items, "id11")?.Id);
         Assert.Null(TreeViewItem.FindItemById(Items, "INVALID"));
+    }
+
+    private sealed class SinglePassEnumerable : IEnumerable<ITreeViewItem>
+    {
+        private readonly IEnumerable<ITreeViewItem> _items;
+        private bool _enumerated;
+
+        public SinglePassEnumerable(IEnumerable<ITreeViewItem> items)
+        {
+            _items = items;
+        }
+
+        public IEnumerator<ITreeViewItem> GetEnumerator()
+        {
+            if (_enumerated)
+            {
+                throw new InvalidOperationException("Single-pass sequence was enumerated more than once.");
+            }
+
+            _enumerated = true;
+            return _items.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
