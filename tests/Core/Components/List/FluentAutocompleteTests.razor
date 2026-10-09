@@ -235,6 +235,75 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_SingleSelect_SelectingFirstOption_PopulatesInputText()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - Open the dropdown and select the first option ("Eight")
+        cut.Find("fluent-text-input").Click();
+        var option = cut.FindAll("fluent-option")[0];
+        var optionId = option.GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = optionId });
+
+        // Assert
+        Assert.Equal("Eight", cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Equal("Eight", cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SingleSelect_ClickSelectedInput_SelectsTextAndSearches()
+    {
+        // Arrange
+        const string selectedItem = "Eight";
+        string? searchedText = null;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@selectedItem"
+                                              OnOptionsSearch="@(args =>
+                                              {
+                                                  searchedText = args.Text;
+                                                  args.Items = Digits.Where(digit => digit.StartsWith(args.Text, StringComparison.InvariantCultureIgnoreCase));
+                                              })" />);
+
+        // Act
+        cut.Find("fluent-text-input").Click();
+
+        // Assert
+        Assert.Equal(selectedItem, cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Equal(string.Empty, searchedText);
+        Assert.Equal(Digits.Length, cut.FindAll("fluent-option").Count);
+
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
+        Assert.Equal("my-list", invocation.Arguments[0]);
+        Assert.True(invocation.Arguments[1] is true);
+
+          // Act - Replace the selected text with a search query
+          cut.Find("fluent-text-input")
+              .TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+
+          // Assert
+          Assert.Equal("F", searchedText);
+          Assert.Equal(2, cut.FindAll("fluent-option").Count);
+
+          // Act - Click back into the control after filtering
+          cut.Find("fluent-text-input").Click();
+
+          // Assert - The popup resets to the full option list, matching the selected text
+          Assert.Equal(selectedItem, cut.Find("fluent-text-input").GetAttribute("value"));
+          Assert.Equal(string.Empty, searchedText);
+          Assert.Equal(Digits.Length, cut.FindAll("fluent-option").Count);
+    }
+
+    [Fact]
     public void FluentAutocomplete_SingleSelect_SelectedOptionTemplate()
     {
         // Arrange
@@ -595,6 +664,30 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_KeyDown_Backspace_RemovesSelectedItemAndClearsSearchText()
+    {
+        // Arrange
+        const string selectedItem = "Three";
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@selectedItem"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        var textInput = cut.Find("fluent-text-input");
+        textInput.TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+        textInput.TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = string.Empty });
+
+        // Act
+        textInput.TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Backspace" });
+
+        // Assert
+        Assert.Equal(string.Empty, cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Empty(cut.FindAll("span.fluent-badge[alone]"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_KeyDown_ArrowDown_OpensPopover()
     {
         // Arrange
@@ -851,6 +944,30 @@
         // Assert - SelectedItemsChanged should have been raised with an empty collection
         Assert.NotNull(lastSelectedItems);
         Assert.Empty(lastSelectedItems!);
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ClearSelection_ClearsSearchText()
+    {
+        // Arrange
+        const string selectedItem = "Three";
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@selectedItem"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+        Assert.Equal("F", cut.Find("fluent-text-input").GetAttribute("value"));
+
+        // Act
+        cut.Find("div[slot='end'] svg[focusable='true']").Click();
+
+        // Assert
+        Assert.Equal(string.Empty, cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Empty(cut.FindAll("span.fluent-badge[alone]"));
     }
 
     [Fact]

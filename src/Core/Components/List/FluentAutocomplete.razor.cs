@@ -29,6 +29,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     private string? _textInput;
     private bool _isOpen;
     private bool _inProgress;
+    private bool _selectInputTextAfterRender;
     private TValue? _previousValue;
 
     // List of items used in the internally filtered listbox
@@ -230,6 +231,13 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.initialize", Id);
         }
 
+        if (_selectInputTextAfterRender)
+        {
+            _selectInputTextAfterRender = false;
+            // Apply focus after Blazor renders the updated input value.
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", Id, true);
+        }
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -390,7 +398,16 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
 
         NotifyValidationFieldChanged();
 
-        await SetInputFocusAsync();
+        if (!Multiple && _internalSelectedItem is not null)
+        {
+            // Keep the selected option available in the input for immediate editing.
+            _textInput = GetOptionText(_internalSelectedItem);
+            _selectInputTextAfterRender = true;
+        }
+        else
+        {
+            await SetInputFocusAsync();
+        }
     }
 
     /// <summary>
@@ -524,6 +541,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         _isOpen = false;
+        _textInput = string.Empty;
         _internalSelectedItems.Remove(item);
 
         if (SelectedItemsChanged.HasDelegate)
@@ -565,6 +583,28 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     }
 
     /// <summary>
+    /// Refreshes the options when the input is clicked and selects the current option text for editing in single-select mode.
+    /// </summary>
+    private async Task OnTextInputClickAsync()
+    {
+        var selectInputText = !Multiple && _internalSelectedItem is not null;
+        if (selectInputText)
+        {
+            // Refresh options without the previous query before restoring the selected label.
+            _textInput = string.Empty;
+        }
+
+        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+
+        if (selectInputText)
+        {
+            _textInput = GetOptionText(_internalSelectedItem);
+            _selectInputTextAfterRender = true;
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
     /// When the user clicks the "x" button to clear the selection, remove all selected items and close the listbox.
     /// </summary>
     /// <returns></returns>
@@ -576,6 +616,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         _isOpen = false;
+        _textInput = string.Empty;
         _internalSelectedItems.Clear();
         SelectedItem = default;
 
