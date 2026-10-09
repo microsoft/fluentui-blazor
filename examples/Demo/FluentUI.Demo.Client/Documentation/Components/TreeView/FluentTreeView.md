@@ -133,10 +133,12 @@ or indeterminate item requests its addition, without adding duplicates.
 Handle `SelectedItemsChanged` to update the data used by the function.
 Keep fully checked items in `SelectedItems` if your handler needs to identify removals.
 
-The following example keeps items independently selectable using `@bind-SelectedItems`.
-A selected item is checked. An unselected item is indeterminate when at least one descendant
-is selected, and unchecked otherwise. Even when all children are selected, their parent remains
-indeterminate until it is explicitly selected. Checking a parent does not select its descendants.
+The following example implements recursive selection in its `SelectedItemsChanged` handler.
+Checking or unchecking a parent applies the same selection to all its descendants.
+The handler then updates parents from the bottom up: a parent is selected only when all its
+children are selected. `CheckState` displays an unselected parent as indeterminate when at least
+one descendant is selected, and unchecked otherwise. All descendants are available in this example;
+this selection propagation is application logic, not built-in TreeView behavior.
 
 {{ TreeViewCheckState }}
 

@@ -6,7 +6,8 @@
                 HideSelection="true"
                 SelectionMode="TreeSelectionMode.Multiple"
                 CheckState="@GetCheckState"
-                @bind-SelectedItems="@SelectedItems" />
+                SelectedItems="@SelectedItems"
+                SelectedItemsChanged="@OnSelectedItemsChanged" />
 
 @code
 {
@@ -29,6 +30,71 @@
         return item.Items?.Any(child => GetCheckState(child) != false) == true
             ? null
             : false;
+    }
+
+    private void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? items)
+    {
+        var previousSelection = SelectedItems?.ToHashSet() ?? [];
+        var selection = items?.ToHashSet() ?? [];
+        var added = selection.Except(previousSelection).ToArray();
+        var removed = previousSelection.Except(selection).ToArray();
+
+        foreach (var item in added)
+        {
+            SetSelected(item, true);
+        }
+
+        foreach (var item in removed)
+        {
+            SetSelected(item, false);
+        }
+
+        foreach (var item in Items ?? [])
+        {
+            UpdateParentSelection(item);
+        }
+
+        SelectedItems = selection;
+
+        void SetSelected(ITreeViewItem item, bool selected)
+        {
+            if (selected)
+            {
+                selection.Add(item);
+            }
+            else
+            {
+                selection.Remove(item);
+            }
+
+            foreach (var child in item.Items ?? [])
+            {
+                SetSelected(child, selected);
+            }
+        }
+
+        void UpdateParentSelection(ITreeViewItem item)
+        {
+            var children = item.Items?.ToArray() ?? [];
+            if (children.Length == 0)
+            {
+                return;
+            }
+
+            foreach (var child in children)
+            {
+                UpdateParentSelection(child);
+            }
+
+            if (children.All(selection.Contains))
+            {
+                selection.Add(item);
+            }
+            else
+            {
+                selection.Remove(item);
+            }
+        }
     }
 
     private TreeViewItem[] GetCompanyOrganization()
