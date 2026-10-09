@@ -975,7 +975,7 @@
         await grid.AddSortByColumnAsync("Level", DataGridSortDirection.Ascending);
 
         // Act
-        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+        await grid.RemoveSortByColumnAsync(); // What the grid's script calls on Shift+S
 
         // Assert: unchanged from single sort mode, where Shift+S restores the starting situation.
         Assert.Single(grid.SortColumns);
@@ -993,7 +993,7 @@
         await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Descending);
 
         // Act
-        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+        await grid.RemoveSortByColumnAsync(); // What the grid's script calls on Shift+S
 
         // Assert
         Assert.Empty(grid.SortColumns);
