@@ -171,11 +171,12 @@ public partial class FluentTreeView : FluentComponentBase
     private bool? BuildSelectionState(ITreeViewItem item, HashSet<ITreeViewItem> selectedItems)
     {
         var children = item.Items?.ToArray() ?? [];
+        var childStates = new List<bool?>();
 
         foreach (var child in children)
         {
             _parentByItem[child] = item;
-            BuildSelectionState(child, selectedItems);
+            childStates.Add(BuildSelectionState(child, selectedItems));
         }
 
         if (children.Length == 0)
@@ -185,9 +186,20 @@ public partial class FluentTreeView : FluentComponentBase
             return leafState;
         }
 
-        var itemState = GetSelectionState(item, selectedItems);
-        _selectionStates[item] = itemState;
-        return itemState;
+        if (childStates.All(childState => childState == true))
+        {
+            _selectionStates[item] = true;
+            return true;
+        }
+
+        if (selectedItems.Contains(item) || childStates.Any(childState => childState != false))
+        {
+            _selectionStates[item] = null;
+            return null;
+        }
+
+        _selectionStates[item] = false;
+        return false;
     }
 
     private static IReadOnlyList<ITreeViewItem> SnapshotItems(IEnumerable<ITreeViewItem>? items)
