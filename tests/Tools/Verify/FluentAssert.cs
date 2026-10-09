@@ -163,8 +163,9 @@ public static class FluentAssert
     private static INodeList ToNodeList(this string markup, IHtmlParser? htmlParser)
     {
         var parser = htmlParser ?? new HtmlParser();
-        return parser.ParseDocument(markup).Body?.ChildNodes
+        var context = parser.ParseDocument(string.Empty).Body
             ?? throw new InvalidOperationException("The parsed HTML document does not contain a body element.");
+        return parser.ParseFragment(markup, context);
     }
 
     private static FileInfo GetTargetFile(this FileInfo file, string memberName, string extension)
