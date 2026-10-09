@@ -134,7 +134,7 @@ public static class FluentAssert
             node.ToHtml(writer, formatter);
         }
 
-        return writer.ToString().Trim('\r', '\n');
+        return writer.ToString().Trim();
     }
 
     private static string GetMemberFullName(string memberName, string? suffix)
