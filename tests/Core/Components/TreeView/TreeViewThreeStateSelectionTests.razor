@@ -426,4 +426,97 @@
         Assert.Empty(secondSelection.SelectedItems!);
         Assert.False(secondSelection.GetCheckState(_root));
     }
+
+    [Fact]
+    public void GetCheckState_OverriddenDescendantState_UpdatesParentState()
+    {
+        TreeViewThreeStateSelection selection = new CustomTreeSelection { CheckedItem = _first };
+
+        Assert.Null(selection.GetCheckState(_root));
+        Assert.True(selection.GetCheckState(_first));
+        Assert.False(selection.GetCheckState(_second));
+        Assert.Empty(selection.SelectedItems!);
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_OverriddenPropagation_InvokesOverridesRecursively()
+    {
+        var selection = new CustomTreeSelection { Items = [_root] };
+        TreeViewThreeStateSelection model = selection;
+
+        model.OnSelectedItemsChanged([_root]);
+
+        Assert.Equal(1, selection.SelectionChanges);
+        Assert.Equal(new[] { "root", "group", "first", "second", "sibling" }, selection.UpdatedItems);
+        Assert.Equal(new[] { "root", "group", "first", "second", "sibling" }, selection.RecalculatedItems);
+        Assert.Equal(5, model.SelectedItems!.Count());
+        Assert.True(model.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void Refresh_OverrideCallingBase_InvalidatesCachedStates()
+    {
+        var selection = new CustomTreeSelection();
+        TreeViewThreeStateSelection model = selection;
+        Assert.False(model.GetCheckState(_root));
+        selection.CheckedItem = _first;
+
+        model.Refresh();
+
+        Assert.Equal(1, selection.RefreshCalls);
+        Assert.Null(model.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void SelectionModel_DerivedInstance_InvokesOverridesFromTreeView()
+    {
+        var selection = new CustomTreeSelection { Items = [_root] };
+        var cut = Render<TreeViewThreeStateSelectionTestComponent>(
+            parameters => parameters.Add(p => p.Selection, selection));
+
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(1, selection.SelectionChanges);
+        Assert.Equal(5, selection.SelectedItems!.Count());
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("checked"));
+    }
+
+    private sealed class CustomTreeSelection : TreeViewThreeStateSelection
+    {
+        public ITreeViewItem? CheckedItem { get; set; }
+        public int SelectionChanges { get; private set; }
+        public int RefreshCalls { get; private set; }
+        public List<string> UpdatedItems { get; } = [];
+        public List<string> RecalculatedItems { get; } = [];
+
+        public override bool? GetCheckState(ITreeViewItem item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            return item == CheckedItem ? true : base.GetCheckState(item);
+        }
+
+        public override void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? newSelectedItems)
+        {
+            SelectionChanges++;
+            base.OnSelectedItemsChanged(newSelectedItems);
+        }
+
+        public override void Refresh()
+        {
+            RefreshCalls++;
+            base.Refresh();
+        }
+
+        protected override void SetSelected(ITreeViewItem item, bool selected, ISet<ITreeViewItem> selection)
+        {
+            UpdatedItems.Add(item.Id);
+            base.SetSelected(item, selected, selection);
+        }
+
+        protected override void UpdateParentSelection(ITreeViewItem item, ISet<ITreeViewItem> selection)
+        {
+            RecalculatedItems.Add(item.Id);
+            base.UpdateParentSelection(item, selection);
+        }
+    }
 }

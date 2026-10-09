@@ -10,6 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <remarks>
 /// Set <see cref="Items"/> to the tree's root items. All descendant data must be available;
 /// this class does not load missing children.
+/// Derive from this class to customize checkbox states or recursive selection behavior.
 /// </remarks>
 public class TreeViewThreeStateSelection
 {
@@ -72,7 +73,7 @@ public class TreeViewThreeStateSelection
     /// Node states are cached alongside the selection until <see cref="Items"/> or
     /// <see cref="SelectedItems"/> is assigned, or <see cref="Refresh"/> is called.
     /// </remarks>
-    public bool? GetCheckState(ITreeViewItem item)
+    public virtual bool? GetCheckState(ITreeViewItem item)
     {
         ArgumentNullException.ThrowIfNull(item);
 
@@ -96,7 +97,7 @@ public class TreeViewThreeStateSelection
     /// States are recalculated on subsequent calls to <see cref="GetCheckState"/>.
     /// This method does not modify the selection or request a component render.
     /// </remarks>
-    public void Refresh()
+    public virtual void Refresh()
     {
         foreach (var entry in _states)
         {
@@ -117,7 +118,7 @@ public class TreeViewThreeStateSelection
     /// All descendant data must be available; this method does not load missing children.
     /// Use this method with <see cref="FluentTreeView.SelectedItemsChanged"/> to opt into recursive selection.
     /// </remarks>
-    public void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? newSelectedItems)
+    public virtual void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? newSelectedItems)
     {
         var selection = newSelectedItems?.ToHashSet() ?? [];
         var added = selection.Where(item => !_states.TryGetValue(item, out var state) || state != true).ToArray();
@@ -141,7 +142,13 @@ public class TreeViewThreeStateSelection
         SelectedItems = selection;
     }
 
-    private static void SetSelected(ITreeViewItem item, bool selected, HashSet<ITreeViewItem> selection)
+    /// <summary>
+    /// Adds or removes an item and its descendants from the working selection.
+    /// </summary>
+    /// <param name="item">The item to update.</param>
+    /// <param name="selected">Whether to select or deselect the item.</param>
+    /// <param name="selection">The working selection, applied when the change completes.</param>
+    protected virtual void SetSelected(ITreeViewItem item, bool selected, ISet<ITreeViewItem> selection)
     {
         if (selected)
         {
@@ -158,7 +165,12 @@ public class TreeViewThreeStateSelection
         }
     }
 
-    private static void UpdateParentSelection(ITreeViewItem item, HashSet<ITreeViewItem> selection)
+    /// <summary>
+    /// Recalculates selection from the descendants up, selecting parents whose children are all selected.
+    /// </summary>
+    /// <param name="item">The root of the subtree to recalculate.</param>
+    /// <param name="selection">The working selection, applied when the change completes.</param>
+    protected virtual void UpdateParentSelection(ITreeViewItem item, ISet<ITreeViewItem> selection)
     {
         var children = item.Items?.ToArray() ?? [];
         if (children.Length == 0)

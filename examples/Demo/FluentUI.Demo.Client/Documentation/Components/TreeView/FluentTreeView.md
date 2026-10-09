@@ -136,13 +136,13 @@ is not automatic.
 
 The following example uses `TreeViewThreeStateSelection` to select or deselect descendants
 and update parent states automatically. This helper requires all descendant data to be available.
-To implement your own selection rules instead, open the **Detailled** tab: it shows the logic
+To implement your own selection rules instead, open the **Detailed** tab: it shows the logic
 inline, without the helper, so you can fully customize it.
 
 When using the helper, reassign `SelectedItems` after changing an external selection list.
 Call `Refresh()` after modifying the tree in place, then render again.
 
-{{ TreeViewCheckState Files=Code:TreeViewCheckState.razor;Detailled:TreeViewCheckStateDetailled.razor }}
+{{ TreeViewCheckState Files=Code:TreeViewCheckState.razor;Detailed:TreeViewCheckStateDetailed.razor }}
 
 ## API FluentTreeView
 
