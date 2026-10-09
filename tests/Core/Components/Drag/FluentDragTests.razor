@@ -406,15 +406,15 @@
 	public async Task FluentDragContainer_Dispose_Disposes_JavaScript()
 	{
 		// Arrange
-		var module = SetupDragModule();
+		SetupDragModule();
 		var cut = Render(@<FluentDragContainer TItem="int" Id="touch-dispose" />);
 		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
 
 		// Act
 		await container.DisposeAsync();
 
-		// Assert
-		var invocation = module.VerifyInvoke("Microsoft.FluentUI.Blazor.DragContainer.Dispose");
+		// Assert: the dispose call is made on the global JS runtime (not on the module)
+		var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.DragContainer.Dispose");
 		Assert.Equal("touch-dispose", invocation.Arguments[0]);
 	}
 
