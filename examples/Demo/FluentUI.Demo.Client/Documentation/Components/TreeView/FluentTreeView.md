@@ -133,14 +133,28 @@ or indeterminate item requests its addition, without adding duplicates.
 Handle `SelectedItemsChanged` to update the data used by the function.
 Keep fully checked items in `SelectedItems` if your handler needs to identify removals.
 
-The following example implements recursive selection in its `SelectedItemsChanged` handler.
+The following example opts into recursive selection using a `TreeViewThreeStateSelection` instance:
+
+- Set `Selection.Items` to the same root items passed to the TreeView so ancestors can be recalculated.
+  Update this property if you replace the tree's root collection.
+- Pass `Selection.GetCheckState` to `CheckState` to calculate each checkbox's state.
+- Pass `Selection.SelectedItems` to `SelectedItems` and `Selection.OnSelectedItemsChanged` to
+  `SelectedItemsChanged`. The handler updates the instance's selection automatically without modifying
+  the input collections. Use a separate instance for each independent tree selection.
+
 Checking or unchecking a parent applies the same selection to all its descendants.
-The handler then updates parents from the bottom up: a parent is selected only when all its
+The helper then updates parents from the bottom up: a parent is selected only when all its
 children are selected. `CheckState` displays an unselected parent as indeterminate when at least
 one descendant is selected, and unchecked otherwise. All descendants are available in this example;
-this selection propagation is application logic, not built-in TreeView behavior.
+recursive selection is only enabled by explicitly wiring this selection instance.
 
 {{ TreeViewCheckState }}
+
+### Detailed implementation
+
+This equivalent example keeps the functions inline so you can inspect or customize their behavior.
+
+{{ TreeViewCheckStateDetailled }}
 
 When children are fetched on demand, calculate the state from your application's selection
 metadata instead. Unloaded children (or loading placeholders) must not be treated as unchecked
