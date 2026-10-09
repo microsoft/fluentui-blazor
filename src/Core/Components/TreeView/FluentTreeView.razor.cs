@@ -146,7 +146,11 @@ public partial class FluentTreeView : FluentComponentBase
     /// When omitted, checkbox states are determined by <see cref="SelectedItems"/>.
     /// </summary>
     /// <remarks>
-    /// The function is evaluated during rendering and must not modify the selection.
+    /// The function is evaluated during rendering and must be a projection of <see cref="SelectedItems"/>.
+    /// It must return <see langword="true"/> only for items contained in <see cref="SelectedItems"/>;
+    /// <see langword="null"/> may be used for unselected items whose descendants are partially selected.
+    /// User interactions are calculated from membership in <see cref="SelectedItems"/>, not from this displayed state.
+    /// The function must not modify the selection.
     /// It does not select descendants automatically or load missing items.
     /// Handle <see cref="SelectedItemsChanged"/> to update the selection used by the function.
     /// </remarks>

@@ -254,7 +254,7 @@ public partial class FluentTreeItem : FluentComponentBase
         }
 
         var selectedItems = OwnerTreeView.SelectedItems?.ToList() ?? [];
-        var isSelected = OwnerTreeView.GetCheckState(checkedItem) == true;
+        var isSelected = selectedItems.Contains(checkedItem);
 
         if (isSelected)
         {

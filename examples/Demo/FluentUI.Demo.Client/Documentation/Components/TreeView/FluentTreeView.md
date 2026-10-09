@@ -130,9 +130,13 @@ Use `CheckState`, a `Func<ITreeViewItem, bool?>`, to calculate each visible chec
 This parameter applies to trees generated from `Items` in `TreeSelectionMode.Multiple`.
 When omitted, checkbox states are based on `SelectedItems`.
 
-`CheckState` controls the displayed state only. Keep the function synchronous and free of
-side effects, and handle `SelectedItemsChanged` to update the selection. Selecting descendants
-is not automatic.
+`CheckState` controls the displayed state only and must be a projection of `SelectedItems`.
+Return `true` only when the item belongs to `SelectedItems`; return `null` only for an
+unselected item whose descendants make it indeterminate. A click is calculated from the
+item's membership in `SelectedItems`, not from the state returned by `CheckState`.
+
+Keep the function synchronous and free of side effects, and handle `SelectedItemsChanged`
+to update the selection. Selecting descendants is not automatic.
 
 The following example uses `TreeViewThreeStateSelection` to select or deselect descendants
 and update parent states automatically. This helper requires all descendant data to be available.

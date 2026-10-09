@@ -33,13 +33,13 @@
     }
 
     [Theory]
-    [InlineData(true, true, false)]
-    [InlineData(true, false, false)]
-    [InlineData(false, true, true)]
-    [InlineData(false, false, true)]
-    [InlineData(null, true, true)]
-    [InlineData(null, false, true)]
-    public void CheckState_Click_UsesDisplayedStateWithoutDuplicates(bool? state, bool selected, bool expectedSelected)
+    [InlineData(true, true)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    [InlineData(null, true)]
+    [InlineData(null, false)]
+    public void CheckState_Click_UsesSelectedItemsMembership(bool? state, bool selected)
     {
         var item = new TreeViewItem("item", "Item", [new TreeViewItem("child", "Child")]);
         IEnumerable<ITreeViewItem>? selection = selected ? [item] : [];
@@ -52,8 +52,8 @@
 
         cut.Find("#item > fluent-checkbox").Change(new ChangeEventArgs());
 
-        Assert.Equal(expectedSelected ? 1 : 0, selection?.Count());
-        Assert.Equal(expectedSelected, selection?.Contains(item));
+        Assert.Equal(selected ? 0 : 1, selection?.Count());
+        Assert.Equal(!selected, selection?.Contains(item));
         Assert.DoesNotContain(item.Items!.First(), selection!);
         Assert.Equal(1, notifications);
     }
