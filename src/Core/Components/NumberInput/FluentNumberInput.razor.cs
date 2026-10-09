@@ -48,23 +48,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         Max = (TValue)defaults.Max;
         Step = (TValue)defaults.Step;
 
-        // Default conditions for the message
-        MessageCondition = (field) =>
-        {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
-
-            field.MessageIcon = FluentStatus.ErrorIcon;
-            field.Message = Localizer[Localization.LanguageResource.TextInput_RequiredMessage];
-
-            return FocusLost &&
-                   (Required ?? false)
-                   && !(Disabled ?? false)
-                   && !ReadOnly
-                   && string.IsNullOrEmpty(CurrentValueAsString);
-        };
+        MessageCondition = CreateRequiredMessageCondition(() => string.IsNullOrEmpty(CurrentValueAsString));
 
     }
 

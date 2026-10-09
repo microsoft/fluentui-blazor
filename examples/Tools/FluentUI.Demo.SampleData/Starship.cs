@@ -17,7 +17,7 @@ public class Starship
     /// <summary>
     /// The unique identifier for the starship.
     /// </summary>
-    [Required]
+    [Required(ErrorMessage = "Identifier is required")]
     [MinLength(3, ErrorMessage = "Identifier is too short")]
     [StringLength(16, ErrorMessage = "Identifier too long (16 character limit)")]
     public string? Identifier { get; set; }
@@ -52,7 +52,6 @@ public class Starship
     /// <summary>
     /// Indicates whether the starship design has been validated.
     /// </summary>
-    [Required]
     [Range(typeof(bool), "true", "true",
         ErrorMessage = "This form disallows unapproved ships")]
     public bool IsValidatedDesign { get; set; }

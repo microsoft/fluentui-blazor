@@ -1,0 +1,186 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Reflection;
+using Microsoft.AspNetCore.Components.Forms;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+public abstract partial class FluentInputBase<TValue>
+{
+    private bool _autoRequiredMessageSet;
+    private string? _autoRequiredMessageText;
+    private Icon? _autoRequiredMessageIcon;
+
+    /// <summary>
+    /// Determines whether a required-field message condition is met.
+    /// </summary>
+    /// <param name="field">The field whose focus state may be used.</param>
+    /// <param name="isEmpty">Determines whether the current value is empty.</param>
+    /// <param name="useFieldFocusLost">Whether to use the field's focus state instead of this component's.</param>
+    /// <param name="fieldIdentifier">
+    /// The field identifier to use for validation messages, if different from this component's.
+    /// </param>
+    protected bool IsRequiredMessageConditionMet(IFluentField field, Func<bool> isEmpty, bool useFieldFocusLost = false, FieldIdentifier? fieldIdentifier = null)
+    {
+        return EditContext?.GetValidationMessages(fieldIdentifier ?? FieldIdentifier).Any() != true &&
+               (useFieldFocusLost ? field.FocusLost : FocusLost) &&
+               (Required ?? false) &&
+               !(Disabled ?? false) &&
+               !ReadOnly &&
+               isEmpty();
+    }
+
+    /// <summary>
+    /// Sets the default required-field message on the supplied field.
+    /// </summary>
+    /// <param name="field">The field receiving the message.</param>
+    /// <param name="fieldIdentifier">
+    /// The field identifier whose RequiredAttribute should supply the message, if different from this component's.
+    /// </param>
+    protected void SetRequiredErrorMessage(IFluentField field, FieldIdentifier? fieldIdentifier = null)
+    {
+        var requiredMessage = GetRequiredErrorMessage(fieldIdentifier ?? FieldIdentifier);
+
+        field.MessageIcon = FluentStatus.ErrorIcon;
+        field.Message = requiredMessage;
+
+        _autoRequiredMessageSet = true;
+        _autoRequiredMessageText = requiredMessage;
+        _autoRequiredMessageIcon = FluentStatus.ErrorIcon;
+    }
+
+    private void ClearGeneratedRequiredErrorMessage(IFluentField field)
+    {
+        if (!_autoRequiredMessageSet)
+        {
+            return;
+        }
+
+        field.Message = null;
+        field.MessageIcon = null;
+
+        _autoRequiredMessageSet = false;
+        _autoRequiredMessageText = null;
+        _autoRequiredMessageIcon = null;
+    }
+
+    /// <summary>
+    /// Creates the default required-field message condition for an input component.
+    /// </summary>
+    /// <param name="isEmpty">Determines whether the current value is empty.</param>
+    /// <param name="useFieldFocusLost">Whether to use the field's focus state instead of this component's.</param>
+    /// <param name="fieldIdentifierProvider">
+    /// Provides the field identifier when it differs from this component's value expression.
+    /// </param>
+    protected Func<IFluentField, bool> CreateRequiredMessageCondition(Func<bool> isEmpty, bool useFieldFocusLost = false, Func<FieldIdentifier>? fieldIdentifierProvider = null)
+    {
+        return field =>
+        {
+            var hasGeneratedMessage = _autoRequiredMessageSet &&
+                string.Equals(_autoRequiredMessageText, field.Message, StringComparison.Ordinal) &&
+                Equals(_autoRequiredMessageIcon, field.MessageIcon);
+
+            var hasExplicitMessage = field.MessageState is not null || MessageState is not null ||
+                (field.Message is not null && !hasGeneratedMessage) ||
+                (field.MessageIcon is not null && !hasGeneratedMessage) ||
+                field.MessageTemplate is not null ||
+                (Message is not null && !hasGeneratedMessage) ||
+                (MessageIcon is not null && !hasGeneratedMessage);
+
+            if (hasExplicitMessage)
+            {
+                if (_autoRequiredMessageSet)
+                {
+                    ClearGeneratedRequiredErrorMessage(field);
+                }
+
+                return true;
+            }
+
+            var fieldIdentifier = fieldIdentifierProvider?.Invoke() ?? ValidationFieldIdentifier;
+            if (!IsRequiredMessageConditionMet(field, isEmpty, useFieldFocusLost, fieldIdentifier))
+            {
+                ClearGeneratedRequiredErrorMessage(field);
+                return false;
+            }
+
+            if (hasGeneratedMessage)
+            {
+                return true;
+            }
+
+            SetRequiredErrorMessage(field, fieldIdentifier);
+            return true;
+        };
+    }
+
+    private FieldIdentifier ValidationFieldIdentifier
+        => ValidationFieldFor is not null
+            ? FluentField.CreateFieldIdentifier(ValidationFieldFor)
+            : FieldIdentifier;
+
+    private string GetRequiredErrorMessage(FieldIdentifier fieldIdentifier)
+    {
+        var property = FindValidationProperty(fieldIdentifier);
+
+        var requiredAttribute =
+            property?.GetCustomAttribute<RequiredAttribute>();
+
+        if (requiredAttribute is null ||
+            (requiredAttribute.ErrorMessage is null &&
+             requiredAttribute.ErrorMessageResourceName is null))
+        {
+            return Localizer[Localization.LanguageResource.FluentInputBase_RequiredMessage];
+        }
+
+        var displayName =
+            property?.GetCustomAttribute<DisplayAttribute>()?.GetName() ??
+            fieldIdentifier.FieldName;
+
+        return requiredAttribute.FormatErrorMessage(displayName);
+    }
+
+    private PropertyInfo? FindValidationProperty(FieldIdentifier fieldIdentifier)
+    {
+        var property = GetProperty(ValidationFieldExpression);
+
+        return property is not null &&
+               string.Equals(property.Name, fieldIdentifier.FieldName, StringComparison.Ordinal)
+            ? property
+            : null;
+    }
+
+    private static PropertyInfo? GetProperty(LambdaExpression? expression)
+    {
+        if (expression is null)
+        {
+            return null;
+        }
+
+        var body = expression.Body;
+
+        while (body is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked, } conversion)
+        {
+            body = conversion.Operand;
+        }
+
+        return body is MemberExpression { Member: PropertyInfo property, } ? property : null;
+    }
+
+    /// <summary>
+    /// Gets the expression identifying the model field used for validation.
+    /// </summary>
+    protected virtual LambdaExpression? ValidationFieldExpression => ValidationFieldFor ?? ValueExpression;
+
+    /// <summary>
+    /// Gets a value indicating whether the value expression was supplied for a bound model field.
+    /// </summary>
+    protected bool HasExplicitValueExpression
+        => GetProperty(ValueExpression) is { } property &&
+           (property.DeclaringType != typeof(FluentInputBase<TValue>) ||
+            !string.Equals(property.Name, nameof(CurrentValueOrDefault), StringComparison.Ordinal));
+}

@@ -294,7 +294,7 @@ public partial class FluentField : FluentComponentBase, IFluentField
         ? CurrentEditContext.GetValidationMessages(_fieldIdentifier)
         : [];
 
-    private static FieldIdentifier CreateFieldIdentifier(LambdaExpression accessor)
+    internal static FieldIdentifier CreateFieldIdentifier(LambdaExpression accessor)
     {
         var accessorBody = accessor.Body;
         while (accessorBody is UnaryExpression { NodeType: ExpressionType.Convert or ExpressionType.ConvertChecked } unaryExpression)

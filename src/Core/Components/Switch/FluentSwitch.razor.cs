@@ -20,6 +20,8 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
     public FluentSwitch(LibraryConfiguration configuration) : base(configuration)
     {
         LabelPosition ??= Components.LabelPosition.After;
+
+        MessageCondition = CreateRequiredMessageCondition(() => !Value);
     }
 
     /// <inheritdoc />
