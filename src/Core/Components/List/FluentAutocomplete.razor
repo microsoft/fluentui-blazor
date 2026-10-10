@@ -50,7 +50,7 @@
                          Tooltip="@Tooltip"
                          @attributes="AdditionalAttributes"
                          @onkeydown="@OnTextInputKeyDownAsync"
-                         @onclick="@(e => DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true))"
+                         @onclick="@OnTextInputClickAsync"
                          @bind-Value="@_textInput"
                          @bind-Value:after="@DisplayFilteredOptionsAsync">
             @* Selected items *@

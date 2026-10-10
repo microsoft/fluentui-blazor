@@ -19,17 +19,25 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
    * Sets focus to the input element of the FluentAutocomplete component, allowing users to start typing immediately.
    * @param id The ID of the input element to focus.
    */
-  export function setFocus(id: string) {
+  export function setFocus(id: string, selectAll = false) {
     const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
-    input.focus();
-
-    // Move the cursor to the end of the input value
     const control = (input as any).control as HTMLInputElement;
-    if (control) {
-      const len = control.value.length;
-      control.setSelectionRange(len, len);
+    if (selectAll && control) {
+      // Keep the badge visible until the native input is ready to take focus.
+      input.setAttribute("autocomplete-editing", "");
+      requestAnimationFrame(() => {
+        control.focus();
+        control.select();
+        input.removeAttribute("autocomplete-editing");
+      });
+    } else {
+      input.focus();
+      if (control) {
+        const len = control.value.length;
+        control.setSelectionRange(len, len);
+      }
     }
   }
 

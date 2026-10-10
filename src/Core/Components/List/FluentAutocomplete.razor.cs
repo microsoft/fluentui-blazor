@@ -29,6 +29,8 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     private string? _textInput;
     private bool _isOpen;
     private bool _inProgress;
+    private bool _selectInputTextAfterRender;
+    private byte _searchVersion;
     private TValue? _previousValue;
 
     // List of items used in the internally filtered listbox
@@ -230,6 +232,13 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.initialize", Id);
         }
 
+        if (_selectInputTextAfterRender)
+        {
+            _selectInputTextAfterRender = false;
+            // Apply focus after Blazor renders the updated input value.
+            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", Id, true);
+        }
+
         await base.OnAfterRenderAsync(firstRender);
     }
 
@@ -333,6 +342,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         var comparer = OptionSelectedComparer ?? OptionComparer;
+        var previousSelectedItem = _internalSelectedItem;
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
 
@@ -369,6 +379,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             }
         }
 
+        if (!Multiple && comparer.Equals(previousSelectedItem, _internalSelectedItem))
+        {
+            return;
+        }
+
         SelectedItem = _internalSelectedItem;
 
         // Raise event
@@ -390,7 +405,16 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
 
         NotifyValidationFieldChanged();
 
-        await SetInputFocusAsync();
+        if (!Multiple && _internalSelectedItem is not null)
+        {
+            // Keep the selected option available in the input for immediate editing.
+            _textInput = GetOptionText(_internalSelectedItem);
+            _selectInputTextAfterRender = true;
+        }
+        else
+        {
+            await SetInputFocusAsync();
+        }
     }
 
     /// <summary>
@@ -407,10 +431,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
 
         switch (args.Key)
         {
-            // When Backspace is pressed and there is no text in the input, remove the last selected item
+            // Multiple: When Backspace is pressed and there is no text in the input, remove the last selected item
+            // Single: Backspace clears the input text but not the selected item. Use the clear button to remove the selected item.
             case "Backspace":
             case "Delete":
-                if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Count > 0)
+                if (Multiple && string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Count > 0)
                 {
                     await RemoveSelectedItemAsync(_internalSelectedItems[^1]);
                 }
@@ -459,7 +484,9 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// When the user types in the input, display the listbox with the filtered options.
     /// </summary>
     /// <returns></returns>
-    internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
+    internal Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty) => DisplayFilteredOptionsAsync(showWhenInputIsEmpty, _textInput);
+
+    private async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty, string? query)
     {
         if (IsUserInteractionDisabled)
         {
@@ -467,17 +494,20 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         // If the input is empty, we don't show any options in the listbox, and we close it if it was open
-        if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
+        if (!showWhenInputIsEmpty && string.IsNullOrEmpty(query))
         {
             _isOpen = false;
             StateHasChanged();
             return;
         }
 
+        var searchId = unchecked(++_searchVersion);
         _inProgress = true;
         _isOpen = true;
 
         StateHasChanged();
+
+        List<TOption> filteredItems = [];
 
         // Raise the OnOptionsSearch event to get the filtered list of items.
         if (OnOptionsSearch.HasDelegate)
@@ -485,27 +515,33 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             var args = new OptionsSearchEventArgs<TOption>()
             {
                 Items = [],
-                Text = _textInput ?? string.Empty,
+                Text = query ?? string.Empty,
             };
 
             await OnOptionsSearch.InvokeAsync(args);
 
-            _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
+            filteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
         }
 
         // Use the Items parameter to filter the list of items
         else if (Items != null)
         {
-            _internalFilteredItems = [.. Items.Where(item => GetOptionText(item)?.StartsWith(_textInput ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) == true).Take(MaximumOptionsSearch)];
+            filteredItems = [.. Items.Where(item => GetOptionText(item)?.StartsWith(query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) == true).Take(MaximumOptionsSearch)];
         }
 
-        // No source of items provided
-        else
+        // A newer search owns the state now.
+        if (searchId != _searchVersion)
         {
-            _internalFilteredItems = [];
+            return;
         }
 
         _inProgress = false;
+
+        // The popup was closed while searching: discard the results.
+        if (_isOpen)
+        {
+            _internalFilteredItems = filteredItems;
+        }
     }
 
     /// <summary />
@@ -524,6 +560,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         _isOpen = false;
+        _textInput = string.Empty;
         _internalSelectedItems.Remove(item);
 
         if (SelectedItemsChanged.HasDelegate)
@@ -565,6 +602,25 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     }
 
     /// <summary>
+    /// Refreshes the options when the input is clicked and selects the current option text for editing in single-select mode.
+    /// </summary>
+    private async Task OnTextInputClickAsync()
+    {
+        if (Multiple || _internalSelectedItem is null)
+        {
+            await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+            return;
+        }
+
+        // Make the label editable right away; the search is not awaited before the user can type.
+        _textInput = GetOptionText(_internalSelectedItem);
+        _selectInputTextAfterRender = true;
+
+        // List all options instead of filtering by the selected label.
+        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true, query: string.Empty);
+    }
+
+    /// <summary>
     /// When the user clicks the "x" button to clear the selection, remove all selected items and close the listbox.
     /// </summary>
     /// <returns></returns>
@@ -576,6 +632,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         _isOpen = false;
+        _textInput = string.Empty;
         _internalSelectedItems.Clear();
         SelectedItem = default;
 
