@@ -1,0 +1,522 @@
+@using Xunit
+@inherits FluentUITestContext
+
+@code
+{
+    private readonly TreeViewItem _first = new("first", "First");
+    private readonly TreeViewItem _second = new("second", "Second");
+    private readonly TreeViewItem _sibling = new("sibling", "Sibling");
+    private readonly TreeViewItem _other = new("other", "Other");
+    private readonly TreeViewItem _group;
+    private readonly TreeViewItem _root;
+    private readonly ITreeViewItem[] _allItems;
+
+    public TreeViewThreeStateSelectionTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+        _group = new TreeViewItem("group", "Group", [_first, _second]);
+        _root = new TreeViewItem("root", "Root", [_group, _sibling]);
+        _allItems = [_root, _group, _first, _second, _sibling, _other];
+    }
+
+    [Theory]
+    [InlineData(null, false)]
+    [InlineData("other", false)]
+    [InlineData("root", true)]
+    [InlineData("group", null)]
+    [InlineData("first", null)]
+    [InlineData("sibling", null)]
+    public void GetCheckState_Selection_ReturnsExpectedRootState(string? selectedId, bool? expected)
+    {
+        var selection = _allItems.Where(item => item.Id == selectedId).ToArray();
+        var model = new TreeViewThreeStateSelection { SelectedItems = selection };
+
+        var state = model.GetCheckState(_root);
+
+        Assert.Equal(expected, state);
+        Assert.Equal(selection, _allItems.Where(item => item.Id == selectedId));
+    }
+
+    [Fact]
+    public void GetCheckState_NullSelection_ReturnsUnchecked()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = null };
+
+        Assert.False(model.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void GetCheckState_NullItem_ThrowsArgumentNullException()
+    {
+        var model = new TreeViewThreeStateSelection();
+
+        Assert.Throws<ArgumentNullException>(() => model.GetCheckState(null!));
+    }
+
+    [Theory]
+    [InlineData(32, false)]
+    [InlineData(256, false)]
+    [InlineData(32, true)]
+    [InlineData(256, true)]
+    public void GetCheckState_RepeatedTreeQueries_EnumeratesSelectionAndDescendantsAtMostOnce(int count, bool selected)
+    {
+        var selectionEnumerations = 0;
+        var selectedItemsVisited = 0;
+        var childrenVisited = 0;
+        var items = Enumerable.Range(0, count).Select(index => new TreeViewItem($"item-{index}", "Item")).ToArray();
+        for (var index = 0; index < items.Length - 1; index++)
+        {
+            items[index].Items = GetChildren(items[index + 1]);
+        }
+
+        var model = new TreeViewThreeStateSelection { Items = [items[0]], SelectedItems = GetSelection() };
+
+        var states = items.Select(model.GetCheckState).ToArray();
+        var repeatedStates = items.Select(model.GetCheckState).ToArray();
+
+        Assert.All(states, state => Assert.Equal((bool?)selected, state));
+        Assert.Equal(states, repeatedStates);
+        Assert.Equal(1, selectionEnumerations);
+        Assert.Equal(selected ? count : 0, selectedItemsVisited);
+        Assert.Equal(selected ? 0 : count - 1, childrenVisited);
+
+        IEnumerable<ITreeViewItem> GetSelection()
+        {
+            selectionEnumerations++;
+            foreach (var item in selected ? items : [])
+            {
+                selectedItemsVisited++;
+                yield return item;
+            }
+        }
+
+        IEnumerable<ITreeViewItem> GetChildren(ITreeViewItem child)
+        {
+            childrenVisited++;
+            yield return child;
+        }
+    }
+
+    [Fact]
+    public void GetCheckState_SelectedItemsReplaced_InvalidatesCachedStates()
+    {
+        var model = new TreeViewThreeStateSelection { Items = [_root], SelectedItems = [_first] };
+        Assert.Null(model.GetCheckState(_root));
+
+        model.SelectedItems = [_root];
+
+        Assert.True(model.GetCheckState(_root));
+        Assert.False(model.GetCheckState(_first));
+    }
+
+    [Fact]
+    public void GetCheckState_SelectionCleared_InvalidatesCachedStates()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first] };
+        Assert.Null(model.GetCheckState(_root));
+
+        model.SelectedItems = null;
+
+        Assert.False(model.GetCheckState(_root));
+        Assert.False(model.GetCheckState(_first));
+    }
+
+    [Fact]
+    public void GetCheckState_SameSelectionReassigned_InvalidatesCachedStates()
+    {
+        var selectedItems = new List<ITreeViewItem>();
+        var model = new TreeViewThreeStateSelection { SelectedItems = selectedItems };
+        Assert.False(model.GetCheckState(_root));
+        selectedItems.Add(_first);
+
+        model.SelectedItems = selectedItems;
+
+        Assert.Null(model.GetCheckState(_root));
+        Assert.True(model.GetCheckState(_first));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void GetCheckState_ItemsAssigned_InvalidatesCachedStates(bool sameCollection)
+    {
+        ITreeViewItem[] items = [_root];
+        var model = new TreeViewThreeStateSelection { Items = items, SelectedItems = [_other] };
+        Assert.False(model.GetCheckState(_root));
+        _group.Items = [_other];
+
+        model.Items = sameCollection ? items : [_root, _other];
+
+        Assert.Null(model.GetCheckState(_root));
+        Assert.Null(model.GetCheckState(_group));
+    }
+
+    [Fact]
+    public void Refresh_ExternalSelectionMutated_PreservesOwnedSelection()
+    {
+        var selectedItems = new List<ITreeViewItem> { _first };
+        var model = new TreeViewThreeStateSelection { SelectedItems = selectedItems };
+        Assert.Null(model.GetCheckState(_root));
+        selectedItems.Clear();
+
+        model.Refresh();
+
+        Assert.Null(model.GetCheckState(_root));
+        Assert.True(model.GetCheckState(_first));
+        Assert.Equal(new ITreeViewItem[] { _first }, model.SelectedItems);
+    }
+
+    [Fact]
+    public void SelectedItems_SourceMutatedBeforeFirstQuery_PreservesAssignedSelection()
+    {
+        var selectedItems = new List<ITreeViewItem> { _first };
+        var model = new TreeViewThreeStateSelection { SelectedItems = selectedItems };
+
+        selectedItems.Clear();
+        selectedItems.Add(_second);
+
+        Assert.True(model.GetCheckState(_first));
+        Assert.False(model.GetCheckState(_second));
+        Assert.Equal(new ITreeViewItem[] { _first }, model.SelectedItems);
+    }
+
+    [Fact]
+    public void SelectedItems_DuplicateInputs_StoresUniqueSelection()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first, _first, _second] };
+
+        Assert.Equal(new ITreeViewItem[] { _first, _second }, model.SelectedItems);
+    }
+
+    [Fact]
+    public void SelectedItems_CalculatedStates_OnlyReturnsSelectedItems()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first, _other] };
+        Assert.Null(model.GetCheckState(_root));
+        Assert.False(model.GetCheckState(_second));
+
+        Assert.Equal(new ITreeViewItem[] { _first, _other }, model.SelectedItems);
+    }
+
+    [Fact]
+    public void SelectedItems_SelfAssignment_PreservesSelection()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first, _other] };
+        Assert.Null(model.GetCheckState(_root));
+
+        model.SelectedItems = model.SelectedItems;
+
+        Assert.Equal(new ITreeViewItem[] { _first, _other }, model.SelectedItems);
+        Assert.Null(model.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void SelectedItems_DeferredQueryOfCurrentSelection_ReplacesSelection()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first, _second] };
+        Assert.Null(model.GetCheckState(_root));
+
+        model.SelectedItems = model.SelectedItems!.Where(item => item != _first);
+
+        Assert.Equal(new ITreeViewItem[] { _second }, model.SelectedItems);
+        Assert.False(model.GetCheckState(_first));
+        Assert.True(model.GetCheckState(_second));
+    }
+
+    [Fact]
+    public void SelectedItems_EnumerationThrows_PreservesPreviousSelection()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first] };
+
+        Assert.Throws<InvalidOperationException>(() => model.SelectedItems = GetInvalidSelection());
+
+        Assert.Equal(new ITreeViewItem[] { _first }, model.SelectedItems);
+        Assert.True(model.GetCheckState(_first));
+        Assert.False(model.GetCheckState(_second));
+
+        IEnumerable<ITreeViewItem> GetInvalidSelection()
+        {
+            yield return _second;
+            throw new InvalidOperationException("Selection cannot be enumerated.");
+        }
+    }
+
+    [Fact]
+    public void Refresh_SelectedDescendantRemoved_ClearsIndeterminateStateWithoutChangingSelection()
+    {
+        var children = new List<ITreeViewItem> { _first };
+        _group.Items = children;
+        var model = new TreeViewThreeStateSelection { Items = [_root], SelectedItems = [_first] };
+        Assert.Null(model.GetCheckState(_root));
+        children.Clear();
+
+        model.Refresh();
+
+        Assert.False(model.GetCheckState(_root));
+        Assert.False(model.GetCheckState(_group));
+        Assert.True(model.GetCheckState(_first));
+        Assert.Equal(new ITreeViewItem[] { _first }, model.SelectedItems);
+    }
+
+    [Fact]
+    public void Refresh_RepeatedCalls_PreservesSelectedItems()
+    {
+        var model = new TreeViewThreeStateSelection { SelectedItems = [_first, _other] };
+        Assert.Null(model.GetCheckState(_root));
+        Assert.False(model.GetCheckState(_second));
+
+        model.Refresh();
+        model.Refresh();
+
+        Assert.Equal(new ITreeViewItem[] { _first, _other }, model.SelectedItems);
+        Assert.Null(model.GetCheckState(_root));
+        Assert.False(model.GetCheckState(_second));
+    }
+
+    [Fact]
+    public void Refresh_DescendantsMutated_UpdatesCachedStates()
+    {
+        var children = new List<ITreeViewItem> { _first };
+        _group.Items = children;
+        var model = new TreeViewThreeStateSelection { Items = [_root], SelectedItems = [_other] };
+        Assert.False(model.GetCheckState(_root));
+        children.Add(_other);
+
+        model.Refresh();
+
+        Assert.Null(model.GetCheckState(_root));
+        Assert.Null(model.GetCheckState(_group));
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_CachedStates_InvalidatesCache()
+    {
+        var model = new TreeViewThreeStateSelection { Items = [_root] };
+        Assert.False(model.GetCheckState(_root));
+
+        model.OnSelectedItemsChanged([_first]);
+
+        Assert.Null(model.GetCheckState(_root));
+        Assert.Null(model.GetCheckState(_group));
+        Assert.True(model.GetCheckState(_first));
+        Assert.False(model.GetCheckState(_second));
+    }
+
+    [Theory]
+    [InlineData(new string[] { }, new[] { "root" },
+        new[] { "root", "group", "first", "second", "sibling" }, true, true)]
+    [InlineData(new[] { "root", "group", "first", "second", "sibling" },
+        new[] { "root", "group", "second", "sibling" }, new[] { "second", "sibling" }, null, null)]
+    [InlineData(new[] { "second", "sibling" }, new[] { "first", "second", "sibling" },
+        new[] { "root", "group", "first", "second", "sibling" }, true, true)]
+    [InlineData(new[] { "root", "group", "first", "second", "sibling" },
+        new[] { "root", "first", "second", "sibling" }, new[] { "sibling" }, null, false)]
+    [InlineData(new[] { "sibling" }, new[] { "sibling", "group" },
+        new[] { "root", "group", "first", "second", "sibling" }, true, true)]
+    [InlineData(new[] { "root", "group", "first", "second", "sibling" },
+        new[] { "group", "first", "second", "sibling" }, new string[] { }, false, false)]
+    [InlineData(new[] { "other" }, new[] { "other", "first" },
+        new[] { "other", "first" }, null, null)]
+    [InlineData(new[] { "other", "first" }, new[] { "other", "first", "group" },
+        new[] { "other", "group", "first", "second" }, null, true)]
+    [InlineData(new[] { "other", "group", "first", "second" },
+        new[] { "other", "group", "first", "second", "root" },
+        new[] { "other", "root", "group", "first", "second", "sibling" }, true, true)]
+    [InlineData(new[] { "other", "root", "group", "first", "second", "sibling" },
+        new[] { "other", "group", "first", "second", "sibling" }, new[] { "other" }, false, false)]
+    public void OnSelectedItemsChanged_CheckboxChange_UpdatesDescendantsAndAncestors(
+        string[] previousIds, string[] newIds, string[] expectedIds, bool? rootState, bool? groupState)
+    {
+        var previous = _allItems.Where(item => previousIds.Contains(item.Id)).ToHashSet();
+        var next = _allItems.Where(item => newIds.Contains(item.Id)).ToHashSet();
+        var model = new TreeViewThreeStateSelection { Items = [_root, _other], SelectedItems = previous };
+
+        model.OnSelectedItemsChanged(next);
+
+        var result = model.SelectedItems!.ToArray();
+        Assert.Equal(expectedIds.Order(), result.Select(item => item.Id).Order());
+        Assert.Equal(rootState, model.GetCheckState(_root));
+        Assert.Equal(groupState, model.GetCheckState(_group));
+        Assert.Equal(previousIds.Order(), previous.Select(item => item.Id).Order());
+        Assert.Equal(newIds.Order(), next.Select(item => item.Id).Order());
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_NullNewSelection_ClearsSelection()
+    {
+        var model = new TreeViewThreeStateSelection { Items = [_root, _other], SelectedItems = _allItems };
+
+        model.OnSelectedItemsChanged(null);
+
+        Assert.Empty(model.SelectedItems!);
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_NullInputs_ReturnsEmptySelection()
+    {
+        var model = new TreeViewThreeStateSelection { Items = null, SelectedItems = null };
+
+        model.OnSelectedItemsChanged(null);
+
+        Assert.Empty(model.SelectedItems!);
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_Duplicates_ReturnsUniqueSelection()
+    {
+        var model = new TreeViewThreeStateSelection { Items = [_root] };
+
+        model.OnSelectedItemsChanged([_root, _root, _first]);
+
+        var result = model.SelectedItems!;
+        Assert.Equal(5, result.Count());
+        Assert.Equal(5, result.Distinct().Count());
+    }
+
+    [Theory]
+    [InlineData(false, "root", 5, true, false)]
+    [InlineData(true, "first", 2, false, true)]
+    [InlineData(true, "root", 0, false, false)]
+    public void SelectionModel_CheckboxClick_UpdatesTreeRendering(
+        bool initiallySelected, string clickedId, int expectedCount, bool rootChecked, bool rootIndeterminate)
+    {
+        var selection = new TreeViewThreeStateSelection
+        {
+            Items = [_root],
+            SelectedItems = initiallySelected ? [_root, _group, _first, _second, _sibling] : [],
+        };
+        var cut = Render<TreeViewThreeStateSelectionTestComponent>(
+            parameters => parameters.Add(p => p.Selection, selection));
+
+        cut.Find($"#{clickedId} > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(expectedCount, selection.SelectedItems?.Count());
+        var checkbox = cut.Find("#root > fluent-checkbox");
+        Assert.Equal(rootChecked, checkbox.HasAttribute("checked"));
+        Assert.Equal(rootIndeterminate, checkbox.HasAttribute("indeterminate"));
+    }
+
+    [Fact]
+    public void SelectionModel_SuccessiveClicks_UsesUpdatedSelection()
+    {
+        var selection = new TreeViewThreeStateSelection { Items = [_root] };
+        var cut = Render<TreeViewThreeStateSelectionTestComponent>(
+            parameters => parameters.Add(p => p.Selection, selection));
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+        Assert.Equal(5, selection.SelectedItems!.Count());
+        Assert.Equal(5, cut.FindComponent<FluentTreeView>().Instance.SelectedItems!.Count());
+
+        cut.Find("#first > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(2, selection.SelectedItems!.Count());
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.True(cut.Find("#group > fluent-checkbox").HasAttribute("indeterminate"));
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_SeparateInstances_KeepsSelectionsIndependent()
+    {
+        var firstSelection = new TreeViewThreeStateSelection { Items = [_root] };
+        var secondSelection = new TreeViewThreeStateSelection { Items = [_root] };
+
+        firstSelection.OnSelectedItemsChanged([_root]);
+
+        Assert.Equal(5, firstSelection.SelectedItems!.Count());
+        Assert.Empty(secondSelection.SelectedItems!);
+        Assert.False(secondSelection.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void GetCheckState_OverriddenDescendantState_UpdatesParentState()
+    {
+        TreeViewThreeStateSelection selection = new CustomTreeSelection { CheckedItem = _first };
+
+        Assert.Null(selection.GetCheckState(_root));
+        Assert.True(selection.GetCheckState(_first));
+        Assert.False(selection.GetCheckState(_second));
+        Assert.Empty(selection.SelectedItems!);
+    }
+
+    [Fact]
+    public void OnSelectedItemsChanged_OverriddenPropagation_InvokesOverridesRecursively()
+    {
+        var selection = new CustomTreeSelection { Items = [_root] };
+        TreeViewThreeStateSelection model = selection;
+
+        model.OnSelectedItemsChanged([_root]);
+
+        Assert.Equal(1, selection.SelectionChanges);
+        Assert.Equal(new[] { "root", "group", "first", "second", "sibling" }, selection.UpdatedItems);
+        Assert.Equal(new[] { "root", "group", "first", "second", "sibling" }, selection.RecalculatedItems);
+        Assert.Equal(5, model.SelectedItems!.Count());
+        Assert.True(model.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void Refresh_OverrideCallingBase_InvalidatesCachedStates()
+    {
+        var selection = new CustomTreeSelection();
+        TreeViewThreeStateSelection model = selection;
+        Assert.False(model.GetCheckState(_root));
+        selection.CheckedItem = _first;
+
+        model.Refresh();
+
+        Assert.Equal(1, selection.RefreshCalls);
+        Assert.Null(model.GetCheckState(_root));
+    }
+
+    [Fact]
+    public void SelectionModel_DerivedInstance_InvokesOverridesFromTreeView()
+    {
+        var selection = new CustomTreeSelection { Items = [_root] };
+        var cut = Render<TreeViewThreeStateSelectionTestComponent>(
+            parameters => parameters.Add(p => p.Selection, selection));
+
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(1, selection.SelectionChanges);
+        Assert.Equal(5, selection.SelectedItems!.Count());
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("checked"));
+    }
+
+    private sealed class CustomTreeSelection : TreeViewThreeStateSelection
+    {
+        public ITreeViewItem? CheckedItem { get; set; }
+        public int SelectionChanges { get; private set; }
+        public int RefreshCalls { get; private set; }
+        public List<string> UpdatedItems { get; } = [];
+        public List<string> RecalculatedItems { get; } = [];
+
+        public override bool? GetCheckState(ITreeViewItem item)
+        {
+            ArgumentNullException.ThrowIfNull(item);
+            return item == CheckedItem ? true : base.GetCheckState(item);
+        }
+
+        public override void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? newSelectedItems)
+        {
+            SelectionChanges++;
+            base.OnSelectedItemsChanged(newSelectedItems);
+        }
+
+        public override void Refresh()
+        {
+            RefreshCalls++;
+            base.Refresh();
+        }
+
+        protected override void SetSelected(ITreeViewItem item, bool selected, ISet<ITreeViewItem> selection)
+        {
+            UpdatedItems.Add(item.Id);
+            base.SetSelected(item, selected, selection);
+        }
+
+        protected override void UpdateParentSelection(ITreeViewItem item, ISet<ITreeViewItem> selection)
+        {
+            RecalculatedItems.Add(item.Id);
+            base.UpdateParentSelection(item, selection);
+        }
+    }
+}

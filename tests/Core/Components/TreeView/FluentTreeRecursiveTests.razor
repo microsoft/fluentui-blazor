@@ -1,0 +1,217 @@
+@using Xunit
+@inherits FluentUITestContext
+
+@code
+{
+    private readonly TreeViewItem _first = new("first", "First");
+    private readonly TreeViewItem _second = new("second", "Second");
+    private readonly TreeViewItem _other = new("other", "Other");
+    private readonly TreeViewItem _group;
+    private readonly TreeViewItem _root;
+    private readonly ITreeViewItem[] _allItems;
+
+    public FluentTreeRecursiveTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+        _group = new("group", "Group", [_first, _second]) { Expanded = true };
+        _root = new("root", "Root", [_group]) { Expanded = true };
+        _allItems = [_root, _group, _first, _second, _other];
+    }
+
+    [Theory]
+    [InlineData(new string[] { }, "root", new[] { "root", "group", "first", "second" }, true, false)]
+    [InlineData(new string[] { }, "group", new[] { "root", "group", "first", "second" }, true, false)]
+    [InlineData(new string[] { }, "first", new[] { "first" }, false, true)]
+    [InlineData(new[] { "first" }, "second", new[] { "root", "group", "first", "second" }, true, false)]
+    [InlineData(new[] { "root", "group", "first", "second" }, "first", new[] { "second" }, false, true)]
+    [InlineData(new[] { "root", "group", "first", "second" }, "group", new string[] { }, false, false)]
+    [InlineData(new[] { "root", "group", "first", "second", "other" }, "root", new[] { "other" }, false, false)]
+    [InlineData(new[] { "first", "other" }, "root", new[] { "root", "group", "first", "second", "other" }, true, false)]
+    public void MultipleRecursive_Click_UpdatesBoundSelectionAndCheckboxes(
+        string[] selectedIds, string clickedId, string[] expectedIds, bool rootChecked, bool rootIndeterminate)
+    {
+        var initialSelection = _allItems.Where(item => selectedIds.Contains(item.Id)).ToArray();
+        var cut = Render<FluentTreeRecursiveSelectionTestComponent>(parameters => parameters
+            .Add(p => p.Items, [_root, _other])
+            .Add(p => p.SelectedItems, initialSelection));
+
+        cut.Find($"#{clickedId} > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(expectedIds.Order(), cut.Instance.SelectedItems!.Select(item => item.Id).Order());
+        Assert.Equal(selectedIds.Order(), initialSelection.Select(item => item.Id).Order());
+        Assert.Equal(1, cut.Instance.Notifications);
+        var rootCheckbox = cut.Find("#root > fluent-checkbox");
+        Assert.Equal(rootChecked, rootCheckbox.HasAttribute("checked"));
+        Assert.Equal(rootIndeterminate, rootCheckbox.HasAttribute("indeterminate"));
+        Assert.Equal("true", rootCheckbox.GetAttribute("check-state"));
+        Assert.Equal(rootChecked, cut.Find("#group > fluent-checkbox").HasAttribute("checked"));
+        Assert.Equal(rootIndeterminate, cut.Find("#group > fluent-checkbox").HasAttribute("indeterminate"));
+    }
+
+    [Theory]
+    [InlineData(TreeSelectionMode.Single, false, false, false)]
+    [InlineData(TreeSelectionMode.Single, true, false, false)]
+    [InlineData(TreeSelectionMode.Multiple, false, false, false)]
+    [InlineData(TreeSelectionMode.Multiple, true, false, true)]
+    [InlineData(TreeSelectionMode.MultipleRecursive, false, true, true)]
+    [InlineData(TreeSelectionMode.MultipleRecursive, true, true, true)]
+    public void RecursiveSelection_ParametersChanged_UpdatesFlags(
+        TreeSelectionMode mode, bool customCheckState, bool isRecursive, bool hasCheckState)
+    {
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [_root])
+            .Add(p => p.SelectionMode, TreeSelectionMode.MultipleRecursive));
+        var selection = cut.Instance.RecursiveSelection;
+
+        cut.Render(parameters => parameters
+            .Add(p => p.SelectionMode, mode)
+            .Add(p => p.CheckState, customCheckState ? _ => false : null));
+
+        Assert.Same(selection, cut.Instance.RecursiveSelection);
+        Assert.Equal(isRecursive, selection.IsRecursive);
+        Assert.Equal(hasCheckState, selection.HasCheckState);
+    }
+
+    [Fact]
+    public void MultipleRecursive_SuccessiveClicks_UsesUpdatedSelectionAndStableCallbacks()
+    {
+        var cut = Render<FluentTreeRecursiveSelectionTestComponent>(parameters => parameters
+            .Add(p => p.Items, [_root]));
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+        var firstSelection = cut.Instance.SelectedItems!;
+
+        cut.Find("#first > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(4, firstSelection.Count());
+        Assert.Same(_second, Assert.Single(cut.Instance.SelectedItems!));
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.Equal(2, cut.Instance.Notifications);
+    }
+
+    [Fact]
+    public void MultipleRecursive_CheckStateProvided_UsesAutomaticState()
+    {
+        var cut = Render(@<FluentTreeView Items="@([_root])"
+                                         SelectionMode="TreeSelectionMode.MultipleRecursive"
+                                         SelectedItems="@([_first])"
+                                         CheckState="@(_ => throw new InvalidOperationException())" />);
+
+        Assert.True(cut.Find("#first > fluent-checkbox").HasAttribute("checked"));
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.False(cut.Find("#second > fluent-checkbox").HasAttribute("checked"));
+    }
+
+    [Fact]
+    public void MultipleRecursive_ExternalSelectionChanged_RefreshesCheckboxStates()
+    {
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [_root])
+            .Add(p => p.SelectionMode, TreeSelectionMode.MultipleRecursive)
+            .Add(p => p.SelectedItems, [_first]));
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+
+        cut.Render(parameters => parameters.Add(p => p.SelectedItems, (IEnumerable<ITreeViewItem>?)null));
+
+        Assert.Empty(cut.FindAll("fluent-checkbox[checked], fluent-checkbox[indeterminate]"));
+    }
+
+    [Fact]
+    public void MultipleRecursive_ItemsChangedInPlace_RefreshesCheckboxStates()
+    {
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [_root])
+            .Add(p => p.SelectionMode, TreeSelectionMode.MultipleRecursive)
+            .Add(p => p.SelectedItems, [_first]));
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+        _group.Items = [_second];
+
+        cut.Render();
+
+        Assert.False(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+    }
+
+    [Theory]
+    [InlineData(TreeSelectionMode.Single)]
+    [InlineData(TreeSelectionMode.Multiple)]
+    public void MultipleRecursive_ModeChanged_UpdatesCheckboxRendering(TreeSelectionMode initialMode)
+    {
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [_root])
+            .Add(p => p.SelectedItems, [_first])
+            .Add(p => p.SelectionMode, initialMode));
+
+        cut.Render(parameters => parameters.Add(p => p.SelectionMode, TreeSelectionMode.MultipleRecursive));
+
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.All(cut.FindAll("fluent-checkbox"), checkbox => Assert.True(checkbox.HasAttribute("check-state")));
+    }
+
+    [Fact]
+    public void MultipleRecursive_SwitchedToMultiple_RestoresNonRecursiveSelection()
+    {
+        IEnumerable<ITreeViewItem>? selection = null;
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [_root])
+            .Add(p => p.SelectedItems, [_first])
+            .Add(p => p.SelectedItemsChanged, items => selection = items)
+            .Add(p => p.SelectionMode, TreeSelectionMode.MultipleRecursive));
+        cut.Render(parameters => parameters.Add(p => p.SelectionMode, TreeSelectionMode.Multiple));
+
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(new[] { "first", "root" }, selection!.Select(item => item.Id).Order());
+        Assert.Empty(cut.FindAll("fluent-checkbox[indeterminate], fluent-checkbox[check-state]"));
+    }
+
+    [Theory]
+    [InlineData(TreeSelectionVisibility.Hidden)]
+    [InlineData(TreeSelectionVisibility.Collapse)]
+    public void MultipleRecursive_HiddenDescendants_StillIncludedInSelection(TreeSelectionVisibility visibility)
+    {
+        IEnumerable<ITreeViewItem>? selection = null;
+        var cut = Render(@<FluentTreeView Items="@([_root])"
+                                         SelectionMode="TreeSelectionMode.MultipleRecursive"
+                                         MultipleSelectionVisibility="@(item => item == _root ? TreeSelectionVisibility.Visible : visibility)"
+                                         SelectedItemsChanged="@(items => selection = items)" />);
+
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(4, selection!.Count());
+        Assert.Single(cut.FindAll("fluent-checkbox"));
+    }
+
+    [Fact]
+    public void MultipleRecursive_LazyRendering_SelectsCollapsedDescendants()
+    {
+        _root.Expanded = false;
+        IEnumerable<ITreeViewItem>? selection = null;
+        var cut = Render(@<FluentTreeView Items="@([_root])"
+                                         LazyLoadItems="true"
+                                         SelectionMode="TreeSelectionMode.MultipleRecursive"
+                                         SelectedItemsChanged="@(items => selection = items)" />);
+
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(4, selection!.Count());
+        Assert.Single(cut.FindAll("fluent-checkbox"));
+    }
+
+    [Fact]
+    public void MultipleRecursive_ChangeNotApplied_PreservesControlledSelection()
+    {
+        IEnumerable<ITreeViewItem>? selection = null;
+        var cut = Render(@<FluentTreeView Items="@([_root])"
+                                         SelectedItems="@([_first])"
+                                         SelectionMode="TreeSelectionMode.MultipleRecursive"
+                                         SelectedItemsChanged="@(items => selection = items)" />);
+
+        cut.Find("#root > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(4, selection!.Count());
+        Assert.True(cut.Find("#root > fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.False(cut.Find("#root > fluent-checkbox").HasAttribute("checked"));
+        Assert.True(cut.Find("#first > fluent-checkbox").HasAttribute("checked"));
+        Assert.False(cut.Find("#second > fluent-checkbox").HasAttribute("checked"));
+    }
+}

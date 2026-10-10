@@ -19,12 +19,15 @@ public partial class FluentTreeView : FluentComponentBase
 
     internal ConcurrentDictionary<string, FluentTreeItem> InternalItems { get; } = new(StringComparer.Ordinal);
 
+    internal TreeViewThreeStateSelection RecursiveSelection { get; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentTreeView"/> class.
     /// </summary>
     public FluentTreeView(LibraryConfiguration configuration) : base(configuration)
     {
         Id = Identifier.NewId();
+        RecursiveSelection = new TreeViewThreeStateSelection(this);
     }
 
     /// <summary/>
@@ -125,6 +128,8 @@ public partial class FluentTreeView : FluentComponentBase
     /// <summary>
     /// Gets or sets whether the tree allows multiple selections.
     /// This Multiple Selection feature is only available when the <see cref="Items"/> parameter is used to generate the tree.
+    /// MultipleRecursive uses `TreeViewThreeStateSelection` class
+    /// to select or deselect descendants and update ancestor states. All descendant data must be available.
     /// By default, the tree allows only single selection.
     /// </summary>
     [Parameter]
@@ -136,6 +141,26 @@ public partial class FluentTreeView : FluentComponentBase
     /// </summary>
     [Parameter]
     public Func<ITreeViewItem, TreeSelectionVisibility>? MultipleSelectionVisibility { get; set; }
+
+    /// <summary>
+    /// Gets or sets a function that determines each checkbox's state:
+    /// <see langword="true"/> (checked), <see langword="false"/> (unchecked),
+    /// or <see langword="null"/> (indeterminate).
+    /// Only applies when <see cref="Items"/> is used with <see cref="TreeSelectionMode.Multiple"/>.
+    /// When omitted, checkbox states are determined by <see cref="SelectedItems"/>.
+    /// Ignored in <see cref="TreeSelectionMode.MultipleRecursive"/>, which calculates checkbox states automatically.
+    /// </summary>
+    /// <remarks>
+    /// The function is evaluated during rendering and must be a projection of <see cref="SelectedItems"/>.
+    /// It must return <see langword="true"/> only for items contained in <see cref="SelectedItems"/>;
+    /// <see langword="null"/> may be used for unselected items whose descendants are partially selected.
+    /// User interactions are calculated from membership in <see cref="SelectedItems"/>, not from this displayed state.
+    /// The function must not modify the selection.
+    /// It does not select descendants automatically or load missing items.
+    /// Handle <see cref="SelectedItemsChanged"/> to update the selection used by the function.
+    /// </remarks>
+    [Parameter]
+    public Func<ITreeViewItem, bool?>? CheckState { get; set; }
 
     /// <summary>
     /// Gets or sets the multi-selected <see cref="ITreeViewItem" /> items.
@@ -163,6 +188,40 @@ public partial class FluentTreeView : FluentComponentBase
     [Parameter]
     public EventCallback<FluentTreeItem> OnSelectedChanged { get; set; }
 
+    internal async Task OnSelectedItemsChangedAsync(IEnumerable<ITreeViewItem> selectedItems)
+    {
+        // If SelectionMode is MultipleRecursive
+        if (RecursiveSelection.IsRecursive)
+        {
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                var calculatedSelectedItems = RecursiveSelection.CalculateSelectedItems(selectedItems);
+                await SelectedItemsChanged.InvokeAsync(calculatedSelectedItems);
+            }
+        }
+
+        // Raise the SelectedItemsChanged event
+        else
+        {
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(selectedItems);
+            }
+        }
+    }
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (RecursiveSelection.IsRecursive)
+        {
+            RecursiveSelection.Items = Items;
+            RecursiveSelection.SelectedItems = SelectedItems;
+        }
+    }
+
     /// <summary />
     [ExcludeFromCodeCoverage(Justification = "JavaScript is not covered by unit tests")]
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -177,6 +236,16 @@ public partial class FluentTreeView : FluentComponentBase
 
             // Call a function from the JavaScript module
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.Initialize", Id, true);
+        }
+
+        if (RecursiveSelection.HasCheckState)
+        {
+            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+            {
+                return;
+            }
+
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.TreeView.UpdateCheckStates", Id);
         }
     }
 }
