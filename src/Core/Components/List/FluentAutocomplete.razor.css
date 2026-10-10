@@ -51,19 +51,19 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete][alone] {
   line-height: var(--lineHeightBase300);
 }
 
-fluent-text-input:has(span[auto-complete][alone]):not(:focus):not([autocomplete-editing])::part(control) {
+fluent-text-input:has(div[slot="start"] > div[tabindex="0"][role="button"][aria-haspopup="listbox"]):not(:focus):not([autocomplete-editing])::part(control) {
   display: none;
 }
 
-fluent-text-input:has(span[auto-complete][alone])[autocomplete-editing]::part(control) {
+fluent-text-input:has(div[slot="start"] > div[tabindex="0"][role="button"][aria-haspopup="listbox"])[autocomplete-editing]::part(control) {
   opacity: 0;
 }
 
-fluent-text-input:has(span[auto-complete][alone]):focus div[slot="start"] {
+fluent-text-input:has(div[slot="start"] > div[tabindex="0"][role="button"][aria-haspopup="listbox"]):focus div[slot="start"] {
   display: none;
 }
 
-fluent-text-input:has(span[auto-complete][alone]) div[slot="start"] {
+fluent-text-input:has(div[slot="start"] > div[tabindex="0"][role="button"][aria-haspopup="listbox"]) div[slot="start"] {
   width: calc(100% - 24px);
   justify-content: start;
 }
