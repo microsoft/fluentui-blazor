@@ -398,6 +398,29 @@
     }
 
     [Fact]
+    public async Task FluentColorPickerInput_Uses_ValidationFieldFor_WhenProvided()
+    {
+        var model = new ColorPickerValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var cut = Render(@<CascadingValue Value="@editContext">
+            <FluentColorPickerInput @bind-Value="@model.Color"
+                                   ValidationFieldFor="@(() => model.AlternateColor)" />
+        </CascadingValue>);
+
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(ColorPickerValidationModel.Color)), "Color is invalid");
+            messageStore.Add(editContext.Field(nameof(ColorPickerValidationModel.AlternateColor)), "Alternate color is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        Assert.Contains("Alternate color is invalid", cut.Markup);
+        Assert.DoesNotContain("Color is invalid", cut.Markup);
+    }
+
+    [Fact]
     public void FluentColorPickerInput_Required_FocusLost_Disabled_DoesNotShowRequiredMessage()
     {
         // Arrange - Disabled inputs should not trigger the required validation
@@ -470,6 +493,8 @@
     {
         [Required(ErrorMessage = "Color is required")]
         public string? Color { get; set; }
+
+        public string? AlternateColor { get; set; }
     }
 
     [Fact]

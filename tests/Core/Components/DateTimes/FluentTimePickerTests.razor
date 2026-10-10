@@ -447,6 +447,34 @@
         Assert.Contains(messages, message => message.TextContent.Contains("Time is required", StringComparison.Ordinal));
     }
 
+    [Theory]
+    [InlineData(DatePickerRenderStyle.FluentUI)]
+    [InlineData(DatePickerRenderStyle.Native)]
+    public async Task FluentTimePicker_Uses_ValidationFieldFor_WhenProvided(DatePickerRenderStyle renderStyle)
+    {
+        var model = new TimePickerValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var timePicker = Render(@<CascadingValue Value="@editContext">
+            <FluentTimePicker TValue="DateTime?"
+                              Culture="@InvariantCulture"
+                              RenderStyle="@renderStyle"
+                              @bind-Value="@model.Time"
+                              ValidationFieldFor="@(() => model.AlternateTime)" />
+        </CascadingValue>);
+
+        await timePicker.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(TimePickerValidationModel.Time)), "Time is invalid");
+            messageStore.Add(editContext.Field(nameof(TimePickerValidationModel.AlternateTime)), "Alternate time is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        Assert.Contains("Alternate time is invalid", timePicker.Markup);
+        Assert.DoesNotContain("Time is invalid", timePicker.Markup);
+    }
+
     [Fact]
     public void FluentTimePicker_ReadOnly_SetsCorrectValue()
     {
@@ -588,6 +616,8 @@
     {
         [Required(ErrorMessage = "Time is required")]
         public DateTime? Time { get; set; }
+
+        public DateTime? AlternateTime { get; set; }
     }
 
 
