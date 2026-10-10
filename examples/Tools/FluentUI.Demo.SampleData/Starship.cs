@@ -65,7 +65,7 @@ public class Starship
     /// <summary>
     /// The production time of the starship.
     /// </summary>
-    [Required(ErrorMessage = "Production time isrequired")]
+    [Required(ErrorMessage = "Production time is required")]
     public TimeOnly? ProductionTime { get; set; }
 
     /// <summary>
