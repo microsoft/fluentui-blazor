@@ -135,6 +135,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
         case 'Enter': {
           if (currentIndex >= 0 && this.isPopoverOpen()) {
             e.preventDefault();
+            this.input.value = '';
             options[currentIndex].click();
 
             // Close the popover after selection
