@@ -664,27 +664,30 @@
     }
 
     [Fact]
-    public void FluentAutocomplete_KeyDown_Backspace_RemovesSelectedItemAndClearsSearchText()
+    public void FluentAutocomplete_SingleSelect_ClearingText_KeepsSelectedItem()
     {
         // Arrange
         const string selectedItem = "Three";
+        var changed = false;
         var cut = Render(@<FluentAutocomplete Id="my-list"
                                               TOption="string"
                                               TValue="string"
                                               Multiple="false"
                                               SelectedItem="@selectedItem"
+                                              SelectedItemChanged="@(_ => changed = true)"
                                               OnOptionsSearch="@OnOptionsSearch" />);
 
         var textInput = cut.Find("fluent-text-input");
         textInput.TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
         textInput.TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = string.Empty });
 
-        // Act
+        // Act - browser order: keydown first, then the input event with the cleared value
+        textInput.TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Backspace" });
+        textInput.TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = string.Empty });
         textInput.TriggerEvent("onkeydown", new KeyboardEventArgs { Key = "Backspace" });
 
         // Assert
-        Assert.Equal(string.Empty, cut.Find("fluent-text-input").GetAttribute("value"));
-        Assert.Empty(cut.FindAll("span.fluent-badge[alone]"));
+        Assert.False(changed);
     }
 
     [Fact]

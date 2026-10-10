@@ -424,10 +424,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
 
         switch (args.Key)
         {
-            // When Backspace is pressed and there is no text in the input, remove the last selected item
+            // Multiple: When Backspace is pressed and there is no text in the input, remove the last selected item
+            // Single: Backspace clears the input text but not the selected item. Use the clear button to remove the selected item.
             case "Backspace":
             case "Delete":
-                if (string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Count > 0)
+                if (Multiple && string.IsNullOrEmpty(_textInput) && _internalSelectedItems.Count > 0)
                 {
                     await RemoveSelectedItemAsync(_internalSelectedItems[^1]);
                 }
