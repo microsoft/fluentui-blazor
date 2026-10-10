@@ -27,8 +27,12 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
     {
         Id = Identifier.NewId();
 
+        var requiredMessageCondition = CreateRequiredMessageCondition(
+            () => string.IsNullOrEmpty(CurrentValueAsString),
+            useFieldFocusLost: true);
+
         // Default message displayed when the value is invalid
-        MessageCondition = (field) =>
+        MessageCondition = field =>
         {
             if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
             {
@@ -42,14 +46,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
                 return true;
             }
 
-            if (IsRequiredMessageConditionMet(field, () => string.IsNullOrEmpty(CurrentValueAsString), useFieldFocusLost: true))
-            {
-                field.MessageIcon = FluentStatus.ErrorIcon;
-                field.Message = Localizer[Localization.LanguageResource.FluentInputBase_RequiredMessage];
-                return true;
-            }
-
-            return false;
+            return requiredMessageCondition(field);
         };
     }
 

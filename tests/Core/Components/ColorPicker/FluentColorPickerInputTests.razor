@@ -382,6 +382,25 @@
     }
 
     [Fact]
+    public async Task FluentColorPickerInput_Required_EmptyValue_FocusOut_UsesCustomRequiredMessage_AndClearsAfterValidValue()
+    {
+        var model = new ColorPickerCustomRequiredModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentColorPickerInput Required="true" @bind-Value="@model.Color" />
+        </EditForm>);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Custom color is required", cut.Markup, StringComparison.Ordinal);
+
+        cut.Find("fluent-text-input").Change("#FF0000");
+        await Task.Yield();
+
+        Assert.DoesNotContain("Custom color is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentColorPickerInput_EditFormValidation_ShowsModelMessage()
     {
         var model = new ColorPickerValidationModel();
@@ -495,6 +514,12 @@
         public string? Color { get; set; }
 
         public string? AlternateColor { get; set; }
+    }
+
+    private sealed class ColorPickerCustomRequiredModel
+    {
+        [Required(ErrorMessage = "Custom color is required")]
+        public string? Color { get; set; }
     }
 
     [Fact]
