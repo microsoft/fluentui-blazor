@@ -1435,6 +1435,34 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_Multiple_BoundSelectedItems_UsesCollectionValidationField_ForRenderAndNotification()
+    {
+        var model = new AutocompleteCollectionValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentAutocomplete TOption="string"
+                                TValue="string"
+                                Label="Countries"
+                                Required="true"
+                                Multiple="true"
+                                Items="@Digits"
+                                @bind-Value="@model.Country"
+                                @bind-SelectedItems="@model.Countries" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        cut.Find("button[type='submit']").Click();
+        Assert.Contains("Countries are required", cut.Markup);
+
+        cut.Find("fluent-text-input").Click();
+        var option = cut.Find("fluent-option");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+
+        Assert.DoesNotContain("Countries are required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentAutocomplete_Required_SelectItemAndFocusOut_DoesNotShowDefaultRequiredMessage()
     {
         var cut = Render(@<FluentAutocomplete TOption="string"
@@ -1580,6 +1608,15 @@
     private class AutocompleteValueValidationModel
     {
         [Required(ErrorMessage = "Country is required")]
+        public string? Country { get; set; }
+    }
+
+    private class AutocompleteCollectionValidationModel
+    {
+        [Required(ErrorMessage = "Countries are required")]
+        [MinLength(1, ErrorMessage = "Countries are required")]
+        public IEnumerable<string>? Countries { get; set; }
+
         public string? Country { get; set; }
     }
 }

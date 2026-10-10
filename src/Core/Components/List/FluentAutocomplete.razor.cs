@@ -277,14 +277,17 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
                 return ValidationFieldFor;
             }
 
+            if (Multiple)
+            {
+                return SelectedItemsExpression as LambdaExpression ?? ValueExpression;
+            }
+
             if (HasExplicitValueExpression)
             {
                 return ValueExpression;
             }
 
-            return Multiple
-                ? SelectedItemsExpression
-                : SelectedItemExpression;
+            return SelectedItemExpression;
         }
     }
 
@@ -348,19 +351,13 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             return;
         }
 
-        if (Multiple && SelectedItemsExpression is not null)
+        if (Multiple)
         {
-            EditContext?.NotifyFieldChanged(
-                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
-            return;
-        }
-
-        if (!Multiple)
-        {
-            if (SelectedItemExpression is not null)
+            if (SelectedItemsExpression is not null)
             {
                 EditContext?.NotifyFieldChanged(
-                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+                return;
             }
 
             if (ValueExpression is not null)
@@ -372,7 +369,17 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             return;
         }
 
-        base.NotifyValidationFieldChanged();
+        if (SelectedItemExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+        }
+
+        if (ValueExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+        }
     }
 
     /// <summary />
