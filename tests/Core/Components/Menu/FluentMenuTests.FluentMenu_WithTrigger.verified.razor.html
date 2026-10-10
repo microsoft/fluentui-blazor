@@ -1,10 +1,9 @@
-
 <div>
-  <fluent-button id="xxx" blazor:onclick="x">
+  <fluent-button id="xxx" blazor:onclick="x" blazor:elementreference="xxx">
     Trigger</fluent-button>
   <fluent-menu id="xxx">
     <fluent-menu-list>
-      <fluent-menu-item blazor:onmenuitemchange="2">
+      <fluent-menu-item id="xxx" blazor:onmenuitemchange="2">
         My item</fluent-menu-item>
     </fluent-menu-list>
   </fluent-menu>
