@@ -1,7 +1,7 @@
-
 <div>
   <div id="xxx" class="fluent-tooltip-provider" style="z-index: 9999;">
-    <fluent-tooltip style="position-anchor: --MyButton;" id="xxx" anchor="xxx" blazor:ondialogtoggle="1">My content</fluent-tooltip>
+    <fluent-tooltip id="xxx" style="position-anchor: --MyButton;" anchor="xxx" blazor:ondialogtoggle="1">My content</fluent-tooltip>
   </div>
-  <fluent-button id="xxx" icon-only="" blazor:onclick="x"></fluent-button>
+  <fluent-button id="xxx" icon-only="" blazor:onclick="x" blazor:elementreference="xxx">
+  </fluent-button>
 </div>
