@@ -65,6 +65,24 @@
 
     </FluentAutocomplete>
 
+    @* Simulates a slow remote API: options are loaded asynchronously (2 seconds) *@
+    <FluentAutocomplete TOption="Country"
+                        TValue="string"
+                        Width="100%"
+                        Label="Select countries from remote options (2s delay)"
+                        Placeholder="Type to search..."
+                        ShowProgressIndicator="@ShowProgressIndicator"
+                        MaxAutoHeight="@((MaxAutoHeight) ? "unset" : null)"
+                        OnOptionsSearch="@OnRemoteSearchAsync"
+                        OptionText="@(item => item.Name)"
+                        MaxSelectedWidth="@(MaxSelectedWidth ? "40px" : null)"
+                        ShowDismiss="@ShowDismiss"
+                        Multiple="@Multiple"
+                        MaximumSelectedOptions="@(SetMaximumSelectedOptions ? 4 : (int?)null)"
+                        @bind-Value="@SearchText"
+                        @bind-SelectedItem="@SelectedCountry"
+                        @bind-SelectedItems="@SelectedCountries" />
+
     <FluentStack Orientation="Orientation.Vertical">
         <FluentSwitch @bind-Value="@ShowProgressIndicator"
                       Label="Show progress indicator" />
@@ -125,6 +143,15 @@
     IEnumerable<Country> SelectedCountries { get; set; } = [];
     Country? SelectedCountry { get; set; }
     int? SelectedUserId { get; set; }
+    Country? RemoteSelectedCountry { get; set; }
+
+    async Task OnRemoteSearchAsync(OptionsSearchEventArgs<Country> e)
+    {
+        await Task.Delay(2000); // Simulate a slow remote API
+
+        e.Items = Countries.Where(i => i.Name.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))
+                           .OrderBy(i => i.Name);
+    }
 
     async Task OnSearchAsync(OptionsSearchEventArgs<Country> e)
     {

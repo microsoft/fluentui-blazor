@@ -1361,6 +1361,103 @@
         Assert.Contains("Two", component.SelectedItems);
     }
 
+    [Fact]
+    public async Task FluentAutocomplete_OlderSearchCompletesLast_ResultsAreDiscarded()
+    {
+        // Arrange
+        var pending = new Dictionary<string, TaskCompletionSource<string[]>>();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              OnOptionsSearch="@SearchAsync" />);
+
+        // Act - Start two overlapping searches, then complete the newer one before the older one
+        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "Fi" });
+        await cut.InvokeAsync(() => pending["Fi"].SetResult(["Five"]));
+        await cut.InvokeAsync(() => pending["F"].SetResult(["Five", "Four"]));
+
+        // Assert - The older search must not overwrite the newer results
+        Assert.Single(cut.FindAll("fluent-option"));
+
+        async Task SearchAsync(OptionsSearchEventArgs<string> e)
+        {
+            var tcs = new TaskCompletionSource<string[]>();
+            pending[e.Text] = tcs;
+            e.Items = await tcs.Task;
+        }
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_PopupClosedWhileSearching_ResultsAreDiscarded()
+    {
+        // Arrange
+        var pending = new TaskCompletionSource<string[]>();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              ShowProgressIndicator="true"
+                                              OnOptionsSearch="@(async e => e.Items = await pending.Task)" />);
+
+        // Act - Close the popup while the search is still running, then complete the search
+        cut.Find("fluent-text-input").Click();
+        cut.Find("fluent-spinner").TriggerEvent("onfocus", new FocusEventArgs());
+        await cut.InvokeAsync(() => pending.SetResult(Digits));
+
+        // Assert
+        Assert.Equal("false", cut.Find("fluent-popover-b").GetAttribute("opened"));
+        Assert.Empty(cut.FindAll("fluent-option"));
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_SingleSelect_ClickSelectedInput_DoesNotWaitForSearch()
+    {
+        // Arrange
+        var pending = new TaskCompletionSource<string[]>();
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@("Eight")"
+                                              OnOptionsSearch="@(async e => e.Items = await pending.Task)" />);
+
+        // Act - Click while the search is still pending
+        cut.Find("fluent-text-input").Click();
+
+        // Assert - The label is already in the input and selected for editing
+        Assert.Equal("Eight", cut.Find("fluent-text-input").GetAttribute("value"));
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
+        Assert.True(invocation.Arguments[1] is true);
+
+        // Act - Typing during the pending search is not overwritten when it completes
+        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "Fi" });
+        await cut.InvokeAsync(() => pending.SetResult(Digits));
+
+        // Assert
+        Assert.Equal("Fi", cut.Find("fluent-text-input").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_SearchVersionOverflow_KeepsFilteringWithoutError()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        // Act - More searches than the version counter can hold (byte), forcing it to wrap around
+        for (var i = 0; i <= byte.MaxValue + 10; i++)
+        {
+            cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = i % 2 == 0 ? "F" : "Fi" });
+        }
+
+        cut.Find("fluent-text-input").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+
+        // Assert - Results of the latest search are still applied
+        Assert.Equal(2, cut.FindAll("fluent-option").Count);
+    }
+
     private void OnOptionsSearch(OptionsSearchEventArgs<string> e)
     {
         e.Items = Digits.Where(i => i.StartsWith(e.Text, StringComparison.OrdinalIgnoreCase))

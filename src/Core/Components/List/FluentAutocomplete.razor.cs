@@ -30,6 +30,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     private bool _isOpen;
     private bool _inProgress;
     private bool _selectInputTextAfterRender;
+    private byte _searchVersion;
     private TValue? _previousValue;
 
     // List of items used in the internally filtered listbox
@@ -483,7 +484,9 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// When the user types in the input, display the listbox with the filtered options.
     /// </summary>
     /// <returns></returns>
-    internal async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty)
+    internal Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty) => DisplayFilteredOptionsAsync(showWhenInputIsEmpty, _textInput);
+
+    private async Task DisplayFilteredOptionsAsync(bool showWhenInputIsEmpty, string? query)
     {
         if (IsUserInteractionDisabled)
         {
@@ -491,17 +494,20 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         // If the input is empty, we don't show any options in the listbox, and we close it if it was open
-        if (!showWhenInputIsEmpty && string.IsNullOrEmpty(_textInput))
+        if (!showWhenInputIsEmpty && string.IsNullOrEmpty(query))
         {
             _isOpen = false;
             StateHasChanged();
             return;
         }
 
+        var searchId = unchecked(++_searchVersion);
         _inProgress = true;
         _isOpen = true;
 
         StateHasChanged();
+
+        List<TOption> filteredItems = [];
 
         // Raise the OnOptionsSearch event to get the filtered list of items.
         if (OnOptionsSearch.HasDelegate)
@@ -509,27 +515,33 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             var args = new OptionsSearchEventArgs<TOption>()
             {
                 Items = [],
-                Text = _textInput ?? string.Empty,
+                Text = query ?? string.Empty,
             };
 
             await OnOptionsSearch.InvokeAsync(args);
 
-            _internalFilteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
+            filteredItems = [.. args.Items?.Take(MaximumOptionsSearch) ?? []];
         }
 
         // Use the Items parameter to filter the list of items
         else if (Items != null)
         {
-            _internalFilteredItems = [.. Items.Where(item => GetOptionText(item)?.StartsWith(_textInput ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) == true).Take(MaximumOptionsSearch)];
+            filteredItems = [.. Items.Where(item => GetOptionText(item)?.StartsWith(query ?? string.Empty, StringComparison.InvariantCultureIgnoreCase) == true).Take(MaximumOptionsSearch)];
         }
 
-        // No source of items provided
-        else
+        // A newer search owns the state now.
+        if (searchId != _searchVersion)
         {
-            _internalFilteredItems = [];
+            return;
         }
 
         _inProgress = false;
+
+        // The popup was closed while searching: discard the results.
+        if (_isOpen)
+        {
+            _internalFilteredItems = filteredItems;
+        }
     }
 
     /// <summary />
@@ -594,21 +606,18 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// </summary>
     private async Task OnTextInputClickAsync()
     {
-        var selectInputText = !Multiple && _internalSelectedItem is not null;
-        if (selectInputText)
+        if (Multiple || _internalSelectedItem is null)
         {
-            // Refresh options without the previous query before restoring the selected label.
-            _textInput = string.Empty;
+            await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+            return;
         }
 
-        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+        // Make the label editable right away; the search is not awaited before the user can type.
+        _textInput = GetOptionText(_internalSelectedItem);
+        _selectInputTextAfterRender = true;
 
-        if (selectInputText)
-        {
-            _textInput = GetOptionText(_internalSelectedItem);
-            _selectInputTextAfterRender = true;
-            StateHasChanged();
-        }
+        // List all options instead of filtering by the selected label.
+        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true, query: string.Empty);
     }
 
     /// <summary>
