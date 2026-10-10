@@ -18,9 +18,7 @@ public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(Dynamical
     /// <summary />
     public FluentSelect(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(
-            () => IsSelectionEmptyForRequiredValidation,
-            fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldExpression!));
+        ConfigureRequiredValidation();
     }
 
     /// <inheritdoc />
@@ -37,7 +35,7 @@ public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(Dynamical
 
     /// <inheritdoc />
     protected override LambdaExpression? ValidationFieldExpression => Multiple
-        ? ValidationFieldFor ?? SelectedItemsExpression
+        ? GetRequiredSelectionFieldExpression()
         : base.ValidationFieldExpression;
 
     /// <summary />

@@ -19,9 +19,7 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
     /// <summary />
     public FluentListbox(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(
-            () => IsSelectionEmptyForRequiredValidation,
-            fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldExpression!));
+        ConfigureRequiredValidation();
     }
 
     /// <inheritdoc />
@@ -38,7 +36,7 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
 
     /// <inheritdoc />
     protected override LambdaExpression? ValidationFieldExpression => Multiple
-        ? ValidationFieldFor ?? SelectedItemsExpression
+        ? GetRequiredSelectionFieldExpression()
         : base.ValidationFieldExpression;
 
     /// <summary />

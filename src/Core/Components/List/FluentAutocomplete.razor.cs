@@ -51,10 +51,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         // (not used since the Multiple is overridden with a default value of true directly in this class)
         // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
 
-        MessageCondition = CreateRequiredMessageCondition(
-            () => IsSelectionEmptyForRequiredValidation,
-            useFieldFocusLost: true,
-            fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(ValidationFieldAccessor!));
+        ConfigureRequiredValidation(useFieldFocusLost: true);
     }
 
     private IReadOnlyDictionary<string, object> TextInputAttributes
@@ -267,6 +264,9 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
 
     /// <inheritdoc />
     protected override LambdaExpression? ValidationFieldExpression => ValidationFieldAccessor;
+
+    /// <inheritdoc />
+    protected override LambdaExpression? GetRequiredSelectionFieldExpression() => ValidationFieldAccessor;
 
     private LambdaExpression? ValidationFieldAccessor
     {
