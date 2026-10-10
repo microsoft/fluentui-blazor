@@ -303,6 +303,41 @@
           Assert.Equal(Digits.Length, cut.FindAll("fluent-option").Count);
     }
 
+    [Theory]
+    [InlineData("F", false)]
+    [InlineData("Ei", true)]
+    public void FluentAutocomplete_SingleSelect_UnchangedSelectionWhileSearching_PreservesSearchText(string searchText, bool selectedOptionVisible)
+    {
+        var selectionChangedCount = 0;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@("Eight")"
+                                              SelectedItemChanged="@(_ => selectionChangedCount++)"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        cut.Find("fluent-text-input").Click();
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = searchText });
+        var selectAllInvocationCount = JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"
+            && invocation.Arguments.Count > 1 && invocation.Arguments[1] is true);
+        var selectedOptions = selectedOptionVisible
+            ? cut.Find("fluent-option").GetAttribute("id")
+            : string.Empty;
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = selectedOptions });
+
+        Assert.Equal(selectAllInvocationCount, JSInterop.Invocations.Count(invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"
+            && invocation.Arguments.Count > 1 && invocation.Arguments[1] is true));
+        Assert.Equal(searchText, cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Equal("Eight", cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+        Assert.Equal(0, selectionChangedCount);
+    }
+
     [Fact]
     public void FluentAutocomplete_SingleSelect_SelectedOptionTemplate()
     {

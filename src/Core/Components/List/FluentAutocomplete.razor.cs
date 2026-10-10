@@ -341,6 +341,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         }
 
         var comparer = OptionSelectedComparer ?? OptionComparer;
+        var previousSelectedItem = _internalSelectedItem;
         var itemsToAdd = items.Where(item => !_internalSelectedItems.Contains(item, comparer)).ToList();
         var itemsToRemove = _internalFilteredItems.Where(item => !items.Contains(item, comparer)).ToList();
 
@@ -375,6 +376,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
                     _internalSelectedItems.Add(singleItemToAdd);
                 }
             }
+        }
+
+        if (!Multiple && comparer.Equals(previousSelectedItem, _internalSelectedItem))
+        {
+            return;
         }
 
         SelectedItem = _internalSelectedItem;
