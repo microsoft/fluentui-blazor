@@ -1472,19 +1472,23 @@
                                               Multiple="true"
                                               OnOptionsSearch="@OnOptionsSearch" />);
 
-        cut.Find("fluent-text-input").Click();
+        var innerTextInput = cut.Find("fluent-text-input");
+        Assert.NotNull(innerTextInput.GetAttribute("required"));
+
+        innerTextInput.Click();
 
         var option = cut.Find("fluent-option");
         cut.Find(".fluent-listbox")
            .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
 
         var textInput = cut.FindComponent<FluentTextInput>();
-        Assert.False(textInput.Instance.Required);
+        Assert.True(textInput.Instance.Required);
+        Assert.NotNull(cut.Find("fluent-text-input").GetAttribute("required"));
 
         cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
 
         Assert.DoesNotContain("This field is required", cut.Markup);
-        Assert.False(cut.FindComponent<FluentTextInput>().Instance.Required);
+        Assert.True(cut.FindComponent<FluentTextInput>().Instance.Required);
     }
 
     [Fact]
