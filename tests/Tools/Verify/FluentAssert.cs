@@ -96,8 +96,15 @@ public static class FluentAssert
         var diffs = receivedNodes.CompareTo(expectedNodes)
                                  .Where(i => !Options.IsExcluded(i));
 
+        // Update the "verified.html" file
+        if (Options.UpdateVerifiedFiles)
+        {
+            var formattedReceivedHtml = FormatNodes(receivedNodes);
+            File.WriteAllText(expectedFile.FullName, formattedReceivedHtml);
+        }
+
         // Delete a previous "received.html" file
-        if (!diffs.Any())
+        else if (!diffs.Any())
         {
             if (receivedFile.Exists)
             {
@@ -105,34 +112,29 @@ public static class FluentAssert
             }
         }
 
-        // Create a "received.json" file
-        else if (Options.UpdateVerifiedFiles)
-        {
-            using var writer = new StringWriter();
-            var formatter = new PrettyMarkupFormatter();
-            foreach (var node in receivedNodes)
-            {
-                node.ToHtml(writer, formatter);
-            }
-
-            var formattedReceivedHtml = writer.ToString();
-            File.WriteAllText(expectedFile.FullName, formattedReceivedHtml);
-        }
-
-        // Create a "received.json" file
+        // Create a "received.html" file
         else
         {
-            using var writer = new StringWriter();
-            var formatter = new PrettyMarkupFormatter();
-            foreach (var node in receivedNodes)
-            {
-                node.ToHtml(writer, formatter);
-            }
-
-            var formattedReceivedHtml = writer.ToString();
+            var formattedReceivedHtml = FormatNodes(receivedNodes);
             File.WriteAllText(receivedFile.FullName, formattedReceivedHtml);
             throw new HtmlEqualException(diffs, expectedNodes, receivedNodes, null);
         }
+    }
+
+    private static string FormatNodes(INodeList nodes)
+    {
+        using var writer = new StringWriter();
+        var formatter = new PrettyMarkupFormatter
+        {
+            Indentation = "  ",
+        };
+
+        foreach (var node in nodes)
+        {
+            node.ToHtml(writer, formatter);
+        }
+
+        return writer.ToString().Trim();
     }
 
     private static string GetMemberFullName(string memberName, string? suffix)
@@ -160,13 +162,10 @@ public static class FluentAssert
 
     private static INodeList ToNodeList(this string markup, IHtmlParser? htmlParser)
     {
-        if (htmlParser is null)
-        {
-            var newHtmlParser = new HtmlParser();
-            return newHtmlParser.ParseDocument(markup).ChildNodes;
-        }
-
-        return htmlParser.ParseDocument(markup).ChildNodes;
+        var parser = htmlParser ?? new HtmlParser();
+        var context = parser.ParseDocument(string.Empty).Body
+            ?? throw new InvalidOperationException("The parsed HTML document does not contain a body element.");
+        return parser.ParseFragment(markup, context);
     }
 
     private static FileInfo GetTargetFile(this FileInfo file, string memberName, string extension)
