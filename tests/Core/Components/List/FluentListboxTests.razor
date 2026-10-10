@@ -1,3 +1,4 @@
+﻿@using System.ComponentModel.DataAnnotations
 @using Microsoft.FluentUI.AspNetCore.Components.Utilities
 @using Xunit;
 @using Microsoft.FluentUI.AspNetCore.Components.Tests.Samples;
@@ -37,6 +38,84 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_Required_FocusOut_ShowsDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentListbox TOption="string" TValue="string" Label="Countries" Required="true" Items="@Digits" />);
+
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Required_InitialValue_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        string? value = "One";
+        var cut = Render(@<FluentListbox TOption="string" TValue="string" Required="true" Items="@Digits" @bind-Value="@value" />);
+
+        Assert.True(cut.Find("fluent-option[value='One']").HasAttribute("selected"));
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Required_WithSelection_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var cut = Render(@<FluentListbox TOption="string"
+                                         TValue="string"
+                                         Label="Countries"
+                                         Required="true"
+                                         Items="@Digits" />);
+
+        var option = cut.Find("fluent-option[value='One']");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Multiple_Required_FocusOut_ShowsModelMessage_WhenSelectionIsNull()
+    {
+        var model = new ListboxValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentListbox TOption="string"
+                           TValue="string"
+                           Multiple="true"
+                           Required="true"
+                           Items="@Digits"
+                           @bind-SelectedItems="@model.Items" />
+        </EditForm>);
+
+        cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("Items are required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_Multiple_EditFormValidation_ShowsModelMessage()
+    {
+        var model = new ListboxValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentListbox TOption="string"
+                           TValue="string"
+                           Multiple="true"
+                           Required="true"
+                           Items="@Digits"
+                           @bind-SelectedItems="@model.Items" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        cut.Find("button[type='submit']").Click();
+
+        var messages = cut.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Contains(messages, message => message.TextContent.Contains("Items are required", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -425,5 +504,11 @@
     {
         public int Id { get; set; }
         public string? Name { get; set; }
+    }
+
+    private sealed class ListboxValidationModel
+    {
+        [Required(ErrorMessage = "Items are required")]
+        public IEnumerable<string>? Items { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 @using static FluentUI.Demo.SampleData.Olympics2024
 
 
-
 <PageTitle>@App.PageTitle("Basic Form FluentUI")</PageTitle>
 
 <h1>Starfleet Starship Database</h1>
@@ -57,6 +56,11 @@
         <div>
             <FluentDatePicker Name="production_date" Id="proddate" @bind-Value="starship.ProductionDate" Label="Production Date" Required="true" />
         </div>
+
+        <div>
+            <FluentTimePicker Name="production_time" Id="prodtime" @bind-Value="starship.ProductionTime" Label="Production time" Required="true" />
+        </div>
+
         <div>
             <FluentSwitch Name="teleporter" @bind-Value="starship.HasTeleporter" Label="Has a Teleporter" Required="true" />
         </div>

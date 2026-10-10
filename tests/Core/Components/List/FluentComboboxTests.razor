@@ -30,6 +30,44 @@
     }
 
     [Fact]
+    public void FluentCombobox_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
+    {
+        var options = new[] { "One", "Two" };
+        var cut = Render(@<FluentCombobox TOption="string" TValue="string" Items="@options" Required="true" />);
+
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentCombobox_Required_SelectedFocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var options = new[] { "One", "Two" };
+        var cut = Render(@<FluentCombobox TOption="string" TValue="string" Items="@options" Required="true" Value="@("One")" />);
+
+        var option = cut.Find("fluent-option[value='One']");
+        cut.Find("fluent-dropdown")
+           .TriggerEvent("ondropdownchange", new DropdownEventArgs { SelectedOptions = option.GetAttribute("id") });
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentCombobox_Required_InitialValue_FocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        var options = new[] { "One", "Two" };
+        string? value = "One";
+        var cut = Render(@<FluentCombobox TOption="string" TValue="string" Items="@options" Required="true" @bind-Value="@value" />);
+
+        Assert.True(cut.Find("fluent-option[value='One']").HasAttribute("selected"));
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentCombobox_Label()
     {
         // Arrange and Act

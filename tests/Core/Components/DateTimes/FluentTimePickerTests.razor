@@ -1,4 +1,5 @@
-﻿@using System.Globalization
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Globalization
 @using System.Reflection
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @using System.Runtime.InteropServices
@@ -415,6 +416,66 @@
     }
 
     [Fact]
+    public void FluentTimePicker_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
+    {
+        var timePicker = Render(@<FluentTimePicker TValue="DateTime?" Culture="@InvariantCulture" Required="true" RenderStyle="DatePickerRenderStyle.Native" />);
+
+        timePicker.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", timePicker.Markup);
+    }
+
+    [Theory]
+    [InlineData(DatePickerRenderStyle.FluentUI)]
+    [InlineData(DatePickerRenderStyle.Native)]
+    public void FluentTimePicker_EditFormValidation_ShowsModelMessage(DatePickerRenderStyle renderStyle)
+    {
+        var model = new TimePickerValidationModel();
+        var timePicker = Render(@<EditForm Model="@model">
+            <DataAnnotationsValidator />
+            <FluentTimePicker TValue="DateTime?"
+                              Culture="@InvariantCulture"
+                              Label="Time"
+                              RenderStyle="@renderStyle"
+                              @bind-Value="@model.Time" />
+            <button type="submit">Submit</button>
+        </EditForm>);
+
+        timePicker.Find("button[type='submit']").Click();
+
+        var messages = timePicker.FindAll("fluent-field fluent-text[slot='message']");
+        Assert.Contains(messages, message => message.TextContent.Contains("Time is required", StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData(DatePickerRenderStyle.FluentUI)]
+    [InlineData(DatePickerRenderStyle.Native)]
+    public async Task FluentTimePicker_Uses_ValidationFieldFor_WhenProvided(DatePickerRenderStyle renderStyle)
+    {
+        var model = new TimePickerValidationModel();
+        var editContext = new EditContext(model);
+        var messageStore = new ValidationMessageStore(editContext);
+
+        var timePicker = Render(@<CascadingValue Value="@editContext">
+            <FluentTimePicker TValue="DateTime?"
+                              Culture="@InvariantCulture"
+                              RenderStyle="@renderStyle"
+                              @bind-Value="@model.Time"
+                              ValidationFieldFor="@(() => model.AlternateTime)" />
+        </CascadingValue>);
+
+        await timePicker.InvokeAsync(() =>
+        {
+            messageStore.Add(editContext.Field(nameof(TimePickerValidationModel.Time)), "Time is invalid");
+            messageStore.Add(editContext.Field(nameof(TimePickerValidationModel.AlternateTime)), "Alternate time is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        Assert.Contains("Alternate time is invalid", timePicker.Markup);
+        Assert.DoesNotContain("Time is invalid", timePicker.Markup);
+    }
+
+    [Fact]
     public void FluentTimePicker_ReadOnly_SetsCorrectValue()
     {
         // Arrange & Act
@@ -549,6 +610,14 @@
         // GetInputType is internal, but we can verify the render styles
         Assert.Equal(DatePickerRenderStyle.FluentUI, fluentUIInstance.RenderStyle);
         Assert.Equal(DatePickerRenderStyle.Native, nativeInstance.RenderStyle);
+    }
+
+    private sealed class TimePickerValidationModel
+    {
+        [Required(ErrorMessage = "Time is required")]
+        public DateTime? Time { get; set; }
+
+        public DateTime? AlternateTime { get; set; }
     }
 
 
