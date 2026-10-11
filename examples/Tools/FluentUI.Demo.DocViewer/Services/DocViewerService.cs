@@ -110,11 +110,9 @@ public class DocViewerService
                 using var reader = new StreamReader(stream);
                 var content = reader.ReadToEnd();
 
-                // Remove only a leading front matter block with standalone delimiters.
                 if (removeHeaders)
                 {
-                    var patternHeaders = @"\A---[ \t]*\r?\n[\s\S]*?^---[ \t]*(?:\r?\n|\z)";
-                    content = Regex.Replace(content, patternHeaders, string.Empty, RegexOptions.Multiline);
+                    content = RemoveHeaders(content);
                 }
 
                 return content;
@@ -122,6 +120,15 @@ public class DocViewerService
         }
 
         return string.Empty;
+    }
+
+    /// <summary>
+    /// Removes leading Markdown front matter without modifying the body.
+    /// </summary>
+    internal static string RemoveHeaders(string content)
+    {
+        var patternHeaders = @"\A---[ \t]*\r?\n[\s\S]*?^---[ \t]*(?:\r?\n|\z)";
+        return Regex.Replace(content, patternHeaders, string.Empty, RegexOptions.Multiline);
     }
 
     /// <summary />

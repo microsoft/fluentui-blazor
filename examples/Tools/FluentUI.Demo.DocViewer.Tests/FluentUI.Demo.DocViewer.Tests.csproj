@@ -21,10 +21,4 @@
     <ProjectReference Include="..\FluentUI.Demo.DocViewer\FluentUI.Demo.DocViewer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\*.md" />
-    <EmbeddedResource Include="..\..\Demo\FluentUI.Demo.Client\Documentation\GetStarted\Migration\MigrationFluentButton.md" Link="Resources\MigrationFluentButton.md" />
-    <EmbeddedResource Include="..\..\Demo\FluentUI.Demo.Client\Documentation\GetStarted\Migration\MigrationFluentAutocomplete.md" Link="Resources\MigrationFluentAutocomplete.md" />
-  </ItemGroup>
-
 </Project>

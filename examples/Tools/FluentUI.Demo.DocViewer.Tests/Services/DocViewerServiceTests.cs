@@ -15,44 +15,52 @@ public class DocViewerServiceTests : DocViewerService
     }
 
     [Theory]
-    [InlineData("MigrationFluentButton.md")]
-    [InlineData("MigrationFluentAutocomplete.md")]
-    public void LoadResource_MigrationWithoutHeaders_RendersTable(string resourceName)
+    [InlineData("\n")]
+    [InlineData("\r\n")]
+    public void RemoveHeaders_WithLeadingHeaders_PreservesMarkdownBody(string newLine)
     {
-        var service = new DocViewerService(new DocViewerOptions { ResourcesAssembly = typeof(DocViewerServiceTests).Assembly });
+        var body = """
+            # Content
 
-        var content = service.LoadResource(resourceName, isFullName: false, removeHeaders: true);
+            | Before | After |
+            |---|---|
+            | One | Two |
+
+            ---
+
+            A horizontal rule and a fenced example:
+
+            ```yaml
+            ---
+            title: Example
+            ---
+            ```
+            """.ReplaceLineEndings(newLine);
+        var original = $"---{newLine}title: Before --- After{newLine}---{newLine}{body}";
+
+        var content = RemoveHeaders(original);
         var html = Markdown.ToHtml(content, MarkdownPipeline);
 
-        Assert.DoesNotContain("title:", content);
+        Assert.Equal(body, content);
         Assert.Contains("<table>", html);
         Assert.Contains("<thead>", html);
         Assert.Contains("<tbody>", html);
     }
 
-    [Fact]
-    public void LoadResource_WithHeaders_PreservesMarkdownBody()
+    [Theory]
+    [InlineData("| Before | After |\n|---|---|\n| One | Two |")]
+    [InlineData("# Content\n\n---\n\nMore content\n\n---")]
+    [InlineData("---\ntitle: Before --- After\n\n| Before | After |\n|---|---|\n| One | Two |")]
+    public void RemoveHeaders_WithoutCompleteLeadingHeaders_PreservesContent(string content)
     {
-        var service = new DocViewerService(new DocViewerOptions { ResourcesAssembly = typeof(DocViewerServiceTests).Assembly });
-        var original = service.LoadResource("WithHeaders.md", isFullName: false);
-
-        var content = service.LoadResource("WithHeaders.md", isFullName: false, removeHeaders: true);
-
-        Assert.StartsWith("---", original);
-        Assert.Equal(original[original.IndexOf("# Content", StringComparison.Ordinal)..], content);
+        Assert.Equal(content, RemoveHeaders(content));
     }
 
-    [Theory]
-    [InlineData("WithoutHeaders.md")]
-    [InlineData("UnclosedHeaders.md")]
-    public void LoadResource_WithoutCompleteLeadingHeaders_PreservesContent(string resourceName)
+    [Fact]
+    public void RemoveHeaders_WithClosingDelimiterAtEnd_ReturnsEmpty()
     {
-        var service = new DocViewerService(new DocViewerOptions { ResourcesAssembly = typeof(DocViewerServiceTests).Assembly });
-        var original = service.LoadResource(resourceName, isFullName: false);
+        var content = "---\ntitle: Example\n---";
 
-        var content = service.LoadResource(resourceName, isFullName: false, removeHeaders: true);
-
-        Assert.NotEmpty(original);
-        Assert.Equal(original, content);
+        Assert.Empty(RemoveHeaders(content));
     }
 }
