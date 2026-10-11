@@ -110,11 +110,11 @@ public class DocViewerService
                 using var reader = new StreamReader(stream);
                 var content = reader.ReadToEnd();
 
-                // Remove the headers: --- xxx ---
+                // Remove only a leading front matter block with standalone delimiters.
                 if (removeHeaders)
                 {
-                    var patternHeaders = @"---[\s\S]*?---";
-                    content = Regex.Replace(content, patternHeaders, string.Empty);
+                    var patternHeaders = @"\A---[ \t]*\r?\n[\s\S]*?^---[ \t]*(?:\r?\n|\z)";
+                    content = Regex.Replace(content, patternHeaders, string.Empty, RegexOptions.Multiline);
                 }
 
                 return content;
