@@ -17,6 +17,8 @@ public class MarkupStringSanitizedTests
     [InlineData("<div style=\"my: 'attribute'\">my-content</div>", "div", "style", "my: 'attribute'", "my-content")]
     [InlineData("<div style='my-attribute'></div>", "div", "style", "my-attribute", null)]
     [InlineData("<div style=\"my-attribute\"></div>", "div", "style", "my-attribute", null)]
+    [InlineData("<div style=''></div>", "div", "style", null, null)]
+    [InlineData("<div style=\"\"></div>", "div", "style", null, null)]
     [InlineData("<div style=\"my-attribute\" />", "div", "style", "my-attribute", null)]
     [InlineData("<div style='my-attribute' />", "div", "style", "my-attribute", null)]
     public void MarkupStringSanitized_ParseTagAndContent(string input, string tag, string? attribute, string? value, string? content)
@@ -29,6 +31,16 @@ public class MarkupStringSanitizedTests
         Assert.Equal(attribute, result.Attribute);
         Assert.Equal(value, result.AttributeValue);
         Assert.Equal(content, result.Content);
+    }
+
+    [Fact]
+    public void MarkupStringSanitized_ParseTagAndContent_NoAttribute_UsesDefaultQuote()
+    {
+        // Act
+        var result = MarkupStringSanitized.ParseTagAndContent("<div>content</div>");
+
+        // Assert
+        Assert.Equal('\'', result.Quote);
     }
 
     [Theory]
@@ -54,6 +66,8 @@ public class MarkupStringSanitizedTests
     [InlineData("<div style=\"my: 'attribute'\">my-content</div>", "<div style=\"my: 'attribute'\">my-content</div>")]
     [InlineData("<div style='my-attribute'></div>", "<div style='my-attribute' />")]
     [InlineData("<div style=\"my-attribute\"></div>", "<div style=\"my-attribute\" />")]
+    [InlineData("<div style=''></div>", "<div />")]
+    [InlineData("<div style=\"\"></div>", "<div />")]
     [InlineData("<div style=\"my-attribute\" />", "<div style=\"my-attribute\" />")]
     [InlineData("<div style='my-attribute' />", "<div style='my-attribute' />")]
     public void MarkupStringSanitized_Default(string input, string expected)
@@ -202,6 +216,7 @@ public class MarkupStringSanitizedTests
     [InlineData("javascript: alert('XSS')")]
     [InlineData("url(javascript: alert('XSS'))")]
     [InlineData("color: red; background: url(javascript:alert('XSS'))")]
+    [InlineData("color: red;\njavascript: alert('XSS')")]
     public void DefaultSanitizeInlineStyle_UnsafeStyles_ThrowsException(string style)
     {
         const string exceptionMessage = "The provided CSS inline style contains potentially unsafe content";
@@ -217,6 +232,30 @@ public class MarkupStringSanitizedTests
         {
             MarkupSanitizedOptions.ThrowOnUnsafe = true;
         }
+    }
+
+    [Fact]
+    public void DefaultSanitizeInlineStyle_LongValidStyle_ReturnsValue()
+    {
+        // Arrange
+        var style = $"color: {new string('a', 10_000)}";
+
+        // Act
+        var result = MarkupStringSanitized.DefaultSanitizeInlineStyle(style);
+
+        // Assert
+        Assert.Equal(style, result);
+    }
+
+    [Fact]
+    public void DefaultSanitizeInlineStyle_LongUnsafeStyle_ThrowsException()
+    {
+        // Arrange
+        var style = $"color: red;{new string(' ', 10_000)}javascript: alert('XSS')";
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => MarkupStringSanitized.DefaultSanitizeInlineStyle(style));
+        Assert.Contains("The provided CSS inline style contains potentially unsafe content", exception.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Theory]
