@@ -63,6 +63,12 @@ public class Starship
     public DateTime? ProductionDate { get; set; }
 
     /// <summary>
+    /// The production time of the starship.
+    /// </summary>
+    [Required(ErrorMessage = "Production time is required")]
+    public TimeOnly? ProductionTime { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the starship is equipped with a teleporter.
     /// </summary>
     [Range(typeof(bool), "true", "true", ErrorMessage = "Having a teleporter is required")]

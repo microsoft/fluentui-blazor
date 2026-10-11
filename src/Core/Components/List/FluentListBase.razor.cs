@@ -165,6 +165,48 @@ public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMember
     }
 
     /// <summary />
+    protected bool IsSelectionEmptyForRequiredValidation
+    {
+        get
+        {
+            if (SelectedItems?.Any() == true)
+            {
+                return false;
+            }
+
+            return Multiple || Value is null || Value is string value && string.IsNullOrEmpty(value);
+        }
+    }
+
+    /// <summary>
+    /// Configures the shared required-message behavior for list-based inputs.
+    /// </summary>
+    protected void ConfigureRequiredValidation(bool useFieldFocusLost = false)
+    {
+        MessageCondition = CreateRequiredMessageCondition(
+            () => IsSelectionEmptyForRequiredValidation,
+            useFieldFocusLost,
+            fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(
+                GetRequiredSelectionFieldExpression() ??
+                throw new InvalidOperationException("A validation field expression is required to configure a required-message condition.")));
+    }
+
+    /// <summary>
+    /// Resolves the field expression to use for validation messages and required checks.
+    /// </summary>
+    protected virtual LambdaExpression? GetRequiredSelectionFieldExpression()
+    {
+        if (ValidationFieldFor is not null)
+        {
+            return ValidationFieldFor;
+        }
+
+        return Multiple
+            ? (SelectedItemsExpression as LambdaExpression ?? ValueExpression as LambdaExpression)
+            : (ValueExpression as LambdaExpression ?? SelectedItemsExpression as LambdaExpression);
+    }
+
+    /// <summary />
     string? IInternalListBase<TValue>.AddOption(FluentOption<TValue> option)
     {
         var id = option.Id ?? "";
@@ -305,14 +347,36 @@ public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMember
     /// </summary>
     protected virtual void NotifyValidationFieldChanged()
     {
-        if (Multiple && SelectedItemsExpression is not null)
+        if (ValidationFieldFor is not null)
         {
             EditContext?.NotifyFieldChanged(
-                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+                FluentField.CreateFieldIdentifier(ValidationFieldFor));
             return;
         }
 
-        EditContext?.NotifyFieldChanged(FieldIdentifier);
+        if (Multiple)
+        {
+            if (SelectedItemsExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+                return;
+            }
+
+            if (ValueExpression is not null)
+            {
+                EditContext?.NotifyFieldChanged(
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+            }
+
+            return;
+        }
+
+        if (ValueExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+        }
     }
 
     /// <summary>
