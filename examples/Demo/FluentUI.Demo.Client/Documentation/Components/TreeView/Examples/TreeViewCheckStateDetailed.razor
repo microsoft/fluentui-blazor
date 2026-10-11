@@ -1,0 +1,101 @@
+<FluentTreeView HideSelection="true"
+                SelectionMode="TreeSelectionMode.Multiple"
+                Items="@Items"
+                CheckState="@GetCheckState"
+                SelectedItems="@SelectedItems"
+                SelectedItemsChanged="@OnSelectedItemsChanged" />
+
+<div class="my-2">
+    <b>Selected items:</b> @(string.Join("; ", SelectedItems?.Select(i => i.Text) ?? []))
+</div>
+
+@code
+{
+    private IEnumerable<ITreeViewItem>? SelectedItems = [];
+    private IEnumerable<ITreeViewItem>? Items = GetCompanyOrganization();
+
+    private bool? GetCheckState(ITreeViewItem item)
+    {
+        if (SelectedItems?.Contains(item) == true)
+        {
+            return true;
+        }
+
+        return item.Items?.Any(child => GetCheckState(child) != false) == true
+            ? null
+            : false;
+    }
+
+    private void OnSelectedItemsChanged(IEnumerable<ITreeViewItem>? items)
+    {
+        var previousSelection = SelectedItems?.ToHashSet() ?? [];
+        var selection = items?.ToHashSet() ?? [];
+        var added = selection.Except(previousSelection).ToArray();
+        var removed = previousSelection.Except(selection).ToArray();
+
+        foreach (var item in added)
+        {
+            SetSelected(item, true);
+        }
+
+        foreach (var item in removed)
+        {
+            SetSelected(item, false);
+        }
+
+        foreach (var item in Items ?? [])
+        {
+            UpdateParentSelection(item);
+        }
+
+        SelectedItems = selection;
+
+        void SetSelected(ITreeViewItem item, bool selected)
+        {
+            if (selected)
+            {
+                selection.Add(item);
+            }
+            else
+            {
+                selection.Remove(item);
+            }
+
+            foreach (var child in item.Items ?? [])
+            {
+                SetSelected(child, selected);
+            }
+        }
+
+        void UpdateParentSelection(ITreeViewItem item)
+        {
+            var children = item.Items?.ToArray() ?? [];
+            if (children.Length == 0)
+            {
+                return;
+            }
+
+            foreach (var child in children)
+            {
+                UpdateParentSelection(child);
+            }
+
+            if (children.All(selection.Contains))
+            {
+                selection.Add(item);
+            }
+            else
+            {
+                selection.Remove(item);
+            }
+        }
+    }
+
+    static TreeViewItem[] GetCompanyOrganization()
+    {
+        return SampleData.People
+                         .GetOrganization(companyCount: 5, departmentCount: 4, employeeCount: 10)
+                         .ToTreeViewItems(includeIcons: false)
+                         .ToArray();
+    }
+}
