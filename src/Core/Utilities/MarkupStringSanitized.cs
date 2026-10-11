@@ -81,9 +81,6 @@ public readonly partial struct MarkupStringSanitized
         return sanitized;
     };
 
-    [GeneratedRegex(@"[^a-zA-Z0-9\-.:_]", RegexOptions.None, matchTimeoutMilliseconds: 400)]
-    private static partial Regex TagNameSanitizerRegex();
-
     /// <summary>
     /// Initializes a new instance of the <see cref="MarkupStringSanitized"/> struct,
     /// where the element must be in the format "<tag>content</tag>" or "<tag style='style-element'>content</tag>".
@@ -239,12 +236,19 @@ public readonly partial struct MarkupStringSanitized
         AlreadySanitized
     }
 
-    [GeneratedRegex(@"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-+()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]
+#pragma warning disable MA0009 // These anchored patterns do not contain catastrophic backtracking. 
+
+    [GeneratedRegex(@"[^a-zA-Z0-9\-.:_]", RegexOptions.None)]
+    private static partial Regex TagNameSanitizerRegex();
+
+    [GeneratedRegex(@"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-+()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)]
     private static partial Regex InlineStyleRegex();
 
-    [GeneratedRegex(@"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 400)]
+    [GeneratedRegex(@"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)]
     private static partial Regex HtmlSanitizerRegex();
 
-    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*?)(?:\s+(?<attribute>[a-zA-Z][a-zA-Z0-9\-]*?)\s*=\s*(?<quote>[""'])(?<attributevalue>.*?)\k<quote>)?(?:\s*/)?>(?<content>[\s\S]*?)(?:</\k<tag>>)?$", RegexOptions.Singleline | RegexOptions.ExplicitCapture, matchTimeoutMilliseconds: 300)]
+    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*?)(?:\s+(?<attribute>[a-zA-Z][a-zA-Z0-9\-]*?)\s*=\s*(?<quote>[""'])(?<attributevalue>.*?)\k<quote>)?(?:\s*/)?>(?<content>[\s\S]*?)(?:</\k<tag>>)?$", RegexOptions.Singleline | RegexOptions.ExplicitCapture)]
     private static partial Regex RegExWithTagAndStyle();
+
+#pragma warning restore MA0009
 }
