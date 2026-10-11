@@ -18,3 +18,14 @@ fluent-menu-item>fluent-menu-list[slot="submenu"] {
         --fluent-menu-submenu-viewport,
         --fluent-menu-submenu-viewport flip-inline;
 }
+
+/* Fix #5408 */
+@supports (-moz-appearance: none) {
+    fluent-menu-list:has(> fluent-menu-item > [slot="start"]) {
+        --_col-start-width: 24px;
+    }
+
+    fluent-menu-list:has(> fluent-menu-item > [slot="end"]) {
+        --_col-end-width: 24px;
+    }
+}
