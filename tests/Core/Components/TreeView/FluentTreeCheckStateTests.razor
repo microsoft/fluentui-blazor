@@ -1,0 +1,184 @@
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public FluentTreeCheckStateTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(null, false)]
+    [InlineData(null, true)]
+    public void CheckState_CustomValue_RendersWithoutChangingSelection(bool? state, bool selected)
+    {
+        var item = new TreeViewItem("item", "Item");
+        IEnumerable<ITreeViewItem> selection = selected ? [item] : [];
+        var notifications = 0;
+        var cut = Render(@<FluentTreeView Items="@([item])"
+                                         SelectionMode="TreeSelectionMode.Multiple"
+                                         SelectedItems="@selection"
+                                         SelectedItemsChanged="@(_ => notifications++)"
+                                         CheckState="@(_ => state)" />);
+
+        var checkbox = cut.Find("fluent-checkbox");
+        Assert.Equal("true", checkbox.GetAttribute("check-state"));
+        Assert.Equal(state == true, checkbox.HasAttribute("checked"));
+        Assert.Equal(state is null, checkbox.HasAttribute("indeterminate"));
+        Assert.Equal(selected, selection.Contains(item));
+        Assert.Equal(0, notifications);
+    }
+
+    [Theory]
+    [InlineData(true, true)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    [InlineData(false, false)]
+    [InlineData(null, true)]
+    [InlineData(null, false)]
+    public void CheckState_Click_UsesSelectedItemsMembership(bool? state, bool selected)
+    {
+        var item = new TreeViewItem("item", "Item", [new TreeViewItem("child", "Child")]);
+        IEnumerable<ITreeViewItem>? selection = selected ? [item] : [];
+        var notifications = 0;
+        var cut = Render(@<FluentTreeView Items="@([item])"
+                                         SelectionMode="TreeSelectionMode.Multiple"
+                                         SelectedItems="@selection"
+                                         SelectedItemsChanged="@(items => { selection = items; notifications++; })"
+                                         CheckState="@(_ => state)" />);
+
+        cut.Find("#item > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.Equal(selected ? 0 : 1, selection?.Count());
+        Assert.Equal(!selected, selection?.Contains(item));
+        Assert.DoesNotContain(item.Items!.First(), selection!);
+        Assert.Equal(1, notifications);
+    }
+
+    [Theory]
+    [InlineData(null, true)]
+    [InlineData(null, false)]
+    [InlineData(true, null)]
+    [InlineData(false, null)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public void CheckState_ChangedValue_UpdatesCheckbox(bool? initialState, bool? nextState)
+    {
+        var item = new TreeViewItem("item", "Item");
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [item])
+            .Add(p => p.SelectionMode, TreeSelectionMode.Multiple)
+            .Add(p => p.CheckState, _ => initialState));
+
+        cut.Render(parameters => parameters.Add(p => p.CheckState, _ => nextState));
+
+        var checkbox = cut.Find("fluent-checkbox");
+        Assert.Equal(nextState == true, checkbox.HasAttribute("checked"));
+        Assert.Equal(nextState is null, checkbox.HasAttribute("indeterminate"));
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void CheckState_Removed_RestoresSelectedItemsBehavior(bool selected)
+    {
+        var item = new TreeViewItem("item", "Item");
+        var cut = Render<FluentTreeView>(parameters => parameters
+            .Add(p => p.Items, [item])
+            .Add(p => p.SelectionMode, TreeSelectionMode.Multiple)
+            .Add(p => p.SelectedItems, selected ? [item] : [])
+            .Add(p => p.CheckState, _ => null));
+
+        cut.Render(parameters => parameters.Add(p => p.CheckState, (Func<ITreeViewItem, bool?>?)null));
+
+        var checkbox = cut.Find("fluent-checkbox");
+        Assert.Equal(selected, checkbox.HasAttribute("checked"));
+        Assert.False(checkbox.HasAttribute("indeterminate"));
+        Assert.False(checkbox.HasAttribute("check-state"));
+    }
+
+    [Fact]
+    public void CheckState_SingleSelection_DoesNotEvaluateCallback()
+    {
+        var cut = Render(@<FluentTreeView Items="@([new TreeViewItem("Item")])"
+                                         CheckState="@(_ => throw new InvalidOperationException())" />);
+
+        Assert.Empty(cut.FindAll("fluent-checkbox"));
+    }
+
+    [Theory]
+    [InlineData(TreeSelectionVisibility.Hidden)]
+    [InlineData(TreeSelectionVisibility.Collapse)]
+    public void CheckState_InvisibleCheckbox_DoesNotEvaluateCallback(TreeSelectionVisibility visibility)
+    {
+        var cut = Render(@<FluentTreeView Items="@([new TreeViewItem("Item")])"
+                                         SelectionMode="TreeSelectionMode.Multiple"
+                                         MultipleSelectionVisibility="@(_ => visibility)"
+                                         CheckState="@(_ => throw new InvalidOperationException())" />);
+
+        Assert.Empty(cut.FindAll("fluent-checkbox"));
+    }
+
+    [Fact]
+    public void CheckState_LazyChildrenNotLoaded_UsesExternalState()
+    {
+        var item = new TreeViewItem("parent", "Parent", TreeViewItem.LoadingTreeViewItems("Loading..."));
+        var evaluatedItems = new List<ITreeViewItem>();
+        var cut = Render(@<FluentTreeView Items="@([item])"
+                                         SelectionMode="TreeSelectionMode.Multiple"
+                                         LazyLoadItems="true"
+                                         CheckState="@(current => { evaluatedItems.Add(current); return null; })" />);
+
+        Assert.True(cut.Find("#parent > fluent-checkbox").HasAttribute("indeterminate"));
+        Assert.Single(cut.FindAll("fluent-checkbox"));
+        Assert.All(evaluatedItems, current => Assert.Same(item, current));
+    }
+
+    [Fact]
+    public async Task CheckState_LazyChildrenRecreated_ReevaluatesState()
+    {
+        var child = new TreeViewItem("child", "Child");
+        var parent = new TreeViewItem("parent", "Parent", [child]);
+        bool? childState = null;
+        var cut = Render(@<FluentTreeView Items="@([parent])"
+                                         SelectionMode="TreeSelectionMode.Multiple"
+                                         LazyLoadItems="true"
+                                         CheckState="@(item => item == child ? childState : false)" />);
+        var parentComponent = cut.FindComponent<FluentTreeItem>().Instance;
+        await cut.InvokeAsync(() => parentComponent.OnTreeToggleAsync(new() { Id = "parent", NewState = "open" }));
+        Assert.True(cut.Find("#child > fluent-checkbox").HasAttribute("indeterminate"));
+        await cut.InvokeAsync(() => parentComponent.OnTreeToggleAsync(new() { Id = "parent", NewState = "closed" }));
+        Assert.Empty(cut.FindAll("#child"));
+        childState = true;
+
+        await cut.InvokeAsync(() => parentComponent.OnTreeToggleAsync(new() { Id = "parent", NewState = "open" }));
+
+        Assert.True(cut.Find("#child > fluent-checkbox").HasAttribute("checked"));
+        Assert.False(cut.Find("#child > fluent-checkbox").HasAttribute("indeterminate"));
+    }
+
+    [Fact]
+    public void CheckState_ChildSelectionChanged_RecalculatesParent()
+    {
+        var first = new TreeViewItem("first", "First");
+        var second = new TreeViewItem("second", "Second");
+        var parent = new TreeViewItem("parent", "Parent", [first, second]);
+        IEnumerable<ITreeViewItem>? selection = [first];
+        bool? GetState(ITreeViewItem item) => item == parent
+            ? selection?.Contains(first) == true && selection.Contains(second) ? true : null
+            : selection?.Contains(item) == true;
+        var cut = Render(@<FluentTreeView Items="@([parent])"
+                                         SelectionMode="TreeSelectionMode.Multiple"
+                                         @bind-SelectedItems="@selection"
+                                         CheckState="@GetState" />);
+        Assert.True(cut.Find("#parent > fluent-checkbox").HasAttribute("indeterminate"));
+
+        cut.Find("#second > fluent-checkbox").Change(new ChangeEventArgs());
+
+        Assert.True(cut.Find("#parent > fluent-checkbox").HasAttribute("checked"));
+        Assert.False(cut.Find("#parent > fluent-checkbox").HasAttribute("indeterminate"));
+    }
+}

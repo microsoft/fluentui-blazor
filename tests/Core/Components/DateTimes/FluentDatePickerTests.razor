@@ -17,10 +17,32 @@
     }
 
     [Fact]
+    public void FluentDatePicker_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
+    {
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Label="Production Date" Required="true" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Contains("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentDatePicker_Required_WithDateFocusOut_DoesNotShowDefaultRequiredMessage()
+    {
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Label="Production Date" Required="true" Value="@(new DateTime?(new DateTime(2024, 3, 15)))" />);
+
+        cut.Find("fluent-text-input").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
     public void FluentDatePicker_Default()
     {
         // Arrange
-        using var context = new DateTimeProviderContext(DateTime.Now);
+        using var context = new DateTimeProviderContext(new DateTime(2026, 09, 30));
 
         // Act
         var calendar = Render(@<FluentDatePicker TValue="DateTime" Id="myPicker" Culture="@InvariantCulture" Value="@(new System.DateTime(2022, 02, 15))"
@@ -34,7 +56,7 @@
     public void FluentDatePicker_ClickToOpenCalendar()
     {
         // Arrange
-        using var context = new DateTimeProviderContext(DateTime.Now);
+        using var context = new DateTimeProviderContext(new DateTime(2026, 09, 30));
 
         // Act
         var picker = Render(@<FluentDatePicker TValue="DateTime?" Culture="@InvariantCulture" />);
@@ -50,8 +72,8 @@
         // The calendar's Value can be null even if TValue is DateTime - that's the key difference
         // FluentDatePicker can be nullable but the internal calendar might not be
 
-        Assert.Equal(System.DateTime.Today.Year, calendar.Instance.PickerMonth?.Year);
-        Assert.Equal(System.DateTime.Today.Month, calendar.Instance.PickerMonth?.Month);
+        Assert.Equal(2026, calendar.Instance.PickerMonth?.Year);
+        Assert.Equal(9, calendar.Instance.PickerMonth?.Month);
         Assert.Equal(1, calendar.Instance.PickerMonth?.Day);
     }
 
@@ -698,7 +720,7 @@
     public void FluentDatePicker_GetInputType(DatePickerRenderStyle renderingStyle, CalendarViews view, string? expectedInputType, TextInputMode? expectedInputMode)
     {
         // Arrange
-        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        using var context = new DateTimeProviderContext(new DateTime(2026, 09, 30));
         var picker = Render(@<FluentDatePicker TValue="DateTime" Culture="@InvariantCulture" RenderStyle="@renderingStyle" View="@view" />);
 
         // Act

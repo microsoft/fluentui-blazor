@@ -1,0 +1,22 @@
+<FluentTreeView HideSelection="true"
+                SelectionMode="TreeSelectionMode.MultipleRecursive"
+                Items="@Items"
+                @bind-SelectedItems="@SelectedItems" />
+
+<div class="my-2">
+    <b>Selected items:</b> @(string.Join("; ", SelectedItems?.Select(i => i.Text) ?? []))
+</div>
+
+@code
+{
+    private IEnumerable<ITreeViewItem>? SelectedItems = [];
+    private readonly TreeViewItem[] Items = GetCompanyOrganization();
+
+    private static TreeViewItem[] GetCompanyOrganization()
+    {
+        return SampleData.People
+                         .GetOrganization(companyCount: 5, departmentCount: 4, employeeCount: 10)
+                         .ToTreeViewItems(includeIcons: false)
+                         .ToArray();
+    }
+}

@@ -2,8 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using System.Linq.Expressions;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
@@ -52,6 +52,51 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         // Set default value: if `Multiple` is not already set to `false` using `base(configuration)`, in the Program.cs
         // (not used since the Multiple is overridden with a default value of true directly in this class)
         // configuration?.DefaultValues.SetInitialValues(this, [(nameof(Multiple), true)]);
+
+        ConfigureRequiredValidation(useFieldFocusLost: true);
+    }
+
+    private IReadOnlyDictionary<string, object> TextInputAttributes
+    {
+        get
+        {
+            var attributes = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
+            if (Message is not null)
+            {
+                attributes[nameof(Message)] = Message;
+            }
+
+            if (MessageTemplate is not null)
+            {
+                attributes[nameof(MessageTemplate)] = MessageTemplate;
+            }
+
+            if (MessageCondition is not null)
+            {
+                attributes[nameof(MessageCondition)] = MessageCondition;
+            }
+
+            if (MessageIcon is not null)
+            {
+                attributes[nameof(MessageIcon)] = MessageIcon;
+            }
+
+            if (MessageState is { } messageState)
+            {
+                attributes[nameof(MessageState)] = messageState;
+            }
+
+            if (AdditionalAttributes is not null)
+            {
+                foreach (var attribute in AdditionalAttributes)
+                {
+                    attributes[attribute.Key] = attribute.Value;
+                }
+            }
+
+            return attributes;
+        }
     }
 
     /// <summary />
@@ -219,9 +264,34 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// </summary>
     public bool IsReachedMaxItems => MaximumSelectedOptions.HasValue && _internalSelectedItems.Count >= MaximumSelectedOptions.Value;
 
-    private LambdaExpression? ValidationFieldAccessor => Multiple
-        ? SelectedItemsExpression
-        : SelectedItemExpression;
+    /// <inheritdoc />
+    protected override LambdaExpression? ValidationFieldExpression => ValidationFieldAccessor;
+
+    /// <inheritdoc />
+    protected override LambdaExpression? GetRequiredSelectionFieldExpression() => ValidationFieldAccessor;
+
+    private LambdaExpression? ValidationFieldAccessor
+    {
+        get
+        {
+            if (ValidationFieldFor is not null)
+            {
+                return ValidationFieldFor;
+            }
+
+            if (Multiple)
+            {
+                return SelectedItemsExpression as LambdaExpression ?? ValueExpression;
+            }
+
+            if (HasExplicitValueExpression)
+            {
+                return ValueExpression;
+            }
+
+            return SelectedItemExpression;
+        }
+    }
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -283,19 +353,20 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// </summary>
     protected override void NotifyValidationFieldChanged()
     {
-        if (Multiple && SelectedItemsExpression is not null)
+        if (ValidationFieldFor is not null)
         {
             EditContext?.NotifyFieldChanged(
-                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+                FluentField.CreateFieldIdentifier(ValidationFieldFor));
             return;
         }
 
-        if (!Multiple)
+        if (Multiple)
         {
-            if (SelectedItemExpression is not null)
+            if (SelectedItemsExpression is not null)
             {
                 EditContext?.NotifyFieldChanged(
-                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+                    Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemsExpression));
+                return;
             }
 
             if (ValueExpression is not null)
@@ -307,7 +378,17 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             return;
         }
 
-        base.NotifyValidationFieldChanged();
+        if (SelectedItemExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(SelectedItemExpression));
+        }
+
+        if (ValueExpression is not null)
+        {
+            EditContext?.NotifyFieldChanged(
+                Microsoft.AspNetCore.Components.Forms.FieldIdentifier.Create(ValueExpression));
+        }
     }
 
     /// <summary />
