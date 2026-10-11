@@ -25,7 +25,7 @@ public readonly partial struct MarkupStringSanitized
     /// </summary>
     internal static readonly Func<string, string> DefaultSanitizeInlineStyle = (value) =>
     {
-        var isValid = InlineStyleRegex().IsMatch(value);
+        var isValid = InlineStyleRegex().IsMatch(value) && !UnsafeInlineStyleRegex().IsMatch(value);
 
         if (isValid)
         {
@@ -192,11 +192,11 @@ public readonly partial struct MarkupStringSanitized
     internal static ParsedContent ParseTagAndContent(string value)
     {
         // Explanation of capture groups:
-        // 1. (?<tag>[a-zA-Z][a-zA-Z0-9]*?)           - Captures the tag name
-        // 2. (?<attribute>[a-zA-Z][a-zA-Z0-9\-]*?)   - Captures the attribute name (e.g., "style")
-        // 3. (?<quote>[""'])                         - Captures the quote type (single or double)
-        // 4. (?<attributevalue>.*?)                  - Captures the attribute element
-        // 5. (?<content>[\s\S]*?)                    - Captures the content between tags
+        // 1. (?<tag>[a-zA-Z][a-zA-Z0-9]*)                   - Captures the tag name
+        // 2. (?<attribute>[a-zA-Z][a-zA-Z0-9\-]*)           - Captures the attribute name (e.g., "style")
+        // 3. (?<doubleattributevalue>[^""]*)                 - Captures a double-quoted attribute value
+        // 4. (?<singleattributevalue>[^']*)                  - Captures a single-quoted attribute value
+        // 5. (?<content>[\s\S]*)                             - Captures the content and optional closing tag
 
         var match = RegExWithTagAndStyle().Match(value);
 
@@ -204,16 +204,24 @@ public readonly partial struct MarkupStringSanitized
         if (match.Success)
         {
             var tag = match.Groups["tag"].Value;
-            var quote = match.Groups["quote"].Value;
             var attribute = match.Groups["attribute"].Value;
-            var attributeValue = match.Groups["attributevalue"].Value;
+            var doubleAttributeValue = match.Groups["doubleattributevalue"];
+            var singleAttributeValue = match.Groups["singleattributevalue"];
+            var attributeValue = doubleAttributeValue.Success ? doubleAttributeValue.Value : singleAttributeValue.Value;
+            var quote = doubleAttributeValue.Success ? '"' : '\'';
             var content = match.Groups["content"].Value;
+            var closingTag = $"</{tag}>";
+
+            if (content.EndsWith(closingTag, StringComparison.Ordinal))
+            {
+                content = content[..^closingTag.Length];
+            }
 
             return new ParsedContent(
                 tag,
                 string.IsNullOrEmpty(attribute) ? null : attribute,
                 string.IsNullOrEmpty(attributeValue) ? null : attributeValue,
-                string.IsNullOrEmpty(quote) ? '\'' : quote[0],
+                quote,
                 string.IsNullOrEmpty(content) ? null : content);
         }
 
@@ -233,22 +241,21 @@ public readonly partial struct MarkupStringSanitized
         Html,
 
         /// <summary />
-        AlreadySanitized
+        AlreadySanitized,
     }
 
-#pragma warning disable MA0009 // These anchored patterns do not contain catastrophic backtracking. 
-
-    [GeneratedRegex(@"[^a-zA-Z0-9\-.:_]", RegexOptions.None)]
+    [GeneratedRegex(@"[^a-zA-Z0-9\-.:_]", RegexOptions.NonBacktracking)]
     private static partial Regex TagNameSanitizerRegex();
 
-    [GeneratedRegex(@"^(?!.*(behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:))[a-zA-Z0-9\s,.:;_%\-+()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)]
+    [GeneratedRegex(@"^[a-zA-Z0-9\s,.:;_%\-+()#{}'""pxemremvhsmsdegradturn]+$", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.NonBacktracking)]
     private static partial Regex InlineStyleRegex();
 
-    [GeneratedRegex(@"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture)]
+    [GeneratedRegex(@"behavior\s*:|expression\s*\(|-moz-binding\s*:|javascript\s*:|url\s*\(\s*['""]?\s*javascript\s*:", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.NonBacktracking)]
+    private static partial Regex UnsafeInlineStyleRegex();
+
+    [GeneratedRegex(@"^(?:(?:[^<>]|<(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6]|br|hr)(?:\s+(?:class|id|title|data-[a-z0-9\-]+)\s*=\s*(?:""[^""<>]*""|'[^'<>]*'))*\s*\/?>|<\/(?:p|div|span|strong|em|b|i|u|ul|ol|li|h[1-6])>))*$", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.NonBacktracking)]
     private static partial Regex HtmlSanitizerRegex();
 
-    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*?)(?:\s+(?<attribute>[a-zA-Z][a-zA-Z0-9\-]*?)\s*=\s*(?<quote>[""'])(?<attributevalue>.*?)\k<quote>)?(?:\s*/)?>(?<content>[\s\S]*?)(?:</\k<tag>>)?$", RegexOptions.Singleline | RegexOptions.ExplicitCapture)]
+    [GeneratedRegex(@"^<(?<tag>[a-zA-Z][a-zA-Z0-9]*)(?:\s+(?<attribute>[a-zA-Z][a-zA-Z0-9\-]*)\s*=\s*(?:""(?<doubleattributevalue>[^""]*)""|'(?<singleattributevalue>[^']*)'))?(?:\s*/)?>(?<content>[\s\S]*)$", RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.NonBacktracking)]
     private static partial Regex RegExWithTagAndStyle();
-
-#pragma warning restore MA0009
 }
