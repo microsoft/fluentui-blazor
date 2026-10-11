@@ -1,0 +1,17 @@
+<FluentTreeView Items="@Items"
+                SelectionMode="TreeSelectionMode.MultipleRecursive"
+                @bind-SelectedItems="@SelectedItems"
+                @bind-SelectedItems:after="@OnSelectedItemsChanged" />
+
+@code
+{
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? Items { get; set; }
+
+    [Parameter]
+    public IEnumerable<ITreeViewItem>? SelectedItems { get; set; }
+
+    public int Notifications { get; private set; }
+
+    private void OnSelectedItemsChanged() => Notifications++;
+}

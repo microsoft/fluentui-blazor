@@ -260,14 +260,14 @@ public partial class FluentTreeItem : FluentComponentBase
         {
             selectedItems.Remove(checkedItem);
         }
-        else
+        else if (!selectedItems.Contains(checkedItem))
         {
             selectedItems.Add(checkedItem);
         }
 
         if (OwnerTreeView.SelectedItemsChanged.HasDelegate)
         {
-            await OwnerTreeView.SelectedItemsChanged.InvokeAsync(selectedItems);
+            await OwnerTreeView.OnSelectedItemsChangedAsync(selectedItems);
         }
     }
 
@@ -323,6 +323,7 @@ public partial class FluentTreeItem : FluentComponentBase
                 break;
 
             case TreeSelectionMode.Multiple:
+            case TreeSelectionMode.MultipleRecursive:
                 builder.AddAttribute(10, nameof(ChildContent), (RenderFragment)(childBuilder =>
                 {
                     var visibility = owner.MultipleSelectionVisibility?.Invoke(item) ?? TreeSelectionVisibility.Visible;
@@ -332,8 +333,9 @@ public partial class FluentTreeItem : FluentComponentBase
                     {
                         // Visible
                         case TreeSelectionVisibility.Visible:
+                            var checkState = owner.RecursiveSelection.GetCheckState(item);
                             childBuilder.OpenElement(0, "fluent-checkbox");
-                            childBuilder.AddAttribute(1, "checked", owner.SelectedItems?.Contains(item) == true ? "true" : null);
+                            childBuilder.AddAttribute(1, "checked", checkState == true ? "true" : null);
                             childBuilder.AddAttribute(2, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(owner, async e =>
                             {
                                 // Call the handler on the FluentTreeItem instance
@@ -344,6 +346,8 @@ public partial class FluentTreeItem : FluentComponentBase
                                 }
                             }));
                             childBuilder.AddAttribute(3, "tabindex", -1);
+                            childBuilder.AddAttribute(4, "indeterminate", checkState is null ? "true" : null);
+                            childBuilder.AddAttribute(5, "check-state", owner.RecursiveSelection.HasCheckState ? "true" : null);
                             childBuilder.CloseElement();
                             break;
 
@@ -356,7 +360,7 @@ public partial class FluentTreeItem : FluentComponentBase
                     }
 
                     // Content
-                    childBuilder.AddContent(4, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
+                    childBuilder.AddContent(6, owner.ItemTemplate?.Invoke(item) ?? (RenderFragment)(builder2 => builder2.AddContent(0, item.Text)));
                 }));
 
                 break;

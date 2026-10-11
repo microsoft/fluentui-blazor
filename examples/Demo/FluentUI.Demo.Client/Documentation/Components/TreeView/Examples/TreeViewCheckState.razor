@@ -1,0 +1,26 @@
+<FluentTreeView HideSelection="true"
+                SelectionMode="TreeSelectionMode.Multiple"
+                Items="@ThreeState.Items"
+                CheckState="@ThreeState.GetCheckState"
+                SelectedItems="@ThreeState.SelectedItems"
+                SelectedItemsChanged="@ThreeState.OnSelectedItemsChanged" />
+
+<div class="my-2">
+    <b>Selected items:</b> @(string.Join("; ", ThreeState.SelectedItems?.Select(i => i.Text) ?? []))
+</div>
+
+@code
+{
+    private TreeViewThreeStateSelection ThreeState = new()
+    {
+        Items = GetCompanyOrganization(),
+    };
+
+    private static TreeViewItem[] GetCompanyOrganization()
+    {
+        return SampleData.People
+                         .GetOrganization(companyCount: 5, departmentCount: 4, employeeCount: 10)
+                         .ToTreeViewItems(includeIcons: false)
+                         .ToArray();
+    }
+}
