@@ -158,8 +158,8 @@ public class InputBaseTests : Bunit.BunitContext
             .Add(p => p.AriaLabel, "Account name")
             .Add(p => p.Required, true));
 
-        Assert.Contains("Account name", cut.Markup);
-        Assert.Contains("required", cut.Markup, StringComparison.OrdinalIgnoreCase);
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow");
+        Assert.Equal("Account name, Required", invocation.Arguments[3]);
     }
 
     private static (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
