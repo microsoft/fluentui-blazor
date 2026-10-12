@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -11,7 +12,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentDropZone<TItem> : FluentComponentBase
 {
     /// <summary />
-    public FluentDropZone(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentDropZone(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected virtual string? ClassValue => DefaultClassBuilder
@@ -95,7 +99,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     private bool IsOver { get; set; }
 
     /// <summary />
-    private async Task OnDragStartHandlerAsync(DragEventArgs e)
+    internal async Task StartDragAsync()
     {
         if (!Draggable)
         {
@@ -124,7 +128,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnDragEndHandlerAsync(DragEventArgs e)
+    internal async Task EndDragAsync()
     {
         if (!Draggable)
         {
@@ -151,7 +155,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnDragEnterHandlerAsync(DragEventArgs e)
+    internal async Task DragEnterAsync()
     {
         if (!Droppable)
         {
@@ -185,7 +189,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnDragOverHandlerAsync(DragEventArgs e)
+    internal async Task DragOverAsync()
     {
         if (!Droppable)
         {
@@ -219,7 +223,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnDragLeaveHandlerAsync(DragEventArgs e)
+    internal async Task DragLeaveAsync()
     {
         if (!Droppable)
         {
@@ -253,7 +257,7 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     }
 
     /// <summary />
-    private async Task OnDropHandlerAsync(DragEventArgs e)
+    internal async Task DropAsync()
     {
         if (!Droppable)
         {
@@ -289,5 +293,42 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
     }
 
     /// <summary />
+    private Task OnDragStartHandlerAsync(DragEventArgs e) => StartDragAsync();
+
+    /// <summary />
+    private Task OnDragEndHandlerAsync(DragEventArgs e) => EndDragAsync();
+
+    /// <summary />
+    private Task OnDragEnterHandlerAsync(DragEventArgs e) => DragEnterAsync();
+
+    /// <summary />
+    private Task OnDragOverHandlerAsync(DragEventArgs e) => DragOverAsync();
+
+    /// <summary />
+    private Task OnDragLeaveHandlerAsync(DragEventArgs e) => DragLeaveAsync();
+
+    /// <summary />
+    private Task OnDropHandlerAsync(DragEventArgs e) => DropAsync();
+
+    /// <summary />
+    internal void Refresh() => StateHasChanged();
+
+    /// <summary />
+    protected override void OnInitialized()
+    {
+        Container?.RegisterZone(this);
+    }
+
+    /// <summary />
+    public override async ValueTask DisposeAsync()
+    {
+        Container?.UnregisterZone(this);
+        await base.DisposeAsync();
+    }
+
+    /// <summary />
     private string? GetDraggableAttributeValue() => Draggable ? "true" : null;
+
+    /// <summary />
+    private static string? GetDataAttributeValue(bool value) => value ? "true" : null;
 }
