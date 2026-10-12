@@ -192,6 +192,7 @@ Write-Host '=== Merging coverage reports ==='
 Write-Host '=== Coverage by tested type ==='
 
 $typeCoverage = @{}
+$allLines = @{}
 $coverageFiles = Get-ChildItem -Path $resultsDir -Recurse -File -Filter '*.cobertura.xml'
 
 foreach ($coverageFile in $coverageFiles) {
@@ -210,28 +211,53 @@ foreach ($coverageFile in $coverageFiles) {
                 continue
             }
 
-            $lines = @($class.lines.line)
-            $linesValid = $lines.Count
-            $linesCovered = @($lines | Where-Object { [int]$_.hits -gt 0 }).Count
-
             if (-not $typeCoverage.ContainsKey($class.name)) {
                 $typeCoverage[$class.name] = [ordered]@{
-                    LinesCovered = 0
-                    LinesValid = 0
+                    Lines = @{}
                 }
             }
 
-            $typeCoverage[$class.name].LinesCovered += $linesCovered
-            $typeCoverage[$class.name].LinesValid += $linesValid
+            foreach ($line in @($class.lines.line)) {
+                # The same source line is emitted once for each target framework.
+                # Keep the filename in the key because a type can have multiple
+                # source files (for example, a .razor file and its code-behind).
+                $lineKey = '{0}|{1}|{2}' -f $class.name, $class.filename, $line.number
+                $isCovered = [int]$line.hits -gt 0
+
+                if (-not $allLines.ContainsKey($lineKey)) {
+                    $allLines[$lineKey] = $isCovered
+                }
+                elseif ($isCovered) {
+                    $allLines[$lineKey] = $true
+                }
+
+                if (-not $typeCoverage[$class.name].Lines.ContainsKey($lineKey)) {
+                    $typeCoverage[$class.name].Lines[$lineKey] = $isCovered
+                }
+                elseif ($isCovered) {
+                    # A line is covered when any framework report covers it.
+                    $typeCoverage[$class.name].Lines[$lineKey] = $true
+                }
+            }
         }
     }
 }
 
+if ($allLines.Count -gt 0) {
+    $allCovered = @($allLines.Values | Where-Object { $_ }).Count
+    $allPercentage = $allCovered / $allLines.Count
+    Write-Host
+    Write-Host '=== Deduplicated Cobertura line totals ==='
+    Write-Host ('Lines:    {0} / {1} = {2:P2}' -f $allCovered, $allLines.Count, $allPercentage)
+}
+
 foreach ($type in $typeCoverage.GetEnumerator() |
-        Where-Object { $_.Value.LinesValid -gt 0 } |
-        Sort-Object { $_.Value.LinesCovered / $_.Value.LinesValid } -Descending) {
-    $covered = $type.Value.LinesCovered
-    $valid = $type.Value.LinesValid
+        Where-Object { $_.Value.Lines.Count -gt 0 } |
+        Sort-Object {
+            @($_.Value.Lines.Values | Where-Object { $_ }).Count / $_.Value.Lines.Count
+        } -Descending) {
+    $covered = @($type.Value.Lines.Values | Where-Object { $_ }).Count
+    $valid = $type.Value.Lines.Count
     $percentage = $covered / $valid
     $line = '{0,6:P1} ({1}/{2}) {3}' -f $percentage, $covered, $valid, $type.Key
 
