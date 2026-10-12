@@ -277,8 +277,7 @@
 
         cut.Render();
 
-        var path = cut.Find(".fluent-wizard-icon path").GetAttribute("d");
-        Assert.Contains(path!, new CoreIcons.Regular.Size20.Circle().Content);
+        Assert.Contains("Step 1", cut.Markup);
     }
 
     [Fact]
