@@ -70,6 +70,18 @@ Resize the browser below and above the `md` breakpoint to see the second and thi
 When using direct `<div>` children instead of `FluentGridItem`, use the equivalent lowercase attributes,
 such as `order-xs="1"` or `order-lg="3"`.
 
+> [!TIP]
+> If grid items must use the full available width below their first configured breakpoint, set `Xs="12"` on every `FluentGridItem`.
+> You can configure this globally by setting `Xs` to `12` as a
+> [default value for `FluentGridItem`](/default-values), instead of repeating it on every item:
+>
+> ```csharp
+> builder.Services.AddFluentUIComponents(config =>
+> {
+>     config.DefaultValues.For<FluentGridItem>().Set(p => p.Xs, 12);
+> });
+> ```
+
 > **IMPORTANT**: Ordering changes only the visual presentation. It does not change the DOM order used by screen readers
 > and keyboard navigation. Keep the DOM order meaningful and accessible.
 
