@@ -14,6 +14,46 @@
         Three
     }
 
+    private sealed class NoDefaultComparerOption : IEqualityComparer<NoDefaultComparerOption>
+    {
+        public NoDefaultComparerOption(int value)
+        {
+            Value = value;
+        }
+
+        public int Value { get; }
+
+        public bool Equals(NoDefaultComparerOption? x, NoDefaultComparerOption? y) => x?.Value == y?.Value;
+
+        public int GetHashCode(NoDefaultComparerOption obj) => obj.Value;
+    }
+
+    private sealed class TestFluentListbox<TOption, TValue> : FluentListbox<TOption, TValue>
+    {
+        public TestFluentListbox()
+            : base(LibraryConfiguration.Empty)
+        {
+        }
+
+        public void InvokeNotifyValidationFieldChanged() => NotifyValidationFieldChanged();
+
+        public Task InvokeFocusInHandlerAsync() => FocusInHandlerAsync(new FocusEventArgs());
+
+        public Task InvokeInputHandlerAsync() => InputHandlerAsync(new ChangeEventArgs());
+
+        public void ConfigureValidationExpressions(
+            bool multiple,
+            System.Linq.Expressions.LambdaExpression? validationFieldFor,
+            System.Linq.Expressions.Expression<Func<IEnumerable<TOption>>>? selectedItemsExpression,
+            System.Linq.Expressions.Expression<Func<TValue>>? valueExpression)
+        {
+            Multiple = multiple;
+            ValidationFieldFor = validationFieldFor;
+            SelectedItemsExpression = selectedItemsExpression;
+            ValueExpression = valueExpression;
+        }
+    }
+
     public FluentListboxTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
@@ -28,6 +68,20 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_OptionValueToString_ControlsOptionValueAttribute()
+    {
+        var cut = Render(@<FluentListbox Items="@Digits"
+                                         TOption="string"
+                                         TValue="string"
+                                         OptionValue="@(value => value)"
+                                         OptionValueToString="@(value => $"value-{value}")" />);
+
+        var option = cut.FindAll("fluent-option").Skip(1).First();
+
+        Assert.Equal("value-One", option.GetAttribute("value"));
     }
 
     [Fact]
@@ -58,6 +112,27 @@
 
         Assert.True(cut.Find("fluent-option[value='One']").HasAttribute("selected"));
         cut.Find(".fluent-listbox").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.DoesNotContain("This field is required", cut.Markup);
+    }
+
+    [Fact]
+    public void FluentListbox_ValidationFieldFor_UsesTheSpecifiedField()
+    {
+        var model = new ListboxValidationModel();
+        var cut = Render(@<EditForm Model="@model">
+            <FluentListbox TOption="string"
+                           TValue="string"
+                           Items="@Digits"
+                           ValidationFieldFor="@( () => model.Items )"
+                           Required="true" />
+        </EditForm>);
+
+        var option = cut.Find("fluent-option[value='One']");
+        cut.Find(".fluent-listbox").TriggerEvent("onlistchange", new DropdownEventArgs
+        {
+            SelectedOptions = option.GetAttribute("id"),
+        });
 
         Assert.DoesNotContain("This field is required", cut.Markup);
     }
@@ -182,6 +257,15 @@
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentListbox_IncompatibleValueType_RendersOptionsWithoutValues()
+    {
+        var cut = Render(@<FluentListbox Items="@Digits" TOption="string" TValue="int" />);
+
+        Assert.Equal(Digits.Count(), cut.FindAll("fluent-option").Count);
+        Assert.All(cut.FindAll("fluent-option"), option => Assert.Equal("0", option.GetAttribute("value")));
     }
 
     [Fact]
@@ -403,6 +487,93 @@
         // Assert - Value should be cleared to default
         Assert.True(valueChangedCalled, "ValueChanged should have been invoked");
         Assert.Null(selectedValue);
+    }
+
+    [Fact]
+    public void FluentListbox_Manual_RemoveOption_RemovesRegisteredValue()
+    {
+        var cut = Render(@<FluentListbox TOption="string" TValue="string">
+            <FluentOptionString Value="One">One</FluentOptionString>
+        </FluentListbox>);
+
+        var option = cut.FindComponent<FluentOption<string>>();
+        var list = (IInternalListBase<string>)cut.FindComponent<FluentListbox<string, string>>().Instance;
+
+        Assert.Equal(option.Instance.Id, list.RemoveOption(option.Instance));
+        Assert.Null(list.RemoveOption(option.Instance));
+    }
+
+    [Fact]
+    public void FluentListbox_AddOption_WithUnsupportedValue_ReturnsNull()
+    {
+        var cut = Render<FluentListbox<string, string>>();
+        var list = (IInternalListBase<string>)cut.Instance;
+        var option = new FluentOption<string>(LibraryConfiguration.Empty);
+
+        Assert.Null(list.AddOption(option));
+    }
+
+    [Fact]
+    public void FluentListbox_DefaultComparer_WithoutPublicConstructor_IsIgnored()
+    {
+        var items = new[] { new NoDefaultComparerOption(1) };
+
+        var cut = Render(@<FluentListbox Items="@items"
+                                         TOption="NoDefaultComparerOption"
+                                         TValue="NoDefaultComparerOption" />);
+
+        Assert.Single(cut.FindAll("fluent-option"));
+    }
+
+    [Fact]
+    public void FluentListbox_ProtectedHandlers_ReturnCompletedTasks()
+    {
+        var list = new TestFluentListbox<string, string>();
+
+        Assert.True(list.InvokeFocusInHandlerAsync().IsCompletedSuccessfully);
+        Assert.True(list.InvokeInputHandlerAsync().IsCompletedSuccessfully);
+    }
+
+    [Fact]
+    public void FluentListbox_NotifyValidationFieldChanged_CoversBindingExpressions()
+    {
+        var model = new ListboxValidationModel();
+        string? value = null;
+        var list = new TestFluentListbox<string, string>();
+
+        list.ConfigureValidationExpressions(false, () => model.Items, null, null);
+        list.InvokeNotifyValidationFieldChanged();
+
+        list.ConfigureValidationExpressions(true, null, null, () => value!);
+        list.InvokeNotifyValidationFieldChanged();
+
+        list.ConfigureValidationExpressions(false, null, null, () => value!);
+        list.InvokeNotifyValidationFieldChanged();
+    }
+
+    [Fact]
+    public async Task FluentListbox_Disabled_DropdownChangeDoesNotUpdateValue()
+    {
+        var value = "One";
+        var changed = false;
+        var cut = Render(@<FluentListbox TOption="string"
+                                         TValue="string"
+                                         Disabled="true"
+                                         Value="@value"
+                                         ValueChanged="@(v => { value = v; changed = true; })">
+            <FluentOptionString Value="One">One</FluentOptionString>
+            <FluentOptionString Value="Two">Two</FluentOptionString>
+        </FluentListbox>);
+
+        var option = cut.Find("fluent-option[value='Two']");
+
+        await cut.FindComponent<FluentListbox<string, string>>().Instance.OnDropdownChangeHandlerAsync(new DropdownEventArgs
+        {
+            SelectedOptions = option.GetAttribute("id"),
+        });
+
+        Assert.False(changed);
+        Assert.Equal("One", value);
     }
 
     [Fact]

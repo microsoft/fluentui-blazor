@@ -265,6 +265,22 @@
     }
 
     [Fact]
+    public void FluentWizardStep_InvalidStatus_UsesFallbackIcon()
+    {
+        var cut = Render(@<FluentWizard>
+            <Steps>
+                <FluentWizardStep Label="Step 1">Content</FluentWizardStep>
+            </Steps>
+        </FluentWizard>);
+        var step = cut.FindComponent<FluentWizardStep>();
+        step.Instance.Status = (WizardStepStatus)999;
+
+        cut.Render();
+
+        Assert.Contains("Step 1", cut.Markup);
+    }
+
+    [Fact]
     public void FluentWizardStep_OnClickHandler_RespectsSequenceAndCurrentStepRules()
     {
         // Arrange

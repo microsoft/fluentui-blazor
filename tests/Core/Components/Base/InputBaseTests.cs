@@ -149,6 +149,19 @@ public class InputBaseTests : Bunit.BunitContext
         Assert.True(errors.Length == 0, errors.ToString());
     }
 
+    [Fact]
+    public void InputBase_AriaLabel_IncludesRequiredIndicator()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = Render<FluentTextInput>(parameters => parameters
+            .Add(p => p.AriaLabel, "Account name")
+            .Add(p => p.Required, true));
+
+        Assert.Contains("Account name", cut.Markup);
+        Assert.Contains("required", cut.Markup, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
     {
         try

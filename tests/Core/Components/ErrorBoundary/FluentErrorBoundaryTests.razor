@@ -132,6 +132,23 @@
         Assert.Contains("My content", cut.Markup);
     }
 
+    [Fact]
+    public void FluentErrorBoundary_Recover_WhenBoundaryIsDisposed_DoesNotThrow()
+    {
+        var cut = Render(@<FluentErrorBoundary>
+            <ChildContent>
+                <ThrowingExceptionComponent Throw="false">My content</ThrowingExceptionComponent>
+            </ChildContent>
+        </FluentErrorBoundary>);
+        var boundary = cut.FindComponent<FluentErrorBoundary>().Instance;
+
+        cut.Dispose();
+
+        var exception = Record.Exception(boundary.Recover);
+
+        Assert.Null(exception);
+    }
+
     [Theory]
     [InlineData("open", true)]
     [InlineData("closed", false)]

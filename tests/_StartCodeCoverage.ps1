@@ -40,7 +40,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 # Configuration: Release or Debug
-$configuration = 'Debug'
+$configuration = 'Release'
 # Target .NET versions for test projects. Separate multiple versions with a semicolon.
 $targetNetVersionsArgument = "-p:TargetNetVersions=`"net8.0;net9.0;net10.0`""
 
@@ -90,7 +90,6 @@ function Test-ProjectNeedsRun {
     return $false
 }
 
-Clear-Host
 Write-Host '=== Determining which projects need to run ==='
 
 $coreStamp = Join-Path $stampsDir 'core.stamp'
@@ -189,6 +188,60 @@ Write-Host '=== Merging coverage reports ==='
     'riskHotspotsAnalysisThresholds:metricThresholdForCrapScore=30' `
     'riskHotspotsAnalysisThresholds:metricThresholdForCyclomaticComplexity=30' `
     'minimumCoverageThresholds:lineCoverage=98'
+
+Write-Host '=== Coverage by tested type ==='
+
+$typeCoverage = @{}
+$coverageFiles = Get-ChildItem -Path $resultsDir -Recurse -File -Filter '*.cobertura.xml'
+
+foreach ($coverageFile in $coverageFiles) {
+    [xml]$coverage = Get-Content -Path $coverageFile.FullName
+
+    foreach ($package in @($coverage.coverage.packages.package)) {
+        if ($package.name -eq 'Microsoft.FluentUI.AspNetCore.Components.Tests.Tools') {
+            continue
+        }
+
+        foreach ($class in @($package.classes.class)) {
+            if ($class.name -match '\.<|\.<>' -or
+                $class.name -like 'Microsoft.FluentUI.AspNetCore.Components.DesignTokens.*' -or
+                $class.name -like 'Microsoft.FluentUI.AspNetCore.McpServer.*' -or
+                $class.filename -like '*.g.cs') {
+                continue
+            }
+
+            $lines = @($class.lines.line)
+            $linesValid = $lines.Count
+            $linesCovered = @($lines | Where-Object { [int]$_.hits -gt 0 }).Count
+
+            if (-not $typeCoverage.ContainsKey($class.name)) {
+                $typeCoverage[$class.name] = [ordered]@{
+                    LinesCovered = 0
+                    LinesValid = 0
+                }
+            }
+
+            $typeCoverage[$class.name].LinesCovered += $linesCovered
+            $typeCoverage[$class.name].LinesValid += $linesValid
+        }
+    }
+}
+
+foreach ($type in $typeCoverage.GetEnumerator() |
+        Where-Object { $_.Value.LinesValid -gt 0 } |
+        Sort-Object { $_.Value.LinesCovered / $_.Value.LinesValid } -Descending) {
+    $covered = $type.Value.LinesCovered
+    $valid = $type.Value.LinesValid
+    $percentage = $covered / $valid
+    $line = '{0,6:P1} ({1}/{2}) {3}' -f $percentage, $covered, $valid, $type.Key
+
+    if ($percentage -lt 0.98) {
+        Write-Host $line -ForegroundColor Red
+    }
+    else {
+        Write-Host $line
+    }
+}
 
 Write-Host
 $reportPath = Join-Path $resultsDir 'Report\index.htm'

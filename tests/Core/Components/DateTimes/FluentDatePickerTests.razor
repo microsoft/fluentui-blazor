@@ -517,6 +517,22 @@
     }
 
     [Fact]
+    public async Task FluentDatePicker_PickerMonthChangedHandler_InvokesCallbackWhenConfigured()
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2024, 7, 1));
+        DateTime? changedMonth = null;
+
+        var cut = Render<FluentDatePicker<DateTime>>(
+            @<FluentDatePicker TValue="DateTime"
+                              PickerMonthChanged="@(month => changedMonth = month)" />);
+        var calendar = cut.FindComponent<FluentCalendar<DateTime>>();
+
+        await cut.InvokeAsync(() => calendar.Instance.PickerMonthChanged.InvokeAsync(new DateTime(2024, 8, 1)));
+
+        Assert.Equal(new DateTime(2024, 8, 1), changedMonth);
+    }
+
+    [Fact]
     public void FluentDatePicker_OnCalendarOpen_EventTriggers()
     {
         // Arrange
