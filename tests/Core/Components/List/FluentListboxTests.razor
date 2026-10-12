@@ -41,6 +41,8 @@
 
         public Task InvokeInputHandlerAsync() => InputHandlerAsync(new ChangeEventArgs());
 
+        public void AttachEditContext(EditContext editContext) => EditContext = editContext;
+
         public void ConfigureValidationExpressions(
             bool multiple,
             System.Linq.Expressions.LambdaExpression? validationFieldFor,
@@ -538,17 +540,30 @@
     public void FluentListbox_NotifyValidationFieldChanged_CoversBindingExpressions()
     {
         var model = new ListboxValidationModel();
-        string? value = null;
+        var editContext = new EditContext(model);
         var list = new TestFluentListbox<string, string>();
+        var changedFields = new List<FieldIdentifier>();
+        editContext.OnFieldChanged += (_, args) => changedFields.Add(args.FieldIdentifier);
+        list.AttachEditContext(editContext);
 
         list.ConfigureValidationExpressions(false, () => model.Items, null, null);
         list.InvokeNotifyValidationFieldChanged();
+        Assert.Equal(new FieldIdentifier(model, nameof(ListboxValidationModel.Items)), Assert.Single(changedFields));
 
-        list.ConfigureValidationExpressions(true, null, null, () => value!);
+        changedFields.Clear();
+        list.ConfigureValidationExpressions(true, null, () => model.SelectedItems, null);
         list.InvokeNotifyValidationFieldChanged();
+        Assert.Equal(new FieldIdentifier(model, nameof(ListboxValidationModel.SelectedItems)), Assert.Single(changedFields));
 
-        list.ConfigureValidationExpressions(false, null, null, () => value!);
+        changedFields.Clear();
+        list.ConfigureValidationExpressions(true, null, null, () => model.Value!);
         list.InvokeNotifyValidationFieldChanged();
+        Assert.Equal(new FieldIdentifier(model, nameof(ListboxValidationModel.Value)), Assert.Single(changedFields));
+
+        changedFields.Clear();
+        list.ConfigureValidationExpressions(false, null, null, () => model.Value!);
+        list.InvokeNotifyValidationFieldChanged();
+        Assert.Equal(new FieldIdentifier(model, nameof(ListboxValidationModel.Value)), Assert.Single(changedFields));
     }
 
     [Fact]
@@ -681,5 +696,9 @@
     {
         [Required(ErrorMessage = "Items are required")]
         public IEnumerable<string>? Items { get; set; }
+
+        public IEnumerable<string> SelectedItems { get; set; } = [];
+
+        public string? Value { get; set; }
     }
 }
