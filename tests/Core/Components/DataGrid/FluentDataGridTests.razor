@@ -2748,7 +2748,7 @@
         resizeCut.Find("[col-sort-button]").Click();
         var resize = resizeCut.Find("fluent-menu-item");
         resize.KeyDown(new KeyboardEventArgs { Key = "Enter" });
-        Assert.Contains("Resize", resizeCut.Markup, StringComparison.OrdinalIgnoreCase);
+        Assert.Single(resizeCut.FindComponents<ColumnResizeOptions<Customer>>());
 
         FluentDataGrid<Customer>? reorderGrid = default!;
         var reorderCut = Render<FluentDataGrid<Customer>>(
@@ -2763,7 +2763,7 @@
         reorderCut.Find("[col-sort-button]").Click();
         var reorder = reorderCut.Find("fluent-menu-item");
         reorder.KeyDown(new KeyboardEventArgs { Key = "Enter" });
-        Assert.Contains("Reorder", reorderCut.Markup, StringComparison.OrdinalIgnoreCase);
+        Assert.Single(reorderCut.FindComponents<ColumnReorderOptions<Customer>>());
     }
 
     [Fact]
