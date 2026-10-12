@@ -2,11 +2,14 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
 /// Represents one overflow item state passed by the overflowchange custom event.
 /// </summary>
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor)]
 public class OverflowChangedItem
 {
     /// <summary>
