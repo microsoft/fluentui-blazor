@@ -5,6 +5,7 @@
      class="@ClassValue"
      style="@StyleValue"
      hidden-when="@HiddenAttribute"
+     @attributes="AdditionalAttributes"
      xs="@(NoBreakpointsDefined() ? 0 : Xs)"
      sm="@Sm"
      md="@Md"
@@ -16,8 +17,7 @@
      order-md="@OrderMd"
      order-lg="@OrderLg"
      order-xl="@OrderXl"
-     order-xxl="@OrderXxl"
-     @attributes="AdditionalAttributes">
+     order-xxl="@OrderXxl">
     @if (RenderChildContent())
     {
         @ChildContent
