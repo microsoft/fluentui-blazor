@@ -8,6 +8,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
 public class ColumnKeyGridSortTests : Bunit.BunitContext
 {
+    [Theory]
+    [InlineData(true, DataGridSortDirection.Ascending)]
+    [InlineData(false, DataGridSortDirection.Descending)]
+    public void DataGridSortColumn_Direction_ReflectsAscending(bool ascending, DataGridSortDirection expected)
+    {
+        var sortColumn = new DataGridSortColumn<GridRow>(null!, ascending);
+
+        Assert.Equal(expected, sortColumn.Direction);
+    }
+
     [Fact]
     public void ColumnKeyGridSort_ToPropertyList_ReturnsCorrectPropertyAndDirection()
     {

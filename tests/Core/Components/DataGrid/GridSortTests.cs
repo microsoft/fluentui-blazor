@@ -227,6 +227,25 @@ public class GridSortTests : Bunit.BunitContext
         Assert.True(sort.CanApplyThen);
     }
 
+    [Fact]
+    public void IGridSort_DefaultCanApplyThen_IsFalse()
+    {
+        IGridSort<GridRow> sort = new FirstOnlySort();
+
+        Assert.False(sort.CanApplyThen);
+    }
+
+    [Fact]
+    public void IGridSort_DefaultApplyThen_ExplainsThatSecondarySortingIsUnsupported()
+    {
+        IGridSort<GridRow> sort = new FirstOnlySort();
+
+        var exception = Assert.Throws<NotSupportedException>(() =>
+            sort.ApplyThen(_gridData.AsQueryable().OrderBy(x => x.Number), ascending: true));
+
+        Assert.Contains(nameof(IGridSort<GridRow>.ApplyThen), exception.Message, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData(true, new int[] { 1, 3, 2, 4 })]
     [InlineData(false, new int[] { 4, 2, 3, 1 })]
@@ -262,6 +281,32 @@ public class GridSortTests : Bunit.BunitContext
     }
 
     [Fact]
+    public void GridSortTests_ThenAscending_WithComparer_AppliesComparer()
+    {
+        var comparer = Comparer<int>.Create((left, right) => right.CompareTo(left));
+        var sort = GridSort<GridRow>
+            .ByAscending(x => x.Group)
+            .ThenAscending(x => x.Number, comparer);
+
+        var ordered = sort.Apply(_gridData.AsQueryable(), ascending: true);
+
+        Assert.Equal([3, 1, 4, 2], ordered.Select(x => x.Number));
+    }
+
+    [Fact]
+    public void GridSortTests_ThenDescending_WithComparer_AppliesComparer()
+    {
+        var comparer = Comparer<int>.Create((left, right) => right.CompareTo(left));
+        var sort = GridSort<GridRow>
+            .ByAscending(x => x.Group)
+            .ThenDescending(x => x.Number, comparer);
+
+        var ordered = sort.Apply(_gridData.AsQueryable(), ascending: true);
+
+        Assert.Equal([1, 3, 2, 4], ordered.Select(x => x.Number));
+    }
+
+    [Fact]
     public void GridSortTests_ApplyThen_HierarchicalData_OrdersChildrenUnderTheirParent()
     {
         // How FluentDataGrid applies a multi-column sort to hierarchical data: every level is applied first, and the
@@ -276,6 +321,63 @@ public class GridSortTests : Bunit.BunitContext
 
         // Root Alpha (4) first with its children by descending number, then root Bravo (1) with its own.
         Assert.True(ordered.Select(x => x.Number).SequenceEqual([4, 6, 5, 1, 3, 2]));
+    }
+
+    [Fact]
+    public void HierarchicalSortHelper_EmptySortedQuery_ReturnsOriginalQuery()
+    {
+        var queryable = Array.Empty<HierarchicalGridRow>().AsQueryable();
+        var sorted = queryable.OrderBy(item => item.Number);
+
+        var result = HierarchicalSortHelper.RestoreHierarchyOrder(queryable, sorted);
+
+        Assert.Empty(result);
+        Assert.Same(sorted, result);
+    }
+
+    [Fact]
+    public void HierarchicalSortHelper_WithoutRootItems_ReturnsOriginalSortedQuery()
+    {
+        var items = new[]
+        {
+            new HierarchicalGridRow(2, "B", 1),
+            new HierarchicalGridRow(1, "A", 1),
+        };
+        var queryable = items.AsQueryable();
+        var sorted = queryable.OrderBy(item => item.Group);
+
+        var result = HierarchicalSortHelper.RestoreHierarchyOrder(queryable, sorted);
+
+        Assert.Equal([1, 2], result.Select(item => item.Number));
+        Assert.Same(sorted, result);
+    }
+
+    [Fact]
+    public void HierarchicalSortHelper_OverlappingHierarchy_DoesNotDuplicateItems()
+    {
+        var firstRoot = new HierarchicalGridRow(1, "A", 0);
+        var secondRoot = new HierarchicalGridRow(2, "B", 0);
+        var sharedChild = new HierarchicalGridRow(3, "C", 1);
+        firstRoot.ChildRows.Add(sharedChild);
+        secondRoot.ChildRows.Add(sharedChild);
+
+        var items = new[] { secondRoot, sharedChild, firstRoot }.AsQueryable();
+        var sorted = items.OrderBy(item => item.Group);
+
+        var result = HierarchicalSortHelper.RestoreHierarchyOrder(items, sorted).ToList();
+
+        Assert.Equal([1, 3, 2], result.Select(item => item.Number));
+        Assert.Equal(3, result.Count);
+    }
+
+    [Fact]
+    public void HierarchicalSortHelper_IsHierarchicalInMemoryQueryable_RecognizesOnlySupportedQueries()
+    {
+        var hierarchical = new[] { new HierarchicalGridRow(1, "A", 0) }.AsQueryable();
+        var flat = _gridData.AsQueryable();
+
+        Assert.True(HierarchicalSortHelper.IsHierarchicalInMemoryQueryable(hierarchical));
+        Assert.False(HierarchicalSortHelper.IsHierarchicalInMemoryQueryable(flat));
     }
 
     private static List<HierarchicalGridRow> CreateHierarchicalGridRowsWithTies()
@@ -322,6 +424,14 @@ public class GridSortTests : Bunit.BunitContext
     public class InnerRow
     {
         public int Value { get; set; }
+    }
+
+    private sealed class FirstOnlySort : IGridSort<GridRow>
+    {
+        public IOrderedQueryable<GridRow> Apply(IQueryable<GridRow> queryable, bool ascending)
+            => queryable.OrderBy(item => item.Number);
+
+        public IReadOnlyCollection<SortedProperty> ToPropertyList(bool ascending) => [];
     }
 }
 

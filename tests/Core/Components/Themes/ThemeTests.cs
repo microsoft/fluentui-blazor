@@ -86,4 +86,15 @@ public partial class ThemeTests
         Assert.Contains("\"fontWeightBold\": 700", jsonResult);
         Assert.Contains("\"fontWeightMedium\": 600", jsonResult);
     }
+
+    [Fact]
+    public void Theme_FromJson_NullPayload_ReturnsSameTheme()
+    {
+        var theme = new Theme();
+
+        var result = theme.FromJson("null");
+
+        Assert.Same(theme, result);
+        Assert.Empty(theme.ToCompactDictionary());
+    }
 }

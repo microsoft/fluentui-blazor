@@ -1291,6 +1291,24 @@ value=""2022-02-20"">20</div>");
         Assert.Equal(targetValue, actualValue);
     }
 
+    [Fact]
+    public void FluentCalendar_MouseOverDisabledDay_DoesNotStartSelection()
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2024, 7, 15));
+        var pickerMonth = new DateTime(2024, 7, 1);
+
+        var cut = Render<FluentCalendar<DateTime>>(
+            @<FluentCalendar TValue="DateTime"
+                             PickerMonth="@pickerMonth"
+                             DisabledDateFunc="@(date => date.Day == 15)"
+                             SelectMode="CalendarSelectMode.Range" />);
+
+        var disabledDay = cut.Find(".day[disabled]");
+        disabledDay.TriggerEvent("onmouseover", new MouseEventArgs());
+
+        Assert.DoesNotContain("multi-day-over", disabledDay.GetAttribute("class"));
+    }
+
     #endregion
 
     #region GetAnimationClass Tests

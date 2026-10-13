@@ -188,6 +188,22 @@ public class MessageBarInstanceTests : Bunit.BunitContext
     }
 
     [Fact]
+    public void MessageBarInstance_CancelLifetime_WhenDisposedCtsIsObserved_DoesNotThrow()
+    {
+        var service = (NotificationService)Services.GetRequiredService<INotificationService>();
+        var instance = new MessageBarInstance(service, new MessageBarOptions { Section = "section" });
+
+        instance.Dispose();
+        typeof(MessageBarInstance)
+            .GetField("_disposed", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .SetValue(instance, false);
+
+        var exception = Record.Exception(instance.CancelLifetime);
+
+        Assert.Null(exception);
+    }
+
+    [Fact]
     public async Task MessageBarInstance_TryCompleteResultOnVisible_TimingVisible_CompletesResult()
     {
         // Arrange
