@@ -50,6 +50,41 @@ Breakpoints help you control your layout based on windows size:
 | Extra Large       | xl   | HD and 4k              | < 2560px  |
 | Extra Extra Large | xxl  | 4k+ and ultra-wide     | >= 2560px |
 
+## Reordering grid items
+
+Use the `OrderXs`, `OrderSm`, `OrderMd`, `OrderLg`, `OrderXl`, and `OrderXxl` parameters to control the visual order of grid items at each breakpoint.
+The ordering is mobile-first: an order remains active at larger breakpoints until another order parameter overrides it.
+
+The supported values follow the Bootstrap ordering model:
+
+| Value | Behavior |
+|------|----------|
+| `-1` | Display the item first |
+| `0` to `5` | Display the item in the specified order |
+| `6` | Display the item last |
+
+Resize the browser below and above the `md` breakpoint to see the second and third items change places.
+
+{{ GridReordering }}
+
+When using direct `<div>` children instead of `FluentGridItem`, use the equivalent lowercase attributes,
+such as `order-xs="1"` or `order-lg="3"`.
+
+> [!TIP]
+> If grid items must use the full available width below their first configured breakpoint, set `Xs="12"` on every `FluentGridItem`.
+> You can configure this globally by setting `Xs` to `12` as a
+> [default value for `FluentGridItem`](/default-values), instead of repeating it on every item:
+>
+> ```csharp
+> builder.Services.AddFluentUIComponents(config =>
+> {
+>     config.DefaultValues.For<FluentGridItem>().Set(p => p.Xs, 12);
+> });
+> ```
+
+> **IMPORTANT**: Ordering changes only the visual presentation. It does not change the DOM order used by screen readers
+> and keyboard navigation. Keep the DOM order meaningful and accessible.
+
 ## Hiding elements
 
 For faster, mobile-friendly development, use responsive display classes to show and hide elements according to device.
