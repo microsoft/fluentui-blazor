@@ -13,12 +13,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentProfileMenu : FluentComponentBase
 {
-    private readonly string _generatedId = Identifier.NewId();
-
     /// <summary />
     public FluentProfileMenu(LibraryConfiguration configuration) : base(configuration)
     {
-        Id = _generatedId;
+        Id = Identifier.NewId();
     }
 
     /// <summary />
@@ -28,29 +26,31 @@ public partial class FluentProfileMenu : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
-        .AddStyle("--fluent-profile-menu-button-size", $"{(int)ButtonSize}px")
-        .Build();
-
-    /// <summary />
-    protected string? PopoverStyleValue => new StyleBuilder(PopoverStyle)
-        .AddStyle("inset-block-start", "calc(var(--fluent-profile-menu-button-size) + 4px) !important", TopCorner)
-        .AddStyle("inset-inline-end", "4px !important", TopCorner)
-        .AddStyle("inset-inline-start", "auto !important", TopCorner)
-        .AddStyle("transform", "none !important", TopCorner)
         .Build();
 
     /// <summary>
-    /// Gets or sets the accessible label of the profile menu trigger and popover.
-    /// When omitted, <see cref="FullName"/> or "Profile menu" is used.
+    /// Gets or sets the image displayed by the profile menu avatars.
     /// </summary>
     [Parameter]
-    public string? AriaLabel { get; set; }
+    public string? ImageUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the initials displayed when no image is available.
+    /// </summary>
+    [Parameter]
+    public string? ImageInitials { get; set; }
 
     /// <summary>
     /// Gets or sets the size of the avatar used as the profile menu button.
     /// </summary>
     [Parameter]
-    public AvatarSize ButtonSize { get; set; } = AvatarSize.Size32;
+    public AvatarSize? ImageSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets content displayed before the avatar in the profile menu button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? StartTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the content displayed in the main section of the popover.
@@ -60,79 +60,16 @@ public partial class FluentProfileMenu : FluentComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets the email address displayed in the default profile identity.
-    /// </summary>
-    [Parameter]
-    public string? EMail { get; set; }
-
-    /// <summary>
     /// Gets or sets content displayed after the avatar in the profile menu button.
     /// </summary>
     [Parameter]
     public RenderFragment? EndTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the footer label displayed at the bottom-left of the popover.
+    /// Gets or sets the title of the profile menu.
     /// </summary>
     [Parameter]
-    public string? FooterLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets the footer action label displayed at the bottom-right of the popover.
-    /// </summary>
-    [Parameter]
-    public string? FooterLink { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content for the footer section of the popover.
-    /// This content replaces <see cref="FooterLabel"/> and <see cref="FooterLink"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? FooterTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name displayed in the default profile identity.
-    /// </summary>
-    [Parameter]
-    public string? FullName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the header action label displayed at the top-right of the popover.
-    /// </summary>
-    [Parameter]
-    public string? HeaderButton { get; set; }
-
-    /// <summary>
-    /// Gets or sets the header label displayed at the top-left of the popover.
-    /// </summary>
-    [Parameter]
-    public string? HeaderLabel { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content for the header section of the popover.
-    /// This content replaces <see cref="HeaderLabel"/> and <see cref="HeaderButton"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? HeaderTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the image displayed by the profile menu avatars.
-    /// </summary>
-    [Parameter]
-    public string? Image { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size of the avatar displayed in the popover.
-    /// </summary>
-    [Parameter]
-    public AvatarSize ImageSize { get; set; } = AvatarSize.Size64;
-
-    /// <summary>
-    /// Gets or sets the initials displayed when no image is available.
-    /// When omitted, initials are generated from <see cref="FullName"/>.
-    /// </summary>
-    [Parameter]
-    public string? Initials { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the profile menu is open.
@@ -147,36 +84,6 @@ public partial class FluentProfileMenu : FluentComponentBase
     public EventCallback<bool> OpenChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback invoked when the footer action is selected.
-    /// </summary>
-    [Parameter]
-    public EventCallback OnFooterLinkClick { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback invoked when the header action is selected.
-    /// </summary>
-    [Parameter]
-    public EventCallback OnHeaderButtonClick { get; set; }
-
-    /// <summary>
-    /// Gets or sets the CSS class applied to the profile popover.
-    /// </summary>
-    [Parameter]
-    public string? PopoverClass { get; set; }
-
-    /// <summary>
-    /// Gets or sets the inline style applied to the profile popover.
-    /// </summary>
-    [Parameter]
-    public string? PopoverStyle { get; set; }
-
-    /// <summary>
-    /// Gets or sets content displayed before the avatar in the profile menu button.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? StartTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the presence status displayed on the profile menu button.
     /// </summary>
     [Parameter]
@@ -189,32 +96,26 @@ public partial class FluentProfileMenu : FluentComponentBase
     public string? StatusTitle { get; set; }
 
     /// <summary>
+    /// Gets or sets the size of the presence status badge.
+    /// </summary>
+    [Parameter]
+    public BadgeSize? StatusSize { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the popover is pinned to the top inline-end corner.
     /// </summary>
     [Parameter]
     public bool TopCorner { get; set; }
 
-    private string FooterLinkLabel => FooterLink ?? Localizer[Localization.LanguageResource.ProfileMenu_ViewAccount];
+    // private string FooterLinkLabel => FooterLink ?? Localizer[Localization.LanguageResource.ProfileMenu_ViewAccount];
 
-    private string HeaderButtonLabel => HeaderButton ?? Localizer[Localization.LanguageResource.ProfileMenu_SignOut];
+    // private string HeaderButtonLabel => HeaderButton ?? Localizer[Localization.LanguageResource.ProfileMenu_SignOut];
 
-    private string ComponentId => string.IsNullOrWhiteSpace(Id) ? _generatedId : Id;
+    // private string ComponentId => string.IsNullOrWhiteSpace(Id) ? _generatedId : Id;
 
-    private string PopoverId => $"{ComponentId}-popover";
+    private string PopoverId => $"{Id}-popover";
 
-    private string TriggerId => $"{ComponentId}-trigger";
-
-    private string GetAriaLabel()
-    {
-        if (!string.IsNullOrWhiteSpace(AriaLabel))
-        {
-            return AriaLabel;
-        }
-
-        return !string.IsNullOrWhiteSpace(FullName)
-            ? FullName
-            : Localizer[Localization.LanguageResource.ProfileMenu_Label];
-    }
+    private string TriggerId => $"{Id}-trigger";
 
     private string GetStatusTitle()
     {
