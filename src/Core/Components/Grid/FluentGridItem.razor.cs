@@ -74,6 +74,48 @@ public partial class FluentGridItem : FluentComponentBase
     public int? Xxl { get; set; }
 
     /// <summary>
+    /// Gets or sets the visual order of this item on Extra Small devices (portrait phones, less than 600px wide).
+    /// Use -1 for first, a value from 0 to 5, or 6 for last.
+    /// </summary>
+    [Parameter]
+    public int? OrderXs { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual order of this item on Small devices (landscape phones, 600px wide and up).
+    /// Use -1 for first, a value from 0 to 5, or 6 for last.
+    /// </summary>
+    [Parameter]
+    public int? OrderSm { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual order of this item on Medium devices (tablets, 960px wide and up).
+    /// Use -1 for first, a value from 0 to 5, or 6 for last.
+    /// </summary>
+    [Parameter]
+    public int? OrderMd { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual order of this item on Large devices (desktops, 1280px wide and up).
+    /// Use -1 for first, a value from 0 to 5, or 6 for last.
+    /// </summary>
+    [Parameter]
+    public int? OrderLg { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual order of this item on Extra Large devices (large desktops, 1920px wide and up).
+    /// Use -1 for first, a value from 0 to 5, or 6 for last.
+    /// </summary>
+    [Parameter]
+    public int? OrderXl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the visual order of this item on Extra Extra Large devices (larger desktops, 2560px wide and up).
+    /// Use -1 for first, a value from 0 to 5, or 6 for last.
+    /// </summary>
+    [Parameter]
+    public int? OrderXxl { get; set; }
+
+    /// <summary>
     /// Gets or sets how the browser distributes space between and around content items within this grid item.
     /// </summary>
     [Parameter]

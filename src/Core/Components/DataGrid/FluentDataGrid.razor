@@ -24,6 +24,7 @@
                style="@StyleValue"
                aria-rowcount="@(_internalGridContext.TotalItemCount + 1)"
                striped="@StripedRows"
+               role="grid"
                display-mode="@(DisplayMode == DataGridDisplayMode.Grid ? "grid" : "table")"
                auto-fit="@(AutoFit ? bool.TrueString.ToLowerInvariant() : null)"
                loading="@(_pendingDataLoadCancellationTokenSource is not null ? bool.TrueString.ToLowerInvariant() : null)"
