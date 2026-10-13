@@ -554,6 +554,110 @@
 	}
 
 	[Fact]
+	public async Task FluentDragGroup_Unknown_Zone_And_Unknown_Source_Are_Handled()
+	{
+		// Arrange
+		var group = new FluentDragGroup<int>();
+		var cut = Render(@<FluentDragContainer TItem="int" Group="group">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act & Assert: unknown zone in a group is ignored
+		Assert.Null(group.FindZone("missing"));
+		await cut.InvokeAsync(() => container.TouchDragEnterAsync("src", "missing"));
+
+		// Act & Assert: drag end with a source zone that no longer exists still clears the shared state
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("src"));
+		Assert.NotNull(group.StartedZone);
+		await cut.InvokeAsync(() => container.TouchDragEndAsync("missing"));
+		Assert.Null(group.StartedZone);
+	}
+
+	[Fact]
+	public async Task FluentDragGroup_Register_Is_Idempotent_And_Unregister_On_Dispose()
+	{
+		// Arrange
+		var group = new FluentDragGroup<int>();
+		var cut = Render(@<FluentDragContainer TItem="int" Group="group">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act
+		group.Register(container);
+		group.Register(container);
+
+		// Assert
+		Assert.Same(container.TryGetLocalZone("src", out var zone) ? zone : null, group.FindZone("src"));
+
+		// Act: disposing the container removes it from the group
+		await cut.InvokeAsync(() => container.DisposeAsync().AsTask());
+
+		// Assert
+		Assert.Null(group.FindZone("src"));
+	}
+
+	[Fact]
+	public void FluentDragContainer_Group_Change_Moves_Registration()
+	{
+		// Arrange
+		var group1 = new FluentDragGroup<int>();
+		var group2 = new FluentDragGroup<int>();
+		var cut = Render<FluentDragContainer<int>>(parameters => parameters
+			.Add(p => p.Group, group1)
+			.AddChildContent("<span>content</span>"));
+		var container = cut.Instance;
+		Assert.False(string.IsNullOrEmpty(cut.Find("div").GetAttribute("data-drag-group")));
+
+		// Act: change group
+		cut.Render(parameters => parameters.Add(p => p.Group, group2));
+
+		// Assert
+		Assert.Equal(group2, container.Group);
+
+		// Act: remove group
+		cut.Render(parameters => parameters.Add(p => p.Group, null));
+
+		// Assert
+		Assert.Null(container.Group);
+		Assert.False(cut.Find("div").HasAttribute("data-drag-group"));
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_TouchDragEnd_Without_Group_And_Unknown_Source_Clears_StartedZone()
+	{
+		// Arrange
+		var cut = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act
+		await cut.InvokeAsync(() => container.TouchDragStartAsync("src"));
+		await cut.InvokeAsync(() => container.TouchDragEndAsync("missing"));
+
+		// Assert
+		Assert.Null(container.StartedZone);
+	}
+
+	[Fact]
+	public async Task FluentDragContainer_TouchDragEnd_Without_Started_Zone_Does_Nothing()
+	{
+		// Arrange
+		var cut = Render(@<FluentDragContainer TItem="int">
+			<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+		</FluentDragContainer>);
+		var container = cut.FindComponent<FluentDragContainer<int>>().Instance;
+
+		// Act
+		await cut.InvokeAsync(() => container.TouchDragEndAsync("src"));
+
+		// Assert
+		Assert.Null(container.StartedZone);
+	}
+
+	[Fact]
 	public async Task FluentDragContainer_TouchDragEnd_Without_Drop_Clears_StartedZone()
 	{
 		// Arrange
