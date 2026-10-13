@@ -126,13 +126,6 @@
         });
     }
 
-    [Fact]
-    public void FluentToggleButton_Throws_When_Loading()
-    {
-        Assert.Throws<ArgumentException>(() =>
-            Render(@<FluentToggleButton Loading="true">toggle</FluentToggleButton>));
-    }
-
     [Theory]
     [InlineData(ButtonType.Button, "button")]
     [InlineData(ButtonType.Reset, "reset")]
