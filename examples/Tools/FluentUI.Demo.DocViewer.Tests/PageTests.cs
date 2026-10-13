@@ -13,6 +13,34 @@ public class PageTests
 {
     private readonly DocViewerServiceTests DocViewerService = new();
 
+    [Theory]
+    [InlineData("\n")]
+    [InlineData("\r\n")]
+    [InlineData("\r")]
+    public void Page_WithLeadingFrontMatter_ReadsMetadataAndPreservesMarkdown(string newLine)
+    {
+        var body = $"| Before | After |{newLine}|---|---|{newLine}| One | Two |";
+        var content = $"---{newLine}title: Before --- After{newLine}route: /Example{newLine}---{newLine}{body}";
+
+        var page = new Page(DocViewerService, "file.md", content);
+
+        Assert.Equal("Before --- After", page.Title);
+        Assert.Equal("/Example", page.Route);
+        Assert.Equal(body, page.Content);
+    }
+
+    [Theory]
+    [InlineData("| Before | After |\n|---|---|\n| One | Two |")]
+    [InlineData("# Content\n\n---\ntitle: Not metadata\n---")]
+    [InlineData("---\ntitle: Before --- After\n\n| Before | After |\n|---|---|\n| One | Two |")]
+    public void Page_WithoutCompleteLeadingFrontMatter_PreservesContent(string content)
+    {
+        var page = new Page(DocViewerService, "file.md", content);
+
+        Assert.Empty(page.Headers);
+        Assert.Equal(content, page.Content);
+    }
+
     [Fact]
     public void Page_HeaderContent()
     {

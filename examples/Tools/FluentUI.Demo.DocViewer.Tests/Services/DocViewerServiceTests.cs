@@ -17,7 +17,8 @@ public class DocViewerServiceTests : DocViewerService
     [Theory]
     [InlineData("\n")]
     [InlineData("\r\n")]
-    public void RemoveHeaders_WithLeadingHeaders_PreservesMarkdownBody(string newLine)
+    [InlineData("\r")]
+    public void RemoveFrontMatter_WithLeadingHeaders_PreservesMarkdownBody(string newLine)
     {
         var body = """
             # Content
@@ -38,7 +39,7 @@ public class DocViewerServiceTests : DocViewerService
             """.ReplaceLineEndings(newLine);
         var original = $"---{newLine}title: Before --- After{newLine}---{newLine}{body}";
 
-        var content = RemoveHeaders(original);
+        var content = RemoveFrontMatter(original);
         var html = Markdown.ToHtml(content, MarkdownPipeline);
 
         Assert.Equal(body, content);
@@ -51,16 +52,27 @@ public class DocViewerServiceTests : DocViewerService
     [InlineData("| Before | After |\n|---|---|\n| One | Two |")]
     [InlineData("# Content\n\n---\n\nMore content\n\n---")]
     [InlineData("---\ntitle: Before --- After\n\n| Before | After |\n|---|---|\n| One | Two |")]
-    public void RemoveHeaders_WithoutCompleteLeadingHeaders_PreservesContent(string content)
+    public void RemoveFrontMatter_WithoutCompleteLeadingHeaders_PreservesContent(string content)
     {
-        Assert.Equal(content, RemoveHeaders(content));
+        Assert.Equal(content, RemoveFrontMatter(content));
     }
 
     [Fact]
-    public void RemoveHeaders_WithClosingDelimiterAtEnd_ReturnsEmpty()
+    public void RemoveFrontMatter_WithClosingDelimiterAtEnd_ReturnsEmpty()
     {
         var content = "---\ntitle: Example\n---";
 
-        Assert.Empty(RemoveHeaders(content));
+        Assert.Empty(RemoveFrontMatter(content));
+    }
+
+    [Theory]
+    [InlineData("\n")]
+    [InlineData("\r\n")]
+    [InlineData("\r")]
+    public void RemoveFrontMatter_WithEmptyHeaders_PreservesBody(string newLine)
+    {
+        var body = $"{newLine}    indented code{newLine}";
+
+        Assert.Equal(body, RemoveFrontMatter($"---{newLine}---{newLine}{body}"));
     }
 }
