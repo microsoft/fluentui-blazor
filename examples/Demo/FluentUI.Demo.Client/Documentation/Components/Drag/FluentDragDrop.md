@@ -33,6 +33,10 @@ This structure allows fully flexible layout editing with deep nesting and drag-a
 
 {{ DragDropNested }}
 
+## Between containers
+
+{{ DragDropBetweenContainers }}
+
 ## API FluentDragContainer
 
 {{ API Type=FluentDragContainer<int> }}

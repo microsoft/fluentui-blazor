@@ -15,6 +15,8 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
 
     private readonly Dictionary<string, FluentDropZone<TItem>> _zones = new(StringComparer.Ordinal);
     private DotNetObjectReference<FluentDragContainer<TItem>>? _dotNetRef;
+    private FluentDragGroup<TItem>? _registeredGroup;
+    private FluentDropZone<TItem>? _startedZone;
     private bool _touchInitialized;
 
     /// <summary />
@@ -43,6 +45,14 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the group shared with other containers of the same item type.
+    /// Containers using the same group instance allow moving items from one container to another.
+    /// The zone identifiers must be unique across the containers of the group.
+    /// </summary>
+    [Parameter]
+    public FluentDragGroup<TItem>? Group { get; set; }
 
     /// <summary>
     /// This event is fired when the user starts dragging an element.
@@ -83,13 +93,28 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     /// <summary>
     /// property to keep the zone currently dragged.
     /// </summary>
-    internal FluentDropZone<TItem>? StartedZone { get; private set; }
+    internal FluentDropZone<TItem>? StartedZone => Group is null ? _startedZone : Group.StartedZone;
 
     /// <summary />
     internal void SetStartedZone(FluentDropZone<TItem>? value)
     {
-        StartedZone = value;
-        StateHasChanged();
+        if (Group is null)
+        {
+            _startedZone = value;
+            StateHasChanged();
+            return;
+        }
+
+        Group.SetStartedZone(value);
+    }
+
+    /// <summary />
+    internal void Refresh() => StateHasChanged();
+
+    /// <summary />
+    internal bool TryGetLocalZone(string zoneId, out FluentDropZone<TItem> zone)
+    {
+        return _zones.TryGetValue(zoneId, out zone!);
     }
 
     /// <summary />
@@ -108,6 +133,19 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
         {
             _zones.Remove(zone.Id);
         }
+    }
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        if (ReferenceEquals(_registeredGroup, Group))
+        {
+            return;
+        }
+
+        _registeredGroup?.Unregister(this);
+        Group?.Register(this);
+        _registeredGroup = Group;
     }
 
     /// <summary />
@@ -136,6 +174,8 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
             await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.DragContainer.Dispose", Id);
         }
 
+        _registeredGroup?.Unregister(this);
+        _registeredGroup = null;
         _dotNetRef?.Dispose();
         _dotNetRef = null;
         await base.DisposeAsync();
@@ -163,20 +203,33 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
 
     /// <summary />
     [JSInvokable]
-    public Task TouchDragEndAsync(string sourceId) => RunOnZoneAsync(sourceId, async zone =>
+    public Task TouchDragEndAsync(string sourceId) => InvokeAsync(async () =>
     {
-        await zone.EndDragAsync();
+        // The source zone can already be gone when the item was moved to another container.
+        var zone = FindZone(sourceId);
+        if (zone != null)
+        {
+            await zone.EndDragAsync();
+            zone.Refresh();
+        }
+
         if (StartedZone != null)
         {
             SetStartedZone(value: null);
         }
     });
 
+    private FluentDropZone<TItem>? FindZone(string zoneId)
+    {
+        return TryGetLocalZone(zoneId, out var zone) ? zone : Group?.FindZone(zoneId);
+    }
+
     private Task RunOnZoneAsync(string zoneId, Func<FluentDropZone<TItem>, Task> action)
     {
         return InvokeAsync(async () =>
         {
-            if (_zones.TryGetValue(zoneId, out var zone))
+            var zone = FindZone(zoneId);
+            if (zone != null)
             {
                 await action(zone);
                 zone.Refresh();

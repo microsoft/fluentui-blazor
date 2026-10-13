@@ -517,6 +517,43 @@
 	}
 
 	[Fact]
+	public async Task FluentDragContainer_Group_Touch_Flow_Moves_Between_Containers()
+	{
+		// Arrange
+		var group = new FluentDragGroup<int>();
+		FluentDragEventArgs<int>? drop = null;
+
+		var cut = Render(@<div>
+			<FluentDragContainer Id="containerA" TItem="int" Group="group">
+				<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+			</FluentDragContainer>
+			<FluentDragContainer Id="containerB" TItem="int" Group="group" OnDropEnd="(e) => drop = e">
+				<FluentDropZone Id="dst" Droppable="true" TItem="int" Item="2">Target</FluentDropZone>
+			</FluentDragContainer>
+		</div>);
+
+		var containers = cut.FindComponents<FluentDragContainer<int>>();
+		var containerA = containers[0].Instance;
+		var containerB = containers[1].Instance;
+
+		// Act
+		await cut.InvokeAsync(() => containerA.TouchDragStartAsync("src"));
+		await cut.InvokeAsync(() => containerA.TouchDragEnterAsync("src", "dst"));
+
+		// Assert: the target zone of the other container is reached and the drag state is shared
+		Assert.Same(containerA.StartedZone, containerB.StartedZone);
+		Assert.True(cut.Find("#dst").HasAttribute("dragged-over"));
+
+		await cut.InvokeAsync(() => containerA.TouchDropAsync("src", "dst"));
+		Assert.Equal(1, drop!.Source.Item);
+		Assert.Equal(2, drop.Target.Item);
+		Assert.Null(containerB.StartedZone);
+
+		await cut.InvokeAsync(() => containerA.TouchDragEndAsync("src"));
+		Assert.Null(containerA.StartedZone);
+	}
+
+	[Fact]
 	public async Task FluentDragContainer_TouchDragEnd_Without_Drop_Clears_StartedZone()
 	{
 		// Arrange
