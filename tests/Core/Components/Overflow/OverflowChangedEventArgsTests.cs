@@ -2,6 +2,8 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Text.Json;
 using Xunit;
 
@@ -73,6 +75,17 @@ public class OverflowChangedEventArgsTests
 
 public class OverflowChangedItemTests
 {
+    [Fact]
+    public void OverflowChangedItem_TrimmingMetadata_PreservesPublicParameterlessConstructor()
+    {
+        // Act
+        var attribute = typeof(OverflowChangedItem).GetCustomAttribute<DynamicallyAccessedMembersAttribute>();
+
+        // Assert
+        Assert.NotNull(attribute);
+        Assert.Equal(DynamicallyAccessedMemberTypes.PublicParameterlessConstructor, attribute.MemberTypes);
+    }
+
     [Fact]
     public void OverflowChangedItem_Defaults_AreExpected()
     {

@@ -2,6 +2,16 @@ div[draggable='true'] {
   cursor: move;
 }
 
+div[data-draggable='true'] {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+div[data-touch-dragging] {
+  opacity: 0.4;
+}
+
 div[dragged-over] {
   background-color: var(--colorNeutralBackground4);
   color: var(--colorNeutralForeground4);

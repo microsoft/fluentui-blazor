@@ -6,6 +6,7 @@
 {
     <FluentCombobox @ref="_fluentCombobox"
                     Id="@Id"
+                    ValidationFieldFor="@ValidationFieldExpression"
                     TOption="DateTime?"
                     TValue="DateTime?"
                     Class="@ClassValue"
@@ -45,6 +46,7 @@
 else
 {
     <FluentTextInput Id="@Id"
+                     ValidationFieldFor="@ValidationFieldExpression"
                      Class="@ClassValue"
                      Style="@StyleValue"
                      Label="@Label"

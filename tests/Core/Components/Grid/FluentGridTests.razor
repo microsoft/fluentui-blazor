@@ -56,6 +56,26 @@
     }
 
     [Fact]
+    public void FluentGrid_Items_AllOrderBreakpoints()
+    {
+        // Arrange && Act
+        var cut = Render(
+    @<FluentGrid>
+        <FluentGridItem OrderXs="-1" OrderSm="0" OrderMd="1" OrderLg="3" OrderXl="5" OrderXxl="6">My cell</FluentGridItem>
+    </FluentGrid>);
+
+        var item = cut.Find(".fluent-grid > div");
+
+        // Assert
+        Assert.Equal("-1", item.GetAttribute("order-xs"));
+        Assert.Equal("0", item.GetAttribute("order-sm"));
+        Assert.Equal("1", item.GetAttribute("order-md"));
+        Assert.Equal("3", item.GetAttribute("order-lg"));
+        Assert.Equal("5", item.GetAttribute("order-xl"));
+        Assert.Equal("6", item.GetAttribute("order-xxl"));
+    }
+
+    [Fact]
     public void FluentGrid_Items_JustifyGap()
     {
         // Arrange && Act

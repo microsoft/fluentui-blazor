@@ -27,29 +27,26 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
     {
         Id = Identifier.NewId();
 
-        // Default message displayed when the value is invalid
-        MessageCondition = (field) =>
-        {
-            if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
-            {
-                return false;
-            }
+        var requiredMessageCondition = CreateRequiredMessageCondition(
+            () => string.IsNullOrEmpty(CurrentValueAsString),
+            useFieldFocusLost: true);
 
+        // Default message displayed when the value is invalid
+        MessageCondition = field =>
+        {
             if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
             {
+                if (EditContext?.GetValidationMessages(FieldIdentifier).Any() == true)
+                {
+                    return false;
+                }
+
                 field.MessageIcon = FluentStatus.ErrorIcon;
                 field.Message = Localizer[Localization.LanguageResource.ColorPickerInput_InvalidHexMessage];
                 return true;
             }
 
-            if (FocusLost && (Required ?? false) && !(Disabled ?? false) && !ReadOnly && string.IsNullOrEmpty(CurrentValueAsString))
-            {
-                field.MessageIcon = FluentStatus.ErrorIcon;
-                field.Message = Localizer[Localization.LanguageResource.FluentInputBase_RequiredMessage];
-                return true;
-            }
-
-            return false;
+            return requiredMessageCondition(field);
         };
     }
 

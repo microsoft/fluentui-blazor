@@ -1,0 +1,11 @@
+<FluentTreeView Items="@Selection.Items"
+                SelectionMode="TreeSelectionMode.Multiple"
+                CheckState="@Selection.GetCheckState"
+                SelectedItems="@Selection.SelectedItems"
+                SelectedItemsChanged="@Selection.OnSelectedItemsChanged" />
+
+@code
+{
+    [Parameter]
+    public TreeViewThreeStateSelection Selection { get; set; } = default!;
+}

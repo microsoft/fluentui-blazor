@@ -75,6 +75,12 @@ public class FluentValidationMessageTests : Verify.FluentUITestContext
         Assert.Contains("Description is required", cut.Markup);
     }
 
+    [Fact]
+    public void FluentValidationMessage_CreateIcon_ReturnsNullForNullIcon()
+    {
+        Assert.Null(FluentValidationMessage<string>.CreateIcon(null));
+    }
+
     private sealed class TestModel
     {
         public string Name { get; set; } = string.Empty;
