@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Xunit;
@@ -369,6 +370,39 @@ public class ThemeServiceTests
         var inv = Assert.Single(js.Invocations);
         Assert.Equal("Blazor.theme.getThemeSettings", inv.Identifier);
         Assert.Empty(inv.Arguments);
+    }
+
+    [Fact]
+    public void ThemeSettings_JsonDeserialize_RoundTripsLowercaseDarkMode()
+    {
+        const string json = """
+            {
+              "color": "#0078D4",
+              "hueTorsion": 0.1,
+              "vibrancy": 0.2,
+              "mode": "dark",
+              "isExact": true
+            }
+            """;
+        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web);
+
+        var result = JsonSerializer.Deserialize<ThemeSettings>(json, options);
+
+        Assert.NotNull(result);
+        Assert.Equal(ThemeMode.Dark, result!.Mode);
+        Assert.Equal("#0078D4", result.Color);
+        Assert.Equal(0.1, result.HueTorsion);
+        Assert.Equal(0.2, result.Vibrancy);
+        Assert.True(result.IsExact);
+
+        var darkMember = typeof(ThemeMode).GetMember(nameof(ThemeMode.Dark)).Single();
+        var supportsLowercaseMemberNames = darkMember.GetCustomAttributes(typeof(System.Text.Json.Serialization.JsonStringEnumMemberNameAttribute), inherit: true).Length > 0;
+        var expectedMode = supportsLowercaseMemberNames ? "dark" : "Dark";
+
+        var roundTrip = JsonSerializer.Serialize(result, options);
+        using var document = JsonDocument.Parse(roundTrip);
+
+        Assert.Equal(expectedMode, document.RootElement.GetProperty("mode").GetString());
     }
 
     [Fact]
