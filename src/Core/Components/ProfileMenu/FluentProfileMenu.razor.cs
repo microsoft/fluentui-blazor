@@ -100,19 +100,6 @@ public partial class FluentProfileMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public BadgeSize? StatusSize { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the popover is pinned to the top inline-end corner.
-    /// </summary>
-    [Parameter]
-    public bool TopCorner { get; set; }
-
-    // private string FooterLinkLabel => FooterLink ?? Localizer[Localization.LanguageResource.ProfileMenu_ViewAccount];
-
-    // private string HeaderButtonLabel => HeaderButton ?? Localizer[Localization.LanguageResource.ProfileMenu_SignOut];
-
-    // private string ComponentId => string.IsNullOrWhiteSpace(Id) ? _generatedId : Id;
-
     private string PopoverId => $"{Id}-popover";
 
     private string TriggerId => $"{Id}-trigger";
