@@ -17,6 +17,7 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     private DotNetObjectReference<FluentDragContainer<TItem>>? _dotNetRef;
     private FluentDragGroup<TItem>? _registeredGroup;
     private FluentDropZone<TItem>? _startedZone;
+    private FluentDropZone<TItem>? _touchSource;
     private bool _touchInitialized;
 
     /// <summary />
@@ -183,7 +184,11 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
 
     /// <summary />
     [JSInvokable]
-    public Task TouchDragStartAsync(string sourceId) => RunOnZoneAsync(sourceId, async zone => await zone.StartDragAsync());
+    public Task TouchDragStartAsync(string sourceId) => RunOnZoneAsync(sourceId, async zone =>
+    {
+        _touchSource = zone;
+        await zone.StartDragAsync();
+    });
 
     /// <summary />
     [JSInvokable]
@@ -205,12 +210,18 @@ public partial class FluentDragContainer<TItem> : FluentComponentBase
     [JSInvokable]
     public Task TouchDragEndAsync(string sourceId) => InvokeAsync(async () =>
     {
-        // The source zone can already be gone when the item was moved to another container.
-        var zone = FindZone(sourceId);
-        if (zone != null)
+        // Use the zone captured at drag start: the drop callback may have moved the item,
+        // so the same id can now belong to a new zone in another container.
+        var source = _touchSource;
+        _touchSource = null;
+
+        if (source != null)
         {
-            await zone.EndDragAsync();
-            zone.Refresh();
+            await source.EndDragAsync();
+            if (TryGetLocalZone(sourceId, out var registered) && ReferenceEquals(registered, source))
+            {
+                source.Refresh();
+            }
         }
 
         if (StartedZone != null)

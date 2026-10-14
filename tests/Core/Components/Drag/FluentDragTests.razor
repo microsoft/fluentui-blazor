@@ -684,6 +684,45 @@
 	}
 
 	[Fact]
+	public async Task FluentDragContainer_Group_TouchDragEnd_Uses_Original_Source_After_Move()
+	{
+		// Arrange
+		var group = new FluentDragGroup<int>();
+		var moved = false;
+		var endCountA = 0;
+		var endCountB = 0;
+
+		var cut = Render(@<div>
+			<FluentDragContainer TItem="int" Group="group" OnDragEnd="(e) => endCountA++">
+				@if (!moved)
+				{
+					<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+				}
+			</FluentDragContainer>
+			<FluentDragContainer TItem="int" Group="group" OnDragEnd="(e) => endCountB++">
+				<FluentDropZone Id="dst" Droppable="true" TItem="int" Item="2">Target</FluentDropZone>
+				@if (moved)
+				{
+					<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+				}
+			</FluentDragContainer>
+		</div>);
+		var containerA = cut.FindComponents<FluentDragContainer<int>>()[0].Instance;
+
+		// Act: drag, drop, then the item is re-rendered in the other container with the same id
+		await cut.InvokeAsync(() => containerA.TouchDragStartAsync("src"));
+		await cut.InvokeAsync(() => containerA.TouchDropAsync("src", "dst"));
+		moved = true;
+		cut.Render();
+		await cut.InvokeAsync(() => containerA.TouchDragEndAsync("src"));
+
+		// Assert: drag end is reported on the original source container only
+		Assert.Equal(1, endCountA);
+		Assert.Equal(0, endCountB);
+		Assert.Null(group.StartedZone);
+	}
+
+	[Fact]
 	public async Task FluentDragContainer_TouchDragEnd_Without_Drop_Clears_StartedZone()
 	{
 		// Arrange
