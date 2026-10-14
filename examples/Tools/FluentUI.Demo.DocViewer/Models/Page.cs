@@ -11,7 +11,7 @@ namespace FluentUI.Demo.DocViewer.Models;
 /// <summary>
 /// Represents a page of a markdown document.
 /// </summary>
-public partial record Page
+public record Page
 {
     private const string DefaultPageGroupIdentifier = "[Default]";
     private readonly DocViewerService _docViewerService;
@@ -213,13 +213,12 @@ public partial record Page
     private static Dictionary<string, string> ExtractHeaderContent(string input)
     {
         var dictionary = new Dictionary<string, string>();
-        var regex = ExtractHeaderRegEx();
-        var match = regex.Match(input);
+        var (header, body) = MarkdownFrontMatter.Split(input);
 
-        if (match.Success)
+        if (header is not null)
         {
-            var lines = match.Groups[1].Value.Split('\n');
-            foreach (var line in lines)
+            using var reader = new StringReader(header);
+            while (reader.ReadLine() is { } line)
             {
                 var parts = line.Split([':'], 2);
                 if (parts.Length == 2)
@@ -230,8 +229,9 @@ public partial record Page
                 }
             }
 
-            var content = input[(match.Index + match.Length)..].Trim();
-            dictionary["content"] = content;
+            // Preserve the existing full-page trimming; included fragments keep
+            // their outer whitespace through DocViewerService.RemoveFrontMatter.
+            dictionary["content"] = body.Trim();
 
         }
         else
@@ -276,7 +276,4 @@ public partial record Page
 
         return $"FILE NOT FOUND: ${resourceName}";
     }
-
-    [GeneratedRegex(@"---\s*(.*?)\s*---", RegexOptions.Singleline)]
-    private static partial Regex ExtractHeaderRegEx();
 }
