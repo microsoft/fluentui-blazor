@@ -85,16 +85,16 @@ public partial class FluentProfilePopover : FluentComponentBase
     public string? HeaderLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the label of the button displayed in the header section of the popover.
+    /// Gets or sets the label of the link displayed in the header section of the popover.
     /// </summary>
     [Parameter]
-    public string? HeaderButtonLabel { get; set; }
+    public string? HeaderLinkLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback invoked when the header button is clicked.
+    /// Gets or sets the callback invoked when the header link is clicked.
     /// </summary>
     [Parameter]
-    public EventCallback<MouseEventArgs> OnHeaderButtonClick { get; set; }
+    public EventCallback<MouseEventArgs> OnHeaderLinkClick { get; set; }
 
     /// <summary>
     /// Gets or sets custom content for the footer section of the popover.

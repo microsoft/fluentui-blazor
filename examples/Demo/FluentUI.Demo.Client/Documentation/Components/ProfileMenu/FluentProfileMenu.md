@@ -56,17 +56,17 @@ It divides the profile content into header, main, and footer sections.
 
 For a standard layout, set:
 
-- `HeaderLabel` and `HeaderButtonLabel` for a heading and an action such as "Sign out".
+- `HeaderLabel` and `HeaderLinkLabel` for a heading and an action such as "Sign out".
 - `ImageUrl`, `ImageInitials`, `ImageSize`, `FullName`, and `EMail` for the user's identity.
 - `FooterLabel` and `FooterLinkLabel` for additional account information or navigation.
-- `OnHeaderButtonClick` and `OnFooterLinkClick` to handle the built-in actions.
+- `OnHeaderLinkClick` and `OnFooterLinkClick` to handle the built-in actions.
 - `Width` and `Height` to control the size of the content.
 
 ## Customizing the popover content
 
 Each section can be replaced with custom Razor content:
 
-- `HeaderTemplate` replaces the default header label and button.
+- `HeaderTemplate` replaces the default header label and link.
 - `ChildContent` replaces the default avatar, name, and email layout.
 - `FooterTemplate` replaces the default footer label and link.
 

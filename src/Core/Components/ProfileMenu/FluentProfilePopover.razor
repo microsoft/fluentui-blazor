@@ -15,18 +15,17 @@
             @HeaderTemplate
         </header>
     }
-    else if (!string.IsNullOrWhiteSpace(HeaderLabel) || !string.IsNullOrWhiteSpace(HeaderButtonLabel))
+    else if (!string.IsNullOrWhiteSpace(HeaderLabel) || !string.IsNullOrWhiteSpace(HeaderLinkLabel))
     {
         <header>
             <span style="flex-grow: 1;">
                 @HeaderLabel
             </span>
-            @if (!string.IsNullOrWhiteSpace(HeaderButtonLabel))
+            @if (!string.IsNullOrWhiteSpace(HeaderLinkLabel))
             {
-                <FluentButton Appearance="@ButtonAppearance.Subtle"
-                              OnClick="@OnHeaderButtonClick">
-                    @HeaderButtonLabel
-                </FluentButton>
+                <FluentLink OnClick="@OnHeaderLinkClick">
+                    @HeaderLinkLabel
+                </FluentLink>
             }
         </header>
     }
@@ -45,7 +44,7 @@
                               Name="@FullName"
                               Size="@(ImageSize ?? AvatarSize.Size48)" />
                 <div>
-                    <FluentText Block="true" Weight="TextWeight.Bold">@FullName</FluentText>
+                    <FluentText Block="true" Weight="TextWeight.Bold" Size="TextSize.Size400">@FullName</FluentText>
                     <FluentText Block="true">@EMail</FluentText>
                 </div>
             </FluentStack>

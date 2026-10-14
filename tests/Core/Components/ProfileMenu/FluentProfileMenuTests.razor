@@ -32,6 +32,25 @@
     }
 
     [Fact]
+    public void FluentProfilePopover_HeaderLinkClick_InvokesCallbackWithoutNavigation()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentProfilePopover HeaderLinkLabel="Sign out"
+                                               OnHeaderLinkClick="@(_ => clicked = true)" />);
+        var link = cut.Find("fluent-link");
+
+        // Act
+        link.Click();
+
+        // Assert
+        Assert.True(clicked);
+        Assert.False(link.HasAttribute("href"));
+        Assert.True(link.HasAttribute("clickable"));
+    }
+
+    [Fact]
     public void FluentProfilePopover_FooterLinkClick_InvokesCallbackWithoutNavigation()
     {
         bool clicked = false;

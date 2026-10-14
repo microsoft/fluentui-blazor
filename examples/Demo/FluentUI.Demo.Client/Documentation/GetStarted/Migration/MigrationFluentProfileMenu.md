@@ -51,8 +51,8 @@ standard V4 profile menu.
                           ImageInitials="@user.Initials"
                           ImageSize="@AvatarSize.Size64"
                           HeaderLabel="@user.Company"
-                          HeaderButtonLabel="Sign out"
-                          OnHeaderButtonClick="@SignOut"
+                          HeaderLinkLabel="Sign out"
+                          OnHeaderLinkClick="@SignOut"
                           FooterLinkLabel="View account"
                           OnFooterLinkClick="@ViewAccount" />
 </FluentProfileMenu>
@@ -77,8 +77,8 @@ avatar button.
 | `FullName` | `FluentProfilePopover` | Move to the nested popover. |
 | `EMail` | `FluentProfilePopover` | Move to the nested popover. |
 | `HeaderLabel` | `FluentProfilePopover` | Move to the nested popover. |
-| `HeaderButton` | `FluentProfilePopover` | Rename to `HeaderButtonLabel`. |
-| `OnHeaderButtonClick` | `FluentProfilePopover` | Move to the nested popover. The callback can receive `MouseEventArgs`. |
+| `HeaderButton` | `FluentProfilePopover` | Rename to `HeaderLinkLabel`. |
+| `OnHeaderButtonClick` | `FluentProfilePopover` | Rename to `OnHeaderLinkClick` and move to the nested popover. The callback can receive `MouseEventArgs`. |
 | `FooterLabel` | `FluentProfilePopover` | Move to the nested popover. |
 | `FooterLink` | `FluentProfilePopover` | Rename to `FooterLinkLabel`. |
 | `OnFooterLinkClick` | `FluentProfilePopover` | Move to the nested popover. The callback can receive `MouseEventArgs`. |
@@ -138,7 +138,7 @@ directly inside `FluentProfileMenu` and omit `FluentProfilePopover`.
 
 - `HeaderButton` defaulted to `"Sign out"` and `FooterLink` defaulted to
   `"View account"` in V4. Their V5 replacements have no default text, so set
-  `HeaderButtonLabel` and `FooterLinkLabel` explicitly when those actions are
+  `HeaderLinkLabel` and `FooterLinkLabel` explicitly when those actions are
   required.
 - The V4 implementation used `FluentPersona`. V5 uses `FluentAvatar` and
   `FluentPresenceBadge`, so CSS selectors that target the old generated markup

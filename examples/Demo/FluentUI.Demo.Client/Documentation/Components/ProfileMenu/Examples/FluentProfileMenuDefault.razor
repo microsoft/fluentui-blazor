@@ -53,8 +53,8 @@
                        @bind-Open="@IsOpened2">
         @* Profile popover content *@
         <FluentProfilePopover HeaderLabel="@Bill.Company"
-                              HeaderButtonLabel="Logout"
-                              OnHeaderButtonClick="@(e => Console.WriteLine("Logout clicked"))"
+                              HeaderLinkLabel="Sign out"
+                              OnHeaderLinkClick="@(e => Console.WriteLine("Sign out clicked"))"
                               ImageUrl="@Bill.ImageUrl"
                               ImageInitials="@Bill.Initials"
                               FullName="@Bill.FullName"
