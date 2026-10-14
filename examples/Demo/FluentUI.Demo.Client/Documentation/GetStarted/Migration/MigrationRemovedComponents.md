@@ -87,7 +87,17 @@ hidden: true
 
 ---
 
-> **Note**: `FluentMenuButton`, `FluentPresenceBadge`, and `FluentProfileMenu` were initially
-> listed here but are present in V5 with significant changes. See their dedicated migration pages:
-> [FluentMenuButton](/Migration/MenuButton), [FluentPresenceBadge](/Migration/PresenceBadge),
-> and [FluentProfileMenu](/Migration/ProfileMenu).
+## Components reimplemented in V5
+
+`FluentMenuButton`, `FluentPresenceBadge`, and `FluentProfileMenu` are not
+removed. They are available in V5 with significant implementation and API
+changes:
+
+- See [FluentMenuButton](/Migration/MenuButton) for its replacement API.
+- See [FluentPresenceBadge](/Migration/PresenceBadge) for its replacement API.
+- See [FluentProfileMenu](/Migration/ProfileMenu) to migrate the V4 component
+  to the V5 `FluentProfileMenu` and `FluentProfilePopover` combination.
+
+In particular, do not replace `FluentProfileMenu` with a generic button or
+popover. Keep `FluentProfileMenu` as the avatar trigger and move the V4 header,
+profile details, and footer parameters into a nested `FluentProfilePopover`.
