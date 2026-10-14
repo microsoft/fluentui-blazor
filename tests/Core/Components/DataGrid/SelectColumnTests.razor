@@ -186,6 +186,28 @@
     }
 
     [Fact]
+    public void SelectColumnTests_Property_SynchronizesSelectedItems_WhenInitiallySelected()
+    {
+        var items = new List<Person>(People);
+        items[1].Selected = true;
+        IEnumerable<Person> selectedItems = [];
+
+        var cut = Render(
+            @<FluentDataGrid Items="@items.AsQueryable()" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              Property="@(item => item.Selected)"
+                              @bind-SelectedItems="@selectedItems" />
+                <PropertyColumn Property="@(item => item.Name)" />
+            </FluentDataGrid>);
+
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+        Assert.Single(selectColumn.Instance.SelectedItems);
+        Assert.Equal(2, selectColumn.Instance.SelectedItems.Single().PersonId);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+    }
+
+    [Fact]
     public void SelectColumnTests_SingleStickySelect_Rendering()
     {
         IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
@@ -1266,6 +1288,31 @@
 		// Assert
 		Assert.Equal(comparer, selectColumn.Comparer);
 	}
+
+    [Fact]
+    public void SelectColumnTests_ItemKeyEqualityComparer_HandlesReferenceNullAndKeyEquality()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@People" ItemKey="@(person => person.PersonId)" TGridItem="Person">
+                <SelectColumn TGridItem="Person" SelectMode="@DataGridSelectMode.Multiple" />
+                <PropertyColumn Property="@(person => person.Name)" />
+            </FluentDataGrid>);
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+        var comparer = (IEqualityComparer<Person>)typeof(SelectColumn<Person>)
+            .GetProperty("EffectiveComparer", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .GetValue(selectColumn.Instance)!;
+
+        var first = new Person(1, "First", new DateOnly(2000, 1, 1));
+        var sameKey = new Person(1, "Same key", new DateOnly(2001, 1, 1));
+        var differentKey = new Person(2, "Different key", new DateOnly(2002, 1, 1));
+
+        Assert.True(comparer.Equals(first, first));
+        Assert.False(comparer.Equals(first, null));
+        Assert.False(comparer.Equals(null, first));
+        Assert.True(comparer.Equals(first, sameKey));
+        Assert.False(comparer.Equals(first, differentKey));
+        Assert.Equal(comparer.GetHashCode(first), comparer.GetHashCode(sameKey));
+    }
 
 	[Fact]
     public async Task SelectColumnTests_SingleSelect_SelectedItemsWithComparer()
