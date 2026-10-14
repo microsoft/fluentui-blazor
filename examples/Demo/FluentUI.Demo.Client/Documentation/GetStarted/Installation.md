@@ -12,7 +12,7 @@ Getting started with **Fluent UI Blazor** for faster and easier .NET web develop
 
 ## Using Templates
 
-After installing the `Microsoft/FluentUI.AspNetCore.Templates` package (available starting with RC4) you'll have 4 standard templates available in a ready-to-run Fluent UI version.
+After installing the `Microsoft.FluentUI.AspNetCore.Templates` package you'll have 4 standard templates available in a ready-to-run Fluent UI version.
 
 Templates added:
 
@@ -33,14 +33,14 @@ follow these steps to integrate **Fluent UI Blazor**.
 Use the NuGet Package Manager or run the following command in your terminal:
 
 ```bash
-dotnet add package Microsoft.FluentUI.AspNetCore.Components --prerelease
+dotnet add package Microsoft.FluentUI.AspNetCore.Components
 ```
 
 ```bash
 dotnet add package Microsoft.FluentUI.AspNetCore.Components.Icons
 ```
 
-**Note** With the pre-release version, make sure you don't have the configuration `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>` in your csproj file.
+**Note** With pre-release versions, make sure you don't have the configuration `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>` in your csproj file.
 
 > [!NOTE] If you'd like to take advantage of the daily updates, please follow [these steps](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/using-latest-daily.md).
 > Be aware, however, that this is at your own risk: daily builds may introduce new bugs or breaking changes while you are working.
