@@ -1,4 +1,4 @@
-@using System.ComponentModel.DataAnnotations
+﻿@using System.ComponentModel.DataAnnotations
 @using System.Globalization
 @using System.Reflection
 @using Xunit
@@ -810,12 +810,45 @@
             BindingFlags.NonPublic | BindingFlags.Instance);
         Assert.NotNull(method);
 
-        // Act & Assert
+        // Act
         var parameters = new object?[] { input, null, null };
+        var result = (bool)method.Invoke(pickerInstance, parameters)!;
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
 
-        // These invalid years should throw TargetInvocationException (containing ArgumentOutOfRangeException) when using reflection
-        var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(pickerInstance, parameters));
-        Assert.IsType<ArgumentOutOfRangeException>(ex.InnerException);
+        // Assert
+        Assert.False(result);
+        Assert.Equal(default(DateTime), parsedValue);
+        Assert.NotNull(validationErrorMessage);
+        Assert.Contains("must be a date", validationErrorMessage);
+    }
+
+    [Theory]
+    [InlineData("9999")]
+    [InlineData("10000")]
+    public void FluentDatePicker_TryParseValueFromString_YearsView_UnsupportedCalendarYear_ReturnsValidationError(string input)
+    {
+        // Arrange
+        var persianCulture = new CultureInfo("fa-IR");
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var picker = Render(@<FluentDatePicker TValue="DateTime" Culture="@persianCulture" View="CalendarViews.Years" />);
+        var pickerInstance = picker.FindComponent<FluentDatePicker<DateTime>>().Instance;
+
+        var method = typeof(FluentDatePicker<DateTime>).GetMethod("TryParseValueFromString",
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        // Act
+        var parameters = new object?[] { input, null, null };
+        var result = (bool)method.Invoke(pickerInstance, parameters)!;
+        var parsedValue = (DateTime?)parameters[1];
+        var validationErrorMessage = (string?)parameters[2];
+
+        // Assert
+        Assert.False(result);
+        Assert.Equal(default(DateTime), parsedValue);
+        Assert.NotNull(validationErrorMessage);
+        Assert.Contains("must be a date", validationErrorMessage);
     }
 
     [Fact]

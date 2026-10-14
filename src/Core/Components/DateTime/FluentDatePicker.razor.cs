@@ -216,9 +216,18 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     {
         if (View == CalendarViews.Years && int.TryParse(value, Culture, out var year))
         {
-            result = Culture.DateTimeFormat.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0).ConvertToTValue<TValue>();
-            validationErrorMessage = null;
-            return true;
+            try
+            {
+                result = Culture.DateTimeFormat.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0).ConvertToTValue<TValue>();
+                validationErrorMessage = null;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                result = default!;
+                validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+                return false;
+            }
         }
 
         return base.TryParseValueFromString(value, out result, out validationErrorMessage);
