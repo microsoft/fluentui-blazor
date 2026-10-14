@@ -29,7 +29,7 @@ Use a profile menu to group actions that apply to the current user, such as:
 Keep frequently used application navigation outside the profile menu.
 The menu should contain user-specific information and actions rather than general navigation or large amounts of content.
 
-## FluentProfileMenu
+## Button
 
 `FluentProfileMenu` is the interactive container. Its avatar acts as the menu button and opens the content supplied through `ChildContent`.
 
@@ -50,7 +50,7 @@ Use `@bind-Open` when the application needs to observe or control whether the me
 
 {{ FluentProfileMenuDefault }}
 
-## FluentProfilePopover
+## Popover
 
 `FluentProfilePopover` is an optional content layout designed for use inside `FluentProfileMenu`. 
 It divides the profile content into header, main, and footer sections.

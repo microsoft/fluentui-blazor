@@ -18,7 +18,7 @@
     padding: 0;
 }
 
-.fluent-profile-menu:hover>button[aria-expanded] {
+.fluent-profile-menu>button[aria-expanded]:hover {
     background-color: var(--colorNeutralBackground1Hover);
     outline: 2px solid var(--colorNeutralStroke1Hover);
     outline-offset: 2px;
