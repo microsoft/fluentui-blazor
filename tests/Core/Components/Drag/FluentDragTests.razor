@@ -658,6 +658,32 @@
 	}
 
 	[Fact]
+	public async Task FluentDragGroup_Native_DragEnd_Without_Drop_Clears_Shared_StartedZone()
+	{
+		// Arrange
+		var group = new FluentDragGroup<int>();
+		var cut = Render(@<div>
+			<FluentDragContainer TItem="int" Group="group">
+				<FluentDropZone Id="src" Draggable="true" TItem="int" Item="1">Source</FluentDropZone>
+			</FluentDragContainer>
+			<FluentDragContainer TItem="int" Group="group">
+				<FluentDropZone Id="dst" Droppable="true" TItem="int" Item="2">Target</FluentDropZone>
+			</FluentDragContainer>
+		</div>);
+		var containers = cut.FindComponents<FluentDragContainer<int>>();
+
+		// Act: start a native drag, then cancel it (Escape or drop outside a target)
+		await cut.Find("#src").DragStartAsync(new Microsoft.AspNetCore.Components.Web.DragEventArgs());
+		Assert.NotNull(group.StartedZone);
+		await cut.Find("#src").DragEndAsync(new Microsoft.AspNetCore.Components.Web.DragEventArgs());
+
+		// Assert
+		Assert.Null(group.StartedZone);
+		Assert.Null(containers[0].Instance.StartedZone);
+		Assert.Null(containers[1].Instance.StartedZone);
+	}
+
+	[Fact]
 	public async Task FluentDragContainer_TouchDragEnd_Without_Drop_Clears_StartedZone()
 	{
 		// Arrange
