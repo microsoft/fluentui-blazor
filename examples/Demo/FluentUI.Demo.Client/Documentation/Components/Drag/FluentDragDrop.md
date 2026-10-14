@@ -35,6 +35,29 @@ This structure allows fully flexible layout editing with deep nesting and drag-a
 
 ## Between containers
 
+By default, a `FluentDragContainer` only handles the zones placed inside it. To move items from one container to another,
+create a `FluentDragGroup<TItem>` instance and assign it to the `Group` parameter of every container that should take part.
+All containers of a group must use the same `TItem` type.
+
+```razor
+<FluentDragContainer TItem="string" Group="_group" OnDropEnd="OnDropEnd"> ... </FluentDragContainer>
+<FluentDragContainer TItem="string" Group="_group" OnDropEnd="OnDropEnd"> ... </FluentDragContainer>
+
+@code {
+    private readonly FluentDragGroup<string> _group = new();
+}
+```
+
+* The `Source` of the event arguments can belong to another container than the `Target`. Use `OnDropEnd` to remove the item
+  from its original list and add it to the target list. The `OnDropEnd` event of the container that holds the target zone is raised.
+* The `Id` of each `FluentDropZone` must be unique across all containers of the group.
+* Dropping on an item zone lets you insert the item before it. To also accept drops on an empty list or on the free space,
+  make the list itself a droppable `FluentDropZone` and set `StopPropagation="true"` on the item zones.
+* Touch devices are supported the same way as inside a single container: press and hold an item, then move it over a zone
+  of any container in the group.
+* A drag that is cancelled (Escape key, drop outside a target or touch cancel) clears the shared state of the group.
+* Without a `Group`, containers behave as before and are independent of each other.
+
 {{ DragDropBetweenContainers }}
 
 ## API FluentDragContainer
@@ -49,6 +72,6 @@ This structure allows fully flexible layout editing with deep nesting and drag-a
 
 {{ API Type=FluentDragEventArgs<int> }}
 
-## Migrating from v4
+## Migrating
 
 {{ INCLUDE File=MigrationDrag }}
