@@ -12,7 +12,7 @@ Getting started with **Fluent UI Blazor** for faster and easier .NET web develop
 
 ## Using Templates
 
-After installing the `Microsoft/FluentUI.AspNetCore.Templates` package you'll have 4 standard templates available in a ready-to-run Fluent UI version.
+After installing the `Microsoft.FluentUI.AspNetCore.Templates` package you'll have 4 standard templates available in a ready-to-run Fluent UI version.
 
 Templates added:
 
