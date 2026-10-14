@@ -10,6 +10,16 @@
     }
 
     [Fact]
+    public void FluentProfileMenu_Default_Verify()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfileMenu Id="profile-menu" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
     public void FluentProfileMenu_Default_RendersAccessibleDialogTrigger()
     {
         // Arrange && Act
@@ -42,6 +52,46 @@
     }
 
     [Fact]
+    public void FluentProfileMenu_ButtonClick_InvokesOpenChanged()
+    {
+        bool? open = null;
+
+        // Arrange
+        var cut = Render(@<FluentProfileMenu OpenChanged="@(value => open = value)" />);
+
+        // Act
+        cut.Find("button").Click();
+
+        // Assert
+        Assert.True(open);
+    }
+
+    [Theory]
+    [InlineData(false, false, 0)]
+    [InlineData(false, true, 1)]
+    [InlineData(true, true, 0)]
+    [InlineData(true, false, 1)]
+    public async Task FluentProfileMenu_PopoverOpenChanged_SynchronizesState(
+        bool initialOpen,
+        bool requestedOpen,
+        int expectedCallbackCount)
+    {
+        var states = new List<bool>();
+
+        // Arrange
+        var cut = Render(@<FluentProfileMenu Open="@initialOpen"
+                                            OpenChanged="@states.Add" />);
+        var popover = cut.FindComponent<FluentPopover>();
+
+        // Act
+        await cut.InvokeAsync(() => popover.Instance.OpenedChanged.InvokeAsync(requestedOpen));
+
+        // Assert
+        Assert.Equal(expectedCallbackCount, states.Count);
+        Assert.Equal(requestedOpen ? "true" : "false", cut.Find("button").GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
     public void FluentProfileMenu_RootContainer_IsNotInteractive()
     {
         // Arrange && Act
@@ -54,6 +104,63 @@
         // Assert
         Assert.False(cut.Find(".fluent-profile-menu").HasAttribute("blazor:onclick"));
         Assert.Equal("false", cut.Find("button").GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_CustomContent_Verify()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfileMenu Id="profile-menu"
+                                            ImageUrl="profile.png"
+                                            ImageInitials="AL"
+                                            ImageSize="@AvatarSize.Size64"
+                                            Status="@PresenceStatus.Available"
+                                            StatusTitle="Ready"
+                                            StatusSize="@BadgeSize.Large"
+                                            Title="Ada Lovelace">
+            <StartTemplate>
+                <span>Signed in as</span>
+            </StartTemplate>
+            <ChildContent>
+                <span>Profile details</span>
+            </ChildContent>
+            <EndTemplate>
+                <span>Open profile</span>
+            </EndTemplate>
+        </FluentProfileMenu>);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(PresenceStatus.Available, "available")]
+    [InlineData(PresenceStatus.Busy, "busy")]
+    [InlineData(PresenceStatus.Away, "away")]
+    [InlineData(PresenceStatus.OutOfOffice, "out of office")]
+    [InlineData(PresenceStatus.Offline, "offline")]
+    [InlineData(PresenceStatus.DoNotDisturb, "do not disturb")]
+    [InlineData(PresenceStatus.Blocked, "blocked")]
+    [InlineData((PresenceStatus)999, "unknown")]
+    public void FluentProfileMenu_StatusWithoutTitle_UsesLocalizedTitle(
+        PresenceStatus status,
+        string expectedTitle)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfileMenu Status="@status" />);
+
+        // Assert
+        Assert.Equal(expectedTitle, cut.Find(".fluent-presence-badge").GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentProfilePopover_Default_Verify()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover Id="profile-popover" />);
+
+        // Assert
+        cut.Verify();
     }
 
     [Fact]
@@ -102,6 +209,47 @@
 
         // Assert
         Assert.Equal("Account details", cut.Find("[role='region']").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentProfilePopover_CustomConfiguration_Verify()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover Id="profile-popover"
+                                               Width="320px"
+                                               Height="240px"
+                                               ImageUrl="profile.png"
+                                               ImageInitials="AL"
+                                               ImageSize="@AvatarSize.Size64"
+                                               FullName="Ada Lovelace"
+                                               EMail="ada@example.com"
+                                               HeaderLabel="Account"
+                                               FooterLabel="Microsoft account" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentProfilePopover_CustomTemplates_Render()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover>
+            <HeaderTemplate>
+                <h2>Custom header</h2>
+            </HeaderTemplate>
+            <ChildContent>
+                <p>Custom content</p>
+            </ChildContent>
+            <FooterTemplate>
+                <span>Custom footer</span>
+            </FooterTemplate>
+        </FluentProfilePopover>);
+
+        // Assert
+        Assert.Equal("Custom header", cut.Find("header").TextContent);
+        Assert.Equal("Custom content", cut.Find("p").TextContent);
+        Assert.Equal("Custom footer", cut.Find("footer").TextContent);
     }
 
     [Fact]

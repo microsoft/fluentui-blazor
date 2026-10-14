@@ -1,0 +1,17 @@
+<div id="xxx" class="fluent-profile-menu">
+  <span>Signed in as</span>
+  <button id="xxx" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="profile-menu-popover" aria-label="Ada Lovelace" blazor:onclick="x">
+    <fluent-avatar initials="AL" name="Ada Lovelace" size="64" blazor:onclick="x" blazor:onkeydown="x">
+      <img alt="Ada Lovelace" role="presentation" aria-hidden="true" src="profile.png">
+      <fluent-badge class="fluent-presence-badge" style="aspect-ratio: 1; width: 20px;" size="large" aria-label="available" title="Ready" slot="badge">
+        <svg slot="start" style="width: 20px; fill: var(--colorPaletteLightGreenForeground3); margin: -1px;" focusable="false" viewBox="0 0 20 20" aria-hidden="true" blazor:onkeydown="x" blazor:onclick="x" blazor:elementreference="xxx">
+          <path d="M10 20a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm4.2-11.8-4.5 4.5a1 1 0 0 1-1.4 0l-2-2a1 1 0 1 1 1.4-1.4L9 10.58l3.8-3.8a1 1 0 1 1 1.4 1.42Z"></path>
+        </svg>
+      </fluent-badge>
+    </fluent-avatar>
+  </button>
+  <span>Open profile</span>
+</div>
+<fluent-popover-b id="xxx" anchor-id="profile-menu-trigger" opened="false" role="dialog" aria-label="Ada Lovelace" blazor:onpopovertoggle="4">
+  <span>Profile details</span>
+</fluent-popover-b>
