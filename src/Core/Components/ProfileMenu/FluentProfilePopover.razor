@@ -5,6 +5,7 @@
      class="@ClassValue"
      style="@StyleValue"
      role="region"
+     aria-label="@FullName"
      @attributes="@AdditionalAttributes">
 
     @* Header *@
@@ -31,7 +32,7 @@
     }
 
     @* Content *@
-    <main>
+    <div>
         @if (ChildContent is not null)
         {
             @ChildContent
@@ -49,7 +50,7 @@
                 </div>
             </FluentStack>
         }
-    </main>
+    </div>
 
     @* Footer *@
     @if (FooterTemplate is not null)
@@ -66,7 +67,7 @@
             </span>
             @if (!string.IsNullOrWhiteSpace(FooterLinkLabel))
             {
-                <FluentLink OnClick="@OnFooterLinkClick" Href="#">
+                <FluentLink OnClick="@OnFooterLinkClick">
                     @FooterLinkLabel
                 </FluentLink>
             }

@@ -8,4 +8,45 @@
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
+
+    [Fact]
+    public void FluentProfilePopover_DefaultContent_UsesFullNameAsAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover FullName="Ada Lovelace" />);
+
+        // Assert
+        var region = cut.Find("[role='region']");
+        Assert.Equal("Ada Lovelace", region.GetAttribute("aria-label"));
+        Assert.Empty(cut.FindAll("main"));
+    }
+
+    [Fact]
+    public void FluentProfilePopover_CustomAccessibleName_OverridesFullName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover FullName="Ada Lovelace" aria-label="Account details" />);
+
+        // Assert
+        Assert.Equal("Account details", cut.Find("[role='region']").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentProfilePopover_FooterLinkClick_InvokesCallbackWithoutNavigation()
+    {
+        bool clicked = false;
+
+        // Arrange
+        var cut = Render(@<FluentProfilePopover FooterLinkLabel="Sign out"
+                                               OnFooterLinkClick="@(_ => clicked = true)" />);
+        var link = cut.Find("fluent-link");
+
+        // Act
+        link.Click();
+
+        // Assert
+        Assert.True(clicked);
+        Assert.False(link.HasAttribute("href"));
+        Assert.True(link.HasAttribute("clickable"));
+    }
 }

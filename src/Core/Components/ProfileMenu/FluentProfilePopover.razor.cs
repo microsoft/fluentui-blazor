@@ -67,7 +67,7 @@ public partial class FluentProfilePopover : FluentComponentBase
     public string? ImageInitials { get; set; }
 
     /// <summary>
-    /// Gets or sets the size of the avatar used as the profile menu button.
+    /// Gets or sets the size of the avatar displayed in the popover.
     /// </summary>
     [Parameter]
     public AvatarSize? ImageSize { get; set; }
