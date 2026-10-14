@@ -7,6 +7,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -18,6 +19,12 @@ public partial class FluentSplitButton : FluentComponentBase
 {
     /// <summary />
     public FluentSplitButton(LibraryConfiguration configuration) : base(configuration) { }
+
+    // The inner menu needs an id to be closed from code, even when no Id is set on the split button.
+    private readonly string _menuId = Identifier.NewId();
+    private FluentMenu? _menu;
+    private bool _menuButtonWasDisabled;
+    private bool _closeMenuAfterRender;
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -48,6 +55,39 @@ public partial class FluentSplitButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the split button is disabled.
+    /// When disabled, neither the primary action nor the menu can be activated.
+    /// Use <see cref="PrimaryActionDisabled"/> or <see cref="MenuButtonDisabled"/> to override this value for one half only.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the split button is disabled yet still reachable via keyboard focus.
+    /// Like <see cref="Disabled"/>, neither the primary action nor the menu can be activated,
+    /// but both halves stay in the tab order (with <c>aria-disabled="true"</c>), so keyboard and screen reader users can still reach them.
+    /// When combined with <see cref="Disabled"/>, the halves remain focusable.
+    /// </summary>
+    [Parameter]
+    public bool DisabledFocusable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the primary action button is disabled.
+    /// When set, this overrides <see cref="Disabled"/> and <see cref="DisabledFocusable"/> for the primary action only.
+    /// The default value is `null`, meaning the primary action follows <see cref="Disabled"/> and <see cref="DisabledFocusable"/>.
+    /// </summary>
+    [Parameter]
+    public bool? PrimaryActionDisabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the menu button is disabled.
+    /// When set, this overrides <see cref="Disabled"/> and <see cref="DisabledFocusable"/> for the menu button only.
+    /// The default value is `null`, meaning the menu button follows <see cref="Disabled"/> and <see cref="DisabledFocusable"/>.
+    /// </summary>
+    [Parameter]
+    public bool? MenuButtonDisabled { get; set; }
 
     /// <summary>
     /// Gets or sets the visual appearance.
@@ -131,7 +171,61 @@ public partial class FluentSplitButton : FluentComponentBase
 
     /// <summary>
     /// Raised when a FluentMenuItem's Checked state changes.
+    /// Unlike <see cref="OnMenuClick"/>, this is also raised while the menu button is disabled,
+    /// so the checked state of radio items unchecked by the menu itself stays in sync.
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnMenuCheckedChanged { get; set; }
+
+    /// <summary>
+    /// Closes the menu when the menu button becomes disabled while the menu is open,
+    /// so its items cannot be activated while the split button appears disabled.
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        var menuButtonDisabled = IsMenuButtonDisabled;
+
+        if (menuButtonDisabled && !_menuButtonWasDisabled && _menu is not null)
+        {
+            _closeMenuAfterRender = true;
+        }
+
+        _menuButtonWasDisabled = menuButtonDisabled;
+    }
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Closed after rendering, once the buttons are disabled in the DOM,
+        // so the focus moves to an element that can still take it.
+        if (_closeMenuAfterRender && _menu is not null)
+        {
+            _closeMenuAfterRender = false;
+            await _menu.CloseMenuAsync();
+        }
+    }
+
+    /// <summary />
+    private bool IsPrimaryActionDisabled => PrimaryActionDisabled ?? (Disabled || DisabledFocusable);
+
+    /// <summary />
+    private bool IsMenuButtonDisabled => MenuButtonDisabled ?? (Disabled || DisabledFocusable);
+
+    /// <summary />
+    private async Task OnMenuClickHandlerAsync(MenuItemEventArgs args)
+    {
+        if (!IsMenuButtonDisabled && OnMenuClick.HasDelegate)
+        {
+            await OnMenuClick.InvokeAsync(args);
+        }
+    }
+
+    /// <summary />
+    private async Task OnMenuCheckedChangedHandlerAsync(MenuItemEventArgs args)
+    {
+        if (OnMenuCheckedChanged.HasDelegate)
+        {
+            await OnMenuCheckedChanged.InvokeAsync(args);
+        }
+    }
 }

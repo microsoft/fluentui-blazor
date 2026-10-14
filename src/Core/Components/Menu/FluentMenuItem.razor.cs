@@ -130,7 +130,14 @@ public partial class FluentMenuItem : FluentComponentBase
 
         if (args.Checked is null)
         {
-            // It is just a click on a menu item
+            // It is just a click on a menu item.
+            // A disabled item cannot be clicked. Checked state changes are still raised:
+            // the menu unchecks the other radio items itself, including the disabled ones.
+            if (Disabled == true)
+            {
+                return;
+            }
+
             if (OnClick.HasDelegate)
             {
                 await OnClick.InvokeAsync(args);

@@ -3,7 +3,7 @@
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
-<FluentMenu Id="@Id" Class="@ClassValue" Style="@StyleValue" OnClick="@OnMenuClick" OnCheckedChanged="@OnMenuCheckedChanged" split="true" @attributes=@AdditionalAttributes>
+<FluentMenu @ref="_menu" Id="@(Id ?? _menuId)" Class="@ClassValue" Style="@StyleValue" OnClick="@OnMenuClickHandlerAsync" OnCheckedChanged="@OnMenuCheckedChangedHandlerAsync" split="true" @attributes=@AdditionalAttributes>
     <FluentButton IconStart="@IconStart"
                   IconOnly="@IconOnly"
                   Appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance)"
@@ -12,6 +12,8 @@
                   BackgroundColor="@BackgroundColor"
                   Color="@Color"
                   Name="@Name"
+                  Disabled="@(IsPrimaryActionDisabled && !DisabledFocusable)"
+                  DisabledFocusable="@(IsPrimaryActionDisabled && DisabledFocusable)"
                   OnClick="@OnClick"
                   slot="primary-action">
         @Label
@@ -25,6 +27,8 @@
                       Size="@Size"
                       BackgroundColor="@BackgroundColor"
                       Color="@Color"
+                      Disabled="@(IsMenuButtonDisabled && !DisabledFocusable)"
+                      DisabledFocusable="@(IsMenuButtonDisabled && DisabledFocusable)"
                       aria-label="@Title" />
     @ChildContent
 </FluentMenu>

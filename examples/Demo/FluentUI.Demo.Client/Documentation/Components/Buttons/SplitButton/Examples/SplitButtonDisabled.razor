@@ -1,0 +1,41 @@
+﻿<FluentStack HorizontalGap="10" Wrap="true">
+    <FluentSplitButton Title="Open menu" Label="Enabled state">
+        @RenderMenuItems()
+    </FluentSplitButton>
+    <FluentSplitButton Title="Open menu" Label="Disabled state" Disabled="true">
+        @RenderMenuItems()
+    </FluentSplitButton>
+    <FluentSplitButton Title="Open menu" Label="Disabled focusable state" DisabledFocusable="true">
+        @RenderMenuItems()
+    </FluentSplitButton>
+</FluentStack>
+
+<FluentStack HorizontalGap="10" Wrap="true" Style="margin-top: 10px;">
+    <FluentSplitButton Appearance="ButtonAppearance.Primary" Title="Open menu" Label="Enabled state">
+        @RenderMenuItems()
+    </FluentSplitButton>
+    <FluentSplitButton Appearance="ButtonAppearance.Primary" Title="Open menu" Label="Disabled state" Disabled="true">
+        @RenderMenuItems()
+    </FluentSplitButton>
+    <FluentSplitButton Appearance="ButtonAppearance.Primary" Title="Open menu" Label="Disabled focusable state" DisabledFocusable="true">
+        @RenderMenuItems()
+    </FluentSplitButton>
+</FluentStack>
+
+<FluentStack HorizontalGap="10" Wrap="true" Style="margin-top: 10px;">
+    <FluentSplitButton Title="Open menu" Label="Primary action disabled" PrimaryActionDisabled="true">
+        @RenderMenuItems()
+    </FluentSplitButton>
+    <FluentSplitButton Title="Open menu" Label="Menu disabled" MenuButtonDisabled="true">
+        @RenderMenuItems()
+    </FluentSplitButton>
+</FluentStack>
+
+@code
+{
+    RenderFragment RenderMenuItems() =>
+        @<FluentMenuList>
+            <FluentMenuItem>Menu item 1</FluentMenuItem>
+            <FluentMenuItem Disabled="true">Menu item 2 (disabled)</FluentMenuItem>
+        </FluentMenuList>;
+}

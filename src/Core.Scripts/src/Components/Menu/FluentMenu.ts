@@ -1,7 +1,12 @@
 import { Menu, MenuItem, MenuList } from "@fluentui/web-components";
 import { DotNet } from "../../d-ts/Microsoft.JSInterop";
+import { Microsoft as FluentUIWebComponentsOverrideFile } from "../../FluentUIWebComponentsOverride";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Menu {
+
+  // Alias
+  import FluentUIOverride = FluentUIWebComponentsOverrideFile.FluentUI.Override;
+
   const menuAbortControllers = new Map<string, AbortController>();
   const menuListsWithMouseOutWorkaround = new WeakSet<MenuList>();
 
@@ -85,7 +90,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
       }
 
       if (openMenu) {
-        menu.openMenu();
+        FluentUIOverride.openMenuFromCode(menu, () => menu.openMenu());
       }
     };
 
@@ -107,8 +112,24 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
    */
   export function CloseMenu(id: string) {
     const menu = document.getElementById(id) as Menu | null;
-    if (menu) {
-      menu.closeMenu();
+    if (!menu) {
+      return;
+    }
+
+    const menuList = FluentUIOverride.getMenuList(menu);
+    const hadFocus = !!menuList?.contains(document.activeElement);
+
+    menu.closeMenu();
+
+    // Closing the menu returns the focus to the element that opened it.
+    // When that element has been disabled meanwhile, the focus is lost: move it to the first element still able to take it.
+    const activeElement = document.activeElement;
+    if (hadFocus && (!activeElement || activeElement === document.body || menuList?.contains(activeElement))) {
+      const candidates = [
+        FluentUIOverride.getMenuTrigger(menu),
+        menu.querySelector<HTMLElement>(":scope > [slot='primary-action']"),
+      ];
+      candidates.find(element => element && !element.matches("[disabled]"))?.focus();
     }
   }
 
@@ -136,7 +157,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
     }
 
     if (menu) {
-      menu.openMenu();
+      FluentUIOverride.openMenuFromCode(menu, () => menu.openMenu());
     }
   }
 }
