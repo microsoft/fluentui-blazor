@@ -216,7 +216,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     {
         if (View == CalendarViews.Years && int.TryParse(value, Culture, out var year))
         {
-            result = new DateTime(year, 1, 1).ConvertToTValue<TValue>();
+            result = Culture.DateTimeFormat.Calendar.ToDateTime(year, 1, 1, 0, 0, 0, 0).ConvertToTValue<TValue>();
             validationErrorMessage = null;
             return true;
         }
