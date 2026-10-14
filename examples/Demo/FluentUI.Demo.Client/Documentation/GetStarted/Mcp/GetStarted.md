@@ -1,4 +1,4 @@
- ---
+---
 title: Get Started
 order: 0005.02
 category: 10|Get Started
