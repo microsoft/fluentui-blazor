@@ -1,0 +1,34 @@
+﻿@inject IDialogService DialogService
+
+<FluentButton OnClick="OpenSplashCustomAsync" Appearance="ButtonAppearance.Primary">Open custom splash screen</FluentButton>
+
+@code {
+    private async Task OpenSplashCustomAsync()
+    {
+        var state = new Dialog.CustomSplashScreenState
+        {
+            Title = "Water drinking 101",
+            LoadingText = "Filling the re-useable bottles...",
+            Message = (MarkupString)"Don't drink <strong>too</strong> much water!",
+            Logo = "/images/Splash_Corporation_logo.png",
+            DisplayTime = 7000,
+        };
+
+        var task = DialogService.ShowDialogAsync<Dialog.CustomSplashScreen>(options =>
+        {
+            options.Width = "500px";
+            options.Height = "300px";
+            options.Parameters.Add(nameof(Dialog.CustomSplashScreen.State), state);
+        });
+
+        for (var i = 0; i < 5; i++)
+        {
+            await Task.Delay(1000);
+            state.LoadingText = $"Filling the re-useable bottles... {i + 1}";
+            state.RefreshProperties?.Invoke();
+        }
+
+        var result = await task;
+        Console.WriteLine($"Custom splash screen closed. Cancelled={result.Cancelled}");
+    }
+}

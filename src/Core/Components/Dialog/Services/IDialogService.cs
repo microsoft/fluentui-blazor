@@ -60,4 +60,20 @@ public partial interface IDialogService : IFluentServiceBase<IDialogInstance>
     /// <param name="options">Options to configure the dialog component.</param>
     Task<DialogResult> ShowDrawerAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions> options)
          where TDialog : ComponentBase;
+
+    /// <summary>
+    /// Shows the standard splash screen with the specified content and dialog configuration.
+    /// </summary>
+    /// <param name="content">The splash screen content.</param>
+    /// <param name="configureOptions">Optional dialog options configuration.</param>
+    Task<DialogResult> ShowSplashScreenAsync(SplashScreenContent content, Action<DialogOptions>? configureOptions = null);
+
+    /// <summary>
+    /// Shows a custom splash screen component with the specified content and dialog configuration.
+    /// </summary>
+    /// <typeparam name="TDialog">The custom splash screen component type.</typeparam>
+    /// <param name="content">The splash screen content.</param>
+    /// <param name="configureOptions">Optional dialog options configuration.</param>
+    Task<DialogResult> ShowSplashScreenAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(SplashScreenContent content, Action<DialogOptions>? configureOptions = null)
+        where TDialog : ComponentBase;
 }

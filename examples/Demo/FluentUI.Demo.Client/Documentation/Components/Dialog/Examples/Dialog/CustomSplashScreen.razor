@@ -1,0 +1,60 @@
+﻿<FluentDialogBody Class="my-splash">
+    <ChildContent>
+        <FluentStack Orientation="Orientation.Vertical"
+                     HorizontalAlignment="HorizontalAlignment.Center"
+                     Style="min-height:100%; justify-content:center; gap: 0.5rem;">
+            @if (!string.IsNullOrWhiteSpace(State.Logo))
+            {
+                <img class="icon" src="@State.Logo" alt="" />
+            }
+
+            @if (State.Message is not null)
+            {
+                <p>@State.Message</p>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(State.Title))
+            {
+                <h3>@State.Title</h3>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(State.SubTitle))
+            {
+                <h3>@State.SubTitle</h3>
+            }
+
+            <div style="width: 340px;">
+                <FluentProgressBar Width="100%" />
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(State.LoadingText))
+            {
+                <h3>@State.LoadingText</h3>
+            }
+        </FluentStack>
+    </ChildContent>
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public CustomSplashScreenState State { get; set; } = new();
+
+    [CascadingParameter]
+    public IDialogInstance Dialog { get; set; } = default!;
+
+    protected override void OnInitialized()
+    {
+        State.RefreshProperties = () => _ = InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || State is null || State.DisplayTime <= 0)
+        {
+            return;
+        }
+
+        await Task.Delay(State.DisplayTime);
+        await Dialog.CloseAsync();
+    }
+}

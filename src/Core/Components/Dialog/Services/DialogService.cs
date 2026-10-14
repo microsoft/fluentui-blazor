@@ -111,6 +111,28 @@ public partial class DialogService : FluentServiceBase<IDialogInstance>, IDialog
         return ShowDialogAsync(typeof(TDialog), dialogOptions);
     }
 
+    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync(SplashScreenContent, Action{DialogOptions}?)"/>
+    public Task<DialogResult> ShowSplashScreenAsync(SplashScreenContent content, Action<DialogOptions>? configureOptions = null)
+        => ShowSplashScreenAsync<FluentSplashScreen>(content, configureOptions);
+
+    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync{TDialog}(SplashScreenContent, Action{DialogOptions}?)"/>
+    public Task<DialogResult> ShowSplashScreenAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(SplashScreenContent content, Action<DialogOptions>? configureOptions = null)
+        where TDialog : ComponentBase
+    {
+        return ShowDialogAsync<TDialog>(options =>
+        {
+            options.Width ??= "600px";
+            options.Height ??= "370px";
+            options.Parameters[nameof(FluentSplashScreen.Content)] = content;
+            configureOptions?.Invoke(options);
+
+            // Splash screens are intended to be blocking modal overlays that stay visible until
+            // programmatic close logic runs. Do not allow a caller to opt back into light-dismiss.
+            options.Modal = true;
+            options.PreventDismissOnEscape = true;
+        });
+    }
+
     /// <summary>
     /// Removes the dialog from the DialogProvider.
     /// </summary>

@@ -1,0 +1,44 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+
+<FluentDialogBody>
+    <ChildContent>
+        <FluentStack Orientation="Orientation.Vertical"
+                     HorizontalAlignment="HorizontalAlignment.Center"
+                     Style="min-height:100%; justify-content:center; gap: 0.5rem;">
+
+            @if (!string.IsNullOrWhiteSpace(Content.Title))
+            {
+                <h2>@Content.Title</h2>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Content.SubTitle))
+            {
+                <h3>@Content.SubTitle</h3>
+            }
+
+            <FluentSpinner Size="SpinnerSize.Medium" />
+
+            @if (!string.IsNullOrWhiteSpace(Content.LoadingText))
+            {
+                <h4>@Content.LoadingText</h4>
+            }
+
+            @if (Content.Message is not null)
+            {
+                <p>@Content.Message</p>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Content.Logo))
+            {
+                if (Content.Logo.TrimStart().StartsWith("<svg", StringComparison.OrdinalIgnoreCase))
+                {
+                    <div class="icon">@((MarkupString)Content.Logo)</div>
+                }
+                else
+                {
+                    <img class="icon" src="@Content.Logo" alt="" />
+                }
+            }
+        </FluentStack>
+    </ChildContent>
+</FluentDialogBody>
