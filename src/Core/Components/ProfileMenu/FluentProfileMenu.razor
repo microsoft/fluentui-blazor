@@ -4,17 +4,17 @@
 <div id="@Id"
      class="@ClassValue"
      style="@StyleValue"
-     @onkeydown="@HandleKeyDownAsync"
-     @onclick="@ToggleAsync"
      @attributes="@AdditionalAttributes">
 
     @StartTemplate
 
     <button id="@TriggerId"
             type="button"
+            aria-haspopup="dialog"
             aria-expanded="@(Open ? "true" : "false")"
             aria-controls="@PopoverId"
-            aria-label="@Title">
+            aria-label="@AccessibleTitle"
+            @onclick="@ToggleAsync">
         <FluentAvatar Image="@ImageUrl"
                       Initials="@ImageInitials"
                       Name="@Title"
@@ -35,6 +35,8 @@
 <FluentPopover Id="@PopoverId"
                AnchorId="@TriggerId"
                Opened="@Open"
-               OpenedChanged="@HandleOpenChangedAsync">
+               OpenedChanged="@HandleOpenChangedAsync"
+               role="dialog"
+               aria-label="@AccessibleTitle">
     @ChildContent
 </FluentPopover>

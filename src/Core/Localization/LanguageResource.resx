@@ -379,6 +379,9 @@
   <data name="AppBar_MoreItems" xml:space="preserve">
     <value>View more apps</value>
   </data>
+  <data name="ProfileMenu_Title" xml:space="preserve">
+    <value>Profile menu</value>
+  </data>
   <data name="PresenceStatus_Available" xml:space="preserve">
     <value>available</value>
   </data>

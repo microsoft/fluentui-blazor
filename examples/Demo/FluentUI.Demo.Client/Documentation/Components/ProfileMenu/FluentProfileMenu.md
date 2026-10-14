@@ -37,7 +37,8 @@ Set `ImageUrl` to display a profile image, or use `ImageInitials` as a fallback.
 Use `ImageSize` to change the avatar size. 
 To show a presence indicator, set `Status`, and optionally customize its tooltip and size with `StatusTitle` and `StatusSize`.
 
-The `Title` value is used as the accessible label for the avatar button, so provide a short description such as the user's name or "Open profile menu".
+The `Title` value is used as the accessible label for the avatar button and its popover. It defaults to a localized
+"Profile menu" label, but a more specific description such as the user's name or "Open profile menu" is recommended.
 
 Content can be added around the avatar with:
 

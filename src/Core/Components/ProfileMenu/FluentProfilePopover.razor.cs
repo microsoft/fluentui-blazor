@@ -30,6 +30,12 @@ public partial class FluentProfilePopover : FluentComponentBase
         .AddStyle("height", Height)
         .Build();
 
+    /// <summary />
+    protected string? RegionRole =>
+        HasAccessibleName
+            ? "region"
+            : null;
+
     /// <summary>
     /// Gets or sets the width of the popover.
     /// </summary>
@@ -125,4 +131,16 @@ public partial class FluentProfilePopover : FluentComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    private bool HasAccessibleName =>
+        !string.IsNullOrWhiteSpace(FullName) ||
+        HasNonEmptyAttribute("aria-label") ||
+        HasNonEmptyAttribute("aria-labelledby");
+
+    private bool HasNonEmptyAttribute(string name)
+    {
+        return AdditionalAttributes?.TryGetValue(name, out var value) is true &&
+               value is string text &&
+               !string.IsNullOrWhiteSpace(text);
+    }
 }

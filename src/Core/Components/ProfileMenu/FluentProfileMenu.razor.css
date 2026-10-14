@@ -3,7 +3,6 @@
     flex-direction: row;
     align-items: center;
     column-gap: var(--spacingHorizontalXS);
-    cursor: pointer;
 }
 
 .fluent-profile-menu>button[aria-expanded] {

@@ -10,6 +10,53 @@
     }
 
     [Fact]
+    public void FluentProfileMenu_Default_RendersAccessibleDialogTrigger()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfileMenu />);
+
+        // Assert
+        var button = cut.Find("button");
+        var popover = cut.Find("fluent-popover-b");
+        Assert.Equal("Profile menu", button.GetAttribute("aria-label"));
+        Assert.Equal("dialog", button.GetAttribute("aria-haspopup"));
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+        Assert.Equal(popover.Id, button.GetAttribute("aria-controls"));
+        Assert.Equal("dialog", popover.GetAttribute("role"));
+        Assert.Equal("Profile menu", popover.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_ButtonClick_OpensDialog()
+    {
+        // Arrange
+        var cut = Render(@<FluentProfileMenu Title="Ada Lovelace" />);
+        var button = cut.Find("button");
+
+        // Act
+        button.Click();
+
+        // Assert
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+        Assert.Equal("true", cut.Find("fluent-popover-b").GetAttribute("opened"));
+    }
+
+    [Fact]
+    public void FluentProfileMenu_RootContainer_IsNotInteractive()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfileMenu>
+            <StartTemplate>
+                <span class="profile-name">Ada Lovelace</span>
+            </StartTemplate>
+        </FluentProfileMenu>);
+
+        // Assert
+        Assert.False(cut.Find(".fluent-profile-menu").HasAttribute("blazor:onclick"));
+        Assert.Equal("false", cut.Find("button").GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
     public void FluentProfilePopover_DefaultContent_UsesFullNameAsAccessibleName()
     {
         // Arrange && Act
@@ -19,6 +66,32 @@
         var region = cut.Find("[role='region']");
         Assert.Equal("Ada Lovelace", region.GetAttribute("aria-label"));
         Assert.Empty(cut.FindAll("main"));
+    }
+
+    [Fact]
+    public void FluentProfilePopover_WithoutAccessibleName_DoesNotRenderRegionLandmark()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover>
+            <ChildContent>Custom profile content</ChildContent>
+        </FluentProfilePopover>);
+
+        // Assert
+        Assert.False(cut.Find("div").HasAttribute("role"));
+    }
+
+    [Fact]
+    public void FluentProfilePopover_AriaLabelledBy_RendersRegionLandmark()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentProfilePopover aria-labelledby="profile-heading">
+            <ChildContent>
+                <h2 id="profile-heading">Profile details</h2>
+            </ChildContent>
+        </FluentProfilePopover>);
+
+        // Assert
+        Assert.Equal("region", cut.Find("div").GetAttribute("role"));
     }
 
     [Fact]

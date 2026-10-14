@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
@@ -66,7 +65,8 @@ public partial class FluentProfileMenu : FluentComponentBase
     public RenderFragment? EndTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the title of the profile menu.
+    /// Gets or sets the accessible title of the profile menu.
+    /// Defaults to a localized "Profile menu" label.
     /// </summary>
     [Parameter]
     public string? Title { get; set; }
@@ -100,6 +100,11 @@ public partial class FluentProfileMenu : FluentComponentBase
     /// </summary>
     [Parameter]
     public BadgeSize? StatusSize { get; set; }
+
+    private string AccessibleTitle => string.IsNullOrWhiteSpace(Title)
+        ? Localizer[Localization.LanguageResource.ProfileMenu_Title]
+        : Title;
+
     private string PopoverId => $"{Id}-popover";
 
     private string TriggerId => $"{Id}-trigger";
@@ -122,15 +127,6 @@ public partial class FluentProfileMenu : FluentComponentBase
             PresenceStatus.Blocked => Localizer[Localization.LanguageResource.PresenceStatus_Blocked],
             _ => Localizer[Localization.LanguageResource.PresenceStatus_Unknown],
         };
-    }
-
-    private async Task HandleKeyDownAsync(KeyboardEventArgs args)
-    {
-        if (Open && string.Equals(args.Key, "Escape", StringComparison.Ordinal))
-        {
-            Open = false;
-            await OpenChanged.InvokeAsync(Open);
-        }
     }
 
     private async Task HandleOpenChangedAsync(bool open)
