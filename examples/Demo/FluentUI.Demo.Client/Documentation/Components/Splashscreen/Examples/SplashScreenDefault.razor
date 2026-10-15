@@ -9,14 +9,14 @@
     {
         var splash = await DialogService.ShowSplashScreenAsync<Dialog.SplashScreenDialog>(options =>
         {
-            options.Parameters.Add(nameof(Dialog.SplashScreenDialog.Message), "Loading...");
+            options.Message = new MarkupString("Loading...");
         });
 
         await Task.Delay(2000);
-        await splash.UpdateAsync(options => options.Parameters[nameof(Dialog.SplashScreenDialog.Message)] = "Almost ready...");
+        await splash.UpdateAsync(options => options.Message = new MarkupString("Almost ready..."));
 
         await Task.Delay(2000);
-        await splash.UpdateAsync(options => options.Parameters[nameof(Dialog.SplashScreenDialog.Message)] = "Hello World");
+        await splash.UpdateAsync(options => options.Message = new MarkupString("Hello World"));
 
         await Task.Delay(1000);
         await splash.CloseAsync();

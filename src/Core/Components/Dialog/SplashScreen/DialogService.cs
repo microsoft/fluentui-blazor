@@ -9,8 +9,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 
 public partial class DialogService : IDialogService
 {
-    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync(Type, DialogOptions)"/>
-    public virtual async Task<ISplashScreenInstance> ShowSplashScreenAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type dialogComponent, DialogOptions options)
+    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync(Type, SplashScreenOptions)"/>
+    public virtual async Task<ISplashScreenInstance> ShowSplashScreenAsync([DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type dialogComponent, SplashScreenOptions options)
     {
         ArgumentNullException.ThrowIfNull(dialogComponent);
         ArgumentNullException.ThrowIfNull(options);
@@ -41,20 +41,20 @@ public partial class DialogService : IDialogService
         return instance;
     }
 
-    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync{TDialog}(DialogOptions)"/>
-    public Task<ISplashScreenInstance> ShowSplashScreenAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(DialogOptions options) where TDialog : ComponentBase
+    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync{TDialog}(SplashScreenOptions)"/>
+    public Task<ISplashScreenInstance> ShowSplashScreenAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(SplashScreenOptions options) where TDialog : ComponentBase
     {
         return ShowSplashScreenAsync(typeof(TDialog), options);
     }
 
-    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync{TDialog}(Action{DialogOptions})"/>
-    public Task<ISplashScreenInstance> ShowSplashScreenAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<DialogOptions>? options = null) where TDialog : ComponentBase
+    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync{TDialog}(Action{SplashScreenOptions})"/>
+    public Task<ISplashScreenInstance> ShowSplashScreenAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TDialog>(Action<SplashScreenOptions>? options = null) where TDialog : ComponentBase
     {
-        return ShowSplashScreenAsync(typeof(TDialog), options is null ? new DialogOptions() : new DialogOptions(options));
+        return ShowSplashScreenAsync(typeof(TDialog), options is null ? new SplashScreenOptions() : new SplashScreenOptions(options));
     }
 
-    /// <inheritdoc cref="IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance, Action{DialogOptions})"/>
-    Task IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<DialogOptions> options)
+    /// <inheritdoc cref="IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance, Action{SplashScreenOptions})"/>
+    Task IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<SplashScreenOptions> options)
     {
         ArgumentNullException.ThrowIfNull(splashScreen);
         ArgumentNullException.ThrowIfNull(options);
@@ -65,7 +65,7 @@ public partial class DialogService : IDialogService
             return Task.CompletedTask;
         }
 
-        options.Invoke(splashScreen.Options);
+        options.Invoke((SplashScreenOptions)splashScreen.Options);
 
         return ServiceProvider.OnUpdatedAsync.Invoke(splashScreen);
     }

@@ -22,12 +22,36 @@
     public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
 
     [Fact]
+    public void SplashScreenOptions_TypedProperties_UpdateParameters()
+    {
+        // Arrange
+        var message = new MarkupString("<strong>Loading</strong>");
+
+        // Act
+        var options = new SplashScreenOptions
+        {
+            LoadingText = "Loading...",
+            Logo = "logo.svg",
+            Message = message,
+            SubTitle = "Fluent UI",
+            Title = "Blazor"
+        };
+
+        // Assert
+        Assert.Equal("Loading...", options.Parameters[nameof(SplashScreenOptions.LoadingText)]);
+        Assert.Equal("logo.svg", options.Parameters[nameof(SplashScreenOptions.Logo)]);
+        Assert.Equal(message, options.Parameters[nameof(SplashScreenOptions.Message)]);
+        Assert.Equal("Fluent UI", options.Parameters[nameof(SplashScreenOptions.SubTitle)]);
+        Assert.Equal("Blazor", options.Parameters[nameof(SplashScreenOptions.Title)]);
+    }
+
+    [Fact]
     public async Task ShowSplashScreenAsync_WithOptions_ReturnsInstanceWithoutWaiting()
     {
         // Act
         var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options =>
         {
-            options.Parameters.Add(nameof(SplashScreenRender.Message), "Loading...");
+            options.Message = new MarkupString("Loading...");
         });
 
         // Assert
@@ -53,7 +77,7 @@
     public async Task ShowSplashScreenAsync_PreventDismissOnEscapeSetToFalse_KeepsValue()
     {
         // Act
-        var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(new DialogOptions { PreventDismissOnEscape = false });
+        var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(new SplashScreenOptions { PreventDismissOnEscape = false });
 
         // Assert
         Assert.False(splash.Options.PreventDismissOnEscape);
@@ -65,11 +89,11 @@
         // Arrange
         var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options =>
         {
-            options.Parameters.Add(nameof(SplashScreenRender.Message), "Loading...");
+            options.Message = new MarkupString("Loading...");
         });
 
         // Act
-        await splash.UpdateAsync(options => options.Parameters[nameof(SplashScreenRender.Message)] = "Hello World");
+        await splash.UpdateAsync(options => options.Message = new MarkupString("Hello World"));
 
         // Assert
         DialogProvider.WaitForAssertion(() => Assert.Contains("Hello World", DialogProvider.Find("fluent-dialog").TextContent));
@@ -97,22 +121,22 @@
         // Arrange
         var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options =>
         {
-            options.Parameters.Add(nameof(SplashScreenRender.Message), "Loading...");
+            options.Message = new MarkupString("Loading...");
         });
         await splash.CloseAsync();
 
         // Act
-        await splash.UpdateAsync(options => options.Parameters[nameof(SplashScreenRender.Message)] = "Hello World");
+        await splash.UpdateAsync(options => options.Message = new MarkupString("Hello World"));
 
         // Assert
-        Assert.Equal("Loading...", splash.Options.Parameters[nameof(SplashScreenRender.Message)]);
+        Assert.Equal("Loading...", ((MarkupString)splash.Options.Parameters[nameof(SplashScreenRender.Message)]!).Value);
     }
 
     [Fact]
     public async Task ShowSplashScreenAsync_NotAComponent_ThrowsArgumentException()
     {
         // Act & Assert
-        await Assert.ThrowsAsync<ArgumentException>(() => DialogService.ShowSplashScreenAsync(typeof(string), new DialogOptions()));
+        await Assert.ThrowsAsync<ArgumentException>(() => DialogService.ShowSplashScreenAsync(typeof(string), new SplashScreenOptions()));
     }
 
     [Fact]

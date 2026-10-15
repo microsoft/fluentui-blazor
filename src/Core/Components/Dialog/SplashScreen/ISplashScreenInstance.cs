@@ -5,7 +5,7 @@
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// Interface for a splash screen instance, displayed using <see cref="IDialogService.ShowSplashScreenAsync(Type, DialogOptions)"/>.
+/// Interface for a splash screen instance, displayed using <see cref="IDialogService.ShowSplashScreenAsync(Type, SplashScreenOptions)"/>.
 /// </summary>
 public interface ISplashScreenInstance : IDialogInstance
 {
@@ -15,5 +15,5 @@ public interface ISplashScreenInstance : IDialogInstance
     /// </summary>
     /// <param name="options">Action used to update the splash screen options.</param>
     /// <returns></returns>
-    Task UpdateAsync(Action<DialogOptions> options);
+    Task UpdateAsync(Action<SplashScreenOptions> options);
 }

@@ -12,13 +12,13 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public class SplashScreenInstance : DialogInstance, ISplashScreenInstance
 {
     /// <summary />
-    internal SplashScreenInstance(IDialogService dialogService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, DialogOptions options)
+    internal SplashScreenInstance(IDialogService dialogService, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type componentType, SplashScreenOptions options)
         : base(dialogService, componentType, options)
     {
     }
 
-    /// <inheritdoc cref="ISplashScreenInstance.UpdateAsync(Action{DialogOptions})"/>
-    public Task UpdateAsync(Action<DialogOptions> options)
+    /// <inheritdoc cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenOptions})"/>
+    public Task UpdateAsync(Action<SplashScreenOptions> options)
     {
         return DialogService.UpdateSplashScreenAsync(this, options);
     }
