@@ -52,5 +52,5 @@ public partial interface IDialogService
     /// <param name="splashScreen">Instance of the splash screen to update.</param>
     /// <param name="options">Action used to update the splash screen options.</param>
     /// <returns></returns>
-    Task UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<DialogOptions> options);
+    internal Task UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<DialogOptions> options);
 }

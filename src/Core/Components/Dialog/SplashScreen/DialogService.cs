@@ -54,7 +54,7 @@ public partial class DialogService : IDialogService
     }
 
     /// <inheritdoc cref="IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance, Action{DialogOptions})"/>
-    public virtual async Task UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<DialogOptions> options)
+    Task IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<DialogOptions> options)
     {
         ArgumentNullException.ThrowIfNull(splashScreen);
         ArgumentNullException.ThrowIfNull(options);
@@ -62,11 +62,11 @@ public partial class DialogService : IDialogService
         // The splash screen is already closed: nothing to update.
         if (!ServiceProvider.Items.ContainsKey(splashScreen.Id))
         {
-            return;
+            return Task.CompletedTask;
         }
 
         options.Invoke(splashScreen.Options);
 
-        await ServiceProvider.OnUpdatedAsync.Invoke(splashScreen);
+        return ServiceProvider.OnUpdatedAsync.Invoke(splashScreen);
     }
 }
