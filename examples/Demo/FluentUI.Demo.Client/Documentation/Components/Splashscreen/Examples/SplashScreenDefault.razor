@@ -6,6 +6,10 @@
 <FluentButton OnClick="@ShowProgressAsync"
               Appearance="ButtonAppearance.Default">Show Progress</FluentButton>
 
+<FluentButton OnClick="@ShowLightAsync"
+              Appearance="ButtonAppearance.Default">Show Light</FluentButton>
+
+
 @code
 {
     private async Task ShowSplashScreenAsync()
@@ -52,6 +56,18 @@
         }
 
         await Task.Delay(500);
+        await splash.CloseAsync();
+    }
+
+    private async Task ShowLightAsync()
+    {
+        var splash = await DialogService.ShowSplashScreenAsync(content =>
+        {
+            content.Title = "Microsoft Fluent UI Blazor";
+            content.LoadingText = "Loading...";
+        });
+
+        await Task.Delay(4000);
         await splash.CloseAsync();
     }
 }
