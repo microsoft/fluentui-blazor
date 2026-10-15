@@ -1,0 +1,80 @@
+<FluentStack Wrap="true"
+             HorizontalGap="12px">
+    <FluentSelect Label="Status"
+                  Items="@(Enum.GetValues(typeof(PresenceStatus)).Cast<PresenceStatus?>().Prepend(null))"
+                  @bind-Value="@Status" />
+    <FluentSelect Label="Avatar size"
+                  Items="@(Enum.GetValues<AvatarSize>().Cast<AvatarSize?>().Prepend(null))"
+                  @bind-Value="@ImageSize" />
+    <FluentSelect Label="Status size"
+                  Items="@(Enum.GetValues<BadgeSize>().Cast<BadgeSize?>().Prepend(null))"
+                  @bind-Value="@StatusSize" />
+</FluentStack>
+
+<FluentStack>
+
+    @* Left profile menu *@
+    <FluentProfileMenu Status="@Status"
+                       Title="@Bill.FullName"
+                       StatusTitle="@Status.ToString()"
+                       StatusSize="@StatusSize"
+                       ImageInitials="@Bill.Initials"
+                       ImageSize="@ImageSize"
+                       ImageUrl="@Bill.ImageUrl"
+                       @bind-Open="@IsOpened1">
+        <StartTemplate>
+            @* Before button *@
+            @Bill.FullName
+        </StartTemplate>
+        <ChildContent>
+            @* Profile popover content *@
+            <FluentStack Width="330px"
+                         Height="120px"
+                         VerticalAlignment="VerticalAlignment.Center"
+                         HorizontalAlignment="HorizontalAlignment.Center">
+                You can customize this content as needed.
+            </FluentStack>
+        </ChildContent>
+        <EndTemplate>
+            @* After button *@
+        </EndTemplate>
+    </FluentProfileMenu>
+
+    <FluentSpacer />
+    Opened: @(IsOpened1 ? "Yes" : "No") -- @(IsOpened2 ? "Yes" : "No")
+    <FluentSpacer />
+
+    @* Right profile menu *@
+    <FluentProfileMenu Status="@Status"
+                       Title="@Bill.FullName"
+                       StatusTitle="@Status.ToString()"
+                       StatusSize="@StatusSize"
+                       ImageInitials="@Bill.Initials"
+                       ImageSize="@ImageSize"
+                       ImageUrl="@Bill.ImageUrl"
+                       @bind-Open="@IsOpened2">
+        @* Profile popover content *@
+        <FluentProfilePopover HeaderLabel="@Bill.Company"
+                              HeaderLinkLabel="Sign out"
+                              OnHeaderLinkClick="@(e => Console.WriteLine("Sign out clicked"))"
+                              ImageUrl="@Bill.ImageUrl"
+                              ImageInitials="@Bill.Initials"
+                              FullName="@Bill.FullName"
+                              EMail="@Bill.Email"
+                              Width="330px"
+                              FooterLinkLabel="View account"
+                              OnFooterLinkClick="@(e => Console.WriteLine("Account link clicked"))" />
+    </FluentProfileMenu>
+</FluentStack>
+
+@code
+{
+    static readonly SampleData.People.Person Bill = SampleData.People.BillGates;
+
+    bool IsOpened1;
+    bool IsOpened2;
+
+    PresenceStatus? Status = PresenceStatus.Available;
+    AvatarSize? ImageSize;
+    BadgeSize? StatusSize;
+}

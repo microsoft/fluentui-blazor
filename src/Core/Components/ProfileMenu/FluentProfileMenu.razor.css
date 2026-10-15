@@ -1,0 +1,30 @@
+.fluent-profile-menu {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: var(--spacingHorizontalXS);
+}
+
+.fluent-profile-menu>button[aria-expanded] {
+    align-items: center;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
+    padding: 0;
+}
+
+.fluent-profile-menu>button[aria-expanded]:hover {
+    background-color: var(--colorNeutralBackground1Hover);
+    outline: 2px solid var(--colorNeutralStroke1Hover);
+    outline-offset: 2px;
+}
+
+.fluent-profile-menu>button[aria-expanded]:focus-visible {
+    outline: 2px solid var(--colorStrokeFocus2);
+    outline-offset: 2px;
+}
