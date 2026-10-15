@@ -1,7 +1,10 @@
 @inject IDialogService DialogService
 
 <FluentButton OnClick="@ShowSplashScreenAsync"
-              Appearance="ButtonAppearance.Primary">Show Splash Screen</FluentButton>
+              Appearance="ButtonAppearance.Primary">Show (6 secondes)</FluentButton>
+
+<FluentButton OnClick="@ShowProgressAsync"
+              Appearance="ButtonAppearance.Default">Show Progress</FluentButton>
 
 @code
 {
@@ -23,6 +26,32 @@
         await splash.UpdateAsync(content => content.LoadingText = "Again almost ready...");
 
         await Task.Delay(2000);
+        await splash.CloseAsync();
+    }
+
+    private async Task ShowProgressAsync()
+    {
+        var splash = await DialogService.ShowSplashScreenAsync(content =>
+        {
+            content.LogoUrl = "/images/splash-corporation-logo.png";
+            content.LogoMaxWidth = "400px";
+            content.Title = "Microsoft Fluent UI Blazor";
+            content.SubTitle = "Powered by you";
+            content.LoadingText = "Loading...";
+            content.LoadingPercentage = 0; // 👈 Activate the progress bar
+        });
+
+        for (int i = 0; i <= 100; i += 10)
+        {
+            await Task.Delay(500);
+            await splash.UpdateAsync(content =>
+            {
+                content.LoadingPercentage = i;
+                content.LoadingText = $"Loading... {i}%";
+            });
+        }
+
+        await Task.Delay(500);
         await splash.CloseAsync();
     }
 }

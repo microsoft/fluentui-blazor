@@ -49,7 +49,14 @@
                      role="status"
                      aria-live="polite"
                      aria-atomic="true">
-            <FluentSpinner Size="SpinnerSize.Medium" />
+            @if (SplashScreen.LoadingPercentage.HasValue)
+            {
+                <FluentProgressBar Value="SplashScreen.LoadingPercentage.Value" Min="0" Max="100" />
+            }
+            else
+            {
+                <FluentSpinner Size="SpinnerSize.Medium" />
+            }
 
             @if (!string.IsNullOrWhiteSpace(SplashScreen.LoadingText))
             {

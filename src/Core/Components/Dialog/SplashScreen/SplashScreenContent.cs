@@ -17,6 +17,14 @@ public class SplashScreenContent
     public string? LoadingText { get; set; }
 
     /// <summary>
+    /// Gets or sets the loading percentage.
+    /// Typically used to show progress of an ongoing operation.
+    /// Value should be between 0 and 100.
+    /// If not set, a ring spinner will be shown instead.
+    /// </summary>
+    public int? LoadingPercentage { get; set; }
+
+    /// <summary>
     /// Gets or sets the logo to show on the splash screen.
     /// Can be a URL or a base64 encoded string or an SVG.
     /// </summary>
