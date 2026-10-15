@@ -1,11 +1,11 @@
 <FluentDialogBody>
-    <span class="splash-message">@SplashScreen.SplashScreen.Message</span>
+    <span class="splash-message">@SplashScreen.Message</span>
     <span class="custom-message">@CustomMessage</span>
 </FluentDialogBody>
 
 @code {
     [Parameter]
-    public SplashScreenOptions SplashScreen { get; set; } = default!;
+    public SplashScreenContent SplashScreen { get; set; } = default!;
 
     [Parameter]
     public string? CustomMessage { get; set; }

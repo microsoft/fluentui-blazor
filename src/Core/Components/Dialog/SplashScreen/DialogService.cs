@@ -28,7 +28,7 @@ public partial class DialogService : IDialogService
 
         options.IsDrawer ??= false;
         options.PreventDismissOnEscape ??= true;
-        options.Parameters["SplashScreen"] = options;
+        options.Parameters["SplashScreen"] = options.SplashScreen;
 
         var instance = new SplashScreenInstance(this, dialogComponent, options);
 

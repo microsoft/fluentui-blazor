@@ -6,11 +6,11 @@
                  VerticalGap="16px"
                  Padding="@Padding.All6">
         <FluentSpinner />
-        <FluentText>@SplashScreen.SplashScreen.Message</FluentText>
+        <FluentText>@SplashScreen.Message</FluentText>
     </FluentStack>
 </FluentDialogBody>
 
 @code {
     [Parameter]
-    public required SplashScreenOptions SplashScreen { get; set; }
+    public required SplashScreenContent SplashScreen { get; set; }
 }

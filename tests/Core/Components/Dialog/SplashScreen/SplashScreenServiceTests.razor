@@ -22,7 +22,7 @@
     public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
 
     [Fact]
-    public async Task ShowSplashScreenAsync_WithTypedOptions_PassesOptionsToComponent()
+    public async Task ShowSplashScreenAsync_WithTypedOptions_PassesContentToComponent()
     {
         // Arrange
         var message = new MarkupString("<strong>Loading</strong>");
@@ -43,16 +43,38 @@
         var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options);
 
         // Assert
-        var componentOptions = DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen;
+        var componentContent = DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen;
         Assert.Same(options, splash.Options);
-        Assert.Same(options, componentOptions);
-        Assert.Same(options, Assert.Single(options.Parameters).Value);
-        Assert.Equal("Loading...", componentOptions.SplashScreen.LoadingText);
-        Assert.Equal("logo.svg", componentOptions.SplashScreen.Logo);
-        Assert.Equal(message, componentOptions.SplashScreen.Message);
-        Assert.Equal("Fluent UI", componentOptions.SplashScreen.SubTitle);
-        Assert.Equal("Blazor", componentOptions.SplashScreen.Title);
+        Assert.Same(options.SplashScreen, componentContent);
+        Assert.Same(options.SplashScreen, Assert.Single(options.Parameters).Value);
+        Assert.Equal("Loading...", componentContent.LoadingText);
+        Assert.Equal("logo.svg", componentContent.Logo);
+        Assert.Equal(message, componentContent.Message);
+        Assert.Equal("Fluent UI", componentContent.SubTitle);
+        Assert.Equal("Blazor", componentContent.Title);
         Assert.Equal("Loading", DialogProvider.Find(".splash-message strong").TextContent);
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_DefaultComponent_PassesContentAndRerenders()
+    {
+        // Arrange
+        var splash = await DialogService.ShowSplashScreenAsync(content => content.Message = new MarkupString("Loading..."));
+        var component = DialogProvider.FindComponent<Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen.DefaultSplashScreenDialog>();
+        var content = Assert.IsType<SplashScreenOptions>(splash.Options).SplashScreen;
+        Assert.Same(content, component.Instance.SplashScreen);
+        Assert.Contains("Loading...", component.Markup);
+
+        // Act
+        await splash.UpdateAsync(updatedContent =>
+        {
+            Assert.Same(content, updatedContent);
+            updatedContent.Message = new MarkupString("<strong>Ready</strong>");
+        });
+
+        // Assert
+        DialogProvider.WaitForAssertion(() => Assert.Equal("Ready", component.Find("strong").TextContent));
+        Assert.Same(content, component.Instance.SplashScreen);
     }
 
     [Fact]
@@ -81,7 +103,7 @@
         // Assert
         Assert.NotNull(splash);
         DialogProvider.WaitForAssertion(() => Assert.Single(DialogProvider.FindAll("fluent-dialog")));
-        Assert.Same(splash.Options, DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen);
+        Assert.Same(Assert.IsType<SplashScreenOptions>(splash.Options).SplashScreen, DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen);
     }
 
     [Fact]
@@ -131,7 +153,7 @@
             Assert.Equal("Ready", DialogProvider.Find(".splash-message").TextContent);
             Assert.Equal("Initial custom message", DialogProvider.Find(".custom-message").TextContent);
         });
-        Assert.Same(splash.Options, DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen);
+        Assert.Same(Assert.IsType<SplashScreenOptions>(splash.Options).SplashScreen, DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen);
     }
 
     [Fact]

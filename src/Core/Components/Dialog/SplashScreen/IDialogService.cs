@@ -15,7 +15,7 @@ public partial interface IDialogService
     /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
     /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
     /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
-    /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenOptions"/>.
+    /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenContent"/>.
     /// </summary>
     /// <param name="dialogComponent">Type of component to display.</param>
     /// <param name="options">Options to configure the dialog component.</param>
@@ -27,7 +27,7 @@ public partial interface IDialogService
     /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
     /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
     /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
-    /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenOptions"/>.
+    /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenContent"/>.
     /// </summary>
     /// <typeparam name="TDialog">Type of component to display.</typeparam>
     /// <param name="options">Options to configure the dialog component.</param>
@@ -40,7 +40,7 @@ public partial interface IDialogService
     /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
     /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
     /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
-    /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenOptions"/>.
+    /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenContent"/>.
     /// </summary>
     /// <typeparam name="TDialog">Type of component to display.</typeparam>
     /// <param name="options">Options to configure the dialog component.</param>
