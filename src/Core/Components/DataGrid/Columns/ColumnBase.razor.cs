@@ -244,6 +244,17 @@ public abstract partial class ColumnBase<TGridItem>
     public bool IsDefaultSortColumn { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets the place of this column in the sort declared through <see cref="IsDefaultSortColumn"/>, when more
+    /// than one column declares one. Lower numbers sort first, and columns without a priority follow those with one,
+    /// in the order the columns are declared.
+    /// With <see cref="FluentDataGrid{TGridItem}.SortMode"/> set to <see cref="DataGridSortMode.Single"/>, the grid is
+    /// sorted by the declared column that sorts first, the one with the lowest value.
+    /// The default is <see langword="null"/>: the declared columns sort in the order they are declared.
+    /// </summary>
+    [Parameter]
+    public int? DefaultSortPriority { get; set; }
+
+    /// <summary>
     /// Gets or sets the template used to render placeholder cells whose data has not yet loaded
     /// (applicable when <see cref="FluentDataGrid{TGridItem}.Virtualize"/> is enabled).
     /// </summary>

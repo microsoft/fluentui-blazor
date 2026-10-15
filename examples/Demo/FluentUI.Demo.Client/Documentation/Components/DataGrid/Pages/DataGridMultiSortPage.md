@@ -32,6 +32,20 @@ Declaring `IsDefaultSortColumn` on more than one column gives the grid a multi-c
 order the columns are declared. `ResetSortAsync`, removing the last sort level and <kbd>Shift</kbd> + <kbd>s</kbd> all
 return to it; **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
 
+Set `DefaultSortPriority` to sort the declared columns in another order. Lower numbers sort first, and columns without
+a priority follow those with one, in the order they are declared. With these columns, the grid starts sorted by start
+date, newest first, then by name, although the name column comes first:
+
+```razor
+<PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Sortable="true"
+                IsDefaultSortColumn="true" DefaultSortPriority="2" />
+<PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true"
+                IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" DefaultSortPriority="1" />
+```
+
+The data is requested in that order from the first request. In single sort mode, the grid is sorted by the declared
+column that sorts first, the one with the lowest `DefaultSortPriority` value.
+
 ## Example
 
 {{ DataGridMultiSort }}
