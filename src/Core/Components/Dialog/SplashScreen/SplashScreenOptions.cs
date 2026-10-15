@@ -31,60 +31,28 @@ public class SplashScreenOptions : DialogOptions
     /// <summary>
     /// Gets or sets the text to indicate something is happening.
     /// </summary>
-    public string? LoadingText
-    {
-        get => GetReferenceParameter<string>(nameof(LoadingText));
-        set => Parameters[nameof(LoadingText)] = value;
-    }
+    public string? LoadingText { get; set; }
 
     /// <summary>
     /// Gets or sets the logo to show on the splash screen.
     /// Can be a URL or a base64 encoded string or an SVG.
     /// </summary>
-    public string? Logo
-    {
-        get => GetReferenceParameter<string>(nameof(Logo));
-        set => Parameters[nameof(Logo)] = value;
-    }
+    public string? Logo { get; set; }
 
     /// <summary>
     /// Gets or sets an extra message. Can contain HTML.
     /// </summary>
-    public MarkupString? Message
-    {
-        get => GetValueParameter<MarkupString>(nameof(Message));
-        set => Parameters[nameof(Message)] = value;
-    }
+    public MarkupString? Message { get; set; }
 
     /// <summary>
     /// Gets or sets the subtitle.
     /// Typically used to show the name of the suite the product belongs to.
     /// </summary>
-    public string? SubTitle
-    {
-        get => GetReferenceParameter<string>(nameof(SubTitle));
-        set => Parameters[nameof(SubTitle)] = value;
-    }
+    public string? SubTitle { get; set; }
 
     /// <summary>
     /// Gets or sets the title.
     /// Typically used to show the name of the product.
     /// </summary>
-    public string? Title
-    {
-        get => GetReferenceParameter<string>(nameof(Title));
-        set => Parameters[nameof(Title)] = value;
-    }
-
-    private T? GetValueParameter<T>(string parameterName)
-        where T : struct
-    {
-        return Parameters.TryGetValue(parameterName, out var value) && value is T typedValue ? typedValue : null;
-    }
-
-    private T? GetReferenceParameter<T>(string parameterName)
-        where T : class
-    {
-        return Parameters.TryGetValue(parameterName, out var value) ? value as T : null;
-    }
+    public string? Title { get; set; }
 }

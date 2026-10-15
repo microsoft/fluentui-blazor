@@ -20,14 +20,31 @@ use `ShowSplashScreenAsync`: it returns an `ISplashScreenInstance` as soon as th
 
 By default, the splash screen cannot be closed with the **Escape** key (`PreventDismissOnEscape = true`).
 
+The dialog component receives the options through a single `SplashScreen` parameter:
+
+```razor
+<FluentDialogBody>
+    @SplashScreen.Message
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public required SplashScreenOptions SplashScreen { get; set; }
+}
+```
+
+Use this parameter to access `Title`, `SubTitle`, `Logo`, `LoadingText`, and `Message`.
+The service passes the same options instance to the component and re-renders it after each `UpdateAsync` call.
+Additional component parameters can still be configured through `Parameters`; the `SplashScreen` key is managed by the service.
+
 ```csharp
 var splash = await DialogService.ShowSplashScreenAsync<SplashScreenDialog>(options =>
 {
-    options.Parameters.Add(nameof(SplashScreenDialog.Message), "Loading...");
+    options.Message = new MarkupString("Loading...");
 });
 
 await Task.Delay(2000);
-await splash.UpdateAsync(options => options.Parameters[nameof(SplashScreenDialog.Message)] = "Hello World");
+await splash.UpdateAsync(options => options.Message = new MarkupString("Hello World"));
 
 await Task.Delay(2000);
 await splash.CloseAsync();
@@ -37,4 +54,4 @@ await splash.CloseAsync();
 
 ## API SplashScreenInstance
 
-{{ API Type=SplashScreenInstance }}
+

@@ -22,12 +22,11 @@
     public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
 
     [Fact]
-    public void SplashScreenOptions_TypedProperties_UpdateParameters()
+    public async Task ShowSplashScreenAsync_WithTypedOptions_PassesOptionsToComponent()
     {
         // Arrange
         var message = new MarkupString("<strong>Loading</strong>");
 
-        // Act
         var options = new SplashScreenOptions
         {
             LoadingText = "Loading...",
@@ -37,12 +36,20 @@
             Title = "Blazor"
         };
 
+        // Act
+        var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options);
+
         // Assert
-        Assert.Equal("Loading...", options.Parameters[nameof(SplashScreenOptions.LoadingText)]);
-        Assert.Equal("logo.svg", options.Parameters[nameof(SplashScreenOptions.Logo)]);
-        Assert.Equal(message, options.Parameters[nameof(SplashScreenOptions.Message)]);
-        Assert.Equal("Fluent UI", options.Parameters[nameof(SplashScreenOptions.SubTitle)]);
-        Assert.Equal("Blazor", options.Parameters[nameof(SplashScreenOptions.Title)]);
+        var componentOptions = DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen;
+        Assert.Same(options, splash.Options);
+        Assert.Same(options, componentOptions);
+        Assert.Same(options, Assert.Single(options.Parameters).Value);
+        Assert.Equal("Loading...", componentOptions.LoadingText);
+        Assert.Equal("logo.svg", componentOptions.Logo);
+        Assert.Equal(message, componentOptions.Message);
+        Assert.Equal("Fluent UI", componentOptions.SubTitle);
+        Assert.Equal("Blazor", componentOptions.Title);
+        Assert.Equal("Loading", DialogProvider.Find(".splash-message strong").TextContent);
     }
 
     [Fact]
@@ -71,6 +78,7 @@
         // Assert
         Assert.NotNull(splash);
         DialogProvider.WaitForAssertion(() => Assert.Single(DialogProvider.FindAll("fluent-dialog")));
+        Assert.Same(splash.Options, DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen);
     }
 
     [Fact]
@@ -84,7 +92,7 @@
     }
 
     [Fact]
-    public async Task UpdateAsync_NewParameterValue_RerendersContent()
+    public async Task UpdateAsync_NewMessage_RerendersContent()
     {
         // Arrange
         var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options =>
@@ -98,6 +106,36 @@
         // Assert
         DialogProvider.WaitForAssertion(() => Assert.Contains("Hello World", DialogProvider.Find("fluent-dialog").TextContent));
         Assert.DoesNotContain("Loading...", DialogProvider.Find("fluent-dialog").TextContent);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ReplacedParameters_PreservesSplashScreenAndUpdatesCustomParameters()
+    {
+        // Arrange
+        var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options =>
+        {
+            options.Message = new MarkupString("Loading...");
+            options.Parameters[nameof(SplashScreenRender.CustomMessage)] = "Initial custom message";
+        });
+        Assert.Equal("Initial custom message", DialogProvider.Find(".custom-message").TextContent);
+
+        // Act
+        await splash.UpdateAsync(options =>
+        {
+            options.Message = new MarkupString("Ready");
+            options.Parameters = new Dictionary<string, object?>
+            {
+                [nameof(SplashScreenRender.CustomMessage)] = "Updated custom message"
+            };
+        });
+
+        // Assert
+        DialogProvider.WaitForAssertion(() =>
+        {
+            Assert.Equal("Ready", DialogProvider.Find(".splash-message").TextContent);
+            Assert.Equal("Updated custom message", DialogProvider.Find(".custom-message").TextContent);
+        });
+        Assert.Same(splash.Options, DialogProvider.FindComponent<SplashScreenRender>().Instance.SplashScreen);
     }
 
     [Fact]
@@ -119,17 +157,18 @@
     public async Task UpdateAsync_ClosedDialog_DoesNotUpdateOptions()
     {
         // Arrange
-        var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options =>
+        var options = new SplashScreenOptions
         {
-            options.Message = new MarkupString("Loading...");
-        });
+            Message = new MarkupString("Loading...")
+        };
+        var splash = await DialogService.ShowSplashScreenAsync<SplashScreenRender>(options);
         await splash.CloseAsync();
 
         // Act
         await splash.UpdateAsync(options => options.Message = new MarkupString("Hello World"));
 
         // Assert
-        Assert.Equal("Loading...", ((MarkupString)splash.Options.Parameters[nameof(SplashScreenRender.Message)]!).Value);
+        Assert.Equal("Loading...", options.Message?.Value);
     }
 
     [Fact]

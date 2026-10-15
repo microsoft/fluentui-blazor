@@ -27,6 +27,7 @@ public partial class DialogService : IDialogService
 
         options.IsDrawer ??= false;
         options.PreventDismissOnEscape ??= true;
+        options.Parameters["SplashScreen"] = options;
 
         var instance = new SplashScreenInstance(this, dialogComponent, options);
 
@@ -65,7 +66,9 @@ public partial class DialogService : IDialogService
             return Task.CompletedTask;
         }
 
-        options.Invoke((SplashScreenOptions)splashScreen.Options);
+        var splashScreenOptions = (SplashScreenOptions)splashScreen.Options;
+        options.Invoke(splashScreenOptions);
+        splashScreenOptions.Parameters["SplashScreen"] = splashScreenOptions;
 
         return ServiceProvider.OnUpdatedAsync.Invoke(splashScreen);
     }

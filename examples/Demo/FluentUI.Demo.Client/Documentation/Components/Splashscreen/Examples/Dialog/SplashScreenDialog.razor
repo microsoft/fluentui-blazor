@@ -4,11 +4,11 @@
                  VerticalGap="16px"
                  Style="padding: 24px;">
         <FluentSpinner />
-        <FluentText>@Message</FluentText>
+        <FluentText>@SplashScreen.Message</FluentText>
     </FluentStack>
 </FluentDialogBody>
 
 @code {
     [Parameter]
-    public MarkupString? Message { get; set; }
+    public required SplashScreenOptions SplashScreen { get; set; }
 }
