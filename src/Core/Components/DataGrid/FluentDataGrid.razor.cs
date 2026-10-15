@@ -1785,7 +1785,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         if (SortMode == DataGridSortMode.Multiple)
         {
-            return _sortColumns.Count > 0 ? ResetSortAsync() : Task.CompletedTask;
+            // Not just when sorted: removing the last level leaves the grid unsorted, and this still brings the declared
+            // sort back from there.
+            return IsSortedAsDeclared ? Task.CompletedTask : ResetSortAsync();
         }
 
         return _sortColumns.Count > 0 ? RemoveSortByColumnAsync(_sortColumns[0].Column) : Task.CompletedTask;
