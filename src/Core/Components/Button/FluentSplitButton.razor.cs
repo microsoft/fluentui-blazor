@@ -23,10 +23,6 @@ public partial class FluentSplitButton : FluentComponentBase
         Id = Identifier.NewId();
     }
 
-    private FluentMenu? _menu;
-    private bool _menuButtonWasDisabled;
-    private bool _closeMenuAfterRender;
-
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
         .Build();
@@ -177,34 +173,6 @@ public partial class FluentSplitButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnMenuCheckedChanged { get; set; }
-
-    /// <summary>
-    /// Closes the menu when the menu button becomes disabled while the menu is open,
-    /// so its items cannot be activated while the split button appears disabled.
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        var menuButtonDisabled = IsMenuButtonDisabled;
-
-        if (menuButtonDisabled && !_menuButtonWasDisabled && _menu is not null)
-        {
-            _closeMenuAfterRender = true;
-        }
-
-        _menuButtonWasDisabled = menuButtonDisabled;
-    }
-
-    /// <summary />
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        // Closed after rendering, once the buttons are disabled in the DOM,
-        // so the focus moves to an element that can still take it.
-        if (_closeMenuAfterRender && _menu is not null)
-        {
-            _closeMenuAfterRender = false;
-            await _menu.CloseMenuAsync();
-        }
-    }
 
     /// <summary />
     private bool IsPrimaryActionDisabled => PrimaryActionDisabled ?? (Disabled || DisabledFocusable);

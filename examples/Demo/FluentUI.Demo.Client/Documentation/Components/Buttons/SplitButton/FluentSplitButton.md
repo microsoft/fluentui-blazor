@@ -47,8 +47,6 @@ and both halves get the disabled styling.
 Use `DisabledFocusable` instead to keep both halves in the tab order (with `aria-disabled="true"`),
 so keyboard and screen reader users can still reach the control and hear that it is unavailable.
 
-If the menu is open when its button becomes disabled, the menu is closed.
-
 To disable only one half, use `PrimaryActionDisabled` or `MenuButtonDisabled`. When set, each overrides
 `Disabled` / `DisabledFocusable` for its own half. For example, the primary action can be unavailable while the
 alternatives in its menu still work.

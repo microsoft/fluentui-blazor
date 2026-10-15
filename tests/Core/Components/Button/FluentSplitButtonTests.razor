@@ -293,21 +293,6 @@
     }
 
     [Fact]
-    public void FluentSplitButton_BecomesDisabled_CloseMenuFailureIgnored()
-    {
-        // Arrange: the circuit is disconnected when the menu is closed
-        JSInterop.SetupVoid("Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu", _ => true).SetException(new JSDisconnectedException("Disconnected"));
-        var cut = Render<FluentSplitButton>(@<FluentSplitButton>My button</FluentSplitButton>);
-
-        // Act
-        cut.Render(parameters => parameters.Add(p => p.Disabled, true));
-
-        // Assert
-        Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu"]);
-        Assert.Equal("disabled", GetDisabledState(cut.Find("fluent-menu-button")));
-    }
-
-    [Fact]
     public void FluentSplitButton_MenuId_UsesIdWhenSet()
     {
         // Arrange && Act
@@ -325,82 +310,6 @@
 
         // Assert
         Assert.False(string.IsNullOrWhiteSpace(cut.Find("fluent-menu").Id));
-    }
-
-    // Changing the parameters after the first render: is the open menu closed?
-    [Theory]
-    [InlineData(nameof(FluentSplitButton.Disabled), true)]
-    [InlineData(nameof(FluentSplitButton.DisabledFocusable), true)]
-    [InlineData(nameof(FluentSplitButton.MenuButtonDisabled), true)]
-    [InlineData(nameof(FluentSplitButton.PrimaryActionDisabled), false)]
-    public void FluentSplitButton_BecomesDisabled_ClosesMenu(string parameter, bool expectClose)
-    {
-        // Arrange
-        var cut = Render<FluentSplitButton>(@<FluentSplitButton Id="my-split">My button</FluentSplitButton>);
-
-        // Act
-        cut.Render(parameters =>
-        {
-            switch (parameter)
-            {
-                case nameof(FluentSplitButton.Disabled): parameters.Add(p => p.Disabled, true); break;
-                case nameof(FluentSplitButton.DisabledFocusable): parameters.Add(p => p.DisabledFocusable, true); break;
-                case nameof(FluentSplitButton.MenuButtonDisabled): parameters.Add(p => p.MenuButtonDisabled, true); break;
-                case nameof(FluentSplitButton.PrimaryActionDisabled): parameters.Add(p => p.PrimaryActionDisabled, true); break;
-            }
-        });
-
-        // Assert
-        var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu"];
-        if (expectClose)
-        {
-            var invocation = Assert.Single(invocations);
-            Assert.Equal("my-split", invocation.Arguments[0]);
-        }
-        else
-        {
-            Assert.Empty(invocations);
-        }
-    }
-
-    [Fact]
-    public void FluentSplitButton_DisabledOnFirstRender_DoesNotCloseMenu()
-    {
-        // Arrange && Act
-        var cut = Render<FluentSplitButton>(@<FluentSplitButton Disabled="true">My button</FluentSplitButton>);
-        cut.Render(parameters => parameters.Add(p => p.Label, "Still disabled"));
-
-        // Assert
-        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu"]);
-    }
-
-    [Fact]
-    public void FluentSplitButton_MenuButtonOverrideKeepsMenuEnabled_DoesNotCloseMenu()
-    {
-        // Arrange
-        var cut = Render<FluentSplitButton>(@<FluentSplitButton MenuButtonDisabled="false">My button</FluentSplitButton>);
-
-        // Act
-        cut.Render(parameters => parameters.Add(p => p.Disabled, true));
-
-        // Assert
-        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu"]);
-    }
-
-    [Fact]
-    public void FluentSplitButton_DisabledTwice_ClosesMenuOnce()
-    {
-        // Arrange
-        var cut = Render<FluentSplitButton>(@<FluentSplitButton>My button</FluentSplitButton>);
-
-        // Act
-        cut.Render(parameters => parameters.Add(p => p.Disabled, true));
-        cut.Render(parameters => parameters.Add(p => p.Disabled, true));
-        cut.Render(parameters => parameters.Add(p => p.Disabled, false));
-        cut.Render(parameters => parameters.Add(p => p.Disabled, true));
-
-        // Assert
-        Assert.Equal(2, JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu"].Count);
     }
 
     [Fact]

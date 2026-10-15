@@ -165,7 +165,7 @@ public partial class FluentMenu : FluentComponentBase, ITooltipComponent
     /// </summary>
     public async Task CloseMenuAsync()
     {
-        await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Menu.CloseMenu", Id);
     }
 
     /// <summary>
