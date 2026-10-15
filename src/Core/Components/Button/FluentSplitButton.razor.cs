@@ -18,10 +18,11 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSplitButton : FluentComponentBase
 {
     /// <summary />
-    public FluentSplitButton(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentSplitButton(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
-    // The inner menu needs an id to be closed from code, even when no Id is set on the split button.
-    private readonly string _menuId = Identifier.NewId();
     private FluentMenu? _menu;
     private bool _menuButtonWasDisabled;
     private bool _closeMenuAfterRender;
