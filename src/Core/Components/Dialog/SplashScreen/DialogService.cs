@@ -4,6 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -54,11 +55,17 @@ public partial class DialogService : IDialogService
         return ShowSplashScreenAsync(typeof(TDialog), options is null ? new SplashScreenOptions() : new SplashScreenOptions(options));
     }
 
-    /// <inheritdoc cref="IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance, Action{SplashScreenOptions})"/>
-    Task IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<SplashScreenOptions> options)
+    /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync(Action{SplashScreenOptions})"/>
+    public Task<ISplashScreenInstance> ShowSplashScreenAsync(Action<SplashScreenContent> content)
+    {
+        return ShowSplashScreenAsync<DefaultSplashScreenDialog>(new SplashScreenOptions(content));
+    }
+
+    /// <inheritdoc cref="IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance, Action{SplashScreenContent})"/>
+    Task IDialogService.UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<SplashScreenContent> content)
     {
         ArgumentNullException.ThrowIfNull(splashScreen);
-        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(content);
 
         // The splash screen is already closed: nothing to update.
         if (!ServiceProvider.Items.ContainsKey(splashScreen.Id))
@@ -67,8 +74,7 @@ public partial class DialogService : IDialogService
         }
 
         var splashScreenOptions = (SplashScreenOptions)splashScreen.Options;
-        options.Invoke(splashScreenOptions);
-        splashScreenOptions.Parameters["SplashScreen"] = splashScreenOptions;
+        content.Invoke(splashScreenOptions.SplashScreen);
 
         return ServiceProvider.OnUpdatedAsync.Invoke(splashScreen);
     }

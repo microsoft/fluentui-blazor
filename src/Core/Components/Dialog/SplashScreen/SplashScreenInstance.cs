@@ -17,9 +17,9 @@ public class SplashScreenInstance : DialogInstance, ISplashScreenInstance
     {
     }
 
-    /// <inheritdoc cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenOptions})"/>
-    public Task UpdateAsync(Action<SplashScreenOptions> options)
+    /// <inheritdoc cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/>
+    public Task UpdateAsync(Action<SplashScreenContent> content)
     {
-        return DialogService.UpdateSplashScreenAsync(this, options);
+        return DialogService.UpdateSplashScreenAsync(this, content);
     }
 }

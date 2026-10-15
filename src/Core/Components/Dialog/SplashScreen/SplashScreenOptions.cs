@@ -2,8 +2,6 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
-using Microsoft.AspNetCore.Components;
-
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
@@ -29,30 +27,17 @@ public class SplashScreenOptions : DialogOptions
     }
 
     /// <summary>
-    /// Gets or sets the text to indicate something is happening.
+    /// Initializes a new instance of the <see cref="SplashScreenOptions"/> class
+    /// using the specified implementation factory for the splash screen content.
     /// </summary>
-    public string? LoadingText { get; set; }
+    /// <param name="implementationFactory">Action used to configure the splash screen content.</param>
+    public SplashScreenOptions(Action<SplashScreenContent> implementationFactory)
+    {
+        implementationFactory.Invoke(this.SplashScreen);
+    }
 
     /// <summary>
-    /// Gets or sets the logo to show on the splash screen.
-    /// Can be a URL or a base64 encoded string or an SVG.
+    /// Gets the content displayed by the splash screen.
     /// </summary>
-    public string? Logo { get; set; }
-
-    /// <summary>
-    /// Gets or sets an extra message. Can contain HTML.
-    /// </summary>
-    public MarkupString? Message { get; set; }
-
-    /// <summary>
-    /// Gets or sets the subtitle.
-    /// Typically used to show the name of the suite the product belongs to.
-    /// </summary>
-    public string? SubTitle { get; set; }
-
-    /// <summary>
-    /// Gets or sets the title.
-    /// Typically used to show the name of the product.
-    /// </summary>
-    public string? Title { get; set; }
+    public SplashScreenContent SplashScreen { get; } = new();
 }

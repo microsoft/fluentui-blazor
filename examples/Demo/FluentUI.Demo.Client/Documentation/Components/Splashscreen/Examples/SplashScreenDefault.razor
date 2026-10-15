@@ -9,7 +9,7 @@
     {
         var splash = await DialogService.ShowSplashScreenAsync<Dialog.SplashScreenDialog>(options =>
         {
-            options.Message = new MarkupString("Loading...");
+            options.SplashScreen.Message = new MarkupString("Loading...");
         });
 
         await Task.Delay(2000);

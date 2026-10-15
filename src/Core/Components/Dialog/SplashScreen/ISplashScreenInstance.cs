@@ -10,10 +10,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface ISplashScreenInstance : IDialogInstance
 {
     /// <summary>
-    /// Updates the options (including the <see cref="DialogOptions.Parameters"/>) of the splash screen,
-    /// and re-renders the splash screen content with these new values.
+    /// Updates the splash screen content and re-renders it with the new values.
     /// </summary>
-    /// <param name="options">Action used to update the splash screen options.</param>
+    /// <param name="content">Action used to update the splash screen content.</param>
     /// <returns></returns>
-    Task UpdateAsync(Action<SplashScreenOptions> options);
+    Task UpdateAsync(Action<SplashScreenContent> content);
 }

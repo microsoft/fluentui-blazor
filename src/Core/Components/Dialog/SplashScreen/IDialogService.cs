@@ -13,7 +13,7 @@ public partial interface IDialogService
     /// <summary>
     /// Shows a splash screen dialog with the component type as the body,
     /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
-    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenOptions})"/> to update its content
+    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
     /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
     /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenOptions"/>.
     /// </summary>
@@ -25,7 +25,7 @@ public partial interface IDialogService
     /// <summary>
     /// Shows a splash screen dialog with the component type as the body,
     /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
-    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenOptions})"/> to update its content
+    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
     /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
     /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenOptions"/>.
     /// </summary>
@@ -38,7 +38,7 @@ public partial interface IDialogService
     /// <summary>
     /// Shows a splash screen dialog with the component type as the body,
     /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
-    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenOptions})"/> to update its content
+    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
     /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
     /// The component must declare a parameter named <c>SplashScreen</c> of type <see cref="SplashScreenOptions"/>.
     /// </summary>
@@ -49,11 +49,20 @@ public partial interface IDialogService
          where TDialog : ComponentBase;
 
     /// <summary>
-    /// Updates the options (including the <see cref="DialogOptions.Parameters"/>) of an opened splash screen,
-    /// and re-renders the splash screen content with these new values.
+    /// Shows a splash screen dialog with the default component as the body,
+    /// and returns the dialog instance as soon as the dialog is displayed (without waiting for it to be closed).
+    /// Use <see cref="ISplashScreenInstance.UpdateAsync(Action{SplashScreenContent})"/> to update its content
+    /// and <see cref="IDialogInstance.CloseAsync()"/> to close it.
+    /// </summary>
+    /// <param name="content">Action used to configure the dialog component.</param>
+    /// <returns>The instance of the displayed dialog.</returns>
+    Task<ISplashScreenInstance> ShowSplashScreenAsync(Action<SplashScreenContent> content);
+
+    /// <summary>
+    /// Updates the content of an opened splash screen and re-renders it with the new values.
     /// </summary>
     /// <param name="splashScreen">Instance of the splash screen to update.</param>
-    /// <param name="options">Action used to update the splash screen options.</param>
-    /// <returns></returns>
-    internal Task UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<SplashScreenOptions> options);
+    /// <param name="content">Action used to update the splash screen content.</param>
+    /// <returns>A task that represents the asynchronous update operation.</returns>
+    internal Task UpdateSplashScreenAsync(ISplashScreenInstance splashScreen, Action<SplashScreenContent> content);
 }

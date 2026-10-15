@@ -9,22 +9,22 @@ icon: ArrowClockwiseDashes
 A **Splash screen** is a dialog displayed for a few seconds (for example while the application is loading),
 whose content is updated and closed by the calling method.
 
-It uses the `DialogService` to display the dialog.
+For a splash screen, use `ShowSplashScreenAsync`: it returns an `ISplashScreenInstance` as soon as the dialog is displayed.
 
-`ShowDialogAsync` waits for the dialog to be closed before returning a `DialogResult`.
-For a splash screen (or any dialog that must be driven by the calling method),
-use `ShowSplashScreenAsync`: it returns an `ISplashScreenInstance` as soon as the dialog is displayed.
-
- - `UpdateAsync` updates the dialog options (including `Parameters`) and re-renders the dialog content.
+ - `UpdateAsync` updates the five splash screen content properties and re-renders the dialog content.
  - `CloseAsync` closes the dialog.
 
 By default, the splash screen cannot be closed with the **Escape** key (`PreventDismissOnEscape = true`).
+
+
+
+
 
 The dialog component receives the options through a single `SplashScreen` parameter:
 
 ```razor
 <FluentDialogBody>
-    @SplashScreen.Message
+    @SplashScreen.SplashScreen.Message
 </FluentDialogBody>
 
 @code {
@@ -33,14 +33,14 @@ The dialog component receives the options through a single `SplashScreen` parame
 }
 ```
 
-Use this parameter to access `Title`, `SubTitle`, `Logo`, `LoadingText`, and `Message`.
+Use its `SplashScreen` property to access `Title`, `SubTitle`, `Logo`, `LoadingText`, and `Message`.
 The service passes the same options instance to the component and re-renders it after each `UpdateAsync` call.
 Additional component parameters can still be configured through `Parameters`; the `SplashScreen` key is managed by the service.
 
 ```csharp
 var splash = await DialogService.ShowSplashScreenAsync<SplashScreenDialog>(options =>
 {
-    options.Message = new MarkupString("Loading...");
+    options.SplashScreen.Message = new MarkupString("Loading...");
 });
 
 await Task.Delay(2000);
@@ -53,5 +53,4 @@ await splash.CloseAsync();
 {{ SplashScreenDefault Files=Code:SplashScreenDefault.razor;SplashScreenDialog:SplashScreenDialog.razor }}
 
 ## API SplashScreenInstance
-
 
