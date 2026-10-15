@@ -67,6 +67,21 @@ public partial class FluentMenuItem : FluentComponentBase
     public bool? Disabled { get; set; }
 
     /// <summary>
+    /// The name of the cascading value with which a component disables the menu items it contains,
+    /// such as <see cref="FluentSplitButton"/> while its menu button is disabled.
+    /// </summary>
+    internal const string MenuDisabledCascadingName = "FluentMenuItem.MenuDisabled";
+
+    /// <summary>
+    /// Gets or sets whether the menu this item is in is disabled, which disables the item too.
+    /// </summary>
+    [CascadingParameter(Name = MenuDisabledCascadingName)]
+    private bool MenuDisabled { get; set; }
+
+    /// <summary />
+    private bool IsDisabled => Disabled == true || MenuDisabled;
+
+    /// <summary>
     /// Gets or sets the <see cref="Icon"/> displayed at the start (leading side) of the menu item content.
     /// Use <see cref="IconEnd"/> to add an icon at the end.
     /// </summary>
@@ -133,7 +148,7 @@ public partial class FluentMenuItem : FluentComponentBase
             // It is just a click on a menu item.
             // A disabled item cannot be clicked. Checked state changes are still raised:
             // the menu unchecks the other radio items itself, including the disabled ones.
-            if (Disabled == true)
+            if (IsDisabled)
             {
                 return;
             }

@@ -42,14 +42,15 @@ Menu buttons can be square, rounded, or circular.
 ## Disabled
 
 Set the `Disabled` parameter to disable the whole split button. Neither the primary action nor the menu can be activated,
-and both halves get the disabled styling.
+and both halves get the disabled styling. The menu items are disabled too, in case the menu was open at the time.
 
 Use `DisabledFocusable` instead to keep both halves in the tab order (with `aria-disabled="true"`),
 so keyboard and screen reader users can still reach the control and hear that it is unavailable.
 
-To disable only one half, use `PrimaryActionDisabled` or `MenuButtonDisabled`. When set, each overrides
-`Disabled` / `DisabledFocusable` for its own half. For example, the primary action can be unavailable while the
-alternatives in its menu still work.
+To disable only one half, use `PrimaryActionDisabled` or `MenuButtonDisabled`. When set, each overrides whether
+`Disabled` / `DisabledFocusable` disable its own half. For example, the primary action can be unavailable while the
+alternatives in its menu still work. A disabled half is still rendered the way `DisabledFocusable` says: it stays
+focusable when `DisabledFocusable` is `true`, so one half cannot be focusable while the other is not.
 
 To disable individual menu entries, use the `Disabled` parameter of `FluentMenuItem`.
 

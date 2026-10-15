@@ -72,15 +72,17 @@ public partial class FluentSplitButton : FluentComponentBase
 
     /// <summary>
     /// Gets or sets a value indicating whether the primary action button is disabled.
-    /// When set, this overrides <see cref="Disabled"/> and <see cref="DisabledFocusable"/> for the primary action only.
+    /// When set, this overrides whether <see cref="Disabled"/> and <see cref="DisabledFocusable"/> disable the primary action.
+    /// How a disabled primary action is rendered still follows <see cref="DisabledFocusable"/>: it stays focusable when that is <see langword="true"/>.
     /// The default value is `null`, meaning the primary action follows <see cref="Disabled"/> and <see cref="DisabledFocusable"/>.
     /// </summary>
     [Parameter]
     public bool? PrimaryActionDisabled { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the menu button is disabled.
-    /// When set, this overrides <see cref="Disabled"/> and <see cref="DisabledFocusable"/> for the menu button only.
+    /// Gets or sets a value indicating whether the menu button is disabled, along with the items of its menu.
+    /// When set, this overrides whether <see cref="Disabled"/> and <see cref="DisabledFocusable"/> disable the menu button.
+    /// How a disabled menu button is rendered still follows <see cref="DisabledFocusable"/>: it stays focusable when that is <see langword="true"/>.
     /// The default value is `null`, meaning the menu button follows <see cref="Disabled"/> and <see cref="DisabledFocusable"/>.
     /// </summary>
     [Parameter]
@@ -168,8 +170,6 @@ public partial class FluentSplitButton : FluentComponentBase
 
     /// <summary>
     /// Raised when a FluentMenuItem's Checked state changes.
-    /// Unlike <see cref="OnMenuClick"/>, this is also raised while the menu button is disabled,
-    /// so the checked state of radio items unchecked by the menu itself stays in sync.
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnMenuCheckedChanged { get; set; }
@@ -180,21 +180,9 @@ public partial class FluentSplitButton : FluentComponentBase
     /// <summary />
     private bool IsMenuButtonDisabled => MenuButtonDisabled ?? (Disabled || DisabledFocusable);
 
-    /// <summary />
-    private async Task OnMenuClickHandlerAsync(MenuItemEventArgs args)
-    {
-        if (!IsMenuButtonDisabled && OnMenuClick.HasDelegate)
-        {
-            await OnMenuClick.InvokeAsync(args);
-        }
-    }
-
-    /// <summary />
-    private async Task OnMenuCheckedChangedHandlerAsync(MenuItemEventArgs args)
-    {
-        if (OnMenuCheckedChanged.HasDelegate)
-        {
-            await OnMenuCheckedChanged.InvokeAsync(args);
-        }
-    }
+    /// <summary>
+    /// The web component only reports a disabled-focusable half as disabled through ElementInternals,
+    /// which not every accessibility tool reads, so the attribute is set as well.
+    /// </summary>
+    private string? AriaDisabled(bool halfDisabled) => halfDisabled && DisabledFocusable ? "true" : null;
 }
