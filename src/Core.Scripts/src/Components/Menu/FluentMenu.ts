@@ -1,12 +1,7 @@
 import { Menu, MenuItem, MenuList } from "@fluentui/web-components";
 import { DotNet } from "../../d-ts/Microsoft.JSInterop";
-import { Microsoft as FluentUIWebComponentsOverrideFile } from "../../FluentUIWebComponentsOverride";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Menu {
-
-  // Alias
-  import FluentUIOverride = FluentUIWebComponentsOverrideFile.FluentUI.Override;
-
   const menuAbortControllers = new Map<string, AbortController>();
   const menuListsWithMouseOutWorkaround = new WeakSet<MenuList>();
 
@@ -90,7 +85,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
       }
 
       if (openMenu) {
-        FluentUIOverride.openMenuFromCode(menu, () => menu.openMenu());
+        menu.openMenu();
       }
     };
 
@@ -141,7 +136,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
     }
 
     if (menu) {
-      FluentUIOverride.openMenuFromCode(menu, () => menu.openMenu());
+      menu.openMenu();
     }
   }
 }

@@ -1,5 +1,6 @@
 
 /// <reference path="./d-ts/Blazor.d.ts" />
+import type { Menu } from "@fluentui/web-components";
 
 export namespace Microsoft.FluentUI.Override {
     interface NavigationElement extends HTMLElement {
@@ -10,11 +11,6 @@ export namespace Microsoft.FluentUI.Override {
 
     interface TooltipElement extends HTMLElement {
         showPopover(): void;
-    }
-
-    interface MenuElement extends HTMLElement {
-        _trigger?: HTMLElement;
-        slottedMenuList?: HTMLElement[];
     }
 
     /**
@@ -49,81 +45,75 @@ export namespace Microsoft.FluentUI.Override {
 
                 showTooltipPopover.call(this);
             };
+
+            /**
+             * fluent-menu
+             * The menu opens from its trigger (click, Enter/Space keydown, hover, context menu) without checking whether
+             * the trigger is disabled. A `disabled-focusable` trigger stays focusable and still receives these events,
+             * so the trigger handlers of each menu ignore them while the trigger is disabled.
+             */
+            const menu = await registry.whenDefined('fluent-menu');
+            const addTriggerListeners = menu.prototype.addTriggerListeners;
+            menu.prototype.addTriggerListeners = function (this: Menu): void {
+                ignoreDisabledTriggerEvents(this);
+                addTriggerListeners.call(this);
+            };
+
+            // Menus upgraded before this override (prerendered markup) already listen to their trigger: set them up again.
+            document.querySelectorAll<Menu>('fluent-menu').forEach(element => {
+                if (element.slottedTriggers?.length) {
+                    element.slottedTriggersChanged(undefined, element.slottedTriggers);
+                }
+            });
         });
-
-        /**
-         * fluent-menu
-         * The menu opens from its trigger (Enter/Space keydown, hover, context menu) without checking whether
-         * the trigger is disabled. A `disabled-focusable` trigger stays focusable and still receives these events,
-         * so cancel the opening of any menu whose trigger is disabled. Opening from code (see `openMenuFromCode`)
-         * is not affected.
-         * Registered on the document in the capture phase (`beforetoggle` does not bubble), so it also covers
-         * menus upgraded before this override runs.
-         */
-        document.addEventListener('beforetoggle', preventDisabledMenuOpening, { capture: true });
     }
 
     /**
-     * The menu being opened by `openMenuFromCode`, if any.
-     * `beforetoggle` is dispatched synchronously while the menu opens, so this identifies the menu to let through.
+     * The menus whose trigger handlers already ignore the events of a disabled trigger.
      */
-    let menuOpenedFromCode: HTMLElement | null = null;
+    const menusIgnoringDisabledTrigger = new WeakSet<Menu>();
 
     /**
-     * Opens a menu on behalf of the application, even when its trigger is disabled
-     * (for instance, a loading button renders both `disabled` and `disabled-focusable`).
-     * @param menu The fluent-menu element to open.
-     * @param open The function that opens the menu.
-     */
-    export function openMenuFromCode(menu: HTMLElement, open: () => void): void {
-        menuOpenedFromCode = menu;
-        try {
-            open();
-        }
-        finally {
-            menuOpenedFromCode = null;
-        }
-    }
-
-    /**
-     * Gets the element that opens the menu.
-     * Falls back to the DOM when the private fields of the web component are not available.
+     * Wraps the handlers that the menu attaches to its trigger, so they do nothing while the trigger is disabled.
+     * These handlers are instance fields (arrow functions), so they are wrapped on each menu, before being attached.
      * @param menu The fluent-menu element.
      */
-    export function getMenuTrigger(menu: HTMLElement): HTMLElement | null {
-        const triggerId = menu.getAttribute('trigger');
-        return (menu as MenuElement)._trigger
-            ?? menu.querySelector<HTMLElement>(':scope > [slot="trigger"]')
-            ?? (triggerId ? document.getElementById(triggerId) : null);
+    function ignoreDisabledTriggerEvents(menu: Menu): void {
+        if (menusIgnoringDisabledTrigger.has(menu)) {
+            return;
+        }
+        menusIgnoringDisabledTrigger.add(menu);
+
+        const { toggleMenu, openMenu, triggerKeydownHandler } = menu;
+
+        menu.toggleMenu = (e?: Event) => {
+            if (!isFromDisabledTrigger(menu, e)) {
+                toggleMenu();
+            }
+        };
+
+        menu.openMenu = (e?: Event) => {
+            if (!isFromDisabledTrigger(menu, e)) {
+                openMenu(e);
+            }
+        };
+
+        menu.triggerKeydownHandler = (e: KeyboardEvent) => {
+            if (!isFromDisabledTrigger(menu, e)) {
+                return triggerKeydownHandler(e);
+            }
+        };
     }
 
     /**
-     * Gets the menu list of the menu itself (not of a submenu).
-     * Falls back to the DOM when the private fields of the web component are not available.
+     * Gets whether a trigger handler is called by an event of the trigger while the trigger is disabled.
+     * Calls from code (`menu.openMenu()`) pass no event, so they still open the menu,
+     * for instance a loading button that renders both `disabled` and `disabled-focusable`.
      * @param menu The fluent-menu element.
+     * @param e The event received by the handler, if any.
      */
-    export function getMenuList(menu: HTMLElement): HTMLElement | null {
-        return (menu as MenuElement).slottedMenuList?.[0]
-            ?? menu.querySelector<HTMLElement>(':scope > fluent-menu-list');
-    }
-
-    function preventDisabledMenuOpening(e: Event): void {
-        const menuList = e.target;
-        if ((e as ToggleEvent).newState !== 'open' ||
-            !(menuList instanceof HTMLElement) ||
-            menuList.localName !== 'fluent-menu-list') {
-            return;
-        }
-
-        // Only the menu's own list: submenus open from their (enabled) parent menu item.
-        const menu = menuList.closest<HTMLElement>('fluent-menu');
-        if (!menu || menu === menuOpenedFromCode || getMenuList(menu) !== menuList) {
-            return;
-        }
-
-        if (getMenuTrigger(menu)?.matches('[disabled], [disabled-focusable]')) {
-            e.preventDefault();
-        }
+    function isFromDisabledTrigger(menu: Menu, e?: Event): boolean {
+        return e !== undefined && !!menu['_trigger']?.matches('[disabled], [disabled-focusable]');
     }
 
     /* 
