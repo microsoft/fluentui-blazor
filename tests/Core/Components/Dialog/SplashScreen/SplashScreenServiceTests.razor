@@ -32,7 +32,7 @@
             SplashScreen =
             {
                 LoadingText = "Loading...",
-                Logo = "logo.svg",
+                LogoUrl = "logo.svg",
                 Message = message,
                 SubTitle = "Fluent UI",
                 Title = "Blazor"
@@ -48,7 +48,7 @@
         Assert.Same(options.SplashScreen, componentContent);
         Assert.Same(options.SplashScreen, Assert.Single(options.Parameters).Value);
         Assert.Equal("Loading...", componentContent.LoadingText);
-        Assert.Equal("logo.svg", componentContent.Logo);
+        Assert.Equal("logo.svg", componentContent.LogoUrl);
         Assert.Equal(message, componentContent.Message);
         Assert.Equal("Fluent UI", componentContent.SubTitle);
         Assert.Equal("Blazor", componentContent.Title);

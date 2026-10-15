@@ -20,7 +20,12 @@ public class SplashScreenContent
     /// Gets or sets the logo to show on the splash screen.
     /// Can be a URL or a base64 encoded string or an SVG.
     /// </summary>
-    public string? Logo { get; set; }
+    public string? LogoUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width for the logo.
+    /// </summary>
+    public string? LogoMaxWidth { get; set; } = "500px";
 
     /// <summary>
     /// Gets or sets an extra message. Can contain HTML.

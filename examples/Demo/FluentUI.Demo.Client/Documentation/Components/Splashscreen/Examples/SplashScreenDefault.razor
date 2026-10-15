@@ -7,18 +7,22 @@
 {
     private async Task ShowSplashScreenAsync()
     {
-        var splash = await DialogService.ShowSplashScreenAsync<Dialog.SplashScreenDialog>(options =>
+        var splash = await DialogService.ShowSplashScreenAsync(content =>
         {
-            options.SplashScreen.Message = new MarkupString("Loading...");
+            content.LogoUrl = "/images/splash-corporation-logo.png";
+            content.LogoMaxWidth = "400px";
+            content.Title = "Microsoft Fluent UI Blazor";
+            content.SubTitle = "Powered by you";
+            content.LoadingText = "Loading...";
         });
 
         await Task.Delay(2000);
-        await splash.UpdateAsync(options => options.Message = new MarkupString("Almost ready..."));
+        await splash.UpdateAsync(content => content.LoadingText = "Almost ready...");
 
         await Task.Delay(2000);
-        await splash.UpdateAsync(options => options.Message = new MarkupString("Hello World"));
+        await splash.UpdateAsync(content => content.LoadingText = "Again almost ready...");
 
-        await Task.Delay(1000);
+        await Task.Delay(2000);
         await splash.CloseAsync();
     }
 }
