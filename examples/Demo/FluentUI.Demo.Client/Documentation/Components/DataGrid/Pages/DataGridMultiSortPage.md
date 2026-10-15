@@ -22,15 +22,15 @@ is named for what it does to the sort rather than repeating the word:
 | Add | The grid is sorted by another column | Adds the column as the next sort level, ascending. |
 | Clear | The column is sorted on | Stops sorting by this column, keeping the other levels. |
 | Clear all | More than one column is sorted on | Removes every sort level, leaving the grid unsorted. |
-| Reset | More than one column is sorted on, and some column declares a sort | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
+| Reset | Some column declares a sort, and the grid is not sorted that way | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
 
 Set `ShowMultiSortActions` to false to leave the headers exactly as they are in single sort mode. Sorting by several
 columns then only happens through <kbd>Shift</kbd> + click, <kbd>Shift</kbd> + <kbd>Enter</kbd> and the grid's sort
 methods — see the note under Accessibility before using it.
 
 Declaring `IsDefaultSortColumn` on more than one column gives the grid a multi-column sort to start with, applied in the
-order the columns are declared. `ResetSortAsync`, removing the last sort level and <kbd>Shift</kbd> + <kbd>s</kbd> all
-return to it; **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
+order the columns are declared. `ResetSortAsync`, **Reset** and <kbd>Shift</kbd> + <kbd>s</kbd> return to it;
+removing the last sort level, **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
 
 Set `DefaultSortPriority` to sort the declared columns in another order. Lower numbers sort first, and columns without
 a priority follow those with one, in the order they are declared. With these columns, the grid starts sorted by start

@@ -82,7 +82,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     private ColumnHeaderUiKind _pendingHeaderUiReopenKind;
     // The columns the grid is sorted by, in priority order. Holds at most one entry unless SortMode is Multiple.
     private readonly List<DataGridSortColumn<TGridItem>> _sortColumns = [];
-    // The sort declared by the columns (IsDefaultSortColumn), restored when the user clears the sort.
+    // The sort declared by the columns (IsDefaultSortColumn), restored when the sort is reset.
     private readonly List<DataGridSortColumn<TGridItem>> _defaultSortColumns = [];
     // Filled in column order while the columns are collected and put in DefaultSortPriority order into
     // _defaultSortColumns once the collection completes, so that columns which were removed or recreated since the
@@ -669,6 +669,18 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// is what <see cref="ResetSortAsync"/> goes back to.
     /// </summary>
     internal bool HasDeclaredSort => _defaultSortColumns.Count > 0;
+
+    /// <summary>
+    /// Gets whether the grid is sorted exactly the way <see cref="ResetSortAsync"/> would sort it, so that there is
+    /// nothing to reset.
+    /// </summary>
+    internal bool IsSortedAsDeclared
+        => _sortColumns.Select(level => (level.Column, level.Ascending))
+            .SequenceEqual(DeclaredSortLevels.Select(level => (level.Column, level.Ascending)));
+
+    // The levels of the declared sort that apply in the current mode: only Multiple applies more than the first.
+    private IEnumerable<DataGridSortColumn<TGridItem>> DeclaredSortLevels
+        => SortMode == DataGridSortMode.Multiple ? _defaultSortColumns : _defaultSortColumns.Take(1);
 
     /// <summary>
     /// Gets the sort level for the specified column, or <see langword="null"/> when the grid is not sorted by it.
@@ -1689,8 +1701,8 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Restores the sort declared by the columns through <see cref="ColumnBase{TGridItem}.IsDefaultSortColumn"/>,
-    /// leaving the grid unsorted when no column declares one. This is what removing the last sort level and the
-    /// Shift+S shortcut do.
+    /// leaving the grid unsorted when no column declares one. This is what the Shift+S shortcut does with
+    /// <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task ResetSortAsync()
@@ -1727,8 +1739,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Removes the specified <paramref name="column"/> from the grid's sort.
     ///
-    /// With <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>, the other sort levels are kept and
-    /// the sort declared by the columns is restored once the last level is removed. Otherwise the sort declared by the
+    /// With <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>, the other sort levels are kept, and
+    /// removing the last one leaves the grid unsorted, as <see cref="ClearSortAsync"/> does; use
+    /// <see cref="ResetSortAsync"/> to go back to the sort declared by the columns. Otherwise the sort declared by the
     /// columns is restored right away, unless <paramref name="column"/> is the column the grid is sorted by by default.
     /// </summary>
     /// <param name="column">The column to stop sorting by.</param>
@@ -1743,12 +1756,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
                 return;
             }
 
+            // Removing the last level leaves the grid unsorted rather than bringing the declared sort back: the user
+            // asked for one sort less, not for the default sort.
             _sortColumns.RemoveAt(index);
-
-            if (_sortColumns.Count == 0)
-            {
-                RestoreDefaultSort();
-            }
 
             await NotifySortChangedAsync(useCoreRefresh: true);
             return;
@@ -1785,9 +1795,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         // The columns declare their sort in full, whatever the mode; only Multiple applies more than its first level.
         _sortColumns.Clear();
-        _sortColumns.AddRange(SortMode == DataGridSortMode.Multiple
-            ? _defaultSortColumns
-            : _defaultSortColumns.Take(1));
+        _sortColumns.AddRange(DeclaredSortLevels);
     }
 
     private async Task NotifySortChangedAsync(bool useCoreRefresh = false)
