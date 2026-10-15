@@ -1,0 +1,14 @@
+<FluentDialogBody>
+    <FluentStack Orientation="Orientation.Vertical"
+                 HorizontalAlignment="HorizontalAlignment.Center"
+                 VerticalGap="16px"
+                 Style="padding: 24px;">
+        <FluentSpinner />
+        <FluentText>@Message</FluentText>
+    </FluentStack>
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public string? Message { get; set; }
+}
