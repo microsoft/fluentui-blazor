@@ -298,31 +298,6 @@ And you can check if the dialog box was closed by clicking on the **OK** or **Ca
 > But the `CloseAsync` method can pass a"Canceled" result object to the parent component.
 > `await DialogInstance.CloseAsync(DialogResult.Cancel("You clicked on the Cancel button"));`
 
-## Splash screen
-
-`ShowDialogAsync` waits for the dialog to be closed before returning a `DialogResult`.
-For a splash screen (or any dialog that must be driven by the calling method),
-use `ShowSplashScreenAsync`: it returns an `ISplashScreenInstance` as soon as the dialog is displayed.
-
- - `UpdateAsync` updates the dialog options (including `Parameters`) and re-renders the dialog content.
- - `CloseAsync` closes the dialog.
-
-By default, the splash screen cannot be closed with the **Escape** key (`PreventDismissOnEscape = true`).
-
-```csharp
-var splash = await DialogService.ShowSplashScreenAsync<SplashScreenDialog>(options =>
-{
-    options.Parameters.Add(nameof(SplashScreenDialog.Message), "Loading...");
-});
-
-await Task.Delay(2000);
-await splash.UpdateAsync(options => options.Parameters[nameof(SplashScreenDialog.Message)] = "Hello World");
-
-await Task.Delay(2000);
-await splash.CloseAsync();
-```
-
-{{ DialogServiceSplashScreen Files=Code:DialogServiceSplashScreen.razor;SplashScreenDialog:SplashScreenDialog.razor }}
 
 ## Without the DialogService
 
@@ -341,6 +316,10 @@ You can also use the `FluentDialogBody` component directly in your component, wi
 ## API FluentDialog
 
 {{ API Type=FluentDialog }}
+
+## API DialogInstance
+
+{{ API Type=DialogInstance }}
 
 ## Options
 
