@@ -1017,8 +1017,9 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         {
             // The declared sort is applied once the columns are collected for the first time, when its order is
             // known. Only its first level is applied unless SortMode is Multiple, though every level is kept, so the
-            // rest are there to restore if the grid is later switched to Multiple.
-            if (!_defaultSortApplied)
+            // rest are there to restore if the grid is later switched to Multiple. A sort set while the columns were
+            // being collected (a column sorting the grid as it initializes, say) is kept rather than replaced.
+            if (!_defaultSortApplied && _sortColumns.Count == 0)
             {
                 RestoreDefaultSort();
             }
@@ -1701,8 +1702,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
 
     /// <summary>
     /// Restores the sort declared by the columns through <see cref="ColumnBase{TGridItem}.IsDefaultSortColumn"/>,
-    /// leaving the grid unsorted when no column declares one. This is what the Shift+S shortcut does with
-    /// <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>.
+    /// leaving the grid unsorted when no column declares one. This is what the Shift+S shortcut does.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public async Task ResetSortAsync()
@@ -1778,16 +1778,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <summary>
     /// Removes the grid's sort on double click for the currently sorted column if it's not a default sort column.
     /// With <see cref="SortMode"/> set to <see cref="DataGridSortMode.Multiple"/>, every sort level is removed and the
-    /// sort declared by the columns is restored.
+    /// sort declared by the columns is restored. An unsorted grid is left unsorted; use <see cref="ResetSortAsync"/>
+    /// to restore the declared sort from there.
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
     public Task RemoveSortByColumnAsync()
     {
         if (SortMode == DataGridSortMode.Multiple)
         {
-            // Not just when sorted: removing the last level leaves the grid unsorted, and this still brings the declared
-            // sort back from there.
-            return IsSortedAsDeclared ? Task.CompletedTask : ResetSortAsync();
+            return _sortColumns.Count > 0 ? ResetSortAsync() : Task.CompletedTask;
         }
 
         return _sortColumns.Count > 0 ? RemoveSortByColumnAsync(_sortColumns[0].Column) : Task.CompletedTask;
@@ -2657,9 +2656,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await ResetColumnWidthsAsync();
         }
 
-        if (args.ShiftKey && args.Key == KeyCode.KeyS)
+        // Restores the declared sort whatever the grid is sorted by, including from unsorted, which removing a sort
+        // does not do. There is nothing to refresh when the grid is already sorted that way.
+        if (args.ShiftKey && args.Key == KeyCode.KeyS && !IsSortedAsDeclared)
         {
-            await RemoveSortByColumnAsync();
+            await ResetSortAsync();
         }
 
         if (string.Equals(args.Value, "-", StringComparison.Ordinal))

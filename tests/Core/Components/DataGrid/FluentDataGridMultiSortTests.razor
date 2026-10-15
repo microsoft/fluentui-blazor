@@ -1247,6 +1247,80 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_SingleSort_ShiftS_OnAnUnsortedGrid_ReturnsToTheDeclaredSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single, defaultSortColumn: true);
+
+        await grid.ClearSortAsync();
+
+        // Act
+        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+
+        // Assert: as in multiple sort mode.
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", level.Column.Title);
+    }
+
+    [Theory]
+    [InlineData(DataGridSortMode.Single)]
+    [InlineData(DataGridSortMode.Multiple)]
+    public async Task FluentDataGrid_RemoveSortByColumnAsync_OnAnUnsortedGrid_LeavesItUnsorted(DataGridSortMode sortMode)
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, sortMode, defaultSortColumn: true);
+
+        await grid.ClearSortAsync();
+
+        // Act
+        await grid.RemoveSortByColumnAsync();
+
+        // Assert: removing a sort does not bring the declared one back; that is what Shift+S is for.
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Theory]
+    [InlineData(DataGridSortMode.Single)]
+    [InlineData(DataGridSortMode.Multiple)]
+    public void FluentDataGrid_SortSetWhileTheColumnsAreCollected_IsNotReplacedByTheDeclaredSort(DataGridSortMode sortMode)
+    {
+        // Arrange && Act: the Name column sorts the grid as it initializes, before the columns are all collected.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="@sortMode">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                @SortingOnInitializedNameColumn
+            </FluentDataGrid>
+        );
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", level.Column.Title);
+        Assert.False(level.Ascending);
+    }
+
+    // Nested in the test class, the column cannot be written as markup, so it is rendered from code.
+    private static readonly RenderFragment SortingOnInitializedNameColumn = builder =>
+    {
+        builder.OpenComponent<SortingOnInitializedColumn>(0);
+        builder.AddComponentParameter(1, nameof(SortingOnInitializedColumn.Property), (System.Linq.Expressions.Expression<Func<Employee, string>>)(x => x.Name));
+        builder.AddComponentParameter(2, nameof(SortingOnInitializedColumn.Sortable), true);
+        builder.CloseComponent();
+    };
+
+    /// <summary>A column that sorts the grid by itself, descending, as it initializes.</summary>
+    private sealed class SortingOnInitializedColumn : PropertyColumn<Employee, string>
+    {
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            _ = Grid.SortByColumnAsync(this, DataGridSortDirection.Descending);
+        }
+    }
+
+    [Fact]
     public async Task FluentDataGrid_MultiSort_ShiftS_ClearsEverySortLevel()
     {
         // Arrange

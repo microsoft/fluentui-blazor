@@ -132,7 +132,7 @@ Sorting by several columns can be done entirely from the keyboard, with a screen
   with a screen reader that does not pass <kbd>Shift</kbd> + <kbd>Enter</kbd> through, so only do it when your
   application offers its own UI for sorting.
 - Right-clicking a header removes that column from the sort, and <kbd>Shift</kbd> + <kbd>s</kbd> returns to the sort
-  the columns declare, as it does in single sort mode.
+  the columns declare, even from an unsorted grid. It does the same in single sort mode.
 
 The sort state is exposed as follows:
 
