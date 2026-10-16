@@ -1,0 +1,87 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen
+
+<FluentDialogBody>
+    <FluentStack Orientation="Orientation.Vertical"
+                 HorizontalAlignment="HorizontalAlignment.Center"
+                 VerticalGap="24px"
+                 Padding="@Padding.All6">
+
+        @if (!string.IsNullOrWhiteSpace(SplashScreen.LogoUrl))
+        {
+            <FluentImage Source="@SplashScreen.LogoUrl"
+                         AlternateText=""
+                         Style="@(string.IsNullOrEmpty(SplashScreen.LogoMaxWidth) ? null : $"max-width: {SplashScreen.LogoMaxWidth};")"
+                         Fit="ImageFit.Contain" />
+        }
+
+        @if (!string.IsNullOrWhiteSpace(SplashScreen.Title) || !string.IsNullOrWhiteSpace(SplashScreen.SubTitle))
+        {
+            <FluentStack Orientation="Orientation.Vertical"
+                         HorizontalAlignment="HorizontalAlignment.Center"
+                         VerticalGap="4px">
+                @if (!string.IsNullOrWhiteSpace(SplashScreen.Title))
+                {
+                    <FluentText As="TextTag.H1"
+                                Size="TextSize.Size600"
+                                Weight="TextWeight.Semibold"
+                                Align="TextAlign.Center"
+                                Block="true">
+                        @SplashScreen.Title
+                    </FluentText>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(SplashScreen.SubTitle))
+                {
+                    <FluentText As="TextTag.Paragraph"
+                                Size="TextSize.Size300"
+                                Align="TextAlign.Center"
+                                Block="true"
+                                Style="color: var(--neutral-foreground-rest);">
+                        @SplashScreen.SubTitle
+                    </FluentText>
+                }
+            </FluentStack>
+        }
+
+        <FluentStack Orientation="Orientation.Vertical"
+                     HorizontalAlignment="HorizontalAlignment.Center"
+                     VerticalGap="12px"
+                     role="status"
+                     aria-live="polite"
+                     aria-atomic="true">
+            @if (SplashScreen.LoadingPercentage.HasValue)
+            {
+                <FluentProgressBar Value="SplashScreen.LoadingPercentage.Value" Min="0" Max="100" />
+            }
+            else
+            {
+                <FluentSpinner Size="SpinnerSize.Medium" />
+            }
+
+            @if (!string.IsNullOrWhiteSpace(SplashScreen.LoadingText))
+            {
+                <FluentText Size="TextSize.Size300"
+                            Weight="TextWeight.Semibold"
+                            Align="TextAlign.Center">
+                    @SplashScreen.LoadingText
+                </FluentText>
+            }
+        </FluentStack>
+
+        @if (SplashScreen.Message.HasValue)
+        {
+            <FluentText As="TextTag.Paragraph"
+                        Size="TextSize.Size200"
+                        Align="TextAlign.Center"
+                        Block="true"
+                        Style="color: var(--neutral-foreground-rest);">
+                @SplashScreen.Message
+            </FluentText>
+        }
+    </FluentStack>
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public required SplashScreenContent SplashScreen { get; set; }
+}

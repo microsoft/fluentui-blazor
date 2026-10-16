@@ -10,7 +10,10 @@ The `FluentMultiSplitter` splits the page into multiple panels and allows the us
 
 You can include as many **Panes** as you like in a container.
 By default, the panes are resizable, but the `Resizable` parameter can be used to block this functionality.
-The initial `Size` is in percent or pixels and has a `Min` and `Max` value.  
+The `Size` is in percent or pixels and has a `Min` and `Max` value.
+Changing `Size` updates the pane even after the user has resized it.
+Use `@bind-Size` to receive the new size as a percentage when resizing ends.
+Without binding, user-resized sizes are preserved until the `Size` parameter changes.
 A Panel can be fully collapsed by setting the `Collapsible` parameter to `true`.
 
 The `OnResize` event returns the new size as a percentage.
@@ -20,6 +23,14 @@ The `OnResize` event returns the new size as a percentage.
 In this example, each time a pane is resized, a trace is written to the console.
 
 {{ MultiSplitterDefault }}
+
+## Two-way size binding
+
+Drag the splitter bar to update the bound sizes, or use the button to reset the layout programmatically.
+
+{{ MultiSplitterTwoWayBinding }}
+
+The existing `OnResize` event can still cancel a resize. Cancelled resizes do not invoke `SizeChanged`.
 
 ## Restrictions
 

@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Reflection;
-using System.Text.RegularExpressions;
 using FluentUI.Demo.DocViewer.Models;
 using Markdig;
 
@@ -110,11 +109,9 @@ public class DocViewerService
                 using var reader = new StreamReader(stream);
                 var content = reader.ReadToEnd();
 
-                // Remove the headers: --- xxx ---
                 if (removeHeaders)
                 {
-                    var patternHeaders = @"---[\s\S]*?---";
-                    content = Regex.Replace(content, patternHeaders, string.Empty);
+                    content = RemoveFrontMatter(content);
                 }
 
                 return content;
@@ -123,6 +120,11 @@ public class DocViewerService
 
         return string.Empty;
     }
+
+    /// <summary>
+    /// Removes leading Markdown front matter without modifying the body.
+    /// </summary>
+    internal static string RemoveFrontMatter(string content) => MarkdownFrontMatter.Split(content).Body;
 
     /// <summary />
     private IEnumerable<Page> LoadAllPages()

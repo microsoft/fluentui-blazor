@@ -52,6 +52,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentPopover | High | [Migration](/Migration/Popover) |
   | FluentPresenceBadge | Medium | [Migration](/Migration/PresenceBadge) |
   | FluentProgressBar (was FluentProgress) | Medium | [Migration](/Migration/ProgressBar) |
+  | FluentProfileMenu | Medium | [Migration](/Migration/ProfileMenu) |
   | FluentSpinner (was FluentProgressRing) | Medium | [Migration](/Migration/ProgressRing) |
   | FluentPullToRefresh | Low | [Migration](/Migration/PullToRefresh) |
   | FluentRadio | Medium | [Migration](/Migration/Radio) |
@@ -60,6 +61,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentSlider | Medium | [Migration](/Migration/Slider) |
   | FluentSortableList | Low | [Migration](/Migration/SortableList) |
   | FluentSpacer | Low | [Migration](/Migration/Spacer) |
+  | SplashScreen | High | [Migration](/Migration/SplashScreen) |
   | FluentSplitter | High | [Migration](/Migration/Splitter) |
   | FluentStack | Low | [Migration](/Migration/Stack) |
   | FluentSwitch | Medium | [Migration](/Migration/Switch) |

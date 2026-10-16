@@ -497,4 +497,12 @@ public class RangeOfDatesTests
         // Assert
         Assert.Equal(expected, result);
     }
+
+    [Fact]
+    public void IsOutside_WithUnknownView_ReturnsFalse()
+    {
+        var range = new RangeOfDates(new DateTime(2024, 1, 15), new DateTime(2024, 12, 15));
+
+        Assert.False(range.IsOutside(new DateTime(2024, 6, 1), (CalendarViews)999, CultureInfo.InvariantCulture));
+    }
 }

@@ -186,6 +186,28 @@
     }
 
     [Fact]
+    public void SelectColumnTests_Property_SynchronizesSelectedItems_WhenInitiallySelected()
+    {
+        var items = new List<Person>(People);
+        items[1].Selected = true;
+        IEnumerable<Person> selectedItems = [];
+
+        var cut = Render(
+            @<FluentDataGrid Items="@items.AsQueryable()" TGridItem="Person">
+                <SelectColumn TGridItem="Person"
+                              SelectMode="@DataGridSelectMode.Multiple"
+                              Property="@(item => item.Selected)"
+                              @bind-SelectedItems="@selectedItems" />
+                <PropertyColumn Property="@(item => item.Name)" />
+            </FluentDataGrid>);
+
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+        Assert.Single(selectColumn.Instance.SelectedItems);
+        Assert.Equal(2, selectColumn.Instance.SelectedItems.Single().PersonId);
+        Assert.Single(cut.FindAll("svg[row-selected]"));
+    }
+
+    [Fact]
     public void SelectColumnTests_SingleStickySelect_Rendering()
     {
         IEnumerable<Person> SelectedItems = new List<Person> { People.ElementAt(1) };
@@ -1267,6 +1289,31 @@
 		Assert.Equal(comparer, selectColumn.Comparer);
 	}
 
+    [Fact]
+    public void SelectColumnTests_ItemKeyEqualityComparer_HandlesReferenceNullAndKeyEquality()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@People" ItemKey="@(person => person.PersonId)" TGridItem="Person">
+                <SelectColumn TGridItem="Person" SelectMode="@DataGridSelectMode.Multiple" />
+                <PropertyColumn Property="@(person => person.Name)" />
+            </FluentDataGrid>);
+        var selectColumn = cut.FindComponent<SelectColumn<Person>>();
+        var comparer = (IEqualityComparer<Person>)typeof(SelectColumn<Person>)
+            .GetProperty("EffectiveComparer", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!
+            .GetValue(selectColumn.Instance)!;
+
+        var first = new Person(1, "First", new DateOnly(2000, 1, 1));
+        var sameKey = new Person(1, "Same key", new DateOnly(2001, 1, 1));
+        var differentKey = new Person(2, "Different key", new DateOnly(2002, 1, 1));
+
+        Assert.True(comparer.Equals(first, first));
+        Assert.False(comparer.Equals(first, null));
+        Assert.False(comparer.Equals(null, first));
+        Assert.True(comparer.Equals(first, sameKey));
+        Assert.False(comparer.Equals(first, differentKey));
+        Assert.Equal(comparer.GetHashCode(first), comparer.GetHashCode(sameKey));
+    }
+
 	[Fact]
     public async Task SelectColumnTests_SingleSelect_SelectedItemsWithComparer()
     {
@@ -1417,6 +1464,52 @@
         Assert.Empty(cut.FindAll("svg[row-selected]"));
     }
 
+    [Theory]
+    [InlineData(0, false)]
+    [InlineData(1, null)]
+    [InlineData(3, true)]
+    public void SelectColumnTests_GetSelectAll_WithNonMaterializedSelectedItems_ReturnsExpectedState(int selectedCount, bool? expected)
+    {
+        static IEnumerable<Person> Enumerate(IEnumerable<Person> people)
+        {
+            foreach (var person in people)
+            {
+                yield return person;
+            }
+        }
+
+        var people = People.ToList();
+        var cut = Render(@<FluentDataGrid Items="@People" />);
+        var grid = cut.FindComponent<FluentDataGrid<Person>>().Instance;
+        var column = new TestableSelectColumn<Person>
+        {
+            InternalGridContext = new InternalGridContext<Person>(grid)
+            {
+                Items = people,
+                TotalItemCount = people.Count,
+            },
+            Property = _ => false,
+            SelectedItems = Enumerate(people.Take(selectedCount)),
+        };
+
+        var result = column.CallGetSelectAll();
+
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void SelectColumnTests_GetHeaderContent_WithUnknownSelectMode_RendersNothing()
+    {
+        var column = new TestableSelectColumn<Person>
+        {
+            SelectMode = (DataGridSelectMode)(-1),
+        };
+
+        var cut = Render(column.CallGetHeaderContent());
+
+        Assert.Empty(cut.Markup);
+    }
+
 #pragma warning restore BL0005
     /// <summary>
     /// Simulate a key down event on the DataGrid row number <paramref name="row"/>.
@@ -1477,5 +1570,12 @@
             await task;
         }
         cut.FindComponent<FluentDataGrid<Person>>().Render();
+    }
+
+    private sealed class TestableSelectColumn<TGridItem> : SelectColumn<TGridItem>
+    {
+        public bool? CallGetSelectAll() => GetSelectAll();
+
+        public RenderFragment CallGetHeaderContent() => GetHeaderContent();
     }
 }

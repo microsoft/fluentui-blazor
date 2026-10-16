@@ -843,6 +843,22 @@
     }
 
     [Theory]
+    [InlineData("Sort ascending", true)]
+    [InlineData("Sort descending", false)]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_ClickingDirection_SortsTheColumn(string label, bool expectedAscending)
+    {
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid);
+        var menuItem = cut.FindComponents<FluentMenuItem>()
+            .First(item => string.Equals(item.Find("fluent-menu-item").TextContent.Trim(), label, StringComparison.Ordinal));
+
+        await cut.InvokeAsync(() => menuItem.Instance.OnClick.InvokeAsync());
+
+        Assert.Single(grid.SortColumns);
+        Assert.Equal(expectedAscending, grid.SortColumns[0].Ascending);
+    }
+
+    [Theory]
     [InlineData(DataGridSortMode.Single, DataGridCellAlignment.Start)]
     [InlineData(DataGridSortMode.Single, DataGridCellAlignment.Center)]
     [InlineData(DataGridSortMode.Single, DataGridCellAlignment.End)]
@@ -1666,6 +1682,63 @@
         Assert.False(request.IsSameRequest(swapped));
     }
 
+    [Fact]
+    public void FluentDataGrid_MultiSort_IsSameRequest_WithDifferentPaging_IsFalse()
+    {
+        FluentDataGrid<Employee>? grid = default!;
+        RenderMultiSortGrid(out grid);
+        var column = grid._columns[0];
+        var request = RequestSortedBy(column);
+        var differentStart = new GridItemsProviderRequest<Employee>
+        {
+            StartIndex = 1,
+            Count = request.Count,
+            SortColumns = request.SortColumns,
+        };
+        var differentCount = new GridItemsProviderRequest<Employee>
+        {
+            StartIndex = request.StartIndex,
+            Count = 11,
+            SortColumns = request.SortColumns,
+        };
+
+        Assert.False(request.IsSameRequest(differentStart));
+        Assert.False(request.IsSameRequest(differentCount));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_ApplySorting_IgnoresUnsortableLevels()
+    {
+        var data = GetEmployees();
+        FluentDataGrid<Employee>? grid = default!;
+        Render(
+            @<FluentDataGrid Items="@data" @ref="@grid">
+                <TemplateColumn Title="Unsortable">@context.Name</TemplateColumn>
+                <TemplateColumn Title="Department" SortBy="@(GridSort<Employee>.ByAscending(x => x.Department))">@context.Department</TemplateColumn>
+                <TemplateColumn Title="Name"
+                                SortBy="@(new ColumnKeyGridSort<Employee>(
+                                    "Name",
+                                    (queryable, ascending) => ascending
+                                        ? queryable.OrderBy(x => x.Name)
+                                        : queryable.OrderByDescending(x => x.Name)))">
+                    @context.Name
+                </TemplateColumn>
+            </FluentDataGrid>);
+        var request = new GridItemsProviderRequest<Employee>
+        {
+            SortColumns =
+            [
+                new DataGridSortColumn<Employee>(grid._columns[0], true),
+                new DataGridSortColumn<Employee>(grid._columns[1], true),
+                new DataGridSortColumn<Employee>(grid._columns[2], true),
+            ],
+        };
+
+        var result = request.ApplySorting(data);
+
+        Assert.Equal(data.OrderBy(x => x.Department).Select(x => x.Name), result.Select(x => x.Name));
+    }
+
     private static GridItemsProviderRequest<Employee> RequestSortedBy(ColumnBase<Employee> column, bool ascending = true)
         => new()
         {
@@ -1721,6 +1794,21 @@
         // Assert
         Assert.Equal(2, grid.SortColumns.Count);
         Assert.Equal("Name", grid.SortColumns[1].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_IndexAndSortPopupApis_UseTheRequestedColumn()
+    {
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid);
+
+        await grid.AddSortByColumnAsync(1, DataGridSortDirection.Descending);
+        await cut.InvokeAsync(() => grid.ShowColumnSortAsync(grid._columns[1]));
+
+        Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", grid.SortColumns[0].Column.Title);
+        Assert.False(grid.SortColumns[0].Ascending);
+        Assert.NotNull(cut.Find("[col-header-ui]"));
     }
 
     private IRenderedComponent<FluentDataGrid<Employee>> RenderMultiSortGrid(

@@ -271,4 +271,19 @@
         // Assert
         Assert.Single(cut.FindComponents<SectionOutlet>());
     }
+
+    [Fact]
+    public void FluentLayout_Hamburger_DeferredMobileNavigation_IsRendered()
+    {
+        var cut = Render(@<FluentLayout NavigationDeferredLoading="true">
+            <FluentLayoutItem Area="LayoutArea.Header"><FluentLayoutHamburger /></FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Navigation">Navigation</FluentLayoutItem>
+        </FluentLayout>);
+
+        var layout = cut.FindComponent<FluentLayout>();
+        layout.Instance.IsMobile = true;
+        cut.Render();
+
+        Assert.Contains("Navigation", cut.Markup);
+    }
 }

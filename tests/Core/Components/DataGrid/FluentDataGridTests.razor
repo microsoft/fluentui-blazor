@@ -494,6 +494,18 @@
     }
 
     [Fact]
+    public void FluentDataGrid_Virtualize_RowDetails_Throws()
+    {
+        RenderFragment<Customer> rowDetails = customer => builder => builder.AddContent(0, customer.Name);
+
+        Assert.Throws<InvalidOperationException>(() =>
+            Render<FluentDataGrid<Customer>>(
+                @<FluentDataGrid Items="@GetCustomers().AsQueryable()" Virtualize="true" RowDetails="@rowDetails">
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </FluentDataGrid>));
+    }
+
+    [Fact]
     public void FluentDataGrid_IsFixed()
     {
         // Arrange && Act
@@ -2697,6 +2709,64 @@
     }
 
     [Fact]
+    public void FluentDataGrid_HeaderMenu_KeyboardActivatesOptionsResizeAndReorderActions()
+    {
+        FluentDataGrid<Customer>? grid = default!;
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             @ref="@grid"
+                             Items="@GetCustomers().AsQueryable()"
+                             HeaderCellAsButtonWithMenu="true"
+                             ResizableColumns="true"
+                             ReorderableColumns="true">
+                <PropertyColumn ColumnId="name" Property="@(x => x.Name)" Sortable="true">
+                    <ColumnOptions>
+                        <div class="options">Hello!</div>
+                    </ColumnOptions>
+                </PropertyColumn>
+            </FluentDataGrid>);
+
+        cut.Find("[col-sort-button]").Click();
+
+        var menuItems = cut.FindAll("fluent-menu-item");
+        Assert.Equal(2, menuItems.Count);
+
+        var options = menuItems[1];
+        options.KeyDown(new KeyboardEventArgs { Key = "Enter" });
+        Assert.Contains("Hello!", cut.Markup);
+
+        FluentDataGrid<Customer>? resizeGrid = default!;
+        var resizeCut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             @ref="@resizeGrid"
+                             Items="@GetCustomers().AsQueryable()"
+                             HeaderCellAsButtonWithMenu="true"
+                             ResizableColumns="true"
+                             ResizeType="DataGridResizeType.Discrete">
+                <PropertyColumn Property="@(x => x.Name)" Sortable="false" />
+            </FluentDataGrid>);
+        resizeCut.Find("[col-sort-button]").Click();
+        var resize = resizeCut.Find("fluent-menu-item");
+        resize.KeyDown(new KeyboardEventArgs { Key = "Enter" });
+        Assert.Single(resizeCut.FindComponents<ColumnResizeOptions<Customer>>());
+
+        FluentDataGrid<Customer>? reorderGrid = default!;
+        var reorderCut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer"
+                             @ref="@reorderGrid"
+                             Items="@GetCustomers().AsQueryable()"
+                             HeaderCellAsButtonWithMenu="true"
+                             ReorderableColumns="true">
+                <PropertyColumn Property="@(x => x.Name)" Sortable="false" />
+                <PropertyColumn Property="@(x => x.Status)" Sortable="false" />
+            </FluentDataGrid>);
+        reorderCut.Find("[col-sort-button]").Click();
+        var reorder = reorderCut.Find("fluent-menu-item");
+        reorder.KeyDown(new KeyboardEventArgs { Key = "Enter" });
+        Assert.Single(reorderCut.FindComponents<ColumnReorderOptions<Customer>>());
+    }
+
+    [Fact]
     public void FluentDataGrid_ColumnOrder_AppliesPersistedOrder()
     {
         var cut = Render<FluentDataGrid<Customer>>(
@@ -3518,6 +3588,19 @@
         Assert.Equal(customers.Count() + 1, rows.Count); // +1 for header
     }
 
+    [Fact]
+    public void FluentDataGrid_AsyncQueryExecutor_TurnsOffControlledLoadingAfterCompletion()
+    {
+        Services.AddSingleton<IAsyncQueryExecutor>(new FakeAsyncQueryExecutor());
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" Loading="true">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+
+        Assert.False(cut.Instance.Loading);
+    }
+
     private class HierarchicalCustomer : HierarchicalGridItem<Customer, HierarchicalCustomer>
     {
     }
@@ -3707,5 +3790,122 @@
         // Assert
         cut.Verify();
     }
-}
 
+    [Theory]
+    [InlineData("Name", "Details", "Details - Name")]
+    [InlineData(null, "Details", "Details")]
+    [InlineData("Name", "Name", "Name")]
+    public void FluentDataGrid_HeaderMenu_ComputesAccessibleName(string? title, string? headerTooltip, string expected)
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
+                <TemplateColumn Title="@title"
+                                HeaderTooltip="@headerTooltip"
+                                Sortable="true"
+                                SortBy="@(GridSort<Customer>.ByAscending(x => x.Id))">
+                    @context.Name
+                </TemplateColumn>
+            </FluentDataGrid>);
+
+        var button = cut.Find("[col-sort-button]");
+
+        Assert.Equal(expected, button.GetAttribute("aria-label"));
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("  ")]
+    public void FluentDataGrid_ParsePixelWidth_WithMissingWidth_ReturnsZero(string? width)
+    {
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "ParsePixelWidth",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+
+        var result = Assert.IsType<double>(method.Invoke(null, [width]));
+
+        Assert.Equal(0, result);
+    }
+
+    [Fact]
+    public void FluentDataGrid_SplitSortStateEntries_WithTrailingEscape_PreservesBackslash()
+    {
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "SplitSortStateEntries",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+
+        var result = Assert.IsType<List<string>>(method.Invoke(null, ["Name\\"]));
+
+        Assert.Equal(["Name\\"], result);
+    }
+
+    [Fact]
+    public void FluentDataGrid_PlaceholderCellAttributes_AddsPlaceholderMarker()
+    {
+        FluentDataGrid<Customer>? grid = default!;
+        Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "PlaceholderCellAttributes",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+
+        var result = Assert.IsType<Dictionary<string, object?>>(method.Invoke(grid, [grid._columns[0]]));
+
+        Assert.Equal("true", result["grid-cell-placeholder"]);
+    }
+
+    [Fact]
+    public void FluentDataGrid_RenderErrorContent_WithoutError_RendersNothing()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+        var grid = cut.FindComponent<FluentDataGrid<Customer>>().Instance;
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "RenderErrorContent",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        RenderFragment fragment = builder =>
+        {
+            method.Invoke(grid, [builder]);
+        };
+
+        var renderedFragment = Render(fragment);
+
+        Assert.Empty(renderedFragment.Markup);
+    }
+
+    [Fact]
+    public void FluentDataGrid_RenderNonVirtualizedRows_WithError_RendersErrorContent()
+    {
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <ErrorContent><p>@context?.Message</p></ErrorContent>
+            </FluentDataGrid>);
+        typeof(FluentDataGrid<Customer>).GetField(
+            "_lastError",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+            .SetValue(cut.Instance, new InvalidOperationException("Expected error"));
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "RenderNonVirtualizedRows",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        RenderFragment rows = builder =>
+        {
+            method.Invoke(cut.Instance, [builder]);
+        };
+        var context = cut.FindComponent<FluentDataGridRow<Customer>>().Instance.InternalGridContext;
+
+        var renderedRows = Render(
+            @<CascadingValue TValue="InternalGridContext<Customer>" IsFixed="true" Value="@context">
+                @rows
+            </CascadingValue>);
+
+        var errorRow = renderedRows.Find($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}']");
+        Assert.Contains("Expected error", errorRow.TextContent, StringComparison.Ordinal);
+    }
+}

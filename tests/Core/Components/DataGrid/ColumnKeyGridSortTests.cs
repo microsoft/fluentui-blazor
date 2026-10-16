@@ -8,6 +8,16 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Components.DataGrid;
 
 public class ColumnKeyGridSortTests : Bunit.BunitContext
 {
+    [Theory]
+    [InlineData(true, DataGridSortDirection.Ascending)]
+    [InlineData(false, DataGridSortDirection.Descending)]
+    public void DataGridSortColumn_Direction_ReflectsAscending(bool ascending, DataGridSortDirection expected)
+    {
+        var sortColumn = new DataGridSortColumn<GridRow>(null!, ascending);
+
+        Assert.Equal(expected, sortColumn.Direction);
+    }
+
     [Fact]
     public void ColumnKeyGridSort_ToPropertyList_ReturnsCorrectPropertyAndDirection()
     {
@@ -44,6 +54,17 @@ public class ColumnKeyGridSortTests : Bunit.BunitContext
         var sort = new ColumnKeyGridSort<GridRow>("Group");
 
         Assert.True(sort.CanApplyThen);
+    }
+
+    [Fact]
+    public void ColumnKeyGridSort_Apply_WithoutASortFunction_PreservesTheItems()
+    {
+        var sort = new ColumnKeyGridSort<GridRow>("Group");
+        var data = new GridRow[] { new(2, "B"), new(1, "A") }.AsQueryable();
+
+        var ordered = sort.Apply(data, ascending: true);
+
+        Assert.Equal([2, 1], ordered.Select(x => x.Number));
     }
 
     [Fact]

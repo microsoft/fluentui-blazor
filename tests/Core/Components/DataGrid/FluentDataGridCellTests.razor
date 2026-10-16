@@ -210,4 +210,36 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentDataGridCell_MultiLineGrid_AddsMultiLineAttribute()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="People" MultiLine="true">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+
+        var cell = cut.Find("td[role='gridcell']");
+
+        Assert.Equal("true", cell.GetAttribute("multiline"));
+    }
+
+    [Fact]
+    public void FluentDataGridCell_MergeAttributes_WithReadOnlyFirstDictionary_CopiesAndOverridesAttributes()
+    {
+        IReadOnlyDictionary<string, object?> first =
+            new System.Collections.ObjectModel.ReadOnlyDictionary<string, object?>(
+                new Dictionary<string, object?> { ["class"] = "original" });
+        var second = new Dictionary<string, object> { ["class"] = "replacement" };
+        var method = typeof(FluentDataGridCell<Person>).GetMethod(
+            "MergeAttributes",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+
+        var result = Assert.IsAssignableFrom<IReadOnlyDictionary<string, object?>>(
+            method.Invoke(null, [first, second]));
+
+        Assert.Equal("replacement", result["class"]);
+        Assert.IsType<Dictionary<string, object?>>(result);
+    }
+
 }

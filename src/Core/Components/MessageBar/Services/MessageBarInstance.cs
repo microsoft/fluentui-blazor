@@ -52,6 +52,7 @@ public class MessageBarInstance : IMessageBarInstance, IDisposable
     public MessageBarOptions Options { get; internal set; }
 
     /// <inheritdoc cref="IMessageBarInstance.Result"/>
+    [SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Not awaiting the task here, just exposing it.")]
     public Task<MessageBarResult> Result => ResultCompletion.Task;
 
     /// <inheritdoc cref="IMessageBarInstance.LifecycleStatus"/>

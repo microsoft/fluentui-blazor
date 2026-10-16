@@ -87,21 +87,17 @@ hidden: true
 
 ---
 
-## FluentProfileMenu
+## Components reimplemented in V5
 
-  `FluentProfileMenu` (user profile dropdown with avatar) has been removed.
+`FluentMenuButton`, `FluentPresenceBadge`, and `FluentProfileMenu` are not
+removed. They are available in V5 with significant implementation and API
+changes:
 
-  | V4 Parameter | Type |
-  |-------------|------|
-  | `Image` | `string?` |
-  | `Initials` | `string?` |
-  | `FullName` | `string?` |
-  | `EMail` | `string?` |
-  | `Status` | `PresenceStatus?` |
-  | *(and more)* | |
+- See [FluentMenuButton](/Migration/MenuButton) for its replacement API.
+- See [FluentPresenceBadge](/Migration/PresenceBadge) for its replacement API.
+- See [FluentProfileMenu](/Migration/ProfileMenu) to migrate the V4 component
+  to the V5 `FluentProfileMenu` and `FluentProfilePopover` combination.
 
-  **Migration**: Build a custom profile menu using `FluentPopover`, `FluentAvatar`, and `FluentButton`.
-
-  > **Note**: `FluentMenuButton` and `FluentPresenceBadge` were initially listed here but are
-  > still present in V5 with significant changes. See their dedicated migration pages:
-  > [FluentMenuButton](/Migration/MenuButton) and [FluentPresenceBadge](/Migration/PresenceBadge).
+In particular, do not replace `FluentProfileMenu` with a generic button or
+popover. Keep `FluentProfileMenu` as the avatar trigger and move the V4 header,
+profile details, and footer parameters into a nested `FluentProfilePopover`.
