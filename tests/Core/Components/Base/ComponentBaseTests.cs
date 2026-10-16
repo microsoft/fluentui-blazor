@@ -24,6 +24,7 @@ public class ComponentBaseTests : Bunit.BunitContext
     [
         typeof(AspNetCore.Components._Imports),
         typeof(DialogOptions),
+        typeof(SplashScreenOptions),
         typeof(ToastOptions),
         typeof(MessageBarOptions),
         typeof(FluentRadio<>),  // TODO: To update
