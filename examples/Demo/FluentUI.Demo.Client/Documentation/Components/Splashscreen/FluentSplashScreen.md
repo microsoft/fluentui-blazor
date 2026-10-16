@@ -43,3 +43,9 @@ Additional component parameters can still be configured through `Parameters`; th
 {{ SplashScreenCustomized Files=Code:SplashScreenCustomized.razor;SplashScreenDialog:SplashScreenDialog.razor }}
 
 ## API SplashScreenInstance
+
+{{ API Type=SplashScreenInstance }}
+
+## API SplashScreenContent
+
+{{ API Type=SplashScreenContent Properties=All }}

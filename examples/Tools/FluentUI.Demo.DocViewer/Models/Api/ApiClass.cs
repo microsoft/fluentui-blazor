@@ -94,8 +94,8 @@ internal class ApiClass
                               ? new object?[] { null }
                               : Array.Empty<object>();
 
-            if (_component.Name == "DialogInstance" ||
-                _component.Name == "SplashScreenInstance")
+            // Special handling for DialogInstance constructors with specific arguments
+            if (_component.Name == "DialogInstance")
             {
                 if (HasCtorWithArguments(_component, ["IDialogService", "Type", "DialogOptions"]))
                 {
@@ -103,6 +103,17 @@ internal class ApiClass
                                                 .Single(c => c.GetParameters().Length == 3);
                     var dialogOptions = Activator.CreateInstance(constructor.GetParameters()[2].ParameterType);
                     ctorArguments = [null, typeof(object), dialogOptions];
+                }
+            }
+
+            if (_component.Name == "SplashScreenInstance")
+            {
+                if (HasCtorWithArguments(_component, ["IDialogService", "Type", "SplashScreenOptions"]))
+                {
+                    var constructor = _component.GetConstructors(ConstructorBindingFlags)
+                                                .Single(c => c.GetParameters().Length == 3);
+                    var splashScreenOptions = Activator.CreateInstance(constructor.GetParameters()[2].ParameterType);
+                    ctorArguments = [null, typeof(object), splashScreenOptions];
                 }
             }
 
@@ -174,7 +185,7 @@ internal class ApiClass
                                 {
                                     defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
                                 }
-                                
+
                                 members.Add(new ApiClassMember()
                                 {
                                     MemberType = MemberTypes.Property,
