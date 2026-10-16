@@ -133,6 +133,8 @@
     [Fact]
     public async Task FluentMultiSplitter_PaneResizeCanceled()
     {
+        var sizeChangedCount = 0;
+
         // Arrange
         var cut = Render<FluentMultiSplitter>(parameters =>
         {
@@ -140,11 +142,13 @@
             parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
             {
                 pane.Add(p => p.Size, "40%");
+                pane.Add(p => p.SizeChanged, (string? _) => sizeChangedCount++);
                 pane.AddChildContent("Pane A");
             });
             parameters.AddChildContent<FluentMultiSplitterPane>(pane =>
             {
                 pane.Add(p => p.Size, "60%");
+                pane.Add(p => p.SizeChanged, (string? _) => sizeChangedCount++);
                 pane.AddChildContent("Pane B");
             });
         });
@@ -155,9 +159,78 @@
         // New values (20% and 80%) are rollbacked to initial values (40% and 60%)
         Assert.Contains("flex-basis: 40%;", cut.Markup);
         Assert.Contains("flex-basis: 60%;", cut.Markup);
+        Assert.Equal(0, sizeChangedCount);
 
         // Assert
         cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(Orientation.Horizontal, "25%")]
+    [InlineData(Orientation.Horizontal, "200px")]
+    [InlineData(Orientation.Vertical, "25%")]
+    [InlineData(Orientation.Vertical, "200px")]
+    public async Task FluentMultiSplitter_BoundSize_ProgrammaticAndUserResizing_StaySynchronized(Orientation orientation, string resetSize)
+    {
+        string? leftSize = "20%";
+        string? rightSize = "80%";
+        var cut = Render<FluentMultiSplitter>(
+            @<FluentMultiSplitter Orientation="@orientation">
+                <FluentMultiSplitterPane @bind-Size="leftSize">Pane A</FluentMultiSplitterPane>
+                <FluentMultiSplitterPane @bind-Size="rightSize">Pane B</FluentMultiSplitterPane>
+            </FluentMultiSplitter>);
+        var leftPane = cut.FindComponents<FluentMultiSplitterPane>()[0].Instance;
+
+        // Programmatic resizing before a drag.
+        leftSize = resetSize;
+        cut.Render();
+        Assert.Contains($"flex-basis: {resetSize};", cut.FindAll(".fluent-multi-splitter-pane")[0].GetAttribute("style"));
+
+        await cut.InvokeAsync(() => cut.Instance.OnPaneResizedAsync(0, 35, 1, 65));
+        Assert.Equal("35.00%", leftSize);
+        Assert.Equal("65.00%", rightSize);
+        cut.Render();
+
+        // Restore the same programmatic size after a drag.
+        leftSize = resetSize;
+        rightSize = "80%";
+        cut.Render();
+        var panes = cut.FindAll(".fluent-multi-splitter-pane");
+        Assert.Contains($"flex-basis: {resetSize};", panes[0].GetAttribute("style"));
+        Assert.Contains("flex-basis: 80%;", panes[1].GetAttribute("style"));
+        Assert.Same(leftPane, cut.FindComponents<FluentMultiSplitterPane>()[0].Instance);
+
+        await cut.InvokeAsync(() => cut.Instance.OnPaneResizedAsync(0, 40, 1, 60));
+        cut.Render();
+        Assert.Equal("40.00%", leftSize);
+        Assert.Equal("60.00%", rightSize);
+        panes = cut.FindAll(".fluent-multi-splitter-pane");
+        Assert.Contains("flex-basis: 40.00%;", panes[0].GetAttribute("style"));
+        Assert.Contains("flex-basis: 60.00%;", panes[1].GetAttribute("style"));
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("20%")]
+    [InlineData("200px")]
+    public async Task FluentMultiSplitter_UnboundSize_ParentRenders_PreserveUserSizeUntilParameterChanges(string? initialSize)
+    {
+        var size = initialSize;
+        var sizeChangedCount = 0;
+        var cut = Render<FluentMultiSplitter>(
+            @<FluentMultiSplitter>
+                <FluentMultiSplitterPane Size="@size" SizeChanged="@((string? _) => sizeChangedCount++)">Pane A</FluentMultiSplitterPane>
+                <FluentMultiSplitterPane>Pane B</FluentMultiSplitterPane>
+            </FluentMultiSplitter>);
+        await cut.InvokeAsync(() => cut.Instance.OnPaneResizedAsync(0, 35, 1, 65));
+        cut.Render();
+        Assert.Contains("flex-basis: 35.00%;", cut.FindAll(".fluent-multi-splitter-pane")[0].GetAttribute("style"));
+        Assert.Equal(1, sizeChangedCount);
+
+        size = "250px";
+        cut.Render();
+        Assert.Contains("flex-basis: 250px;", cut.FindAll(".fluent-multi-splitter-pane")[0].GetAttribute("style"));
+        Assert.Equal(1, sizeChangedCount);
     }
 
     [Fact]

@@ -100,11 +100,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.MultiSplitter {
       mouseUpHandler: (e: MouseEvent | TouchEvent) => {
         const splitteDataElement = ((document as any).splitter as SplitterData)?.Data.get(el);
 
-        if (splitteDataElement &&
-          pane?.style.flexBasis.includes('%') &&
-          paneNext?.style.flexBasis.includes('%')) {
+        if (splitteDataElement) {
 
-          if (splitteDataElement.moved === true) {
+          if (splitteDataElement.moved === true &&
+            pane?.style.flexBasis.includes('%') &&
+            (!paneNext || paneNext.style.flexBasis.includes('%'))) {
             splitter.invokeMethodAsync(
               'FluentMultiSplitter.OnPaneResizedAsync',
               parseInt(pane?.getAttribute('data-index') ?? ""),
