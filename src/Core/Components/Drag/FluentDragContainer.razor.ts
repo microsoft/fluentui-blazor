@@ -309,10 +309,10 @@ export namespace Microsoft.FluentUI.Blazor.DragContainer {
     private zoneFromPoint(x: number, y: number): HTMLElement | null {
       // The ghost has pointer-events: none, so it never hides the element below.
       const element = document.elementFromPoint(x, y);
-      let zone = this.findZone(element);
+      let zone = this.findZone(element, true);
 
       while (zone && zone !== this.source && zone.getAttribute('data-droppable') !== 'true') {
-        zone = this.findZone(zone.parentElement);
+        zone = this.findZone(zone.parentElement, true);
       }
 
       if (zone === this.source) {
@@ -322,11 +322,35 @@ export namespace Microsoft.FluentUI.Blazor.DragContainer {
       return zone;
     }
 
-    private findZone(element: Element | null): HTMLElement | null {
-      // Nested containers share the same DOM: each one only handles the zones registered with it.
-      const escapedContainerId = CSS.escape(this.container.id);
-      const zone = element?.closest(`${ZONE_SELECTOR}[data-container-id="${escapedContainerId}"]`) as HTMLElement | null;
-      return zone && this.container.contains(zone) ? zone : null;
+    // Nested containers share the same DOM: each one only handles the zones registered with it.
+    // With includeGroup, zones of other containers sharing the same drag group are accepted too.
+    private findZone(element: Element | null, includeGroup = false): HTMLElement | null {
+      const group = includeGroup ? this.container.getAttribute('data-drag-group') : null;
+      let zone = element?.closest(ZONE_SELECTOR) as HTMLElement | null;
+
+      while (zone) {
+        if (this.ownsZone(zone, group)) {
+          return zone;
+        }
+
+        zone = zone.parentElement?.closest(ZONE_SELECTOR) as HTMLElement | null;
+      }
+
+      return null;
+    }
+
+    private ownsZone(zone: HTMLElement, group: string | null): boolean {
+      const zoneContainerId = zone.getAttribute('data-container-id');
+      if (zoneContainerId === this.container.id) {
+        return this.container.contains(zone);
+      }
+
+      if (!group || !zoneContainerId) {
+        return false;
+      }
+
+      const owner = document.getElementById(zoneContainerId);
+      return !!owner && owner.getAttribute('data-drag-group') === group;
     }
 
     private isInteractive(element: Element, zone: HTMLElement): boolean {
