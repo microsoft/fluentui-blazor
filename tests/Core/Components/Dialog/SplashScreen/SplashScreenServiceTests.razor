@@ -22,6 +22,77 @@
     public IRenderedComponent<FluentDialogProvider> DialogProvider { get; }
 
     [Fact]
+    public async Task ShowSplashScreenAsync_DefaultComponent_RendersAllContent()
+    {
+        // Arrange
+        var splash = await DialogService.ShowSplashScreenAsync(content =>
+        {
+            content.LogoUrl = "logo.svg";
+            content.LogoMaxWidth = "360px";
+            content.Title = "Fluent UI";
+            content.SubTitle = "Blazor components";
+            content.LoadingPercentage = 42;
+            content.LoadingText = "Preparing...";
+            content.Message = new MarkupString("<strong>Almost ready</strong>");
+        });
+
+        // Act
+        var markup = DialogProvider.FindComponent<Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen.DefaultSplashScreenDialog>().Markup;
+
+        // Assert
+        Assert.Contains("logo.svg", markup);
+        Assert.Contains("max-width: 360px;", markup);
+        Assert.Contains("Fluent UI", markup);
+        Assert.Contains("Blazor components", markup);
+        Assert.Contains("fluent-progress-bar", markup);
+        Assert.Contains("42", markup);
+        Assert.Contains("Preparing...", markup);
+        Assert.Contains("<strong>Almost ready</strong>", markup);
+        Assert.IsType<SplashScreenInstance>(splash);
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_DefaultComponent_WithTitleOnly_RendersTitle()
+    {
+        // Act
+        await DialogService.ShowSplashScreenAsync(content => content.Title = "Fluent UI");
+
+        // Assert
+        var markup = DialogProvider.FindComponent<Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen.DefaultSplashScreenDialog>().Markup;
+        Assert.Contains("Fluent UI", markup);
+        Assert.DoesNotContain("fluent-image", markup);
+        Assert.DoesNotContain("fluent-progress-bar", markup);
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_DefaultComponent_WithSubtitleOnly_RendersSubtitle()
+    {
+        // Act
+        await DialogService.ShowSplashScreenAsync(content => content.SubTitle = "Blazor components");
+
+        // Assert
+        var markup = DialogProvider.FindComponent<Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen.DefaultSplashScreenDialog>().Markup;
+        Assert.Contains("Blazor components", markup);
+        Assert.DoesNotContain("Fluent UI", markup);
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_DefaultComponent_WithEmptyLogoMaxWidth_OmitsMaxWidthStyle()
+    {
+        // Act
+        await DialogService.ShowSplashScreenAsync(content =>
+        {
+            content.LogoUrl = "logo.svg";
+            content.LogoMaxWidth = string.Empty;
+        });
+
+        // Assert
+        var markup = DialogProvider.FindComponent<Microsoft.FluentUI.AspNetCore.Components.Dialog.SplashScreen.DefaultSplashScreenDialog>().Markup;
+        Assert.Contains("logo.svg", markup);
+        Assert.DoesNotContain("max-width:", markup);
+    }
+
+    [Fact]
     public async Task ShowSplashScreenAsync_WithTypedOptions_PassesContentToComponent()
     {
         // Arrange
@@ -197,6 +268,46 @@
     {
         // Act & Assert
         await Assert.ThrowsAsync<ArgumentException>(() => DialogService.ShowSplashScreenAsync(typeof(string), new SplashScreenOptions()));
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_NullComponentType_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => DialogService.ShowSplashScreenAsync(null!, new SplashScreenOptions()));
+        Assert.Equal("dialogComponent", exception.ParamName);
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_NullOptions_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => DialogService.ShowSplashScreenAsync(typeof(SplashScreenRender), null!));
+        Assert.Equal("options", exception.ParamName);
+    }
+
+    [Fact]
+    public async Task ShowSplashScreenAsync_NullContent_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentNullException>(() => DialogService.ShowSplashScreenAsync((Action<SplashScreenContent>)null!));
+        Assert.Equal("content", exception.ParamName);
+    }
+
+    [Fact]
+    public void SplashScreenOptions_NullOptionsFactory_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => new SplashScreenOptions((Action<SplashScreenOptions>)null!));
+        Assert.Equal("implementationFactory", exception.ParamName);
+    }
+
+    [Fact]
+    public void SplashScreenOptions_NullContentFactory_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => new SplashScreenOptions((Action<SplashScreenContent>)null!));
+        Assert.Equal("implementationFactory", exception.ParamName);
     }
 
     [Fact]

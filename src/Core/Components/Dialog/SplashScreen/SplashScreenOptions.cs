@@ -23,6 +23,7 @@ public class SplashScreenOptions : DialogOptions
     /// <param name="implementationFactory">Action used to configure the splash screen options.</param>
     public SplashScreenOptions(Action<SplashScreenOptions> implementationFactory)
     {
+        ArgumentNullException.ThrowIfNull(implementationFactory);
         implementationFactory.Invoke(this);
     }
 
@@ -33,6 +34,7 @@ public class SplashScreenOptions : DialogOptions
     /// <param name="implementationFactory">Action used to configure the splash screen content.</param>
     public SplashScreenOptions(Action<SplashScreenContent> implementationFactory)
     {
+        ArgumentNullException.ThrowIfNull(implementationFactory);
         implementationFactory.Invoke(this.SplashScreen);
     }
 

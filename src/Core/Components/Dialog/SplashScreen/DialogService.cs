@@ -58,6 +58,8 @@ public partial class DialogService : IDialogService
     /// <inheritdoc cref="IDialogService.ShowSplashScreenAsync(Action{SplashScreenOptions})"/>
     public Task<ISplashScreenInstance> ShowSplashScreenAsync(Action<SplashScreenContent> content)
     {
+        ArgumentNullException.ThrowIfNull(content);
+
         return ShowSplashScreenAsync<DefaultSplashScreenDialog>(new SplashScreenOptions(content));
     }
 
