@@ -75,7 +75,7 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
   // Use a dictionary for grids for id-based access
   let grids: Grid[] = []; // { [id: string]: Grid } = {};
 
-  export function Initialize(gridElement: HTMLElement, autoFocus: boolean) {
+  export function Initialize(gridElement: HTMLElement, autoFocus: boolean, dotNetHelper: any) {
     if (!gridElement) {
       return;
     }
@@ -234,7 +234,39 @@ export namespace Microsoft.FluentUI.Blazor.DataGrid {
 
       return targetRow.cells[cell.cellIndex] as HTMLTableCellElement | null;
     };
+    // Shift+R, Shift+S, + and - type the very characters they are made of, so they only act on a key press aimed
+    // at the grid itself: the table, one of its cells or one of its column header buttons (WCAG 2.1.4, Character Key
+    // Shortcuts). Whatever a cell holds (a text field, a date picker, a custom component...) is left alone, as it is
+    // by arrow key navigation, and so is a grid nested in the row details, whose cells belong to another table.
+    // Handling them here keeps the key presses made anywhere else on the page from reaching .NET: only Shift+S,
+    // which changes the sort, calls it.
+    const handleCharacterKeyShortcut = (event: KeyboardEvent) => {
+      if (event.ctrlKey || event.altKey || event.metaKey) {
+        return;
+      }
+
+      // A key press made inside a web component is retargeted to its host, which is what event.target holds here.
+      const target = event.target;
+      const isAimedAtGrid = target === gridElement
+        || (target instanceof HTMLElement
+          && target.matches('td, th, [col-sort-button], [col-options-button]')
+          && target.closest('table') === gridElement);
+      if (!isAimedAtGrid) {
+        return;
+      }
+
+      if (event.key === '+' || event.key === '-') {
+        ResizeColumnDiscrete(gridElement, undefined, event.key === '+' ? 10 : -10);
+      } else if (event.shiftKey && event.code === 'KeyR') {
+        ResetColumnWidths(gridElement);
+      } else if (event.shiftKey && event.code === 'KeyS') {
+        dotNetHelper?.invokeMethodAsync('RemoveSortByColumnAsync');
+      }
+    };
+
     const keyDownHandler = (event: KeyboardEvent) => {
+      handleCharacterKeyShortcut(event);
+
       if ((event as any)[handledArrowNavigationEventFlag]) {
         return;
       }
