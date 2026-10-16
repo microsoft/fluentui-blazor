@@ -15,7 +15,7 @@
     "@microsoft/fast-element": "1.14.0",
     "@microsoft/fast-foundation": "2.50.0",
     "@typescript-eslint/eslint-plugin": "^8.70.1",
-    "@typescript-eslint/parser": "^8.68.0",
+    "@typescript-eslint/parser": "^8.71.1",
     "esbuild": "0.28.2",
     "esbuild-plugin-inline-css": "^0.0.1",
     "eslint": "^10.11.0",
