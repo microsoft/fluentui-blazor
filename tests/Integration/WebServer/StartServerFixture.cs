@@ -35,7 +35,7 @@ public class StartServerFixture : IAsyncLifetime
     /// Starts the server process.
     /// </summary>
     /// <returns></returns>
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
         // Kill the existing server process (if the previous DisposeAsync was not called)
         KillExistingServerProcess();
@@ -55,7 +55,29 @@ public class StartServerFixture : IAsyncLifetime
 
         var started = _serverProcess.Start();
 
-        return Task.CompletedTask;
+        await WaitForServerAsync();
+    }
+
+    /// <summary>
+    /// Waits for the server to answer, so that the first tests do not run before it listens.
+    /// </summary>
+    private async Task WaitForServerAsync()
+    {
+        using var client = new HttpClient();
+        var timeout = DateTime.UtcNow.AddSeconds(30);
+
+        while (DateTime.UtcNow < timeout && _serverProcess?.HasExited == false)
+        {
+            try
+            {
+                await client.GetAsync(BaseUrl);
+                return;
+            }
+            catch (HttpRequestException)
+            {
+                await Task.Delay(200);
+            }
+        }
     }
 
     /// <summary>
