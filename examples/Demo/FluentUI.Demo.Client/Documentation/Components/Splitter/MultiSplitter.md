@@ -24,7 +24,7 @@ In this example, each time a pane is resized, a trace is written to the console.
 
 {{ MultiSplitterDefault }}
 
-### Two-way size binding
+## Two-way size binding
 
 Drag the splitter bar to update the bound sizes, or use the button to reset the layout programmatically.
 
