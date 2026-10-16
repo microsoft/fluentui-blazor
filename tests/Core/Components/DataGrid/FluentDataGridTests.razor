@@ -3790,4 +3790,111 @@
         // Assert
         cut.Verify();
     }
+
+    [Theory]
+    [InlineData("Name", "Details", "Details - Name")]
+    [InlineData(null, "Details", "Details")]
+    [InlineData("Name", "Name", "Name")]
+    public void FluentDataGrid_HeaderMenu_ComputesAccessibleName(string? title, string? headerTooltip, string expected)
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" HeaderCellAsButtonWithMenu="true">
+                <TemplateColumn Title="@title"
+                                HeaderTooltip="@headerTooltip"
+                                Sortable="true"
+                                SortBy="@(GridSort<Customer>.ByAscending(x => x.Id))">
+                    @context.Name
+                </TemplateColumn>
+            </FluentDataGrid>);
+
+        var button = cut.Find("[col-sort-button]");
+
+        Assert.Equal(expected, button.GetAttribute("aria-label"));
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("  ")]
+    public void FluentDataGrid_ParsePixelWidth_WithMissingWidth_ReturnsZero(string? width)
+    {
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "ParsePixelWidth",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+
+        var result = Assert.IsType<double>(method.Invoke(null, [width]));
+
+        Assert.Equal(0, result);
+    }
+
+    [Fact]
+    public void FluentDataGrid_SplitSortStateEntries_WithTrailingEscape_PreservesBackslash()
+    {
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "SplitSortStateEntries",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!;
+
+        var result = Assert.IsType<List<string>>(method.Invoke(null, ["Name\\"]));
+
+        Assert.Equal(["Name\\"], result);
+    }
+
+    [Fact]
+    public void FluentDataGrid_PlaceholderCellAttributes_AddsPlaceholderMarker()
+    {
+        FluentDataGrid<Customer>? grid = default!;
+        Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "PlaceholderCellAttributes",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+
+        var result = Assert.IsType<Dictionary<string, object?>>(method.Invoke(grid, [grid._columns[0]]));
+
+        Assert.Equal("true", result["grid-cell-placeholder"]);
+    }
+
+    [Fact]
+    public void FluentDataGrid_RenderErrorContent_WithoutError_RendersNothing()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+        var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "RenderErrorContent",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+
+        method.Invoke(cut.FindComponent<FluentDataGrid<Customer>>().Instance, [builder]);
+
+        Assert.NotNull(builder);
+    }
+
+    [Fact]
+    public void FluentDataGrid_RenderNonVirtualizedRows_WithError_RendersErrorContent()
+    {
+        var cut = Render(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <ErrorContent><p>@context?.Message</p></ErrorContent>
+            </FluentDataGrid>);
+        var grid = cut.FindComponent<FluentDataGrid<Customer>>().Instance;
+        typeof(FluentDataGrid<Customer>).GetField(
+            "_lastError",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+            .SetValue(grid, new InvalidOperationException("Expected error"));
+        var method = typeof(FluentDataGrid<Customer>).GetMethod(
+            "RenderNonVirtualizedRows",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
+
+        method.Invoke(grid, [builder]);
+
+        Assert.NotNull(builder);
+    }
 }

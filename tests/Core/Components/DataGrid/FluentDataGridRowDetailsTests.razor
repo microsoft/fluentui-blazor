@@ -44,6 +44,25 @@
     }
 
     [Fact]
+    public void FluentDataGrid_RowDetails_TableMode_SpansAllColumns()
+    {
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()" DisplayMode="DataGridDisplayMode.Table">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Id)" />
+                    <PropertyColumn Property="@(x => x.Name)" />
+                </ChildContent>
+                <RowDetails>
+                    <p>details of @context.Name</p>
+                </RowDetails>
+            </FluentDataGrid>);
+
+        cut.Find("[row-expand-button]").Click();
+
+        Assert.Equal("2", cut.Find("tr[row-state='detail-content'] td").GetAttribute("colspan"));
+    }
+
+    [Fact]
     public async Task FluentDataGrid_RowDetails_ExpandAll_And_CollapseAllAsync()
     {
         // Arrange
