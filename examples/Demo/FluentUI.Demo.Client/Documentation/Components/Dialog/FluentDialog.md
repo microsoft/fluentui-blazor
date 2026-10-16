@@ -298,6 +298,7 @@ And you can check if the dialog box was closed by clicking on the **OK** or **Ca
 > But the `CloseAsync` method can pass a"Canceled" result object to the parent component.
 > `await DialogInstance.CloseAsync(DialogResult.Cancel("You clicked on the Cancel button"));`
 
+
 ## Without the DialogService
 
 You can also use the `FluentDialogBody` component directly in your component, without using the `DialogService` and the `FluentDialog` component.
@@ -315,6 +316,10 @@ You can also use the `FluentDialogBody` component directly in your component, wi
 ## API FluentDialog
 
 {{ API Type=FluentDialog }}
+
+## API DialogInstance
+
+{{ API Type=DialogInstance }}
 
 ## Options
 
