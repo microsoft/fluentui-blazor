@@ -95,9 +95,9 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
     protected FluentDataGrid<TGridItem> Grid => InternalGridContext.Grid;
 
     /// <summary>
-    /// Gets the columns associated with this data grid row.
+    /// Gets the columns displayed in this data grid row, hidden columns excluded.
     /// </summary>
-    public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid._columns;
+    public IReadOnlyList<ColumnBase<TGridItem>> Columns => Grid.VisibleColumns;
 
     /// <summary>
     /// Sets the RowIndex for this row.
@@ -167,7 +167,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
         if (row.RowType == DataGridRowType.Default)
         {
-            foreach (var column in Grid._columns)
+            foreach (var column in Grid.VisibleColumns)
             {
                 await column.OnRowClickAsync(row);
             }
@@ -216,7 +216,7 @@ public partial class FluentDataGridRow<TGridItem> : FluentComponentBase, IHandle
 
         if (row.RowType == DataGridRowType.Default)
         {
-            foreach (var column in Grid._columns)
+            foreach (var column in Grid.VisibleColumns)
             {
                 await column.OnRowKeyDownAsync(row, e);
             }
