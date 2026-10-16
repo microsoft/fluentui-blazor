@@ -51,6 +51,24 @@ public partial class People
     }
 
     /// <summary>
+    /// Gets a person representing Bill Gates.
+    /// </summary>
+    public static readonly Person BillGates = new(
+        Id: "1",
+        FirstName: "Bill",
+        LastName: "Gates",
+        Male: true,
+        Initials: "BG",
+        BirthDay: new DateTime(1955, 10, 28),
+        ImageUrl: IMG_PREFIX_JPG + ResourceReader.EmbeddedPicture("Bill.jpg").ToBase64(),
+        Email: "bill.gates@microsoft.com",
+        JobTitle: "Co-founder",
+        Department: "Technology",
+        Company: "Microsoft",
+        Phone: "(425) 555-1234",
+        Location: "Redmond");
+
+    /// <summary>
     /// Gets a list of 50 persons with random data.
     /// </summary>
     public static IEnumerable<Person> Persons => GeneratePersons(50);
@@ -98,7 +116,7 @@ public partial class People
             var imageUrl = $"https://thispersondoesnotexist.com/?id={id}";
             var jobTitle = JobTitles[Random.Next(JobTitles.Length)];
             var company = Companies[Random.Next(Companies.Length)];
-            var email = $"{firstName.ToLower()}.{lastName.ToLower()}@{company.ToLower()}.com";
+            var email = $"{firstName.ToLower()}.{lastName.ToLower()}@{company.Replace(" ", "-").ToLower()}.com";
             var department = Departments[Random.Next(Departments.Length)];
             var phone = GeneratePhoneNumber();
             var location = Locations[Random.Next(Locations.Length)];
@@ -148,6 +166,11 @@ public partial class People
         /// Gets the age of the person
         /// </summary>
         public int Age => DateTime.Today.Year - BirthDay.Year;
+
+        /// <summary>
+        /// Gets the full name of the person
+        /// </summary>
+        public string FullName => $"{FirstName} {LastName}";
 
         /// <summary />
         public override string ToString()

@@ -1,0 +1,75 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     role="@RegionRole"
+     aria-label="@FullName"
+     @attributes="@AdditionalAttributes">
+
+    @* Header *@
+    @if (HeaderTemplate is not null)
+    {
+        <header>
+            @HeaderTemplate
+        </header>
+    }
+    else if (!string.IsNullOrWhiteSpace(HeaderLabel) || !string.IsNullOrWhiteSpace(HeaderLinkLabel))
+    {
+        <header>
+            <span style="flex-grow: 1;">
+                @HeaderLabel
+            </span>
+            @if (!string.IsNullOrWhiteSpace(HeaderLinkLabel))
+            {
+                <FluentLink OnClick="@OnHeaderLinkClick">
+                    @HeaderLinkLabel
+                </FluentLink>
+            }
+        </header>
+    }
+
+    @* Content *@
+    <div>
+        @if (ChildContent is not null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            <FluentStack HorizontalGap="12px">
+                <FluentAvatar Image="@ImageUrl"
+                              Initials="@ImageInitials"
+                              Name="@FullName"
+                              Size="@(ImageSize ?? AvatarSize.Size48)" />
+                <div>
+                    <FluentText Block="true" Weight="TextWeight.Bold" Size="TextSize.Size400">@FullName</FluentText>
+                    <FluentText Block="true">@EMail</FluentText>
+                </div>
+            </FluentStack>
+        }
+    </div>
+
+    @* Footer *@
+    @if (FooterTemplate is not null)
+    {
+        <footer>
+            @FooterTemplate
+        </footer>
+    }
+    else if (!string.IsNullOrWhiteSpace(FooterLabel) || !string.IsNullOrWhiteSpace(FooterLinkLabel))
+    {
+        <footer>
+            <span style="flex-grow: 1;">
+                @FooterLabel
+            </span>
+            @if (!string.IsNullOrWhiteSpace(FooterLinkLabel))
+            {
+                <FluentLink OnClick="@OnFooterLinkClick">
+                    @FooterLinkLabel
+                </FluentLink>
+            }
+        </footer>
+    }
+</div>

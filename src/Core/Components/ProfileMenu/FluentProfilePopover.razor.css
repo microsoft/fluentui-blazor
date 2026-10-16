@@ -1,0 +1,12 @@
+.fluent-profile-popover {
+    padding: var(--spacingVerticalM) var(--spacingHorizontalM);
+}
+
+.fluent-profile-popover > header,
+.fluent-profile-popover > footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: 48px;
+    column-gap: var(--spacingHorizontalXS);
+}

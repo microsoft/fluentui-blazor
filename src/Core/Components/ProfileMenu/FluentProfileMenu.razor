@@ -1,0 +1,42 @@
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     @attributes="@AdditionalAttributes">
+
+    @StartTemplate
+
+    <button id="@TriggerId"
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded="@(Open ? "true" : "false")"
+            aria-controls="@PopoverId"
+            aria-label="@AccessibleTitle"
+            @onclick="@ToggleAsync">
+        <FluentAvatar Image="@ImageUrl"
+                      Initials="@ImageInitials"
+                      Name="@Title"
+                      Size="@(ImageSize ?? AvatarSize.Size32)">
+            @if (Status is not null)
+            {
+                <FluentPresenceBadge Status="@Status"
+                                     Size="@(StatusSize ?? BadgeSize.ExtraSmall)"
+                                     title="@GetStatusTitle()"
+                                     slot="@FluentSlot.Badge" />
+            }
+        </FluentAvatar>
+    </button>
+
+    @EndTemplate
+</div>
+
+<FluentPopover Id="@PopoverId"
+               AnchorId="@TriggerId"
+               Opened="@Open"
+               OpenedChanged="@HandleOpenChangedAsync"
+               role="dialog"
+               aria-label="@AccessibleTitle">
+    @ChildContent
+</FluentPopover>
