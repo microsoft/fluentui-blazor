@@ -90,7 +90,7 @@ Once added, configure your MCP client to use the tool:
 This command will download from NuGet.org the latest version. You can specify the version number using the following command:
 
 ```bash
-dnx Microsoft.FluentUI.AspNetCore.McpServer@5.0.1
+dnx Microsoft.FluentUI.AspNetCore.McpServer@5.0.2
 ```
 
 
