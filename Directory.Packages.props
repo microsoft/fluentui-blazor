@@ -10,9 +10,9 @@
     <RuntimeVersion10>10.0.13</RuntimeVersion10>
     <AspNetCoreVersion10>10.0.13</AspNetCoreVersion10>
     <EfCoreVersion10>10.0.13</EfCoreVersion10>
-    <RuntimeVersion11>11.0.0-rc.1.26425.128</RuntimeVersion11>
-    <AspNetCoreVersion11>11.0.0-rc.1.26425.128</AspNetCoreVersion11>
-    <EfCoreVersion11>11.0.0-rc.1.26425.128</EfCoreVersion11>
+    <RuntimeVersion11>11.0.0-rc.2.26504.105</RuntimeVersion11>
+    <AspNetCoreVersion11>11.0.0-rc.2.26504.105</AspNetCoreVersion11>
+    <EfCoreVersion11>11.0.0-rc.2.26504.105</EfCoreVersion11>
   </PropertyGroup>
   <!-- Independent from TargetFrameWorks-->
   <ItemGroup>
