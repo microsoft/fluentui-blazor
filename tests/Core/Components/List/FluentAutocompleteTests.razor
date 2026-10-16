@@ -255,10 +255,11 @@
         // Assert
         Assert.Equal("Eight", cut.Find("fluent-text-input").GetAttribute("value"));
         Assert.Equal("Eight", cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+        Assert.True(cut.Find("fluent-text-input").HasAttribute("single-selection"));
     }
 
     [Fact]
-    public void FluentAutocomplete_SingleSelect_ClickSelectedInput_SelectsTextAndSearches()
+    public void FluentAutocomplete_SingleSelect_ClickSelectedInput_FocusesTextAndSearches()
     {
         // Arrange
         const string selectedItem = "Eight";
@@ -304,6 +305,200 @@
     }
 
     [Theory]
+    [InlineData(null, "")]
+    [InlineData("Five", "Five")]
+    [InlineData("Eight", "F")]
+    public void FluentAutocomplete_SingleSelect_ParentUpdatesSelection_SynchronizesInputText(string? replacement, string expectedText)
+    {
+        string? selectedItem = null;
+        var cut = Render(@<div>
+            <button @onclick="@(() => selectedItem = replacement)">Update selection</button>
+            <FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="false"
+                                @bind-SelectedItem="@selectedItem"
+                                OnOptionsSearch="@OnOptionsSearch" />
+        </div>);
+
+        cut.Find("fluent-text-input").Click();
+        var optionId = cut.FindAll("fluent-option")[0].GetAttribute("id");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = optionId });
+        Assert.Equal("Eight", selectedItem);
+        Assert.Equal("Eight", cut.Find("fluent-text-input").GetAttribute("value"));
+
+        if (replacement == selectedItem)
+        {
+            cut.Find("fluent-text-input")
+               .TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+        }
+
+        cut.Find("button").Click();
+
+        Assert.Equal(expectedText, cut.Find("fluent-text-input").GetAttribute("value"));
+        if (replacement is null)
+        {
+            Assert.Empty(cut.FindAll("span.fluent-badge[alone]"));
+        }
+        else
+        {
+            Assert.Equal(replacement, cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+        }
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public void FluentAutocomplete_ProgrammaticSelectedItems_SynchronizesSelectedItemAndText(bool multiple, bool clear)
+    {
+        IEnumerable<string> selectedItems = ["Eight"];
+        var cut = Render(@<div>
+            <button @onclick="@(() => selectedItems = clear ? [] : ["Five", "Six"])">Update</button>
+            <FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="@multiple"
+                                SelectedItems="@selectedItems"
+                                Items="@Digits" />
+        </div>);
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>();
+        Assert.Equal("Eight", component.Instance.SelectedItem);
+
+        cut.Find("button").Click();
+
+        Assert.Equal(clear ? null : "Five", component.Instance.SelectedItem);
+        Assert.Equal(clear || multiple ? string.Empty : "Five", cut.Find("#my-list").GetAttribute("value"));
+        Assert.Equal(clear ? 0 : multiple ? 2 : 1, component.Instance.SelectedItems.Count());
+        if (!multiple && !clear)
+        {
+            cut.Find("#my-list").Click();
+            Assert.Equal("Five", cut.Find("#my-list").GetAttribute("value"));
+        }
+
+        cut.Find("#my-list").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "T" });
+        cut.Render();
+        Assert.Equal("T", cut.Find("#my-list").GetAttribute("value"));
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void FluentAutocomplete_SynchronizedMultipleSelection_DoesNotDisplaySelectedLabelAsSearchText(bool multiple)
+    {
+        string? selectedItem = "Eight";
+        IEnumerable<string> selectedItems = ["Eight"];
+        var cut = Render(@<div>
+            <button @onclick="@(() => multiple = !multiple)">Toggle</button>
+            <FluentAutocomplete Id="first"
+                                TOption="string"
+                                TValue="string"
+                                @bind-SelectedItems="@selectedItems"
+                                @bind-SelectedItem="@selectedItem"
+                                Multiple="@multiple"
+                                Items="@Digits" />
+            <FluentAutocomplete Id="second"
+                                TOption="string"
+                                TValue="string"
+                                @bind-SelectedItems="@selectedItems"
+                                @bind-SelectedItem="@selectedItem"
+                                Multiple="@multiple"
+                                Items="@Digits" />
+        </div>);
+
+        if (!multiple)
+        {
+            cut.Find("#first").Click();
+            Assert.Equal("Eight", cut.Find("#first").GetAttribute("value"));
+            cut.Find("button").Click();
+        }
+
+        cut.Find("#first").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+        var first = cut.FindComponents<FluentAutocomplete<string, string>>()[0];
+        var optionId = first.Find("fluent-option").GetAttribute("id");
+        first.Find(".fluent-listbox")
+             .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = optionId });
+
+        Assert.Equal(string.Empty, cut.Find("#first").GetAttribute("value"));
+        Assert.Equal(string.Empty, cut.Find("#second").GetAttribute("value"));
+        foreach (var component in cut.FindComponents<FluentAutocomplete<string, string>>())
+        {
+            Assert.Equal(selectedItems, component.Instance.SelectedItems);
+            Assert.Equal(selectedItems.First(), component.Instance.SelectedItem);
+        }
+
+        cut.Find("#first").TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "T" });
+        cut.Render();
+        Assert.Equal("T", cut.Find("#first").GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FluentAutocomplete_ModeAndSelectedItemsChange_UsesIncomingMode()
+    {
+        var multiple = true;
+        IEnumerable<string> selectedItems = ["Eight", "Five"];
+        var cut = Render(@<div>
+            <button @onclick="@(() =>
+            {
+                multiple = !multiple;
+                selectedItems = multiple ? ["Five", "Six"] : ["Three", "Two"];
+            })">Update</button>
+            <FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                SelectedItems="@selectedItems"
+                                Multiple="@multiple"
+                                Items="@Digits" />
+        </div>);
+        var component = cut.FindComponent<FluentAutocomplete<string, string>>();
+
+        cut.Find("button").Click();
+        Assert.Single(component.Instance.SelectedItems);
+        Assert.Equal("Three", component.Instance.SelectedItem);
+        Assert.Equal("Three", cut.Find("#my-list").GetAttribute("value"));
+
+        cut.Find("button").Click();
+        Assert.Equal(2, component.Instance.SelectedItems.Count());
+        Assert.Equal("Five", component.Instance.SelectedItem);
+        Assert.Equal(string.Empty, cut.Find("#my-list").GetAttribute("value"));
+    }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    public void FluentAutocomplete_ProgrammaticSelectedItems_UpdatesBoundSelectedItem(bool multiple, bool clear)
+    {
+        string? selectedItem = "Eight";
+        IEnumerable<string> selectedItems = ["Eight"];
+        var notifications = 0;
+        var cut = Render(@<div>
+            <button @onclick="@(() => selectedItems = clear ? [] : ["Five", "Six"])">Update</button>
+            <FluentAutocomplete Id="my-list"
+                                TOption="string"
+                                TValue="string"
+                                Multiple="@multiple"
+                                @bind-SelectedItem="@selectedItem"
+                                @bind-SelectedItem:after="@(() => notifications++)"
+                                @bind-SelectedItems="@selectedItems"
+                                Items="@Digits" />
+        </div>);
+
+        Assert.Equal(0, notifications);
+        cut.Find("button").Click();
+
+        Assert.Equal(clear ? null : "Five", selectedItem);
+        Assert.Equal(selectedItem, cut.FindComponent<FluentAutocomplete<string, string>>().Instance.SelectedItem);
+        Assert.Equal(1, notifications);
+
+        cut.Render();
+        Assert.Equal(1, notifications);
+    }
+
+    [Theory]
     [InlineData("F", false)]
     [InlineData("Ei", true)]
     public void FluentAutocomplete_SingleSelect_UnchangedSelectionWhileSearching_PreservesSearchText(string searchText, bool selectedOptionVisible)
@@ -320,7 +515,7 @@
         cut.Find("fluent-text-input").Click();
         cut.Find("fluent-text-input")
            .TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = searchText });
-        var selectAllInvocationCount = JSInterop.Invocations.Count(invocation =>
+        var editSelectionInvocationCount = JSInterop.Invocations.Count(invocation =>
             invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"
             && invocation.Arguments.Count > 1 && invocation.Arguments[1] is true);
         var selectedOptions = selectedOptionVisible
@@ -330,7 +525,7 @@
         cut.Find(".fluent-listbox")
            .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = selectedOptions });
 
-        Assert.Equal(selectAllInvocationCount, JSInterop.Invocations.Count(invocation =>
+        Assert.Equal(editSelectionInvocationCount, JSInterop.Invocations.Count(invocation =>
             invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"
             && invocation.Arguments.Count > 1 && invocation.Arguments[1] is true));
         Assert.Equal(searchText, cut.Find("fluent-text-input").GetAttribute("value"));
@@ -747,6 +942,71 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_SelectedItem_ActivationRequestsEditingFocusAndRefreshesAllOptions()
+    {
+        var searches = new List<string>();
+        var selectionChanges = 0;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@("Eight")"
+                                              SelectedItemChanged="@(_ => selectionChanges++)"
+                                              OnOptionsSearch="@(args =>
+                                              {
+                                                  searches.Add(args.Text);
+                                                  args.Items = Digits.Where(digit => digit.StartsWith(args.Text, StringComparison.OrdinalIgnoreCase));
+                                              })" />);
+
+        cut.Find("fluent-text-input")
+           .TriggerEvent("ontextimmediate", new ChangeEventArgs { Value = "F" });
+        Assert.Equal(2, cut.FindAll("fluent-option").Count);
+
+        // Enter and Space dispatch this click in TypeScript; bUnit exercises its .NET path.
+        cut.Find("[autocomplete-selection]").Click();
+
+        Assert.Equal(new[] { "F", string.Empty }, searches);
+        Assert.Equal(Digits.Length, cut.FindAll("fluent-option").Count);
+        Assert.Equal("true", cut.Find("fluent-popover-b").GetAttribute("opened"));
+        Assert.Equal("Eight", cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Equal("Eight", cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+        Assert.Equal(0, selectionChanges);
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
+        Assert.Equal("my-list", invocation.Arguments[0]);
+        Assert.True(invocation.Arguments[1] is true);
+    }
+
+    [Theory]
+    [InlineData("Enter", true, false)]
+    [InlineData("ArrowDown", true, false)]
+    [InlineData("Enter", false, true)]
+    [InlineData("ArrowDown", false, true)]
+    public void FluentAutocomplete_SingleSelect_KeyboardWhenInteractionDisabled_DoesNotSearchOrChangeSelection(string key, bool disabled, bool readOnly)
+    {
+        var searchCount = 0;
+        var selectionChanges = 0;
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@("Eight")"
+                                              Disabled="@disabled"
+                                              ReadOnly="@readOnly"
+                                              SelectedItemChanged="@(_ => selectionChanges++)"
+                                              OnOptionsSearch="@(_ => searchCount++)" />);
+
+        cut.Find("fluent-text-input")
+           .TriggerEvent("onkeydown", new KeyboardEventArgs { Key = key });
+
+        Assert.Equal(0, searchCount);
+        Assert.Equal(0, selectionChanges);
+        Assert.Equal("false", cut.Find("fluent-popover-b").GetAttribute("opened"));
+        Assert.Equal("Eight", cut.Find("span.fluent-badge[alone]").GetAttribute("title"));
+        Assert.DoesNotContain(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
+    }
+
+    [Fact]
     public void FluentAutocomplete_KeyDown_Enter_TogglesPopover()
     {
         // Arrange
@@ -1006,6 +1266,40 @@
         // Assert
         Assert.Equal(string.Empty, cut.Find("fluent-text-input").GetAttribute("value"));
         Assert.Empty(cut.FindAll("span.fluent-badge[alone]"));
+    }
+
+    [Theory]
+    [InlineData(false, "Click")]
+    [InlineData(false, "Enter")]
+    [InlineData(false, "NumpadEnter")]
+    [InlineData(true, "Click")]
+    [InlineData(true, "Enter")]
+    [InlineData(true, "NumpadEnter")]
+    public void FluentAutocomplete_ClearSelection_ActivationRestoresInputFocus(bool multiple, string activation)
+    {
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="@multiple"
+                                              SelectedItems="@(new[] { "Three" })"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+        var clearIcon = cut.Find("[autocomplete-clear]");
+
+        if (activation == "Click")
+        {
+            clearIcon.Click();
+        }
+        else
+        {
+            clearIcon.TriggerEvent("onkeydown", new KeyboardEventArgs { Key = activation });
+        }
+
+        Assert.Empty(cut.FindAll("span.fluent-badge"));
+        Assert.Equal(string.Empty, cut.Find("fluent-text-input").GetAttribute("value"));
+        Assert.Equal("false", cut.Find("fluent-popover-b").GetAttribute("opened"));
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus");
+        Assert.Equal("my-list", invocation.Arguments[0]);
+        Assert.True(invocation.Arguments[1] is true);
     }
 
     [Fact]

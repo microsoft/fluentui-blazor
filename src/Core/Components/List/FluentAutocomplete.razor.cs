@@ -29,7 +29,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     private string? _textInput;
     private bool _isOpen;
     private bool _inProgress;
-    private bool _selectInputTextAfterRender;
+    private bool _focusAfterRender;
     private byte _searchVersion;
     private TValue? _previousValue;
 
@@ -302,11 +302,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.initialize", Id);
         }
 
-        if (_selectInputTextAfterRender)
+        if (_focusAfterRender)
         {
-            _selectInputTextAfterRender = false;
+            _focusAfterRender = false;
             // Apply focus after Blazor renders the updated input value.
-            await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", Id, true);
+            await SetInputFocusAsync(editSelection: true);
         }
 
         await base.OnAfterRenderAsync(firstRender);
@@ -394,6 +394,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <summary />
     public override async Task SetParametersAsync(ParameterView parameters)
     {
+        if (parameters.TryGetValue<bool>(nameof(Multiple), out var multiple))
+        {
+            Multiple = multiple;
+        }
+
         // Check if SelectedItem is being supplied and has changed
         if (parameters.TryGetValue<TOption?>(nameof(SelectedItem), out var newSelectedItem))
         {
@@ -490,10 +495,11 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         {
             // Keep the selected option available in the input for immediate editing.
             _textInput = GetOptionText(_internalSelectedItem);
-            _selectInputTextAfterRender = true;
+            _focusAfterRender = true;
         }
         else
         {
+            _textInput = string.Empty;
             await SetInputFocusAsync();
         }
     }
@@ -683,7 +689,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     }
 
     /// <summary>
-    /// Refreshes the options when the input is clicked and selects the current option text for editing in single-select mode.
+    /// Refreshes the options when the input is clicked and focuses the current option text for editing in single-select mode.
     /// </summary>
     private async Task OnTextInputClickAsync()
     {
@@ -695,7 +701,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
 
         // Make the label editable right away; the search is not awaited before the user can type.
         _textInput = GetOptionText(_internalSelectedItem);
-        _selectInputTextAfterRender = true;
+        _focusAfterRender = true;
 
         // List all options instead of filtering by the selected label.
         await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true, query: string.Empty);
@@ -715,6 +721,7 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         _isOpen = false;
         _textInput = string.Empty;
         _internalSelectedItems.Clear();
+        _focusAfterRender = true;
         SelectedItem = default;
 
         if (SelectedItemsChanged.HasDelegate)
@@ -746,8 +753,9 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
     /// <summary>
     /// Sets the focus to the text input element.
     /// </summary>
-    private async Task SetInputFocusAsync()
+    /// <param name="editSelection">Whether to reveal the input for editing the selected option.</param>
+    private async Task SetInputFocusAsync(bool editSelection = false)
     {
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus", Id, editSelection);
     }
 }
