@@ -32,6 +32,19 @@
     }
 
     [Fact]
+    public void OnParametersSet_WithUnsupportedSelectMode_Throws()
+    {
+        var column = new TestableHierarchicalSelectColumn<TestItem>
+        {
+        };
+        column.SetSelectMode(DataGridSelectMode.Single);
+
+        var exception = Assert.Throws<InvalidOperationException>(column.CallOnParametersSet);
+
+        Assert.Contains(nameof(DataGridSelectMode.Multiple), exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void Property_CorrectlyIdentifiesSelectedItems()
     {
         // Arrange
@@ -136,6 +149,26 @@
         Assert.True(selectedCalled);
         Assert.True(indeterminateCalled);
         Assert.True(unselectedCalled);
+    }
+
+    [Fact]
+    public async Task UpdateSelectedItemsAsync_WithIndeterminateChild_UpdatesParentToIndeterminate()
+    {
+        var child = new TestItem { Id = 2, Depth = 1, IsSelected = null };
+        var parent = new TestItem { Id = 1, Depth = 0, IsSelected = true, Children = [child] };
+        var column = new TestableHierarchicalSelectColumn<TestItem>
+        {
+            InternalGridContext = new InternalGridContext<TestItem>(null!)
+            {
+                Items = [parent],
+            },
+        };
+
+        await column.CallUpdateSelectedItemsAsync();
+
+        Assert.Null(parent.IsSelected);
+        Assert.Contains(parent, column.IndeterminateItems);
+        Assert.Contains(child, column.IndeterminateItems);
     }
 
     [Fact]
@@ -657,8 +690,10 @@
         public void SetIndeterminateItemsChanged(EventCallback<IEnumerable<T>> value) => IndeterminateItemsChanged = value;
         public void SetUnselectedItemsChanged(EventCallback<IEnumerable<T>> value) => UnselectedItemsChanged = value;
         public void SetSelectAllChanged(EventCallback<bool?> value) => SelectAllChanged = value;
+        public void SetSelectMode(DataGridSelectMode value) => SelectMode = value;
 
         public void CallOnSelectedItemsSet() => OnSelectedItemsSet();
+        public void CallOnParametersSet() => OnParametersSet();
         public async Task CallUpdateSelectedItemsAsync() => await UpdateSelectedItemsAsync();
         public bool? CallGetSelectAll() => GetSelectAll();
         public async Task CallAddOrRemoveSelectedItemAsync(T? item) => await AddOrRemoveSelectedItemAsync(item);

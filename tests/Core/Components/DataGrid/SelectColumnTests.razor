@@ -1464,6 +1464,52 @@
         Assert.Empty(cut.FindAll("svg[row-selected]"));
     }
 
+    [Theory]
+    [InlineData(0, false)]
+    [InlineData(1, null)]
+    [InlineData(3, true)]
+    public void SelectColumnTests_GetSelectAll_WithNonMaterializedSelectedItems_ReturnsExpectedState(int selectedCount, bool? expected)
+    {
+        static IEnumerable<Person> Enumerate(IEnumerable<Person> people)
+        {
+            foreach (var person in people)
+            {
+                yield return person;
+            }
+        }
+
+        var people = People.ToList();
+        var cut = Render(@<FluentDataGrid Items="@People" />);
+        var grid = cut.FindComponent<FluentDataGrid<Person>>().Instance;
+        var column = new TestableSelectColumn<Person>
+        {
+            InternalGridContext = new InternalGridContext<Person>(grid)
+            {
+                Items = people,
+                TotalItemCount = people.Count,
+            },
+            Property = _ => false,
+            SelectedItems = Enumerate(people.Take(selectedCount)),
+        };
+
+        var result = column.CallGetSelectAll();
+
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void SelectColumnTests_GetHeaderContent_WithUnknownSelectMode_RendersNothing()
+    {
+        var column = new TestableSelectColumn<Person>
+        {
+            SelectMode = (DataGridSelectMode)(-1),
+        };
+
+        var cut = Render(column.CallGetHeaderContent());
+
+        Assert.Empty(cut.Markup);
+    }
+
 #pragma warning restore BL0005
     /// <summary>
     /// Simulate a key down event on the DataGrid row number <paramref name="row"/>.
@@ -1524,5 +1570,12 @@
             await task;
         }
         cut.FindComponent<FluentDataGrid<Person>>().Render();
+    }
+
+    private sealed class TestableSelectColumn<TGridItem> : SelectColumn<TGridItem>
+    {
+        public bool? CallGetSelectAll() => GetSelectAll();
+
+        public RenderFragment CallGetHeaderContent() => GetHeaderContent();
     }
 }
