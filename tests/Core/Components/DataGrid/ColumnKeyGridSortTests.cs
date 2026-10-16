@@ -57,6 +57,17 @@ public class ColumnKeyGridSortTests : Bunit.BunitContext
     }
 
     [Fact]
+    public void ColumnKeyGridSort_Apply_WithoutASortFunction_PreservesTheItems()
+    {
+        var sort = new ColumnKeyGridSort<GridRow>("Group");
+        var data = new GridRow[] { new(2, "B"), new(1, "A") }.AsQueryable();
+
+        var ordered = sort.Apply(data, ascending: true);
+
+        Assert.Equal([2, 1], ordered.Select(x => x.Number));
+    }
+
+    [Fact]
     public void ColumnKeyGridSort_CanApplyThen_WithASortFunctionOnly_IsFalse()
     {
         // OrderBy would replace the ordering of the levels before it, so this sort can only be the first level.
