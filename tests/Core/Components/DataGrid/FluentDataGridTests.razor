@@ -3863,38 +3863,49 @@
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <PropertyColumn Property="@(x => x.Name)" />
             </FluentDataGrid>);
-        var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
+        var grid = cut.FindComponent<FluentDataGrid<Customer>>().Instance;
         var method = typeof(FluentDataGrid<Customer>).GetMethod(
             "RenderErrorContent",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        RenderFragment fragment = builder =>
+        {
+            method.Invoke(grid, [builder]);
+        };
 
-        method.Invoke(cut.FindComponent<FluentDataGrid<Customer>>().Instance, [builder]);
+        var renderedFragment = Render(fragment);
 
-        Assert.NotNull(builder);
+        Assert.Empty(renderedFragment.Markup);
     }
 
     [Fact]
     public void FluentDataGrid_RenderNonVirtualizedRows_WithError_RendersErrorContent()
     {
-        var cut = Render(
+        var cut = Render<FluentDataGrid<Customer>>(
             @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
                 <ChildContent>
                     <PropertyColumn Property="@(x => x.Name)" />
                 </ChildContent>
                 <ErrorContent><p>@context?.Message</p></ErrorContent>
             </FluentDataGrid>);
-        var grid = cut.FindComponent<FluentDataGrid<Customer>>().Instance;
         typeof(FluentDataGrid<Customer>).GetField(
             "_lastError",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-            .SetValue(grid, new InvalidOperationException("Expected error"));
+            .SetValue(cut.Instance, new InvalidOperationException("Expected error"));
         var method = typeof(FluentDataGrid<Customer>).GetMethod(
             "RenderNonVirtualizedRows",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        var builder = new Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder();
+        RenderFragment rows = builder =>
+        {
+            method.Invoke(cut.Instance, [builder]);
+        };
+        var context = cut.FindComponent<FluentDataGridRow<Customer>>().Instance.InternalGridContext;
 
-        method.Invoke(grid, [builder]);
+        var renderedRows = Render(
+            @<CascadingValue TValue="InternalGridContext<Customer>" IsFixed="true" Value="@context">
+                @rows
+            </CascadingValue>);
 
-        Assert.NotNull(builder);
+        var errorRow = renderedRows.Find($"tr[row-state='{DataGridRowState.ErrorContent.ToAttributeValue()}']");
+        Assert.Contains("Expected error", errorRow.TextContent, StringComparison.Ordinal);
     }
 }
