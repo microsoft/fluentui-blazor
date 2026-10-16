@@ -49,6 +49,7 @@ public class ToastInstance : IToastInstance
     public ToastOptions Options { get; internal set; }
 
     /// <inheritdoc cref="IToastInstance.Result"/>
+    [SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Not awaiting the task here, just exposing it.")]
     public Task<ToastResult> Result => ResultCompletion.Task;
 
     /// <inheritdoc cref="IToastInstance.LifecycleStatus"/>
