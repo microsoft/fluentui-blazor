@@ -51,11 +51,15 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete][alone] {
   line-height: var(--lineHeightBase300);
 }
 
-fluent-text-input:has(span[auto-complete][alone])::part(control) {
+fluent-text-input[auto-complete][single-selection]:not([autocomplete-editing])::part(control) {
   display: none;
 }
 
-fluent-text-input:has(span[auto-complete][alone]) div[slot="start"] {
+fluent-text-input[auto-complete][single-selection][autocomplete-editing] div[slot="start"] {
+  display: none;
+}
+
+fluent-text-input[auto-complete][single-selection] div[slot="start"] {
   width: calc(100% - 24px);
   justify-content: start;
 }

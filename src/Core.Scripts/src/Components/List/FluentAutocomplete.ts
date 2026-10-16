@@ -11,6 +11,21 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
+    input.control.addEventListener("focus", () => {
+      input.setAttribute("autocomplete-editing", "");
+      if (input.control.matches(":focus-visible")) {
+        input.control.select();
+      }
+    });
+    input.control.addEventListener("blur", () => input.removeAttribute("autocomplete-editing"));
+    input.addEventListener("focusin", e => {
+      if (input.hasAttribute("readonly") || input.hasAttribute("disabled")) return;
+
+      if (e.target instanceof HTMLElement && e.target.matches("[autocomplete-selection]:focus-visible")) {
+        e.target.click();
+      }
+    });
+
     detectWrappedItems(input);
     new AutocompleteKeyboardNav(id, input);
   }
@@ -18,18 +33,32 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
   /**
    * Sets focus to the input element of the FluentAutocomplete component, allowing users to start typing immediately.
    * @param id The ID of the input element to focus.
+   * @param editSelection Reveals the input for editing the selected option.
    */
-  export function setFocus(id: string) {
+  export function setFocus(id: string, editSelection = false) {
     const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
-    input.focus();
-
-    // Move the cursor to the end of the input value
     const control = (input as any).control as HTMLInputElement;
-    if (control) {
-      const len = control.value.length;
-      control.setSelectionRange(len, len);
+    if (editSelection && control) {
+      const selectAll = input.querySelector("[autocomplete-selection]:focus-visible") !== null;
+      // Reveal the native input before moving focus from the selected badge.
+      input.setAttribute("autocomplete-editing", "");
+      requestAnimationFrame(() => {
+        control.focus();
+        if (selectAll) {
+          control.select();
+        } else {
+          const len = control.value.length;
+          control.setSelectionRange(len, len);
+        }
+      });
+    } else {
+      input.focus();
+      if (control) {
+        const len = control.value.length;
+        control.setSelectionRange(len, len);
+      }
     }
   }
 
@@ -102,6 +131,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
      */
     private keydownHandler = (e: KeyboardEvent): void => {
       if (this.input.hasAttribute('readonly') || this.input.hasAttribute('disabled')) {
+        return;
+      }
+
+      if ((e.key === 'Enter' || e.key === ' ') &&
+          e.target instanceof HTMLElement && e.target.hasAttribute('autocomplete-selection')) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.click();
         return;
       }
 
