@@ -914,4 +914,102 @@
         // Assert
         Assert.Equal(0, count);
     }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_InactiveTab_PreservesCurrentActiveTab()
+    {
+        string? changedId = null;
+
+        // Arrange
+        var cut = Render(@<FluentTabs ActiveTabId="tab3" ActiveTabIdChanged="@(id => changedId = id)">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+            <FluentTab Id="tab3" Header="Settings" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var tab1 = cut.FindComponents<FluentTab>()[0].Instance;
+
+        // Act - remove tab1 (which is not active; tab3 is active)
+        await tabs.RemoveTabAsync(tab1);
+
+        // Assert
+        Assert.Equal("tab3", tabs.ActiveTabId);
+        Assert.Null(changedId);
+    }
+
+    [Fact]
+    public async Task FluentTabs_Nested_ProgrammaticSelection_DoesNotBounceActiveTab()
+    {
+        string? activeOuterTabId = "session-1";
+        string? activeInnerTabId = "setup-1";
+
+        // Arrange: nested tabs matching issue #5468 structure
+        var cut = Render(@<FluentTabs Id="outer-tabs" @bind-ActiveTabId="@activeOuterTabId">
+            <FluentTab Id="session-1" Header="Session 1">
+                <FluentTabs Id="inner-tabs" @bind-ActiveTabId="@activeInnerTabId">
+                    <FluentTab Id="setup-1" Header="Setup">Setup content</FluentTab>
+                    <FluentTab Id="results-1" Header="Results">
+                        <FluentTabs Id="sub-tabs">
+                            <FluentTab Id="canonicals-1" Header="Canonicals">Canonicals content</FluentTab>
+                            <FluentTab Id="greeks-1" Header="Greeks">Greeks content</FluentTab>
+                        </FluentTabs>
+                    </FluentTab>
+                </FluentTabs>
+            </FluentTab>
+        </FluentTabs>);
+
+        var innerTabsComponent = cut.FindComponents<FluentTabs>()[1];
+        var innerTabList = cut.Find("#inner-tabs-tablist");
+
+        // Act 1: programmatic selection of results tab
+        innerTabsComponent.Render(parameters => parameters.Add(component => component.ActiveTabId, "results-1"));
+
+        // Assert 1: activeid is updated on inner tablist
+        Assert.Equal("results-1", innerTabList.GetAttribute("activeid"));
+
+        // Act 2: web component dispatches ontabchange with results-1 (client sync)
+        await innerTabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "inner-tabs-tablist",
+            ActiveId = "results-1",
+        });
+
+        // Act 3: parent re-renders with current bound value
+        innerTabsComponent.Render(parameters => parameters.Add(component => component.ActiveTabId, "results-1"));
+
+        // Assert 2: remains stable on results-1
+        Assert.Equal("results-1", innerTabList.GetAttribute("activeid"));
+        Assert.Equal("results-1", innerTabsComponent.Instance.ActiveTabId);
+    }
+
+    [Fact]
+    public async Task FluentTabs_ClientTabChange_SkipsRedundantAttributeWriteOnNextRender()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+
+        // Act 1: client selection
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+
+        // Assert 1: active tab is synchronized
+        Assert.Equal("tab2", activeTabId);
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+
+        // Act 2: parent renders with bound value, should not overwrite with null or trigger loops
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+
+        // Assert 2: tab2 remains active
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+    }
 }

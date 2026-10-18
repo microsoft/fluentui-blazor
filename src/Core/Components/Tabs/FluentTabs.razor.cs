@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTabs : FluentComponentBase
 {
+    private string? _clientActiveTabId;
     private bool _overflowInitialized;
     private bool? _previousOverflowValue;
     private bool _refreshOverflowAfterRender;
@@ -161,7 +162,15 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
-        ActiveTabIdAttribute = ActiveTabId ?? ActiveTab?.Id;
+        var activeTabId = ActiveTabId ?? ActiveTab?.Id;
+        if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
+        {
+            _clientActiveTabId = null;
+            return;
+        }
+
+        ActiveTabIdAttribute = activeTabId;
+        _clientActiveTabId = null;
     }
 
     /// <summary />
@@ -246,15 +255,16 @@ public partial class FluentTabs : FluentComponentBase
         {
             if (Tabs.Remove(tab))
             {
-                var firstTab = Tabs.FirstOrDefault();
-                var firstTabId = firstTab?.Id;
-
-                // Set the first ActiveTab and ActiveTabId
-                if (!string.Equals(firstTabId, tab.Id, StringComparison.Ordinal))
+                var isCurrentActive = string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal) || ReferenceEquals(ActiveTab, tab);
+                if (isCurrentActive)
                 {
+                    var firstTab = Tabs.FirstOrDefault();
+                    var firstTabId = firstTab?.Id;
+
                     ActiveTab = firstTab;
                     ActiveTabId = firstTabId;
                     ActiveTabIdAttribute = firstTabId;
+                    _clientActiveTabId = null;
 
                     if (ActiveTabChanged.HasDelegate)
                     {
@@ -287,6 +297,7 @@ public partial class FluentTabs : FluentComponentBase
 
         // Search for the tab
         var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
+        _clientActiveTabId = tab?.Id;
         await SetActiveTabAsync(tab);
     }
 
