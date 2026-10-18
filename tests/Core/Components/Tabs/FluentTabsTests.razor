@@ -1012,4 +1012,59 @@
         // Assert 2: tab2 remains active
         Assert.Equal("tab2", tabList.GetAttribute("activeid"));
     }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_PrioritizesActiveTabIdOverStaleActiveTabReference()
+    {
+        string? activeTabId = "tab1";
+        FluentTab? activeTab = null;
+
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId" @bind-ActiveTab="@activeTab">
+            <FluentTab Id="tab1" Header="Tab 1" />
+            <FluentTab Id="tab2" Header="Tab 2" />
+            <FluentTab Id="tab3" Header="Tab 3" />
+        </FluentTabs>);
+
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tab1 = cut.FindComponents<FluentTab>()[0].Instance;
+
+        // Simulate parameter update selecting tab3 while activeTab still references tab1
+        tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab3"));
+
+        // Remove tab1 (which was the previous activeTab reference)
+        await tabs.Instance.RemoveTabAsync(tab1);
+
+        // ActiveTabId should remain tab3, not reset to tab2
+        Assert.Equal("tab3", tabs.Instance.ActiveTabId);
+    }
+
+    [Fact]
+    public async Task FluentTabs_SelectTabAsync_ClearsClientMarkerAllowingSubsequentActiveTabIdParam()
+    {
+        var cut = Render(@<FluentTabs Id="MyTabsId" ActiveTabId="tab1">
+            <FluentTab Id="tab1" Header="Tab 1" />
+            <FluentTab Id="tab2" Header="Tab 2" />
+            <FluentTab Id="tab3" Header="Tab 3" />
+        </FluentTabs>);
+
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+
+        // Client changes to tab2
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+
+        // Programmatic SelectTabAsync to tab3
+        await tabs.Instance.SelectTabAsync("tab3");
+        Assert.Equal("tab3", tabList.GetAttribute("activeid"));
+
+        // Parent provides ActiveTabId="tab2"
+        tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab2"));
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+    }
 }
+

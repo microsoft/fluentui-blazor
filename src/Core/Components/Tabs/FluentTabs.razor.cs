@@ -163,7 +163,9 @@ public partial class FluentTabs : FluentComponentBase
     protected override void OnParametersSet()
     {
         var activeTabId = ActiveTabId ?? ActiveTab?.Id;
-        if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
+        if (_clientActiveTabId is not null &&
+            string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal) &&
+            string.Equals(ActiveTabIdAttribute, activeTabId, StringComparison.Ordinal))
         {
             _clientActiveTabId = null;
             return;
@@ -255,7 +257,9 @@ public partial class FluentTabs : FluentComponentBase
         {
             if (Tabs.Remove(tab))
             {
-                var isCurrentActive = string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal) || ReferenceEquals(ActiveTab, tab);
+                var isCurrentActive = !string.IsNullOrEmpty(ActiveTabId)
+                    ? string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal)
+                    : ReferenceEquals(ActiveTab, tab);
                 if (isCurrentActive)
                 {
                     var firstTab = Tabs.FirstOrDefault();
@@ -297,8 +301,10 @@ public partial class FluentTabs : FluentComponentBase
 
         // Search for the tab
         var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
-        _clientActiveTabId = tab?.Id;
-        await SetActiveTabAsync(tab);
+        if (await SetActiveTabAsync(tab))
+        {
+            _clientActiveTabId = tab?.Id;
+        }
     }
 
     /// <summary>
@@ -364,6 +370,7 @@ public partial class FluentTabs : FluentComponentBase
             return false;
         }
 
+        _clientActiveTabId = null;
         ActiveTabId = tab.Id;
         ActiveTab = tab;
         ActiveTabIdAttribute = tab.Id;
