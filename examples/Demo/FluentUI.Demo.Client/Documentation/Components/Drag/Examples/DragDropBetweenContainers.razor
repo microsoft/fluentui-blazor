@@ -1,0 +1,67 @@
+﻿<FluentStack>
+    <FluentDragContainer TItem="string" Group="_group" OnDropEnd="OnDropEnd">
+        <FluentDropZone TItem="string" Id="ListA" Droppable="true" Style="min-width: 150px; min-height: 160px; border: 1px dashed gray; padding: 8px;">
+            <FluentStack Orientation="Orientation.Vertical">
+                <strong>List A</strong>
+                @foreach (var item in _listA)
+                {
+                    <FluentDropZone @key="item" Id="@item" Item="@item" Draggable="true" Droppable="true" StopPropagation="true">
+                        <div style="padding: 8px; background-color: lightblue; color: #000;">@item</div>
+                    </FluentDropZone>
+                }
+            </FluentStack>
+        </FluentDropZone>
+    </FluentDragContainer>
+
+    <FluentDragContainer TItem="string" Group="_group" OnDropEnd="OnDropEnd">
+        <FluentDropZone TItem="string" Id="ListB" Droppable="true" Style="min-width: 150px; min-height: 160px; border: 1px dashed gray; padding: 8px;">
+            <FluentStack Orientation="Orientation.Vertical">
+                <strong>List B</strong>
+                @foreach (var item in _listB)
+                {
+                    <FluentDropZone @key="item" Id="@item" Item="@item" Draggable="true" Droppable="true" StopPropagation="true">
+                        <div style="padding: 8px; background-color: lightgreen; color: #000;">@item</div>
+                    </FluentDropZone>
+                }
+            </FluentStack>
+        </FluentDropZone>
+    </FluentDragContainer>
+</FluentStack>
+
+@code {
+    private readonly FluentDragGroup<string> _group = new();
+    private readonly List<string> _listA = ["Item1", "Item2", "Item3"];
+    private readonly List<string> _listB = ["Item4", "Item5"];
+
+    private void OnDropEnd(FluentDragEventArgs<string> e)
+    {
+        var item = e.Source.Item;
+        var from = _listA.Contains(item) ? _listA : _listB;
+        var targetId = e.Target.Id;
+
+        // Dropping on the list itself appends the item, dropping on an item inserts it before.
+        var to = targetId switch
+        {
+            "ListA" => _listA,
+            "ListB" => _listB,
+            _ => _listA.Contains(e.Target.Item) ? _listA : _listB,
+        };
+
+        if (item == e.Target.Item)
+        {
+            return;
+        }
+
+        from.Remove(item);
+
+        var targetIndex = to.IndexOf(e.Target.Item);
+        if (targetId is "ListA" or "ListB" || targetIndex < 0)
+        {
+            to.Add(item);
+        }
+        else
+        {
+            to.Insert(targetIndex, item);
+        }
+    }
+}
