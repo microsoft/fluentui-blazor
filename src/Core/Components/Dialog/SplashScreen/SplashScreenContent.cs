@@ -1,0 +1,54 @@
+// ------------------------------------------------------------------------
+// This file is licensed to you under the MIT License.
+// ------------------------------------------------------------------------
+
+using Microsoft.AspNetCore.Components;
+
+namespace Microsoft.FluentUI.AspNetCore.Components;
+
+/// <summary>
+/// Content displayed by a splash screen.
+/// </summary>
+public class SplashScreenContent
+{
+    /// <summary>
+    /// Gets or sets the text to indicate something is happening.
+    /// </summary>
+    public string? LoadingText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the loading percentage.
+    /// Typically used to show progress of an ongoing operation.
+    /// Value should be between 0 and 100.
+    /// If not set, a ring spinner will be shown instead.
+    /// </summary>
+    public int? LoadingPercentage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the logo to show on the splash screen.
+    /// Can be a URL or a base64 encoded string or an SVG.
+    /// </summary>
+    public string? LogoUrl { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum width for the logo.
+    /// </summary>
+    public string? LogoMaxWidth { get; set; } = "500px";
+
+    /// <summary>
+    /// Gets or sets an extra message. Can contain HTML.
+    /// </summary>
+    public MarkupString? Message { get; set; }
+
+    /// <summary>
+    /// Gets or sets the subtitle.
+    /// Typically used to show the name of the suite the product belongs to.
+    /// </summary>
+    public string? SubTitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title.
+    /// Typically used to show the name of the product.
+    /// </summary>
+    public string? Title { get; set; }
+}

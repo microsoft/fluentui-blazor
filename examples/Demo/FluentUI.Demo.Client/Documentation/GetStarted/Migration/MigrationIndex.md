@@ -61,6 +61,7 @@ Each page below covers specific component changes, removed components, and new a
   | FluentSlider | Medium | [Migration](/Migration/Slider) |
   | FluentSortableList | Low | [Migration](/Migration/SortableList) |
   | FluentSpacer | Low | [Migration](/Migration/Spacer) |
+  | SplashScreen | High | [Migration](/Migration/SplashScreen) |
   | FluentSplitter | High | [Migration](/Migration/Splitter) |
   | FluentStack | Low | [Migration](/Migration/Stack) |
   | FluentSwitch | Medium | [Migration](/Migration/Switch) |

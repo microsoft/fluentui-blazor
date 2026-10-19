@@ -15,6 +15,8 @@ namespace FluentUI.Demo.DocViewer.Models;
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 internal class ApiClass
 {
+    private const BindingFlags ConstructorBindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
     private static readonly string[] MEMBERS_TO_EXCLUDE =
     [
         "AdditionalAttributes",
@@ -92,6 +94,29 @@ internal class ApiClass
                               ? new object?[] { null }
                               : Array.Empty<object>();
 
+            // Special handling for DialogInstance constructors with specific arguments
+            if (_component.Name == "DialogInstance")
+            {
+                if (HasCtorWithArguments(_component, ["IDialogService", "Type", "DialogOptions"]))
+                {
+                    var constructor = _component.GetConstructors(ConstructorBindingFlags)
+                                                .Single(c => c.GetParameters().Length == 3);
+                    var dialogOptions = Activator.CreateInstance(constructor.GetParameters()[2].ParameterType);
+                    ctorArguments = [null, typeof(object), dialogOptions];
+                }
+            }
+
+            if (_component.Name == "SplashScreenInstance")
+            {
+                if (HasCtorWithArguments(_component, ["IDialogService", "Type", "SplashScreenOptions"]))
+                {
+                    var constructor = _component.GetConstructors(ConstructorBindingFlags)
+                                                .Single(c => c.GetParameters().Length == 3);
+                    var splashScreenOptions = Activator.CreateInstance(constructor.GetParameters()[2].ParameterType);
+                    ctorArguments = [null, typeof(object), splashScreenOptions];
+                }
+            }
+
             object? GetObjectValue(string propertyName)
             {
                 if (!created)
@@ -104,11 +129,21 @@ internal class ApiClass
                         }
 
                         // Supply the type to create the generic instance with (needs to be an array)
-                        obj = Activator.CreateInstance(_component.MakeGenericType(InstanceTypes), args: ctorArguments);
+                        obj = Activator.CreateInstance(
+                            _component.MakeGenericType(InstanceTypes),
+                            ConstructorBindingFlags,
+                            binder: null,
+                            args: ctorArguments,
+                            culture: null);
                     }
                     else
                     {
-                        obj = Activator.CreateInstance(_component, args: ctorArguments);
+                        obj = Activator.CreateInstance(
+                            _component,
+                            ConstructorBindingFlags,
+                            binder: null,
+                            args: ctorArguments,
+                            culture: null);
                     }
 
                     created = true;
@@ -150,7 +185,7 @@ internal class ApiClass
                                 {
                                     defaultValue = GetObjectValue(propertyInfo.Name)?.ToString();
                                 }
-                                
+
                                 members.Add(new ApiClassMember()
                                 {
                                     MemberType = MemberTypes.Property,
@@ -237,7 +272,7 @@ internal class ApiClass
     /// </summary>
     public static bool HasCtorWithArguments(Type component, string[] arguments)
     {
-        var constructors = component.GetConstructors();
+        var constructors = component.GetConstructors(ConstructorBindingFlags);
         foreach (var ctor in constructors)
         {
             var parameters = ctor.GetParameters();
