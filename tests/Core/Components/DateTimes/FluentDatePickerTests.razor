@@ -991,6 +991,40 @@
         Assert.Empty(messagesAfter);
     }
 
+    [Fact]
+    public void FluentDatePicker_EditForm_GeneratesName()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var model = new DatePickerValidationModel();
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@model">
+                <FluentDatePicker TValue="DateTime?" @bind-Value="@model.ProductionDate" />
+            </EditForm>);
+
+        // Assert
+        Assert.Equal("model.ProductionDate", cut.Find("fluent-text-input").GetAttribute("name"));
+    }
+
+    [Fact]
+    public void FluentDatePicker_EditForm_WithoutBinding_DoesNotRenderName()
+    {
+        // Arrange
+        using var context = new DateTimeProviderContext(System.DateTime.Now);
+        var model = new DatePickerValidationModel();
+
+        // Act
+        var cut = Render(
+            @<EditForm Model="@model">
+                <FluentDatePicker TValue="DateTime?" Value="@model.ProductionDate" />
+            </EditForm>);
+
+        // Assert
+        Assert.False(cut.Find("fluent-text-input").HasAttribute("name"));
+    }
+
     private class DatePickerValidationModel
     {
         [Required(ErrorMessage = "Production date is required")]

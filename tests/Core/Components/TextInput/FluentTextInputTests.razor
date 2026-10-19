@@ -49,6 +49,46 @@
     }
 
     [Fact]
+    public void FluentInputText_EditForm_GeneratesName()
+    {
+        var model = new RequiredTextInputModel();
+
+        // Arrange && Act
+        var cut = Render(@<EditForm Model="@model">
+            <FluentTextInput @bind-Value="model.Name" />
+        </EditForm>);
+
+        // Assert
+        Assert.Equal("model.Name", cut.Find("fluent-text-input").GetAttribute("name"));
+    }
+
+    [Fact]
+    public void FluentInputText_EditForm_UsesNameParameter()
+    {
+        var model = new RequiredTextInputModel();
+
+        // Arrange && Act
+        var cut = Render(@<EditForm Model="@model">
+            <FluentTextInput @bind-Value="model.Name" Name="MyName" />
+        </EditForm>);
+
+        // Assert
+        Assert.Equal("MyName", cut.Find("fluent-text-input").GetAttribute("name"));
+    }
+
+    [Fact]
+    public void FluentInputText_WithoutEditForm_DoesNotRenderName()
+    {
+        string? value = null;
+
+        // Arrange && Act
+        var cut = Render(@<FluentTextInput @bind-Value="value" />);
+
+        // Assert
+        Assert.False(cut.Find("fluent-text-input").HasAttribute("name"));
+    }
+
+    [Fact]
     public void FluentInputText_Required_FocusOut_ShowsDefaultRequiredMessage()
     {
         var cut = Render(@<FluentTextInput Required="true" />);

@@ -255,6 +255,25 @@
     }
 
     [Fact]
+    public void FluentRadioGroup_EditForm_GeneratesName()
+    {
+        var model = new RadioGroupValidationModel();
+
+        // Arrange && Act
+        var cut = Render(
+            @<EditForm Model="@model">
+                <FluentRadioGroup TValue="string" @bind-Value="@model.SelectedOption">
+                    <FluentRadio Id="MyOption1" Value="@("option1")" Label="Option 1"></FluentRadio>
+                    <FluentRadio Id="MyOption2" Value="@("option2")" Label="Option 2"></FluentRadio>
+                </FluentRadioGroup>
+            </EditForm>);
+
+        // Assert
+        Assert.Equal("model.SelectedOption", cut.Find("fluent-radio-group").GetAttribute("name"));
+        Assert.All(cut.FindAll("fluent-radio"), radio => Assert.Equal("model.SelectedOption", radio.GetAttribute("name")));
+    }
+
+    [Fact]
     public async Task FluentRadioGroup_RadioChange_MarksFieldModified_AndUpdatesValidationState()
     {
         // Arrange

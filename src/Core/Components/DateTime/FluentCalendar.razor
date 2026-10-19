@@ -17,7 +17,7 @@
          @onfocusout="@FocusOutHandlerAsync"
          @attributes="@AdditionalAttributes">
 
-        <input type="datetime" value="@GetFormValue()" hidden name="@Name" />
+        <input type="datetime" value="@GetFormValue()" hidden name="@NameValue" />
 
         @if (PickerView == CalendarViews.Days)
         {

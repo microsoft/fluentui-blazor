@@ -152,7 +152,7 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
     /// <summary />
     internal string GetGroupName()
     {
-        return string.IsNullOrEmpty(Name) ? $"{Id}-group" : Name;
+        return string.IsNullOrEmpty(NameValue) ? $"{Id}-group" : NameValue;
     }
 
     /// <summary />

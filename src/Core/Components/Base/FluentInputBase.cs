@@ -218,7 +218,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <summary>
     /// Gets or sets the name of the element.
     /// Allows access by name from the associated form.
-    /// ⚠️ This value needs to be set manually for SSR scenarios to work correctly.
+    /// When not set, the name is generated from the bound value expression in a statically rendered form.
     /// </summary>
     [Parameter]
     public virtual string? Name { get; set; }
@@ -233,6 +233,13 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// Gets a value indicating whether user interaction must not change the control value.
     /// </summary>
     protected bool IsUserInteractionDisabled => ReadOnly || Disabled == true;
+
+    /// <summary />
+    protected string? NameValue => Name ?? (CanGenerateName ? NameAttributeValue : null);
+
+    private bool CanGenerateName => HasExplicitValueExpression &&
+                                    ValueExpression?.Body is not MemberExpression { Expression: ConstantExpression { Value: IFluentField } } &&
+                                    !string.IsNullOrEmpty(NameAttributeValue);
 
     /// <summary>
     /// Gets or sets whether the control will use the native browser constraint validation UI.
