@@ -1963,6 +1963,10 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     {
         _forceRefreshData = force;
         await RefreshDataCoreAsync();
+
+        // The Virtualize path returns early from RefreshDataCoreAsync without rendering the grid itself.
+        // InvokeAsync keeps this callable from outside the renderer's synchronization context.
+        await InvokeAsync(StateHasChanged);
     }
 
 #if NET11_0_OR_GREATER
