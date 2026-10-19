@@ -30,12 +30,14 @@
         </div>
         <nav role="navigation" class="paginator-nav">
             <FluentButton OnClick="GoFirstAsync"
-                          Disabled="@(!CanGoBack || Disabled)"
+                          Disabled="@Disabled"
+                          DisabledFocusable="@(!CanGoBack)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoFirstPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoFirstPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleLeft())" />
             <FluentButton OnClick="GoPreviousAsync"
-                          Disabled="@(!CanGoBack || Disabled)"
+                          Disabled="@Disabled"
+                          DisabledFocusable="@(!CanGoBack)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft())" />
@@ -51,12 +53,14 @@
 
             </div>
             <FluentButton OnClick="GoNextAsync"
-                          Disabled="@(!CanGoForwards || Disabled)"
+                          Disabled="@Disabled"
+                          DisabledFocusable="@(!CanGoForwards)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoNextPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronRight())" />
             <FluentButton OnClick="GoLastAsync"
-                          Disabled="@(!CanGoForwards || Disabled)"
+                          Disabled="@Disabled"
+                          DisabledFocusable="@(!CanGoForwards)"
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" />

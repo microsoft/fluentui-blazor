@@ -103,6 +103,11 @@ public partial class FluentPaginator : FluentComponentBase
 
     private async Task GoToPageAsync(int pageIndex)
     {
+        if (Disabled || pageIndex < 0 || pageIndex > State.LastPageIndex.GetValueOrDefault(0) || pageIndex == State.CurrentPageIndex)
+        {
+            return;
+        }
+
         State.CurrentPageChangedBy = this;
         await State.SetCurrentPageIndexAsync(pageIndex);
         if (CurrentPageIndexChanged.HasDelegate)
