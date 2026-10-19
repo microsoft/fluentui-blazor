@@ -1350,6 +1350,23 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_EditForm_DoesNotGenerateNameForSearchInput()
+    {
+        var model = new AutocompleteValueValidationModel();
+
+        // Arrange && Act
+        var cut = Render(@<EditForm Model="@model">
+            <FluentAutocomplete TOption="string"
+                                TValue="string"
+                                Items="@Digits"
+                                @bind-Value="@model.Country" />
+        </EditForm>);
+
+        // Assert
+        Assert.False(cut.Find("fluent-text-input").HasAttribute("name"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_Required_FocusOut_ShowsModelRequiredMessage()
     {
         var model = new AutocompleteValidationModel();

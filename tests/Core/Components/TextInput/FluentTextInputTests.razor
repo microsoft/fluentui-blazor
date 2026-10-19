@@ -79,13 +79,27 @@
     [Fact]
     public void FluentInputText_WithoutEditForm_DoesNotRenderName()
     {
-        string? value = null;
+        var model = new RequiredTextInputModel();
 
         // Arrange && Act
-        var cut = Render(@<FluentTextInput @bind-Value="value" />);
+        var cut = Render(@<FluentTextInput @bind-Value="model.Name" />);
 
         // Assert
         Assert.False(cut.Find("fluent-text-input").HasAttribute("name"));
+    }
+
+    [Fact]
+    public void FluentInputText_EditForm_GeneratesNameForField()
+    {
+        var model = new FieldTextInputModel();
+
+        // Arrange && Act
+        var cut = Render(@<EditForm Model="@model">
+            <FluentTextInput @bind-Value="model.Email" />
+        </EditForm>);
+
+        // Assert
+        Assert.Equal("model.Email", cut.Find("fluent-text-input").GetAttribute("name"));
     }
 
     [Fact]
@@ -612,6 +626,11 @@ expectedAriaLabel)
         public string Name { get; set; } = string.Empty;
 
         public string Alias { get; set; } = string.Empty;
+    }
+
+    private sealed class FieldTextInputModel
+    {
+        public string? Email;
     }
 
     private sealed class RequiredTextInputModel

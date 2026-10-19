@@ -237,7 +237,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     /// <summary />
     protected string? NameValue => Name ?? (CanGenerateName ? NameAttributeValue : null);
 
-    private bool CanGenerateName => HasExplicitValueExpression &&
+    private bool CanGenerateName => EditContext is not null &&
                                     ValueExpression?.Body is not MemberExpression { Expression: ConstantExpression { Value: IFluentField } } &&
                                     !string.IsNullOrEmpty(NameAttributeValue);
 
