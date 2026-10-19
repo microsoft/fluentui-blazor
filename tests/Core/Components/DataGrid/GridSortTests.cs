@@ -323,6 +323,39 @@ public class GridSortTests : Bunit.BunitContext
         Assert.True(ordered.Select(x => x.Number).SequenceEqual([4, 6, 5, 1, 3, 2]));
     }
 
+    [Theory]
+    [InlineData(true, new int[] { 1, 3, 2, 4 })]
+    [InlineData(false, new int[] { 3, 1, 4, 2 })]
+    public void GridSortTests_ApplyThen_ByAscendingWithComparer_AppendsTheSort(bool ascending, IList<int> expected)
+    {
+        var sort = GridSort<GridRow>.ByAscending(x => x.Number, Comparer<int>.Default);
+        var ordered = sort.ApplyThen(_gridData.AsQueryable().OrderBy(x => x.Group), ascending);
+
+        Assert.Equal(expected, ordered.Select(x => x.Number));
+    }
+
+    [Theory]
+    [InlineData(true, new int[] { 3, 1, 4, 2 })]
+    [InlineData(false, new int[] { 1, 3, 2, 4 })]
+    public void GridSortTests_ApplyThen_ByDescending_AppendsTheSort(bool ascending, IList<int> expected)
+    {
+        var sort = GridSort<GridRow>.ByDescending(x => x.Number);
+        var ordered = sort.ApplyThen(_gridData.AsQueryable().OrderBy(x => x.Group), ascending);
+
+        Assert.Equal(expected, ordered.Select(x => x.Number));
+    }
+
+    [Theory]
+    [InlineData(true, new int[] { 3, 1, 4, 2 })]
+    [InlineData(false, new int[] { 1, 3, 2, 4 })]
+    public void GridSortTests_ApplyThen_ByDescendingWithComparer_AppendsTheSort(bool ascending, IList<int> expected)
+    {
+        var sort = GridSort<GridRow>.ByDescending(x => x.Number, Comparer<int>.Default);
+        var ordered = sort.ApplyThen(_gridData.AsQueryable().OrderBy(x => x.Group), ascending);
+
+        Assert.Equal(expected, ordered.Select(x => x.Number));
+    }
+
     [Fact]
     public void HierarchicalSortHelper_EmptySortedQuery_ReturnsOriginalQuery()
     {
@@ -368,6 +401,38 @@ public class GridSortTests : Bunit.BunitContext
 
         Assert.Equal([1, 3, 2], result.Select(item => item.Number));
         Assert.Equal(3, result.Count);
+    }
+
+    [Fact]
+    public void HierarchicalSortHelper_OrphanItem_AppendsItAfterTheRootHierarchy()
+    {
+        var root = new HierarchicalGridRow(1, "A", 0);
+        var child = new HierarchicalGridRow(2, "B", 1);
+        var orphan = new HierarchicalGridRow(3, "C", 1);
+        root.ChildRows.Add(child);
+        var items = new[] { orphan, child, root }.AsQueryable();
+
+        var result = HierarchicalSortHelper.RestoreHierarchyOrder(items, items.OrderBy(item => item.Number));
+
+        Assert.Equal([1, 2, 3], result.Select(item => item.Number));
+    }
+
+    [Fact]
+    public void HierarchicalSortHelper_AppendSortedHierarchy_WithFlatItem_SkipsItsChildren()
+    {
+        var method = typeof(HierarchicalSortHelper).GetMethod(
+            "AppendSortedHierarchy",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!
+            .MakeGenericMethod(typeof(object));
+        IReadOnlyList<object> siblings = ["flat"];
+        var visibleItems = new HashSet<object>(siblings);
+        var orderedItems = new List<object>();
+        var orderedItemsSet = new HashSet<object>();
+        IReadOnlyDictionary<object, int> itemOrder = new Dictionary<object, int> { ["flat"] = 0 };
+
+        method.Invoke(null, [siblings, visibleItems, orderedItems, orderedItemsSet, itemOrder]);
+
+        Assert.Equal(siblings, orderedItems);
     }
 
     [Fact]

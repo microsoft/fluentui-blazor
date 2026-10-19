@@ -1,0 +1,28 @@
+<FluentMultiSplitter Height="150px"
+                     Style="border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);">
+    <FluentMultiSplitterPane @bind-Size="LeftSize"
+                             Min="50px">
+        Left: @LeftSize
+    </FluentMultiSplitterPane>
+    <FluentMultiSplitterPane @bind-Size="RightSize">
+        Right: @RightSize
+    </FluentMultiSplitterPane>
+</FluentMultiSplitter>
+
+<FluentButton OnClick="@ResetLayout"
+              Appearance="ButtonAppearance.Primary"
+              Margin="@Margin.Vertical2">
+    Reset layout (25% / 75%)
+</FluentButton>
+
+@code
+{
+    string? LeftSize = "20%";
+    string? RightSize = "80%";
+
+    void ResetLayout()
+    {
+        LeftSize = "25%";
+        RightSize = "75%";
+    }
+}

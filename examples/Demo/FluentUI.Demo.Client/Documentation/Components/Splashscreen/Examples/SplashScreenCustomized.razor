@@ -1,0 +1,25 @@
+@inject IDialogService DialogService
+
+<FluentButton OnClick="@ShowSplashScreenAsync"
+              Appearance="ButtonAppearance.Primary">Show (6 secondes)</FluentButton>
+
+@code
+{
+    private async Task ShowSplashScreenAsync()
+    {
+        var splash = await DialogService.ShowSplashScreenAsync<Dialog.SplashScreenDialog>(options =>
+        {
+            options.Width = "400px";
+            options.SplashScreen.LoadingText = "Loading...";
+        });
+
+        await Task.Delay(2000);
+        await splash.UpdateAsync(options => options.LoadingText = "Almost ready...");
+
+        await Task.Delay(2000);
+        await splash.UpdateAsync(options => options.LoadingText = "Again almost ready...");
+
+        await Task.Delay(2000);
+        await splash.CloseAsync();
+    }
+}

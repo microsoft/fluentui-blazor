@@ -48,6 +48,7 @@ public class DialogInstance : IDialogInstance
     public DialogOptions Options { get; internal set; }
 
     /// <inheritdoc cref="IDialogInstance.Result"/>
+    [SuppressMessage("Usage", "VSTHRD003:Avoid awaiting foreign Tasks", Justification = "Not awaiting the task here, just exposing it.")]
     public Task<DialogResult> Result => ResultCompletion.Task;
 
     /// <inheritdoc cref="IDialogInstance.Id"/>"

@@ -13,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentMultiSplitterPane : FluentComponentBase
 {
+    private string? _previousSize;
+
     /// <summary />
     public FluentMultiSplitterPane(LibraryConfiguration configuration) : base(configuration)
     {
@@ -74,11 +76,18 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     public bool Resizable { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the initial size of the pane as a CSS value (e.g., <c>Size="200px"</c> or <c>Size="30%"</c>).
+    /// Gets or sets the size of the pane as a CSS value (e.g., <c>Size="200px"</c> or <c>Size="30%"</c>).
     /// When omitted, remaining space is distributed equally among unsized panes.
+    /// Supports two-way binding. User resizing reports the new size as a percentage.
     /// </summary>
     [Parameter]
     public string? Size { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback invoked when the user resizes the pane.
+    /// </summary>
+    [Parameter]
+    public EventCallback<string?> SizeChanged { get; set; }
 
     /// <summary />
     internal int Index { get; set; }
@@ -163,6 +172,18 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
         Splitter?.AddPane(this);
     }
 
+    /// <inheritdoc />
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (!string.Equals(Size, _previousSize, StringComparison.Ordinal))
+        {
+            SizeRuntime = string.Empty;
+            _previousSize = Size;
+        }
+    }
+
     /// <summary>
     /// Disposes the component and removes it from the splitter.
     /// </summary>
@@ -185,6 +206,19 @@ public partial class FluentMultiSplitterPane : FluentComponentBase
     internal void Refresh()
     {
         StateHasChanged();
+    }
+
+    /// <summary />
+    internal async Task SetSizeAsync(string size)
+    {
+        SizeRuntime = size;
+
+        if (SizeChanged.HasDelegate)
+        {
+            await SizeChanged.InvokeAsync(size);
+        }
+
+        Refresh();
     }
 
     /// <summary />

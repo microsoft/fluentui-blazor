@@ -1,0 +1,12 @@
+<FluentDialogBody>
+    <FluentStack Orientation="Orientation.Vertical"
+                 HorizontalAlignment="HorizontalAlignment.Center">
+        <FluentSpinner />
+        <FluentText>@SplashScreen.LoadingText</FluentText>
+    </FluentStack>
+</FluentDialogBody>
+
+@code {
+    [Parameter]
+    public required SplashScreenContent SplashScreen { get; set; }
+}
