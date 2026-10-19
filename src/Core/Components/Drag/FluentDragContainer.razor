@@ -4,6 +4,7 @@
 @attribute [CascadingTypeParameter(nameof(TItem))]
 
 <div id="@Id"
+	 data-drag-group="@Group?.Id"
 	 @attributes="@AdditionalAttributes"
 	 class="@ClassValue"
 	 style="@StyleValue">
