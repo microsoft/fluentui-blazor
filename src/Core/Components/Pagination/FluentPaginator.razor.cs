@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Infrastructure;
 
@@ -96,8 +97,13 @@ public partial class FluentPaginator : FluentComponentBase
 
     private Task GoLastAsync() => GoToPageAsync(State.LastPageIndex.GetValueOrDefault(0));
 
+    private string? PageStatusAnnouncement => ReferenceEquals(State.CurrentPageChangedBy, this)
+        ? string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Paginator_Status], State.CurrentPageIndex + 1, State.LastPageIndex + 1)
+        : null;
+
     private async Task GoToPageAsync(int pageIndex)
     {
+        State.CurrentPageChangedBy = this;
         await State.SetCurrentPageIndexAsync(pageIndex);
         if (CurrentPageIndexChanged.HasDelegate)
         {

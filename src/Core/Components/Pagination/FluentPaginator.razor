@@ -39,7 +39,7 @@
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft())" />
-            <div class="pagination-text" role="status" aria-live="polite">
+            <div class="pagination-text">
                 @if (PaginationTextTemplate is not null)
                 {
                     @PaginationTextTemplate
@@ -61,5 +61,6 @@
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoLastPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronDoubleRight())" />
         </nav>
+        <div page-status role="status" aria-live="polite">@PageStatusAnnouncement</div>
     }
 </div>
