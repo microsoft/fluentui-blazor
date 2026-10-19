@@ -162,6 +162,43 @@ public class InputBaseTests : Bunit.BunitContext
         Assert.Equal("Account name, Required", invocation.Arguments[3]);
     }
 
+    [Fact]
+    public void InputBase_Autofocus_FocusesInputAfterFirstRender()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = Render<FluentTextInput>(parameters => parameters
+            .Add(p => p.Id, "my-input")
+            .Add(p => p.Autofocus, true));
+
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.focus");
+        Assert.Equal("my-input", invocation.Arguments[0]);
+    }
+
+    [Fact]
+    public void InputBase_Autofocus_FocusesCheckboxAfterFirstRender()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = Render<FluentCheckbox>(parameters => parameters
+            .Add(p => p.Id, "my-checkbox")
+            .Add(p => p.Autofocus, true));
+
+        var invocation = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.focus");
+        Assert.Equal("my-checkbox", invocation.Arguments[0]);
+    }
+
+    [Fact]
+    public void InputBase_WithoutAutofocus_DoesNotFocusInput()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var cut = Render<FluentTextInput>(parameters => parameters
+            .Add(p => p.Id, "my-input"));
+
+        JSInterop.VerifyNotInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.focus");
+    }
+
     private static (bool Before, bool After) VerifyLostFocus(IRenderedComponent<DynamicComponent> component)
     {
         try

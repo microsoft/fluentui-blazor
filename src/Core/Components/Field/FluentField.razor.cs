@@ -222,12 +222,15 @@ public partial class FluentField : FluentComponentBase, IFluentField
                 var ariaLabel = GetControlAriaLabel();
                 var targetId = GetId("input");
 
-                if (string.IsNullOrEmpty(targetId) || string.IsNullOrEmpty(ariaLabel))
+                if (!string.IsNullOrEmpty(targetId) && !string.IsNullOrEmpty(ariaLabel))
                 {
-                    return;
+                    await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", targetId, ".control", "aria-label", ariaLabel);
                 }
+            }
 
-                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", targetId, ".control", "aria-label", ariaLabel);
+            if (InputComponent is IFluentControlAutofocus { Autofocus: true })
+            {
+                await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.focus", GetId("input"));
             }
         }
     }

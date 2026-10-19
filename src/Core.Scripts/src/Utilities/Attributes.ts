@@ -102,6 +102,11 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     return reportValidityMethod.call(element);
   }
 
+  export function focus(elementOrId: HTMLElement | string): void {
+    const element = typeof elementOrId === 'string' ? document.getElementById(elementOrId) : elementOrId;
+    element?.focus();
+  }
+
   /**
   * Observe the change in the HTML `attributeName` attribute to update the element's `propertyName` JavaScript property.
   * @param element The element to observe.
