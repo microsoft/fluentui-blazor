@@ -14,7 +14,6 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTabs : FluentComponentBase
 {
-    private string? _pendingActiveTabId;
     private bool _overflowInitialized;
     private bool? _previousOverflowValue;
     private bool _refreshOverflowAfterRender;
@@ -40,6 +39,9 @@ public partial class FluentTabs : FluentComponentBase
 
     /// <summary />
     private string? ActiveTabIdAttribute { get; set; }
+
+    /// <summary />
+    private int ActiveTabIdVersion { get; set; }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -162,14 +164,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
-        var activeTabId = ActiveTabId ?? ActiveTab?.Id;
-        if (string.Equals(activeTabId, ActiveTabIdAttribute, StringComparison.Ordinal))
-        {
-            return;
-        }
-
-        _pendingActiveTabId = ActiveTabIdAttribute is null ? null : activeTabId;
-        ActiveTabIdAttribute = activeTabId;
+        SetActiveTabIdAttributeFromServer(ActiveTabId ?? ActiveTab?.Id);
     }
 
     /// <summary />
@@ -262,7 +257,7 @@ public partial class FluentTabs : FluentComponentBase
                 {
                     ActiveTab = firstTab;
                     ActiveTabId = firstTabId;
-                    ActiveTabIdAttribute = firstTabId;
+                    SetActiveTabIdAttributeFromServer(firstTabId);
 
                     if (ActiveTabChanged.HasDelegate)
                     {
@@ -293,15 +288,9 @@ public partial class FluentTabs : FluentComponentBase
             return;
         }
 
-        if (_pendingActiveTabId is not null)
+        if (args.ActiveIdVersion is not null && args.ActiveIdVersion != ActiveTabIdVersion)
         {
-            var isPendingTab = string.Equals(args.ActiveId, _pendingActiveTabId, StringComparison.Ordinal);
-            if (!isPendingTab && Tabs.Any(t => t.Visible && !t.Disabled && string.Equals(t.Id, _pendingActiveTabId, StringComparison.Ordinal)))
-            {
-                return;
-            }
-
-            _pendingActiveTabId = null;
+            return;
         }
 
         // Search for the tab
@@ -316,7 +305,7 @@ public partial class FluentTabs : FluentComponentBase
     public async Task SelectTabAsync(string tabId)
     {
         var tab = Tabs.FirstOrDefault(t => t.Visible && !t.Disabled && string.Equals(t.Id, tabId, StringComparison.Ordinal));
-        if (await SetActiveTabAsync(tab, waitForClient: true))
+        if (await SetActiveTabAsync(tab, fromServer: true))
         {
             await InvokeAsync(StateHasChanged);
         }
@@ -358,7 +347,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Sets the specified tab as the active tab.
     /// </summary>
-    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool waitForClient = false)
+    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool fromServer = false)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
         {
@@ -372,14 +361,18 @@ public partial class FluentTabs : FluentComponentBase
             return false;
         }
 
-        if (waitForClient && !string.Equals(ActiveTabIdAttribute, tab.Id, StringComparison.Ordinal))
-        {
-            _pendingActiveTabId = tab.Id;
-        }
-
         ActiveTabId = tab.Id;
         ActiveTab = tab;
-        ActiveTabIdAttribute = tab.Id;
+
+        if (fromServer)
+        {
+            SetActiveTabIdAttributeFromServer(tab.Id);
+        }
+        else
+        {
+            ActiveTabIdAttribute = tab.Id;
+        }
+
         _refreshOverflowAfterRender = Overflow;
 
         if (activeTabIdChanged && ActiveTabIdChanged.HasDelegate)
@@ -393,6 +386,16 @@ public partial class FluentTabs : FluentComponentBase
         }
 
         return true;
+    }
+
+    /// <summary />
+    private void SetActiveTabIdAttributeFromServer(string? tabId)
+    {
+        if (!string.Equals(ActiveTabIdAttribute, tabId, StringComparison.Ordinal))
+        {
+            ActiveTabIdAttribute = tabId;
+            ActiveTabIdVersion++;
+        }
     }
 
     /// <summary>

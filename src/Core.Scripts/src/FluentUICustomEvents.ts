@@ -131,6 +131,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         return {
           id: event.target.id,
           activeid: event.detail?.id,
+          activeIdVersion: Number(event.target.getAttribute('activeid-version')) || 0,
         };
       }
     });

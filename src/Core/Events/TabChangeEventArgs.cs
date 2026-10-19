@@ -20,4 +20,9 @@ public class TabChangeEventArgs : EventArgs
     /// Gets or sets new active tab ID.
     /// </summary>
     public string? ActiveId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the version of the active tab ID rendered by the server when the event was raised.
+    /// </summary>
+    public int? ActiveIdVersion { get; set; }
 }
