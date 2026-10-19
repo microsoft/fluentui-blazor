@@ -181,6 +181,74 @@
 	}
 
 	[Fact]
+	public async Task FluentSortableList_OnGrabJS_AnnouncesPosition()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" Items="items">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act - Grab the third item
+		await cut.InvokeAsync(() => sortableList!.OnGrabJS(2, grabbed: true));
+
+		// Assert
+		Assert.Equal("Grabbed, position 3 of 10", cut.Find("[sortable-status]").TextContent);
+
+		// Act - Release it
+		await cut.InvokeAsync(() => sortableList!.OnGrabJS(2, grabbed: false));
+
+		// Assert
+		Assert.Equal("Dropped, position 3 of 10", cut.Find("[sortable-status]").TextContent);
+	}
+
+	[Fact]
+	public async Task FluentSortableList_OnUpdateJSAsync_AnnouncesNewPosition()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.ToList();
+
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act
+		await cut.InvokeAsync(() => sortableList!.OnUpdateJSAsync(0, 3, "list", "list"));
+		cut.FindComponent<FluentSortableList<Item>>().Render();
+
+		// Assert
+		Assert.Equal("Moved to position 4 of 10", cut.Find("[sortable-status]").TextContent);
+	}
+
+	[Fact]
+	public async Task FluentSortableList_OnAddJSAsync_AnnouncesNewPosition()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.Take(3).ToList();
+
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		// Act
+		var newItem = new Item { Id = 99, Name = "New Item" };
+		await cut.InvokeAsync(() => sortableList!.OnAddJSAsync(0, 0, "fromList", "list", newItem));
+		cut.FindComponent<FluentSortableList<Item>>().Render();
+
+		// Assert
+		Assert.Equal("Moved to position 1 of 4", cut.Find("[sortable-status]").TextContent);
+	}
+
+	[Fact]
 	public void FluentSortableList_GetItemJS()
 	{
 		// Arrange

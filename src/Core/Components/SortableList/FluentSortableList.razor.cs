@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -16,6 +17,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
 {
     private ElementReference? _element;
     private DotNetObjectReference<FluentSortableList<TItem>>? _selfReference;
+    private string? _statusAnnouncement;
 
     /// <summary />
     public FluentSortableList(LibraryConfiguration configuration) : base(configuration)
@@ -155,6 +157,19 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
     }
 
     /// <summary>
+    /// Invoked from JavaScript when an item is grabbed or released with the keyboard.
+    /// </summary>
+    [JSInvokable]
+    public void OnGrabJS(int index, bool grabbed)
+    {
+        _statusAnnouncement = Localizer[
+            grabbed ? LanguageResource.SortableList_ItemGrabbed : LanguageResource.SortableList_ItemDropped,
+            index + 1,
+            Items?.Count() ?? 0];
+        StateHasChanged();
+    }
+
+    /// <summary>
     /// Invoked from JavaScript when an item is updated.
     /// </summary>
     [JSInvokable]
@@ -167,6 +182,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
             list.RemoveAt(oldIndex);
             list.Insert(newIndex, item);
             Items = list;
+            _statusAnnouncement = Localizer[LanguageResource.SortableList_ItemMoved, newIndex + 1, list.Count];
             if (ItemsChanged.HasDelegate)
             {
                 await ItemsChanged.InvokeAsync(Items);
@@ -190,6 +206,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
             var list = Items.ToList();
             list.Insert(newIndex, item);
             Items = list;
+            _statusAnnouncement = Localizer[LanguageResource.SortableList_ItemMoved, newIndex + 1, list.Count];
             if (ItemsChanged.HasDelegate)
             {
                 await ItemsChanged.InvokeAsync(Items);
