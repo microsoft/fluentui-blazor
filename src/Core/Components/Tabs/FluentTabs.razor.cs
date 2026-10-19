@@ -168,10 +168,8 @@ public partial class FluentTabs : FluentComponentBase
             return;
         }
 
+        _pendingActiveTabId = ActiveTabIdAttribute is null ? null : activeTabId;
         ActiveTabIdAttribute = activeTabId;
-        _pendingActiveTabId = Tabs.Any(t => t.Visible && !t.Disabled && string.Equals(t.Id, activeTabId, StringComparison.Ordinal))
-                            ? activeTabId
-                            : null;
     }
 
     /// <summary />
@@ -297,12 +295,13 @@ public partial class FluentTabs : FluentComponentBase
 
         if (_pendingActiveTabId is not null)
         {
-            if (string.Equals(args.ActiveId, _pendingActiveTabId, StringComparison.Ordinal))
+            var isPendingTab = string.Equals(args.ActiveId, _pendingActiveTabId, StringComparison.Ordinal);
+            if (!isPendingTab && Tabs.Any(t => t.Visible && !t.Disabled && string.Equals(t.Id, _pendingActiveTabId, StringComparison.Ordinal)))
             {
-                _pendingActiveTabId = null;
+                return;
             }
 
-            return;
+            _pendingActiveTabId = null;
         }
 
         // Search for the tab
@@ -317,9 +316,8 @@ public partial class FluentTabs : FluentComponentBase
     public async Task SelectTabAsync(string tabId)
     {
         var tab = Tabs.FirstOrDefault(t => t.Visible && !t.Disabled && string.Equals(t.Id, tabId, StringComparison.Ordinal));
-        if (await SetActiveTabAsync(tab))
+        if (await SetActiveTabAsync(tab, waitForClient: true))
         {
-            _pendingActiveTabId = tab?.Id;
             await InvokeAsync(StateHasChanged);
         }
     }
@@ -360,7 +358,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Sets the specified tab as the active tab.
     /// </summary>
-    private async Task<bool> SetActiveTabAsync(FluentTab? tab)
+    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool waitForClient = false)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
         {
@@ -372,6 +370,11 @@ public partial class FluentTabs : FluentComponentBase
         if (!activeTabIdChanged && !activeTabChanged)
         {
             return false;
+        }
+
+        if (waitForClient && !string.Equals(ActiveTabIdAttribute, tab.Id, StringComparison.Ordinal))
+        {
+            _pendingActiveTabId = tab.Id;
         }
 
         ActiveTabId = tab.Id;
