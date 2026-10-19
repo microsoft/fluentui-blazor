@@ -1,0 +1,62 @@
+name: AI Contribution Declaration
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  Declaration:
+    name: AI contribution declaration
+    runs-on: ubuntu-latest
+
+    steps:
+      # Read CODEOWNERS from the target branch so a PR cannot grant its author an exemption.
+      # Only this file is checked out; no pull request code is checked out or executed.
+      - name: Read CODEOWNERS from the target branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          sparse-checkout: .github/CODEOWNERS
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      # Exempt individual users in the last global '*' rule (line in CODEOWNERS), matching the PR author case-insensitively.
+      # For other authors, fail unless both declarations are checked in the PR description.
+      - name: Verify required declarations
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+          const codeowners = fs.readFileSync('.github/CODEOWNERS', 'utf8');
+          let globalOwners = [];
+
+          for (const line of codeowners.split(/\r?\n/)) {
+            const [pattern, ...owners] = line.split('#')[0].trim().split(/\s+/);
+            if (pattern === '*') {
+              globalOwners = owners.filter(owner => /^@[a-z\d-]+$/i.test(owner)).map(owner => owner.slice(1).toLowerCase());
+            }
+          }
+
+          if (globalOwners.includes(event.pull_request.user.login.toLowerCase())) {
+            console.log('The pull request author is a global code owner; declaration check is exempted.');
+          } else {
+            const body = (event.pull_request.body ?? '').replace(/<!--[\s\S]*?-->/g, '');
+            const declarations = [
+              'I have read and followed the AI contribution policy.',
+              'I have personally reviewed and understood all changes, tested them, and take responsibility for this contribution.'
+            ];
+            const checked = new Set(body.split(/\r?\n/).map(line => line.trim().match(/^- \[[xX]\] (.+)$/)?.[1]));
+            const missing = declarations.filter(declaration => !checked.has(declaration));
+
+            if (missing.length > 0) {
+              console.error('::error::A human contributor must complete both required checkboxes in the AI contribution declaration section of the pull request description.');
+              process.exitCode = 1;
+            } else {
+              console.log('Both required contribution declarations are checked.');
+            }
+          }
+          NODE
