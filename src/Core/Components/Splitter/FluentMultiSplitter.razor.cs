@@ -153,8 +153,7 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
             }
         }
 
-        pane.SizeRuntime = sizeNew.ToString("0.00", CultureInfo.InvariantCulture) + "%";
-        pane.Refresh();
+        await pane.SetSizeAsync(sizeNew.ToString("0.00", CultureInfo.InvariantCulture) + "%");
 
         // Next panel
         if (paneNextIndex.HasValue)
@@ -172,8 +171,9 @@ public partial class FluentMultiSplitter : FluentComponentBase, IFluentComponent
                 // cancel omitted because it is managed by the parent panel
             }
 
-            paneNext.SizeRuntime = sizeNextNew?.ToString("0.00", CultureInfo.InvariantCulture) + "%" ?? string.Empty;
-            paneNext.Refresh();
+            await paneNext.SetSizeAsync(sizeNextNew.HasValue
+                ? sizeNextNew.Value.ToString("0.00", CultureInfo.InvariantCulture) + "%"
+                : string.Empty);
         }
     }
 
