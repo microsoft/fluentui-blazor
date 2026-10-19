@@ -20,6 +20,7 @@ public class DebounceTests
     [Fact]
     public async Task Debounce_Default()
     {
+        const int timerResolution = 16;
         var debounce = new Debounce();
 
         // Arrange
@@ -37,7 +38,7 @@ public class DebounceTests
 
         // Assert
         Assert.True(debounce.IsCompleted);
-        Assert.True(watcher.ElapsedMilliseconds >= 50);
+        Assert.True(watcher.ElapsedMilliseconds >= 50 - timerResolution);
         Assert.True(actionCalled);
     }
 
