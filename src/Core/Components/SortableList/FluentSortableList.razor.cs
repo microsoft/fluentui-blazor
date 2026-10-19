@@ -230,6 +230,7 @@ public partial class FluentSortableList<TItem> : FluentComponentBase
             var list = Items.ToList();
             list.RemoveAt(oldIndex);
             Items = list;
+            _statusAnnouncement = null;
             if (ItemsChanged.HasDelegate)
             {
                 await ItemsChanged.InvokeAsync(Items);

@@ -249,6 +249,39 @@
 	}
 
 	[Fact]
+	public async Task FluentSortableList_MovedBackAndForth_AnnouncesEachArrival()
+	{
+		// Arrange
+		FluentSortableList<Item>? sortableList = null;
+		IEnumerable<Item> testItems = items.Take(3).ToList();
+		var newItem = new Item { Id = 99, Name = "New Item" };
+
+		var cut = Render(@<FluentSortableList @ref="sortableList" Id="list" @bind-Items="testItems">
+			<ItemTemplate>
+				<div class="sortable-item">@context.Name</div>
+			</ItemTemplate>
+		</FluentSortableList>);
+
+		var announcements = new List<string>();
+
+		// Act - The item arrives, leaves, then arrives again at the same position
+		await cut.InvokeAsync(() => sortableList!.OnAddJSAsync(0, 0, "fromList", "list", newItem));
+		cut.FindComponent<FluentSortableList<Item>>().Render();
+		announcements.Add(cut.Find("[sortable-status]").TextContent);
+
+		await cut.InvokeAsync(() => sortableList!.OnRemoveJSAsync(0, 0, "list", "fromList", null));
+		cut.FindComponent<FluentSortableList<Item>>().Render();
+		announcements.Add(cut.Find("[sortable-status]").TextContent);
+
+		await cut.InvokeAsync(() => sortableList!.OnAddJSAsync(0, 0, "fromList", "list", newItem));
+		cut.FindComponent<FluentSortableList<Item>>().Render();
+		announcements.Add(cut.Find("[sortable-status]").TextContent);
+
+		// Assert
+		Assert.Equal(["Moved to position 1 of 4", "", "Moved to position 1 of 4"], announcements);
+	}
+
+	[Fact]
 	public void FluentSortableList_GetItemJS()
 	{
 		// Arrange
