@@ -11,6 +11,7 @@
     <fluent-checkbox @ref="@Element"
                      aria-label="@AriaLabel"
                      autofocus="@Autofocus"
+                     value="@bool.TrueString"
                      checked="@(_checked ? "true" : null)"
                      disabled="@Disabled"
                      indeterminate="@(_indeterminate ? "true" : null)"
@@ -26,6 +27,5 @@
                      @onclick:preventDefault="@ReadOnly"
                      @attributes="@AdditionalAttributes"
                      @onchange="@OnCheckChangedHandlerAsync"
-                     value = "@bool.TrueString"
                      slot="@FluentSlot.FieldInput" />
 </FluentField>

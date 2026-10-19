@@ -11,6 +11,17 @@
     }
 
     [Fact]
+    public void FluentSwitch_Checked_RendersValueBeforeChecked()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch Value="true" />);
+
+        // Assert
+        var attributes = cut.Find("fluent-switch").Attributes.Select(attribute => attribute.Name).ToList();
+        Assert.True(attributes.IndexOf("value") < attributes.IndexOf("checked"));
+    }
+
+    [Fact]
     public void FluentSwitch_Required_UncheckedFocusOut_ShowsDefaultRequiredMessage()
     {
         var cut = Render(@<FluentSwitch Label="Test label" Required="true" />);

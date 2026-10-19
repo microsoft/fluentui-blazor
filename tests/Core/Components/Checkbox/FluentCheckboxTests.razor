@@ -17,6 +17,17 @@
     }
 
     [Fact]
+    public void FluentCheckbox_Checked_RendersValueBeforeChecked()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCheckbox Value="true" />);
+
+        // Assert
+        var attributes = cut.Find("fluent-checkbox").Attributes.Select(attribute => attribute.Name).ToList();
+        Assert.True(attributes.IndexOf("value") < attributes.IndexOf("checked"));
+    }
+
+    [Fact]
     public void FluentCheckbox_Required_FocusOut_ShowsDefaultRequiredMessage()
     {
         var cut = Render(@<FluentCheckbox Label="Test label" Required="true" />);
