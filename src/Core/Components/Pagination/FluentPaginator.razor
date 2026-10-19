@@ -39,7 +39,7 @@
                           Title="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           aria-label="@Localizer[Localization.LanguageResource.Paginator_GoPreviousPage]"
                           IconStart="@(new CoreIcons.Regular.Size20.ChevronLeft())" />
-            <div class="pagination-text">
+            <div class="pagination-text" role="status" aria-live="polite">
                 @if (PaginationTextTemplate is not null)
                 {
                     @PaginationTextTemplate

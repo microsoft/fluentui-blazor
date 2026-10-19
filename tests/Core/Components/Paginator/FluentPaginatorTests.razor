@@ -302,6 +302,24 @@
     }
 
     [Fact]
+    public async Task FluentPaginator_PaginationText_IsAnnouncedWhenPageChanges()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(20);
+        var cut = Render(@<FluentPaginator State="@state" />);
+        var status = cut.Find(".pagination-text");
+
+        // Act
+        await cut.FindAll(".paginator-nav fluent-button")[2].ClickAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.Equal("status", status.GetAttribute("role"));
+        Assert.Equal("polite", status.GetAttribute("aria-live"));
+        Assert.Equal(IFluentLocalizer.GetDefault("Paginator_Status", 2, 2), cut.Find(".pagination-text").TextContent.Trim());
+    }
+
+    [Fact]
     public async Task FluentPaginator_NextButton_NavigatesToNextPage()
     {
         // Arrange
