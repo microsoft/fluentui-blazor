@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTabs : FluentComponentBase
 {
+    private string? _pendingActiveTabId;
     private bool _overflowInitialized;
     private bool? _previousOverflowValue;
     private bool _refreshOverflowAfterRender;
@@ -161,7 +162,16 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
-        ActiveTabIdAttribute = ActiveTabId ?? ActiveTab?.Id;
+        var activeTabId = ActiveTabId ?? ActiveTab?.Id;
+        if (string.Equals(activeTabId, ActiveTabIdAttribute, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        ActiveTabIdAttribute = activeTabId;
+        _pendingActiveTabId = Tabs.Any(t => t.Visible && !t.Disabled && string.Equals(t.Id, activeTabId, StringComparison.Ordinal))
+                            ? activeTabId
+                            : null;
     }
 
     /// <summary />
@@ -285,6 +295,16 @@ public partial class FluentTabs : FluentComponentBase
             return;
         }
 
+        if (_pendingActiveTabId is not null)
+        {
+            if (string.Equals(args.ActiveId, _pendingActiveTabId, StringComparison.Ordinal))
+            {
+                _pendingActiveTabId = null;
+            }
+
+            return;
+        }
+
         // Search for the tab
         var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
         await SetActiveTabAsync(tab);
@@ -299,6 +319,7 @@ public partial class FluentTabs : FluentComponentBase
         var tab = Tabs.FirstOrDefault(t => t.Visible && !t.Disabled && string.Equals(t.Id, tabId, StringComparison.Ordinal));
         if (await SetActiveTabAsync(tab))
         {
+            _pendingActiveTabId = tab?.Id;
             await InvokeAsync(StateHasChanged);
         }
     }
