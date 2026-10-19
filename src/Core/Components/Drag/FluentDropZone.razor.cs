@@ -152,6 +152,12 @@ public partial class FluentDropZone<TItem> : FluentComponentBase
                 Target = this,
             });
         }
+
+        // A drag cancelled (Escape, dropped outside a target) never reaches DropAsync.
+        if (ReferenceEquals(Container.StartedZone, this))
+        {
+            Container.SetStartedZone(value: null);
+        }
     }
 
     /// <summary />
