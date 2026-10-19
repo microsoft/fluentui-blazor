@@ -1066,5 +1066,38 @@
         tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab2"));
         Assert.Equal("tab2", tabList.GetAttribute("activeid"));
     }
+
+    [Fact]
+    public async Task FluentTabs_ConsecutiveRenders_PreservesClientMarkerUntilParameterChanges()
+    {
+        string? activeTabId = "tab1";
+
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Tab 1" />
+            <FluentTab Id="tab2" Header="Tab 2" />
+        </FluentTabs>);
+
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+
+        // Client changes to tab2
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+        Assert.Equal("tab2", activeTabId);
+
+        // Multiple parent re-renders with current bound value tab2
+        tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab2"));
+        tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab2"));
+
+        // activeid should remain tab2
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+
+        // When parent programmatically selects tab1
+        tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab1"));
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
+    }
 }
 

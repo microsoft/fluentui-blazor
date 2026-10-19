@@ -163,11 +163,8 @@ public partial class FluentTabs : FluentComponentBase
     protected override void OnParametersSet()
     {
         var activeTabId = ActiveTabId ?? ActiveTab?.Id;
-        if (_clientActiveTabId is not null &&
-            string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal) &&
-            string.Equals(ActiveTabIdAttribute, activeTabId, StringComparison.Ordinal))
+        if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
         {
-            _clientActiveTabId = null;
             return;
         }
 
@@ -301,10 +298,8 @@ public partial class FluentTabs : FluentComponentBase
 
         // Search for the tab
         var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
-        if (await SetActiveTabAsync(tab))
-        {
-            _clientActiveTabId = tab?.Id;
-        }
+        _clientActiveTabId = tab?.Id;
+        await SetActiveTabAsync(tab, isClientSelection: true);
     }
 
     /// <summary>
@@ -314,7 +309,8 @@ public partial class FluentTabs : FluentComponentBase
     public async Task SelectTabAsync(string tabId)
     {
         var tab = Tabs.FirstOrDefault(t => t.Visible && !t.Disabled && string.Equals(t.Id, tabId, StringComparison.Ordinal));
-        if (await SetActiveTabAsync(tab))
+        _clientActiveTabId = null;
+        if (await SetActiveTabAsync(tab, isClientSelection: false))
         {
             await InvokeAsync(StateHasChanged);
         }
@@ -356,7 +352,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Sets the specified tab as the active tab.
     /// </summary>
-    private async Task<bool> SetActiveTabAsync(FluentTab? tab)
+    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool isClientSelection = false)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
         {
@@ -370,7 +366,11 @@ public partial class FluentTabs : FluentComponentBase
             return false;
         }
 
-        _clientActiveTabId = null;
+        if (!isClientSelection)
+        {
+            _clientActiveTabId = null;
+        }
+
         ActiveTabId = tab.Id;
         ActiveTab = tab;
         ActiveTabIdAttribute = tab.Id;
