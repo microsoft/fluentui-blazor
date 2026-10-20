@@ -48,6 +48,15 @@ Please provide a summary of the tests affected by this work and any unique strat
 - [ ] I have updated the project documentation to reflect my changes.
 - [ ] I have read the [CONTRIBUTING](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/contributing.md) documentation and followed the [standards](https://www.fast.design/docs/community/code-of-conduct/#our-standards) for this project.
 
+### AI contribution declaration
+
+<!--- Both declarations are required whether or not AI tools were used, except for global code owners exempted by the policy. Do not remove or change their wording. -->
+
+AI assistance is allowed; fully AI-generated or autonomous pull requests without meaningful human review are not accepted. See the [AI contribution policy](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/contributing.md#ai-contribution-policy).
+
+- [ ] I have read and followed the AI contribution policy.
+- [ ] I have personally reviewed and understood all changes, tested them, and take responsibility for this contribution.
+
 ### Component-specific
 
 <!--- Review the list and put an x in the boxes that apply. -->
