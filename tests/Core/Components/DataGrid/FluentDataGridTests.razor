@@ -3730,6 +3730,45 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_RefreshDataAsync_ForceRefresh_RerenderWhileLoading_CallsRefreshItemsOnce()
+    {
+        // Arrange
+        var refreshCount = 0;
+        var rerenderWhileLoading = false;
+        FluentDataGrid<Customer>? grid = default!;
+        IRenderedComponent<FluentDataGrid<Customer>>? cut = null;
+        Func<GridItemsProviderRequest<Customer>, Task> refreshItems = (request) =>
+        {
+            refreshCount++;
+
+            // Like the RefreshItems docs sample: set Loading and re-render the parent while the data loads.
+            // The limit stops the test from recursing forever if the grid calls RefreshItems again.
+            if (rerenderWhileLoading && refreshCount < 10)
+            {
+                cut!.Render(parameters => parameters.Add(p => p.Loading, true));
+            }
+
+            return Task.CompletedTask;
+        };
+
+        cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" RefreshItems="@refreshItems" Loading="false" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Name)" Title="Name" />
+            </FluentDataGrid>
+        );
+
+        // Initial load
+        Assert.Equal(1, refreshCount);
+
+        // Act
+        rerenderWhileLoading = true;
+        await cut.InvokeAsync(() => grid.RefreshDataAsync(force: true));
+
+        // Assert
+        Assert.Equal(2, refreshCount);
+    }
+
+    [Fact]
     public async Task FluentDataGrid_OnSortChanged_Fires()
     {
         // Arrange

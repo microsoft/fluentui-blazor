@@ -2039,6 +2039,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 if (_forceRefreshData || _lastRequest == null)
                 {
+                    _forceRefreshData = false;
                     _lastRequest = request;
                     await RefreshItems.Invoke(request);
                 }
@@ -2047,12 +2048,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             {
                 if (_forceRefreshData || _lastRequest == null || !_lastRequest.Value.IsSameRequest(request))
                 {
+                    _forceRefreshData = false;
                     _lastRequest = request;
                     await RefreshItems.Invoke(request);
                 }
             }
-
-            _forceRefreshData = false;
         }
 
         var result = await ResolveItemsRequestAsync(request);
