@@ -1,0 +1,56 @@
+@page "/splitbutton/disabled"
+
+<div>
+    Primary clicks: <span data-testid="primary-clicks">@PrimaryClicks</span>,
+    item clicks: <span data-testid="item-clicks">@ItemClicks</span>
+</div>
+
+<FluentButton Id="toggle-disabled" OnClick="@(() => Disabled = !Disabled)">Toggle disabled</FluentButton>
+<FluentButton Id="disable-soon" OnClick="@DisableSoonAsync">Disable in a moment</FluentButton>
+
+<FluentStack HorizontalGap="10" Style="margin-top: 10px;">
+    <FluentSplitButton Id="split" Title="More actions" Label="Save" DisabledFocusable="@Disabled" OnClick="@(() => PrimaryClicks++)">
+        <FluentMenuList>
+            <FluentMenuItem Id="split-item" OnClick="@(() => ItemClicks++)">Save as</FluentMenuItem>
+        </FluentMenuList>
+    </FluentSplitButton>
+
+    <FluentMenu Id="hover-menu" OpenOnHover="true">
+        <FluentMenuButton DisabledFocusable="@Disabled" Label="Hover menu" />
+        <FluentMenuList>
+            <FluentMenuItem>Hover item</FluentMenuItem>
+        </FluentMenuList>
+    </FluentMenu>
+
+    <FluentMenu Id="context-menu" OpenOnContext="true">
+        <FluentMenuButton DisabledFocusable="@Disabled" Label="Context menu" />
+        <FluentMenuList>
+            <FluentMenuItem>Context item</FluentMenuItem>
+        </FluentMenuList>
+    </FluentMenu>
+
+    <FluentButton Id="external-trigger" DisabledFocusable="@Disabled">External trigger</FluentButton>
+    <FluentMenu Id="external-menu" Trigger="external-trigger">
+        <FluentMenuList>
+            <FluentMenuItem>External item</FluentMenuItem>
+        </FluentMenuList>
+    </FluentMenu>
+</FluentStack>
+
+@* Tall enough for the page to scroll, so that a Space key the menu does not consume would show. *@
+<div style="height: 3000px;"></div>
+
+@code
+{
+    private bool Disabled { get; set; } = true;
+
+    private int PrimaryClicks { get; set; }
+
+    private int ItemClicks { get; set; }
+
+    private async Task DisableSoonAsync()
+    {
+        await Task.Delay(1000);
+        Disabled = true;
+    }
+}
