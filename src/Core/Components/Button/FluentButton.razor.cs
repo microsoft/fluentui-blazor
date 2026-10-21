@@ -12,7 +12,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// The FluentButton component allows users to commit a change or trigger an action via a single click or tap and
 /// is often found inside forms, dialogs, drawers (panels) or pages.
 /// </summary>
-public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFluentComponentElementBase
+public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFluentComponentElementBase, IFluentComponentAutofocus
 {
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />
     public ElementReference Element { get; set; }
@@ -42,7 +42,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     /// Gets or sets whether the button should be focused when the page is loaded.
     /// </summary>
     [Parameter]
-    public bool AutoFocus { get; set; } = false;
+    public bool Autofocus { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the id of a form to associate the element to.
@@ -263,6 +263,9 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
         Disabled = disabled;
         StateHasChanged();
     }
+
+    /// <inheritdoc cref="IFluentComponentAutofocus.FocusAsync(bool)"/>
+    public Task FocusAsync(bool preventScroll) => this.FocusElementAsync(preventScroll);
 
     /// <summary />
     private static string RingStyle(Icon icon)

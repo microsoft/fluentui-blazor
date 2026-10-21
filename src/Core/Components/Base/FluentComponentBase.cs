@@ -44,7 +44,7 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
 
     /// <summary />
     [Inject]
-    protected IJSRuntime JSRuntime { get; set; } = default!;
+    protected internal IJSRuntime JSRuntime { get; set; } = default!;
 
     /// <summary />
     [Inject]
