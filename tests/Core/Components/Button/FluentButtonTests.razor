@@ -344,6 +344,48 @@
         Assert.False(clicked);
     }
 
+    [Theory]
+    [InlineData(false, false, false)]
+    [InlineData(true, false, true)]
+    [InlineData(false, true, true)]
+    public void FluentButton_DisabledWithColors_Opacity(bool disabled, bool disabledFocusable, bool expectOpacity)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Disabled="@disabled" DisabledFocusable="@disabledFocusable" BackgroundColor="red" Color="white">My button</FluentButton>);
+
+        // Assert
+        var style = cut.Find("fluent-button").GetAttribute("style") ?? string.Empty;
+        Assert.Equal(expectOpacity, style.Contains("opacity: 0.3"));
+    }
+
+    [Fact]
+    public void FluentButton_OnClick_Loading()
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render(@<FluentButton Loading="true" OnClick="@(e => { clicked = true; })">My button</FluentButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.False(clicked);
+    }
+
+    [Fact]
+    public void FluentButton_OnClick_DisabledFocusable()
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render(@<FluentButton DisabledFocusable="true" OnClick="@(e => { clicked = true; })">My button</FluentButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.False(clicked);
+    }
+
     [Fact]
     public void FluentButton_Title()
     {

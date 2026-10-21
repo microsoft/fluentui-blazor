@@ -1,4 +1,4 @@
-﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Rendering;
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
@@ -12,6 +12,9 @@
                   BackgroundColor="@BackgroundColor"
                   Color="@Color"
                   Name="@Name"
+                  Disabled="@(IsPrimaryActionDisabled && !DisabledFocusable)"
+                  DisabledFocusable="@(IsPrimaryActionDisabled && DisabledFocusable)"
+                  aria-disabled="@AriaDisabled(IsPrimaryActionDisabled)"
                   OnClick="@OnClick"
                   slot="primary-action">
         @Label
@@ -25,7 +28,13 @@
                       Size="@Size"
                       BackgroundColor="@BackgroundColor"
                       Color="@Color"
+                      Disabled="@(IsMenuButtonDisabled && !DisabledFocusable)"
+                      DisabledFocusable="@(IsMenuButtonDisabled && DisabledFocusable)"
+                      aria-disabled="@AriaDisabled(IsMenuButtonDisabled)"
                       aria-label="@Title" />
-    @ChildContent
+    @* The menu items are disabled along with the menu button, in case the menu was open when it got disabled. *@
+    <CascadingValue Name="@FluentMenuItem.MenuDisabledCascadingName" Value="@IsMenuButtonDisabled">
+        @ChildContent
+    </CascadingValue>
 </FluentMenu>
 

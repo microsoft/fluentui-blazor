@@ -7,6 +7,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -17,7 +18,10 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentSplitButton : FluentComponentBase
 {
     /// <summary />
-    public FluentSplitButton(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentSplitButton(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
@@ -48,6 +52,41 @@ public partial class FluentSplitButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the split button is disabled.
+    /// When disabled, neither the primary action nor the menu can be activated.
+    /// Use <see cref="PrimaryActionDisabled"/> or <see cref="MenuButtonDisabled"/> to override this value for one half only.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the split button is disabled yet still reachable via keyboard focus.
+    /// Like <see cref="Disabled"/>, neither the primary action nor the menu can be activated,
+    /// but both halves stay in the tab order (with <c>aria-disabled="true"</c>), so keyboard and screen reader users can still reach them.
+    /// When combined with <see cref="Disabled"/>, the halves remain focusable.
+    /// </summary>
+    [Parameter]
+    public bool DisabledFocusable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the primary action button is disabled.
+    /// When set, this overrides whether <see cref="Disabled"/> and <see cref="DisabledFocusable"/> disable the primary action.
+    /// How a disabled primary action is rendered still follows <see cref="DisabledFocusable"/>: it stays focusable when that is <see langword="true"/>.
+    /// The default value is `null`, meaning the primary action follows <see cref="Disabled"/> and <see cref="DisabledFocusable"/>.
+    /// </summary>
+    [Parameter]
+    public bool? PrimaryActionDisabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the menu button is disabled, along with the items of its menu.
+    /// When set, this overrides whether <see cref="Disabled"/> and <see cref="DisabledFocusable"/> disable the menu button.
+    /// How a disabled menu button is rendered still follows <see cref="DisabledFocusable"/>: it stays focusable when that is <see langword="true"/>.
+    /// The default value is `null`, meaning the menu button follows <see cref="Disabled"/> and <see cref="DisabledFocusable"/>.
+    /// </summary>
+    [Parameter]
+    public bool? MenuButtonDisabled { get; set; }
 
     /// <summary>
     /// Gets or sets the visual appearance.
@@ -134,4 +173,16 @@ public partial class FluentSplitButton : FluentComponentBase
     /// </summary>
     [Parameter]
     public EventCallback<MenuItemEventArgs> OnMenuCheckedChanged { get; set; }
+
+    /// <summary />
+    private bool IsPrimaryActionDisabled => PrimaryActionDisabled ?? (Disabled || DisabledFocusable);
+
+    /// <summary />
+    private bool IsMenuButtonDisabled => MenuButtonDisabled ?? (Disabled || DisabledFocusable);
+
+    /// <summary>
+    /// The web component only reports a disabled-focusable half as disabled through ElementInternals,
+    /// which not every accessibility tool reads, so the attribute is set as well.
+    /// </summary>
+    private string? AriaDisabled(bool halfDisabled) => halfDisabled && DisabledFocusable ? "true" : null;
 }

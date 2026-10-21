@@ -1,7 +1,11 @@
 
 /// <reference path="./d-ts/Blazor.d.ts" />
+import type { Menu } from "@fluentui/web-components";
+import { Microsoft as MenuDisabledTriggerFile } from "./Components/Menu/FluentMenuDisabledTrigger";
 
 export namespace Microsoft.FluentUI.Override {
+    import MenuDisabledTrigger = MenuDisabledTriggerFile.FluentUI.Blazor.Components.Menu;
+
     interface NavigationElement extends HTMLElement {
         href: string;
         internalProxyAnchor: { click(): void };
@@ -44,6 +48,24 @@ export namespace Microsoft.FluentUI.Override {
 
                 showTooltipPopover.call(this);
             };
+
+            /**
+             * fluent-menu
+             * Keeps the menu closed while its trigger is disabled (see FluentMenuDisabledTrigger.ts).
+             */
+            const menu = await registry.whenDefined('fluent-menu');
+
+            // The browser keeps the connectedCallback it found when the element was defined, so replacing it now
+            // would not run. The menu's connectedCallback calls setComponent, a public method that Fluent kept
+            // (as a no-op) for backward compatibility, so it is where each menu connected from now on is set up.
+            const setMenuComponent = menu.prototype.setComponent;
+            menu.prototype.setComponent = function (this: Menu): void {
+                setMenuComponent.call(this);
+                MenuDisabledTrigger.keepClosedWhileTriggerDisabled(this);
+            };
+
+            // Menus connected before this override (prerendered markup) did not go through it.
+            document.querySelectorAll<Menu>('fluent-menu').forEach(MenuDisabledTrigger.keepClosedWhileTriggerDisabled);
         });
     }
 
