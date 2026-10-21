@@ -103,6 +103,298 @@
         Assert.True(clicked);
     }
 
+    // Expected state of each inner button: "" = enabled, "disabled" or "disabled-focusable".
+    [Theory]
+    [InlineData(false, false, null, null, "", "")]
+    [InlineData(true, false, null, null, "disabled", "disabled")]
+    [InlineData(false, true, null, null, "disabled-focusable", "disabled-focusable")]
+    [InlineData(true, true, null, null, "disabled-focusable", "disabled-focusable")]
+    [InlineData(false, false, true, null, "disabled", "")]
+    [InlineData(false, false, null, true, "", "disabled")]
+    [InlineData(false, false, true, true, "disabled", "disabled")]
+    [InlineData(false, false, false, false, "", "")]
+    [InlineData(true, false, false, null, "", "disabled")]
+    [InlineData(true, false, null, false, "disabled", "")]
+    [InlineData(true, false, false, false, "", "")]
+    [InlineData(false, true, false, null, "", "disabled-focusable")]
+    [InlineData(false, true, null, false, "disabled-focusable", "")]
+    [InlineData(false, true, true, null, "disabled-focusable", "disabled-focusable")]
+    public void FluentSplitButton_DisabledState(bool disabled, bool disabledFocusable, bool? primaryActionDisabled, bool? menuButtonDisabled, string expectedPrimary, string expectedMenu)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Disabled="@disabled"
+                                             DisabledFocusable="@disabledFocusable"
+                                             PrimaryActionDisabled="@primaryActionDisabled"
+                                             MenuButtonDisabled="@menuButtonDisabled">My button</FluentSplitButton>);
+
+        // Assert: a disabled-focusable half also states it to assistive technology.
+        Assert.Equal(expectedPrimary, GetDisabledState(cut.Find("fluent-button")));
+        Assert.Equal(expectedMenu, GetDisabledState(cut.Find("fluent-menu-button")));
+        Assert.Equal(expectedPrimary == "disabled-focusable" ? "true" : null, cut.Find("fluent-button").GetAttribute("aria-disabled"));
+        Assert.Equal(expectedMenu == "disabled-focusable" ? "true" : null, cut.Find("fluent-menu-button").GetAttribute("aria-disabled"));
+    }
+
+    // A menu that was open when the split button got disabled cannot run its items either.
+    [Theory]
+    [InlineData(true, false, null, false)]
+    [InlineData(false, true, null, false)]
+    [InlineData(false, false, true, false)]
+    [InlineData(true, false, false, true)]
+    public void FluentSplitButton_DisabledAfterRender_MenuItems(bool disabled, bool disabledFocusable, bool? menuButtonDisabled, bool expectItemsEnabled)
+    {
+        // Arrange
+        var itemClicks = 0;
+        var menuClicks = 0;
+        var cut = Render<FluentSplitButton>(@<FluentSplitButton OnMenuClick="@(e => menuClicks++)" Label="My button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1" OnClick="@(e => itemClicks++)">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Disabled="false">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Act
+        cut.Render(parameters => parameters
+            .Add(p => p.Disabled, disabled)
+            .Add(p => p.DisabledFocusable, disabledFocusable)
+            .Add(p => p.MenuButtonDisabled, menuButtonDisabled));
+        cut.Find("fluent-menu-item#item1").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item1" });
+
+        // Assert
+        Assert.Equal(!expectItemsEnabled, cut.Find("fluent-menu-item#item1").HasAttribute("disabled"));
+        Assert.Equal(!expectItemsEnabled, cut.Find("fluent-menu-item#item2").HasAttribute("disabled"));
+        Assert.Equal(expectItemsEnabled ? 1 : 0, itemClicks);
+        Assert.Equal(expectItemsEnabled ? 1 : 0, menuClicks);
+    }
+
+    [Fact]
+    public void FluentSplitButton_MenuButtonReEnabled_EnablesTheMenuItemsAgain()
+    {
+        // Arrange
+        var itemClicks = 0;
+        var cut = Render<FluentSplitButton>(@<FluentSplitButton MenuButtonDisabled="true" Label="My button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1" OnClick="@(e => itemClicks++)">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Disabled="true">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Act
+        cut.Render(parameters => parameters.Add(p => p.MenuButtonDisabled, false));
+        cut.Find("fluent-menu-item#item1").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item1" });
+
+        // Assert: an item disabled by its own parameter stays disabled.
+        Assert.False(cut.Find("fluent-menu-item#item1").HasAttribute("disabled"));
+        Assert.True(cut.Find("fluent-menu-item#item2").HasAttribute("disabled"));
+        Assert.Equal(1, itemClicks);
+    }
+
+    [Fact]
+    public void FluentSplitButton_Disabled_NotAppliedToOuterMenu()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Disabled="true" DisabledFocusable="true">My button</FluentSplitButton>);
+
+        // Assert
+        var menu = cut.Find("fluent-menu");
+        Assert.False(menu.HasAttribute("disabled"));
+        Assert.False(menu.HasAttribute("disabled-focusable"));
+    }
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public void FluentSplitButton_Disabled_WithColors_AppliesDisabledStyling(bool disabled, bool disabledFocusable)
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Disabled="@disabled" DisabledFocusable="@disabledFocusable" BackgroundColor="red" Color="white">My button</FluentSplitButton>);
+
+        // Assert
+        Assert.Contains("opacity: 0.3", cut.Find("fluent-button").GetAttribute("style"));
+        Assert.Contains("opacity: 0.3", cut.Find("fluent-menu-button").GetAttribute("style"));
+    }
+
+    [Fact]
+    public void FluentSplitButton_Disabled()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Disabled="true" Label="My button" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentSplitButton_DisabledFocusable()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton DisabledFocusable="true" Label="My button" />);
+
+        // Assert
+        cut.Verify();
+    }
+
+    // Which callbacks are raised: the primary OnClick and the menu's OnMenuClick.
+    // OnMenuCheckedChanged is always raised, so the checked state stays in sync with the menu.
+    [Theory]
+    [InlineData(false, false, null, null, true, true)]
+    [InlineData(true, false, null, null, false, false)]
+    [InlineData(false, true, null, null, false, false)]
+    [InlineData(true, true, null, null, false, false)]
+    [InlineData(false, false, true, null, false, true)]
+    [InlineData(false, false, null, true, true, false)]
+    [InlineData(true, false, false, null, true, false)]
+    [InlineData(true, false, null, false, false, true)]
+    [InlineData(false, true, false, null, true, false)]
+    [InlineData(false, true, null, false, false, true)]
+    public void FluentSplitButton_DisabledState_Callbacks(bool disabled, bool disabledFocusable, bool? primaryActionDisabled, bool? menuButtonDisabled, bool expectClick, bool expectMenu)
+    {
+        // Arrange
+        var clicked = false;
+        var menuClicked = false;
+        var menuChecked = false;
+        var cut = Render(@<FluentSplitButton Disabled="@disabled"
+                                             DisabledFocusable="@disabledFocusable"
+                                             PrimaryActionDisabled="@primaryActionDisabled"
+                                             MenuButtonDisabled="@menuButtonDisabled"
+                                             OnClick="@(e => { clicked = true; })"
+                                             OnMenuClick="@(e => { menuClicked = true; })"
+                                             OnMenuCheckedChanged="@(e => { menuChecked = true; })"
+                                             Label="My button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Role="MenuItemRole.Checkbox">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+        cut.Find("fluent-menu-item#item1").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item1" });
+        cut.Find("fluent-menu-item#item2").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item2", Checked = true });
+
+        // Assert
+        Assert.Equal(expectClick, clicked);
+        Assert.Equal(expectMenu, menuClicked);
+        Assert.True(menuChecked);
+    }
+
+    [Fact]
+    public void FluentSplitButton_DisabledMenuItem_RendersDisabledItemOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Label="My button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Disabled="true">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Assert
+        Assert.False(cut.Find("fluent-menu-item#item1").HasAttribute("disabled"));
+        Assert.True(cut.Find("fluent-menu-item#item2").HasAttribute("disabled"));
+        Assert.Equal(string.Empty, GetDisabledState(cut.Find("fluent-button")));
+        Assert.Equal(string.Empty, GetDisabledState(cut.Find("fluent-menu-button")));
+    }
+
+    [Fact]
+    public void FluentSplitButton_PrimaryActionDisabled_WithDisabledMenuItem()
+    {
+        // Arrange
+        var clicked = false;
+        var menuClicks = new List<string?>();
+        var cut = Render(@<FluentSplitButton PrimaryActionDisabled="true"
+                                             OnClick="@(e => { clicked = true; })"
+                                             OnMenuClick="@(e => menuClicks.Add(e.Id))"
+                                             Label="My button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Disabled="true">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Act
+        cut.Find("fluent-button").Click();
+        cut.Find("fluent-menu-item#item1").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item1" });
+        cut.Find("fluent-menu-item#item2").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item2" });
+
+        // Assert
+        Assert.Equal("disabled", GetDisabledState(cut.Find("fluent-button")));
+        Assert.Equal(string.Empty, GetDisabledState(cut.Find("fluent-menu-button")));
+        Assert.False(clicked);
+        Assert.Equal(["item1"], menuClicks);
+    }
+
+    // The menu unchecks the other radio items itself, including the disabled ones (and while the menu button is disabled).
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FluentSplitButton_DisabledRadioMenuItem_UncheckedByMenu_CheckedChangedRaised(bool menuButtonDisabled)
+    {
+        // Arrange
+        bool? item2Checked = true;
+        var checkedChanges = new List<(string? Id, bool? Checked)>();
+        var cut = Render(@<FluentSplitButton MenuButtonDisabled="@menuButtonDisabled" OnMenuCheckedChanged="@(e => checkedChanges.Add((e.Id, e.Checked)))" Label="My button">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1" Role="MenuItemRole.Radio">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Role="MenuItemRole.Radio" Disabled="true" Checked="@item2Checked" CheckedChanged="@(v => item2Checked = v)">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentSplitButton>);
+
+        // Act
+        cut.Find("fluent-menu-item#item2").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item2", Checked = false });
+        cut.Find("fluent-menu-item#item1").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item1", Checked = true });
+
+        // Assert
+        Assert.False(item2Checked);
+        Assert.Equal([("item2", (bool?)false), ("item1", (bool?)true)], checkedChanges);
+    }
+
+    [Fact]
+    public void FluentSplitButton_MenuId_UsesIdWhenSet()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton Id="my-split">My button</FluentSplitButton>);
+
+        // Assert
+        Assert.Equal("my-split", cut.Find("fluent-menu").Id);
+    }
+
+    [Fact]
+    public void FluentSplitButton_MenuId_GeneratedWhenNotSet()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSplitButton>My button</FluentSplitButton>);
+
+        // Assert
+        Assert.False(string.IsNullOrWhiteSpace(cut.Find("fluent-menu").Id));
+    }
+
+    [Fact]
+    public void FluentSplitButton_Disabled_CanBeReEnabled()
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render<FluentSplitButton>(@<FluentSplitButton Disabled="true" OnClick="@(e => { clicked = true; })">My button</FluentSplitButton>);
+
+        // Act
+        cut.Render(parameters => parameters.Add(p => p.Disabled, false));
+        cut.Find("fluent-button").Click();
+
+        // Assert
+        Assert.True(clicked);
+        Assert.False(cut.Find("fluent-button").HasAttribute("disabled"));
+        Assert.False(cut.Find("fluent-menu-button").HasAttribute("disabled"));
+    }
+
+    private static string GetDisabledState(AngleSharp.Dom.IElement element)
+    {
+        var disabled = element.HasAttribute("disabled");
+        var focusable = element.HasAttribute("disabled-focusable");
+
+        Assert.False(disabled && focusable, "An inner button must not be both disabled and disabled-focusable.");
+
+        return disabled ? "disabled" : focusable ? "disabled-focusable" : string.Empty;
+    }
+
     [Theory]
     [InlineData(ButtonSize.Small, "small")]
     [InlineData(ButtonSize.Medium, "medium")]
