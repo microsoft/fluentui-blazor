@@ -366,14 +366,21 @@ public partial class FluentTabs : FluentComponentBase
             return false;
         }
 
+        ActiveTabId = tab.Id;
+        ActiveTab = tab;
+
+        // Only a programmatic selection writes the `activeid` attribute back to
+        // the client. For a client-originated change the web component already
+        // displays the selected tab; round-tripping the value through the
+        // rendered attribute makes the component raise `tabchange` again, and a
+        // stale event (e.g. raised while a programmatic value was still being
+        // applied) can then flip the selection back and forth (#5468).
         if (!isClientSelection)
         {
             _clientActiveTabId = null;
+            ActiveTabIdAttribute = tab.Id;
         }
 
-        ActiveTabId = tab.Id;
-        ActiveTab = tab;
-        ActiveTabIdAttribute = tab.Id;
         _refreshOverflowAfterRender = Overflow;
 
         if (activeTabIdChanged && ActiveTabIdChanged.HasDelegate)

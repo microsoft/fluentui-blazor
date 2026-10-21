@@ -76,7 +76,7 @@
     }
 
     [Fact]
-    public async Task FluentTabs_UserSelection_SynchronizesActiveId()
+    public async Task FluentTabs_UserSelection_DoesNotRewriteActiveId()
     {
         string? activeTabId = "tab1";
 
@@ -94,9 +94,11 @@
             ActiveId = "tab2",
         });
 
-        // Assert
+        // Assert: the bound value follows the client selection, but the server
+        // does not write the `activeid` attribute back (the web component
+        // already displays the selected tab).
         Assert.Equal("tab2", activeTabId);
-        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
     }
 
     [Fact]
@@ -123,33 +125,6 @@
 
         // Assert
         Assert.Equal("tab3", tabList.GetAttribute("activeid"));
-    }
-
-    [Fact]
-    public async Task FluentTabs_ParameterSelection_ReappliesPreviousValueAfterUserSelection()
-    {
-        string? activeTabId = "tab1";
-
-        // Arrange
-        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
-            <FluentTab Id="tab1" Header="Chat" />
-            <FluentTab Id="tab2" Header="Files" />
-        </FluentTabs>);
-        var tabs = cut.FindComponent<FluentTabs>();
-        var tabList = cut.Find("fluent-tablist");
-        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
-        tabList.SetAttribute("activeid", "tab1");
-        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
-        {
-            Id = "MyTabsId-tablist",
-            ActiveId = "tab1",
-        });
-
-        // Act
-        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
-
-        // Assert
-        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
     }
 
     [Theory]
@@ -1002,15 +977,19 @@
             ActiveId = "tab2",
         });
 
-        // Assert 1: active tab is synchronized
+        // Assert 1: the bound value follows the client selection, but the
+        // server does not write the `activeid` attribute back (the web
+        // component already displays the selected tab)
         Assert.Equal("tab2", activeTabId);
-        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+        Assert.Equal("tab2", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
 
         // Act 2: parent renders with bound value, should not overwrite with null or trigger loops
         tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
 
-        // Assert 2: tab2 remains active
-        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+        // Assert 2: selection is unchanged and the attribute is still not rewritten
+        Assert.Equal("tab2", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
     }
 
     [Fact]
@@ -1050,13 +1029,14 @@
         var tabs = cut.FindComponent<FluentTabs>();
         var tabList = cut.Find("fluent-tablist");
 
-        // Client changes to tab2
+        // Client changes to tab2 (the server does not rewrite the attribute)
         await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
         {
             Id = "MyTabsId-tablist",
             ActiveId = "tab2",
         });
-        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+        Assert.Equal("tab2", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
 
         // Programmatic SelectTabAsync to tab3
         await tabs.Instance.SelectTabAsync("tab3");
@@ -1092,8 +1072,10 @@
         tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab2"));
         tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab2"));
 
-        // activeid should remain tab2
-        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+        // The selection follows the client value; the rendered attribute is
+        // not rewritten while the parameter matches the client selection
+        Assert.Equal("tab2", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
 
         // When parent programmatically selects tab1
         tabs.Render(parameters => parameters.Add(c => c.ActiveTabId, "tab1"));
