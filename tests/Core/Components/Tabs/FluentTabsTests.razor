@@ -102,6 +102,68 @@
     }
 
     [Fact]
+    public async Task FluentTabs_ParameterSelection_ReappliesPreviousValueAfterUserSelection()
+    {
+        string? activeTabId = "tab1";
+
+        // Arrange
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+        tabList.SetAttribute("activeid", "tab1");
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab1",
+        });
+
+        // Act
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+
+        // Assert
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_RejectedClientEvent_DoesNotSuppressParameterSelection()
+    {
+        string? activeTabId = "tab1";
+        var tab2Disabled = true;
+
+        // Arrange: tab1 active, tab2 disabled
+        var cut = Render(@<FluentTabs Id="MyTabsId" @bind-ActiveTabId="@activeTabId">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" Disabled="@tab2Disabled" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var tabList = cut.Find("fluent-tablist");
+
+        // Act 1: client event targeting the disabled tab2 is rejected...
+        await tabList.TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabsId-tablist",
+            ActiveId = "tab2",
+        });
+
+        // ...and must not pollute the client-selection marker
+        Assert.Equal("tab1", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab1", tabList.GetAttribute("activeid"));
+
+        // Act 2: enable tab2, then drive the selection via parameter
+        tab2Disabled = false;
+        cut.Render();
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+
+        // Assert: the parameter update is applied, not suppressed by the stale marker
+        Assert.Equal("tab2", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab2", tabList.GetAttribute("activeid"));
+    }
+
+    [Fact]
     public async Task FluentTabs_ParameterSelection_RewritesActiveIdAfterUserSelection()
     {
         string? activeTabId = "tab1";
