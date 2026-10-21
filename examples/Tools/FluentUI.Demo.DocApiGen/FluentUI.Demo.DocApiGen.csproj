@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="LoxSmoke.DocXml" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="ModelContextProtocol" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" />
