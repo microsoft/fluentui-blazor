@@ -229,7 +229,7 @@
                 <span @onclick:stopPropagation="true" row-expander row-expanded="@(!hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)" row-collapsed="@(hierarchicalItem.IsCollapsed ? bool.TrueString.ToLowerInvariant() : null)">
                     @if (hierarchicalItem.HasChildren)
                     {
-                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" row-expand-button OnClick="@(() => ToggleExpandedAsync(item))">
+                        <FluentButton aria-label="@Localizer[Localization.LanguageResource.DataGrid_ToggleNesting]" aria-expanded="@(hierarchicalItem.IsCollapsed ? "false" : "true")" Appearance="ButtonAppearance.Subtle" Size="ButtonSize.Small" row-expand-button OnClick="@(() => ToggleExpandedAsync(item))">
                             <FluentIcon Width="12px" Value="@(new CoreIcons.Regular.Size20.ChevronRight())" Color="Color.Default" />
                         </FluentButton>
                     }

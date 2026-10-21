@@ -189,6 +189,20 @@
     }
 
     [Fact]
+    public void FluentCompoundButton_OnClick_DisabledFocusable()
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render(@<FluentCompoundButton DisabledFocusable="true" OnClick="@(e => { clicked = true; })" Label="Label"><Description>Description content</Description></FluentCompoundButton>);
+
+        // Act
+        cut.Find("fluent-compound-button").Click();
+
+        // Assert
+        Assert.False(clicked);
+    }
+
+    [Fact]
     public void FluentCompoundButton_OnClick_Disabled()
     {
         var clicked = false;
