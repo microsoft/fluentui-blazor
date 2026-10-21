@@ -35,7 +35,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     protected virtual string? StyleValue => DefaultStyleBuilder
         .AddStyle("background-color", BackgroundColor, when: () => !string.IsNullOrEmpty(BackgroundColor))
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
-        .AddStyle("opacity", "0.3", when: () => Disabled && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
+        .AddStyle("opacity", "0.3", when: () => (Disabled || DisabledFocusable) && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
         .Build();
 
     /// <summary>
@@ -246,7 +246,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
-        if (!Disabled && OnClick.HasDelegate)
+        if (!Disabled && !DisabledFocusable && !Loading && OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(e);
         }

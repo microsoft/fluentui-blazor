@@ -137,6 +137,23 @@
     }
 
     [Fact]
+    public void FluentKeyCode_Provider_PassesKeyFilters()
+    {
+        // Arrange & Act
+        _ = Render(@<FluentKeyCodeProvider Only="@(new[] { KeyCode.KeyS, KeyCode.Escape })"
+                                           Ignore="@(new[] { KeyCode.Escape })"
+                                           PreventDefaultOnly="@(new[] { KeyCode.KeyS })" />);
+
+        // Assert
+        var invocation = Assert.Single(JSInterop.Invocations, invocation =>
+            invocation.Identifier == "Microsoft.FluentUI.Blazor.Components.KeyCode.RegisterKeyCode");
+
+        Assert.Equal([KeyCode.KeyS, KeyCode.Escape], Assert.IsType<KeyCode[]>(invocation.Arguments[4]));
+        Assert.Equal([KeyCode.Escape, KeyCode.Shift, KeyCode.Alt, KeyCode.Ctrl, KeyCode.Meta], Assert.IsType<KeyCode[]>(invocation.Arguments[5]));
+        Assert.Equal([KeyCode.KeyS], Assert.IsType<KeyCode[]>(invocation.Arguments[8]));
+    }
+
+    [Fact]
     public async Task FluentKeyCode_Provider_Function()
     {
         FluentKeyCodeEventArgs pressed = new();

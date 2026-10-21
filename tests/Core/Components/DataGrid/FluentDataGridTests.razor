@@ -3424,6 +3424,31 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_HierarchicalToggle_AriaExpanded()
+    {
+        // Arrange
+        var rootItem = new HierarchicalCustomer { Item = new Customer(1, "Root", DateTime.Now, CustomerStatus.Active), IsCollapsed = true };
+        rootItem.Children.Add(new HierarchicalCustomer { Item = new Customer(2, "Child", DateTime.Now, CustomerStatus.Active) });
+        var items = new List<HierarchicalCustomer> { rootItem };
+
+        var cut = Render<FluentDataGrid<HierarchicalCustomer>>(
+            @<FluentDataGrid Items="@items.AsQueryable()">
+                <ChildContent>
+                    <PropertyColumn Property="@(x => x.Item.Name)" HierarchicalToggle="true" />
+                </ChildContent>
+            </FluentDataGrid>);
+
+        var toggleButton = cut.WaitForElement("[row-expand-button]");
+        Assert.Equal("false", toggleButton.GetAttribute("aria-expanded"));
+
+        // Act
+        await cut.InvokeAsync(() => toggleButton.Click());
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.Equal("true", cut.Find("[row-expand-button]").GetAttribute("aria-expanded")));
+    }
+
+    [Fact]
     public void FluentDataGrid_HierarchicalToggle_ThrowsIfMultipleColumnsSet()
     {
         // Arrange
