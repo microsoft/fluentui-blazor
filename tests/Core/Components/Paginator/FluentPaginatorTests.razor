@@ -254,7 +254,7 @@
 
         // Assert
         Assert.Equal(9, state.CurrentPageIndex);
-        Assert.Equal(string.Empty, cut.Find("[page-status]").TextContent);
+        Assert.Equal(string.Empty, cut.Find("[paginator-page-status]").TextContent);
     }
 
     [Fact]
@@ -332,13 +332,13 @@
             <FluentPaginator State="@state" />
             <FluentPaginator State="@state" />
         </div>);
-        Assert.All(cut.FindAll("[page-status]"), status => Assert.Equal(string.Empty, status.TextContent));
+        Assert.All(cut.FindAll("[paginator-page-status]"), status => Assert.Equal(string.Empty, status.TextContent));
 
         // Act
         await cut.FindAll(".fluent-paginator")[1].QuerySelectorAll(".paginator-nav fluent-button")[2].ClickAsync(new MouseEventArgs());
 
         // Assert
-        var statuses = cut.FindAll("[page-status]");
+        var statuses = cut.FindAll("[paginator-page-status]");
         Assert.Equal("status", statuses[1].GetAttribute("role"));
         Assert.Equal("polite", statuses[1].GetAttribute("aria-live"));
         Assert.Equal(string.Empty, statuses[0].TextContent);
@@ -361,7 +361,7 @@
         await cut.FindAll(".fluent-paginator")[0].QuerySelectorAll(".paginator-nav fluent-button")[1].ClickAsync(new MouseEventArgs());
 
         // Assert
-        var statuses = cut.FindAll("[page-status]");
+        var statuses = cut.FindAll("[paginator-page-status]");
         Assert.Equal(IFluentLocalizer.GetDefault("Paginator_Status", 1, 2), statuses[0].TextContent);
         Assert.Equal(string.Empty, statuses[1].TextContent);
     }

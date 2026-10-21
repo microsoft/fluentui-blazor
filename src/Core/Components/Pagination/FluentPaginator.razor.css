@@ -12,7 +12,7 @@
     margin: 0 0.5rem;
   }
 
-  .fluent-paginator [page-status] {
+  .fluent-paginator [paginator-page-status] {
     position: absolute;
     width: 1px;
     height: 1px;
