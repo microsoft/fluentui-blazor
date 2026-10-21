@@ -31,6 +31,11 @@ public partial class FluentToggleButton : FluentButton
     /// <summary />
     protected new async Task OnClickHandlerAsync(MouseEventArgs e)
     {
+        if (Disabled || DisabledFocusable)
+        {
+            return;
+        }
+
         Pressed = !Pressed;
         await base.OnClickHandlerAsync(e);
     }
