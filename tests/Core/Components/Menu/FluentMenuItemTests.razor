@@ -224,6 +224,70 @@
     }
 
     [Fact]
+    public void FluentMenuItem_Disabled_OnClickNotInvoked()
+    {
+        // Arrange
+        var itemClicked = false;
+        var menuClicked = false;
+        var cut = Render(@<FluentMenu OnClick="@(() => { menuClicked = true; })">
+                <FluentMenuList>
+                    <FluentMenuItem Id="myid" Disabled="true" OnClick="@(() => { itemClicked = true; })">My item</FluentMenuItem>
+                </FluentMenuList>
+            </FluentMenu>);
+
+        // Act
+        cut.Find("fluent-menu-item").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "myid" });
+
+        // Assert
+        Assert.False(itemClicked);
+        Assert.False(menuClicked);
+    }
+
+    // The menu unchecks the other radio items itself, including the disabled ones:
+    // the change must still reach Blazor, otherwise their Checked state goes stale.
+    [Fact]
+    public void FluentMenuItem_DisabledRadio_UncheckedByMenu_CheckedChangedInvoked()
+    {
+        // Arrange
+        bool? item2Checked = true;
+        var menuChecked = new List<(string? Id, bool? Checked)>();
+        var cut = Render(@<FluentMenu OnCheckedChanged="@(e => menuChecked.Add((e.Id, e.Checked)))">
+                <FluentMenuList>
+                    <FluentMenuItem Id="item1" Role="MenuItemRole.Radio">Item 1</FluentMenuItem>
+                    <FluentMenuItem Id="item2" Role="MenuItemRole.Radio" Disabled="true" Checked="@item2Checked" CheckedChanged="@(v => item2Checked = v)">Item 2</FluentMenuItem>
+                </FluentMenuList>
+            </FluentMenu>);
+
+        // Act
+        cut.Find("fluent-menu-item#item2").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item2", Checked = false });
+        cut.Find("fluent-menu-item#item1").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "item1", Checked = true });
+
+        // Assert
+        Assert.False(item2Checked);
+        Assert.Equal([("item2", (bool?)false), ("item1", (bool?)true)], menuChecked);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(null)]
+    public void FluentMenuItem_NotDisabled_OnClickInvoked(bool? disabled)
+    {
+        // Arrange
+        var itemClicked = false;
+        var cut = Render(@<FluentMenu>
+                <FluentMenuList>
+                    <FluentMenuItem Id="myid" Disabled="@disabled" OnClick="@(() => { itemClicked = true; })">My item</FluentMenuItem>
+                </FluentMenuList>
+            </FluentMenu>);
+
+        // Act
+        cut.Find("fluent-menu-item").TriggerEvent("onmenuitemchange", new MenuItemEventArgs { Id = "myid" });
+
+        // Assert
+        Assert.True(itemClicked);
+    }
+
+    [Fact]
     public void FluentMenuItem_RoleCheckboxChecked()
     {
         var label = "My item";
