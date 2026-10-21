@@ -228,6 +228,17 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     }
 
     /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Autofocus)
+        {
+            await FocusAsync();
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary />
     protected override void OnParametersSet()
     {
         if (this is FluentToggleButton && Loading is true)
@@ -265,7 +276,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     }
 
     /// <inheritdoc cref="IFluentComponentAutofocus.FocusAsync(bool)"/>
-    public Task FocusAsync(bool preventScroll) => this.FocusElementAsync(preventScroll);
+    public Task FocusAsync(bool preventScroll = false) => this.FocusElementAsync(preventScroll);
 
     /// <summary />
     private static string RingStyle(Icon icon)

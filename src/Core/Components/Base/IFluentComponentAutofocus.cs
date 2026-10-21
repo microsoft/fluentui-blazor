@@ -16,18 +16,9 @@ public interface IFluentComponentAutofocus
     bool Autofocus { get; set; }
 
     /// <summary>
-    /// Sets the focus to the element.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    Task FocusAsync()
-    {
-        return FocusAsync(preventScroll: false);
-    }
-
-    /// <summary>
     /// Sets the focus to the element, optionally preventing scrolling.
     /// </summary>
     /// <param name="preventScroll">If true, prevents the page from scrolling to the element.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    Task FocusAsync(bool preventScroll);
+    Task FocusAsync(bool preventScroll = false);
 }
