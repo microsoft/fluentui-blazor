@@ -230,11 +230,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && Autofocus)
-        {
-            await FocusAsync();
-        }
-
+        await this.ApplyAutofocusAsync(firstRender);
         await base.OnAfterRenderAsync(firstRender);
     }
 

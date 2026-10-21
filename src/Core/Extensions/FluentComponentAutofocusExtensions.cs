@@ -12,6 +12,22 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 internal static class FluentComponentAutofocusExtensions
 {
     /// <summary>
+    /// Applies autofocus on the first render when enabled for the component.
+    /// </summary>
+    /// <param name="component">The component requesting autofocus.</param>
+    /// <param name="firstRender">Whether this is the component's first render.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    internal static async Task ApplyAutofocusAsync(this IFluentComponentAutofocus component, bool firstRender)
+    {
+        ArgumentNullException.ThrowIfNull(component);
+
+        if (firstRender && component.Autofocus)
+        {
+            await component.FocusAsync();
+        }
+    }
+
+    /// <summary>
     /// Calls the JavaScript focus helper for the component's element.
     /// </summary>
     /// <param name="component">The component requesting focus.</param>
