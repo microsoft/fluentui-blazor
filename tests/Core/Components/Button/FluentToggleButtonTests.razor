@@ -80,6 +80,24 @@
         Assert.False(cut.Instance.Pressed);
     }
 
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public void FluentToggleButton_Disabled_ClickDoesNotTogglePressedState(bool disabled, bool disabledFocusable)
+    {
+        // Arrange
+        var clicked = false;
+        var cut = Render<FluentToggleButton>(@<FluentToggleButton Disabled="@disabled" DisabledFocusable="@disabledFocusable" OnClick="@(e => { clicked = true; })">fluent-toggle-button</FluentToggleButton>);
+
+        // Act
+        cut.Find("fluent-toggle-button").Click();
+
+        // Assert
+        Assert.False(clicked);
+        Assert.False(cut.Instance.Pressed);
+        Assert.False(cut.Find("fluent-toggle-button").HasAttribute("pressed"));
+    }
+
     [Fact]
     public void FluentToggleButton_OnClickAndTogglePressedState()
     {
