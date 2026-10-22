@@ -42,9 +42,11 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
   /**
    * Focuses an element by its CSS selector.
    * @param selector The CSS selector of the element to focus.
+   * @param preventScroll Whether to prevent scrolling the element into view.
    */
-  export async function focusBySelector(selector: string): Promise<void> {
+  export async function focusBySelector(selector: string, preventScroll: boolean = false): Promise<void> {
     const element = document.querySelector(selector) as HTMLElement;
+
     if (element) {
 
       // If the element is a FASTElement, wait for the next update cycle to ensure it is fully initialized.
@@ -58,7 +60,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
         element.tabIndex = -1;
       }
 
-      element.focus({ preventScroll: true });
+      element.focus({ preventScroll });
     }
   }
 }

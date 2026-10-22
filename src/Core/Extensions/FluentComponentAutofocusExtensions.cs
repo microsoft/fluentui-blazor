@@ -43,6 +43,21 @@ internal static class FluentComponentAutofocusExtensions
     }
 
     /// <summary>
+    /// Focuses the component's element using its JavaScript runtime and CSS selector.
+    /// </summary>
+    /// <param name="component">The component requesting focus.</param>
+    /// <param name="jsRuntime">The JavaScript runtime.</param>
+    /// <param name="selector">The CSS selector of the element to focus.</param>
+    /// <param name="preventScroll">Whether to prevent scrolling the element into view.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    internal static Task FocusElementBySelectorAsync(this IFluentComponentAutofocus component, IJSRuntime jsRuntime, string? selector, bool preventScroll)
+    {
+        ArgumentNullException.ThrowIfNull(component);
+
+        return FocusElementBySelectorAsync(jsRuntime, selector, preventScroll);
+    }
+
+    /// <summary>
     /// Focuses the component's element using its JavaScript runtime and ID.
     /// </summary>
     /// <param name="component">The component requesting focus.</param>
@@ -65,6 +80,19 @@ internal static class FluentComponentAutofocusExtensions
         }
 
         return jsRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus", id, preventScroll)
+                        .AsTask();
+    }
+
+    private static Task FocusElementBySelectorAsync(IJSRuntime jsRuntime, string? selector, bool preventScroll)
+    {
+        ArgumentNullException.ThrowIfNull(jsRuntime);
+
+        if (string.IsNullOrWhiteSpace(selector))
+        {
+            throw new ArgumentException("Component selector cannot be null or whitespace.", nameof(selector));
+        }
+
+        return jsRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focusBySelector", selector, preventScroll)
                         .AsTask();
     }
 }
