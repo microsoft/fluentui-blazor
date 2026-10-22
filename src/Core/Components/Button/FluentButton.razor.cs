@@ -5,6 +5,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -237,6 +238,11 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
     /// <summary />
     protected override void OnParametersSet()
     {
+        if (Autofocus && string.IsNullOrWhiteSpace(Id))
+        {
+            Id = Identifier.NewId();
+        }
+
         if (this is FluentToggleButton && Loading is true)
         {
             throw new ArgumentException("FluentToggleButton does not support Loading");

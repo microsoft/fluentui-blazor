@@ -97,7 +97,7 @@
     public void FluentButton_AutofocusAttribute()
     {
         // Arrange && Act
-        var cut = Render(@<FluentButton Autofocus="true">fluent-button</FluentButton>);
+        var cut = Render(@<FluentButton Id="my-id" Autofocus="true">fluent-button</FluentButton>);
 
         // Assert
         cut.Verify();
