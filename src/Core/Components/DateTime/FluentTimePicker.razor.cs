@@ -201,6 +201,8 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
                     "step", Increment * 60);    // HTML input step is in seconds
             }
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <summary />

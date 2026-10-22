@@ -28,6 +28,33 @@
         timePicker.Verify();
     }
 
+    [Theory]
+    [InlineData(DatePickerRenderStyle.FluentUI, false)]
+    [InlineData(DatePickerRenderStyle.FluentUI, true)]
+    [InlineData(DatePickerRenderStyle.Native, false)]
+    [InlineData(DatePickerRenderStyle.Native, true)]
+    public void OnAfterRenderAsync_Autofocus_AppliesOnlyOnFirstRender(DatePickerRenderStyle renderStyle, bool autofocus)
+    {
+        var cut = Render<FluentTimePicker<DateTime>>(parameters => parameters
+            .Add(p => p.Id, "autofocus-time-picker")
+            .Add(p => p.Culture, InvariantCulture)
+            .Add(p => p.RenderStyle, renderStyle)
+            .Add(p => p.Autofocus, autofocus));
+
+        var expectedFocusCount = autofocus ? 1 : 0;
+        var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"];
+        Assert.Equal(expectedFocusCount, invocations.Count);
+        Assert.All(invocations, invocation =>
+        {
+            Assert.Equal("autofocus-time-picker", invocation.Arguments[0]);
+            Assert.Equal(false, invocation.Arguments[1]);
+        });
+
+        cut.Render(parameters => parameters.Add(p => p.Autofocus, true));
+
+        Assert.Equal(expectedFocusCount, JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"].Count);
+    }
+
     [Fact]
     public void FluentTimePicker_DefaultValue_FluentUIStyle()
     {
