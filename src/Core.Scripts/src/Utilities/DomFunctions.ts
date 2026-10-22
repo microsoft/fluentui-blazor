@@ -8,8 +8,14 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
    * Focuses an HTML or SVG element by reference or by ID.
    * @param elementOrId The element or its ID.
    * @param preventScroll Whether to prevent scrolling the element into view.
+   * @param selector An optional CSS selector identifying the focus target instead of the root element.
    */
-  export async function focus(elementOrId: HTMLElement | SVGElement | string, preventScroll: boolean = false): Promise<void> {
+  export async function focus(elementOrId: HTMLElement | SVGElement | string, preventScroll: boolean = false, selector?: string): Promise<void> {
+    if (selector) {
+      await focusBySelector(selector, preventScroll);
+      return;
+    }
+
     const element = typeof elementOrId === 'string'
       ? document.getElementById(elementOrId)
       : elementOrId;

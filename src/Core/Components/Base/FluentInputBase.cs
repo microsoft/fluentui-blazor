@@ -370,29 +370,17 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     #endregion
 
     /// <inheritdoc cref="IFluentComponentAutofocus.FocusAsync(bool)"/>
-    public Task FocusAsync(bool preventScroll = false) => this.FocusElementAsync(JSRuntime, Id, preventScroll);
+    public virtual Task FocusAsync(bool preventScroll = false) => this.FocusElementAsync(JSRuntime, Id, preventScroll, AutofocusBySelector);
 
     /// <summary>
-    /// The CSS selector used to determine which element should receive autofocus.
+    /// The CSS selector used to determine which element should receive focus.
     /// </summary>
-    protected internal virtual string? AutofocusBySelector { get; set; }
+    protected internal virtual string? AutofocusBySelector => null;
 
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        // Set the focus based on the component ID.
-        if (string.IsNullOrWhiteSpace(AutofocusBySelector))
-        {
-            await this.ApplyAutofocusAsync(firstRender);
-        }
-
-        // Set the focus based on the component AutofocusBySelector,
-        // because the ID cannot be focused
-        else
-        {
-            await this.FocusElementBySelectorAsync(JSRuntime, AutofocusBySelector, preventScroll: false);
-        }
-
+        await this.ApplyAutofocusAsync(firstRender);
         await base.OnAfterRenderAsync(firstRender);
     }
 

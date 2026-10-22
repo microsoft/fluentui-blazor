@@ -1,4 +1,5 @@
 import * as FluentUIComponents from '@fluentui/web-components'
+import { Updates } from '@microsoft/fast-element';
 
 /**
  * ListBoxContainer - Enhances FluentUI Listbox with keyboard navigation and multi-select support.
@@ -18,19 +19,34 @@ import * as FluentUIComponents from '@fluentui/web-components'
  * Each fluent-option must have an 'id' attribute for tracking selections.
  */
 export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
-  export function initialize(id: string) {
+  const instances = new WeakMap<FluentUIComponents.Listbox, ListboxExtended>();
+
+  export async function initialize(id: string): Promise<void> {
     const container = document.getElementById(id) as HTMLElement;
     const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
-    if (listbox) {
-      (listbox as any).__fluentListbox = new ListboxExtended(listbox, container);
+    if (!listbox) {
+      throw new Error(`Unable to initialize listbox '${id}': element not found.`);
     }
+
+    let instance = instances.get(listbox);
+    if (!instance) {
+      instance = new ListboxExtended(listbox, container);
+      instances.set(listbox, instance);
+    }
+
+    await instance.ready;
+    await Updates.next();
+    instance.refresh();
   }
 
   export function refresh(id: string) {
     const container = document.getElementById(id) as HTMLElement;
     const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
     if (listbox) {
-      const instance = (listbox as any).__fluentListbox as ListboxExtended;
+      const instance = instances.get(listbox);
+      if (!instance) {
+        throw new Error(`Unable to refresh listbox '${id}': listbox is not initialized.`);
+      }
       instance.refresh();
     }
   }
@@ -40,6 +56,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
    */
   class ListboxExtended {
 
+    public readonly ready: Promise<void>;
     private isInitialized: boolean = false;
     private container: HTMLElement;
     private listbox: FluentUIComponents.Listbox;
@@ -55,14 +72,21 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       this.listbox = element;
       this.listbox.addEventListener("keydown", this.keydownHandler);
 
-      // Set initial selected options based on the current state
-      setTimeout(() => {
-        this.refresh(true);
-        this.lastSelectedOptions = this.listbox.selectedOptions.map(option => option.id).join(';');
-        this.setupListboxObserver();
-        this.isInitialized = true;
-      }, 50);
+      this.ready = this.initializeAsync();
 
+    }
+
+    private async initializeAsync(): Promise<void> {
+      await Promise.all([
+        customElements.whenDefined('fluent-listbox'),
+        customElements.whenDefined('fluent-option')
+      ]);
+      await Updates.next();
+      this.refresh(true);
+      await Updates.next();
+      this.lastSelectedOptions = this.listbox.selectedOptions.map(option => option.id).join(';');
+      this.setupListboxObserver();
+      this.isInitialized = true;
     }
 
     /**
