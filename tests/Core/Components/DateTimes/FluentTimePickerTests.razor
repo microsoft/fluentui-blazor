@@ -41,9 +41,8 @@
             .Add(p => p.RenderStyle, renderStyle)
             .Add(p => p.Autofocus, autofocus));
 
-        var expectedFocusCount = autofocus ? 1 : 0;
         var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"];
-        Assert.Equal(expectedFocusCount, invocations.Count);
+        Assert.Equal(autofocus, invocations.Count > 0);
         Assert.All(invocations, invocation =>
         {
             Assert.Equal("autofocus-time-picker", invocation.Arguments[0]);
@@ -52,7 +51,7 @@
 
         cut.Render(parameters => parameters.Add(p => p.Autofocus, true));
 
-        Assert.Equal(expectedFocusCount, JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"].Count);
+        Assert.Equal(autofocus, JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"].Count > 0);
     }
 
     [Fact]

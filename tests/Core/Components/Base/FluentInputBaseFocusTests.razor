@@ -1,0 +1,126 @@
+@using Xunit
+@inherits FluentUITestContext
+
+@code
+{
+    private const string FocusIdentifier = "Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus";
+
+    public FluentInputBaseFocusTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void Autofocus_Default_IsDisabled()
+    {
+        var cut = Render(@<FluentTextInput Id="focus-input" />).FindComponent<FluentTextInput>();
+
+        Assert.False(cut.Instance.Autofocus);
+        Assert.Empty(JSInterop.Invocations[FocusIdentifier]);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void Autofocus_Parameter_PreservesValue(bool autofocus)
+    {
+        var cut = Render(@<FluentTextInput Id="focus-input" Autofocus="@autofocus" />).FindComponent<FluentTextInput>();
+
+        IFluentComponentAutofocus component = cut.Instance;
+        Assert.Equal(autofocus, component.Autofocus);
+        Assert.Equal(autofocus ? 1 : 0, JSInterop.Invocations[FocusIdentifier].Count);
+    }
+
+    [Fact]
+    public void AutofocusBySelector_Default_IsNull()
+    {
+        var cut = Render(@<FluentTextInput Id="focus-input" />).FindComponent<FluentTextInput>();
+
+        Assert.Null(cut.Instance.AutofocusBySelector);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FocusAsync_PreventScroll_ForwardsIdAndPreventScroll(bool preventScroll)
+    {
+        var cut = Render(@<FluentTextInput Id="focus-input" />).FindComponent<FluentTextInput>();
+
+        await cut.InvokeAsync(() => cut.Instance.FocusAsync(preventScroll));
+
+        var invocation = Assert.Single(JSInterop.Invocations[FocusIdentifier]);
+        Assert.Equal(new object?[] { "focus-input", preventScroll }, invocation.Arguments);
+    }
+
+    [Fact]
+    public async Task FocusAsync_WithoutArguments_AllowsScrolling()
+    {
+        var cut = Render(@<FluentTextInput Id="focus-input" />).FindComponent<FluentTextInput>();
+        IFluentComponentAutofocus component = cut.Instance;
+
+        await cut.InvokeAsync(() => component.FocusAsync());
+
+        var invocation = Assert.Single(JSInterop.Invocations[FocusIdentifier]);
+        Assert.Equal(new object?[] { "focus-input", false }, invocation.Arguments);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FocusAsync_CalendarSelector_ForwardsActiveDaySelector(bool preventScroll)
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2022, 2, 15));
+        var cut = Render(@<FluentCalendar TValue="DateTime" Id="focus-calendar"
+                            Value="@(new DateTime(2022, 2, 15))" />).FindComponent<FluentCalendar<DateTime>>();
+
+        await cut.InvokeAsync(() => cut.Instance.FocusAsync(preventScroll));
+
+        Assert.Equal("#focus-calendar .day[tabindex='0']", cut.Instance.AutofocusBySelector);
+        var invocation = Assert.Single(JSInterop.Invocations[FocusIdentifier]);
+        Assert.Equal(new object?[] { "focus-calendar", preventScroll, "#focus-calendar .day[tabindex='0']" },
+            invocation.Arguments);
+    }
+
+    [Theory]
+    [InlineData(typeof(FluentButton), false)]
+    [InlineData(typeof(FluentButton), true)]
+    [InlineData(typeof(FluentCompoundButton), false)]
+    [InlineData(typeof(FluentCompoundButton), true)]
+    public async Task FocusAsync_ButtonComponent_ForwardsIdAndPreventScroll(Type componentType, bool preventScroll)
+    {
+        var cut = Render<Microsoft.AspNetCore.Components.DynamicComponent>(parameters => parameters
+            .Add(p => p.Type, componentType)
+            .Add(p => p.Parameters, new Dictionary<string, object>
+            {
+                { nameof(FluentComponentBase.Id), "focus-button" },
+            }));
+        var component = Assert.IsAssignableFrom<IFluentComponentAutofocus>(cut.Instance.Instance);
+
+        await cut.InvokeAsync(() => component.FocusAsync(preventScroll));
+
+        var invocation = Assert.Single(JSInterop.Invocations[FocusIdentifier]);
+        Assert.Equal(new object?[] { "focus-button", preventScroll }, invocation.Arguments);
+    }
+
+    [Theory]
+    [InlineData(DatePickerRenderStyle.FluentUI, false)]
+    [InlineData(DatePickerRenderStyle.FluentUI, true)]
+    [InlineData(DatePickerRenderStyle.Native, false)]
+    [InlineData(DatePickerRenderStyle.Native, true)]
+    public void Autofocus_DatePickerRenderStyle_FocusesOnlyOnFirstRender(DatePickerRenderStyle renderStyle, bool autofocus)
+    {
+        using var context = new DateTimeProviderContext(new DateTime(2022, 2, 15));
+        var cut = Render(@<FluentDatePicker TValue="DateTime" Id="focus-date-picker"
+                            RenderStyle="@renderStyle" Autofocus="@autofocus" />)
+            .FindComponent<FluentDatePicker<DateTime>>();
+        var expectedFocusCount = autofocus ? 1 : 0;
+        Assert.Equal(expectedFocusCount, JSInterop.Invocations[FocusIdentifier].Count);
+        Assert.All(JSInterop.Invocations[FocusIdentifier], invocation =>
+            Assert.Equal(new object?[] { "focus-date-picker", false }, invocation.Arguments));
+
+        cut.Render(parameters => parameters.Add(p => p.Autofocus, true));
+
+        Assert.Equal(expectedFocusCount, JSInterop.Invocations[FocusIdentifier].Count);
+    }
+}

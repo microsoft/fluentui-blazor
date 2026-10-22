@@ -31,6 +31,7 @@
     [Fact]
     public void FluentCalendar_AutofocusBySelector_DisabledDays_SelectsFirstSelectableDay()
     {
+        using var context = new DateTimeProviderContext(new DateTime(2022, 2, 15));
         var calendar = Render(@<FluentCalendar TValue="DateTime" Id="calendar-focus" Culture="@InvariantCulture"
                             Value="@(new System.DateTime(2022, 02, 15))"
                             DisabledDateFunc="@((date) => date.Day <= 3)" />);
@@ -46,6 +47,7 @@
     [Fact]
     public void FluentCalendar_AutofocusBySelector_ReadOnly_MatchesNoDay()
     {
+        using var context = new DateTimeProviderContext(new DateTime(2022, 2, 15));
         var calendar = Render(@<FluentCalendar TValue="DateTime" Id="calendar-focus" Culture="@InvariantCulture"
                             Value="@(new System.DateTime(2022, 02, 15))" ReadOnly="true" />);
         var component = calendar.FindComponent<FluentCalendar<DateTime>>();

@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
@@ -150,6 +151,17 @@ public partial class FluentCompoundButton : FluentComponentBase, ITooltipCompone
     protected override async Task OnInitializedAsync()
     {
         await base.RenderTooltipAsync(Tooltip);
+    }
+
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        if (Autofocus && string.IsNullOrWhiteSpace(Id))
+        {
+            Id = Identifier.NewId();
+        }
+
+        base.OnParametersSet();
     }
 
     /// <summary />
