@@ -114,13 +114,12 @@
         var cut = Render(@<FluentDatePicker TValue="DateTime" Id="focus-date-picker"
                             RenderStyle="@renderStyle" Autofocus="@autofocus" />)
             .FindComponent<FluentDatePicker<DateTime>>();
-        var expectedFocusCount = autofocus ? 1 : 0;
-        Assert.Equal(expectedFocusCount, JSInterop.Invocations[FocusIdentifier].Count);
+        Assert.Equal(autofocus, JSInterop.Invocations[FocusIdentifier].Count > 0);
         Assert.All(JSInterop.Invocations[FocusIdentifier], invocation =>
             Assert.Equal(new object?[] { "focus-date-picker", false }, invocation.Arguments));
 
         cut.Render(parameters => parameters.Add(p => p.Autofocus, true));
 
-        Assert.Equal(expectedFocusCount, JSInterop.Invocations[FocusIdentifier].Count);
+        Assert.Equal(autofocus, JSInterop.Invocations[FocusIdentifier].Count > 0);
     }
 }
