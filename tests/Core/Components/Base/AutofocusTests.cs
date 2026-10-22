@@ -43,6 +43,9 @@ public class AutofocusTests : BunitContext
 
         var expectedFocusCount = autofocus ? 1 : 0;
         var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"];
+
+        // If this component has autofocus enabled, it should have been focused once on the first render.
+        // => Check if your `OnAfterRenderAsync` method contains `await this.ApplyAutofocusAsync(firstRender);`
         Assert.Equal(expectedFocusCount, invocations.Count);
         Assert.All(invocations, invocation =>
         {

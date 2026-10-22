@@ -39,9 +39,7 @@ public partial class FluentButton : FluentComponentBase, ITooltipComponent, IFlu
         .AddStyle("opacity", "0.3", when: () => (Disabled || DisabledFocusable) && (!string.IsNullOrEmpty(BackgroundColor) || !string.IsNullOrEmpty(Color)))
         .Build();
 
-    /// <summary>
-    /// Gets or sets whether the button should be focused when the page is loaded.
-    /// </summary>
+    /// <inheritdoc cref="IFluentComponentAutofocus.Autofocus" />
     [Parameter]
     public bool Autofocus { get; set; } = false;
 

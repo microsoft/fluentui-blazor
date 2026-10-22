@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public interface IFluentComponentAutofocus
 {
     /// <summary>
-    ///  Determines if the element should receive the focus automatically
+    /// Determines if the element should receive the focus automatically
     /// when the component is rendered.
     /// </summary>
     bool Autofocus { get; set; }

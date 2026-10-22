@@ -10,7 +10,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// <summary>
 /// A FluentUI AnchorButton component.
 /// </summary>
-public partial class FluentCompoundButton : FluentComponentBase, ITooltipComponent
+public partial class FluentCompoundButton : FluentComponentBase, ITooltipComponent, IFluentComponentAutofocus
 {
     /// <summary />
     public FluentCompoundButton(LibraryConfiguration configuration) : base(configuration) { }
@@ -25,11 +25,9 @@ public partial class FluentCompoundButton : FluentComponentBase, ITooltipCompone
         .AddStyle("color", Color, when: () => !string.IsNullOrEmpty(Color))
         .Build();
 
-    /// <summary>
-    /// Gets or sets whether the button should be focused when the page is loaded.
-    /// </summary>
+    /// <inheritdoc cref="IFluentComponentAutofocus.Autofocus" />
     [Parameter]
-    public bool AutoFocus { get; set; } = false;
+    public bool Autofocus { get; set; } = false;
 
     /// <summary>
     /// Gets or sets the shape of the button.
@@ -155,6 +153,13 @@ public partial class FluentCompoundButton : FluentComponentBase, ITooltipCompone
     }
 
     /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await this.ApplyAutofocusAsync(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
         if (!Disabled && !DisabledFocusable && OnClick.HasDelegate)
@@ -164,6 +169,9 @@ public partial class FluentCompoundButton : FluentComponentBase, ITooltipCompone
 
         await Task.CompletedTask;
     }
+
+    /// <inheritdoc cref="IFluentComponentAutofocus.FocusAsync(bool)"/>
+    public Task FocusAsync(bool preventScroll = false) => this.FocusElementAsync(preventScroll);
 
     /// <summary>
     /// Disables the button.
