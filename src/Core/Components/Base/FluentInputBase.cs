@@ -18,7 +18,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// as a cascading parameter.
 /// </summary>
 /// <typeparam name="TValue">The type of the value to be edited.</typeparam>
-public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable
+public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFluentComponentBase, IFluentField, IAsyncDisposable, IFluentComponentAutofocus
 {
     private bool _isDisposed;
     private FluentJSModule? _jsModule;
@@ -368,6 +368,16 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     protected Task RenderTooltipAsync(string? label) => (_cachedServices ??= new CachedServices(ServiceProvider)).RenderTooltipAsync(this, label);
 
     #endregion
+
+    /// <inheritdoc cref="IFluentComponentAutofocus.FocusAsync(bool)"/>
+    public Task FocusAsync(bool preventScroll = false) => this.FocusElementAsync(JSRuntime, Id, preventScroll);
+
+    /// <summary />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await this.ApplyAutofocusAsync(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
+    }
 
     /// <summary>
     /// Sets parameters supplied by the component's parent in the render tree.
