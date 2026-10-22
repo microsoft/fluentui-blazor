@@ -1,0 +1,27 @@
+@page "/Debug/Autofocus"
+@layout FluentUI.Demo.Client.Layout.EmptyLayout
+
+<h3>Autofocus</h3>
+
+<FluentStack Orientation="Orientation.Vertical">
+    <FluentTextInput Label="Text input without autofocus" />
+
+    <FluentButton Id="autofocus-button" Autofocus="true" OnClick="@(e => Console.WriteLine("FluentButton clicked"))">
+        Button with autofocus
+    </FluentButton>
+
+    <FluentButton OnClick="@(() => _showCompoundButton = true)">
+        Show compound button
+    </FluentButton>
+
+    @if (_showCompoundButton)
+    {
+        <FluentCompoundButton Id="autofocus-compound-button" Autofocus="true" Label="Compound button with autofocus" OnClick="@(e => Console.WriteLine("FluentCompoundButton"))">
+            <Description>Displayed after clicking the button above.</Description>
+        </FluentCompoundButton>
+    }
+</FluentStack>
+
+@code {
+    private bool _showCompoundButton;
+}
