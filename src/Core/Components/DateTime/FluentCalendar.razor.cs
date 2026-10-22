@@ -227,6 +227,9 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
         await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Calendar.SetFirstFocusable", _calendarReference);
     }
 
+    /// <inheritdoc />
+    protected internal override string? AutofocusBySelector => $"#{Id} .day[tabindex='0']";
+
     /// <summary>
     /// Gets titles to use in the calendar.
     /// </summary>
