@@ -34,17 +34,6 @@ In the event of an NPM authentication problem (E401), you will probably need to 
 
   -  All **FluentUI WebComponents** are defined and initialized in the `FluentUIWebComponents` file.
 
-### Listbox focus initialization
-
-`ListBoxContainer.initialize(id)` returns a promise that completes after the
-`fluent-listbox` and `fluent-option` elements are defined, FAST updates have been
-processed, and the active option has received `tabindex="0"`. Repeated calls await
-the same initialization without adding duplicate listeners.
-
-Await initialization before focusing `fluent-option[tabindex="0"]`; focusing the
-listbox container does not forward focus to that option. The Blazor component
-uses this sequence for both first-render autofocus and explicit `FocusAsync()`.
-
 ## Server Build Error
 
 If the build fails with the `401 Unable to authenticate, your authentication token seems to be invalid.` error, 
