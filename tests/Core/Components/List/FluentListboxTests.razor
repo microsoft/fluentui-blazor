@@ -88,7 +88,7 @@
         {
             Assert.Equal("listbox-focus", invocation.Arguments[0]);
             Assert.Equal(false, invocation.Arguments[1]);
-            Assert.Equal("#listbox-focus fluent-listbox fluent-option[tabindex='0']", invocation.Arguments[2]);
+            Assert.Equal("fluent-listbox fluent-option[tabindex='0']", invocation.Arguments[2]);
         });
 
         cut.Render(parameters => parameters.Add(p => p.Autofocus, true));
@@ -112,7 +112,7 @@
         var invocation = Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
         Assert.Equal("listbox-focus", invocation.Arguments[0]);
         Assert.Equal(preventScroll, invocation.Arguments[1]);
-        Assert.Equal("#listbox-focus fluent-listbox fluent-option[tabindex='0']", invocation.Arguments[2]);
+        Assert.Equal("fluent-listbox fluent-option[tabindex='0']", invocation.Arguments[2]);
     }
 
     [Fact]

@@ -76,9 +76,9 @@
 
         await cut.InvokeAsync(() => cut.Instance.FocusAsync(preventScroll));
 
-        Assert.Equal("#focus-calendar .day[tabindex='0']", cut.Instance.AutofocusBySelector);
+        Assert.Equal(".day[tabindex='0'], .month[tabindex='0'], .year[tabindex='0']", cut.Instance.AutofocusBySelector);
         var invocation = Assert.Single(JSInterop.Invocations[FocusIdentifier]);
-        Assert.Equal(new object?[] { "focus-calendar", preventScroll, "#focus-calendar .day[tabindex='0']" },
+        Assert.Equal(new object?[] { "focus-calendar", preventScroll, ".day[tabindex='0'], .month[tabindex='0'], .year[tabindex='0']" },
             invocation.Arguments);
     }
 
