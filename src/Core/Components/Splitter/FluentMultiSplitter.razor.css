@@ -1,11 +1,12 @@
 .fluent-multi-splitter {
   /* Bar colors */
-  --fluent-multi-splitter-background-color: var(--colorNeutralStroke2);
-  --fluent-multi-splitter-background-color-active: var(--colorNeutralStroke1Selected);
-  --fluent-multi-splitter-hover-opacity: 0.8;
+  --fluent-multi-splitter-background-color: var(--colorNeutralStrokeAccessible);
+  --fluent-multi-splitter-background-color-hover: var(--colorNeutralStrokeAccessibleHover);
+  --fluent-multi-splitter-background-color-active: var(--colorNeutralStrokeAccessiblePressed);
+  --fluent-multi-splitter-hover-opacity: 1;
   /* Resize Icon colors */
-  --fluent-multi-splitter-color: var(--colorNeutralStrokeAccessible);
-  --fluent-multi-splitter-color-active: var(--colorNeutralStrokeAccessiblePressed);
+  --fluent-multi-splitter-color: var(--colorNeutralBackground1);
+  --fluent-multi-splitter-color-active: var(--colorNeutralBackground1);
   /* Bar size */
   --fluent-multi-splitter-bar-size: var(--spacingVerticalS);
   /* Styles */
@@ -25,7 +26,7 @@
     justify-content: center;
     color: var(--fluent-multi-splitter-color);
     background-color: var(--fluent-multi-splitter-background-color);
-    opacity: 0.4;
+    opacity: 1;
     user-select: none;
     font-size: 8px;
   }
@@ -65,7 +66,7 @@
 
     /* Hover and Active */
     .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:hover {
-      background-color: var(--fluent-multi-splitter-background-color);
+      background-color: var(--fluent-multi-splitter-background-color-hover);
       opacity: var(--fluent-multi-splitter-hover-opacity);
     }
 
