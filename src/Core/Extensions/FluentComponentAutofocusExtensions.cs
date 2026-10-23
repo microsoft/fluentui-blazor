@@ -53,7 +53,7 @@ internal static class FluentComponentAutofocusExtensions
     {
         ArgumentNullException.ThrowIfNull(component);
 
-        return FocusElementAsync(component.JSRuntime, component.Id, preventScroll);
+        return FocusElementAsync(component.InternalJSRuntime, component.Id, preventScroll);
     }
 
     private static Task FocusElementAsync(IJSRuntime jsRuntime, string? id, bool preventScroll, string? selector = null)
