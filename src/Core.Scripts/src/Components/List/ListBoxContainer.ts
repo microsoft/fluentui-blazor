@@ -116,12 +116,14 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
         return;
       }
 
-      // Set the tabIndex="0" to the first item, if not already yet on another item
-      const existingTabItem = this.listbox.querySelector('fluent-option[tabindex="0"]');
-      if (!existingTabItem) {
-        const firstItem = this.listbox.querySelector('fluent-option') as FluentUIComponents.DropdownOption | null;
-        if (firstItem) {
-          firstItem.tabIndex = 0;
+      // Preserve an eligible tab stop or use the first enabled, visible option so autofocus never targets an unavailable item.
+      const items = this.getItems().filter(option => !option.disabled && !option.hidden && option.getClientRects().length > 0 && getComputedStyle(option).visibility === 'visible');
+      const activeItem = items.find(option => option.tabIndex === 0) ?? items[0];
+
+      for (const option of this.getItems()) {
+        const tabIndex = option === activeItem ? 0 : -1;
+        if (option.tabIndex !== tabIndex) {
+          option.tabIndex = tabIndex;
         }
       }
     }

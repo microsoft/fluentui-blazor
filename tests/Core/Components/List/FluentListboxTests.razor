@@ -134,6 +134,26 @@
     }
 
     [Fact]
+    public async Task FocusAsync_PendingReadiness_WaitsBeforeFocusing()
+    {
+        var readiness = JSInterop.SetupVoid(
+            "Microsoft.FluentUI.Blazor.Components.ListBoxContainer.ensureReady", "listbox-focus");
+        var cut = Render<FluentListbox<string, string>>(parameters => parameters
+            .Add(p => p.Id, "listbox-focus")
+            .Add(p => p.Items, Digits));
+
+        var focusTask = cut.InvokeAsync(() => cut.Instance.FocusAsync());
+
+        Assert.False(focusTask.IsCompleted);
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+
+        readiness.SetVoidResult();
+        await focusTask;
+
+        Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+    }
+
+    [Fact]
     public void FluentListbox_OptionValueToString_ControlsOptionValueAttribute()
     {
         var cut = Render(@<FluentListbox Items="@Digits"

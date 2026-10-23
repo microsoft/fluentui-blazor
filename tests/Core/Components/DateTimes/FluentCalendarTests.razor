@@ -55,6 +55,40 @@
         Assert.Empty(calendar.FindAll(component.Instance.AutofocusBySelector!));
     }
 
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public async Task FocusAsync_DisabledCalendar_DoesNotRequestFocus(CalendarViews view)
+    {
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Id="disabled-calendar"
+                            View="@view" Disabled="true" Autofocus="true" />)
+            .FindComponent<FluentCalendar<DateTime>>();
+
+        await calendar.InvokeAsync(() => calendar.Instance.FocusAsync(true));
+
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+    }
+
+    [Theory]
+    [InlineData(CalendarViews.Days)]
+    [InlineData(CalendarViews.Months)]
+    [InlineData(CalendarViews.Years)]
+    public async Task FocusAsync_CalendarEnabledAfterRendering_FocusesOnlyOnRequest(CalendarViews view)
+    {
+        var calendar = Render(@<FluentCalendar TValue="DateTime" Id="disabled-calendar"
+                            View="@view" Disabled="true" Autofocus="true" />)
+            .FindComponent<FluentCalendar<DateTime>>();
+
+        calendar.Render(parameters => parameters.Add(p => p.Disabled, false));
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+
+        await calendar.InvokeAsync(() => calendar.Instance.FocusAsync(true));
+
+        var invocation = Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+        Assert.Equal(new object?[] { "disabled-calendar", true, calendar.Instance.AutofocusBySelector }, invocation.Arguments);
+    }
+
     [Fact]
     public void FluentCalendar_Title()
     {

@@ -230,6 +230,12 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     /// <inheritdoc />
     protected internal override string? AutofocusBySelector => ".day[tabindex='0'], .month[tabindex='0'], .year[tabindex='0']";
 
+    /// <inheritdoc />
+    public override Task FocusAsync(bool preventScroll = false)
+    {
+        return Disabled == true ? Task.CompletedTask : base.FocusAsync(preventScroll);
+    }
+
     /// <summary>
     /// Gets titles to use in the calendar.
     /// </summary>

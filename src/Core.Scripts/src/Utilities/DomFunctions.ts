@@ -1,4 +1,5 @@
 import { FASTElement, Updates } from '@microsoft/fast-element';
+import { RadioGroup } from '@fluentui/web-components';
 
 export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
 
@@ -23,6 +24,14 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
     // If the element is a FASTElement, wait for the next update cycle to ensure it is fully initialized.
     if (element instanceof FASTElement) {
       await Updates.next();
+    }
+
+    // The radio group focus override does not forward FocusOptions to its radio.
+    if (element instanceof RadioGroup) {
+      const radios = element.enabledRadios;
+      const radio = radios.find(radio => radio.checked) ?? radios[0];
+      radio?.focus({ preventScroll });
+      return;
     }
 
     // If the element is an HTML element, it can be focused directly.
