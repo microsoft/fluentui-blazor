@@ -14,6 +14,28 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 /// </summary>
 public partial class FluentTabs : FluentComponentBase
 {
+    private string? _clientActiveTabId;
+
+    /// <summary>
+    /// When a programmatic selection requests a value the render tree already
+    /// holds, the diff would emit nothing even though the client may have
+    /// changed the actual DOM selection meanwhile (client-originated selections
+    /// are deliberately not written back to the <c>activeid</c> attribute to
+    /// avoid feedback loops, see #5468). In that case <see cref="OnParametersSet"/>
+    /// first writes the value the client currently displays (stored in
+    /// <see cref="_pendingRewriteBase"/>) and stores the requested value here so
+    /// <see cref="OnAfterRenderAsync"/> can reapply it: the web component then
+    /// processes a regular old-to-new <c>activeid</c> change, which is what
+    /// updates the previously selected tab and its panel.
+    /// </summary>
+    private string? _pendingAttributeRewrite;
+
+    /// <summary>
+    /// The client-displayed value written as the first phase of a forced
+    /// <c>activeid</c> rewrite (see <see cref="_pendingAttributeRewrite"/>).
+    /// The second phase only runs while the attribute still holds this value.
+    /// </summary>
+    private string? _pendingRewriteBase;
     private bool _overflowInitialized;
     private bool? _previousOverflowValue;
     private bool _refreshOverflowAfterRender;
@@ -161,7 +183,59 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary />
     protected override void OnParametersSet()
     {
-        ActiveTabIdAttribute = ActiveTabId ?? ActiveTab?.Id;
+        var activeTabId = ActiveTabId ?? ActiveTab?.Id;
+
+        // A forced `activeid` rewrite is in flight (see _pendingAttributeRewrite):
+        // keep it pointed at the latest requested value and let the two-phase
+        // sequence complete undisturbed.
+        if (_pendingAttributeRewrite is not null)
+        {
+            if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
+            {
+                // The latest request matches the tab the client already shows
+                // (e.g. the client selection changed again while the rewrite
+                // was in flight): cancel the rewrite and restore the attribute
+                // instead of reapplying the now-stale value afterwards.
+                _pendingAttributeRewrite = null;
+                _pendingRewriteBase = null;
+                ActiveTabIdAttribute = activeTabId;
+            }
+            else
+            {
+                _pendingAttributeRewrite = activeTabId;
+            }
+
+            return;
+        }
+
+        if (string.Equals(activeTabId, _clientActiveTabId, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        var clientActiveTabId = _clientActiveTabId;
+        _clientActiveTabId = null;
+        _pendingAttributeRewrite = null;
+        _pendingRewriteBase = null;
+
+        // The render tree can already hold the requested value while the client
+        // has since changed the actual DOM selection (see the field docs). A
+        // plain assignment would then produce no diff and the programmatic
+        // reselection would never reach the browser, so first write the value
+        // the client currently displays and let OnAfterRenderAsync reapply the
+        // requested value as a regular attribute change.
+        if (clientActiveTabId is not null
+            && activeTabId is not null
+            && string.Equals(ActiveTabIdAttribute, activeTabId, StringComparison.Ordinal))
+        {
+            _pendingAttributeRewrite = activeTabId;
+            _pendingRewriteBase = clientActiveTabId;
+            ActiveTabIdAttribute = clientActiveTabId;
+        }
+        else
+        {
+            ActiveTabIdAttribute = activeTabId;
+        }
     }
 
     /// <summary />
@@ -200,6 +274,27 @@ public partial class FluentTabs : FluentComponentBase
         }
 
         _previousOverflowValue = Overflow;
+
+        // Complete a forced `activeid` rewrite requested by OnParametersSet:
+        // the first render wrote the client-displayed value so a diff was
+        // emitted; now reapply the requested value so the web component
+        // processes the programmatic selection again.
+        if (_pendingAttributeRewrite is not null)
+        {
+            var rewriteValue = _pendingAttributeRewrite;
+            var rewriteBase = _pendingRewriteBase;
+            _pendingAttributeRewrite = null;
+            _pendingRewriteBase = null;
+
+            // Only reapply when the attribute still holds the first-phase
+            // value: a newer selection wrote the attribute meanwhile and
+            // supersedes the queued rewrite.
+            if (string.Equals(ActiveTabIdAttribute, rewriteBase, StringComparison.Ordinal))
+            {
+                ActiveTabIdAttribute = rewriteValue;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
     }
 
     /// <summary />
@@ -246,15 +341,18 @@ public partial class FluentTabs : FluentComponentBase
         {
             if (Tabs.Remove(tab))
             {
-                var firstTab = Tabs.FirstOrDefault();
-                var firstTabId = firstTab?.Id;
-
-                // Set the first ActiveTab and ActiveTabId
-                if (!string.Equals(firstTabId, tab.Id, StringComparison.Ordinal))
+                var isCurrentActive = !string.IsNullOrEmpty(ActiveTabId)
+                    ? string.Equals(ActiveTabId, tab.Id, StringComparison.Ordinal)
+                    : ReferenceEquals(ActiveTab, tab);
+                if (isCurrentActive)
                 {
+                    var firstTab = Tabs.FirstOrDefault();
+                    var firstTabId = firstTab?.Id;
+
                     ActiveTab = firstTab;
                     ActiveTabId = firstTabId;
                     ActiveTabIdAttribute = firstTabId;
+                    _clientActiveTabId = null;
 
                     if (ActiveTabChanged.HasDelegate)
                     {
@@ -287,7 +385,15 @@ public partial class FluentTabs : FluentComponentBase
 
         // Search for the tab
         var tab = Tabs.FirstOrDefault(t => string.Equals(t.Id, args.ActiveId, StringComparison.Ordinal));
-        await SetActiveTabAsync(tab);
+        if (await SetActiveTabAsync(tab, isClientSelection: true))
+        {
+            // Only record the client selection once it has been accepted. A
+            // rejected event (disabled or invisible tab, disabled container)
+            // must not pollute the marker, otherwise a later valid parameter
+            // update for the same id would be wrongly suppressed in
+            // OnParametersSet.
+            _clientActiveTabId = tab?.Id;
+        }
     }
 
     /// <summary>
@@ -297,8 +403,25 @@ public partial class FluentTabs : FluentComponentBase
     public async Task SelectTabAsync(string tabId)
     {
         var tab = Tabs.FirstOrDefault(t => t.Visible && !t.Disabled && string.Equals(t.Id, tabId, StringComparison.Ordinal));
-        if (await SetActiveTabAsync(tab))
+        var clientActiveTabId = _clientActiveTabId;
+        _clientActiveTabId = null;
+        var attributeBefore = ActiveTabIdAttribute;
+        if (await SetActiveTabAsync(tab, isClientSelection: false))
         {
+            // Same staleness case as in OnParametersSet: the render tree may
+            // already hold the requested value while the client changed the
+            // actual DOM selection, so force the web component to reapply it
+            // (first the client-displayed value, then the requested value in
+            // OnAfterRenderAsync).
+            if (clientActiveTabId is not null
+                && ActiveTabIdAttribute is not null
+                && string.Equals(attributeBefore, ActiveTabIdAttribute, StringComparison.Ordinal))
+            {
+                _pendingAttributeRewrite = ActiveTabIdAttribute;
+                _pendingRewriteBase = clientActiveTabId;
+                ActiveTabIdAttribute = clientActiveTabId;
+            }
+
             await InvokeAsync(StateHasChanged);
         }
     }
@@ -339,7 +462,7 @@ public partial class FluentTabs : FluentComponentBase
     /// <summary>
     /// Sets the specified tab as the active tab.
     /// </summary>
-    private async Task<bool> SetActiveTabAsync(FluentTab? tab)
+    private async Task<bool> SetActiveTabAsync(FluentTab? tab, bool isClientSelection = false)
     {
         if (tab is null || Disabled || tab.Disabled || !tab.Visible)
         {
@@ -355,7 +478,19 @@ public partial class FluentTabs : FluentComponentBase
 
         ActiveTabId = tab.Id;
         ActiveTab = tab;
-        ActiveTabIdAttribute = tab.Id;
+
+        // Only a programmatic selection writes the `activeid` attribute back to
+        // the client. For a client-originated change the web component already
+        // displays the selected tab; round-tripping the value through the
+        // rendered attribute makes the component raise `tabchange` again, and a
+        // stale event (e.g. raised while a programmatic value was still being
+        // applied) can then flip the selection back and forth (#5468).
+        if (!isClientSelection)
+        {
+            _clientActiveTabId = null;
+            ActiveTabIdAttribute = tab.Id;
+        }
+
         _refreshOverflowAfterRender = Overflow;
 
         if (activeTabIdChanged && ActiveTabIdChanged.HasDelegate)
