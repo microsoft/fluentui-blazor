@@ -90,6 +90,8 @@ Once running, open the URL displayed in the terminal output in your browser.
 
 ### Submitting a pull request
 
+Before implementing a change, follow [Discuss before implementing](#discuss-before-implementing) below.
+
 If you'd like to contribute by fixing a bug, implementing a feature, or even correcting typos in our documentation, you'll want to submit a pull request. Before submitting a pull request, be sure to [rebase](https://www.atlassian.com/git/tutorials/merging-vs-rebasing) your branch from `dev`. Do not use ``git merge`` or the *merge* button provided by GitHub; and run all unit tests to validate your changes.
 
 ### Merging a pull request
@@ -103,6 +105,23 @@ A “Contribution” is work voluntarily submitted to a project. This submitted 
 Many contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to grant and do grant the rights to use your contribution. For details, visit [https://cla.microsoft.com](https://cla.microsoft.com).
 
 When you submit a pull request, a CLA-bot automatically determines if you need to provide a CLA and decorates the pull request appropriately (e.g., label, comment). Follow the instructions provided by the bot. You only need to do this once across all repositories using our CLA.
+
+### Discuss before implementing
+
+Before implementing a feature, a behavior change, or a non-trivial bug fix:
+
+1. Search existing issues. Create an issue if none covers the problem, or join an existing issue instead of creating a duplicate.
+2. Describe the problem, the expected benefit, and your proposed approach. Comment on an existing issue if you intend to work on it; you do not need to be its author.
+3. Wait for a maintainer to agree that the change and proposed approach fit the project before starting implementation. Opening an issue alone is not approval.
+4. Link the issue containing that agreement in the pull request's **Issues** section, using `Fixes #1234` when the pull request resolves the issue.
+
+This discussion helps avoid spending time on changes that do not fit the project's goals or design. Agreement to start implementation does not guarantee that the pull request will be accepted; normal review and testing requirements still apply.
+
+Prior discussion is not required for small documentation-only corrections (such as spelling, grammar, or broken links), trivial bug fixes with an obvious solution and no API or intended behavior change, or automated dependency update pull requests. Explain the applicable exception in the pull request's **Issues** section. If you are unsure whether an exception applies, discuss the change in an issue first. Automated updates still require human review under the AI contribution policy.
+
+Complete the checkbox in the pull request template's **Issue discussion declaration** section. The **Issue discussion declaration** workflow check fails if the declaration is missing or unchecked and runs again when the pull request description or commits change.
+
+This check verifies the declaration only; it does not verify issue links, maintainer agreement, participation, or whether an exception applies. Maintainers validate these during review.
 
 ### AI contribution policy
 
