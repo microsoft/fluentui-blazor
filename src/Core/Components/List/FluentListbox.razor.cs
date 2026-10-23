@@ -54,7 +54,7 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
     public override async Task FocusAsync(bool preventScroll = false)
     {
         // Wait for the web components and FAST updates so the active option has tabindex="0" before focusing it.
-        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.initialize", Id);
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.ensureReady", Id);
         await base.FocusAsync(preventScroll);
     }
 

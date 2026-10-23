@@ -39,6 +39,10 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     instance.refresh();
   }
 
+  export async function ensureReady(id: string): Promise<void> {
+    await initialize(id);
+  }
+
   export function refresh(id: string) {
     const container = document.getElementById(id) as HTMLElement;
     const listbox = container?.querySelector('fluent-listbox') as FluentUIComponents.Listbox;
