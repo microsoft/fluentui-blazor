@@ -51,13 +51,14 @@ These CSS variables are predefined with these values, but can be overwritten (us
 ```css
 .fluent-multi-splitter {
   /* Bar colors */
-  --fluent-multi-splitter-background-color: var(--colorNeutralStroke2);
-  --fluent-multi-splitter-background-color-active: var(--colorNeutralStroke1Selected);
-  --fluent-multi-splitter-hover-opacity: 0.8;
+  --fluent-multi-splitter-background-color: var(--colorNeutralStrokeAccessible);
+  --fluent-multi-splitter-background-color-hover: var(--colorNeutralStrokeAccessibleHover);
+  --fluent-multi-splitter-background-color-active: var(--colorNeutralStrokeAccessiblePressed);
+  --fluent-multi-splitter-hover-opacity: 1;
 
   /* Resize Icon colors */
-  --fluent-multi-splitter-color: var(--colorNeutralStrokeAccessible);
-  --fluent-multi-splitter-color-active: var(--colorNeutralStrokeAccessiblePressed);
+  --fluent-multi-splitter-color: var(--colorNeutralBackground1);
+  --fluent-multi-splitter-color-active: var(--colorNeutralBackground1);
 
   /* Bar size */
   --fluent-multi-splitter-bar-size: var(--spacingVerticalS);
