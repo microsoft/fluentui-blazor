@@ -113,7 +113,7 @@ public class FluentComponentAutofocusExtensionsTests : BunitContext
             component.FocusElementAsync(JSInterop.JSRuntime, id, false));
 
         Assert.Equal("id", exception.ParamName);
-        Assert.StartsWith("Component ID cannot be null or whitespace.", exception.Message);
+        Assert.StartsWith("Component ID cannot be null.", exception.Message);
         Assert.Empty(JSInterop.Invocations);
     }
 

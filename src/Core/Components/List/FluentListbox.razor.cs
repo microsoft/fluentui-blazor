@@ -45,7 +45,7 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
         .Build();
 
     /// <inheritdoc />
-    protected internal override string? AutofocusBySelector => $"#{Id} fluent-listbox fluent-option[tabindex='0']";
+    protected internal override string? AutofocusBySelector => $"fluent-listbox fluent-option[tabindex='0']";
 
     /// <summary>
     /// Focuses the active option after the listbox has initialized.

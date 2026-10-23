@@ -374,6 +374,7 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
 
     /// <summary>
     /// The CSS selector used to determine which element should receive focus.
+    /// Applied via querySelector to the current component's element, located by its Id.
     /// </summary>
     protected internal virtual string? AutofocusBySelector => null;
 

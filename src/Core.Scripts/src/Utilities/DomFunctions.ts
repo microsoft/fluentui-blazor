@@ -12,7 +12,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
    */
   export async function focus(elementOrId: HTMLElement | SVGElement | string, preventScroll: boolean = false, selector?: string): Promise<void> {
     if (selector) {
-      await focusBySelector(selector, preventScroll);
+      await focusBySelector(elementOrId, selector, preventScroll);
       return;
     }
 
@@ -37,8 +37,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
       } else {
         throw new Error('Unable to focus an SVG element that does not have a tabindex.');
       }
-    } 
-    
+    }
+
     // If the element is neither an HTML nor an SVG element, it is considered invalid for focusing.
     else {
       throw new Error('Unable to focus an invalid element.');
@@ -47,11 +47,18 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.DomFunctions {
 
   /**
    * Focuses an element by its CSS selector.
+   * @param elementOrId The element or its ID. When null or undefined, the selector is used instead.
    * @param selector The CSS selector of the element to focus.
    * @param preventScroll Whether to prevent scrolling the element into view.
    */
-  export async function focusBySelector(selector: string, preventScroll: boolean = false): Promise<void> {
-    const element = document.querySelector(selector) as HTMLElement;
+  export async function focusBySelector(elementOrId: HTMLElement | SVGElement | string | null | undefined, selector: string, preventScroll: boolean = false): Promise<void> {
+    
+    // Determine the element to focus based on the provided elementOrId or selector.
+    const element = elementOrId === null || elementOrId === undefined
+      ? document.querySelector<HTMLElement | SVGElement>(selector)
+      : typeof elementOrId === 'string'
+        ? document.getElementById(elementOrId)?.querySelector<HTMLElement | SVGElement>(selector)
+        : elementOrId.querySelector<HTMLElement | SVGElement>(selector);
 
     if (element) {
 

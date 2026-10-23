@@ -228,7 +228,7 @@ public partial class FluentCalendar<TValue> : FluentCalendarBase<TValue>
     }
 
     /// <inheritdoc />
-    protected internal override string? AutofocusBySelector => $"#{Id} .day[tabindex='0']";
+    protected internal override string? AutofocusBySelector => $".day[tabindex='0']";
 
     /// <summary>
     /// Gets titles to use in the calendar.

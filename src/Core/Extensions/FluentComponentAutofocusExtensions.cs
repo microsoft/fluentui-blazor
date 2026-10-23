@@ -62,7 +62,7 @@ internal static class FluentComponentAutofocusExtensions
 
         if (string.IsNullOrWhiteSpace(id))
         {
-            throw new ArgumentException("Component ID cannot be null or whitespace.", nameof(id));
+            throw new ArgumentException("Component ID cannot be null.", nameof(id));
         }
 
         return string.IsNullOrWhiteSpace(selector)
