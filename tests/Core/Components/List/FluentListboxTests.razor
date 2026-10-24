@@ -72,6 +72,87 @@
         cut.Verify();
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void OnAfterRenderAsync_Autofocus_FocusesActiveOptionOnlyOnFirstRender(bool autofocus)
+    {
+        var cut = Render<FluentListbox<string, string>>(parameters => parameters
+            .Add(p => p.Id, "listbox-focus")
+            .Add(p => p.Items, Digits)
+            .Add(p => p.Autofocus, autofocus));
+
+        var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"];
+        Assert.Equal(autofocus ? 1 : 0, invocations.Count);
+        Assert.All(invocations, invocation =>
+        {
+            Assert.Equal("listbox-focus", invocation.Arguments[0]);
+            Assert.Equal(false, invocation.Arguments[1]);
+            Assert.Equal("fluent-listbox fluent-option[tabindex='0']", invocation.Arguments[2]);
+        });
+
+        cut.Render(parameters => parameters.Add(p => p.Autofocus, true));
+
+        Assert.Equal(autofocus ? 1 : 0,
+            JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"].Count);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task FocusAsync_PreventScroll_FocusesActiveOption(bool preventScroll)
+    {
+        var cut = Render<FluentListbox<string, string>>(parameters => parameters
+            .Add(p => p.Id, "listbox-focus")
+            .Add(p => p.Items, Digits));
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+
+        await cut.InvokeAsync(() => cut.Instance.FocusAsync(preventScroll));
+
+        var invocation = Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+        Assert.Equal("listbox-focus", invocation.Arguments[0]);
+        Assert.Equal(preventScroll, invocation.Arguments[1]);
+        Assert.Equal("fluent-listbox fluent-option[tabindex='0']", invocation.Arguments[2]);
+    }
+
+    [Fact]
+    public void OnAfterRenderAsync_PendingInitialization_WaitsBeforeAutofocus()
+    {
+        var initialization = JSInterop.SetupVoid(
+            "Microsoft.FluentUI.Blazor.Components.ListBoxContainer.initialize", "listbox-focus");
+        var cut = Render<FluentListbox<string, string>>(parameters => parameters
+            .Add(p => p.Id, "listbox-focus")
+            .Add(p => p.Items, Digits)
+            .Add(p => p.Autofocus, true));
+
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+
+        initialization.SetVoidResult();
+
+        cut.WaitForAssertion(() => Assert.Single(
+            JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]));
+    }
+
+    [Fact]
+    public async Task FocusAsync_PendingReadiness_WaitsBeforeFocusing()
+    {
+        var readiness = JSInterop.SetupVoid(
+            "Microsoft.FluentUI.Blazor.Components.ListBoxContainer.ensureReady", "listbox-focus");
+        var cut = Render<FluentListbox<string, string>>(parameters => parameters
+            .Add(p => p.Id, "listbox-focus")
+            .Add(p => p.Items, Digits));
+
+        var focusTask = cut.InvokeAsync(() => cut.Instance.FocusAsync());
+
+        Assert.False(focusTask.IsCompleted);
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+
+        readiness.SetVoidResult();
+        await focusTask;
+
+        Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+    }
+
     [Fact]
     public void FluentListbox_OptionValueToString_ControlsOptionValueAttribute()
     {
