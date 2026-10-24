@@ -30,6 +30,7 @@ When an item is grabbed and moved with the keyboard, it will remain in the grabb
 This allows users to move items across lists without having to keep the key pressed. If however, the item is cloned, it will be released immediately after moving.
 
 The component also provides appropriate ARIA attributes to enhance screen reader support.
+The position of an item is announced to screen readers when it is grabbed, moved or released.
 
 ## Styling
 

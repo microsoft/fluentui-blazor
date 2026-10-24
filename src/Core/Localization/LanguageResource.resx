@@ -448,4 +448,16 @@
   <data name="FluentInputBase_RequiredMessage" xml:space="preserve">
     <value>This field is required</value>
   </data>
+  <data name="SortableList_ItemGrabbed" xml:space="preserve">
+    <value>Grabbed, position {0} of {1}</value>
+    <comment>{0} is the position of the item and {1} the number of items in the list</comment>
+  </data>
+  <data name="SortableList_ItemMoved" xml:space="preserve">
+    <value>Moved to position {0} of {1}</value>
+    <comment>{0} is the new position of the item and {1} the number of items in the list</comment>
+  </data>
+  <data name="SortableList_ItemDropped" xml:space="preserve">
+    <value>Dropped, position {0} of {1}</value>
+    <comment>{0} is the position of the item and {1} the number of items in the list</comment>
+  </data>
 </root>
