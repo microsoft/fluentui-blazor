@@ -20,6 +20,18 @@ public partial class FluentKeyCodeProvider : IDisposable
     [Parameter]
     public bool PreventDefault { get; set; } = false;
 
+    /// <inheritdoc cref="FluentKeyCode.PreventDefaultOnly" />
+    [Parameter]
+    public KeyCode[] PreventDefaultOnly { get; set; } = [];
+
+    /// <inheritdoc cref="FluentKeyCode.Only" />
+    [Parameter]
+    public KeyCode[] Only { get; set; } = [];
+
+    /// <inheritdoc cref="FluentKeyCode.Ignore" />
+    [Parameter]
+    public KeyCode[] Ignore { get; set; } = [];
+
     /// <summary />
     internal async Task KeyDownHandlerAsync(FluentKeyCodeEventArgs args)
     {

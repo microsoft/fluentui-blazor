@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics;
+using Microsoft.Extensions.Time.Testing;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Xunit;
 
@@ -20,24 +21,30 @@ public class DebounceTests
     [Fact]
     public async Task Debounce_Default()
     {
-        var debounce = new Debounce();
+        var timeProvider = new FakeTimeProvider();
+        var debounce = new Debounce(timeProvider);
 
         // Arrange
         var actionCalled = false;
-        var watcher = Stopwatch.StartNew();
 
         Assert.False(debounce.IsCompleted);
 
         // Act
-        await debounce.RunAsync(50, async () =>
+        var task = debounce.RunAsync(50, async () =>
         {
             actionCalled = true;
             await Task.CompletedTask;
         }, TestContext.Current.CancellationToken);
 
+        timeProvider.Advance(TimeSpan.FromMilliseconds(49));
+
+        Assert.False(actionCalled);
+
+        timeProvider.Advance(TimeSpan.FromMilliseconds(1));
+        await task;
+
         // Assert
         Assert.True(debounce.IsCompleted);
-        Assert.True(watcher.ElapsedMilliseconds >= 50);
         Assert.True(actionCalled);
     }
 

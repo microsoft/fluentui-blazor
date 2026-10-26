@@ -22,6 +22,9 @@ public class PaginationState
     /// </summary>
     public int CurrentPageIndex { get; private set; }
 
+    /// <summary />
+    internal FluentPaginator? CurrentPageChangedBy { get; set; }
+
     /// <summary>
     /// Gets the total number of items across all pages, if known. The value will be null until an
     /// associated <see cref="FluentDataGrid{TGridItem}"/> assigns a value after loading data.

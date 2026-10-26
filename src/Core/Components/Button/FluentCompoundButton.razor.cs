@@ -157,7 +157,7 @@ public partial class FluentCompoundButton : FluentComponentBase, ITooltipCompone
     /// <summary />
     protected async Task OnClickHandlerAsync(MouseEventArgs e)
     {
-        if (!Disabled && OnClick.HasDelegate)
+        if (!Disabled && !DisabledFocusable && OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(e);
         }

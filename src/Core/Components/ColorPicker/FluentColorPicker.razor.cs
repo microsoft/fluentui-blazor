@@ -279,7 +279,7 @@ public partial class FluentColorPicker : FluentComponentBase
     /// <inheritdoc />
     protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
     {
-        await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose", Id);
+        await JSModule.ObjectReference.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.ColorPicker.Dispose", Id);
         _dotNetHelper?.Dispose();
     }
 }

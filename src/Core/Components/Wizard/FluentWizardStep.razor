@@ -4,8 +4,10 @@
 
 <li id="@Id"
 	status="@Status.ToAttributeValue()"
+    aria-current="@(Status == WizardStepStatus.Current ? "step" : null)"
     @onclick="@OnClickHandlerAsync"
     disabled="@Disabled"
+    aria-disabled="@(Disabled ? "true" : null)"
     class="@ClassValue"
 	style="@StyleValue"
 	@attributes="@AdditionalAttributes">

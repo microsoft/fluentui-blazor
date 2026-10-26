@@ -13,6 +13,8 @@ namespace Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.WebServer;
 public class StartServerFixture : IAsyncLifetime
 {
     private const int KILL_TIMEOUT_MILLISECONDS = 1000;
+    private const int START_TIMEOUT_SECONDS = 30;
+    private const int START_POLL_MILLISECONDS = 200;
     private const string PROCESS_FILENAME = "Microsoft.FluentUI.AspNetCore.Components.IntegrationTests.exe";
     private const string PROJECT_FILENAME = "Components.IntegrationTests.csproj";
 
@@ -35,7 +37,7 @@ public class StartServerFixture : IAsyncLifetime
     /// Starts the server process.
     /// </summary>
     /// <returns></returns>
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
         // Kill the existing server process (if the previous DisposeAsync was not called)
         KillExistingServerProcess();
@@ -55,7 +57,50 @@ public class StartServerFixture : IAsyncLifetime
 
         var started = _serverProcess.Start();
 
-        return Task.CompletedTask;
+        await WaitForServerAsync(_serverProcess);
+    }
+
+    /// <summary>
+    /// Waits until the server serves the Blazor script, because `dotnet run` returns before the server listens:
+    /// without this wait, the first tests fail with ERR_CONNECTION_REFUSED.
+    /// </summary>
+    /// <param name="serverProcess">The started server process.</param>
+    /// <exception cref="InvalidOperationException">The server process exited before the server was ready.</exception>
+    /// <exception cref="TimeoutException">The server was not ready within <see cref="START_TIMEOUT_SECONDS"/>.</exception>
+    private async Task WaitForServerAsync(Process serverProcess)
+    {
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(START_TIMEOUT_SECONDS));
+        using var client = new HttpClient();
+        Exception? lastError = null;
+
+        try
+        {
+            while (true)
+            {
+                if (serverProcess.HasExited)
+                {
+                    throw new InvalidOperationException($"The server process exited with code {serverProcess.ExitCode} before {BaseUrl} was ready.", lastError);
+                }
+
+                try
+                {
+                    using var response = await client.GetAsync($"{BaseUrl}/_framework/blazor.web.js", timeout.Token);
+                    response.EnsureSuccessStatusCode();
+                    return;
+                }
+                catch (HttpRequestException ex)
+                {
+                    // Not listening yet, or not ready to serve the script
+                    lastError = ex;
+                }
+
+                await Task.Delay(START_POLL_MILLISECONDS, timeout.Token);
+            }
+        }
+        catch (OperationCanceledException) when (timeout.IsCancellationRequested)
+        {
+            throw new TimeoutException($"{BaseUrl} was not ready within {START_TIMEOUT_SECONDS} seconds.", lastError);
+        }
     }
 
     /// <summary>
