@@ -204,13 +204,15 @@
         // Assert
         var buttons = cut.FindAll(".paginator-nav fluent-button");
 
-        // First and Previous buttons should be disabled
-        Assert.NotNull(buttons[0].GetAttribute("disabled"));
-        Assert.NotNull(buttons[1].GetAttribute("disabled"));
+        // First and Previous buttons should be disabled, but keep the focus
+        Assert.NotNull(buttons[0].GetAttribute("disabled-focusable"));
+        Assert.NotNull(buttons[1].GetAttribute("disabled-focusable"));
+        Assert.Null(buttons[0].GetAttribute("disabled"));
+        Assert.Null(buttons[1].GetAttribute("disabled"));
 
         // Next and Last buttons should be enabled
-        Assert.Null(buttons[2].GetAttribute("disabled"));
-        Assert.Null(buttons[3].GetAttribute("disabled"));
+        Assert.Null(buttons[2].GetAttribute("disabled-focusable"));
+        Assert.Null(buttons[3].GetAttribute("disabled-focusable"));
     }
 
     [Fact]
@@ -228,12 +230,31 @@
         var buttons = cut.FindAll(".paginator-nav fluent-button");
 
         // First and Previous buttons should be enabled
-        Assert.Null(buttons[0].GetAttribute("disabled"));
-        Assert.Null(buttons[1].GetAttribute("disabled"));
+        Assert.Null(buttons[0].GetAttribute("disabled-focusable"));
+        Assert.Null(buttons[1].GetAttribute("disabled-focusable"));
 
-        // Next and Last buttons should be disabled
-        Assert.NotNull(buttons[2].GetAttribute("disabled"));
-        Assert.NotNull(buttons[3].GetAttribute("disabled"));
+        // Next and Last buttons should be disabled, but keep the focus
+        Assert.NotNull(buttons[2].GetAttribute("disabled-focusable"));
+        Assert.NotNull(buttons[3].GetAttribute("disabled-focusable"));
+        Assert.Null(buttons[2].GetAttribute("disabled"));
+        Assert.Null(buttons[3].GetAttribute("disabled"));
+    }
+
+    [Fact]
+    public async Task FluentPaginator_NextButton_OnLastPage_DoesNotChangePage()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(100);
+        await state.SetCurrentPageIndexAsync(9);
+        var cut = Render(@<FluentPaginator State="@state" />);
+
+        // Act
+        await cut.FindAll(".paginator-nav fluent-button")[2].ClickAsync(new MouseEventArgs());
+
+        // Assert
+        Assert.Equal(9, state.CurrentPageIndex);
+        Assert.Equal(string.Empty, cut.Find("[paginator-page-status]").TextContent);
     }
 
     [Fact]
@@ -299,6 +320,50 @@
         // Assert
         Assert.Equal(4, state.CurrentPageIndex);
         Assert.Equal(4, newPageIndex);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_PageStatus_IsAnnouncedByThePaginatorUsed()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(20);
+        var cut = Render(@<div>
+            <FluentPaginator State="@state" />
+            <FluentPaginator State="@state" />
+        </div>);
+        Assert.All(cut.FindAll("[paginator-page-status]"), status => Assert.Equal(string.Empty, status.TextContent));
+
+        // Act
+        await cut.FindAll(".fluent-paginator")[1].QuerySelectorAll(".paginator-nav fluent-button")[2].ClickAsync(new MouseEventArgs());
+
+        // Assert
+        var statuses = cut.FindAll("[paginator-page-status]");
+        Assert.Equal("status", statuses[1].GetAttribute("role"));
+        Assert.Equal("polite", statuses[1].GetAttribute("aria-live"));
+        Assert.Equal(string.Empty, statuses[0].TextContent);
+        Assert.Equal(IFluentLocalizer.GetDefault("Paginator_Status", 2, 2), statuses[1].TextContent);
+    }
+
+    [Fact]
+    public async Task FluentPaginator_PageStatus_MovesToTheLastPaginatorUsed()
+    {
+        // Arrange
+        var state = new PaginationState();
+        await state.SetTotalItemCountAsync(20);
+        var cut = Render(@<div>
+            <FluentPaginator State="@state" />
+            <FluentPaginator State="@state" />
+        </div>);
+        await cut.FindAll(".fluent-paginator")[1].QuerySelectorAll(".paginator-nav fluent-button")[2].ClickAsync(new MouseEventArgs());
+
+        // Act
+        await cut.FindAll(".fluent-paginator")[0].QuerySelectorAll(".paginator-nav fluent-button")[1].ClickAsync(new MouseEventArgs());
+
+        // Assert
+        var statuses = cut.FindAll("[paginator-page-status]");
+        Assert.Equal(IFluentLocalizer.GetDefault("Paginator_Status", 1, 2), statuses[0].TextContent);
+        Assert.Equal(string.Empty, statuses[1].TextContent);
     }
 
     [Fact]

@@ -40,6 +40,20 @@ public class Debounce : IDisposable
     private bool _isCompleted;
     private CancellationTokenSource? _cancellationTokenSource;
     private bool _disposedValue;
+    private readonly TimeProvider _timeProvider;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Debounce"/> class.
+    /// </summary>
+    public Debounce() : this(TimeProvider.System)
+    {
+    }
+
+    /// <summary />
+    internal Debounce(TimeProvider timeProvider)
+    {
+        _timeProvider = timeProvider;
+    }
 
     /// <summary>
     /// Debounce the execution of asynchronous tasks.
@@ -87,7 +101,7 @@ public class Debounce : IDisposable
         _cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
         cancellationToken = _cancellationTokenSource.Token;
 
-        await Task.Delay(milliseconds, cancellationToken)
+        await Task.Delay(TimeSpan.FromMilliseconds(milliseconds), _timeProvider, cancellationToken)
             .ConfigureAwait(ConfigureAwaitOptions.SuppressThrowing | ConfigureAwaitOptions.ContinueOnCapturedContext);
 
         if (cancellationToken.IsCancellationRequested)
