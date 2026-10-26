@@ -1,0 +1,3 @@
+# Maintenance bots exempt only from contribution declaration checks.
+# One exact GitHub login per line; human review and all other required checks still apply.
+dependabot[bot]
