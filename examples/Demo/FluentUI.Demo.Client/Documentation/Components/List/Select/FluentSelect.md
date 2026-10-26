@@ -7,7 +7,7 @@ route: /Lists/Select
 
 The **FluentSelect** component allows one option to be selected from a list of options.
 
-View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/select/usage).
+View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/core/select/usage).
 
 ## Default
 

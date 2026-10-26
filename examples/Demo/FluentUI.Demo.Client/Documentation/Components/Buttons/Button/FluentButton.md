@@ -9,7 +9,7 @@ route: /Buttons/Button
 The `Button` component allows users to commit a change or trigger an action via a single click
 or tap and is often found inside forms, dialogs, drawers (panels) and/or pages.
 
-View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/button/usage).
+View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/core/button/usage).
 
 ## Appearance
 
