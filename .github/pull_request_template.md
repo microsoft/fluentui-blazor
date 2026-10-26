@@ -2,6 +2,7 @@
 Thanks for filing a pull request 😄 ! Before you submit, please read the following:
 
 Search open/closed issues before submitting. Someone may have pushed the same thing before!
+Before implementing a change, create or join an issue, describe your approach, and wait for maintainer agreement unless a documented exception applies.
 
 Provide a summary of your changes in the title field above.
 -->
@@ -20,6 +21,8 @@ Is this a breaking change, chore, fix, feature, etc?
 
 <!---
 * List and link relevant issues here.
+* For changes discussed in advance, link the issue containing maintainer agreement (for example, Fixes #1234).
+* If a documented exception applies, explain it here instead.
 -->
 
 ## 👩‍💻 Reviewer Notes
@@ -47,6 +50,14 @@ Please provide a summary of the tests affected by this work and any unique strat
 - [ ] I have tested my changes.
 - [ ] I have updated the project documentation to reflect my changes.
 - [ ] I have read the [CONTRIBUTING](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/contributing.md) documentation and followed the [standards](https://www.fast.design/docs/community/code-of-conduct/#our-standards) for this project.
+
+### Issue discussion declaration
+
+<!--- This declaration is required except for global code owners exempted by the policy. Do not remove or change its wording. -->
+
+Discuss changes before implementing them to confirm that the problem and proposed approach fit the project. See [Discuss before implementing](https://github.com/microsoft/fluentui-blazor/blob/dev/docs/contributing.md#discuss-before-implementing) for the process and exceptions.
+
+- [ ] I have discussed this change in an issue and received maintainer agreement before implementation, or a documented exception applies.
 
 ### AI contribution declaration
 
