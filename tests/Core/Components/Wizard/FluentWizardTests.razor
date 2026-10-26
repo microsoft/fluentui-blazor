@@ -96,6 +96,29 @@
 	}
 
 	[Fact]
+	public void FluentWizard_CurrentStep_IsExposedToAssistiveTechnologies()
+	{
+		// Arrange
+		var value = 0;
+		var cut = Render(
+			@<FluentWizard @bind-Value="@value">
+				<Steps>
+					<FluentWizardStep Label="Step 1">Content 1</FluentWizardStep>
+					<FluentWizardStep Label="Step 2">Content 2</FluentWizardStep>
+					<FluentWizardStep Label="Disabled" Disabled="true">Content 3</FluentWizardStep>
+				</Steps>
+			</FluentWizard>);
+
+		// Act
+		cut.FindAll("fluent-button").First(b => b.TextContent.Trim() == "Next").Click();
+
+		// Assert
+		var steps = cut.FindAll("li");
+		Assert.Equal([null, "step", null], steps.Select(step => step.GetAttribute("aria-current")));
+		Assert.Equal([null, null, "true"], steps.Select(step => step.GetAttribute("aria-disabled")));
+	}
+
+	[Fact]
 	public void FluentWizard_DisabledStep()
 	{
 		// Arrange && Act

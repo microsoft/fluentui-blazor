@@ -890,6 +890,50 @@
 #else
     [Fact]
 #endif
+    public async Task FluentDataGrid_Virtualize_RefreshDataAsync_RerendersGrid()
+    {
+        // With Virtualize="true", RefreshDataAsync delegates to Virtualize and returns early.
+        // When the total item count does not change, the provider callback does not re-render
+        // the grid, so the public RefreshDataAsync must do it.
+
+        // Arrange
+        FluentDataGrid<Customer>? grid = default!;
+        var items = GetRandomCustomers(10).ToList();
+        var gridRenderCount = 0;
+
+        GridItemsProvider<Customer> itemsProvider = req => ValueTask.FromResult(
+            GridItemsProviderResult.From<Customer>(
+                items: items.Skip(req.StartIndex).Take(req.Count ?? items.Count).ToArray(),
+                totalItemCount: items.Count));
+
+        var cut = Render<FluentDataGrid<Customer>>(
+            @<div style="height: 400px; max-width: 800px; overflow-y: scroll;">
+                <FluentDataGrid @ref="grid" TGridItem="Customer" ItemsProvider="itemsProvider" ItemSize=32 Virtualize="true" DisplayMode="DataGridDisplayMode.Table">
+                    <ChildContent>
+                        @{ gridRenderCount++; }
+                        <PropertyColumn Property="@(x => x.Name)" />
+                    </ChildContent>
+                </FluentDataGrid>
+            </div>
+        );
+
+        // Let the first provider result settle
+        await cut.InvokeAsync(() => grid!.RefreshDataAsync());
+        cut.WaitForAssertion(() => Assert.Equal("11", cut.Find("table").GetAttribute("aria-rowcount")));
+        var renderCountBefore = gridRenderCount;
+
+        // Act: refresh with the same total item count
+        await cut.InvokeAsync(() => grid!.RefreshDataAsync());
+
+        // Assert
+        cut.WaitForAssertion(() => Assert.True(gridRenderCount > renderCountBefore));
+    }
+
+    #if NET11_0_OR_GREATER
+    [Fact(Skip = "TEMP-BUNIT-NET11-VIRTUALIZE: Re-enable after bUnit supports .NET 11 Virtualize callbacks.")]
+#else
+    [Fact]
+#endif
     public void FluentDataGrid_Virtualize_NoEmptyContentBeforeFirstProviderResult()
     {
         // Companion regression test for #5151: a re-render that happens after the Virtualize
@@ -3751,6 +3795,45 @@
 
         // Call again with force: true
         await cut.InvokeAsync(() => grid.RefreshDataAsync(force: true));
+        Assert.Equal(2, refreshCount);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_RefreshDataAsync_ForceRefresh_RerenderWhileLoading_CallsRefreshItemsOnce()
+    {
+        // Arrange
+        var refreshCount = 0;
+        var rerenderWhileLoading = false;
+        FluentDataGrid<Customer>? grid = default!;
+        IRenderedComponent<FluentDataGrid<Customer>>? cut = null;
+        Func<GridItemsProviderRequest<Customer>, Task> refreshItems = (request) =>
+        {
+            refreshCount++;
+
+            // Like the RefreshItems docs sample: set Loading and re-render the parent while the data loads.
+            // The limit stops the test from recursing forever if the grid calls RefreshItems again.
+            if (rerenderWhileLoading && refreshCount < 10)
+            {
+                cut!.Render(parameters => parameters.Add(p => p.Loading, true));
+            }
+
+            return Task.CompletedTask;
+        };
+
+        cut = Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid TGridItem="Customer" Items="@GetCustomers().AsQueryable()" RefreshItems="@refreshItems" Loading="false" @ref="@grid">
+                <PropertyColumn Property="@(x => x.Name)" Title="Name" />
+            </FluentDataGrid>
+        );
+
+        // Initial load
+        Assert.Equal(1, refreshCount);
+
+        // Act
+        rerenderWhileLoading = true;
+        await cut.InvokeAsync(() => grid.RefreshDataAsync(force: true));
+
+        // Assert
         Assert.Equal(2, refreshCount);
     }
 

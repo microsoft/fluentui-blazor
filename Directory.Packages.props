@@ -35,6 +35,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.15" />
     <PackageVersion Include="Microsoft.Testing.Platform" Version="2.4.0" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.1" />
+    <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.10.0" />
     <!-- Shared dependencies -->
     <PackageVersion Include="Markdig.Signed" Version="1.4.0" />
     <PackageVersion Include="Meziantou.Analyzer" Version="3.0.296" />
