@@ -25,7 +25,7 @@ The **FluentSlider** component is an input where the user selects a value from w
 
 - Use step points if you don't want the slider to allow arbitrary values between minimum and maximum.
 
-View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/slider/usage).
+View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/core/slider/usage).
 
 ## Default
 
