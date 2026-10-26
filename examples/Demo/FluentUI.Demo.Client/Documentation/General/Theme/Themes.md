@@ -69,7 +69,30 @@ To have acces to all variables that are available to customize a theme, you can 
 ### Set the Brand color with code
 
 A full API is available for configuring the theme programmatically in your Blazor application. This allows you to dynamically change the theme based on user
-interactions or other conditions in your application.
+interactions or other conditions in your application. Simply inject the `IThemeService` into your component and use the available methods to set the theme and brand color.
+
+```razor
+@inject IThemeService themeService
+```
+
+#### Set initial theme on page load
+The recommended way to set the initial theme is to call the `SetThemeAsync` method in the `OnAfterRenderAsync` lifecycle method of your main layout or root component. This ensures that the theme is applied after the component has been rendered.
+
+```cs
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    if (firstRender)
+    {
+        var settings = new ThemeSettings
+        {
+            Mode = ThemeMode.Light,
+            Color = "#EAB700"
+        };
+
+        await themeService.SetThemeAsync(settings);
+    }
+}
+```
 
 The following methods are available for setting the brand color programmatically:
 
