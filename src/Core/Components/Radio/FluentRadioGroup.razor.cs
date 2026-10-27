@@ -102,6 +102,8 @@ public partial class FluentRadioGroup<[DynamicallyAccessedMembers(DynamicallyAcc
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "value");
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <inheritdoc />

@@ -1,0 +1,154 @@
+@page "/Debug/Autofocus"
+@layout FluentUI.Demo.Client.Layout.EmptyLayout
+
+<h3>Autofocus</h3>
+
+<FluentCard>
+    <FluentStack VerticalAlignment="VerticalAlignment.Bottom">
+        <FluentSelect Label="Component"
+                      Items="@ComponentNames"
+                      @bind-Value="_selectedComponent" />
+        <FluentButton OnClick="@DisplayComponent">Display</FluentButton>
+    </FluentStack>
+    <p>Select a component, click Display, then use Enter, Space or the arrow keys.
+        Interaction events are written to the console (server output or browser console, depending on the render mode).</p>
+</FluentCard>
+
+@if (_displayedComponent is not null)
+{
+    <div @key="_displayVersion" style="margin-top: 20px;">
+        <h4>@_displayedComponent</h4>
+        @switch (_displayedComponent)
+        {
+            case "FluentAutocomplete":
+                <FluentAutocomplete TOption="string" TValue="string"
+                                    Autofocus="true" Label="Autocomplete"
+                                    Items="@Options" Multiple="false"
+                                    SelectedItemsChanged="@(items => LogInteraction($"Selected: {string.Join(", ", items)}"))" />
+                break;
+            case nameof(FluentButton):
+                <FluentButton Autofocus="true" OnClick="@(() => LogInteraction("Clicked"))">Button</FluentButton>
+                break;
+            case "FluentCalendar":
+                <FluentCalendar TValue="DateOnly?" Autofocus="true" Label="Calendar"
+                                ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case nameof(FluentCheckbox):
+                <FluentCheckbox Autofocus="true" Label="Checkbox"
+                                ValueChanged="@(value => LogInteraction($"Checked: {value}"))" />
+                break;
+            case nameof(FluentColorPickerInput):
+                <FluentColorPickerInput Autofocus="true" Label="Color picker"
+                                        ValueChanged="@(value => LogInteraction($"Color: {value}"))" />
+                break;
+            case "FluentCombobox":
+                <FluentCombobox TOption="string" TValue="string"
+                                Autofocus="true" Label="Combobox" Items="@Options"
+                                ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case nameof(FluentCompoundButton):
+                <FluentCompoundButton Id="autofocus-compound-button" Autofocus="true"
+                                      OnClick="@(() => LogInteraction("Clicked"))">Compound button</FluentCompoundButton>
+                break;
+            case "FluentDatePicker":
+                <FluentDatePicker TValue="DateOnly?" Autofocus="true" Label="Date picker"
+                                  OnCalendarOpen="@(open => LogInteraction($"Calendar open: {open}"))"
+                                  ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case "FluentListbox":
+                <FluentListbox TOption="string" TValue="string"
+                               Autofocus="true" Label="Listbox" Items="@Options"
+                               ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case nameof(FluentMenuButton):
+                <FluentMenu OpenedChanged="@(open => LogInteraction($"Menu open: {open}"))"
+                            OnClick="@(item => LogInteraction($"Menu item: {item.Text}"))">
+                    <FluentMenuButton Autofocus="true" OnClick="@(() => LogInteraction("Clicked"))">Menu button</FluentMenuButton>
+                    <FluentMenuList>
+                        <FluentMenuItem>Red</FluentMenuItem>
+                        <FluentMenuItem>Green</FluentMenuItem>
+                        <FluentMenuItem>Blue</FluentMenuItem>
+                    </FluentMenuList>
+                </FluentMenu>
+                break;
+            case "FluentNumberInput":
+                <FluentNumberInput TValue="int?" Autofocus="true" Label="Number input"
+                                   ValueChanged="@(value => LogInteraction($"Value: {value}"))" />
+                break;
+            case "FluentRadioGroup":
+                <FluentRadioGroup TValue="string" Autofocus="true" Label="Radio group" Items="@Options"
+                                  ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case "FluentSelect":
+                <FluentSelect TOption="string" TValue="string"
+                              Autofocus="true" Label="Select" Items="@Options"
+                              ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case "FluentSlider":
+                <FluentSlider TValue="int" Autofocus="true" Label="Slider" Min="0" Max="100" Step="5"
+                              ValueChanged="@(value => LogInteraction($"Value: {value}"))" />
+                break;
+            case nameof(FluentSwitch):
+                <FluentSwitch Autofocus="true" Label="Switch"
+                              ValueChanged="@(value => LogInteraction($"Checked: {value}"))" />
+                break;
+            case nameof(FluentTextArea):
+                <FluentTextArea Autofocus="true" Label="Text area"
+                                ValueChanged="@(value => LogInteraction($"Value: {value}"))" />
+                break;
+            case nameof(FluentTextInput):
+                <FluentTextInput Autofocus="true" Label="Text input"
+                                 ValueChanged="@(value => LogInteraction($"Value: {value}"))" />
+                break;
+            case "FluentTimePicker":
+                <FluentTimePicker TValue="TimeOnly?" Autofocus="true" Label="Time picker"
+                                  ValueChanged="@(value => LogInteraction($"Selected: {value}"))" />
+                break;
+            case nameof(FluentToggleButton):
+                <FluentToggleButton Autofocus="true" OnClick="@(() => LogInteraction("Clicked"))">Toggle button</FluentToggleButton>
+                break;
+        }
+    </div>
+}
+
+@code
+{
+    private static readonly string[] ComponentNames =
+    [
+        "FluentAutocomplete",
+        "FluentButton",
+        "FluentCalendar",
+        "FluentCheckbox",
+        "FluentColorPickerInput",
+        "FluentCombobox",
+        "FluentCompoundButton",
+        "FluentDatePicker",
+        "FluentListbox",
+        "FluentMenuButton",
+        "FluentNumberInput",
+        "FluentRadioGroup",
+        "FluentSelect",
+        "FluentSlider",
+        "FluentSwitch",
+        "FluentTextArea",
+        "FluentTextInput",
+        "FluentTimePicker",
+        "FluentToggleButton",
+    ];
+
+    private static readonly string[] Options = ["Red", "Green", "Blue"];
+    private string? _selectedComponent = nameof(FluentButton);
+    private string? _displayedComponent;
+    private int _displayVersion;
+
+    private void DisplayComponent()
+    {
+        _displayedComponent = _selectedComponent;
+        _displayVersion++;
+    }
+
+    private void LogInteraction(string message)
+    {
+        Console.WriteLine($"{_displayedComponent}: {message}");
+    }
+}

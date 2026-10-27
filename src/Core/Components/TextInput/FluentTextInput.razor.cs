@@ -230,6 +230,8 @@ public partial class FluentTextInput : FluentInputImmediateBase<string?>, IFluen
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.TextInput.attachDataList", Element, DataList);
             }
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <summary>
