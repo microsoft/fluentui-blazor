@@ -17,7 +17,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   };
 
   type StoredThemeSettings = {
-    color?: string;
+    color?: string | null;
     hue?: number;
     vibrancy?: number;
     exact?: boolean;
@@ -35,7 +35,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
   /**
    * Represents the settings used to generate a custom brand theme, including the base color, hue torsion, vibrancy, and theme mode.
    */
-  export type ThemeSettings = { color: string; hueTorsion: number; vibrancy: number; mode?: ThemeMode | null; isExact?: boolean };
+  export type ThemeSettings = { color: string | null; hueTorsion: number; vibrancy: number; mode?: ThemeMode | null; isExact?: boolean };
 
   /**
    * Sets the Fluent UI theme to the built-in Web theme, using the current effective mode.
@@ -229,10 +229,6 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
       bodyThemeColor && isValidHexColor(bodyThemeColor)
         ? normalizeHexColor(bodyThemeColor)
         : brand?.color ?? stored?.color ?? null;
-
-    if (!effectiveColor) {
-      return null;
-    }
 
     return {
       color: effectiveColor,
@@ -578,7 +574,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Theme {
 
   function themeSettingsToStoredPatch(settings: ThemeSettings): Partial<StoredThemeSettings> {
     return {
-      color: normalizeHexColor(settings.color),
+      color: settings.color ? normalizeHexColor(settings.color) : null,
       hue: settings.hueTorsion,
       vibrancy: settings.vibrancy,
       exact: settings.isExact ?? false,
