@@ -1,6 +1,7 @@
 import { Microsoft as LoggerFile } from './Utilities/Logger';
 import { Microsoft as AttributesFile } from './Utilities/Attributes';
 import { Microsoft as KeyPressFile } from './Utilities/KeyPress';
+import { Microsoft as DomFunctionsFile } from './Utilities/DomFunctions';
 import { Microsoft as FluentDialogFile } from './Components/Dialog/FluentDialog';
 import { Microsoft as FluentSortableListFile } from './Components/SortableList/FluentSortableList';
 import { Microsoft as FluentTabsFile } from './Components/Tabs/FluentTabs';
@@ -34,6 +35,7 @@ export namespace Microsoft.FluentUI.Blazor.ExportedMethods {
     (window as any).Microsoft.FluentUI.Blazor.Utilities.Logger = LoggerFile.FluentUI.Blazor.Utilities.Logger;
     (window as any).Microsoft.FluentUI.Blazor.Utilities.Attributes = AttributesFile.FluentUI.Blazor.Utilities.Attributes;
     (window as any).Microsoft.FluentUI.Blazor.Utilities.KeyPress = KeyPressFile.FluentUI.Blazor.Utilities.KeyPress;
+    (window as any).Microsoft.FluentUI.Blazor.Utilities.DomFunctions = DomFunctionsFile.FluentUI.Blazor.Utilities.DomFunctions;
 
     // Components methods
     (window as any).Microsoft.FluentUI.Blazor.Components = (window as any).Microsoft.FluentUI.Blazor.Components || {};

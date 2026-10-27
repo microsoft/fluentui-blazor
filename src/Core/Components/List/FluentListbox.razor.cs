@@ -44,12 +44,25 @@ public partial class FluentListbox<TOption, [DynamicallyAccessedMembers(Dynamica
         .AddStyle("height", Height)
         .Build();
 
+    /// <inheritdoc />
+    protected internal override string? AutofocusBySelector => $"fluent-listbox fluent-option[tabindex='0']";
+
+    /// <summary>
+    /// Focuses the active option after the listbox has initialized.
+    /// </summary>
+    /// <param name="preventScroll">Whether to prevent scrolling the option into view.</param>
+    public override async Task FocusAsync(bool preventScroll = false)
+    {
+        // Wait for the web components and FAST updates so the active option has tabindex="0" before focusing it.
+        await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.ensureReady", Id);
+        await base.FocusAsync(preventScroll);
+    }
+
     /// <summary />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Import the JavaScript module
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Components.ListBoxContainer.initialize", Id);
         }
 
