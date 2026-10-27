@@ -6,7 +6,6 @@ hidden: true
 
 ### Renamed parameters 
 
-- `Autofocus` → `AutoFocus` (also changed from `bool?` to `bool`)
 - `Action` → `FormAction`
 - `Enctype` → `FormEncType`
 - `Method` → `FormMethod`
@@ -35,6 +34,10 @@ instead of the `Appearance` enum.
 - `Tooltip` (`string?`) — tooltip text shown on hover.
 
 ### Migrating to v5
+
+`Autofocus` is now a non-nullable `bool` with a default value of `false`.
+Earlier v5 previews used `AutoFocus`; update direct C# references to `Autofocus`
+for both `FluentButton` and `FluentCompoundButton`.
 
 You can use the `ToButtonAppearance()` method to convert the `Appearance` parameter to the `ButtonAppearance` enum.
 ```csharp

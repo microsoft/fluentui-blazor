@@ -125,15 +125,12 @@ public partial class FluentCheckbox : FluentInputBase<bool>, IFluentComponentEle
     /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender)
-        {
-            return;
-        }
-
-        if (await JSRuntime.TryInvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "checked", "boolean"))
+        if (firstRender && await JSRuntime.TryInvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "checked", "boolean"))
         {
             await JSRuntime.TryInvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "indeterminate", "boolean", "", true);
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private bool _checked => ThreeState ? CheckState ?? Value : Value;
