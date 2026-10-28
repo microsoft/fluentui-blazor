@@ -27,6 +27,8 @@ configuration rather than relying on assumptions about SDKs, scripts, or runners
 ## 1. Inspect the repository and prerequisites
 
 1. Record the initial Git status and existing changes, including untracked files.
+   Capture the starting dependency versions and shared MSBuild property values
+   from the working tree, not just `HEAD`, for the final before/after report.
 2. Locate dependency manifests, their consuming projects, package sources, NPM
    workspaces, build scripts, and actual test projects. Exclude generated,
    vendored, and installed dependency directories.
@@ -219,7 +221,8 @@ and blocked tests explicitly; do not silently omit a project or accept snapshots
    Remove only the specifically identified disposable validation workspace and
    temporary files created by this operation; preserve user-owned files.
 3. Respond with:
-   - A table of applied NuGet/NPM updates, including shared MSBuild properties.
+   - A mandatory table of applied NuGet/NPM updates with previous and new
+     versions, using the format below.
    - Deferred/rejected upgrades, compatibility reasons, and remaining advisories.
    - A library matrix: two projects by four TFMs, with separate restore/build
      results for all eight combinations.
@@ -228,6 +231,22 @@ and blocked tests explicitly; do not silently omit a project or accept snapshots
    - Exact validation commands and any failures, blockers, or unexecuted checks.
    - The list of modified manifests and confirmation that no other files changed
      because of this operation.
+
+Use this format for the dependency-update table in the final chat response:
+
+| Ecosystem | Package | Manifest / Target framework | Previous version | New version | Shared MSBuild property |
+|-----------|---------|-----------------------------|------------------|-------------|-------------------------|
+| NuGet | <package ID> | <manifest and TFM> | <starting version> | <final version> | <property name or N/A> |
+| NPM | <package name> | <manifest> | <starting range> | <final range> | N/A |
+
+Include one row per updated package and manifest/framework combination. When a
+shared property changes, list every affected NuGet package with its effective
+previous and new versions, not just the property expression. For NPM, preserve
+the exact manifest ranges, including prefixes such as `^` or `~`.
+Include only updates retained in the final manifests, not rejected or reverted
+attempts. Always provide the report, even if validation fails. If nothing was
+updated, explicitly state "No dependencies were updated" instead of inventing
+table entries.
 
 Declare success only if every required restore, build, and test run passed.
 Otherwise clearly state that validation is incomplete or failed.
