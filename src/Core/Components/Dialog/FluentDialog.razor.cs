@@ -118,7 +118,7 @@ public partial class FluentDialog : FluentComponentBase, IHandleEvent
         // them to this dialog's @ondialogtoggle handler. We must ignore events that don't target
         // this dialog instance; otherwise the IHandleEvent implementation below would re-render the
         // whole dialog subtree and detach any open popover content.
-        if (string.CompareOrdinal(args.Id, Id) != 0)
+        if (string.CompareOrdinal(args.Id, Instance?.Id ?? Id) != 0)
         {
             return;
         }
