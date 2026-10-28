@@ -1,6 +1,6 @@
 ---
 name: update-dependencies
-description: "Check and update NuGet and NPM dependencies and NPM lockfiles, then validate .NET 8, 9, and 10 builds, .NET 11 builds when a compatible SDK is already installed, and bUnit test projects only. Use when asked to update or upgrade repository dependencies."
+description: "Check and update all NuGet dependencies, including .NET 11 packages regardless of locally installed SDKs, plus NPM dependencies and lockfiles. Validate .NET 8, 9, and 10 builds and bUnit tests only; validate .NET 11 when its SDK/runtime prerequisites are installed. Use when asked to update or upgrade repository dependencies."
 user-invocable: true
 disable-model-invocation: true
 ---
@@ -10,6 +10,11 @@ disable-model-invocation: true
 Update this repository's NuGet and NPM dependencies to the newest compatible
 versions, then complete every validation below. Inspect the repository's current
 configuration rather than relying on assumptions about SDKs, scripts, or runners.
+
+**Package updates and local validation are separate requirements.** Always update
+.NET 11 packages to their latest compatible published versions, even when the
+machine has no .NET 11 SDK or runtime. Only .NET 11 restore/build/test execution
+is conditional on the corresponding local prerequisites.
 
 ## Work rules: local changes only
 
@@ -54,8 +59,11 @@ configuration rather than relying on assumptions about SDKs, scripts, or runners
    `net8.0`, `net9.0`, and `net10.0` targets; test runtimes and Node must satisfy
    the projects' requirements. Include `net11.0` validation only when an already
    installed SDK supports it, including an appropriate .NET 11 Preview or RC SDK.
-   Otherwise skip .NET 11 validation and report the reason; this optional skip
-   is not a blocker. Do not download or install an SDK just to validate .NET 11.
+   Run .NET 11 tests only when the compatible SDK and required .NET 11 runtime
+   are installed. Otherwise skip the affected .NET 11 validation commands and
+   report the reason; this optional skip is not a blocker and must not prevent
+   .NET 11 package updates. Do not download or install an SDK or runtime just
+   to validate .NET 11.
    Do not edit SDK pins or install system-wide tools without approval. Report
    unavailable prerequisites for required checks as blockers, not passes.
 5. Before installing or building, prepare an isolated, disposable validation copy
@@ -83,6 +91,13 @@ allowed in section B.
 - Keep .NET framework package families within their corresponding major version:
   net8.0 uses 8.x, net9.0 uses 9.x, net10.0 uses 10.x, and net11.0 uses 11.x.
   Respect existing preview/RC requirements when no suitable stable release exists.
+- Always query and update the .NET 11 package family, independently of local
+  SDK/runtime availability. This includes `RuntimeVersion11`, `AspNetCoreVersion11`,
+  `EfCoreVersion11`, and literal .NET 11 package versions. Select the latest
+  compatible published 11.x versions under the stable/prerelease rules above,
+  and verify every shared-property consumer using NuGet metadata even when
+  .NET 11 validation cannot run locally. A missing SDK/runtime is not a reason
+  to defer or retain an older .NET 11 dependency version.
 - Check supported TFMs, minimum SDK/Node versions, peer dependencies, related
   package constraints, release notes, breaking changes, and known advisories.
   Update tightly coupled package families together.
@@ -147,6 +162,8 @@ of an upgrade, investigate it and try a compatible version or revert only that
 attempted version change, preserving the initial user state. Regenerate the
 affected NPM lockfiles as needed. Then rerun the affected checks and complete
 the final validation matrix against the final manifest and lockfile contents.
+Do not revert .NET 11 package updates solely because their local validation was
+intentionally skipped for a missing SDK or runtime.
 
 ## 4. Required final validation
 
@@ -166,6 +183,8 @@ Both use `TargetNetVersions` from `Directory.Build.props`; a default Debug build
 does not prove that all frameworks compile. Validate `net8.0`, `net9.0`, and
 `net10.0`. Add `net11.0` only when the installed SDK supports it; otherwise mark
 both .NET 11 entries as intentionally skipped, not failed or blocked.
+This framework selection applies only to validation commands; .NET 11 package
+updates remain mandatory and their manifest declarations must remain intact.
 
 Run **six explicit restore/build pairs**, or **eight when .NET 11 is available**,
 using the same configuration and framework properties for each pair.
@@ -259,6 +278,12 @@ against the updated dependencies, using its declared framework(s). The library
 build matrix does not require forcing every test project onto all four TFMs.
 Do not use `--no-build` with stale test assemblies.
 
+If a bUnit project declares a `net11.0` test target, execute that target only
+when a compatible SDK and the required .NET 11 runtime are installed. Otherwise
+report that target as intentionally skipped while still updating its .NET 11
+dependencies. Run any other declared test targets normally, selecting applicable
+frameworks for restore/build/run without editing or retargeting the project.
+
 Pass the applicable library TFM list from section A through `TargetNetVersions`
 for test restore/build/run commands. This prevents referenced libraries from
 requesting .NET 11 when its SDK is absent, without changing test project TFMs or
@@ -295,6 +320,9 @@ project or accept snapshots.
    - A mandatory table of applied NuGet/NPM updates with previous and new
      versions, using the format below.
    - Deferred/rejected upgrades, compatibility reasons, and remaining advisories.
+   - All applied .NET 11 package updates, even when local .NET 11 validation was
+     skipped. Clearly distinguish metadata verification from restore/build/test
+     execution; never describe skipped validation as skipped package updates.
    - A library matrix: two projects by four TFMs, with separate restore/build
      results for every applicable combination; explicitly mark .NET 11 as
      intentionally skipped when a compatible SDK is not already installed.
@@ -323,9 +351,11 @@ updated, explicitly state "No dependencies were updated" instead of inventing
 table entries.
 
 Declare success only if every required restore, build, and test run passed.
-An intentional .NET 11 skip due to an unavailable local SDK, and the exclusion of
-non-bUnit tests, do not prevent success. Otherwise clearly state that validation
-is incomplete or failed.
+An intentional .NET 11 validation skip due to an unavailable local SDK or required
+test runtime, and the exclusion of non-bUnit tests, do not prevent success.
+This exception applies only to validation, not to the required .NET 11 package
+updates, and does not establish compiled/tested .NET 11 compatibility. Otherwise
+clearly state that validation is incomplete or failed.
 
 Workflow inspiration:
 [Aspire dependency-update skill](https://github.com/microsoft/aspire/blob/main/.agents/skills/dependency-update/SKILL.md).
