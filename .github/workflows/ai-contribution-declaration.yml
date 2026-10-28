@@ -13,17 +13,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Read CODEOWNERS from the target branch so a PR cannot grant its author an exemption.
-      # Only this file is checked out; no pull request code is checked out or executed.
-      - name: Read CODEOWNERS from the target branch
+      # Read exemption files from the target branch so a PR cannot grant its author an exemption.
+      # Only these files are checked out; no pull request code is checked out or executed.
+      - name: Read declaration exemptions from the target branch
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.pull_request.base.sha }}
-          sparse-checkout: .github/CODEOWNERS
+          sparse-checkout: |
+            .github/CODEOWNERS
+            .github/BOTS-EXEMPT
           sparse-checkout-cone-mode: false
           persist-credentials: false
 
-      # Exempt individual users in the last global '*' rule (line in CODEOWNERS), matching the PR author case-insensitively.
+      # Exempt listed maintenance bots and individual users in the last global '*' rule in CODEOWNERS.
       # For other authors, fail unless both declarations are checked in the PR description.
       - name: Verify required declarations
         shell: bash
@@ -32,6 +34,13 @@ jobs:
           const fs = require('node:fs');
           const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
           const codeowners = fs.readFileSync('.github/CODEOWNERS', 'utf8');
+          const exemptBots = new Set(
+            fs.readFileSync('.github/BOTS-EXEMPT', 'utf8')
+              .split(/\r?\n/)
+              .map(line => line.split('#')[0].trim().toLowerCase())
+              .filter(Boolean)
+          );
+          const author = event.pull_request.user.login.toLowerCase();
           let globalOwners = [];
 
           for (const line of codeowners.split(/\r?\n/)) {
@@ -41,7 +50,9 @@ jobs:
             }
           }
 
-          if (globalOwners.includes(event.pull_request.user.login.toLowerCase())) {
+          if (exemptBots.has(author)) {
+            console.log('The pull request author is a listed maintenance bot; declaration check is exempted.');
+          } else if (globalOwners.includes(author)) {
             console.log('The pull request author is a global code owner; declaration check is exempted.');
           } else {
             const body = (event.pull_request.body ?? '').replace(/<!--[\s\S]*?-->/g, '');

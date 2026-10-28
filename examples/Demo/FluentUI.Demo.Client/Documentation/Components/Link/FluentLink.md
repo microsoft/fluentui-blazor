@@ -12,7 +12,7 @@ A link is interactive text that lets people navigate somewhere else, either with
 
 Don't use links for triggering actions other than navigation. To create a secondary action with low visual emphasis, try a transparent or subtle `FluentButton` instead.
 
-View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/link/usage).
+View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/core/link/usage).
 
 ## Inline
 

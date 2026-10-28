@@ -25,6 +25,7 @@ fluent-dialog[fuib][size="full"]::part(dialog) {
 
 fluent-dialog-body::part(content) { 
   overflow: auto;
+  isolation: isolate;
 }
 
 fluent-drawer[fuib][size="medium"]::part(dialog) {

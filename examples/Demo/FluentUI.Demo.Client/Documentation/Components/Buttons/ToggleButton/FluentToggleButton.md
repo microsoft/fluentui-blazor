@@ -8,7 +8,7 @@ route: /Buttons/ToggleButton
 The `ToggleButton` component allows users to commit a change or trigger a toggle action via a single click
 or tap and is often found inside forms, dialogs, drawers (panels) and/or pages.
 
-View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/button/behavior).
+View the [Usage Guidance](https://fluent2.microsoft.design/components/web/react/core/button/usage#behavior).
 
 > Although the `FluentToggleButton` inherits from `FluentButton`, it does not support the `Loading` state.
 

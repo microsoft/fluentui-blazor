@@ -1,0 +1,68 @@
+name: Issue Discussion Declaration
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  Declaration:
+    name: Issue discussion declaration
+    runs-on: ubuntu-latest
+
+    steps:
+      # Read exemption files from the target branch so a PR cannot grant its author an exemption.
+      # Only these files are checked out; no pull request code is checked out or executed.
+      - name: Read declaration exemptions from the target branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          sparse-checkout: |
+            .github/CODEOWNERS
+            .github/BOTS-EXEMPT
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      # Match the exemptions used by the AI contribution declaration check.
+      - name: Verify required declaration
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const event = JSON.parse(fs.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8'));
+          const codeowners = fs.readFileSync('.github/CODEOWNERS', 'utf8');
+          const exemptBots = new Set(
+            fs.readFileSync('.github/BOTS-EXEMPT', 'utf8')
+              .split(/\r?\n/)
+              .map(line => line.split('#')[0].trim().toLowerCase())
+              .filter(Boolean)
+          );
+          const author = event.pull_request.user.login.toLowerCase();
+          let globalOwners = [];
+
+          for (const line of codeowners.split(/\r?\n/)) {
+            const [pattern, ...owners] = line.split('#')[0].trim().split(/\s+/);
+            if (pattern === '*') {
+              globalOwners = owners.filter(owner => /^@[a-z\d-]+$/i.test(owner)).map(owner => owner.slice(1).toLowerCase());
+            }
+          }
+
+          if (exemptBots.has(author)) {
+            console.log('The pull request author is a listed maintenance bot; declaration check is exempted.');
+          } else if (globalOwners.includes(author)) {
+            console.log('The pull request author is a global code owner; declaration check is exempted.');
+          } else {
+            const body = (event.pull_request.body ?? '').replace(/<!--[\s\S]*?-->/g, '');
+            const declaration = 'I have discussed this change in an issue and received maintainer agreement before implementation, or a documented exception applies.';
+            const checked = new Set(body.split(/\r?\n/).map(line => line.trim().match(/^- \[[xX]\] (.+)$/)?.[1]));
+
+            if (!checked.has(declaration)) {
+              console.error('::error::Complete the required checkbox in the Issue discussion declaration section of the pull request description. Discuss the change in an issue and receive maintainer agreement before implementation, or explain the documented exception in the Issues section. See docs/contributing.md#discuss-before-implementing.');
+              process.exitCode = 1;
+            } else {
+              console.log('The required issue discussion declaration is checked.');
+            }
+          }
+          NODE
