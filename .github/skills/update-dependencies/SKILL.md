@@ -1,361 +1,182 @@
 ---
 name: update-dependencies
-description: "Check and update all NuGet dependencies, including .NET 11 packages regardless of locally installed SDKs, plus NPM dependencies and lockfiles. Validate .NET 8, 9, and 10 builds and bUnit tests only; validate .NET 11 when its SDK/runtime prerequisites are installed. Use when asked to update or upgrade repository dependencies."
+description: "Update repository NuGet and NPM dependencies and lockfiles to the latest compatible versions, then validate library builds and bUnit tests. Use when asked to update or upgrade repository dependencies."
 user-invocable: true
 disable-model-invocation: true
 ---
 
 # Update and validate dependencies
 
-Update this repository's NuGet and NPM dependencies to the newest compatible
-versions, then complete every validation below. Inspect the repository's current
-configuration rather than relying on assumptions about SDKs, scripts, or runners.
+Update dependencies using the repository's current configuration, not assumptions
+about SDKs, scripts, or test runners.
 
-**Package updates and local validation are separate requirements.** Always update
-.NET 11 packages to their latest compatible published versions, even when the
-machine has no .NET 11 SDK or runtime. Only .NET 11 restore/build/test execution
-is conditional on the corresponding local prerequisites.
+## Execution contract
 
-## Work rules: local changes only
-
-- Use the current local branch. Do not create or switch branches.
-- Modify files locally only; do not create local commits.
-- Do not publish anything to Git or GitHub: no pushes, pull requests, comments,
-  or remote status changes.
-- Keep all changes uncommitted in the current working tree.
-
-## Strict change boundary
-
-- Only dependency-version changes in repository-owned files named
-  `Directory.Packages.props` or `package.json`, plus corresponding NPM-generated
-  `package-lock.json` updates, are allowed.
-- Generate or update `package-lock.json` with NPM to keep dependency resolutions,
-  integrity hashes, and related lockfile metadata synchronized with the manifests.
-  Do not edit lockfiles manually or introduce unrelated lockfile changes.
+- Work on the current local branch. Do not create or switch branches, commit,
+  push, create pull requests or comments, or change remote status.
+- Allow only dependency-version edits in repository-owned
+  `Directory.Packages.props` and `package.json` files, plus corresponding
+  NPM-generated `package-lock.json` updates.
+- Do not manually edit lockfiles, delete them to force upgrades, or introduce
+  unrelated resolution changes. Preserve compatible locked resolutions.
 - Do not modify project files, `global.json`, NuGet/NPM configuration, build
-  scripts, application code, tests, snapshots, generated sources, or other lockfiles.
-  Do not change NPM scripts or unrelated package metadata.
+  scripts, NPM scripts or unrelated metadata, code, tests, snapshots, generated
+  sources, or other lockfiles. Do not add a report file.
 - Preserve existing user changes, comments, formatting, MSBuild conditions, and
   dependency range conventions. Never reset or discard someone else's work.
-- If an upgrade requires changes outside the allowlist, select a compatible
-  version or leave that dependency unchanged and explain why.
-- Do not add a report file.
+- If an upgrade requires changes outside this boundary, select a compatible
+  version or leave the dependency unchanged and explain why.
+- Run all restore, install, build, and test commands in an isolated disposable
+  copy outside the working tree. Script builds can rewrite tracked
+  `src\BuildConstants.ts` files. Never copy generated outputs back, except for
+  validated NPM lockfiles.
+- Do not install system-wide tools or edit SDK pins without approval.
 
-## 1. Inspect the repository and prerequisites
+### .NET framework policy
 
-1. Record the initial Git status and existing changes, including untracked files.
-   Capture the starting dependency versions and shared MSBuild property values
-   and existing NPM lockfiles from the working tree, not just `HEAD`, for the
-   final before/after report.
-2. Locate dependency manifests, their consuming projects, package sources, NPM
+Keep framework package families within their corresponding major version:
+`net8.0` uses 8.x, `net9.0` uses 9.x, `net10.0` uses 10.x, and `net11.0` uses 11.x.
+
+**Package updates and local validation are separate requirements.** Always
+query and update .NET 11 packages to their latest compatible published versions,
+including `RuntimeVersion11`, `AspNetCoreVersion11`, `EfCoreVersion11`, and literal
+versions. Verify every shared-property consumer using NuGet metadata.
+
+Validate .NET 8, 9, and 10; missing prerequisites are blockers. Validate .NET 11
+only when an already installed SDK supports it, including Preview/RC SDKs.
+Its tests additionally require the corresponding runtime. Otherwise mark the
+affected checks as intentionally skipped, not failed or blocked. Do not install
+an SDK/runtime just for .NET 11 validation, defer its updates, or revert them
+solely because local validation is unavailable.
+
+## 1. Inspect and capture the starting state
+
+1. Record Git status, including untracked files and existing changes. Capture
+   starting dependency versions, shared MSBuild values, and existing NPM
+   lockfiles from the working tree, not just `HEAD`, for the final comparison.
+2. Locate repository-owned manifests, consuming projects, package sources, NPM
    workspaces, build scripts, and actual test projects. Exclude generated,
    vendored, and installed dependency directories.
 3. Read [Directory.Packages.props](../../../Directory.Packages.props),
    [Directory.Build.props](../../../Directory.Build.props), and
    [global.json](../../../global.json). Inspect framework overrides, project
-   references, test runners, and configuration-dependent build behavior.
+   references, runners, and configuration-dependent build behavior.
 4. Check `dotnet --info`, `dotnet --list-sdks`, `dotnet --list-runtimes`,
-   `node --version`, and `npm --version`. A usable SDK must support the required
-   `net8.0`, `net9.0`, and `net10.0` targets; test runtimes and Node must satisfy
-   the projects' requirements. Include `net11.0` validation only when an already
-   installed SDK supports it, including an appropriate .NET 11 Preview or RC SDK.
-   Run .NET 11 tests only when the compatible SDK and required .NET 11 runtime
-   are installed. Otherwise skip the affected .NET 11 validation commands and
-   report the reason; this optional skip is not a blocker and must not prevent
-   .NET 11 package updates. Do not download or install an SDK or runtime just
-   to validate .NET 11.
-   Do not edit SDK pins or install system-wide tools without approval. Report
-   unavailable prerequisites for required checks as blockers, not passes.
-5. Before installing or building, prepare an isolated, disposable validation copy
-   outside the working tree. Include the current source, proposed manifest
-   changes, existing NPM lockfiles, and relevant pre-existing user changes, but exclude `.git` and
-   generated/install directories. A clean checkout of `HEAD` alone is not enough.
-   Preserve relative paths and required resources. If external references or
-   credentials prevent equivalent validation there, report the limitation.
+   `node --version`, and `npm --version` against project requirements.
+5. Before installing or building, prepare the validation copy with current
+   source, relevant pre-existing user changes, manifests, lockfiles, and required
+   resources. Preserve relative paths; exclude `.git` and generated/install
+   directories. A clean checkout of `HEAD` alone is not sufficient. Report
+   limitations caused by external references or unavailable credentials.
 
-Run restore, install, build, and test commands in that copy. Script builds can
-rewrite tracked `src\BuildConstants.ts` files, so they must not run in the
-original working tree. Generated outputs in the disposable copy are acceptable;
-never copy them back, except for the validated `package-lock.json` files explicitly
-allowed in section B.
+## 2. Select compatible versions
 
-## 2. Identify and assess updates
-
-- Query the configured NuGet sources and NPM registry for actual published
-  versions. Use package metadata and official release notes, not guessed versions
-  or a textual sort of version strings. Never disclose feed credentials.
-- Default to the latest compatible stable release for stable dependencies.
-  Do not introduce prereleases into stable dependency lines without approval.
-  For an existing prerelease dependency, compare the latest compatible prerelease
-  and stable alternative; do not downgrade it automatically.
-- Keep .NET framework package families within their corresponding major version:
-  net8.0 uses 8.x, net9.0 uses 9.x, net10.0 uses 10.x, and net11.0 uses 11.x.
-  Respect existing preview/RC requirements when no suitable stable release exists.
-- Always query and update the .NET 11 package family, independently of local
-  SDK/runtime availability. This includes `RuntimeVersion11`, `AspNetCoreVersion11`,
-  `EfCoreVersion11`, and literal .NET 11 package versions. Select the latest
-  compatible published 11.x versions under the stable/prerelease rules above,
-  and verify every shared-property consumer using NuGet metadata even when
-  .NET 11 validation cannot run locally. A missing SDK/runtime is not a reason
-  to defer or retain an older .NET 11 dependency version.
+- Query configured NuGet sources and the NPM registry for published versions.
+  Use metadata and official release notes, not guessed versions or textual
+  version sorting. Never disclose feed credentials.
+- Default to the latest compatible stable release. Do not introduce prereleases
+  into stable lines without approval. For existing prereleases, compare the
+  latest compatible prerelease and stable alternative; do not automatically
+  downgrade. Respect framework preview/RC requirements.
 - Check supported TFMs, minimum SDK/Node versions, peer dependencies, related
-  package constraints, release notes, breaking changes, and known advisories.
-  Update tightly coupled package families together.
-- For NPM, inspect both `dependencies` and `devDependencies`, plus any existing
-  peer/optional dependencies and overrides. Preserve range styles unless a
-  justified dependency constraint change is necessary. An `npm outdated` exit
-  code indicating outdated packages is not itself a registry failure.
+  constraints, breaking changes, and known advisories. Update tightly coupled
+  families together.
+- Inspect NPM `dependencies`, `devDependencies`, and existing peer/optional
+  dependencies and overrides. Preserve range styles unless a justified
+  constraint change is necessary. An `npm outdated` exit code indicating
+  outdated packages is not itself a registry failure.
 - Distinguish external dependencies from repository-owned package/version
-  relationships; do not unintentionally switch local development to unrelated
-  published package versions.
-- Present a concise proposal with ecosystem, package/property, current version,
-  proposed version, compatibility constraints, and release-note links. Ask for
-  approval before potentially breaking major upgrades or uncertain changes.
-  Proceed with compatible, non-breaking updates without unnecessary questions.
+  relationships; do not switch local development to unrelated published packages.
+- Present a concise proposal: ecosystem, package/property, current and proposed
+  versions, constraints, and release-note links. Ask for approval before
+  potentially breaking major upgrades or uncertain changes; otherwise proceed.
 
-### Important: TypeScript and @typescript-eslint compatibility
+### Shared NuGet versions
 
-Upgrading to TypeScript 7 can cause parser/lint errors when the selected
-`@typescript-eslint` packages do not support it. Keep TypeScript on the latest
-compatible **5.x** version by default in this repository.
+This repository uses Central Package Management with shared properties such as
+`RuntimeVersion8`, `AspNetCoreVersion8`, and `EfCoreVersion8`, and corresponding
+properties for the other framework versions.
 
-Recheck this restriction on every dependency-update run: consult the
-[official TypeScript support policy](https://typescript-eslint.io/users/dependency-versions/#typescript),
-release notes, and peer dependencies for the exact proposed versions of
-`@typescript-eslint/parser` and `@typescript-eslint/eslint-plugin`.
-A permissive peer dependency range or a successful `npm install` alone does not
-prove official support. If support for a newer TypeScript major is confirmed,
-request approval before upgrading, then run the existing lint scripts, where
-available, as well as all required builds and tests. Do not assume this
-compatibility restriction is permanent; report the findings and any deferred
-TypeScript upgrade in the final report.
+For `Version="$(AspNetCoreVersion8)"`, update the property in `PropertyGroup`,
+not the consuming attribute. Identify every consumer and verify that the
+proposed version is published and compatible for all of them. Runtime, ASP.NET
+Core, and EF Core packages do not necessarily publish identical versions.
 
-### Important: shared versions in Directory.Packages.props
+Update literal `PackageVersion` values directly only when not property-backed.
+Preserve expressions and framework conditions; do not inline shared values,
+duplicate declarations, remove framework groups, or move version definitions.
 
-This repository uses NuGet Central Package Management. Its `PropertyGroup`
-centralizes common versions, including `RuntimeVersion8`, `AspNetCoreVersion8`,
-`EfCoreVersion8`, and the corresponding properties for .NET 9, 10, and 11.
-Conditional `ItemGroup` sections select packages for each `TargetFramework`.
+### TypeScript policy
 
-When a `PackageVersion` uses an expression such as
-`Version="$(AspNetCoreVersion8)"`, update the property in `PropertyGroup`, not
-each consuming attribute. Keep the expressions and framework conditions intact.
-Before changing a shared property, identify **every** package that consumes it
-and verify that the proposed version is published and compatible for all of
-them. Do not assume that runtime, ASP.NET Core, and EF Core packages always
-publish identical version numbers.
+Keep TypeScript on the latest compatible **5.x** version by default.
+Reevaluate this repository policy on each run using the
+[official support policy](https://typescript-eslint.io/users/dependency-versions/#typescript),
+release notes, and peer dependencies for the exact proposed
+`@typescript-eslint/parser` and `@typescript-eslint/eslint-plugin` versions.
+A permissive peer range or successful install does not prove official support.
 
-Update literal `PackageVersion` values directly only when they are not already
-property-backed. Do not inline shared values, duplicate version declarations,
-remove framework groups, or move version definitions into other files.
+If a newer TypeScript major is officially supported, request approval before
+upgrading. Run existing lint scripts, where available, in addition to the required
+builds and tests. Report the findings and any deferred TypeScript upgrade.
 
-## 3. Apply compatible changes
+## 3. Apply and validate
 
-Make focused version edits only in the allowed manifests. Do not run broad
-upgrade commands that can rewrite project files or unrelated lockfiles. Generate
-the corresponding NPM lockfile updates in the validation copy. Do not use
-`npm audit fix`, `--force`, or `--legacy-peer-deps` to hide incompatibilities.
+1. Make focused version edits in allowed manifests only. Avoid broad upgrade
+   commands that rewrite other files. Do not use `npm audit fix`, `--force`, or
+   `--legacy-peer-deps` to hide incompatibilities.
+2. Refresh the validation copy with the exact proposed manifests and candidate
+   lockfiles before each attempt.
+3. **Read and follow [the validation procedure](./references/validation.md)
+   before running validation.** Complete all required checks even when no
+   dependency needed updating. Capture every command, exit code, and result.
+4. If an upgrade fails, investigate and choose a compatible version or revert
+   only that attempted version edit, preserving the initial user state.
+   Regenerate affected lockfiles and rerun affected checks. Complete the final
+   matrix against the final manifests and lockfiles.
+5. Copy back only lockfiles whose final manifests, installs, and builds were
+   validated. Do not overwrite a lockfile changed concurrently since capture.
+   If a manifest changes after validation, refresh its lockfile and repeat the
+   affected checks before copying.
 
-Refresh the validation copy with the exact proposed manifests and current
-candidate lockfiles before each validation attempt. If a candidate fails because
-of an upgrade, investigate it and try a compatible version or revert only that
-attempted version change, preserving the initial user state. Regenerate the
-affected NPM lockfiles as needed. Then rerun the affected checks and complete
-the final validation matrix against the final manifest and lockfile contents.
-Do not revert .NET 11 package updates solely because their local validation was
-intentionally skipped for a missing SDK or runtime.
+Do not suppress new errors or relax warnings, dependency constraints, or tests
+to obtain a successful result.
 
-## 4. Required final validation
+## 4. Review and report
 
-Use the repository's real build scripts and test runners. Capture each command,
-its exit code, and its result. Do not skip required checks merely because no
-dependency needed updating. Do not suppress new errors or relax warnings,
-dependency constraints, or tests to obtain a successful result.
+Compare final manifest/lockfile diffs and Git status with the initial state.
+Confirm that only allowed edits were introduced, unrelated user changes remain
+intact, and final manifests/lockfiles are exactly those validated. Remove only
+the specifically identified disposable workspace and temporary files created
+by this operation.
 
-### A. Restore and build both libraries for the applicable target frameworks
+Always report in chat, including when validation fails:
 
-Validate these projects:
-
-- [Microsoft.FluentUI.AspNetCore.Components.csproj](../../../src/Core/Microsoft.FluentUI.AspNetCore.Components.csproj)
-- [Microsoft.FluentUI.AspNetCore.Components.Charts.csproj](../../../src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj)
-
-Both use `TargetNetVersions` from `Directory.Build.props`; a default Debug build
-does not prove that all frameworks compile. Validate `net8.0`, `net9.0`, and
-`net10.0`. Add `net11.0` only when the installed SDK supports it; otherwise mark
-both .NET 11 entries as intentionally skipped, not failed or blocked.
-This framework selection applies only to validation commands; .NET 11 package
-updates remain mandatory and their manifest declarations must remain intact.
-
-Run **six explicit restore/build pairs**, or **eight when .NET 11 is available**,
-using the same configuration and framework properties for each pair.
-Run sequentially because project references can share intermediate outputs.
-
-Set `$tfms` to the applicable list, then run the following PowerShell command
-pattern for each project path and each `$tfm` from the validation copy's root:
-
-```powershell
-$tfms = @('net8.0', 'net9.0', 'net10.0')
-# Add 'net11.0' only when a compatible SDK is already installed.
-dotnet restore $project -p:Configuration=Release "-p:TargetNetVersions=$tfm"
-# Run the build only if this restore succeeded.
-dotnet build $project --configuration Release --framework $tfm --no-restore "-p:TargetNetVersions=$tfm"
-```
-
-Use these exact project paths:
-
-```text
-src\Core\Microsoft.FluentUI.AspNetCore.Components.csproj
-src\Charts\Microsoft.FluentUI.AspNetCore.Components.Charts.csproj
-```
-
-Check native command exit codes explicitly in any loop; PowerShell does not
-automatically stop on a nonzero native exit code. Record a failed restore and
-its blocked build separately, then continue with independent matrix entries.
-Do not replace this matrix with one default build or a solution restore.
-
-### B. Install and build both NPM projects
-
-In each directory below, run `npm install` followed by its actual build script.
-Use `--package-lock=true` to generate or update `package-lock.json` alongside the
-proposed manifest. Keep existing locked resolutions when compatible; do not
-delete lockfiles to force unrelated dependency upgrades. Do not use
-`--package-lock=false` or substitute `npm ci` for this update step.
-
-For NPM setup, authentication errors (`E401` / `401 Unable to authenticate`),
-or feed caching problems, consult the
-[Core.Scripts README](../../../src/Core.Scripts/README.md).
-It also explains why a feed cache miss can appear as an authentication error.
-Apply its troubleshooting guidance within this skill's change boundary: do not
-modify NPM configuration or discard existing lockfiles, and obtain approval
-before installing global tools or clearing the global NPM cache.
-
-```powershell
-Push-Location "src\Core.Scripts"
-npm install --package-lock=true
-# Run only after a successful install.
-npm run build -- --build-mode=Release
-Pop-Location
-
-Push-Location "src\Charts.Scripts"
-npm install --package-lock=true
-# Run only after a successful install.
-npm run build -- --build-mode=Release
-Pop-Location
-```
-
-Run Core.Scripts before Charts.Scripts. Check every exit code and restore the
-working directory even on failure. Review resolved top-level versions and peer
-dependency errors with `npm ls --depth=0`; do not treat an installation failure
-as a successful build.
-
-After successful installs and builds, verify that each lockfile agrees with its
-final `package.json`. Copy only those validated `package-lock.json` files back to
-their corresponding locations in the original working tree. Preserve unrelated
-user changes, and do not overwrite a lockfile changed concurrently since the
-initial capture. If a manifest changes after validation, refresh its lockfile
-and rerun the affected install/build checks before copying it back.
-
-### C. Execute bUnit test projects only
-
-Rediscover bUnit test projects from their package references and configuration,
-not just filenames. Currently these include:
-
-- [Components.Tests.csproj](../../../tests/Core/Components.Tests.csproj)
-- [Components.Charts.Tests.csproj](../../../tests/Charts/Components.Charts.Tests.csproj)
-- [FluentUI.Demo.DocViewer.Tests.csproj](../../../examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj)
-
-[Components.Tests.Tools.csproj](../../../tests/Tools/Components.Tests.Tools.csproj)
-is a shared helper library, not a separately executable test suite.
-
-Do not restore, build, or run Playwright/browser integration test projects for
-test validation. Do not download browsers or install Playwright tooling for this
-workflow. Non-bUnit test projects, including McpServer and DocApiGen test suites,
-are also outside the validation scope. Report these exclusions explicitly rather
-than treating them as blocked checks or successful test runs.
-
-Restore/build each bUnit test project and run its complete suite in Release
-against the updated dependencies, using its declared framework(s). The library
-build matrix does not require forcing every test project onto all four TFMs.
-Do not use `--no-build` with stale test assemblies.
-
-If a bUnit project declares a `net11.0` test target, execute that target only
-when a compatible SDK and the required .NET 11 runtime are installed. Otherwise
-report that target as intentionally skipped while still updating its .NET 11
-dependencies. Run any other declared test targets normally, selecting applicable
-frameworks for restore/build/run without editing or retargeting the project.
-
-Pass the applicable library TFM list from section A through `TargetNetVersions`
-for test restore/build/run commands. This prevents referenced libraries from
-requesting .NET 11 when its SDK is absent, without changing test project TFMs or
-editing project files. Quote the semicolon-separated property value as shown;
-do not use `%3B`, which can break framework negotiation for project references.
-
-The current `global.json` selects Microsoft.Testing.Platform. With SDK 10+,
-use named project arguments and pass MTP options directly, without a `--`
-separator. For compatible MTP projects, the command pattern is:
-
-```powershell
-$targetNetVersionsArgument = '-p:TargetNetVersions="' + ($tfms -join ';') + '"'
-dotnet test --project $testProject --configuration Release $targetNetVersionsArgument
-```
-
-Inspect each bUnit project's runner before executing it. Do not edit `global.json`
-or migrate a test framework to make the command work.
-
-Record passed, failed, and skipped test counts. A zero-test run is not successful
-validation. Report runner incompatibilities, missing prerequisites for bUnit
-tests, and blocked bUnit tests explicitly; do not silently omit an in-scope
-project or accept snapshots.
-
-## 5. Final review and report
-
-1. Inspect the final manifest and lockfile diff and Git status against the initial
-   state. The changes introduced by this operation must include only allowed
-   dependency-version edits and corresponding NPM-generated lockfile updates.
-   Leave unrelated user changes untouched.
-2. Confirm that the final proposed manifests and lockfiles are exactly those validated.
-   Remove only the specifically identified disposable validation workspace and
-   temporary files created by this operation; preserve user-owned files.
-3. Respond with:
-   - A mandatory table of applied NuGet/NPM updates with previous and new
-     versions, using the format below.
-   - Deferred/rejected upgrades, compatibility reasons, and remaining advisories.
-   - All applied .NET 11 package updates, even when local .NET 11 validation was
-     skipped. Clearly distinguish metadata verification from restore/build/test
-     execution; never describe skipped validation as skipped package updates.
-   - A library matrix: two projects by four TFMs, with separate restore/build
-     results for every applicable combination; explicitly mark .NET 11 as
-     intentionally skipped when a compatible SDK is not already installed.
-   - Install/build results and lockfile updates for Core.Scripts and Charts.Scripts.
-   - Results and test counts for every bUnit test project, plus a clear statement
-     that Playwright/browser and other non-bUnit test suites were excluded by scope.
-   - Exact validation commands and any failures, blockers, or unexecuted checks.
-   - The list of modified manifests and lockfiles, with previous/new resolved
-     versions for lockfile-only dependency updates, and confirmation that no
-     other files changed because of this operation.
-
-Use this format for the dependency-update table in the final chat response:
+1. Applied updates using the table below. Include one row per package and
+   manifest/framework combination. For shared properties, expand every affected
+   package to its effective previous/new versions. Preserve exact NPM ranges,
+   including `^` or `~`. Omit rejected/reverted attempts; if nothing changed,
+   state "No dependencies were updated".
+2. Deferred/rejected upgrades, compatibility reasons, and remaining advisories.
+3. .NET 11 updates, clearly separating metadata verification from executed or
+   skipped restore/build/test checks.
+4. Library matrix: two projects by four TFMs, with separate restore/build
+   results and explicit intentional skips where applicable.
+5. Install/build results and lockfile updates for both NPM projects; results
+   and passed/failed/skipped counts for every bUnit project. Explicitly identify
+   browser/Playwright and other non-bUnit suites as excluded, not blocked/passed.
+6. Exact validation commands, failures, blockers, and unexecuted checks.
+7. Modified manifests/lockfiles, previous/new resolved versions for lockfile-only
+   updates, and confirmation that no other files changed because of this run.
 
 | Ecosystem | Package | Manifest / Target framework | Previous version | New version | Shared MSBuild property |
 |-----------|---------|-----------------------------|------------------|-------------|-------------------------|
 | NuGet | <package ID> | <manifest and TFM> | <starting version> | <final version> | <property name or N/A> |
 | NPM | <package name> | <manifest> | <starting range> | <final range> | N/A |
 
-Include one row per updated package and manifest/framework combination. When a
-shared property changes, list every affected NuGet package with its effective
-previous and new versions, not just the property expression. For NPM, preserve
-the exact manifest ranges, including prefixes such as `^` or `~`.
-Include only updates retained in the final manifests, not rejected or reverted
-attempts. Always provide the report, even if validation fails. If nothing was
-updated, explicitly state "No dependencies were updated" instead of inventing
-table entries.
-
-Declare success only if every required restore, build, and test run passed.
-An intentional .NET 11 validation skip due to an unavailable local SDK or required
-test runtime, and the exclusion of non-bUnit tests, do not prevent success.
-This exception applies only to validation, not to the required .NET 11 package
-updates, and does not establish compiled/tested .NET 11 compatibility. Otherwise
-clearly state that validation is incomplete or failed.
+Declare success only if all required restores, builds, and tests passed.
+Intentional .NET 11 prerequisite-related skips and excluded non-bUnit suites do
+not prevent success, but do not establish compiled/tested .NET 11 compatibility.
+Otherwise state that validation is incomplete or failed.
 
 Workflow inspiration:
 [Aspire dependency-update skill](https://github.com/microsoft/aspire/blob/main/.agents/skills/dependency-update/SKILL.md).
