@@ -2,6 +2,79 @@ import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
+  interface LayoutElement extends HTMLElement {
+    fluentLayoutInitialized?: boolean;
+    _fluentDotNetHelper?: DotNet.DotNetObject | null;
+  }
+
+  let reconnectInitialized = false;
+
+  /**
+   * Resynchronizes mounted layouts after the reconnect UI has finished updating.
+   */
+  function refreshLayouts(): void {
+    requestAnimationFrame(() => {
+      document.querySelectorAll<LayoutElement>('.fluent-layout').forEach(element => {
+        void updateLayoutAsync(element, true);
+      });
+    });
+  }
+
+  // Blazor's reconnect event does not bubble. Wait until the application's UI has handled it.
+  document.addEventListener('components-reconnect-state-changed', event => {
+    if (event instanceof CustomEvent && event.detail?.state === 'hide') {
+      refreshLayouts();
+    }
+  }, { capture: true });
+
+  /**
+   * Hooks the default Blazor reconnect handler once, preserving its original behavior.
+   */
+  function initializeReconnect(): void {
+    const handler = (window as Window & {
+      Blazor?: { defaultReconnectionHandler?: { onConnectionUp(): void } };
+    }).Blazor?.defaultReconnectionHandler;
+    if (!handler || reconnectInitialized) {
+      return;
+    }
+
+    reconnectInitialized = true;
+    const onConnectionUp = handler.onConnectionUp.bind(handler);
+
+    // The fallback reconnect UI does not emit components-reconnect-state-changed.
+    handler.onConnectionUp = () => {
+      onConnectionUp();
+      refreshLayouts();
+    };
+  }
+
+  /**
+   * Updates the mobile attribute and notifies .NET when the breakpoint changes.
+   * @param element Layout whose current width determines the breakpoint
+   * @param force Resends the breakpoint after reconnection, even if the DOM attribute is unchanged
+   */
+  async function updateLayoutAsync(element: LayoutElement, force = false): Promise<void> {
+    if (!element.isConnected || element.offsetWidth === 0) {
+      return;
+    }
+
+    const mobile = isMobile(element);
+    const changed = element.hasAttribute('mobile') !== mobile;
+    element.toggleAttribute('mobile', mobile);
+
+    if (changed || force) {
+      try {
+        await element._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', mobile ? 'mobile' : 'desktop');
+      }
+      catch (error) {
+        console.error('FluentLayout: unable to synchronize the breakpoint with .NET.', error);
+      }
+    }
+  }
+
+  /**
+   * Checks the layout width against its configured mobile breakpoint, defaulting to 768px.
+   */
   function isMobile(element: HTMLElement): boolean {
     const maxWidth = parseInt(element.getAttribute('breakdown-width') ?? '768', 10);
     return element.offsetWidth <= maxWidth;
@@ -11,11 +84,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    * Add an attribute to the layout element if the width is less than the maximum mobile width
    * @param dotNetHelper DotNet helper to call back to the Blazor component
    * @param id Identifier of the layout element
-   * @param maxMobileWidth Maximum width for mobile layout (pixels)
   */
   export function Initialize(dotNetHelper: DotNet.DotNetObject | null, id: string) {
 
-    const layoutElement = document.getElementById(id) as any;
+    initializeReconnect();
+    const layoutElement = document.getElementById(id) as LayoutElement | null;
 
     if (!layoutElement) {
       return;
@@ -25,6 +98,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     if (layoutElement.fluentLayoutInitialized) {
       if (dotNetHelper !== null) {
         layoutElement._fluentDotNetHelper = dotNetHelper;
+        void updateLayoutAsync(layoutElement, true);
       }
       return;
     }
@@ -32,35 +106,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     layoutElement.fluentLayoutInitialized = true;
     layoutElement._fluentDotNetHelper = dotNetHelper;
 
-    if (layoutElement) {
-
-      // Detect the layout size, and add a "mobile" attribute
-      // if the width is less than the maximum mobile width
-      const resizeObserver = new ResizeObserver(_entries => {
-        const hasMobileAttribute = layoutElement.hasAttribute('mobile');
-        const isMobileSize = isMobile(layoutElement);
-
-        if (!hasMobileAttribute && isMobileSize) {
-          layoutElement.setAttribute('mobile', '');
-          try {
-            layoutElement._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'mobile');
-          }
-          catch (error) {
-          }
-        }
-
-        else if (hasMobileAttribute && !isMobileSize) {
-          layoutElement.removeAttribute('mobile');
-          try {
-            layoutElement._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', 'desktop');
-          }
-          catch (error) {
-          }
-        }
-      });
-
-      resizeObserver.observe(layoutElement);
-    }
+    const resizeObserver = new ResizeObserver(() => void updateLayoutAsync(layoutElement));
+    resizeObserver.observe(layoutElement);
   }
 
   /**
