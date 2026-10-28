@@ -1,6 +1,6 @@
 ---
 name: update-dependencies
-description: "Check and update NuGet and NPM dependencies, then validate .NET 8, 9, 10, and 11 builds and all test projects. Use when asked to update or upgrade repository dependencies."
+description: "Check and update NuGet and NPM dependencies and NPM lockfiles, then validate .NET 8, 9, and 10 builds, .NET 11 builds when a compatible SDK is already installed, and bUnit test projects only. Use when asked to update or upgrade repository dependencies."
 user-invocable: true
 disable-model-invocation: true
 ---
@@ -11,24 +11,37 @@ Update this repository's NuGet and NPM dependencies to the newest compatible
 versions, then complete every validation below. Inspect the repository's current
 configuration rather than relying on assumptions about SDKs, scripts, or runners.
 
+## Work rules: local changes only
+
+- Use the current local branch. Do not create or switch branches.
+- Modify files locally only; do not create local commits.
+- Do not publish anything to Git or GitHub: no pushes, pull requests, comments,
+  or remote status changes.
+- Keep all changes uncommitted in the current working tree.
+
 ## Strict change boundary
 
 - Only dependency-version changes in repository-owned files named
-  `Directory.Packages.props` or `package.json` are allowed.
+  `Directory.Packages.props` or `package.json`, plus corresponding NPM-generated
+  `package-lock.json` updates, are allowed.
+- Generate or update `package-lock.json` with NPM to keep dependency resolutions,
+  integrity hashes, and related lockfile metadata synchronized with the manifests.
+  Do not edit lockfiles manually or introduce unrelated lockfile changes.
 - Do not modify project files, `global.json`, NuGet/NPM configuration, build
-  scripts, application code, tests, snapshots, generated sources, or lockfiles.
+  scripts, application code, tests, snapshots, generated sources, or other lockfiles.
   Do not change NPM scripts or unrelated package metadata.
 - Preserve existing user changes, comments, formatting, MSBuild conditions, and
   dependency range conventions. Never reset or discard someone else's work.
 - If an upgrade requires changes outside the allowlist, select a compatible
   version or leave that dependency unchanged and explain why.
-- Do not commit, push, create a pull request, or add a report file.
+- Do not add a report file.
 
 ## 1. Inspect the repository and prerequisites
 
 1. Record the initial Git status and existing changes, including untracked files.
    Capture the starting dependency versions and shared MSBuild property values
-   from the working tree, not just `HEAD`, for the final before/after report.
+   and existing NPM lockfiles from the working tree, not just `HEAD`, for the
+   final before/after report.
 2. Locate dependency manifests, their consuming projects, package sources, NPM
    workspaces, build scripts, and actual test projects. Exclude generated,
    vendored, and installed dependency directories.
@@ -37,13 +50,17 @@ configuration rather than relying on assumptions about SDKs, scripts, or runners
    [global.json](../../../global.json). Inspect framework overrides, project
    references, test runners, and configuration-dependent build behavior.
 4. Check `dotnet --info`, `dotnet --list-sdks`, `dotnet --list-runtimes`,
-   `node --version`, and `npm --version`. A usable SDK must support `net11.0`
-   and all earlier requested targets; test runtimes and Node must satisfy the
-   projects' requirements. Do not edit SDK pins or install system-wide tools
-   without approval. Report unavailable prerequisites as blockers, not passes.
+   `node --version`, and `npm --version`. A usable SDK must support the required
+   `net8.0`, `net9.0`, and `net10.0` targets; test runtimes and Node must satisfy
+   the projects' requirements. Include `net11.0` validation only when an already
+   installed SDK supports it, including an appropriate .NET 11 Preview or RC SDK.
+   Otherwise skip .NET 11 validation and report the reason; this optional skip
+   is not a blocker. Do not download or install an SDK just to validate .NET 11.
+   Do not edit SDK pins or install system-wide tools without approval. Report
+   unavailable prerequisites for required checks as blockers, not passes.
 5. Before installing or building, prepare an isolated, disposable validation copy
    outside the working tree. Include the current source, proposed manifest
-   changes, and relevant pre-existing user changes, but exclude `.git` and
+   changes, existing NPM lockfiles, and relevant pre-existing user changes, but exclude `.git` and
    generated/install directories. A clean checkout of `HEAD` alone is not enough.
    Preserve relative paths and required resources. If external references or
    credentials prevent equivalent validation there, report the limitation.
@@ -51,7 +68,8 @@ configuration rather than relying on assumptions about SDKs, scripts, or runners
 Run restore, install, build, and test commands in that copy. Script builds can
 rewrite tracked `src\BuildConstants.ts` files, so they must not run in the
 original working tree. Generated outputs in the disposable copy are acceptable;
-never copy them back.
+never copy them back, except for the validated `package-lock.json` files explicitly
+allowed in section B.
 
 ## 2. Identify and assess updates
 
@@ -119,14 +137,16 @@ remove framework groups, or move version definitions into other files.
 ## 3. Apply compatible changes
 
 Make focused version edits only in the allowed manifests. Do not run broad
-upgrade commands that can rewrite project files or lockfiles. Do not use
+upgrade commands that can rewrite project files or unrelated lockfiles. Generate
+the corresponding NPM lockfile updates in the validation copy. Do not use
 `npm audit fix`, `--force`, or `--legacy-peer-deps` to hide incompatibilities.
 
-Refresh the validation copy with the exact proposed manifests before each
-validation attempt. If a candidate fails because of an upgrade, investigate it
-and try a compatible version or revert only that attempted version change,
-preserving the initial user state. Then rerun the affected checks and complete
-the final validation matrix against the final manifest contents.
+Refresh the validation copy with the exact proposed manifests and current
+candidate lockfiles before each validation attempt. If a candidate fails because
+of an upgrade, investigate it and try a compatible version or revert only that
+attempted version change, preserving the initial user state. Regenerate the
+affected NPM lockfiles as needed. Then rerun the affected checks and complete
+the final validation matrix against the final manifest and lockfile contents.
 
 ## 4. Required final validation
 
@@ -135,7 +155,7 @@ its exit code, and its result. Do not skip required checks merely because no
 dependency needed updating. Do not suppress new errors or relax warnings,
 dependency constraints, or tests to obtain a successful result.
 
-### A. Restore and build both libraries for all four target frameworks
+### A. Restore and build both libraries for the applicable target frameworks
 
 Validate these projects:
 
@@ -143,14 +163,20 @@ Validate these projects:
 - [Microsoft.FluentUI.AspNetCore.Components.Charts.csproj](../../../src/Charts/Microsoft.FluentUI.AspNetCore.Components.Charts.csproj)
 
 Both use `TargetNetVersions` from `Directory.Build.props`; a default Debug build
-does not prove that all frameworks compile. Run **eight explicit restore/build
-pairs**, using the same configuration and framework properties for each pair.
+does not prove that all frameworks compile. Validate `net8.0`, `net9.0`, and
+`net10.0`. Add `net11.0` only when the installed SDK supports it; otherwise mark
+both .NET 11 entries as intentionally skipped, not failed or blocked.
+
+Run **six explicit restore/build pairs**, or **eight when .NET 11 is available**,
+using the same configuration and framework properties for each pair.
 Run sequentially because project references can share intermediate outputs.
 
-For each project path and each TFM in `net8.0`, `net9.0`, `net10.0`, `net11.0`,
-run the following PowerShell command pattern from the validation copy's root:
+Set `$tfms` to the applicable list, then run the following PowerShell command
+pattern for each project path and each `$tfm` from the validation copy's root:
 
 ```powershell
+$tfms = @('net8.0', 'net9.0', 'net10.0')
+# Add 'net11.0' only when a compatible SDK is already installed.
 dotnet restore $project -p:Configuration=Release "-p:TargetNetVersions=$tfm"
 # Run the build only if this restore succeeded.
 dotnet build $project --configuration Release --framework $tfm --no-restore "-p:TargetNetVersions=$tfm"
@@ -171,26 +197,28 @@ Do not replace this matrix with one default build or a solution restore.
 ### B. Install and build both NPM projects
 
 In each directory below, run `npm install` followed by its actual build script.
-Use `--package-lock=false` so the existing lockfile neither pins the validation
-to old resolved versions nor gets rewritten. Do not substitute `npm ci`.
+Use `--package-lock=true` to generate or update `package-lock.json` alongside the
+proposed manifest. Keep existing locked resolutions when compatible; do not
+delete lockfiles to force unrelated dependency upgrades. Do not use
+`--package-lock=false` or substitute `npm ci` for this update step.
 
 For NPM setup, authentication errors (`E401` / `401 Unable to authenticate`),
 or feed caching problems, consult the
 [Core.Scripts README](../../../src/Core.Scripts/README.md).
 It also explains why a feed cache miss can appear as an authentication error.
 Apply its troubleshooting guidance within this skill's change boundary: do not
-modify tracked lockfiles or NPM configuration, and obtain approval before
-installing global tools or clearing the global NPM cache.
+modify NPM configuration or discard existing lockfiles, and obtain approval
+before installing global tools or clearing the global NPM cache.
 
 ```powershell
 Push-Location "src\Core.Scripts"
-npm install --package-lock=false
+npm install --package-lock=true
 # Run only after a successful install.
 npm run build -- --build-mode=Release
 Pop-Location
 
 Push-Location "src\Charts.Scripts"
-npm install --package-lock=false
+npm install --package-lock=true
 # Run only after a successful install.
 npm run build -- --build-mode=Release
 Pop-Location
@@ -199,50 +227,68 @@ Pop-Location
 Run Core.Scripts before Charts.Scripts. Check every exit code and restore the
 working directory even on failure. Review resolved top-level versions and peer
 dependency errors with `npm ls --depth=0`; do not treat an installation failure
-as a successful build. Do not generate or update lockfiles in the original tree.
+as a successful build.
 
-### C. Execute all actual test projects
+After successful installs and builds, verify that each lockfile agrees with its
+final `package.json`. Copy only those validated `package-lock.json` files back to
+their corresponding locations in the original working tree. Preserve unrelated
+user changes, and do not overwrite a lockfile changed concurrently since the
+initial capture. If a manifest changes after validation, refresh its lockfile
+and rerun the affected install/build checks before copying it back.
 
-Rediscover test projects from their configuration, not just filenames.
-Currently inspect at least:
+### C. Execute bUnit test projects only
+
+Rediscover bUnit test projects from their package references and configuration,
+not just filenames. Currently these include:
 
 - [Components.Tests.csproj](../../../tests/Core/Components.Tests.csproj)
 - [Components.Charts.Tests.csproj](../../../tests/Charts/Components.Charts.Tests.csproj)
-- [Components.IntegrationTests.csproj](../../../tests/Integration/Components.IntegrationTests.csproj)
-- [McpServer.Tests.csproj](../../../tests/McpServer/McpServer.Tests.csproj)
+- [FluentUI.Demo.DocViewer.Tests.csproj](../../../examples/Tools/FluentUI.Demo.DocViewer.Tests/FluentUI.Demo.DocViewer.Tests.csproj)
 
 [Components.Tests.Tools.csproj](../../../tests/Tools/Components.Tests.Tools.csproj)
 is a shared helper library, not a separately executable test suite.
 
-Restore/build each real test project and run its complete suite in Release
+Do not restore, build, or run Playwright/browser integration test projects for
+test validation. Do not download browsers or install Playwright tooling for this
+workflow. Non-bUnit test projects, including McpServer and DocApiGen test suites,
+are also outside the validation scope. Report these exclusions explicitly rather
+than treating them as blocked checks or successful test runs.
+
+Restore/build each bUnit test project and run its complete suite in Release
 against the updated dependencies, using its declared framework(s). The library
 build matrix does not require forcing every test project onto all four TFMs.
 Do not use `--no-build` with stale test assemblies.
+
+Pass the applicable library TFM list from section A through `TargetNetVersions`
+for test restore/build/run commands. This prevents referenced libraries from
+requesting .NET 11 when its SDK is absent, without changing test project TFMs or
+editing project files. Quote the semicolon-separated property value as shown;
+do not use `%3B`, which can break framework negotiation for project references.
 
 The current `global.json` selects Microsoft.Testing.Platform. With SDK 10+,
 use named project arguments and pass MTP options directly, without a `--`
 separator. For compatible MTP projects, the command pattern is:
 
 ```powershell
-dotnet test --project $testProject --configuration Release
+$targetNetVersionsArgument = '-p:TargetNetVersions="' + ($tfms -join ';') + '"'
+dotnet test --project $testProject --configuration Release $targetNetVersionsArgument
 ```
 
-Inspect each project's runner before executing it: the integration project
-currently references legacy xUnit/VSTest packages. If it is not MTP-compatible,
-build it and run its freshly built test assembly with `dotnet vstest`, resolving
-the actual output path from MSBuild rather than guessing it. Do not edit
-`global.json` or migrate a test framework to make the command work.
+Inspect each bUnit project's runner before executing it. Do not edit `global.json`
+or migrate a test framework to make the command work.
 
 Record passed, failed, and skipped test counts. A zero-test run is not successful
-validation. Report runner incompatibilities, missing browser/service prerequisites,
-and blocked tests explicitly; do not silently omit a project or accept snapshots.
+validation. Report runner incompatibilities, missing prerequisites for bUnit
+tests, and blocked bUnit tests explicitly; do not silently omit an in-scope
+project or accept snapshots.
 
 ## 5. Final review and report
 
-1. Inspect the final manifest diff and Git status against the initial state.
-   The changes introduced by this operation must include only allowed manifests
-   and dependency versions. Leave unrelated user changes untouched.
-2. Confirm that the final proposed manifests are exactly those validated.
+1. Inspect the final manifest and lockfile diff and Git status against the initial
+   state. The changes introduced by this operation must include only allowed
+   dependency-version edits and corresponding NPM-generated lockfile updates.
+   Leave unrelated user changes untouched.
+2. Confirm that the final proposed manifests and lockfiles are exactly those validated.
    Remove only the specifically identified disposable validation workspace and
    temporary files created by this operation; preserve user-owned files.
 3. Respond with:
@@ -250,12 +296,15 @@ and blocked tests explicitly; do not silently omit a project or accept snapshots
      versions, using the format below.
    - Deferred/rejected upgrades, compatibility reasons, and remaining advisories.
    - A library matrix: two projects by four TFMs, with separate restore/build
-     results for all eight combinations.
-   - Install/build results for Core.Scripts and Charts.Scripts.
-   - Results and test counts for every real test project.
+     results for every applicable combination; explicitly mark .NET 11 as
+     intentionally skipped when a compatible SDK is not already installed.
+   - Install/build results and lockfile updates for Core.Scripts and Charts.Scripts.
+   - Results and test counts for every bUnit test project, plus a clear statement
+     that Playwright/browser and other non-bUnit test suites were excluded by scope.
    - Exact validation commands and any failures, blockers, or unexecuted checks.
-   - The list of modified manifests and confirmation that no other files changed
-     because of this operation.
+   - The list of modified manifests and lockfiles, with previous/new resolved
+     versions for lockfile-only dependency updates, and confirmation that no
+     other files changed because of this operation.
 
 Use this format for the dependency-update table in the final chat response:
 
@@ -274,7 +323,9 @@ updated, explicitly state "No dependencies were updated" instead of inventing
 table entries.
 
 Declare success only if every required restore, build, and test run passed.
-Otherwise clearly state that validation is incomplete or failed.
+An intentional .NET 11 skip due to an unavailable local SDK, and the exclusion of
+non-bUnit tests, do not prevent success. Otherwise clearly state that validation
+is incomplete or failed.
 
 Workflow inspiration:
 [Aspire dependency-update skill](https://github.com/microsoft/aspire/blob/main/.agents/skills/dependency-update/SKILL.md).
