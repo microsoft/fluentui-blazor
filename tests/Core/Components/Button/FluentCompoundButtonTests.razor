@@ -24,10 +24,30 @@
     public void FluentCompoundButton_AutofocusAttribute()
     {
         // Arrange && Act
-        var cut = Render(@<FluentCompoundButton AutoFocus="true">fluent-compound-button</FluentCompoundButton>);
+        var cut = Render(@<FluentCompoundButton Id="my-id" Autofocus="true">fluent-compound-button</FluentCompoundButton>);
 
         // Assert
         cut.Verify();
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("\t\r\n")]
+    public void Autofocus_InvalidId_GeneratesStableIdAndFocusesOnce(string? id)
+    {
+        var cut = Render(@<FluentCompoundButton Id="@id" Autofocus="true">Focus</FluentCompoundButton>)
+            .FindComponent<FluentCompoundButton>();
+        var generatedId = cut.Instance.Id;
+        Assert.False(string.IsNullOrWhiteSpace(generatedId));
+        Assert.Equal(generatedId, cut.Find("fluent-compound-button").Id);
+
+        cut.Render();
+
+        Assert.Equal(generatedId, cut.Instance.Id);
+        var invocation = Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.DomFunctions.focus"]);
+        Assert.Equal(new object?[] { generatedId, false }, invocation.Arguments);
     }
 
     [Theory]

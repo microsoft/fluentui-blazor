@@ -31,20 +31,7 @@ public class InputBaseTests : Bunit.BunitContext
     /// <summary>
     /// List of customized actions to initialize the component with a specific type.
     /// </summary>
-    private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = new()
-    {
-        // { typeof(FluentIcon<>), type => type.MakeGenericType(typeof(Samples.Icons.Samples.Info)) }
-        { typeof(FluentSelect<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
-        { typeof(FluentCombobox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
-        { typeof(FluentListbox<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
-        { typeof(FluentAutocomplete<,>), type => type.MakeGenericType(typeof(string), typeof(string)) },
-        { typeof(FluentSlider<>), type => type.MakeGenericType(typeof(int)) },
-        { typeof(FluentRadioGroup<>), type => type.MakeGenericType(typeof(string)) },
-        { typeof(FluentCalendar<>), type => type.MakeGenericType(typeof(DateTime)) },
-        { typeof(FluentDatePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
-        { typeof(FluentTimePicker<>), type => type.MakeGenericType(typeof(DateTime)) },
-        { typeof(FluentNumberInput<>), type => type.MakeGenericType(typeof(int)) },
-    };
+    private static readonly Dictionary<Type, Func<Type, Type>> ComponentInitializer = BaseHelpers.ComponentInitializer;
 
     /// <summary />
     public InputBaseTests(ITestOutputHelper testOutputHelper)

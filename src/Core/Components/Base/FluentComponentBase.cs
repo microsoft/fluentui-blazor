@@ -46,6 +46,11 @@ public abstract class FluentComponentBase : ComponentBase, IAsyncDisposable, IFl
     [Inject]
     protected IJSRuntime JSRuntime { get; set; } = default!;
 
+    /// <summary>
+    /// Gets the JavaScript runtime for internal component helpers.
+    /// </summary>
+    internal IJSRuntime InternalJSRuntime => JSRuntime;
+
     /// <summary />
     [Inject]
     protected IFluentLocalizer Localizer { get; set; } = FluentLocalizerInternal.Default;
