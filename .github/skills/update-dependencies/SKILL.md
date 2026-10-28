@@ -80,6 +80,23 @@ never copy them back.
   approval before potentially breaking major upgrades or uncertain changes.
   Proceed with compatible, non-breaking updates without unnecessary questions.
 
+### Important: TypeScript and @typescript-eslint compatibility
+
+Upgrading to TypeScript 7 can cause parser/lint errors when the selected
+`@typescript-eslint` packages do not support it. Keep TypeScript on the latest
+compatible **5.x** version by default in this repository.
+
+Recheck this restriction on every dependency-update run: consult the
+[official TypeScript support policy](https://typescript-eslint.io/users/dependency-versions/#typescript),
+release notes, and peer dependencies for the exact proposed versions of
+`@typescript-eslint/parser` and `@typescript-eslint/eslint-plugin`.
+A permissive peer dependency range or a successful `npm install` alone does not
+prove official support. If support for a newer TypeScript major is confirmed,
+request approval before upgrading, then run the existing lint scripts, where
+available, as well as all required builds and tests. Do not assume this
+compatibility restriction is permanent; report the findings and any deferred
+TypeScript upgrade in the final report.
+
 ### Important: shared versions in Directory.Packages.props
 
 This repository uses NuGet Central Package Management. Its `PropertyGroup`
@@ -156,6 +173,14 @@ Do not replace this matrix with one default build or a solution restore.
 In each directory below, run `npm install` followed by its actual build script.
 Use `--package-lock=false` so the existing lockfile neither pins the validation
 to old resolved versions nor gets rewritten. Do not substitute `npm ci`.
+
+For NPM setup, authentication errors (`E401` / `401 Unable to authenticate`),
+or feed caching problems, consult the
+[Core.Scripts README](../../../src/Core.Scripts/README.md).
+It also explains why a feed cache miss can appear as an authentication error.
+Apply its troubleshooting guidance within this skill's change boundary: do not
+modify tracked lockfiles or NPM configuration, and obtain approval before
+installing global tools or clearing the global NPM cache.
 
 ```powershell
 Push-Location "src\Core.Scripts"
