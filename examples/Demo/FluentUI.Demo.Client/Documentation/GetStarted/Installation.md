@@ -23,6 +23,14 @@ Templates added:
 
 The templates are all 100% code copies of the original templates. We just used the Fluent Razor components to build the UI with.
 
+## AI-Assisted Setup
+
+Download [setup-fluentui-blazor.prompt.md](https://github.com/microsoft/fluentui-blazor/blob/dev/.github/prompts/setup-fluentui-blazor.prompt.md) into your project's `.github/prompts` folder.
+Run it with GitHub Copilot to set up Fluent UI Blazor:
+
+- **VS Code**: open the file and click the play button in the editor title area. [Official guide](https://code.visualstudio.com/docs/agent-customization/prompt-files#_use-a-prompt-file-in-chat).
+- **Visual Studio 2026**: type `/setup-fluentui-blazor` in Copilot Chat and send the prompt. [Official guide](https://learn.microsoft.com/en-us/visualstudio/ide/copilot-chat-context?view=visualstudio#invoke-custom-prompts-with-slash-commands).
+
 ## Manual Installation
 
 If you already have a Blazor project (either from a default template or an existing application),
