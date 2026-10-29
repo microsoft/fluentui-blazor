@@ -2382,6 +2382,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     [ExcludeFromCodeCoverage(Justification = "Tested via integration tests.")]
     public override ValueTask DisposeAsync()
     {
+        KeyCodeService.UnregisterListener(OnKeyDownAsync);
         _currentPageItemsChanged.Dispose();
         _selfReference?.Dispose();
 #pragma warning disable MA0042 // Do not use blocking calls in an async method

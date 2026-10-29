@@ -35,6 +35,24 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_UnregistersKeyCodeListener_OnDispose()
+    {
+        // Arrange
+        var keyCodeService = Services.GetRequiredService<IKeyCodeService>();
+        Render<FluentDataGrid<Customer>>(
+            @<FluentDataGrid Items="@GetCustomers().AsQueryable()">
+                <PropertyColumn Property="@(x => x.Name)" />
+            </FluentDataGrid>);
+        Assert.Single(keyCodeService.Listeners);
+
+        // Act
+        await DisposeComponentsAsync();
+
+        // Assert
+        Assert.Empty(keyCodeService.Listeners);
+    }
+
+    [Fact]
     public void FluentDataGrid_NoHeader()
     {
         // Arrange && Act
