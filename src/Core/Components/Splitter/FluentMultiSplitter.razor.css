@@ -5,7 +5,7 @@
   --fluent-multi-splitter-hover-opacity: 0.8;
   /* Resize Icon colors */
   --fluent-multi-splitter-color: var(--colorNeutralStrokeAccessible);
-  --fluent-multi-splitter-color-active: var(--colorNeutralStrokeAccessiblePressed);
+  --fluent-multi-splitter-color-active: var(--colorNeutralForeground2);
   /* Bar size */
   --fluent-multi-splitter-bar-size: var(--spacingVerticalS);
   /* Styles */
@@ -24,15 +24,34 @@
     align-items: center;
     justify-content: center;
     color: var(--fluent-multi-splitter-color);
-    background-color: var(--fluent-multi-splitter-background-color);
-    opacity: 0.4;
     user-select: none;
     font-size: 8px;
   }
 
+    /* Keep background opacity separate from the interactive indicators. */
+    .fluent-multi-splitter > .fluent-multi-splitter-bar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: var(--fluent-multi-splitter-background-color);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .fluent-multi-splitter > .fluent-multi-splitter-bar > span {
+      position: relative;
+    }
+
     .fluent-multi-splitter > .fluent-multi-splitter-bar > span[part="resize"] {
-      border: 1px solid var(--fluent-multi-splitter-color);
-      border-radius: 1px;
+      background-color: currentColor;
+      border-radius: var(--borderRadiusSmall);
+    }
+
+    @media (forced-colors: active) {
+      .fluent-multi-splitter > .fluent-multi-splitter-bar > span[part="resize"] {
+        forced-color-adjust: none;
+        background-color: CanvasText;
+      }
     }
 
     /* Collapse button */
@@ -64,12 +83,11 @@
       }
 
     /* Hover and Active */
-    .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:hover {
-      background-color: var(--fluent-multi-splitter-background-color);
+    .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:hover::before {
       opacity: var(--fluent-multi-splitter-hover-opacity);
     }
 
-    .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:active {
+    .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:active::before {
       background-color: var(--fluent-multi-splitter-background-color-active);
       opacity: var(--fluent-multi-splitter-hover-opacity);
     }
@@ -80,13 +98,13 @@
         color: var(--fluent-multi-splitter-color-active);
       }
 
-      .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:active > span[part="resize"] {
-        border: 1px solid var(--fluent-multi-splitter-color-active);
-      }
-
     /* Disabled */
     .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:disabled {
       opacity: 0.2;
+    }
+
+    .fluent-multi-splitter > .fluent-multi-splitter-bar[status="resizable"]:disabled::before {
+      opacity: 1;
     }
 
   /* Horizontal bar */
@@ -108,6 +126,7 @@
 }
 
 .fluent-multi-splitter[orientation="horizontal"] > .fluent-multi-splitter-bar > span[part="resize"] {
+  width: 3px;
   height: 16px;
   margin: 2px 0;
 }
@@ -140,6 +159,7 @@
 
     .fluent-multi-splitter[orientation="vertical"] > .fluent-multi-splitter-bar > span[part="resize"] {
       width: 16px;
+      height: 3px;
       margin: 0 2px;
     }
 
