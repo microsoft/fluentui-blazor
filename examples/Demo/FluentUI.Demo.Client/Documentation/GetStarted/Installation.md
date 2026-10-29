@@ -31,6 +31,8 @@ Run it with GitHub Copilot to set up Fluent UI Blazor:
 - **VS Code**: open the file and click the play button in the editor title area. [Official guide](https://code.visualstudio.com/docs/agent-customization/prompt-files#_use-a-prompt-file-in-chat).
 - **Visual Studio 2026**: type `/setup-fluentui-blazor` in Copilot Chat and send the prompt. [Official guide](https://learn.microsoft.com/en-us/visualstudio/ide/copilot-chat-context?view=visualstudio#invoke-custom-prompts-with-slash-commands).
 
+Watch a [Video](https://youtu.be/D5McAEX8DoI) example.
+
 ## Manual Installation
 
 If you already have a Blazor project (either from a default template or an existing application),
