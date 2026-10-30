@@ -11,6 +11,21 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Serialization;
 
 public class FluentUIJsonSerializerContextTests
 {
+    [Theory]
+    [InlineData("""{"id":"tabs","activeid":"tab1","isAttributeSynchronized":true}""", true)]
+    [InlineData("""{"id":"tabs","activeid":"tab1","isAttributeSynchronized":false}""", false)]
+    [InlineData("""{"id":"tabs","activeid":"tab1"}""", false)]
+    public void TabChangeEventArgs_DeserializesAttributeSynchronization(string json, bool isAttributeSynchronized)
+    {
+        var context = new FluentUIJsonSerializerContext(new JsonSerializerOptions(JsonSerializerDefaults.Web));
+        var result = JsonSerializer.Deserialize(json, context.TabChangeEventArgs);
+
+        Assert.NotNull(result);
+        Assert.Equal("tabs", result.Id);
+        Assert.Equal("tab1", result.ActiveId);
+        Assert.Equal(isAttributeSynchronized, result.IsAttributeSynchronized);
+    }
+
     [Fact]
     public void KeyPress_RoundTrips()
     {

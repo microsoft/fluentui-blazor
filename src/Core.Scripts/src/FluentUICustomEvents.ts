@@ -131,6 +131,8 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
         return {
           id: event.target.id,
           activeid: event.detail?.id,
+          // Client selections fire before FAST reflects activeid to the attribute.
+          isAttributeSynchronized: event.detail?.id === event.target.getAttribute('activeid'),
         };
       }
     });
