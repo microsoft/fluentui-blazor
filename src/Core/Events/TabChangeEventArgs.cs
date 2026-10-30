@@ -34,7 +34,13 @@ public class TabChangeEventArgs : EventArgs
        Web Component's active tab property and raises the event before FAST asynchronously reflects that property
        into the HTML attribute. This identifies a selection not yet reflected in the attribute; it is not proof
        that a human initiated the change.
-       
+
+       After taking this snapshot, the browser event bridge immediately reflects a new client selection into
+       the attribute. Otherwise, selecting results and then setup in the same task could compare both events
+       against an old setup attribute and incorrectly classify the final selection as an attribute echo.
+       The component property already contains the selected ID, so this attribute write does not change the
+       selection again. No additional selection ID is stored between events.
+
        - FluentTabs ignores a notification only when this value is true and
        ActiveId differs from its latest requested selection. For example, an old notification for
        setup must not overwrite a newer programmatic request for results.
