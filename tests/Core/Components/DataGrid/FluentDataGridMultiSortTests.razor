@@ -119,7 +119,7 @@
     }
 
     [Fact]
-    public async Task FluentDataGrid_MultiSort_RemoveSortByColumnAsync_WhenTheLastLevelIsRemoved_RestoresTheDeclaredSort()
+    public async Task FluentDataGrid_MultiSort_RemoveSortByColumnAsync_WhenTheLastLevelIsRemoved_LeavesTheGridUnsorted()
     {
         // Arrange
         FluentDataGrid<Employee>? grid = default!;
@@ -130,10 +130,34 @@
         // Act
         await grid.RemoveSortByColumnAsync(grid.SortColumns[0].Column);
 
-        // Assert
-        Assert.Single(grid.SortColumns);
-        Assert.Equal("Department", grid.SortColumns[0].Column.Title);
-        Assert.True(grid.SortColumns[0].Ascending);
+        // Assert: the declared sort is not brought back, now or on a later render.
+        Assert.Empty(grid.SortColumns);
+        cut.Render();
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_RemoveSortByColumnAsync_WhenTheLastLevelIsRemoved_SavesTheGridAsUnsorted()
+    {
+        // Arrange
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        FluentDataGrid<Employee>? grid = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple" SaveStateInUrl="true">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" />
+            </FluentDataGrid>
+        );
+
+        // Act
+        await grid.RemoveSortByColumnAsync(grid.SortColumns[0].Column);
+
+        // Assert: an empty value, so that the declared sort stays off when the state is loaded again.
+        Assert.Empty(grid.SortColumns);
+        var query = System.Web.HttpUtility.ParseQueryString(new Uri(navigationManager.Uri).Query);
+        Assert.Contains("orderby", query.AllKeys);
+        Assert.Equal(string.Empty, query["orderby"]);
     }
 
     [Fact]
@@ -208,6 +232,178 @@
         // Assert
         Assert.Single(grid.SortColumns);
         Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DefaultSortPriority_OrdersTheDeclaredSortFromTheFirstRequest()
+    {
+        // Arrange && Act: Name sorts first and Department second, against the order the columns are declared in.
+        var requests = new List<GridItemsProviderRequest<Employee>>();
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority: 2, namePriority: 1, levelPriority: null, requests: requests);
+
+        // Assert: Level declares no priority, so it follows the columns that do.
+        Assert.Equal(["Name", "Department", "Level"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([false, true, true], grid.SortColumns.Select(level => level.Ascending));
+
+        // The data is requested in that order from the start, rather than unsorted and then sorted again.
+        Assert.NotEmpty(requests);
+        Assert.All(requests, request =>
+            Assert.Equal(["Name", "Department", "Level"], request.SortColumns.Select(level => level.Column.Title)));
+
+        // The headers are in column order, and show each column's level. Only the primary one carries aria-sort.
+        Assert.Equal(["2", "1", "3"], cut.FindAll("[col-sort-level]").Select(level => level.TextContent));
+        var headers = cut.FindAll("th");
+        Assert.Equal("none", headers[0].GetAttribute("aria-sort"));
+        Assert.Equal("descending", headers[1].GetAttribute("aria-sort"));
+    }
+
+    [Theory]
+    // No priority at all: the order the columns are declared in, as before priorities existed.
+    [InlineData(null, null, null, "Department", "Name", "Level")]
+    // Columns without a priority follow those with one, in column order.
+    [InlineData(null, null, 1, "Level", "Department", "Name")]
+    [InlineData(null, 5, null, "Name", "Department", "Level")]
+    // Equal priorities keep the column order between them.
+    [InlineData(1, 1, 1, "Department", "Name", "Level")]
+    [InlineData(2, 1, 1, "Name", "Level", "Department")]
+    // Negative and large values are only compared.
+    [InlineData(10, -1, int.MaxValue, "Name", "Department", "Level")]
+    public void FluentDataGrid_MultiSort_DefaultSortPriority_SortsLowerPrioritiesFirst(int? departmentPriority, int? namePriority, int? levelPriority, string first, string second, string third)
+    {
+        // Arrange && Act
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority, namePriority, levelPriority);
+
+        // Assert
+        Assert.Equal([first, second, third], grid.SortColumns.Select(level => level.Column.Title));
+    }
+
+    [Fact]
+    public void FluentDataGrid_SingleSort_DefaultSortPriority_SortsByTheColumnWithTheLowestPriority()
+    {
+        // Arrange && Act
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority: 2, namePriority: 1, levelPriority: null, DataGridSortMode.Single);
+
+        // Assert: rather than the first declared column.
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", level.Column.Title);
+        Assert.False(level.Ascending);
+    }
+
+    [Theory]
+    [InlineData(nameof(FluentDataGrid<Employee>.ResetSortAsync))]
+    [InlineData("Shift+S")]
+    public async Task FluentDataGrid_MultiSort_DefaultSortPriority_IsTheOrderTheDeclaredSortIsRestoredIn(string restore)
+    {
+        // Arrange
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority: 3, namePriority: null, levelPriority: 1);
+        await grid.SortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act
+        if (restore == nameof(FluentDataGrid<Employee>.ResetSortAsync))
+        {
+            await grid.ResetSortAsync();
+        }
+        else
+        {
+            await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+        }
+
+        // Assert
+        Assert.Equal(["Level", "Department", "Name"], grid.SortColumns.Select(level => level.Column.Title));
+        Assert.Equal([true, true, false], grid.SortColumns.Select(level => level.Ascending));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_SingleSort_DefaultSortPriority_IsTheColumnTheDeclaredSortIsRestoredTo()
+    {
+        // Arrange
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority: 2, namePriority: 1, levelPriority: null, DataGridSortMode.Single);
+        await grid.SortByColumnAsync("Level", DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.ResetSortAsync();
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", level.Column.Title);
+    }
+
+    [Theory]
+    // Department declares a default sort too, but Name sorts first, so only Name is the default in this mode.
+    [InlineData(2, 1, "Department", "Name", false)]
+    // The column the grid is sorted by by default is kept, as before.
+    [InlineData(2, 1, "Name", "Name", true)]
+    // Without priorities the first declared column is the default, and the other declared one can be removed too.
+    [InlineData(null, null, "Name", "Department", true)]
+    public async Task FluentDataGrid_SingleSort_RemoveSortByColumnAsync_OnlyKeepsTheColumnTheGridIsSortedByByDefault(int? departmentPriority, int? namePriority, string sortedColumn, string expectedColumn, bool expectedAscending)
+    {
+        // Arrange: Department is declared ascending and Name descending; both are sorted ascending here so that a
+        // restored default is told apart from a sort that was kept.
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority, namePriority, levelPriority: null, DataGridSortMode.Single);
+        await grid.SortByColumnAsync(sortedColumn, DataGridSortDirection.Ascending);
+
+        // Act
+        await grid.RemoveSortByColumnAsync(grid.SortColumns[0].Column);
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal(expectedColumn, level.Column.Title);
+        Assert.Equal(expectedAscending, level.Ascending);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DefaultSortPriority_LetsASortThatCannotBeAppendedComeFirst()
+    {
+        // Arrange: a ColumnKeyGridSort with a sort function but no then-sort function can only be the first level.
+        // Declared after Department it is dropped; given the first priority, it leads the sort instead.
+        var nameSort = new ColumnKeyGridSort<Employee>(
+            "name",
+            (queryable, ascending) => ascending ? queryable.OrderBy(x => x.Name) : queryable.OrderByDescending(x => x.Name));
+
+        // Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                <TemplateColumn Title="Name" Sortable="true" SortBy="@nameSort" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" DefaultSortPriority="1">@context.Name</TemplateColumn>
+            </FluentDataGrid>
+        );
+
+        // Assert
+        Assert.Equal(["Name", "Department"], grid.SortColumns.Select(level => level.Column.Title));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DefaultSortPriority_WithoutIsDefaultSortColumn_DoesNotSort()
+    {
+        // Arrange && Act: the priority only places a column that declares a default sort.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="DataGridSortMode.Multiple">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" DefaultSortPriority="2" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" DefaultSortPriority="1" />
+            </FluentDataGrid>
+        );
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", level.Column.Title);
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_DefaultSortPriority_WithASavedSort_LeavesTheSavedSortInPlace()
+    {
+        // Arrange: a sort saved in the URL still wins over the declared one, whatever its priorities.
+        var navigationManager = Services.GetRequiredService<NavigationManager>();
+        navigationManager.NavigateTo("http://localhost/?orderby=Employee.Level desc");
+
+        // Act
+        var cut = RenderPrioritizedSortGrid(out var grid, departmentPriority: 2, namePriority: 1, levelPriority: null, saveStateInUrl: true);
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Level", level.Column.Title);
+        Assert.False(level.Ascending);
     }
 
     [Fact]
@@ -315,6 +511,25 @@
 
         // Assert
         Assert.Equal(["Department"], grid.SortColumns.Select(level => level.Column.Title));
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_RightClickOnEachSortedColumnHeader_LeavesTheGridUnsorted()
+    {
+        // Arrange: the grid starts sorted by the declared Department column, and Name is added to it.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        await grid.AddSortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Act: the levels are removed one by one, the declared one last.
+        cut.FindAll("[col-sort-button]")[1].ContextMenu();
+        cut.FindAll("[col-sort-button]")[0].ContextMenu();
+
+        // Assert: the declared sort does not come back, and no header shows a sort.
+        Assert.Empty(grid.SortColumns);
+        Assert.Empty(cut.FindAll("[col-sort-level]"));
+        Assert.All(cut.FindAll("th"), header => Assert.Equal("none", header.GetAttribute("aria-sort")));
     }
 
     [Fact]
@@ -812,6 +1027,37 @@
     }
 
     [Fact]
+    public async Task FluentDataGrid_MultiSort_HeaderMenu_ClearOnTheLastSortedColumn_LeavesTheGridUnsorted()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid, defaultSortColumn: true);
+
+        await grid.SortByColumnAsync("Name", DataGridSortDirection.Ascending);
+
+        // Assert: with one column sorted that is not the declared sort, Reset is on offer next to Clear.
+        Assert.Equal(["Sort descending", "Clear", "Reset"], GetMenuItemLabels(cut, grid, column: 2));
+
+        // Act
+        ActivateMenuItem(cut, grid, column: 2, label: "Clear");
+
+        // Assert: and it is still on offer once the grid is unsorted, as the way back to the declared sort.
+        Assert.Empty(grid.SortColumns);
+        Assert.Equal(["Sort ascending", "Sort descending", "Reset"], GetMenuItemLabels(cut, grid, column: 1));
+    }
+
+    [Fact]
+    public void FluentDataGrid_MultiSort_HeaderMenu_WhenSortedAsDeclared_DoesNotOfferReset()
+    {
+        // Arrange && Act
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMenuGrid(out grid, defaultSortColumn: true);
+
+        // Assert: the grid starts sorted the way the columns declare, so there is nothing to reset.
+        Assert.Equal(["Sort descending", "Clear"], GetMenuItemLabels(cut, grid, column: 1));
+    }
+
+    [Fact]
     public async Task FluentDataGrid_MultiSort_HeaderMenu_WithoutADeclaredSort_DoesNotOfferReset()
     {
         // Arrange
@@ -996,6 +1242,98 @@
         // Assert: unchanged from single sort mode, where Shift+S restores the starting situation.
         Assert.Single(grid.SortColumns);
         Assert.Equal("Department", grid.SortColumns[0].Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_MultiSort_ShiftS_AfterEverySortLevelIsRemoved_ReturnsToTheDeclaredSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, defaultSortColumn: true);
+
+        await grid.RemoveSortByColumnAsync(grid.SortColumns[0].Column);
+        Assert.Empty(grid.SortColumns);
+
+        // Act
+        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", level.Column.Title);
+    }
+
+    [Fact]
+    public async Task FluentDataGrid_SingleSort_ShiftS_OnAnUnsortedGrid_ReturnsToTheDeclaredSort()
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, DataGridSortMode.Single, defaultSortColumn: true);
+
+        await grid.ClearSortAsync();
+
+        // Act
+        await grid.OnKeyDownAsync(new FluentKeyCodeEventArgs { Key = KeyCode.KeyS, ShiftKey = true, Value = "S" });
+
+        // Assert: as in multiple sort mode.
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Department", level.Column.Title);
+    }
+
+    [Theory]
+    [InlineData(DataGridSortMode.Single)]
+    [InlineData(DataGridSortMode.Multiple)]
+    public async Task FluentDataGrid_RemoveSortByColumnAsync_OnAnUnsortedGrid_LeavesItUnsorted(DataGridSortMode sortMode)
+    {
+        // Arrange
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = RenderMultiSortGrid(out grid, sortMode, defaultSortColumn: true);
+
+        await grid.ClearSortAsync();
+
+        // Act
+        await grid.RemoveSortByColumnAsync();
+
+        // Assert: removing a sort does not bring the declared one back; that is what Shift+S is for.
+        Assert.Empty(grid.SortColumns);
+    }
+
+    [Theory]
+    [InlineData(DataGridSortMode.Single)]
+    [InlineData(DataGridSortMode.Multiple)]
+    public void FluentDataGrid_SortSetWhileTheColumnsAreCollected_IsNotReplacedByTheDeclaredSort(DataGridSortMode sortMode)
+    {
+        // Arrange && Act: the Name column sorts the grid as it initializes, before the columns are all collected.
+        FluentDataGrid<Employee>? grid = default!;
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@grid" Items="@GetEmployees()" SortMode="@sortMode">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" />
+                @SortingOnInitializedNameColumn
+            </FluentDataGrid>
+        );
+
+        // Assert
+        var level = Assert.Single(grid.SortColumns);
+        Assert.Equal("Name", level.Column.Title);
+        Assert.False(level.Ascending);
+    }
+
+    // Nested in the test class, the column cannot be written as markup, so it is rendered from code.
+    private static readonly RenderFragment SortingOnInitializedNameColumn = builder =>
+    {
+        builder.OpenComponent<SortingOnInitializedColumn>(0);
+        builder.AddComponentParameter(1, nameof(SortingOnInitializedColumn.Property), (System.Linq.Expressions.Expression<Func<Employee, string>>)(x => x.Name));
+        builder.AddComponentParameter(2, nameof(SortingOnInitializedColumn.Sortable), true);
+        builder.CloseComponent();
+    };
+
+    /// <summary>A column that sorts the grid by itself, descending, as it initializes.</summary>
+    private sealed class SortingOnInitializedColumn : PropertyColumn<Employee, string>
+    {
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            _ = Grid.SortByColumnAsync(this, DataGridSortDirection.Descending);
+        }
     }
 
     [Fact]
@@ -1796,6 +2134,32 @@
         Assert.Equal("Name", grid.SortColumns[1].Column.Title);
     }
 
+    /// <summary>
+    /// Renders a grid where every column declares a default sort (Department ascending, Name descending, Level
+    /// ascending) with the given priorities.
+    /// </summary>
+    private IRenderedComponent<FluentDataGrid<Employee>> RenderPrioritizedSortGrid(
+        out FluentDataGrid<Employee> grid,
+        int? departmentPriority,
+        int? namePriority,
+        int? levelPriority,
+        DataGridSortMode sortMode = DataGridSortMode.Multiple,
+        List<GridItemsProviderRequest<Employee>>? requests = null,
+        bool saveStateInUrl = false)
+    {
+        FluentDataGrid<Employee>? reference = default!;
+
+        var cut = Render<FluentDataGrid<Employee>>(
+            @<FluentDataGrid TGridItem="Employee" @ref="@reference" Items="@GetEmployees()" SortMode="@sortMode" SaveStateInUrl="@saveStateInUrl"
+                             RefreshItems="@(request => { requests?.Add(request); return Task.CompletedTask; })">
+                <PropertyColumn Property="@(x => x.Department)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" DefaultSortPriority="@departmentPriority" />
+                <PropertyColumn Property="@(x => x.Name)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" DefaultSortPriority="@namePriority" />
+                <PropertyColumn Property="@(x => x.Level)" Sortable="true" IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Ascending" DefaultSortPriority="@levelPriority" />
+            </FluentDataGrid>
+        );
+
+        grid = reference!;
+        return cut;
     [Fact]
     public async Task FluentDataGrid_MultiSort_IndexAndSortPopupApis_UseTheRequestedColumn()
     {
