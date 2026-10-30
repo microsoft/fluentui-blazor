@@ -174,6 +174,8 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
                 await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.applyShadowStyle", Element, ":host .control", ControlStyle);
             }
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <summary>

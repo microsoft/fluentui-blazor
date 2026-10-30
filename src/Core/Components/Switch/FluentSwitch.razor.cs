@@ -88,6 +88,8 @@ public partial class FluentSwitch : FluentInputBase<bool>, ITooltipComponent, IF
         {
             await JSRuntime.InvokeVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", Element, "checked", "boolean");
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     /// <summary>
