@@ -19,6 +19,9 @@ To initiate an action, use a [FluentButton](/button) instead.
 To know which tab is selected, you can bind the `ActiveTabId` or `ActiveTab` parameter to a variable.
 Setting the `ActiveTabId` parameter to an initial value will set the selected tab when the component is first rendered.
 
+To change the selection programmatically, update the bound value or call `SelectTabAsync` with the tab's ID.
+This also applies to nested tabs, where each `FluentTabs` manages its own selection.
+
 A tab can be disabled by setting the `Disabled` parameter to `true`.
 
 {{ TabsDefault }}
@@ -63,6 +66,8 @@ A tab can be disabled by setting the `Disabled` parameter to `true`.
 
 You can add or remove tabs dynamically by using a list of tabs.
 This allows for greater flexibility in managing the tab content and user interactions.
+Removing an inactive tab preserves the current selection. Removing the active tab selects the first remaining tab,
+or clears the selection if no tabs remain.
 
 {{ TabsDynamic }}
 

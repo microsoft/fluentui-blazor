@@ -128,9 +128,21 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
     registerCustomEventType(blazor, 'tabchange', {
       browserEventName: 'change',
       createEventArgs: (event: any) => {
+        const activeId = event.detail?.id;
+        const isAttributeSynchronized = activeId === event.target.getAttribute('activeid');
+
+        // Reflect client selections before the next event in the same task, without waiting for FAST's queue.
+        if (!isAttributeSynchronized
+          && typeof activeId === 'string'
+          && event.target instanceof HTMLElement
+          && event.target.localName === 'fluent-tablist') {
+          event.target.setAttribute('activeid', activeId);
+        }
+
         return {
           id: event.target.id,
-          activeid: event.detail?.id,
+          activeid: activeId,
+          isAttributeSynchronized,
         };
       }
     });
