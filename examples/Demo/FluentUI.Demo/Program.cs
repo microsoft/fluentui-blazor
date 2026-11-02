@@ -31,6 +31,9 @@ builder.Services.AddFluentUIComponents(config =>
     // Set default value for all Chart components
     //config.DefaultValues.ForAny<FluentChartBase>().Set(p => p.RoundedCorners, true);
 
+    // Use the global cascading viewport breakpoint
+    config.UseCascadingViewportBreakpoint = true;
+
     // Use a custom localizer
     config.Localizer = new FluentUI.Demo.MyLocalizer();
 });

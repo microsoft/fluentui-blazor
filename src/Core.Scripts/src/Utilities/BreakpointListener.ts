@@ -54,7 +54,8 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.BreakpointListener {
 
     try {
       await dotNetHelper.invokeMethodAsync<void>('OnBreakpointChangedAsync', media);
-    } catch (error) {
+    } 
+    catch (error) {
       if (breakpointItems.get(id) === newItem) {
         dispose(id);
       }
@@ -68,9 +69,9 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.BreakpointListener {
    * @param id The subscription identifier supplied to initialize.
    */
   export function dispose(id: string): void {
-    const breakpoint = breakpointItems.get(id);
-    if (breakpoint) {
-      breakpoint.body.removeEventListener('mediaChanged', breakpoint.listener);
+    const item = breakpointItems.get(id);
+    if (item) {
+      item.body.removeEventListener('mediaChanged', item.listener);
       breakpointItems.delete(id);
     }
   }

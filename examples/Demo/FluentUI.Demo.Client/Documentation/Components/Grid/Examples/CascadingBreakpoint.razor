@@ -1,0 +1,10 @@
+Resize the browser window to see the viewport breakpoint change.
+
+<FluentCard>
+    Viewport size: @ViewportBreakpoint
+</FluentCard>
+
+@code {
+    [CascadingParameter(Name = FluentBreakpointProvider.CascadingParameterName)]
+    private GridItemSize? ViewportBreakpoint { get; set; }
+}
