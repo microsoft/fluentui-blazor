@@ -99,6 +99,61 @@
         Assert.Equal("tab2", tabList.GetAttribute("activeid"));
     }
 
+    [Theory]
+    [InlineData(true, "tab2", 0)]
+    [InlineData(false, "tab1", 1)]
+    public async Task FluentTabs_TabChange_ObsoleteAttributeEcho_PreservesRequestedSelection(
+        bool isAttributeSynchronized, string expectedActiveId, int expectedChanges)
+    {
+        var changedIds = new List<string?>();
+        var changedTabs = new List<FluentTab?>();
+        var cut = Render(@<FluentTabs Id="MyTabs" ActiveTabId="tab2"
+                                    ActiveTabIdChanged="@(id => changedIds.Add(id))"
+                                    ActiveTabChanged="@(tab => changedTabs.Add(tab))">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        changedIds.Clear();
+        changedTabs.Clear();
+
+        await cut.Find("fluent-tablist").TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabs-tablist",
+            ActiveId = "tab1",
+            IsAttributeSynchronized = isAttributeSynchronized,
+        });
+
+        Assert.Equal(expectedActiveId, tabs.ActiveTabId);
+        Assert.Equal(expectedActiveId, tabs.ActiveTab?.Id);
+        Assert.Equal(expectedActiveId, cut.Find("fluent-tablist").GetAttribute("activeid"));
+        Assert.Equal(expectedChanges, changedIds.Count);
+        Assert.Equal(expectedChanges, changedTabs.Count);
+    }
+
+    [Fact]
+    public async Task FluentTabs_TabChange_CurrentAttributeEcho_SynchronizesActiveTab()
+    {
+        FluentTab? changedTab = null;
+        var cut = Render(@<FluentTabs Id="MyTabs" ActiveTabId="tab1" ActiveTabChanged="@(tab => changedTab = tab)">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab2"));
+
+        await cut.Find("fluent-tablist").TriggerEventAsync("ontabchange", new TabChangeEventArgs
+        {
+            Id = "MyTabs-tablist",
+            ActiveId = "tab2",
+            IsAttributeSynchronized = true,
+        });
+
+        Assert.Equal("tab2", tabs.Instance.ActiveTabId);
+        Assert.Same(cut.FindComponents<FluentTab>()[1].Instance, tabs.Instance.ActiveTab);
+        Assert.Same(tabs.Instance.ActiveTab, changedTab);
+    }
+
     [Fact]
     public async Task FluentTabs_ParameterSelection_RewritesActiveIdAfterUserSelection()
     {
@@ -852,6 +907,70 @@
         // Assert
         Assert.Equal("tab1", tabs.ActiveTabId);
         Assert.Equal("tab1", tabs.ActiveTab?.Id);
+    }
+
+    [Theory]
+    [InlineData("tab1")]
+    [InlineData("tab2")]
+    public async Task FluentTabs_RemoveTabAsync_InactiveTab_PreservesSelection(string removedId)
+    {
+        var changedIds = new List<string?>();
+        var changedTabs = new List<FluentTab?>();
+        var cut = Render(@<FluentTabs ActiveTabId="tab3"
+                                    ActiveTabIdChanged="@(id => changedIds.Add(id))"
+                                    ActiveTabChanged="@(tab => changedTabs.Add(tab))">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+            <FluentTab Id="tab3" Header="Settings" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+        var removedTab = cut.FindComponents<FluentTab>().Single(tab => tab.Instance.Id == removedId).Instance;
+        var activeTab = tabs.ActiveTab;
+        changedIds.Clear();
+        changedTabs.Clear();
+
+        var count = await tabs.RemoveTabAsync(removedTab);
+
+        Assert.Equal(2, count);
+        Assert.Equal("tab3", tabs.ActiveTabId);
+        Assert.Same(activeTab, tabs.ActiveTab);
+        Assert.Equal("tab3", cut.Find("fluent-tablist").GetAttribute("activeid"));
+        Assert.Empty(changedIds);
+        Assert.Empty(changedTabs);
+    }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_StaleActiveTabReference_PreservesRequestedSelection()
+    {
+        var cut = Render(@<FluentTabs ActiveTabId="tab1">
+            <FluentTab Id="tab1" Header="Chat" />
+            <FluentTab Id="tab2" Header="Files" />
+            <FluentTab Id="tab3" Header="Settings" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>();
+        var previousTab = tabs.Instance.ActiveTab;
+        tabs.Render(parameters => parameters.Add(component => component.ActiveTabId, "tab3"));
+
+        await tabs.Instance.RemoveTabAsync(previousTab);
+
+        Assert.Equal("tab3", tabs.Instance.ActiveTabId);
+        Assert.Equal("tab3", cut.Find("fluent-tablist").GetAttribute("activeid"));
+    }
+
+    [Fact]
+    public async Task FluentTabs_RemoveTabAsync_LastTab_ClearsSelection()
+    {
+        var cut = Render(@<FluentTabs ActiveTabId="tab1">
+            <FluentTab Id="tab1" Header="Chat" />
+        </FluentTabs>);
+        var tabs = cut.FindComponent<FluentTabs>().Instance;
+
+        var count = await tabs.RemoveTabAsync(cut.FindComponent<FluentTab>().Instance);
+
+        Assert.Equal(0, count);
+        Assert.Null(tabs.ActiveTabId);
+        Assert.Null(tabs.ActiveTab);
+        Assert.Null(cut.Find("fluent-tablist").GetAttribute("activeid"));
     }
 
     [Fact]
