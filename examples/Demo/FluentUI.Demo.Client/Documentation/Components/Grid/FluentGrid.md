@@ -171,6 +171,48 @@ You can use the `FluentGrid.OnBreakpointEnter` event to handle media changes in 
 }
 ```
 
+## Viewport breakpoint as a cascading value
+
+Enable the global viewport breakpoint during service registration:
+
+```csharp
+builder.Services.AddFluentUIComponents(options =>
+{
+    options.UseCascadingViewportBreakpoint = true;
+});
+```
+
+Keep `<FluentProviders />` in an interactive layout. It automatically includes the breakpoint provider
+when this option is enabled. If you use individual providers instead, add `<FluentBreakpointProvider />`
+once to your interactive layout. No empty `FluentGrid` or additional service registration is required.
+The provider does not render any HTML.
+
+Any interactive component can then receive the current breakpoint:
+
+```razor
+Viewport size: @ViewportBreakpoint
+
+@code {
+    [CascadingParameter(Name = FluentBreakpointProvider.CascadingParameterName)]
+    private GridItemSize? ViewportBreakpoint { get; set; }
+}
+```
+
+The value is `null` until the first browser measurement, including during prerendering.
+It subsequently contains a single value: `Xs`, `Sm`, `Md`, `Lg`, `Xl`, or `Xxl`.
+This is the **viewport** breakpoint, not the width of an individual grid or container.
+Components created after initialization receive the latest value immediately.
+
+The option is `false` by default. When disabled, the library does not register the breakpoint cascade
+or add a breakpoint provider, and a standalone breakpoint provider does not subscribe to browser notifications.
+The existing JavaScript media-query tracking used by `data-media` continues to work independently.
+Breakpoint state is always scoped, even when other Fluent UI services use a singleton lifetime,
+so different server-side circuits do not share their viewport state.
+
+For applications with both server and WebAssembly rendering, enable the option in both service collections
+when components can execute in either environment. Notifications require an interactive render mode;
+static server-rendered components cannot react to browser changes.
+
 ## API FluentGrid
 
 {{ API Type=FluentGrid }}
