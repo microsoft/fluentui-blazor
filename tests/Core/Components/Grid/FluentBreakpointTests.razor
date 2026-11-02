@@ -1,0 +1,336 @@
+@using Xunit
+@inherits FluentUITestContext
+
+@code
+{
+    private const string InitializeIdentifier = "Microsoft.FluentUI.Blazor.Utilities.BreakpointListener.initialize";
+    private const string DisposeIdentifier = "Microsoft.FluentUI.Blazor.Utilities.BreakpointListener.dispose";
+
+    [Fact]
+    public void FluentBreakpointProvider_Disabled_RendersWithoutInitializing()
+    {
+        var cut = Render(@<FluentBreakpointProvider Id="breakpoint-provider" />);
+
+        cut.Verify();
+        Assert.Empty(JSInterop.Invocations);
+    }
+
+    [Fact]
+    public void FluentBreakpointProvider_Enabled_InitializesListenerOnce()
+    {
+        EnableViewportBreakpoints();
+        var cut = Render<FluentBreakpointProvider>();
+        var invocation = Assert.Single(JSInterop.Invocations[InitializeIdentifier]);
+        var reference = Assert.IsType<DotNetObjectReference<FluentBreakpointProvider>>(invocation.Arguments[1]);
+
+        cut.Render();
+
+        Assert.False(string.IsNullOrWhiteSpace(cut.Instance.Id));
+        Assert.Equal(cut.Instance.Id, invocation.Arguments[0]);
+        Assert.Same(cut.Instance, reference.Value);
+        Assert.Single(JSInterop.Invocations[InitializeIdentifier]);
+        Assert.Equal(cut.Instance.Id, cut.Find("div").Id);
+    }
+
+    [Fact]
+    public void FluentBreakpointProvider_MissingSource_Throws()
+    {
+        Services.GetRequiredService<LibraryConfiguration>().UseCascadingViewportBreakpoint = true;
+
+        var exception = Assert.Throws<InvalidOperationException>(() => Render<FluentBreakpointProvider>());
+
+        Assert.Equal("Enable UseCascadingViewportBreakpoint when calling AddFluentUIComponents.", exception.Message);
+        Assert.Empty(JSInterop.Invocations);
+    }
+
+    [Fact]
+    public async Task OnAfterRenderAsync_Disposed_DoesNotInitializeListener()
+    {
+        var provider = new LifecycleBreakpointProvider(new LibraryConfiguration
+        {
+            UseCascadingViewportBreakpoint = true
+        });
+        await provider.DisposeAsync();
+
+        await provider.AfterRenderAsync(firstRender: true);
+
+        Assert.Empty(JSInterop.Invocations);
+    }
+
+    [Fact]
+    public async Task OnAfterRenderAsync_NullConfiguration_DoesNotInitializeListener()
+    {
+        var provider = new LifecycleBreakpointProvider(null);
+
+        await provider.AfterRenderAsync(firstRender: true);
+
+        Assert.Empty(JSInterop.Invocations);
+        await provider.DisposeAsync();
+    }
+
+    [Theory]
+    [InlineData("xs", GridItemSize.Xs)]
+    [InlineData("SM", GridItemSize.Sm)]
+    [InlineData("mD", GridItemSize.Md)]
+    [InlineData("lg", GridItemSize.Lg)]
+    [InlineData("xl", GridItemSize.Xl)]
+    [InlineData("xxl", GridItemSize.Xxl)]
+    [InlineData("4", GridItemSize.Md)]
+    public async Task OnBreakpointChangedAsync_ValidSize_UpdatesNamedCascadingValue(string size, GridItemSize expected)
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var consumer = Render<BreakpointConsumer>();
+        Assert.Null(consumer.Instance.Breakpoint);
+
+        await provider.InvokeAsync(() => provider.Instance.OnBreakpointChangedAsync(size));
+
+        Assert.Equal(expected, consumer.Instance.Breakpoint);
+        Assert.Equal(2, consumer.RenderCount);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("invalid")]
+    public async Task OnBreakpointChangedAsync_InvalidName_DoesNotNotifySubscribers(string? size)
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var consumer = Render<BreakpointConsumer>();
+        await provider.InvokeAsync(() => provider.Instance.OnBreakpointChangedAsync("md"));
+        var renderCount = consumer.RenderCount;
+
+        await provider.InvokeAsync(() => provider.Instance.OnBreakpointChangedAsync(size!));
+
+        Assert.Equal(GridItemSize.Md, consumer.Instance.Breakpoint);
+        Assert.Equal(renderCount, consumer.RenderCount);
+    }
+
+    [Fact]
+    public async Task OnBreakpointChangedAsync_NotInitialized_Throws()
+    {
+        var provider = Render<FluentBreakpointProvider>();
+
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => provider.Instance.OnBreakpointChangedAsync("md"));
+
+        Assert.Equal("The viewport breakpoint provider has not been initialized.", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("0")]
+    [InlineData("999")]
+    [InlineData("Xs, Sm")]
+    public async Task OnBreakpointChangedAsync_UndefinedSize_Throws(string size)
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var consumer = Render<BreakpointConsumer>();
+
+        var exception = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
+            () => provider.InvokeAsync(() => provider.Instance.OnBreakpointChangedAsync(size)));
+
+        Assert.Equal("size", exception.ParamName);
+        Assert.Null(consumer.Instance.Breakpoint);
+        Assert.Equal(1, consumer.RenderCount);
+    }
+
+    [Theory]
+    [InlineData("lg")]
+    [InlineData("invalid")]
+    public async Task OnBreakpointChangedAsync_Disposed_DoesNotNotifySubscribers(string size)
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var consumer = Render<BreakpointConsumer>();
+        await provider.InvokeAsync(() => provider.Instance.OnBreakpointChangedAsync("md"));
+        await provider.Instance.DisposeAsync();
+        var renderCount = consumer.RenderCount;
+
+        await provider.InvokeAsync(() => provider.Instance.OnBreakpointChangedAsync(size));
+
+        Assert.Equal(GridItemSize.Md, consumer.Instance.Breakpoint);
+        Assert.Equal(renderCount, consumer.RenderCount);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_Initialized_DisposesListenerAndReferenceOnlyOnce()
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var reference = GetProviderReference();
+
+        await provider.Instance.DisposeAsync();
+        await provider.Instance.DisposeAsync();
+
+        var invocation = Assert.Single(JSInterop.Invocations[DisposeIdentifier]);
+        Assert.Equal(provider.Instance.Id, Assert.Single(invocation.Arguments));
+        Assert.Throws<ObjectDisposedException>(() => reference.Value);
+        Assert.True(((IFluentComponentBase)provider.Instance).IsDisposed);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_NotInitialized_DoesNotInvokeJavaScript()
+    {
+        var provider = Render<FluentBreakpointProvider>();
+
+        await provider.Instance.DisposeAsync();
+
+        Assert.Empty(JSInterop.Invocations);
+        Assert.True(((IFluentComponentBase)provider.Instance).IsDisposed);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_JavaScriptFails_StillDisposesReferenceAndBase()
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var reference = GetProviderReference();
+        var exception = new JSException("Listener disposal failed.");
+        JSInterop.SetupVoid(DisposeIdentifier, _ => true).SetException(exception);
+
+        var actual = await Assert.ThrowsAsync<JSException>(() => provider.Instance.DisposeAsync().AsTask());
+
+        Assert.Same(exception, actual);
+        Assert.Throws<ObjectDisposedException>(() => reference.Value);
+        Assert.True(((IFluentComponentBase)provider.Instance).IsDisposed);
+        await provider.Instance.DisposeAsync();
+        Assert.Single(JSInterop.Invocations[DisposeIdentifier]);
+    }
+
+    [Fact]
+    public async Task DisposeAsync_Disconnected_StillDisposesReferenceAndBase()
+    {
+        EnableViewportBreakpoints();
+        var provider = Render<FluentBreakpointProvider>();
+        var reference = GetProviderReference();
+        JSInterop.SetupVoid(DisposeIdentifier, _ => true).SetException(new JSDisconnectedException("Disconnected."));
+
+        await provider.Instance.DisposeAsync();
+
+        Assert.Throws<ObjectDisposedException>(() => reference.Value);
+        Assert.True(((IFluentComponentBase)provider.Instance).IsDisposed);
+    }
+
+    [Fact]
+    public void ViewportBreakpointSource_Default_PublishesNullToNamedSubscribers()
+    {
+        EnableViewportBreakpoints();
+
+        var consumer = Render<BreakpointConsumer>();
+
+        Assert.Null(consumer.Instance.Breakpoint);
+        Assert.Equal(1, consumer.RenderCount);
+    }
+
+    [Theory]
+    [InlineData(GridItemSize.Xs)]
+    [InlineData(GridItemSize.Sm)]
+    [InlineData(GridItemSize.Md)]
+    [InlineData(GridItemSize.Lg)]
+    [InlineData(GridItemSize.Xl)]
+    [InlineData(GridItemSize.Xxl)]
+    public async Task SetBreakpointAsync_NewSize_NotifiesAllSubscribers(GridItemSize size)
+    {
+        EnableViewportBreakpoints();
+        var source = Services.GetRequiredService<ViewportBreakpointSource>();
+        var first = Render<BreakpointConsumer>();
+        var second = Render<BreakpointConsumer>();
+
+        await first.InvokeAsync(() => source.SetBreakpointAsync(size));
+
+        Assert.Equal(size, first.Instance.Breakpoint);
+        Assert.Equal(size, second.Instance.Breakpoint);
+        Assert.Equal(2, first.RenderCount);
+        Assert.Equal(2, second.RenderCount);
+    }
+
+    [Fact]
+    public async Task SetBreakpointAsync_ChangedSize_NotifiesSubscribers()
+    {
+        EnableViewportBreakpoints();
+        var source = Services.GetRequiredService<ViewportBreakpointSource>();
+        var consumer = Render<BreakpointConsumer>();
+        await consumer.InvokeAsync(() => source.SetBreakpointAsync(GridItemSize.Md));
+        var renderCount = consumer.RenderCount;
+
+        await consumer.InvokeAsync(() => source.SetBreakpointAsync(GridItemSize.Lg));
+
+        Assert.Equal(GridItemSize.Lg, consumer.Instance.Breakpoint);
+        Assert.Equal(renderCount + 1, consumer.RenderCount);
+    }
+
+    [Fact]
+    public async Task SetBreakpointAsync_SameSize_DoesNotNotifySubscribers()
+    {
+        EnableViewportBreakpoints();
+        var source = Services.GetRequiredService<ViewportBreakpointSource>();
+        var consumer = Render<BreakpointConsumer>();
+        await consumer.InvokeAsync(() => source.SetBreakpointAsync(GridItemSize.Md));
+        var renderCount = consumer.RenderCount;
+
+        await consumer.InvokeAsync(() => source.SetBreakpointAsync(GridItemSize.Md));
+
+        Assert.Equal(GridItemSize.Md, consumer.Instance.Breakpoint);
+        Assert.Equal(renderCount, consumer.RenderCount);
+    }
+
+    [Theory]
+    [InlineData((GridItemSize)0)]
+    [InlineData((GridItemSize)999)]
+    [InlineData(GridItemSize.Xs | GridItemSize.Sm)]
+    public async Task SetBreakpointAsync_UndefinedSize_ThrowsWithoutChangingValue(GridItemSize size)
+    {
+        EnableViewportBreakpoints();
+        var source = Services.GetRequiredService<ViewportBreakpointSource>();
+        var consumer = Render<BreakpointConsumer>();
+        await consumer.InvokeAsync(() => source.SetBreakpointAsync(GridItemSize.Md));
+        var renderCount = consumer.RenderCount;
+
+        var exception = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
+            () => consumer.InvokeAsync(() => source.SetBreakpointAsync(size)));
+
+        Assert.Equal("size", exception.ParamName);
+        Assert.Equal(size, exception.ActualValue);
+        Assert.Equal(GridItemSize.Md, consumer.Instance.Breakpoint);
+        Assert.Equal(renderCount, consumer.RenderCount);
+    }
+
+    [Fact]
+    public async Task SetBreakpointAsync_BeforeSubscription_PublishesLatestValueToNewSubscriber()
+    {
+        EnableViewportBreakpoints();
+        var source = Services.GetRequiredService<ViewportBreakpointSource>();
+        await source.SetBreakpointAsync(GridItemSize.Xl);
+
+        var consumer = Render<BreakpointConsumer>();
+
+        Assert.Equal(GridItemSize.Xl, consumer.Instance.Breakpoint);
+        Assert.Equal(1, consumer.RenderCount);
+    }
+
+    private void EnableViewportBreakpoints()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents(configuration => configuration.UseCascadingViewportBreakpoint = true);
+    }
+
+    private DotNetObjectReference<FluentBreakpointProvider> GetProviderReference()
+    {
+        var invocation = Assert.Single(JSInterop.Invocations[InitializeIdentifier]);
+        return Assert.IsType<DotNetObjectReference<FluentBreakpointProvider>>(invocation.Arguments[1]);
+    }
+
+    public sealed class BreakpointConsumer : ComponentBase
+    {
+        [CascadingParameter(Name = FluentBreakpointProvider.CascadingParameterName)]
+        public GridItemSize? Breakpoint { get; set; }
+    }
+
+    private sealed class LifecycleBreakpointProvider(LibraryConfiguration? configuration)
+        : FluentBreakpointProvider(configuration!)
+    {
+        public Task AfterRenderAsync(bool firstRender) => OnAfterRenderAsync(firstRender);
+    }
+}
