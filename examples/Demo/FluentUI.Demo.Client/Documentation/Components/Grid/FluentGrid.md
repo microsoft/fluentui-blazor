@@ -191,6 +191,11 @@ builder.Services.AddFluentUIComponents(options =>
 
 Keep `<FluentProviders />` in an interactive layout. It automatically includes the breakpoint provider
 when this option is enabled. No additional service registration is required.
+`FluentBreakpointProvider` does not render HTML or add layout spacing.
+
+Breakpoint state follows the configured `ServiceLifetime` (scoped by default).
+For server-side Blazor, use `ServiceLifetime.Scoped` to isolate viewport state per circuit.
+With `ServiceLifetime.Singleton`, all circuits in the application share the same breakpoint state.
 
 Any interactive component can then receive the current breakpoint:
 

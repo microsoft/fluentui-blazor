@@ -81,7 +81,9 @@ public class LibraryConfiguration
     /// <remarks>
     /// Render <see cref="FluentProviders"/> or <see cref="FluentBreakpointProvider"/> in an interactive
     /// component to observe viewport changes. The value is null until the first browser measurement.
-    /// Breakpoint state is always scoped, independently of <see cref="ServiceLifetime"/>.
+    /// Breakpoint state uses the configured <see cref="ServiceLifetime"/>.
+    /// Use <see cref="ServiceLifetime.Scoped"/> for server-side Blazor to keep viewport state isolated per circuit.
+    /// With <see cref="ServiceLifetime.Singleton"/>, viewport state is shared across all circuits in the application.
     /// </remarks>
     public bool UseCascadingViewportBreakpoint { get; set; }
 
