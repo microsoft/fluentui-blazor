@@ -173,7 +173,14 @@ You can use the `FluentGrid.OnBreakpointEnter` event to handle media changes in 
 
 ## Breakpoint as a cascading value
 
-Enable the global viewport breakpoint during service registration:
+If you need to access or respond to the current viewport breakpoint in your C# code, the simplest approach
+is to enable `UseCascadingViewportBreakpoint` and declare a property with
+`[CascadingParameter(Name = FluentBreakpointProvider.CascadingParameterName)]`.
+
+Blazor automatically updates this parameter when resizing the browser changes the active breakpoint.
+This simplifies conditional rendering of Blazor pages and components for mobile (`XS`, `S`), tablet (`M`), and desktop (`L`, `XL`, `XXL`) layouts.
+
+First, enable the global viewport breakpoint during service registration:
 
 ```csharp
 builder.Services.AddFluentUIComponents(options =>
