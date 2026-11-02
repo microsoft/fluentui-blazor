@@ -7,4 +7,15 @@ Resize the browser window to see the viewport breakpoint change.
 @code {
     [CascadingParameter(Name = FluentBreakpointProvider.CascadingParameterName)]
     private GridItemSize? ViewportBreakpoint { get; set; }
+
+    // (optional) Log the breakpoint when it changes
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        if (parameters.TryGetValue<GridItemSize?>(nameof(ViewportBreakpoint), out var breakpoint) && breakpoint != ViewportBreakpoint)
+        {
+            Console.WriteLine($"Viewport breakpoint: {breakpoint}");
+        }
+
+        await base.SetParametersAsync(parameters);
+    }
 }
