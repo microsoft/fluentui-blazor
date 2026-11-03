@@ -1,0 +1,42 @@
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Xunit
+@inherits FluentUITestContext
+
+@code {
+    public FluentSettingsCardTests()
+    {
+        JSInterop.Mode = JSRuntimeMode.Loose;
+        Services.AddFluentUIComponents();
+    }
+
+    [Fact]
+    public void FluentSettingsCard_Default_NotExpandable()
+    {
+        var cut = Render(@<FluentSettingsCard Header="Title" Description="Desc" />);
+
+        Assert.Contains("Title", cut.Markup);
+        Assert.Contains("Desc", cut.Markup);
+        Assert.Empty(cut.FindAll(".fluent-settings-card-toggle"));
+    }
+
+    [Fact]
+    public void FluentSettingsCard_Expandable_TogglesContent()
+    {
+        var cut = Render(@<FluentSettingsCard Header="Voice">Inner content</FluentSettingsCard>);
+
+        Assert.Empty(cut.FindAll(".fluent-settings-card-content"));
+
+        cut.Find(".fluent-settings-card-toggle").Click();
+
+        Assert.Contains("Inner content", cut.Find(".fluent-settings-card-content").TextContent);
+        Assert.Equal("true", cut.Find(".fluent-settings-card-toggle").GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void FluentSettingsCard_Action_Rendered()
+    {
+        var cut = Render(@<FluentSettingsCard Header="Title"><Action>My action</Action></FluentSettingsCard>);
+
+        Assert.Equal("My action", cut.Find(".fluent-settings-card-action").TextContent.Trim());
+    }
+}

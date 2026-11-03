@@ -1,0 +1,12 @@
+<FluentSettingsCard Icon="@(new Icons.Regular.Size20.Person())"
+                    Header="Select a voice"
+                    Description="Choose the voice used for speech output">
+    <Action>
+        <FluentSlider @bind-Value="@value" Style="width: 200px;" />
+    </Action>
+</FluentSettingsCard>
+
+@code
+{
+    int value = 50;
+}

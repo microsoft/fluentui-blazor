@@ -1,0 +1,54 @@
+<FluentSettingsCard Icon="@(new Icons.Regular.Size20.TextBulletListSquare())"
+                    Header="Verbosity level"
+                    Description="Press the narrator key + V to change the verbosity level"
+                    @bind-Expanded="@expanded">
+    <Action>
+        <FluentSelect TOption="string" TValue="string"
+                      Items="@levels"
+                      @bind-Value="@level"
+                      Style="width: 200px;" />
+    </Action>
+    <ChildContent>
+        <FluentSettingsCard>
+            <HeaderTemplate>
+                <FluentCheckbox Label="Highlight formatted text" Disabled="true" />
+            </HeaderTemplate>
+        </FluentSettingsCard>
+        <FluentSettingsCard>
+            <HeaderTemplate>
+                <FluentCheckbox Label="Read phonetically when reading by character" @bind-Value="@phonetic" />
+            </HeaderTemplate>
+        </FluentSettingsCard>
+        <FluentSettingsCard>
+            <HeaderTemplate>
+                <FluentCheckbox Label="Pause briefly when reading punctuation" Disabled="true" Value="true" />
+            </HeaderTemplate>
+        </FluentSettingsCard>
+        <FluentSettingsCard>
+            <HeaderTemplate>
+                <FluentCheckbox Label="Read advanced details such as help text on buttons and other controls" @bind-Value="@details" />
+            </HeaderTemplate>
+        </FluentSettingsCard>
+        <FluentSettingsCard Header="Change how capitalized text is read"
+                            Description="Press the narrator key + 4 to change how uppercase text is read.">
+            <Action>
+                <FluentSelect TOption="string" TValue="string"
+                              Items="@capitalization"
+                              @bind-Value="@capital"
+                              Style="width: 160px;" />
+            </Action>
+        </FluentSettingsCard>
+    </ChildContent>
+</FluentSettingsCard>
+
+@code
+{
+    static readonly string[] levels = ["1 – Only text", "3 – Some text details", "5 – All text details"];
+    static readonly string[] capitalization = ["Do not announce", "Increase pitch", "Say \"cap\""];
+
+    bool expanded = true;
+    string? level = levels[2];
+    string? capital = capitalization[0];
+    bool phonetic;
+    bool details;
+}

@@ -1,0 +1,28 @@
+<FluentSettingsCard Icon="@(new Icons.Regular.Size20.Person())"
+                    Header="Select a voice"
+                    @bind-Expanded="@expanded">
+    <Action>
+        <FluentButton>Preview</FluentButton>
+    </Action>
+    <ChildContent>
+        <FluentSettingsCard Icon="@(new Icons.Regular.Size20.Run())" Header="Speed"
+                            Description="Press the speech key and the plus sign to change the speech rate.">
+            <Action><FluentSlider @bind-Value="@speed" Style="width: 200px;" /></Action>
+        </FluentSettingsCard>
+        <FluentSettingsCard Icon="@(new Icons.Regular.Size20.ArrowUp())" Header="Pitch">
+            <Action><FluentSlider @bind-Value="@pitch" Style="width: 200px;" /></Action>
+        </FluentSettingsCard>
+        <FluentSettingsCard Icon="@(new Icons.Regular.Size20.Speaker2())" Header="Volume"
+                            Description="Press the speech key and the plus sign to change the volume.">
+            <Action><FluentSlider @bind-Value="@volume" Style="width: 200px;" /></Action>
+        </FluentSettingsCard>
+    </ChildContent>
+</FluentSettingsCard>
+
+@code
+{
+    bool expanded = true;
+    int speed = 50;
+    int pitch = 50;
+    int volume = 90;
+}
