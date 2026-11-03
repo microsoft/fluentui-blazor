@@ -41,6 +41,12 @@ public static class ServiceCollectionExtensions
             services.Add<ITooltipService, TooltipService>(serviceLifetime);
         }
 
+        if (options?.UseCascadingViewportBreakpoint == true)
+        {
+            services.Add<ViewportBreakpointSource, ViewportBreakpointSource>(serviceLifetime);
+            services.AddCascadingValue<GridItemSize?>(provider => provider.GetRequiredService<ViewportBreakpointSource>());
+        }
+
         return services;
     }
 
