@@ -155,6 +155,7 @@
                                      aria-label="@year.Year"
                                      title="@year.Year"
                                      value="@yearProperties.YearIdentifier"
+                                     role="@(ReadOnly || yearProperties.IsReadOnly ? null : "button")"
                                      tabindex="@(yearProperties.IsDisabled || yearProperties.IsReadOnly ? null : 0)"
                                      @onclick="@(e => OnSelectYearHandlerAsync(year.Year, yearProperties.IsReadOnly))">
                                     @year.Year
