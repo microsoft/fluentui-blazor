@@ -47,8 +47,8 @@
             </span>
             <a link
                href="@Href"
-               target="@Target"
-               rel="@(Target == "_blank" ? "noopener noreferrer" : null)"
+               target="@Target.ToAttributeValue()"
+               rel="@(Target == LinkTarget.Blank ? "noopener noreferrer" : null)"
                aria-label="@(HasTitle ? null : AccessibleName)"
                aria-labelledby="@(HasTitle ? TitleId : null)"
                aria-describedby="@(HasDescription ? DescriptionId : null)"></a>

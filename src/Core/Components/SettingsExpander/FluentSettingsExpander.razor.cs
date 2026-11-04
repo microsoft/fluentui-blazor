@@ -124,10 +124,10 @@ public partial class FluentSettingsExpander : FluentComponentBase
     public string? Href { get; set; }
 
     /// <summary>
-    /// Gets or sets the link target (e.g. <c>_blank</c>) used with <see cref="Href"/>.
+    /// Gets or sets the link target (e.g. <c>LinkTarget.Blank</c>) used with <see cref="Href"/>.
     /// </summary>
     [Parameter]
-    public string? Target { get; set; }
+    public LinkTarget? Target { get; set; }
 
     /// <summary />
     private async Task HeaderClickAsync(MouseEventArgs args)

@@ -78,7 +78,7 @@
     [Fact]
     public void FluentSettingsExpander_Href_RendersLink()
     {
-        var cut = Render(@<FluentSettingsExpander Title="Privacy" Href="https://example.com" Target="_blank" />);
+        var cut = Render(@<FluentSettingsExpander Title="Privacy" Href="https://example.com" Target="LinkTarget.Blank" />);
         var link = cut.Find("a[link]");
 
         Assert.Equal("https://example.com", link.GetAttribute("href"));
