@@ -35,3 +35,7 @@ and an "open" icon is displayed at the end.
 ## Disabled
 
 {{ SettingsExpanderDisabled }}
+
+## API FluentSettingsExpander
+
+{{ API Type=FluentSettingsExpander }}
