@@ -3,40 +3,110 @@
 @inherits FluentUITestContext
 
 @code {
-    public FluentSettingsCardTests()
+    public FluentSettingsExpanderTests()
     {
         JSInterop.Mode = JSRuntimeMode.Loose;
         Services.AddFluentUIComponents();
     }
 
     [Fact]
-    public void FluentSettingsCard_Default_NotExpandable()
+    public void FluentSettingsExpander_Default_NotExpandable()
     {
-        var cut = Render(@<FluentSettingsCard Header="Title" Description="Desc" />);
+        var cut = Render(@<FluentSettingsExpander Title="My title" Description="My description" />);
 
-        Assert.Contains("Title", cut.Markup);
-        Assert.Contains("Desc", cut.Markup);
-        Assert.Empty(cut.FindAll(".fluent-settings-card-toggle"));
+        Assert.Contains("My title", cut.Markup);
+        Assert.Contains("My description", cut.Markup);
+        Assert.Empty(cut.FindAll("[expand-button]"));
+        Assert.Empty(cut.FindAll("[panel]"));
+        Assert.Contains("fluent-settings-expander", cut.Find("div").ClassName);
     }
 
     [Fact]
-    public void FluentSettingsCard_Expandable_TogglesContent()
+    public void FluentSettingsExpander_DescriptionTemplate_TakesPrecedence()
     {
-        var cut = Render(@<FluentSettingsCard Header="Voice">Inner content</FluentSettingsCard>);
+        var cut = Render(@<FluentSettingsExpander Description="Plain"><DescriptionTemplate>Templated</DescriptionTemplate></FluentSettingsExpander>);
 
-        Assert.Empty(cut.FindAll(".fluent-settings-card-content"));
-
-        cut.Find(".fluent-settings-card-toggle").Click();
-
-        Assert.Contains("Inner content", cut.Find(".fluent-settings-card-content").TextContent);
-        Assert.Equal("true", cut.Find(".fluent-settings-card-toggle").GetAttribute("aria-expanded"));
+        Assert.Equal("Templated", cut.Find("[description]").TextContent.Trim());
     }
 
     [Fact]
-    public void FluentSettingsCard_Action_Rendered()
+    public void FluentSettingsExpander_Expandable_TogglesAndRaisesCallback()
     {
-        var cut = Render(@<FluentSettingsCard Header="Title"><Action>My action</Action></FluentSettingsCard>);
+        var expanded = false;
+        var cut = Render(@<FluentSettingsExpander Title="Voice" ExpandedChanged="@(v => expanded = v)">Inner content</FluentSettingsExpander>);
+        var button = cut.Find("[expand-button]");
 
-        Assert.Equal("My action", cut.Find(".fluent-settings-card-action").TextContent.Trim());
+        Assert.True(cut.Find("[panel]").HasAttribute("hidden"));
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+        Assert.Equal(cut.Find("[panel]").Id, button.GetAttribute("aria-controls"));
+
+        button.Click();
+
+        Assert.True(expanded);
+        Assert.False(cut.Find("[panel]").HasAttribute("hidden"));
+        Assert.Equal("true", cut.Find("[expand-button]").GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_HeaderClick_Toggles_ButActionClick_DoesNot()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Voice"><ActionTemplate><span id="inner">Action</span></ActionTemplate><ChildContent>Inner</ChildContent></FluentSettingsExpander>);
+
+        cut.Find("[action]").Click();
+        Assert.True(cut.Find("[panel]").HasAttribute("hidden"));
+
+        cut.Find("[header]").Click();
+        Assert.False(cut.Find("[panel]").HasAttribute("hidden"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_ExpandButtonLabel_UsedAsAccessibleName()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Voice" ExpandButtonLabel="Voice options">Inner</FluentSettingsExpander>);
+
+        Assert.Equal("Voice options", cut.Find("[expand-button]").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_ActionTemplate_Rendered()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Title"><ActionTemplate>My action</ActionTemplate></FluentSettingsExpander>);
+
+        Assert.Equal("My action", cut.Find("[action]").TextContent.Trim());
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_Href_RendersLink()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Privacy" Href="https://example.com" Target="_blank" />);
+        var link = cut.Find("a[link]");
+
+        Assert.Equal("https://example.com", link.GetAttribute("href"));
+        Assert.Equal("_blank", link.GetAttribute("target"));
+        Assert.Equal("noopener noreferrer", link.GetAttribute("rel"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_Accessibility_LabelsAndDescription()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Privacy" Description="Details" Href="https://example.com" />);
+        var root = cut.Find("div[role='group']");
+        var titleId = cut.Find("[heading]").Id;
+        var descriptionId = cut.Find("[description]").Id;
+
+        Assert.Equal(titleId, root.GetAttribute("aria-labelledby"));
+        Assert.Equal(descriptionId, root.GetAttribute("aria-describedby"));
+        Assert.Equal(titleId, cut.Find("a[link]").GetAttribute("aria-labelledby"));
+        Assert.Equal("true", cut.Find("[icon], [link-icon]").GetAttribute("aria-hidden"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_Disabled_DisablesLinkAndToggle()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Voice" Href="https://example.com" Disabled="true">Inner</FluentSettingsExpander>);
+
+        Assert.True(cut.Find("div").HasAttribute("disabled"));
+        Assert.Empty(cut.FindAll("a[link]"));
+        Assert.True(cut.Find("[expand-button]").HasAttribute("disabled"));
     }
 }

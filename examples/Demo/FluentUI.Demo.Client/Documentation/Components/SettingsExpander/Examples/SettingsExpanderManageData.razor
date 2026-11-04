@@ -1,35 +1,35 @@
 <div style="display: flex; flex-direction: column; gap: 8px;">
-    <FluentSettingsCard Icon="@(new Icons.Regular.Size20.Keyboard())"
-                        Header="Sync speech settings on this device"
-                        Description="Anyone who signs in to this PC can use and edit these settings (recommended for users who use a braille display).">
-        <Action>
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Keyboard())"
+                            Title="Sync speech settings on this device"
+                            Description="Anyone who signs in to this PC can use and edit these settings (recommended for users who use a braille display).">
+        <ActionTemplate>
             <FluentButton>Sync settings</FluentButton>
-        </Action>
-    </FluentSettingsCard>
+        </ActionTemplate>
+    </FluentSettingsExpander>
 
-    <FluentSettingsCard Icon="@(new Icons.Regular.Size20.Image())"
-                        Header="Get image descriptions, page titles and popular links"
-                        Description="Press the narrator key + Ctrl + D for an image description or page title. Press the narrator key + S twice quickly for a list of popular links.">
-        <Action>
-            <span style="margin-inline-end: 8px;">@(imageDescriptions ? "On" : "Off")</span>
-            <FluentSwitch @bind-Value="@imageDescriptions" />
-        </Action>
-    </FluentSettingsCard>
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Image())"
+                            Title="Get image descriptions, page titles and popular links"
+                            Description="Press the narrator key + Ctrl + D for an image description or page title. Press the narrator key + S twice quickly for a list of popular links.">
+        <ActionTemplate>
+            <span>@(imageDescriptions ? "On" : "Off")</span>
+            <FluentSwitch Label="Image descriptions" @bind-Value="@imageDescriptions" />
+        </ActionTemplate>
+    </FluentSettingsExpander>
 
-    <FluentSettingsCard Icon="@(new Icons.Regular.Size20.PersonFeedback())"
-                        Header="Automatically send diagnostic and performance data"
-                        Description="Restart the narrator after enabling this. Press the narrator key + Alt + F to give feedback.">
-        <Action>
-            <span style="margin-inline-end: 8px;">@(diagnostics ? "On" : "Off")</span>
-            <FluentSwitch @bind-Value="@diagnostics" />
-        </Action>
-    </FluentSettingsCard>
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonFeedback())"
+                            Title="Automatically send diagnostic and performance data"
+                            Description="Restart the narrator after enabling this. Press the narrator key + Alt + F to give feedback.">
+        <ActionTemplate>
+            <span>@(diagnostics ? "On" : "Off")</span>
+            <FluentSwitch Label="Diagnostic data" @bind-Value="@diagnostics" />
+        </ActionTemplate>
+    </FluentSettingsExpander>
 
-    <FluentSettingsCard Icon="@(new Icons.Regular.Size20.ShieldLock())"
-                        Header="Privacy statement"
-                        Description="Understand how Microsoft uses your narrator data and for which purposes."
-                        Href="https://www.microsoft.com/privacy"
-                        Target="_blank" />
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.ShieldLock())"
+                            Title="Privacy statement"
+                            Description="Understand how Microsoft uses your narrator data and for which purposes."
+                            Href="https://www.microsoft.com/privacy"
+                            Target="_blank" />
 </div>
 
 @code

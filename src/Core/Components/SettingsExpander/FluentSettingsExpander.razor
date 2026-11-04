@@ -7,59 +7,70 @@
      style="@StyleValue"
      expandable="@(IsExpandable ? "" : null)"
      expanded="@(IsExpandable && Expanded ? "" : null)"
+     disabled="@(Disabled ? "" : null)"
+     role="group"
+     aria-labelledby="@(HasTitle ? TitleId : null)"
+     aria-describedby="@(HasDescription ? DescriptionId : null)"
+     aria-disabled="@(Disabled ? "true" : null)"
      @attributes="@AdditionalAttributes">
-    <div class="fluent-settings-card-header">
+    <div header @onclick="HeaderClickAsync">
         @if (Icon is not null)
         {
-            <span class="fluent-settings-card-icon" aria-hidden="true">
+            <span icon aria-hidden="true">
                 <FluentIcon Value="@Icon" />
             </span>
         }
-        <div class="fluent-settings-card-text">
-            @if (HeaderTemplate is not null)
+        <div info>
+            @if (!string.IsNullOrEmpty(Title))
             {
-                @HeaderTemplate
+                <span heading id="@TitleId">@Title</span>
             }
-            else if (!string.IsNullOrEmpty(Header))
+            @if (DescriptionTemplate is not null)
             {
-                <span class="fluent-settings-card-title">@Header</span>
+                <span description id="@DescriptionId">@DescriptionTemplate</span>
             }
-            @if (!string.IsNullOrEmpty(Description))
+            else if (!string.IsNullOrEmpty(Description))
             {
-                <span class="fluent-settings-card-description">@Description</span>
+                <span description id="@DescriptionId">@Description</span>
             }
         </div>
-        @if (Action is not null)
+        @if (ActionTemplate is not null)
         {
-            <div class="fluent-settings-card-action">
-                @Action
+            <div action @onclick="NoOp" @onclick:stopPropagation="true">
+                @ActionTemplate
             </div>
         }
-        @if (!string.IsNullOrEmpty(Href))
+        @if (HasLink)
         {
-            <span class="fluent-settings-card-end-icon" aria-hidden="true">
+            <span link-icon aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M6.25 4.5A1.75 1.75 0 0 0 4.5 6.25v7.5c0 .97.78 1.75 1.75 1.75h7.5c.97 0 1.75-.78 1.75-1.75v-2a.5.5 0 0 0-1 0v2a.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75v-7.5c0-.41.34-.75.75-.75h2a.5.5 0 0 0 0-1h-2Zm4.5 0a.5.5 0 0 0 0 1h3.04L9.15 10.15a.5.5 0 1 0 .7.7l4.65-4.64v3.04a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5h-4.25Z" /></svg>
             </span>
-            <a class="fluent-settings-card-link"
+            <a link
                href="@Href"
                target="@Target"
                rel="@(Target == "_blank" ? "noopener noreferrer" : null)"
-               aria-label="@Header"></a>
+               aria-label="@(HasTitle ? null : AccessibleName)"
+               aria-labelledby="@(HasTitle ? TitleId : null)"
+               aria-describedby="@(HasDescription ? DescriptionId : null)"></a>
         }
         @if (IsExpandable)
         {
-            <button type="button"
-                    class="fluent-settings-card-toggle"
-                    aria-expanded="@(Expanded ? "true" : "false")"
-                    aria-label="@(string.IsNullOrEmpty(Header) ? null : Header)"
-                    @onclick="ToggleAsync">
-                <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" />
-            </button>
+            <FluentButton expand-button
+                          Type="ButtonType.Button"
+                          Appearance="ButtonAppearance.Subtle"
+                          IconOnly="true"
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDown())"
+                          Title="@AccessibleName"
+                          Disabled="@Disabled"
+                          aria-expanded="@(Expanded ? "true" : "false")"
+                          aria-controls="@PanelId"
+                          StopPropagation="true"
+                          OnClick="@ToggleAsync" />
         }
     </div>
-    @if (IsExpandable && Expanded)
+    @if (IsExpandable)
     {
-        <div class="fluent-settings-card-content">
+        <div panel id="@PanelId" role="group" aria-labelledby="@(HasTitle ? TitleId : null)" hidden="@(!Expanded)">
             @ChildContent
         </div>
     }

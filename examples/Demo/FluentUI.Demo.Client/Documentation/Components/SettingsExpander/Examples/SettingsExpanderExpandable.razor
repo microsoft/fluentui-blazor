@@ -1,28 +1,30 @@
-<FluentSettingsCard Icon="@(new Icons.Regular.Size20.Person())"
-                    Header="Select a voice"
-                    @bind-Expanded="@expanded">
-    <Action>
-        <FluentButton>Preview</FluentButton>
-    </Action>
+<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Save())"
+                        Title="Automatically save original screenshots"
+                        Description="Keep a copy of every screenshot."
+                        ExpandButtonLabel="Save options"
+                        @bind-Expanded="@expanded">
+    <ActionTemplate>
+        <FluentSwitch Label="Automatic saving" @bind-Value="@autoSave" />
+    </ActionTemplate>
     <ChildContent>
-        <FluentSettingsCard Icon="@(new Icons.Regular.Size20.Run())" Header="Speed"
-                            Description="Press the speech key and the plus sign to change the speech rate.">
-            <Action><FluentSlider @bind-Value="@speed" Style="width: 200px;" /></Action>
-        </FluentSettingsCard>
-        <FluentSettingsCard Icon="@(new Icons.Regular.Size20.ArrowUp())" Header="Pitch">
-            <Action><FluentSlider @bind-Value="@pitch" Style="width: 200px;" /></Action>
-        </FluentSettingsCard>
-        <FluentSettingsCard Icon="@(new Icons.Regular.Size20.Speaker2())" Header="Volume"
-                            Description="Press the speech key and the plus sign to change the volume.">
-            <Action><FluentSlider @bind-Value="@volume" Style="width: 200px;" /></Action>
-        </FluentSettingsCard>
+        <FluentSettingsExpander Title="Destination folder"
+                                Description="Pictures\Screenshots">
+            <ActionTemplate>
+                <FluentButton>Open folder</FluentButton>
+            </ActionTemplate>
+        </FluentSettingsExpander>
+        <FluentSettingsExpander Title="Ask before saving"
+                                Description="Show a confirmation for each screenshot.">
+            <ActionTemplate>
+                <FluentSwitch Label="Confirm before saving" @bind-Value="@confirm" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
     </ChildContent>
-</FluentSettingsCard>
+</FluentSettingsExpander>
 
 @code
 {
     bool expanded = true;
-    int speed = 50;
-    int pitch = 50;
-    int volume = 90;
+    bool autoSave = true;
+    bool confirm;
 }

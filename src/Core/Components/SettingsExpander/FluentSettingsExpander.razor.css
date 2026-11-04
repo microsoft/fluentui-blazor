@@ -1,4 +1,4 @@
-.fluent-settings-card {
+.fluent-settings-expander {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -8,135 +8,142 @@
   border-radius: var(--borderRadiusMedium);
   font-family: var(--fontFamilyBase);
   overflow: hidden;
-  position: relative;
 }
 
-.fluent-settings-card-link {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-}
-
-  .fluent-settings-card-link:hover {
-    background-color: var(--colorSubtleBackgroundHover);
+  .fluent-settings-expander > [header] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--spacingHorizontalL);
+    min-height: 48px;
+    padding: var(--spacingVerticalM) var(--spacingHorizontalL);
+    box-sizing: border-box;
   }
 
-  .fluent-settings-card-link:active {
-    background-color: var(--colorSubtleBackgroundPressed);
+  .fluent-settings-expander > [header] > [icon] {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
   }
 
-  .fluent-settings-card-link:focus-visible {
-    outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
-    outline-offset: -2px;
+  .fluent-settings-expander > [header] > [info] {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
   }
 
-.fluent-settings-card-end-icon {
-  display: inline-flex;
-  flex: 0 0 auto;
-}
-
-.fluent-settings-card-action {
-  position: relative;
-  z-index: 1;
-}
-
-.fluent-settings-card-header {
-  display: flex;
-  align-items: center;
-  gap: var(--spacingHorizontalL);
-  min-height: 48px;
-  padding: var(--spacingVerticalM) var(--spacingHorizontalL);
-  box-sizing: border-box;
-}
-
-.fluent-settings-card-icon {
-  display: inline-flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-}
-
-.fluent-settings-card-text {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.fluent-settings-card-title {
-  font-size: var(--fontSizeBase300);
-  line-height: var(--lineHeightBase300);
-}
-
-.fluent-settings-card-description {
-  font-size: var(--fontSizeBase200);
-  line-height: var(--lineHeightBase200);
-  color: var(--colorNeutralForeground2);
-}
-
-.fluent-settings-card-action {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: var(--spacingHorizontalS);
-}
-
-.fluent-settings-card-toggle {
-  display: inline-flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: none;
-  border-radius: var(--borderRadiusMedium);
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-}
-
-  .fluent-settings-card-toggle:hover {
-    background-color: var(--colorSubtleBackgroundHover);
+  .fluent-settings-expander > [header] > [info] > [heading] {
+    font-size: var(--fontSizeBase300);
+    line-height: var(--lineHeightBase300);
   }
 
-  .fluent-settings-card-toggle:active {
-    background-color: var(--colorSubtleBackgroundPressed);
+  .fluent-settings-expander > [header] > [info] > [description] {
+    font-size: var(--fontSizeBase200);
+    line-height: var(--lineHeightBase200);
+    color: var(--colorNeutralForeground2);
   }
 
-  .fluent-settings-card-toggle:focus-visible {
-    outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+  .fluent-settings-expander > [header] > [action] {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--spacingHorizontalS);
   }
 
-  .fluent-settings-card-toggle svg {
-    transition: transform var(--durationNormal) var(--curveEasyEase);
+  .fluent-settings-expander > [header] > [link-icon] {
+    display: inline-flex;
+    flex: 0 0 auto;
   }
 
-  .fluent-settings-card-toggle[aria-expanded="true"] svg {
+  .fluent-settings-expander > [header] > [link] {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+    .fluent-settings-expander > [header]:has(> [link]:hover) {
+      background-color: var(--colorNeutralBackground1Hover);
+    }
+
+    .fluent-settings-expander > [header]:has(> [link]:active) {
+      background-color: var(--colorNeutralBackground1Pressed);
+    }
+
+    .fluent-settings-expander > [header] > [link]:focus-visible {
+      outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+      outline-offset: -2px;
+    }
+
+  .fluent-settings-expander > [header] > [expand-button] {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+  }
+
+    .fluent-settings-expander > [header] > [expand-button] svg {
+      transition: transform var(--durationNormal) var(--curveEasyEase);
+    }
+
+  .fluent-settings-expander[expanded] > [header] > [expand-button] svg {
     transform: rotate(180deg);
   }
 
-/* Nested rows */
-.fluent-settings-card-content {
-  border-top: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
-  background-color: var(--colorNeutralBackground2);
-}
-
-  .fluent-settings-card-content > .fluent-settings-card {
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
+  /* Expandable header is clickable */
+  .fluent-settings-expander[expandable]:not([disabled]) > [header] {
+    cursor: pointer;
   }
 
-    .fluent-settings-card-content > .fluent-settings-card + .fluent-settings-card {
-      border-top: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+    .fluent-settings-expander[expandable]:not([disabled]) > [header]:hover {
+      background-color: var(--colorNeutralBackground1Hover);
     }
 
-    .fluent-settings-card-content > .fluent-settings-card > .fluent-settings-card-header {
-      padding-inline-start: calc(var(--spacingHorizontalL) + 24px + var(--spacingHorizontalL));
+    .fluent-settings-expander[expandable]:not([disabled]) > [header]:active {
+      background-color: var(--colorNeutralBackground1Pressed);
     }
 
-    .fluent-settings-card-content > .fluent-settings-card > .fluent-settings-card-header:has(> .fluent-settings-card-icon) {
-      padding-inline-start: var(--spacingHorizontalL);
+    .fluent-settings-expander[expandable]:not([disabled]) > [header]:has(> [action]:hover, > [action]:focus-within) {
+      background-color: transparent;
+      cursor: default;
     }
+
+  /* Expandable panel and nested expanders */
+  .fluent-settings-expander > [panel] {
+    border-top: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+    background-color: var(--colorNeutralBackground2);
+  }
+
+    .fluent-settings-expander > [panel] > .fluent-settings-expander {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+    }
+
+      .fluent-settings-expander > [panel] > .fluent-settings-expander + .fluent-settings-expander {
+        border-top: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+      }
+
+  /* Nested rows without icon are aligned with the title of the parent */
+  .fluent-settings-expander > [panel] > .fluent-settings-expander > [header]:not(:has(> [icon])) {
+    padding-inline-start: calc(var(--spacingHorizontalL) * 2 + 24px);
+  }
+
+  /* Disabled */
+  .fluent-settings-expander[disabled] > [header] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+    .fluent-settings-expander[disabled] > [header] > [action] {
+      pointer-events: none;
+    }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fluent-settings-expander > [header] > [expand-button] svg {
+      transition: none;
+    }
+  }

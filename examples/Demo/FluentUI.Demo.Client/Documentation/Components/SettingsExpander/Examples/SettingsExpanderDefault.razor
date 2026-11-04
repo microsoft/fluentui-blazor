@@ -1,12 +1,12 @@
-<FluentSettingsCard Icon="@(new Icons.Regular.Size20.Person())"
-                    Header="Select a voice"
-                    Description="Choose the voice used for speech output">
-    <Action>
-        <FluentSlider @bind-Value="@value" Style="width: 200px;" />
-    </Action>
-</FluentSettingsCard>
+<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Copy())"
+                        Title="Automatically copy changes"
+                        Description="Changes are copied to your clipboard.">
+    <ActionTemplate>
+        <FluentSwitch Label="Automatic copying" @bind-Value="@value" />
+    </ActionTemplate>
+</FluentSettingsExpander>
 
 @code
 {
-    int value = 50;
+    bool value = true;
 }

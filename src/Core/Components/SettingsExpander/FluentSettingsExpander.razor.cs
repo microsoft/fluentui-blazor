@@ -3,23 +3,27 @@
 // ------------------------------------------------------------------------
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
 namespace Microsoft.FluentUI.AspNetCore.Components;
 
 /// <summary>
-/// A settings card, similar to the tiles in the Windows 11 settings app.
-/// It shows an icon, a header, a description and an action area (e.g. a dropdown or slider).
-/// When <see cref="ChildContent"/> is provided, the card becomes expandable and
-/// the content is displayed below the header (typically as nested <see cref="FluentSettingsCard"/> rows).
+/// Presents a setting, similar to the tiles in the Windows 11 settings app, by separating its informational content,
+/// main action and optional expandable panel.
+/// When <see cref="ChildContent"/> is provided, an expand/collapse button is displayed.
+/// The panel can contain nested <see cref="FluentSettingsExpander"/> components.
 /// </summary>
-public partial class FluentSettingsCard : FluentComponentBase
+public partial class FluentSettingsExpander : FluentComponentBase
 {
+    private readonly string _panelId = Identifier.NewId();
+
     /// <summary />
-    public FluentSettingsCard(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentSettingsExpander(LibraryConfiguration configuration) : base(configuration) { }
 
     /// <summary />
     protected string? ClassValue => DefaultClassBuilder
-        .AddClass("fluent-settings-card")
+        .AddClass("fluent-settings-expander")
         .Build();
 
     /// <summary />
@@ -29,56 +33,67 @@ public partial class FluentSettingsCard : FluentComponentBase
     /// <summary />
     private bool IsExpandable => ChildContent is not null;
 
+    /// <summary />
+    private bool HasLink => !Disabled && !string.IsNullOrEmpty(Href);
+
+    /// <summary />
+    private bool HasTitle => !string.IsNullOrEmpty(Title);
+
+    /// <summary />
+    private bool HasDescription => DescriptionTemplate is not null || !string.IsNullOrEmpty(Description);
+
+    /// <summary />
+    private string TitleId => $"{_panelId}-title";
+
+    /// <summary />
+    private string DescriptionId => $"{_panelId}-description";
+
+    /// <summary />
+    private string PanelId => $"{_panelId}-panel";
+
+    /// <summary />
+    private string? AccessibleName => string.IsNullOrWhiteSpace(ExpandButtonLabel) ? Title : ExpandButtonLabel;
+
     /// <summary>
-    /// Gets or sets the icon displayed at the start of the card.
+    /// Gets or sets the optional leading icon (on the left in LTR, on the right in RTL).
     /// </summary>
     [Parameter]
     public Icon? Icon { get; set; }
 
     /// <summary>
-    /// Gets or sets the header text.
+    /// Gets or sets the setting title.
     /// </summary>
     [Parameter]
-    public string? Header { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets a URL. When set, the whole card becomes a link and an "open" icon is displayed at the end.
-    /// </summary>
-    [Parameter]
-    public string? Href { get; set; }
-
-    /// <summary>
-    /// Gets or sets the link target (e.g. <c>_blank</c>) used with <see cref="Href"/>.
-    /// </summary>
-    [Parameter]
-    public string? Target { get; set; }
-
-    /// <summary>
-    /// Gets or sets custom content (e.g. a checkbox) displayed instead of <see cref="Header"/>.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? HeaderTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the description displayed below the header.
+    /// Gets or sets the optional description displayed below the title.
     /// </summary>
     [Parameter]
     public string? Description { get; set; }
 
     /// <summary>
-    /// Gets or sets the content displayed at the end of the header (e.g. a dropdown, switch or slider).
+    /// Gets or sets the optional description content displayed below the title.
+    /// It takes precedence over <see cref="Description"/>.
     /// </summary>
     [Parameter]
-    public RenderFragment? Action { get; set; }
+    public RenderFragment? DescriptionTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the expandable content. When set, a chevron is displayed to toggle it.
+    /// Gets or sets the trailing action (e.g. a switch, button or dropdown).
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ActionTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the expandable panel content, including nested settings expanders.
+    /// When set, the expand/collapse button is displayed.
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the expandable content is visible.
+    /// Gets or sets whether the panel is expanded. Defaults to false.
     /// </summary>
     [Parameter]
     public bool Expanded { get; set; }
@@ -89,9 +104,53 @@ public partial class FluentSettingsCard : FluentComponentBase
     [Parameter]
     public EventCallback<bool> ExpandedChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the component is disabled. Defaults to false.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets the accessible name of the expand/collapse button.
+    /// When not set, the <see cref="Title"/> is used.
+    /// </summary>
+    [Parameter]
+    public string? ExpandButtonLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets a URL. When set, the whole header becomes a link and an "open" icon is displayed at the end.
+    /// </summary>
+    [Parameter]
+    public string? Href { get; set; }
+
+    /// <summary>
+    /// Gets or sets the link target (e.g. <c>_blank</c>) used with <see cref="Href"/>.
+    /// </summary>
+    [Parameter]
+    public string? Target { get; set; }
+
     /// <summary />
-    private async Task ToggleAsync()
+    private static void NoOp()
     {
+    }
+
+    /// <summary />
+    private async Task HeaderClickAsync(MouseEventArgs args)
+    {
+        if (IsExpandable && !HasLink)
+        {
+            await ToggleAsync(args);
+        }
+    }
+
+    /// <summary />
+    private async Task ToggleAsync(MouseEventArgs args)
+    {
+        if (Disabled)
+        {
+            return;
+        }
+
         Expanded = !Expanded;
         await ExpandedChanged.InvokeAsync(Expanded);
     }

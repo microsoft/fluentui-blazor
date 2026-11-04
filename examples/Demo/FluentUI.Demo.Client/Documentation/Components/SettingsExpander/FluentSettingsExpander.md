@@ -1,34 +1,37 @@
 ---
-title: SettingsCard
-route: /SettingsCard
+title: SettingsExpander
+route: /SettingsExpander
 icon: Settings
 ---
 
-# SettingsCard
+# SettingsExpander
 
-A **FluentSettingsCard** looks like the tiles in the Windows 11 settings app.
-It shows an icon, a header, a description and an action area (for example a dropdown, switch or slider).
+A **FluentSettingsExpander** presents a setting like the tiles in the Windows 11 settings app.
+It separates the informational content (icon, title and description), the main action and an optional expandable panel.
 
 ## Default
 
-{{ SettingsCardDefault }}
+{{ SettingsExpanderDefault }}
 
 ## Expandable
 
-When `ChildContent` is provided, a chevron is shown to expand the card.
-Nested `FluentSettingsCard` components are rendered as rows inside the expanded area.
+When `ChildContent` is provided, an expand/collapse button is displayed.
+Nested `FluentSettingsExpander` components are rendered as rows inside the panel.
+Use `@bind-Expanded` to control the state.
 
-{{ SettingsCardExpandable }}
+{{ SettingsExpanderExpandable }}
 
-## Checkboxes and dropdowns
+## Dropdowns and sliders
 
-Use `HeaderTemplate` to replace the header text with custom content, such as a checkbox.
-
-{{ SettingsCardVerbosity }}
+{{ SettingsExpanderVerbosity }}
 
 ## Switches, buttons and links
 
-Cards can host any action, like a button or a switch. When `Href` is set, the whole card becomes a link
+Settings can host any action, like a button or a switch. When `Href` is set, the whole header becomes a link
 and an "open" icon is displayed at the end.
 
-{{ SettingsCardManageData }}
+{{ SettingsExpanderManageData }}
+
+## Disabled
+
+{{ SettingsExpanderDisabled }}
