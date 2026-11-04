@@ -23,7 +23,7 @@
                       name="@Name"
                       required="@Required"
                       role="@(string.IsNullOrEmpty(Title) ? null : "button")"
-                      aria-label="@(EmptyContent ? Title : null)"
+                      aria-label="@((IconOnly || EmptyContent) ? Title : null)"
                       title="@Title"
                       appearance="@(Appearance == ButtonAppearance.Default ? null : Appearance.ToAttributeValue())"
                       mixed="@Mixed"
