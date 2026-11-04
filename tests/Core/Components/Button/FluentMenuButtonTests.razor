@@ -52,4 +52,24 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentMenuButton_Title_WithText_DoesNotReplaceAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuButton Title="My Title">My button</FluentMenuButton>);
+
+        // Assert: the visible text stays the accessible name
+        Assert.Null(cut.Find("fluent-menu-button").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentMenuButton_Title_IconOnly_IsAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentMenuButton Title="My Title" IconStart="@Samples.Icons.Info" />);
+
+        // Assert: without visible text, Title is the only name the button has
+        Assert.Equal("My Title", cut.Find("fluent-menu-button").GetAttribute("aria-label"));
+    }
 }
