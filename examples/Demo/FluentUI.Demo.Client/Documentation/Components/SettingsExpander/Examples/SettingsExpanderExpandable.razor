@@ -1,10 +1,10 @@
-<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Save())"
+﻿<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Save())"
                         Title="Automatically save original screenshots"
                         Description="Keep a copy of every screenshot."
                         ExpandButtonLabel="Save options"
                         @bind-Expanded="@expanded">
     <ActionTemplate>
-        <FluentSwitch Label="Automatic saving" @bind-Value="@autoSave" />
+        <FluentSwitch Label="Automatic saving" />
     </ActionTemplate>
     <ChildContent>
         <FluentSettingsExpander Title="Destination folder"
@@ -16,7 +16,7 @@
         <FluentSettingsExpander Title="Ask before saving"
                                 Description="Show a confirmation for each screenshot.">
             <ActionTemplate>
-                <FluentSwitch Label="Confirm before saving" @bind-Value="@confirm" />
+                <FluentSwitch Label="Confirm before saving" />
             </ActionTemplate>
         </FluentSettingsExpander>
     </ChildContent>
@@ -25,6 +25,4 @@
 @code
 {
     bool expanded = true;
-    bool autoSave = true;
-    bool confirm;
 }

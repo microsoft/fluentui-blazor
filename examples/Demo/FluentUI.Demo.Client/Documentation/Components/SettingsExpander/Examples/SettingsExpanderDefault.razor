@@ -1,12 +1,7 @@
-<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Copy())"
+﻿<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Copy())"
                         Title="Automatically copy changes"
                         Description="Changes are copied to your clipboard.">
     <ActionTemplate>
-        <FluentSwitch Label="Automatic copying" @bind-Value="@value" />
+        <FluentSwitch Label="Automatic copying" />
     </ActionTemplate>
 </FluentSettingsExpander>
-
-@code
-{
-    bool value = true;
-}
