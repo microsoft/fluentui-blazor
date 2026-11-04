@@ -1,4 +1,4 @@
-﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
@@ -43,7 +43,7 @@
         @if (HasLink)
         {
             <span link-icon aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M6.25 4.5A1.75 1.75 0 0 0 4.5 6.25v7.5c0 .97.78 1.75 1.75 1.75h7.5c.97 0 1.75-.78 1.75-1.75v-2a.5.5 0 0 0-1 0v2a.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75v-7.5c0-.41.34-.75.75-.75h2a.5.5 0 0 0 0-1h-2Zm4.5 0a.5.5 0 0 0 0 1h3.04L9.15 10.15a.5.5 0 1 0 .7.7l4.65-4.64v3.04a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5h-4.25Z" /></svg>
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Open())" />
             </span>
             <a link
                href="@Href"

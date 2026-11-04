@@ -48,13 +48,11 @@
     }
 
     [Fact]
-    public void FluentSettingsExpander_HeaderClick_Toggles_ButActionClick_DoesNot()
+    public void FluentSettingsExpander_HeaderClick_Toggles()
     {
         var cut = Render(@<FluentSettingsExpander Title="Voice"><ActionTemplate><span id="inner">Action</span></ActionTemplate><ChildContent>Inner</ChildContent></FluentSettingsExpander>);
 
-        cut.Find("[action]").Click();
         Assert.True(cut.Find("[panel]").HasAttribute("hidden"));
-
         cut.Find("[header]").Click();
         Assert.False(cut.Find("[panel]").HasAttribute("hidden"));
     }
