@@ -1,5 +1,7 @@
 ﻿@using Xunit
+@using System.Globalization
 @using Microsoft.AspNetCore.Components.Web
+@using Microsoft.FluentUI.AspNetCore.Components.Localization
 @inherits FluentUITestContext
 
 @code {
@@ -76,6 +78,72 @@
         var expected = $"{IFluentLocalizer.GetDefault("Paginator_SummaryItems", 2)}";
 
         Assert.Equal(expected, summaryText);
+    }
+
+    [Theory]
+    [InlineData("de-DE", 1, "1,00 item")]
+    [InlineData("de-CH", 1, "1.00 item")]
+    [InlineData("fr-BE", 1, "1,00 item")]
+    [InlineData("de-DE", 4321, "4.321 items")]
+    [InlineData("de-CH", 4321, "4\u2019321 items")]
+    [InlineData("fr-BE", 4321, "4\u202f321 items")]
+    public async Task FluentPaginator_LocalizedSummary_UsesCurrentCulture(string cultureName, int totalItemCount, string expected)
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            Services.AddFluentUIComponents(config => config.Localizer = new NumberFormatLocalizer());
+            var state = new PaginationState();
+            await state.SetTotalItemCountAsync(totalItemCount);
+
+            var cut = Render(@<FluentPaginator State="@state" />);
+
+            Assert.Equal(expected, cut.Find(".summary").TextContent.Trim());
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
+    [Theory]
+    [InlineData("de-DE", "Page 1.000 of 4.321 {localized}")]
+    [InlineData("de-CH", "Page 1\u2019000 of 4\u2019321 {localized}")]
+    [InlineData("fr-BE", "Page 1\u202f000 of 4\u202f321 {localized}")]
+    public async Task FluentPaginator_LocalizedPageStatus_UsesCurrentCulture(string cultureName, string expected)
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            Services.AddFluentUIComponents(config => config.Localizer = new NumberFormatLocalizer());
+            var state = new PaginationState();
+            await state.SetItemsPerPageAsync(1);
+            await state.SetTotalItemCountAsync(4321);
+            await state.SetCurrentPageIndexAsync(998);
+            var cut = Render(@<FluentPaginator State="@state" />);
+
+            await cut.FindAll(".paginator-nav fluent-button")[2].ClickAsync(new MouseEventArgs());
+
+            Assert.Equal(expected, cut.Find(".pagination-text").TextContent.Trim());
+            Assert.Equal(expected, cut.Find("[paginator-page-status]").TextContent);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
+    private sealed class NumberFormatLocalizer : IFluentLocalizer
+    {
+        public string this[string key, params object[] arguments] => key switch
+        {
+            LanguageResource.Paginator_SummaryItem => string.Format(CultureInfo.CurrentCulture, "{0:N2} item", arguments),
+            LanguageResource.Paginator_SummaryItems => string.Format(CultureInfo.CurrentCulture, "{0:N0} items", arguments),
+            LanguageResource.Paginator_Status => string.Format(CultureInfo.CurrentCulture, "Page {0:N0} of {1:N0} {{localized}}", arguments),
+            _ => IFluentLocalizer.GetDefault(key, arguments),
+        };
     }
 
     [Fact]
