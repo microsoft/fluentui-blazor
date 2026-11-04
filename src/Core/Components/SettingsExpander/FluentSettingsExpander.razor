@@ -36,7 +36,7 @@
         </div>
         @if (ActionTemplate is not null)
         {
-            <div action @onclick="NoOp" @onclick:stopPropagation="true">
+            <div action @onclick:stopPropagation="true">
                 @ActionTemplate
             </div>
         }

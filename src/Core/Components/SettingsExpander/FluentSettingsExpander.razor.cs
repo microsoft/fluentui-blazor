@@ -130,11 +130,6 @@ public partial class FluentSettingsExpander : FluentComponentBase
     public string? Target { get; set; }
 
     /// <summary />
-    private static void NoOp()
-    {
-    }
-
-    /// <summary />
     private async Task HeaderClickAsync(MouseEventArgs args)
     {
         if (IsExpandable && !HasLink)
