@@ -18,7 +18,7 @@
                       icon-only="@(IconOnly || EmptyContent)"
                       name="@Name"
                       role="@(string.IsNullOrEmpty(Title) ? null : "link")"
-                      aria-label="@Title"
+                      aria-label="@(EmptyContent ? Title : null)"
                       force-load="@(ForceLoad ? "true" : null)"
                       @attributes="@AdditionalAttributes">
     @if (IconStart != null)

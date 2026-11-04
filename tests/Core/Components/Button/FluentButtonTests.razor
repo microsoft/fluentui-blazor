@@ -467,6 +467,29 @@
     }
 
     [Fact]
+    public void FluentButton_Title_WithText_DoesNotReplaceAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Title="My Title">My button</FluentButton>);
+
+        // Assert: the visible text stays the accessible name, Title stays a tooltip
+        var button = cut.Find("fluent-button");
+        Assert.Null(button.GetAttribute("aria-label"));
+        Assert.Equal("My Title", button.GetAttribute("title"));
+    }
+
+    [Fact]
+    public void FluentButton_Title_IconOnly_IsAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton Title="My Title" IconStart="@Samples.Icons.Info" />);
+
+        // Assert: without visible text, Title is the only name the button has
+        var button = cut.Find("fluent-button");
+        Assert.Equal("My Title", button.GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentButton_BackgroundColor()
     {
         // Arrange && Act

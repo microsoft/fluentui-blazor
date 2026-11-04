@@ -207,4 +207,24 @@
         // Assert
         cut.Verify();
     }
+
+    [Fact]
+    public void FluentAnchorButton_Title_WithText_DoesNotReplaceAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" Title="My Title">My button</FluentAnchorButton>);
+
+        // Assert: the visible text stays the accessible name
+        Assert.Null(cut.Find("fluent-anchor-button").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentAnchorButton_Title_IconOnly_IsAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" Title="My Title" IconStart="@Samples.Icons.Info" />);
+
+        // Assert: without visible text, Title is the only name the button has
+        Assert.Equal("My Title", cut.Find("fluent-anchor-button").GetAttribute("aria-label"));
+    }
 }

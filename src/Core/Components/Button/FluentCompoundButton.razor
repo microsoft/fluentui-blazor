@@ -12,7 +12,7 @@
                         size="@Size.ToAttributeValue()"
                         name="@Name"
                         role="@(string.IsNullOrEmpty(Title) ? null : "button")"
-                        aria-label="@Title"
+                        aria-label="@((ChildContent is null && Label is null) ? Title : null)"
                         disabled="@Disabled"
                         disabled-focusable="@DisabledFocusable"
                         icon-only="@(IconOnly || (ChildContent is null && Label is null))"

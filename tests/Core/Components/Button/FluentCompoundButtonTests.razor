@@ -354,4 +354,24 @@
         // Assert
         Assert.True(clicked);
     }
+
+    [Fact]
+    public void FluentCompoundButton_Title_WithText_DoesNotReplaceAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Title="My Title">My button</FluentCompoundButton>);
+
+        // Assert: the visible text stays the accessible name
+        Assert.Null(cut.Find("fluent-compound-button").GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentCompoundButton_Title_IconOnly_IsAccessibleName()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton Title="My Title" IconStart="@Samples.Icons.Info" />);
+
+        // Assert: without visible text, Title is the only name the button has
+        Assert.Equal("My Title", cut.Find("fluent-compound-button").GetAttribute("aria-label"));
+    }
 }
