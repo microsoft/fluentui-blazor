@@ -107,4 +107,55 @@
         Assert.Empty(cut.FindAll("a[link]"));
         Assert.True(cut.Find("[expand-button]").HasAttribute("disabled"));
     }
+    [Fact]
+    public void FluentSettingsExpander_Icon_RendersHiddenIcon()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Voice" Icon="@(new CoreIcons.Regular.Size20.Info())" />);
+
+        Assert.Equal("true", cut.Find("[icon]").GetAttribute("aria-hidden"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_Href_WithoutTarget_HasNoRel()
+    {
+        var cut = Render(@<FluentSettingsExpander Href="https://example.com" ExpandButtonLabel="Open" />);
+        var link = cut.Find("a[link]");
+
+        Assert.False(link.HasAttribute("rel"));
+        Assert.False(link.HasAttribute("target"));
+        Assert.Equal("Open", link.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_HeaderClick_WithLink_DoesNotToggle()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Voice" Href="https://example.com">Inner</FluentSettingsExpander>);
+
+        cut.Find("[header]").Click();
+
+        Assert.True(cut.Find("[panel]").HasAttribute("hidden"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_HeaderClick_NotExpandable_DoesNothing()
+    {
+        var cut = Render(@<FluentSettingsExpander Title="Voice" />);
+
+        cut.Find("[header]").Click();
+
+        Assert.Empty(cut.FindAll("[panel]"));
+    }
+
+    [Fact]
+    public void FluentSettingsExpander_Disabled_ToggleDoesNothing()
+    {
+        var expanded = false;
+        var cut = Render(@<FluentSettingsExpander Title="Voice" Disabled="true" ExpandedChanged="@(v => expanded = v)">Inner</FluentSettingsExpander>);
+
+        cut.Find("[header]").Click();
+        cut.Find("[expand-button]").Click();
+
+        Assert.False(expanded);
+        Assert.True(cut.Find("[panel]").HasAttribute("hidden"));
+    }
 }
