@@ -1,17 +1,17 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
 <div id="@Id"
      class="@ClassValue"
      style="@StyleValue"
-     expandable="@(IsExpandable ? "" : null)"
-     expanded="@(IsExpandable && Expanded ? "" : null)"
-     disabled="@(Disabled ? "" : null)"
+     expandable="@IsExpandable"
+     expanded="@(IsExpandable && Expanded)"
+     disabled="@Disabled"
      role="group"
      aria-labelledby="@(HasTitle ? TitleId : null)"
      aria-describedby="@(HasDescription ? DescriptionId : null)"
-     aria-disabled="@(Disabled ? "true" : null)"
+     aria-disabled="@Disabled"
      @attributes="@AdditionalAttributes">
     <div header @onclick="HeaderClickAsync">
         @if (Icon is not null)
