@@ -148,7 +148,7 @@
                 else
                 {
                     <FluentText>
-                        @string.Format(Localizer[Localization.LanguageResource.AutoComplete_MaximumSelectedOptionsMessage], MaximumSelectedOptions)
+                        @Localizer[Localization.LanguageResource.AutoComplete_MaximumSelectedOptionsMessage, MaximumSelectedOptions.GetValueOrDefault()]
                     </FluentText>
                 }
             }
