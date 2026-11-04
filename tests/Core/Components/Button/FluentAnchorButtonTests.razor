@@ -178,6 +178,18 @@
     }
 
     [Fact]
+    public void FluentAnchorButton_Title()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentAnchorButton Href="#" Title="My Title">My link</FluentAnchorButton>);
+
+        // Assert
+        var link = cut.Find("fluent-anchor-button");
+        Assert.Equal("My Title", link.GetAttribute("title"));
+        Assert.Null(link.GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentAnchorButton_IconOnly()
     {
         // Arrange && Act

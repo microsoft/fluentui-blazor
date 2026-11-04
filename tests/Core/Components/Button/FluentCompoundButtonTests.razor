@@ -281,6 +281,16 @@
     }
 
     [Fact]
+    public void FluentCompoundButton_Title_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentCompoundButton IconOnly="true" Title="My Title"><svg viewBox="0 0 20 20"></svg></FluentCompoundButton>);
+
+        // Assert
+        Assert.Equal("My Title", cut.Find("fluent-compound-button").GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentCompoundButton_IconOnly()
     {
         // Arrange && Act
