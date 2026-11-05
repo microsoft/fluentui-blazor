@@ -1,0 +1,107 @@
+@page "/issues/5592"
+@using System.ComponentModel.DataAnnotations
+@using System.Globalization
+
+<h1>Input reproduction: #5592, #5595, #5596, #5597</h1>
+<p>Interactive Server, en-US, FluentUI render style. Reload to restore initial values.</p>
+<p>Replace the date with 2026-04-31, the time with 09:30:00, and the option with Zz Not An Option or alpha, then click Check interactivity to blur.</p>
+<p>Compare clicking outside with pressing Tab: Tab accepts the active suggestion, so alpha can become Alpha.</p>
+<button id="ready" type="button" @onclick="() => ready = true">Check interactivity</button>
+<output id="interactive">@ready</output>
+
+<section id="standalone">
+    <h2>Without EditForm (issue examples)</h2>
+    <FluentDatePicker TValue="DateTime?" Id="date" Label="Date" Culture="@Culture"
+                      Value="@date" ValueChanged="@(value => { date = value; dateChanges++; })" />
+    <output id="date-value">@(date?.ToString("yyyy-MM-dd", Culture) ?? "null")</output>
+    <output id="date-events">@dateChanges</output>
+
+    <FluentTimePicker TValue="TimeOnly?" Id="time" Label="Time" Culture="@Culture"
+                      Value="@time" ValueChanged="@(value => { time = value; timeChanges++; })" />
+    <output id="time-value">@(time?.ToString("HH:mm:ss", Culture) ?? "null")</output>
+    <output id="time-events">@timeChanges</output>
+
+    <FluentCombobox TOption="string" TValue="string" Id="combo" Label="Option"
+                    Value="@option" ValueChanged="@(value => { option = value; optionChanges++; })">
+        <FluentOption TValue="string" Value="@("Alpha")">Alpha</FluentOption>
+        <FluentOption TValue="string" Value="@("Beta")">Beta</FluentOption>
+        <FluentOption TValue="string" Value="@("Gamma")">Gamma</FluentOption>
+    </FluentCombobox>
+    <output id="combo-value">@(option ?? "null")</output>
+    <output id="combo-events">@optionChanges</output>
+</section>
+
+<section id="form">
+    <h2>With EditForm and model expressions</h2>
+    <p>An invalid date keeps the previous model value but adds a parsing error and blocks valid submission.
+       Unmatched time and option text instead clear the values, producing required-field errors.</p>
+    <EditForm Model="@model" OnValidSubmit="@(() => submitResult = "valid")"
+              OnInvalidSubmit="@(() => submitResult = "invalid")" FormName="picker-reproduction">
+        <DataAnnotationsValidator />
+        <FluentDatePicker TValue="DateTime?" Id="form-date" Label="Form date" Culture="@Culture"
+                          @bind-Value="@model.Date" />
+        <FluentTimePicker TValue="TimeOnly?" Id="form-time" Label="Form time" Culture="@Culture"
+                          @bind-Value="@model.Time" />
+        <FluentCombobox TOption="string" TValue="string" Id="form-combo" Label="Form option"
+                        Items="@Options" @bind-Value="@model.Option" />
+        <div id="validation"><ValidationSummary /></div>
+        <button id="submit" type="submit">Submit</button>
+    </EditForm>
+    <output id="form-date-value">@(model.Date?.ToString("yyyy-MM-dd", Culture) ?? "null")</output>
+    <output id="form-time-value">@(model.Time?.ToString("HH:mm:ss", Culture) ?? "null")</output>
+    <output id="form-combo-value">@(model.Option ?? "null")</output>
+    <output id="submit-result">@submitResult</output>
+</section>
+
+<section id="alternatives">
+    <h2>Comparison: native time and FreeOption</h2>
+    <p>Native time accepts 09:30:00. FreeOption accepts text outside the list and commits it to the Blazor model,
+       with both Items and manually declared options.</p>
+    <FluentTimePicker TValue="TimeOnly?" Id="native-time" Label="Native time" Culture="@Culture"
+                      RenderStyle="DatePickerRenderStyle.Native" @bind-Value="@nativeTime" />
+    <output id="native-time-value">@(nativeTime?.ToString("HH:mm:ss", Culture) ?? "null")</output>
+    <FluentCombobox TOption="string" TValue="string" Id="free-combo" Label="Free option"
+                    Items="@Options" @bind-Value="@freeOption">
+        <FreeOption>Use '<FreeOptionOutput />'</FreeOption>
+    </FluentCombobox>
+    <output id="free-combo-value">@(freeOption ?? "null")</output>
+    <FluentCombobox TOption="string" TValue="string" Id="manual-free-combo" Label="Manual free option"
+                    @bind-Value="@manualFreeOption">
+        <ChildContent>
+            <FluentOption TValue="string" Value="@("Alpha")">Alpha</FluentOption>
+            <FluentOption TValue="string" Value="@("Beta")">Beta</FluentOption>
+        </ChildContent>
+        <FreeOption>Use '<FreeOptionOutput />'</FreeOption>
+    </FluentCombobox>
+    <output id="manual-free-combo-value">@(manualFreeOption ?? "null")</output>
+</section>
+
+@code
+{
+    private static readonly CultureInfo Culture = CultureInfo.GetCultureInfo("en-US");
+    private static readonly string[] Options = ["Alpha", "Beta", "Gamma"];
+    private readonly ReproductionModel model = new();
+    private DateTime? date = new(2026, 1, 15);
+    private TimeOnly? time = new(9, 0);
+    private TimeOnly? nativeTime = new(9, 0);
+    private string? option = "Alpha";
+    private string? freeOption = "Alpha";
+    private string? manualFreeOption = "Alpha";
+    private int dateChanges;
+    private int timeChanges;
+    private int optionChanges;
+    private bool ready;
+    private string submitResult = "not submitted";
+
+    private sealed class ReproductionModel
+    {
+        [Required]
+        public DateTime? Date { get; set; } = new(2026, 1, 15);
+
+        [Required]
+        public TimeOnly? Time { get; set; } = new(9, 0);
+
+        [Required]
+        public string? Option { get; set; } = "Alpha";
+    }
+}
