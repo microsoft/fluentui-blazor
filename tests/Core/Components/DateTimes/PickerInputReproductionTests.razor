@@ -16,6 +16,7 @@
     [InlineData(true)]
     public void DatePicker_InvalidText_KeepsValueWithoutValueChanged(bool useForm)
     {
+        using var context = new DateTimeProviderContext(new DateTime(2026, 1, 15));
         var model = new ReproductionModel();
         var editContext = new EditContext(model);
         var changes = 0;
