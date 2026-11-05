@@ -15,7 +15,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentSelect<TOption, TValue>, IFluentInputImmediate
 {
     private readonly FluentInputImmediateManager _immediateManager;
-    private TValue? _lastSelectedValue;
+    private (string? Text, TValue? Value) _lastSelected;
     private (string? Text, TValue? Value) _freeform;
     private bool _hasValueParameter;
 
@@ -60,7 +60,7 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
 
     /// <summary>
     /// Gets or sets the text displayed in the input field.
-    /// It is synchronized with the selected option text written to <c>input.value</c> when <c>Value</c> changes.
+    /// It is synchronized with the selected option text written to <c>input.value</c> when the value or selection text changes.
     /// In immediate mode, user input changes are reported through <see cref="ImmediateTextChanged"/>.
     /// </summary>
     [Parameter]
@@ -188,15 +188,16 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
 
         var selectedOption = GetSelectedSingleOption();
         var selectedValue = _freeform.Text is not null ? Value : GetOptionValue(selectedOption);
+        var selectedText = _freeform.Text ?? GetOptionText(selectedOption);
 
-        if (!EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
+        if (!EqualityComparer<TValue>.Default.Equals(_lastSelected.Value, selectedValue) ||
+            !string.Equals(_lastSelected.Text, selectedText, StringComparison.Ordinal))
         {
-            var selectedText = _freeform.Text ?? GetOptionText(selectedOption);
             await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, selectedText ?? string.Empty);
             await UpdateImmediateTextAsync(selectedText);
         }
 
-        _lastSelectedValue = selectedValue;
+        _lastSelected = (selectedText, selectedValue);
     }
 
     /// <summary />

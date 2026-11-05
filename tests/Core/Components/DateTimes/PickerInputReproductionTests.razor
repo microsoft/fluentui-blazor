@@ -14,7 +14,7 @@
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public void DatePicker_InvalidText_KeepsValueWithoutValueChanged(bool useForm)
+    public async Task DatePicker_InvalidText_KeepsValueWithoutValueChanged(bool useForm)
     {
         using var context = new DateTimeProviderContext(new DateTime(2026, 1, 15));
         var model = new ReproductionModel();
@@ -37,7 +37,7 @@
         Assert.Equal(useForm, editContext.GetValidationMessages().Any());
         if (useForm)
         {
-            Assert.False(editContext.Validate());
+            Assert.False(await cut.InvokeAsync(() => ValidateAsync(editContext)));
             Assert.Equal(editContext.GetValidationMessages().Single(),
                          cut.Find("fluent-text[slot='message']").TextContent.Trim());
 
@@ -45,7 +45,7 @@
 
             Assert.Equal(new DateTime(2026, 4, 30), model.Date);
             Assert.Equal(1, changes);
-            Assert.True(editContext.Validate());
+            Assert.True(await cut.InvokeAsync(() => ValidateAsync(editContext)));
         }
     }
 
@@ -200,7 +200,7 @@
     }
 
     [Fact]
-    public void Combobox_InvalidTypedFreeOption_KeepsValueAndReportsValidationError()
+    public async Task Combobox_InvalidTypedFreeOption_KeepsValueAndReportsValidationError()
     {
         var model = new ReproductionModel();
         var editContext = new EditContext(model);
@@ -214,7 +214,7 @@
             new DropdownEventArgs { SelectedOptions = "browser-free-option", FreeformValue = "not-a-number" });
 
         Assert.Equal(1, model.Number);
-        Assert.False(editContext.Validate());
+        Assert.False(await cut.InvokeAsync(() => ValidateAsync(editContext)));
         Assert.Single(cut.FindAll("fluent-text[slot='message']"));
     }
 
@@ -229,14 +229,14 @@
                 <FreeOption><FreeOptionOutput /></FreeOption>
             </FluentCombobox>
         </EditForm>);
-        Assert.False(await cut.InvokeAsync(editContext.Validate));
+        Assert.False(await cut.InvokeAsync(() => ValidateAsync(editContext)));
 
         cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
             new DropdownEventArgs { SelectedOptions = "browser-free-option", FreeformValue = "Other" });
 
         Assert.Equal("Other", model.Option);
         Assert.Empty(editContext.GetValidationMessages());
-        Assert.True(await cut.InvokeAsync(editContext.Validate));
+        Assert.True(await cut.InvokeAsync(() => ValidateAsync(editContext)));
     }
 
     [Fact]
@@ -300,7 +300,7 @@
         </EditForm>);
         cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
             new DropdownEventArgs { FreeformValue = "not-a-number" });
-        Assert.False(await cut.InvokeAsync(editContext.Validate));
+        Assert.False(await cut.InvokeAsync(() => ValidateAsync(editContext)));
         var optionId = cut.Find($"fluent-option[value='{selectedNumber}']").Id;
 
         cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
@@ -308,7 +308,7 @@
 
         Assert.Equal(selectedNumber, model.Number);
         Assert.Equal(1, changes);
-        Assert.True(await cut.InvokeAsync(editContext.Validate));
+        Assert.True(await cut.InvokeAsync(() => ValidateAsync(editContext)));
         Assert.Empty(editContext.GetValidationMessages());
     }
 
@@ -347,6 +347,46 @@
     }
 
     [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public void Combobox_SelectedItemsOnlyClearedAfterFreeOption_ClearsDisplayedText(bool useItems, bool useNull)
+    {
+        IEnumerable<string>? selectedItems = ["Alpha"];
+        string? immediateText = null;
+        var cut = Render<FluentCombobox<string, string>>(parameters => parameters
+            .Add(p => p.Items, useItems ? new[] { "Alpha", "Beta" } : null)
+            .Add(p => p.ChildContent, @<FluentOption TValue="string" Value="@("Alpha")">Alpha</FluentOption>)
+            .Add(p => p.SelectedItems, selectedItems)
+            .Add(p => p.SelectedItemsChanged, items => selectedItems = items)
+            .Add(p => p.ImmediateTextChanged, text => immediateText = text)
+            .Add(p => p.FreeOption, @<FreeOptionOutput />));
+        cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+            new DropdownEventArgs { FreeformValue = "Other" });
+        Assert.NotNull(selectedItems);
+        Assert.Equal("Other", Assert.Single(selectedItems));
+        Assert.Equal("Other", immediateText);
+        Assert.Null(cut.Instance.Value);
+        var updatesBeforeClear = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"].Count;
+
+        cut.Render(parameters => parameters.Add(p => p.SelectedItems, useNull ? null : Array.Empty<string>()));
+
+        Assert.Null(cut.Instance.ImmediateText);
+        Assert.Null(immediateText);
+        Assert.Empty(cut.Instance.SelectedItems ?? []);
+        Assert.Empty(cut.FindAll("fluent-option[selected]"));
+        var updates = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"];
+        Assert.Equal(updatesBeforeClear + 1, updates.Count);
+        Assert.Equal(string.Empty, updates[^1].Arguments[1]);
+
+        cut.Render();
+
+        Assert.Equal(updatesBeforeClear + 1,
+            JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"].Count);
+    }
+
+    [Theory]
     [InlineData(false)]
     [InlineData(true)]
     public async Task Combobox_InvalidNullableFreeOptionThenClear_ResetsTextAndValidation(bool useClearMethod)
@@ -363,7 +403,7 @@
         var combobox = cut.FindComponent<FluentCombobox<int?, int?>>();
         cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
             new DropdownEventArgs { FreeformValue = "not-a-number" });
-        Assert.False(await cut.InvokeAsync(editContext.Validate));
+        Assert.False(await cut.InvokeAsync(() => ValidateAsync(editContext)));
         Assert.Equal("not-a-number", immediateText);
 
         if (useClearMethod)
@@ -381,8 +421,17 @@
         Assert.Null(model.NullableNumber);
         Assert.True(string.IsNullOrEmpty(immediateText));
         Assert.True(string.IsNullOrEmpty(combobox.Instance.ImmediateText));
-        Assert.True(await cut.InvokeAsync(editContext.Validate));
+        Assert.True(await cut.InvokeAsync(() => ValidateAsync(editContext)));
         Assert.Empty(editContext.GetValidationMessages());
+    }
+
+    private static Task<bool> ValidateAsync(EditContext editContext)
+    {
+    #if NET11_0_OR_GREATER
+        return editContext.ValidateAsync();
+    #else
+        return Task.FromResult(editContext.Validate());
+    #endif
     }
 
     private sealed record ReproductionOption(string Text);
