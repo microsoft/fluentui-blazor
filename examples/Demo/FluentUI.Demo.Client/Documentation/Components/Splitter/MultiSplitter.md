@@ -57,7 +57,7 @@ These CSS variables are predefined with these values, but can be overwritten (us
 
   /* Resize Icon colors */
   --fluent-multi-splitter-color: var(--colorNeutralStrokeAccessible);
-  --fluent-multi-splitter-color-active: var(--colorNeutralStrokeAccessiblePressed);
+  --fluent-multi-splitter-color-active: var(--colorNeutralForeground2);
 
   /* Bar size */
   --fluent-multi-splitter-bar-size: var(--spacingVerticalS);

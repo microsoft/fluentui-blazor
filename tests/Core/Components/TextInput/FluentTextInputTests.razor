@@ -204,6 +204,42 @@
     }
 
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FluentInputText_OnChange_IndexedBinding_UpdatesList(bool useEditContext)
+    {
+        // Arrange
+        var items = new List<string> { "First", "Second" };
+        var editContext = useEditContext ? new EditContext(items) : null;
+        var cut = Render(@<CascadingValue Value="@editContext">
+            <div>
+                @for (var i = 0; i < items.Count; i++)
+                {
+                    var index = i;
+                    <FluentTextInput @bind-Value="items[index]" />
+                }
+            </div>
+        </CascadingValue>);
+
+        Assert.Equal("First", cut.FindAll("fluent-text-input")[0].GetAttribute("value"));
+        Assert.Equal("Second", cut.FindAll("fluent-text-input")[1].GetAttribute("value"));
+
+        // Act
+        cut.FindAll("fluent-text-input")[0].Change("Updated first");
+        cut.FindAll("fluent-text-input")[1].Change("Updated second");
+
+        // Assert
+        Assert.Equal(["Updated first", "Updated second"], items);
+        Assert.Equal("Updated first", cut.FindAll("fluent-text-input")[0].GetAttribute("value"));
+        Assert.Equal("Updated second", cut.FindAll("fluent-text-input")[1].GetAttribute("value"));
+        if (editContext is not null)
+        {
+            Assert.True(editContext.IsModified(new FieldIdentifier(items, "0")));
+            Assert.True(editContext.IsModified(new FieldIdentifier(items, "1")));
+        }
+    }
+
+    [Theory]
     [InlineData(false, 0, "init", "init")] // No Immediate
     [InlineData(true, 0, "new value", "new value")] // With Immediate and Delay = 0 ms
     public async Task FluentInputText_OnImmediate(bool immediate, int immediateDelay, string expectedImmediateValue, string

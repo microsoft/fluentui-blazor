@@ -6,4 +6,8 @@
     <FluentToastProvider />
     <FluentTooltipProvider />
     <FluentKeyCodeProvider />
+    @if (LibraryConfiguration?.UseCascadingViewportBreakpoint == true)
+    {
+        <FluentBreakpointProvider />
+    }
 </div>

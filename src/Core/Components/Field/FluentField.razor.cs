@@ -302,16 +302,10 @@ public partial class FluentField : FluentComponentBase, IFluentField
             accessorBody = unaryExpression.Operand;
         }
 
-        if (accessorBody is not MemberExpression { Expression: not null } memberExpression)
-        {
-            throw new ArgumentException($"The provided expression contains a {accessorBody.NodeType} which is not supported. Field identifiers only support simple member accessors.", nameof(accessor));
-        }
-
-        var model = Expression.Lambda<Func<object?>>(Expression.Convert(memberExpression.Expression, typeof(object)))
-            .Compile(preferInterpretation: true)()
-            ?? throw new ArgumentException("The provided expression must evaluate to a non-null value.", nameof(accessor));
-
-        return new FieldIdentifier(model, memberExpression.Member.Name);
+        // Delegate indexer and array access parsing to Blazor:
+        // https://github.com/dotnet/aspnetcore/blob/v8.0.0/src/Components/Forms/src/FieldIdentifier.cs#L139-L147
+        return FieldIdentifier.Create(
+            Expression.Lambda<Func<object?>>(Expression.Convert(accessorBody, typeof(object))));
     }
 
     private void DetachValidationStateChangedListener()

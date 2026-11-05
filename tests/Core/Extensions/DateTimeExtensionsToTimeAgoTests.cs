@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT License.
 // ------------------------------------------------------------------------
 
+using System.Globalization;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 using Xunit;
 using LanguageResource = Microsoft.FluentUI.AspNetCore.Components.Localization.LanguageResource;
@@ -56,6 +57,28 @@ public class ToTimeAgoTests
     }
 
     [Theory]
+    [InlineData("de-DE", "Il y a 4.321 ans")]
+    [InlineData("de-CH", "Il y a 4\u2019321 ans")]
+    [InlineData("fr-BE", "Il y a 4\u202f321 ans")]
+    public void ToTimeAgo_Customized_UsesCurrentCulture(string cultureName, string expectedValue)
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            var delay = TimeSpan.FromDays(4321 * 365);
+
+            var result = delay.ToTimeAgo(new FrenchTimeAgoLocalizer());
+
+            Assert.Equal(expectedValue, result);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+        }
+    }
+
+    [Theory]
     [InlineData("000.00:00:02", "Just now")]
     public void ToTimeAgo_Ctor(string delayAsString, string expectedValue)
     {
@@ -70,8 +93,9 @@ public class ToTimeAgoTests
         {
             get
             {
-                // Provide custom translations based on the key
-                return key switch
+                Assert.Single(arguments);
+
+                var localizedString = key switch
                 {
                     LanguageResource.TimeAgo_SecondAgo => "Maintenant",
                     LanguageResource.TimeAgo_SecondsAgo => "Il y a {0} secondes",
@@ -84,11 +108,15 @@ public class ToTimeAgoTests
                     LanguageResource.TimeAgo_MonthAgo => "Il y a un mois",
                     LanguageResource.TimeAgo_MonthsAgo => "Il y a {0} mois",
                     LanguageResource.TimeAgo_YearAgo => "Il y a {0} an",
-                    LanguageResource.TimeAgo_YearsAgo => "Il y a {0} ans",
+                    LanguageResource.TimeAgo_YearsAgo => "Il y a {0:N0} ans",
 
                     // Fallback to the Default/English if no translation is found
-                    _ => IFluentLocalizer.GetDefault(key, arguments),
+                    _ => null,
                 };
+
+                return localizedString is null
+                    ? IFluentLocalizer.GetDefault(key, arguments)
+                    : string.Format(CultureInfo.CurrentCulture, localizedString, arguments);
             }
         }
     }

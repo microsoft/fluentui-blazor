@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------------
 
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.FluentUI.AspNetCore.Components.Localization;
@@ -286,7 +285,7 @@ public partial class FluentInputFile : FluentComponentBase, IAsyncDisposable, II
             }
 
             // Progress
-            var title = string.Format(CultureInfo.InvariantCulture, Localizer[LanguageResource.FluentInputFile_LoadingInProgress], fileNumber + 1, allFiles.Count, file.Name)
+            var title = Localizer[LanguageResource.FluentInputFile_LoadingInProgress, fileNumber + 1, allFiles.Count, file.Name]
                      ?? string.Empty;
             fileDetails.ProgressTitle = title;
 

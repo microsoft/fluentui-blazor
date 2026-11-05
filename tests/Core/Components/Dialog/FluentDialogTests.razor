@@ -688,4 +688,26 @@
         Assert.Contains("style=\"margin: 10px; padding: 20px; border: 1px solid red;\"", DialogProvider.Markup);
         Assert.Contains("{ margin: 10px; padding: 20px; border: 1px solid red; }", DialogProvider.Markup);
     }
+
+    [Fact(Timeout = TEST_TIMEOUT)]
+    public async Task FluentDialog_Toggle_Standalone()
+    {
+        Xunit.TestContext.Current.CancellationToken.ThrowIfCancellationRequested();
+
+        // Arrange: a dialog declared in markup, not launched from DialogService, so Instance is null
+        DialogEventArgs? dialogEventArgs = null;
+        var cut = Render(@<FluentDialog Id="my-id" OnStateChange="@(e => dialogEventArgs = e)">
+                             <p>Content</p>
+                         </FluentDialog>);
+        var dialog = cut.FindComponent<FluentDialog>();
+
+        // Act
+        await dialog.Instance.OnToggleAsync(new() { Id = "NotCorrectId", Type = "toggle", OldState = "open", NewState = "closed" });
+        Assert.Null(dialogEventArgs);
+        await dialog.Instance.OnToggleAsync(new() { Id = "my-id", Type = "toggle", OldState = "open", NewState = "closed" });
+
+        // Assert
+        Assert.Equal(DialogState.Closed, dialogEventArgs?.State);
+        Assert.Equal("my-id", dialogEventArgs?.Id);
+    }
 }

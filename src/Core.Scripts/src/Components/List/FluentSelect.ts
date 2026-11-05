@@ -23,11 +23,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
       return;
     }
 
-    // By default, the combobox text is not bound to the Value property.
-    if (element.getAttribute('type') === 'combobox' && element.tagName === 'FLUENT-DROPDOWN' && element._control) {
-      element._control.value = defaultValue;
-    }
-
     // The web component may create its slotted control after Blazor invokes initialization, so retry for a few animation frames.
     const initWithRetry = (attempt: number = 0) => {
       const controlElement = element.querySelector('button[slot=control], input[slot=control]') as HTMLButtonElement | HTMLInputElement | null;
@@ -36,6 +31,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Select {
           requestAnimationFrame(() => initWithRetry(attempt + 1));
         }
         return;
+      }
+
+      // By default, the combobox text is not bound to the Value property.
+      if (element.getAttribute('type') === 'combobox' && controlElement instanceof HTMLInputElement) {
+        controlElement.value = defaultValue;
       }
 
       if (!controlElement.hasAttribute('aria-label')) {

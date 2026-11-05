@@ -246,12 +246,11 @@ public partial class FluentTabs : FluentComponentBase
         {
             if (Tabs.Remove(tab))
             {
-                var firstTab = Tabs.FirstOrDefault();
-                var firstTabId = firstTab?.Id;
-
-                // Set the first ActiveTab and ActiveTabId
-                if (!string.Equals(firstTabId, tab.Id, StringComparison.Ordinal))
+                if (string.Equals(ActiveTabId ?? ActiveTab?.Id, tab.Id, StringComparison.Ordinal))
                 {
+                    var firstTab = Tabs.FirstOrDefault();
+                    var firstTabId = firstTab?.Id;
+
                     ActiveTab = firstTab;
                     ActiveTabId = firstTabId;
                     ActiveTabIdAttribute = firstTabId;
@@ -281,6 +280,12 @@ public partial class FluentTabs : FluentComponentBase
     {
         // Only for the current FluentTabs
         if (!string.Equals(args.Id, TabListId, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        // Ignore an obsolete attribute echo, but always accept a new client selection.
+        if (args.IsAttributeSynchronized && !string.Equals(args.ActiveId, ActiveTabIdAttribute, StringComparison.Ordinal))
         {
             return;
         }

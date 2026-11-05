@@ -135,6 +135,46 @@
         Assert.Contains("slot=\"message\"", cut.Markup);
     }
 
+    [Fact]
+    public async Task FluentField_IndexedExpressions_RendersValidationMessagesForEachFieldAsync()
+    {
+        // Arrange
+        var numbers = new List<int> { 42 };
+        var dictionary = new Dictionary<string, string> { ["email"] = "First" };
+        var array = new[] { "First" };
+        var editContext = new EditContext(numbers);
+        var messageStore = new ValidationMessageStore(editContext);
+        var cut = Render(@<CascadingValue Value="@editContext">
+            <FluentField ValueExpression="@(() => numbers[0])">Number</FluentField>
+            <FluentField ValueExpression="@(() => dictionary["email"])">Email</FluentField>
+            <FluentField ValueExpression="@(() => array[0])">Array item</FluentField>
+        </CascadingValue>);
+
+        // Act
+        await cut.InvokeAsync(() =>
+        {
+            messageStore.Add(FieldIdentifier.Create(() => numbers[0]), "Number is invalid");
+            messageStore.Add(FieldIdentifier.Create(() => dictionary["email"]), "Email is invalid");
+            messageStore.Add(FieldIdentifier.Create(() => array[0]), "Array item is invalid");
+            editContext.NotifyValidationStateChanged();
+        });
+
+        // Assert
+        var fields = cut.FindComponents<FluentField>();
+        Assert.Contains("Number is invalid", fields[0].Markup);
+        Assert.Contains("Email is invalid", fields[1].Markup);
+        Assert.Contains("Array item is invalid", fields[2].Markup);
+    }
+
+    [Fact]
+    public void FluentField_MethodCallExpression_ThrowsArgumentException()
+    {
+        var model = new FluentFieldValidationModel();
+
+        Assert.Throws<ArgumentException>(() =>
+            Render(@<FluentField ValueExpression="@(() => model.Name.ToUpperInvariant())">Field content</FluentField>));
+    }
+
     [Theory]
     [InlineData(LabelPosition.Above)]
     [InlineData(LabelPosition.After)]
