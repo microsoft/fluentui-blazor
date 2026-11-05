@@ -35,6 +35,32 @@ public class FluentLocalizerTests : Bunit.BunitContext
     }
 
     [Theory]
+    [InlineData("de-DE", "Hello 4321,5")]
+    [InlineData("de-CH", "Hello 4321.5")]
+    [InlineData("fr-BE", "Hello 4321,5")]
+    public void FluentLocalizer_DefaultArguments_UsesCurrentCulture(string cultureName, string expected)
+    {
+        var originalCulture = CultureInfo.CurrentCulture;
+        var originalUICulture = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            Services.AddFluentUIComponents();
+            var localizer = Services.GetRequiredService<IFluentLocalizer>();
+
+            var value = localizer["Fake_Hello", 4321.5m];
+
+            Assert.Equal(expected, value);
+        }
+        finally
+        {
+            CultureInfo.CurrentCulture = originalCulture;
+            CultureInfo.CurrentUICulture = originalUICulture;
+        }
+    }
+
+    [Theory]
     [InlineData("en")]
     [InlineData("fr")]
     public void FluentLocalizer_Customized(string language)

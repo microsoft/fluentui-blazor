@@ -467,6 +467,16 @@
     }
 
     [Fact]
+    public void FluentButton_Title_IconOnly()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentButton IconOnly="true" Title="My Title"><svg viewBox="0 0 20 20"></svg></FluentButton>);
+
+        // Assert
+        Assert.Equal("My Title", cut.Find("fluent-button").GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentButton_BackgroundColor()
     {
         // Arrange && Act
