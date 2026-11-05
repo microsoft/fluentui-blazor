@@ -273,12 +273,125 @@
         Assert.True(string.IsNullOrEmpty(cut.Instance.ImmediateText));
     }
 
+    [Theory]
+    [InlineData(true, 1)]
+    [InlineData(true, 2)]
+    [InlineData(false, 1)]
+    [InlineData(false, 2)]
+    public async Task Combobox_InvalidFreeOptionThenListedOption_ClearsParsingError(bool useItems, int selectedNumber)
+    {
+        var model = new ReproductionModel();
+        var editContext = new EditContext(model);
+        var changes = 0;
+        var cut = Render(@<EditForm EditContext="@editContext">
+            <FluentCombobox TOption="int" TValue="int"
+                            Items="@(useItems ? new[] { 1, 2 } : null)"
+                            Value="@model.Number" ValueExpression="@(() => model.Number)"
+                            ValueChanged="@(number => { model.Number = number; changes++; })">
+                <ChildContent>
+                    @if (!useItems)
+                    {
+                        <FluentOption TValue="int" Value="1">One</FluentOption>
+                        <FluentOption TValue="int" Value="2">Two</FluentOption>
+                    }
+                </ChildContent>
+                <FreeOption><FreeOptionOutput /></FreeOption>
+            </FluentCombobox>
+        </EditForm>);
+        cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+            new DropdownEventArgs { FreeformValue = "not-a-number" });
+        Assert.False(await cut.InvokeAsync(editContext.Validate));
+        var optionId = cut.Find($"fluent-option[value='{selectedNumber}']").Id;
+
+        cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+            new DropdownEventArgs { SelectedOptions = optionId });
+
+        Assert.Equal(selectedNumber, model.Number);
+        Assert.Equal(1, changes);
+        Assert.True(await cut.InvokeAsync(editContext.Validate));
+        Assert.Empty(editContext.GetValidationMessages());
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void Combobox_SelectedItemsOnlyAfterFreeOption_FollowsSelection(bool externalUpdate)
+    {
+        IEnumerable<string> selectedItems = ["Alpha"];
+        var cut = Render<FluentCombobox<string, string>>(parameters => parameters
+            .Add(p => p.Items, new[] { "Alpha", "Beta" })
+            .Add(p => p.SelectedItems, selectedItems)
+            .Add(p => p.SelectedItemsChanged, items => selectedItems = items)
+            .Add(p => p.FreeOption, @<FreeOptionOutput />));
+        cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+            new DropdownEventArgs { FreeformValue = "Other" });
+        Assert.Equal("Other", Assert.Single(selectedItems));
+        Assert.Equal("Other", cut.Instance.ImmediateText);
+        if (externalUpdate)
+        {
+            cut.Render(parameters => parameters.Add(p => p.SelectedItems, new[] { "Beta" }));
+        }
+        else
+        {
+            cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+                new DropdownEventArgs { SelectedOptions = cut.Find("fluent-option[value='Beta']").Id });
+            Assert.Equal("Beta", Assert.Single(selectedItems));
+        }
+
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Equal("Beta", cut.Instance.ImmediateText);
+        Assert.True(cut.Find("fluent-option[value='Beta']").HasAttribute("selected"));
+        Assert.Equal("Beta",
+            JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Select.UpdateValue"][^1].Arguments[1]);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Combobox_InvalidNullableFreeOptionThenClear_ResetsTextAndValidation(bool useClearMethod)
+    {
+        var model = new ReproductionModel();
+        var editContext = new EditContext(model);
+        string? immediateText = null;
+        var cut = Render(@<EditForm EditContext="@editContext">
+            <FluentCombobox TOption="int?" TValue="int?" Items="@(new int?[] { 1, 2 })"
+                            @bind-Value="@model.NullableNumber" @bind-ImmediateText="@immediateText">
+                <FreeOption><FreeOptionOutput /></FreeOption>
+            </FluentCombobox>
+        </EditForm>);
+        var combobox = cut.FindComponent<FluentCombobox<int?, int?>>();
+        cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+            new DropdownEventArgs { FreeformValue = "not-a-number" });
+        Assert.False(await cut.InvokeAsync(editContext.Validate));
+        Assert.Equal("not-a-number", immediateText);
+
+        if (useClearMethod)
+        {
+            await cut.InvokeAsync(combobox.Instance.ClearAsync);
+        }
+        else
+        {
+            cut.Find("fluent-dropdown").TriggerEvent("ondropdownchange",
+                new DropdownEventArgs { SelectedOptions = "" });
+        }
+        cut.Render();
+        cut.Find("fluent-dropdown").TriggerEvent("onfocusout", new FocusEventArgs());
+
+        Assert.Null(model.NullableNumber);
+        Assert.True(string.IsNullOrEmpty(immediateText));
+        Assert.True(string.IsNullOrEmpty(combobox.Instance.ImmediateText));
+        Assert.True(await cut.InvokeAsync(editContext.Validate));
+        Assert.Empty(editContext.GetValidationMessages());
+    }
+
     private sealed record ReproductionOption(string Text);
 
     private sealed class ReproductionModel
     {
         public DateTime? Date { get; set; } = new(2026, 1, 15);
         public int Number { get; set; } = 1;
+        public int? NullableNumber { get; set; }
 
         [Required]
         public string? Option { get; set; }

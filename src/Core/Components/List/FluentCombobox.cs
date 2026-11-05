@@ -17,6 +17,7 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
     private readonly FluentInputImmediateManager _immediateManager;
     private TValue? _lastSelectedValue;
     private (string? Text, TValue? Value) _freeform;
+    private bool _hasValueParameter;
 
     /// <summary />
     public FluentCombobox(LibraryConfiguration configuration) : base(configuration)
@@ -103,18 +104,37 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
 
         if (Multiple || FreeOption is null || e.FreeformValue is not { } text)
         {
-            _freeform.Text = null;
+            var hadFreeformText = _freeform.Text is not null;
+            if (!Multiple && hadFreeformText)
+            {
+                // Clear any freeform parsing error without changing the last committed value.
+                CurrentValueAsString = FormatValueAsString(Value);
+            }
+
+            _freeform = default;
             await base.OnDropdownChangeHandlerAsync(e);
+            if (!Multiple && hadFreeformText)
+            {
+                await UpdateImmediateTextAsync(GetOptionText(GetSelectedSingleOption()));
+            }
+
             return;
         }
 
         var parsed = TryParseValueFromString(text, out _, out _);
+        var previousValue = Value;
         CurrentValueAsString = text;
+        var parsedValue = Value;
+        if (!_hasValueParameter && !ValueChanged.HasDelegate && SelectedItemsChanged.HasDelegate)
+        {
+            Value = previousValue;
+        }
+
         _freeform = (text, Value);
 
         if (parsed)
         {
-            SelectedItems = Value is TOption option ? [option] : [];
+            SelectedItems = parsedValue is TOption option ? [option] : [];
             if (SelectedItemsChanged.HasDelegate)
             {
                 await SelectedItemsChanged.InvokeAsync(SelectedItems);
@@ -195,8 +215,29 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
+        if (parameters.TryGetValue<TValue>(nameof(Value), out _))
+        {
+            _hasValueParameter = true;
+        }
+
+        // An external selection change replaces the cached freeform entry.
+        if (_freeform.Text is not null &&
+            parameters.TryGetValue<IEnumerable<TOption>?>(nameof(SelectedItems), out var selectedItems) &&
+            !(selectedItems ?? []).SequenceEqual(SelectedItems ?? []))
+        {
+            _freeform = default;
+        }
+
         _immediateManager.CheckAndSetExternalValue(parameters, Value, FormatValueAsString);
         return base.SetParametersAsync(parameters);
+    }
+
+    /// <inheritdoc />
+    public override async Task ClearAsync()
+    {
+        _freeform = default;
+        await base.ClearAsync();
+        await UpdateImmediateTextAsync(null);
     }
 
     /// <see cref="FluentInputImmediateManager.GetImmediateValueAsString(string?)" />
