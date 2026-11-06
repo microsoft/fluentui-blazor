@@ -12,8 +12,8 @@ import { Updates } from '@microsoft/fast-element';
  * - Keyboard navigation (ArrowUp/Down to navigate, Space/Enter to select)
  * - Multi-select mode support (controlled by 'multiple' attribute on container)
  * - Tab index management for accessibility
- * - Automatic synchronization between DOM changes and Blazor state via MutationObserver
- * - Custom 'listboxchange' event dispatched when selections change (detail.selectedOptions contains semicolon-separated IDs)
+ * - Automatic synchronization of rendered selection state via MutationObserver
+ * - Custom 'listboxchange' event dispatched for user selections (detail.selectedOptions contains semicolon-separated IDs)
  * 
  * Usage: Place a 'multiple' attribute on the container div to enable multi-select mode. 
  * Each fluent-option must have an 'id' attribute for tracking selections.
@@ -64,7 +64,6 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     private isInitialized: boolean = false;
     private container: HTMLElement;
     private listbox: FluentUIComponents.Listbox;
-    private pendingSelectedOptionsChange: boolean = false;
     private lastSelectedOptions: string = '';
 
     /**
@@ -75,6 +74,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
       this.container = container;
       this.listbox = element;
       this.listbox.addEventListener("keydown", this.keydownHandler);
+      this.container.addEventListener("click", this.raiseSelectedOptionsChangeEvent);
 
       this.ready = this.initializeAsync();
 
@@ -170,6 +170,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
               activeItem.selected = true;
               this.unselectAllExcept(activeItem);
             }
+            this.raiseSelectedOptionsChangeEvent();
           }
           break;
         }
@@ -297,12 +298,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
           });
         }
 
-        if (hasSelectedOptionsChanged && !this.pendingSelectedOptionsChange) {
-          this.pendingSelectedOptionsChange = true;
-          queueMicrotask(() => {
-            this.pendingSelectedOptionsChange = false;
-            this.raiseSelectedOptionsChangeEvent();
-          });
+        if (hasSelectedOptionsChanged) {
+          // Blazor renders update the selection baseline without echoing it back to the server.
+          this.lastSelectedOptions = this.listbox.selectedOptions.map(option => option.id).join(';');
         }
       });
 
@@ -320,7 +318,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     }
 
     /**
-     * Raises the onselectedoptionschange event when selected options change.
+     * Raises the listboxchange event when a user changes the selected options.
      */
     private raiseSelectedOptionsChangeEvent = (): void => {
 
@@ -330,7 +328,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
 
       const currentSelectedOptions = this.listbox.selectedOptions.map(option => option.id).join(';');
 
-      // Skip if the selection hasn't actually changed (e.g. Blazor re-render updating DOM attributes)
+      // Skip if the selection hasn't actually changed.
       if (currentSelectedOptions === this.lastSelectedOptions) {
         return;
       }
