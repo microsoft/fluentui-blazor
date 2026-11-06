@@ -25,4 +25,9 @@ public class DropdownEventArgs : EventArgs
     /// Gets or sets the list of option IDs selected in the drop-down.
     /// </summary>
     public string? SelectedOptions { get; set; }
+
+    /// <summary>
+    /// Gets or sets the value of the selected freeform option, or null when no freeform option is selected.
+    /// </summary>
+    public string? FreeformValue { get; set; }
 }

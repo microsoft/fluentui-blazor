@@ -15,7 +15,9 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentSelect<TOption, TValue>, IFluentInputImmediate
 {
     private readonly FluentInputImmediateManager _immediateManager;
-    private TValue? _lastSelectedValue;
+    private (string? Text, TValue? Value) _lastSelected;
+    private (string? Text, TValue? Value) _freeform;
+    private bool _hasValueParameter;
 
     /// <summary />
     public FluentCombobox(LibraryConfiguration configuration) : base(configuration)
@@ -58,7 +60,7 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
 
     /// <summary>
     /// Gets or sets the text displayed in the input field.
-    /// It is synchronized with the selected option text written to <c>input.value</c> when <c>Value</c> changes.
+    /// It is synchronized with the selected option text written to <c>input.value</c> when the value or selection text changes.
     /// In immediate mode, user input changes are reported through <see cref="ImmediateTextChanged"/>.
     /// </summary>
     [Parameter]
@@ -90,6 +92,58 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
     protected override RenderFragment? RenderFreeFormOption()
     {
         return FreeOption;
+    }
+
+    /// <inheritdoc />
+    internal override async Task OnDropdownChangeHandlerAsync(DropdownEventArgs e)
+    {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
+        if (Multiple || FreeOption is null || e.FreeformValue is not { } text)
+        {
+            var hadFreeformText = _freeform.Text is not null;
+            if (!Multiple && hadFreeformText)
+            {
+                // Clear any freeform parsing error without changing the last committed value.
+                CurrentValueAsString = FormatValueAsString(Value);
+            }
+
+            _freeform = default;
+            await base.OnDropdownChangeHandlerAsync(e);
+            if (!Multiple && hadFreeformText)
+            {
+                await UpdateImmediateTextAsync(GetOptionText(GetSelectedSingleOption()));
+            }
+
+            return;
+        }
+
+        var parsed = TryParseValueFromString(text, out _, out _);
+        var previousValue = Value;
+        CurrentValueAsString = text;
+        var parsedValue = Value;
+        if (!_hasValueParameter && !ValueChanged.HasDelegate && SelectedItemsChanged.HasDelegate)
+        {
+            Value = previousValue;
+        }
+
+        _freeform = (text, Value);
+
+        if (parsed)
+        {
+            SelectedItems = parsedValue is TOption option ? [option] : [];
+            if (SelectedItemsChanged.HasDelegate)
+            {
+                await SelectedItemsChanged.InvokeAsync(SelectedItems);
+            }
+
+            NotifyValidationFieldChanged();
+        }
+
+        await UpdateImmediateTextAsync(text);
     }
 
     /// <summary />
@@ -127,17 +181,23 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
             await InitializeImmediateAsync();
         }
 
-        var selectedOption = GetSelectedSingleOption();
-        var selectedValue = GetOptionValue(selectedOption);
-
-        if (!EqualityComparer<TValue>.Default.Equals(_lastSelectedValue, selectedValue))
+        if (!EqualityComparer<TValue>.Default.Equals(_freeform.Value, Value))
         {
-            var selectedText = GetOptionText(selectedOption);
+            _freeform.Text = null;
+        }
+
+        var selectedOption = GetSelectedSingleOption();
+        var selectedValue = _freeform.Text is not null ? Value : GetOptionValue(selectedOption);
+        var selectedText = _freeform.Text ?? GetOptionText(selectedOption);
+
+        if (!EqualityComparer<TValue>.Default.Equals(_lastSelected.Value, selectedValue) ||
+            !string.Equals(_lastSelected.Text, selectedText, StringComparison.Ordinal))
+        {
             await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.UpdateValue", Id, selectedText ?? string.Empty);
             await UpdateImmediateTextAsync(selectedText);
         }
 
-        _lastSelectedValue = selectedValue;
+        _lastSelected = (selectedText, selectedValue);
     }
 
     /// <summary />
@@ -156,8 +216,29 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
     /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
+        if (parameters.TryGetValue<TValue>(nameof(Value), out _))
+        {
+            _hasValueParameter = true;
+        }
+
+        // An external selection change replaces the cached freeform entry.
+        if (_freeform.Text is not null &&
+            parameters.TryGetValue<IEnumerable<TOption>?>(nameof(SelectedItems), out var selectedItems) &&
+            !(selectedItems ?? []).SequenceEqual(SelectedItems ?? []))
+        {
+            _freeform = default;
+        }
+
         _immediateManager.CheckAndSetExternalValue(parameters, Value, FormatValueAsString);
         return base.SetParametersAsync(parameters);
+    }
+
+    /// <inheritdoc />
+    public override async Task ClearAsync()
+    {
+        _freeform = default;
+        await base.ClearAsync();
+        await UpdateImmediateTextAsync(null);
     }
 
     /// <see cref="FluentInputImmediateManager.GetImmediateValueAsString(string?)" />
@@ -184,7 +265,7 @@ public partial class FluentCombobox<TOption, [DynamicallyAccessedMembers(Dynamic
             FocusLost = true;
 
             // Update the ImmediateText property with the selected option text when the combobox loses focus
-            var value = GetOptionText(GetSelectedSingleOption());
+            var value = _freeform.Text ?? GetOptionText(GetSelectedSingleOption());
             await UpdateImmediateTextAsync(value);
         });
     }

@@ -19,6 +19,11 @@ By default, **FluentTimePicker** displays a list of **predefined** times, rangin
 You can customize these parameters to fit your requirements.  
 If you want the user to be able **to enter any time** (any hour or any minute), you must enable the mode `RenderStyle="Native"`.
 
+In FluentUI mode, typed text is matched against the displayed options, not parsed as an arbitrary time.
+For example, with an `en-US` short time pattern, enter `9:30 AM` rather than `09:30:00`.
+Committing unmatched text clears a nullable bound value. Use native mode to enter a time
+without matching the dropdown's display text.
+
 ## Default
 
 The TimePicker allows users to select a time value: `<FluentTimePicker @bind-Value="@SelectedValue" />`

@@ -106,6 +106,7 @@ export namespace Microsoft.FluentUI.Blazor.FluentUICustomEvents {
           id: event.target.id,
           type: event.type,
           selectedOptions: event.target.selectedOptions?.map((item: any) => item.id).join(';'),
+          freeformValue: event.target.selectedOptions?.find((item: { freeform?: boolean }) => item.freeform)?.value ?? null,
         };
       }
     });

@@ -13,17 +13,17 @@
     /// <param name="__builder"></param>
     private void InternalRenderOptions(RenderTreeBuilder __builder)
     {
+        if (RenderFreeFormOption() is { } freeFormOption)
+        {
+            <fluent-option freeform>@freeFormOption</fluent-option>
+        }
+
         if (Items is null)
         {
             @ChildContent
         }
         else
         {
-            if (RenderFreeFormOption() is not null)
-            {
-                <fluent-option freeform>@RenderFreeFormOption()</fluent-option>
-            }
-
             foreach (var item in Items)
             {
                 <FluentOption TValue="TValue"
