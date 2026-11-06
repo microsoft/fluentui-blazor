@@ -99,7 +99,7 @@ public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(Dynamical
     /// <summary>
     /// Asynchronously clears the current value.
     /// </summary>
-    public async Task ClearAsync()
+    public virtual async Task ClearAsync()
     {
         await JSRuntime.InvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Components.Select.ClearValue", Id);
 
