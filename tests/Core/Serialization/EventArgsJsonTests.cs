@@ -17,6 +17,7 @@ public class EventArgsJsonTests
         new AccordionItemEventArgs { Id = "accordion-1", Expanded = true, HeaderText = "Accordion 1" },
         new DialogToggleEventArgs { Id = "dialog-1", OldState = "closed", NewState = "open", Type = "toggle" },
         new DropdownEventArgs { Id = "dropdown-1", Type = "change", SelectedOptions = "option-1;option-2" },
+        new DropdownEventArgs { Id = "dropdown-2", Type = "change", SelectedOptions = "free-option", FreeformValue = "Custom text" },
         new MenuItemEventArgs { Id = "menu-item-1", Checked = true, Text = "Menu item 1" },
         new OverflowChangedEventArgs
         {

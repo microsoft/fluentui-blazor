@@ -50,6 +50,15 @@ If the someone types a string that doesn’t match any option in the list,
 you can allow submission of their free form entry by using the `FreeOption` section and the `FreeOptionOutput` element
 to display the user text.
 
+Without `FreeOption`, typed text must match an existing option. Text that does not match
+is cleared when committed and the selection becomes empty. Pressing Tab accepts the
+active suggestion, which can differ from committing the text by clicking outside the control.
+
+For single selection, a selected freeform entry updates `Value` using the input's standard
+type conversion and validation. Use `TValue="string"` to accept arbitrary text.
+`FreeOption` works with both `Items` and manually declared `FluentOption` children.
+When `TOption` and `TValue` are compatible, the freeform value is also reported through `SelectedItemsChanged`.
+
 ```xml
 <FreeOption>
     Search for '<FreeOptionOutput />'
