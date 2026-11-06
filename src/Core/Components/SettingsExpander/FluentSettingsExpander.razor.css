@@ -1,0 +1,191 @@
+.fluent-settings-expander {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  color: var(--colorNeutralForeground1);
+  background-color: var(--colorNeutralBackground1);
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusMedium);
+  font-family: var(--fontFamilyBase);
+  overflow: hidden;
+  container-type: inline-size;
+}
+
+  .fluent-settings-expander > [header] {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacingVerticalS) var(--spacingHorizontalL);
+    min-height: 48px;
+    padding: var(--spacingVerticalM) var(--spacingHorizontalL);
+    box-sizing: border-box;
+  }
+
+  .fluent-settings-expander > [header] > [icon] {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+  }
+
+  .fluent-settings-expander > [header] > [info] {
+    display: flex;
+    flex: 1 1 12rem;
+    flex-direction: column;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .fluent-settings-expander > [header] > [info] > [heading] {
+    font-size: var(--fontSizeBase300);
+    line-height: var(--lineHeightBase300);
+  }
+
+  .fluent-settings-expander > [header] > [info] > [description] {
+    font-size: var(--fontSizeBase200);
+    line-height: var(--lineHeightBase200);
+    color: var(--colorNeutralForeground2);
+  }
+
+  .fluent-settings-expander > [header] > [action] {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--spacingHorizontalS);
+  }
+
+  .fluent-settings-expander > [header] > [link-icon] {
+    display: inline-flex;
+    flex: 0 0 auto;
+  }
+
+  .fluent-settings-expander > [header] > [link] {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+    .fluent-settings-expander > [header]:has(> [link]:hover) {
+      background-color: var(--colorNeutralBackground1Hover);
+    }
+
+    .fluent-settings-expander > [header]:has(> [link]:active) {
+      background-color: var(--colorNeutralBackground1Pressed);
+    }
+
+    .fluent-settings-expander > [header] > [link]:focus-visible {
+      outline: var(--strokeWidthThick) solid var(--colorStrokeFocus2);
+      outline-offset: -2px;
+    }
+
+  .fluent-settings-expander > [header] > [expand-button] {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+  }
+
+    .fluent-settings-expander > [header] > [expand-button] svg {
+      transition: transform var(--durationNormal) var(--curveEasyEase);
+    }
+
+  .fluent-settings-expander[expanded] > [header] > [expand-button] svg {
+    transform: rotate(180deg);
+  }
+
+  /* Expandable header is clickable */
+  .fluent-settings-expander[expandable]:not([disabled]) > [header] {
+    cursor: pointer;
+  }
+
+    .fluent-settings-expander[expandable]:not([disabled]) > [header]:hover {
+      background-color: var(--colorNeutralBackground1Hover);
+    }
+
+    .fluent-settings-expander[expandable]:not([disabled]) > [header]:active {
+      background-color: var(--colorNeutralBackground1Pressed);
+    }
+
+    .fluent-settings-expander[expandable]:not([disabled]) > [header]:has(> [action]:hover, > [action]:focus-within) {
+      background-color: transparent;
+      cursor: default;
+    }
+
+  /* Expandable panel and nested expanders */
+  .fluent-settings-expander > [panel] {
+    border-top: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+    background-color: var(--colorNeutralBackground2);
+  }
+
+    .fluent-settings-expander > [panel] > .fluent-settings-expander {
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+    }
+
+      .fluent-settings-expander > [panel] > .fluent-settings-expander + .fluent-settings-expander {
+        border-top: var(--strokeWidthThin) solid var(--colorNeutralStroke2);
+      }
+
+  /* Nested rows without icon are aligned with the title of the parent */
+  .fluent-settings-expander > [panel] > .fluent-settings-expander > [header]:not(:has(> [icon])) {
+    padding-inline-start: calc(var(--spacingHorizontalL) * 2 + 24px);
+  }
+
+  /* Disabled */
+  .fluent-settings-expander[disabled] > [header] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+    .fluent-settings-expander[disabled] > [header] > [action] {
+      pointer-events: none;
+    }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fluent-settings-expander > [header] > [expand-button] svg {
+      transition: none;
+    }
+  }
+
+  /* Extra small (xs, < 600px) containers (e.g. phones): the action moves below the text */
+  @container (max-width: 599px) {
+    .fluent-settings-expander > [header] > [link-icon],
+    .fluent-settings-expander > [header] > [expand-button] {
+      order: 1;
+    }
+
+    .fluent-settings-expander > [header] > [action] {
+      order: 2;
+      flex: 1 1 100%;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .fluent-settings-expander > [header]:has(> [icon]) > [action] {
+      margin-inline-start: calc(24px + var(--spacingHorizontalL));
+      flex-basis: calc(100% - 24px - var(--spacingHorizontalL));
+    }
+
+    .fluent-settings-expander > [header] > [action] > * {
+      max-width: 100%;
+    }
+
+    /* Compact actions (switch, checkbox, button) stay next to the text, like in Windows settings */
+    .fluent-settings-expander > [header] > [action]:has(> fluent-switch, > fluent-checkbox, > fluent-button):not(:has(> :not(fluent-switch, fluent-checkbox, fluent-button, span))) {
+      order: 0;
+      flex: 0 0 auto;
+      margin-inline-start: 0;
+    }
+
+    .fluent-settings-expander > [header] > [info] {
+      flex-basis: 8rem;
+    }
+
+    .fluent-settings-expander > [panel] > .fluent-settings-expander > [header]:not(:has(> [icon])) {
+      padding-inline-start: var(--spacingHorizontalL);
+    }
+  }

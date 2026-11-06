@@ -1,0 +1,82 @@
+﻿<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonVoice())"
+                        Title="Select a voice"
+                        @bind-Expanded="@expanded">
+    <ActionTemplate>
+        <FluentSelect TOption="string" TValue="string"
+                      Items="@voices"
+                      @bind-Value="@voice"
+                      Style="width: 280px;" />
+    </ActionTemplate>
+    <ChildContent>
+        <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Run())"
+                                Title="Speed"
+                                Description="Press the narrator key and the plus sign to change the speech rate.">
+            <ActionTemplate>
+                <FluentSlider @bind-Value="@speed" Style="width: 200px;" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+        <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.ArrowUp())"
+                                Title="Pitch">
+            <ActionTemplate>
+                <FluentSlider @bind-Value="@pitch" Style="width: 200px;" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+        <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Speaker2())"
+                                Title="Volume"
+                                Description="Press the narrator key and the plus sign to change the volume.">
+            <ActionTemplate>
+                <FluentSlider @bind-Value="@volume" Style="width: 200px;" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+    </ChildContent>
+</FluentSettingsExpander>
+
+<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.TextBulletListSquare())"
+                        Title="Verbosity level"
+                        Description="Press the narrator key + V to change the verbosity level."
+                        Style="margin-top: 8px;"
+                        Expanded="true">
+    <ActionTemplate>
+        <FluentSelect TOption="string" TValue="string"
+                      Items="@levels"
+                      @bind-Value="@level"
+                      Style="width: 200px;" />
+    </ActionTemplate>
+    <ChildContent>
+        <FluentSettingsExpander>
+            <ActionTemplate>
+                <FluentCheckbox Label="Highlight formatted text" Disabled="true" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+        <FluentSettingsExpander>
+            <ActionTemplate>
+                <FluentCheckbox Label="Read phonetically when reading by character" @bind-Value="@phonetic" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+        <FluentSettingsExpander Title="Change how capitalized text is read"
+                                Description="Press the narrator key + 4 to change how uppercase text is read.">
+            <ActionTemplate>
+                <FluentSelect TOption="string" TValue="string"
+                              Items="@capitalization"
+                              @bind-Value="@capital"
+                              Style="width: 160px;" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+    </ChildContent>
+</FluentSettingsExpander>
+
+@code
+{
+    static readonly string[] voices = ["Microsoft Ryan (Natural) - English (United Kingdom)", "Microsoft Aria (Natural) - English (United States)"];
+    static readonly string[] levels = ["1 - Only text", "3 - Some text details", "5 - All text details"];
+    static readonly string[] capitalization = ["Do not announce", "Increase pitch", "Say \"cap\""];
+
+    bool expanded = true;
+    string? voice = voices[0];
+    string? level = levels[2];
+    string? capital = capitalization[0];
+    int speed = 50;
+    int pitch = 50;
+    int volume = 90;
+    bool phonetic;
+}

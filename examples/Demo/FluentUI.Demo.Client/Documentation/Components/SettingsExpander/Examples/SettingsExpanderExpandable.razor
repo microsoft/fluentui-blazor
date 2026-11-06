@@ -1,0 +1,28 @@
+﻿<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Save())"
+                        Title="Automatically save original screenshots"
+                        Description="Keep a copy of every screenshot."
+                        ExpandButtonLabel="Save options"
+                        @bind-Expanded="@expanded">
+    <ActionTemplate>
+        <FluentSwitch Label="Automatic saving" />
+    </ActionTemplate>
+    <ChildContent>
+        <FluentSettingsExpander Title="Destination folder"
+                                Description="Pictures\Screenshots">
+            <ActionTemplate>
+                <FluentButton>Open folder</FluentButton>
+            </ActionTemplate>
+        </FluentSettingsExpander>
+        <FluentSettingsExpander Title="Ask before saving"
+                                Description="Show a confirmation for each screenshot.">
+            <ActionTemplate>
+                <FluentSwitch Label="Confirm before saving" />
+            </ActionTemplate>
+        </FluentSettingsExpander>
+    </ChildContent>
+</FluentSettingsExpander>
+
+@code
+{
+    bool expanded = true;
+}

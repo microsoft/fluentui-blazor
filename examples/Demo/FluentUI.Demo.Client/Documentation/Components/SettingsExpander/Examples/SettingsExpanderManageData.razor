@@ -1,0 +1,39 @@
+<div style="display: flex; flex-direction: column; gap: 8px;">
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Keyboard())"
+                            Title="Sync speech settings on this device"
+                            Description="Anyone who signs in to this PC can use and edit these settings (recommended for users who use a braille display).">
+        <ActionTemplate>
+            <FluentButton>Sync settings</FluentButton>
+        </ActionTemplate>
+    </FluentSettingsExpander>
+
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Image())"
+                            Title="Get image descriptions, page titles and popular links"
+                            Description="Press the narrator key + Ctrl + D for an image description or page title. Press the narrator key + S twice quickly for a list of popular links.">
+        <ActionTemplate>
+            <span>@(imageDescriptions ? "On" : "Off")</span>
+            <FluentSwitch Label="Image descriptions" @bind-Value="@imageDescriptions" />
+        </ActionTemplate>
+    </FluentSettingsExpander>
+
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonFeedback())"
+                            Title="Automatically send diagnostic and performance data"
+                            Description="Restart the narrator after enabling this. Press the narrator key + Alt + F to give feedback.">
+        <ActionTemplate>
+            <span>@(diagnostics ? "On" : "Off")</span>
+            <FluentSwitch Label="Diagnostic data" @bind-Value="@diagnostics" />
+        </ActionTemplate>
+    </FluentSettingsExpander>
+
+    <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.ShieldLock())"
+                            Title="Privacy statement"
+                            Description="Understand how Microsoft uses your narrator data and for which purposes."
+                            Href="https://www.microsoft.com/privacy"
+                            Target="LinkTarget.Blank" />
+</div>
+
+@code
+{
+    bool imageDescriptions = true;
+    bool diagnostics;
+}
