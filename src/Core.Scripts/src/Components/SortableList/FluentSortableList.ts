@@ -104,6 +104,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.SortableList {
               !item.classList.contains(sortable.options.filter.slice(1)))
           ) {
             item.setAttribute('aria-grabbed', (!isGrabbed).toString());
+            component.invokeMethodAsync('OnGrabJS', Array.from(item.parentNode!.children).indexOf(item), !isGrabbed);
           }
           event.preventDefault();
           break;
