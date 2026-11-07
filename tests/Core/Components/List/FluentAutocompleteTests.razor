@@ -154,6 +154,31 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_RemoveSelectedItem_BadgeCloseHasAccessibleName()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="true"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1}" });
+
+        // Act
+        var closeIcon = cut.Find("span.fluent-badge svg");
+
+        // Assert - The close button announces which item it removes
+        Assert.Equal("Remove Eight", closeIcon.GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_SelectedOptionTemplate()
     {
         // Arrange
