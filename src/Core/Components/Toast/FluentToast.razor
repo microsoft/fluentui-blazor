@@ -16,7 +16,6 @@
                 pause-on-window-blur="@(PauseOnWindowBlur ? "true" : null)"
                 vertical-offset="@VerticalOffset"
                 horizontal-offset="@HorizontalOffset"
-                role="listitem"
                 aria-labelledby="@(string.IsNullOrEmpty(Title) ? null : $"{Id}-title")"
                 aria-describedby="@(ChildContent is null ? null : $"{Id}-body")"
                 @attributes="@AdditionalAttributes"
