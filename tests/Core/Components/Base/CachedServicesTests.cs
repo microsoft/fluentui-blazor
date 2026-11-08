@@ -104,11 +104,35 @@ public class CachedServicesTests : Bunit.BunitContext
     [Fact]
     public async Task CachedServices_DisposeTooltipAsync_ServiceProviderDisposed()
     {
-        var provider = new ServiceCollection()
+        using var provider = new ServiceCollection()
             .AddScoped<LibraryConfiguration>()
             .AddScoped<ITooltipService, TooltipService>()
             .BuildServiceProvider();
-        var scope = provider.CreateScope();
+        using var scope = provider.CreateScope();
+        var tooltipService = scope.ServiceProvider.GetRequiredService<ITooltipService>();
+
+        // Arrange
+        var cachedServices = new CachedServices(scope.ServiceProvider);
+        var button = new FluentButton(default!);
+        await cachedServices.RenderTooltipAsync(button, label: "abc");
+        scope.Dispose();
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => cachedServices.DisposeTooltipAsync(button));
+
+        // Assert
+        Assert.Null(exception);
+        Assert.Empty(tooltipService.Items);
+    }
+
+    [Fact]
+    public async Task CachedServices_DisposeTooltipAsync_ServiceNeverResolved()
+    {
+        using var provider = new ServiceCollection()
+            .AddScoped<LibraryConfiguration>()
+            .AddScoped<ITooltipService, TooltipService>()
+            .BuildServiceProvider();
+        using var scope = provider.CreateScope();
 
         // Arrange
         var cachedServices = new CachedServices(scope.ServiceProvider);
