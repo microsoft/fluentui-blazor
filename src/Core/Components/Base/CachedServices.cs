@@ -77,16 +77,20 @@ internal class CachedServices : IDisposable
     /// <summary />
     public async Task DisposeTooltipAsync(IFluentComponentBase component)
     {
-        if (TooltipService is null || string.IsNullOrEmpty(component.Id) || component is FluentTooltip)
+        // Only use the cached service: the ServiceProvider can already be disposed at this point.
+        if (!_services.TryGetValue(typeof(ITooltipService), out var service) ||
+            service is not ITooltipService tooltipService ||
+            string.IsNullOrEmpty(component.Id) ||
+            component is FluentTooltip)
         {
             return;
         }
 
-        var isRemoved = TooltipService.Items.TryRemove(component.Id, out var tooltip);
+        var isRemoved = tooltipService.Items.TryRemove(component.Id, out var tooltip);
 
         if (isRemoved && tooltip is not null)
         {
-            await TooltipService.OnUpdatedAsync.Invoke(tooltip);
+            await tooltipService.OnUpdatedAsync.Invoke(tooltip);
         }
     }
 
