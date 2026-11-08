@@ -164,6 +164,34 @@ public class FluentToastTests : Bunit.BunitContext
     }
 
     [Fact]
+    public void FluentToast_DismissButton_HasAccessibleName()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Opened, true)
+            .Add(p => p.AllowDismiss, true));
+
+        // Assert
+        var button = cut.Find("fluent-button[slot=\"action\"]");
+        Assert.Equal("Close", button.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void FluentToast_DismissButton_KeepsAccessibleName_WhenTooltipSet()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Opened, true)
+            .Add(p => p.AllowDismiss, true)
+            .Add(p => p.DismissAction, new ToastOptionsAction { Tooltip = "Dismiss this notification" }));
+
+        // Assert
+        var button = cut.Find("fluent-button[slot=\"action\"]");
+        Assert.Equal("Close", button.GetAttribute("aria-label"));
+        Assert.Null(button.GetAttribute("title"));
+    }
+
+    [Fact]
     public void FluentToast_RendersSpinner_ForProgressIntent()
     {
         // Arrange & Act

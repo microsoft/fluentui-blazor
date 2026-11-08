@@ -346,6 +346,9 @@
   <data name="MessageBar_Dismiss" xml:space="preserve">
     <value>Hide this message</value>
   </data>
+  <data name="Toast_Dismiss" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="DataGrid_SelectColumn_AllChecked" xml:space="preserve">
     <value>All rows are selected</value>
   </data>
