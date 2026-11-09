@@ -321,6 +321,45 @@
     }
 
     [Theory]
+    [InlineData("15:00", "15:02", "15:25")]
+    [InlineData("15:00:30", "15:02:30", "15:25:30")]
+    public void FluentTimePicker_NativeStyle_ChangingMinutes_PreservesBrowserValueFormat(string initialValue, string intermediateValue, string finalValue)
+    {
+        var time = TimeOnly.Parse(initialValue, CultureInfo.InvariantCulture);
+        var date = new DateOnly(2023, 1, 1);
+        var dateTime = date.ToDateTime(time);
+        DateTime? nullableDateTime = dateTime;
+        var timeOnly = time;
+        TimeOnly? nullableTimeOnly = time;
+
+        var timePickers = new[]
+        {
+            Render(@<FluentTimePicker Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" @bind-Value="@dateTime" />),
+            Render(@<FluentTimePicker Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" @bind-Value="@nullableDateTime" />),
+            Render(@<FluentTimePicker Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" @bind-Value="@timeOnly" />),
+            Render(@<FluentTimePicker Culture="@InvariantCulture" RenderStyle="DatePickerRenderStyle.Native" @bind-Value="@nullableTimeOnly" />),
+        };
+
+        foreach (var timePicker in timePickers)
+        {
+            var input = timePicker.Find("fluent-text-input");
+            Assert.Equal(initialValue, input.GetAttribute("value"));
+
+            input.Change(intermediateValue);
+            Assert.Equal(intermediateValue, input.GetAttribute("value"));
+
+            input.Change(finalValue);
+            Assert.Equal(finalValue, input.GetAttribute("value"));
+        }
+
+        var expectedTime = TimeOnly.Parse(finalValue, CultureInfo.InvariantCulture);
+        Assert.Equal(date.ToDateTime(expectedTime), dateTime);
+        Assert.Equal(date.ToDateTime(expectedTime), nullableDateTime);
+        Assert.Equal(expectedTime, timeOnly);
+        Assert.Equal(expectedTime, nullableTimeOnly);
+    }
+
+    [Theory]
     [InlineData("14:30")]
     [InlineData("09:15")]
     [InlineData("23:59")]

@@ -226,10 +226,11 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
     /// <summary />
     protected override string? FormatValueAsString(TValue? value)
     {
+        // Match native inputs' normalized value to avoid resetting digit-by-digit editing.
         return value switch
         {
-            DateTime dt => dt.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
-            TimeOnly to => to.ToString("HH:mm:ss", CultureInfo.InvariantCulture),
+            DateTime dt => dt.ToString(!IsFluentUIStyle && dt.Second == 0 ? "HH:mm" : "HH:mm:ss", CultureInfo.InvariantCulture),
+            TimeOnly to => to.ToString(!IsFluentUIStyle && to.Second == 0 ? "HH:mm" : "HH:mm:ss", CultureInfo.InvariantCulture),
             _ => null,
         };
     }
