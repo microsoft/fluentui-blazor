@@ -82,6 +82,12 @@ export namespace Microsoft.FluentUI.Override {
             return;
         }
 
+        const target = this.getAttribute('target');
+        if (target && target.toLowerCase() !== '_self') {
+            this.internalProxyAnchor.click();
+            return;
+        }
+
         const url = new URL(this.href, document.baseURI);
         if (url.origin === location.origin) {
             const forceLoad = this.getAttribute('force-load') === 'true';
