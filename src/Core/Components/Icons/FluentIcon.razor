@@ -14,6 +14,7 @@
          viewBox="@($"0 0 {((int)_icon.Size)} {((int)_icon.Size)}")"
          aria-hidden="@(Focusable ? null : "true")"
          @onkeydown="@OnKeyDownAsync"
+         @onkeydown:stopPropagation="@OnKeyDownStopPropagation"
          @onclick="@OnClickHandlerAsync"
          @onclick:stopPropagation="@OnClickStopPropagation"
          @onclick:preventDefault="@OnClickPreventDefault"
@@ -37,6 +38,7 @@ else
          role="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("role", "button", when: () => Focusable)"
          @attributes="@AdditionalAttributes"
          @onkeydown="@OnKeyDownAsync"
+         @onkeydown:stopPropagation="@OnKeyDownStopPropagation"
          @onclick="@OnClickHandlerAsync"
          @onclick:stopPropagation="@OnClickStopPropagation"
          @onclick:preventDefault="@OnClickPreventDefault">
