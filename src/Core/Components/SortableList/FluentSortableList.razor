@@ -19,4 +19,5 @@
             <div tabindex="0" aria-grabbed="false" draggable="false" class="sortable-item@(GetItemFiltered(item) ? " filtered" : string.Empty)">@ItemTemplate(item)</div>
         }
     </div>
+    <div sortable-status role="status" aria-live="polite">@_statusAnnouncement</div>
 }

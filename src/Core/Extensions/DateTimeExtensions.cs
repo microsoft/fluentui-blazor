@@ -171,14 +171,14 @@ public static class DateTimeExtensions
 
         if (delay.Seconds > MAX_SECONDS_FOR_JUST_NOW)
         {
-            return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondsAgo], delay.Seconds);
+            return localizer[LangResx.TimeAgo_SecondsAgo, delay.Seconds];
         }
 
-        return string.Format(CultureInfo.InvariantCulture, localizer[LangResx.TimeAgo_SecondAgo], delay.Seconds);
+        return localizer[LangResx.TimeAgo_SecondAgo, delay.Seconds];
 
         string Pluralize(decimal count, string singular, string plural)
         {
-            return string.Format(CultureInfo.InvariantCulture, count == 1 ? localizer[singular] : localizer[plural], count);
+            return localizer[count == 1 ? singular : plural, count];
         }
     }
 

@@ -537,6 +537,26 @@ value=""2022-02-20"">20</div>");
         Assert.True(label.HasAttribute("readonly"));
     }
 
+    [Theory]
+    [InlineData(CalendarViews.Months, false)]
+    [InlineData(CalendarViews.Months, true)]
+    [InlineData(CalendarViews.Years, false)]
+    [InlineData(CalendarViews.Years, true)]
+    public void FluentCalendar_MonthAndYearCells_HaveButtonRoleUnlessReadOnly(CalendarViews view, bool readOnly)
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+
+        DateTime? value = DateTime.Parse("2022-04-15", CultureInfo.InvariantCulture);
+
+        // Arrange & Act
+        var calendar = Render(@<FluentCalendar TValue="DateTime?" Value="@value" ReadOnly="@readOnly" View="@view" Culture="@InvariantCulture" />);
+        var cells = calendar.FindAll(view == CalendarViews.Months ? ".month" : ".year");
+
+        // Assert
+        Assert.NotEmpty(cells);
+        Assert.All(cells, cell => Assert.Equal(readOnly ? null : "button", cell.GetAttribute("role")));
+    }
+
 
     [Theory]
     [InlineData(CalendarViews.Days, "May 2022")]

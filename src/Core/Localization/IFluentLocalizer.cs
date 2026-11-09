@@ -18,7 +18,7 @@ public interface IFluentLocalizer
     string this[string key, params object[] arguments] { get; }
 
     /// <summary>
-    /// Gets the default string resource (English) with the given name.
+    /// Gets the default string resource (English) with the given name, formatting arguments using the current culture.
     /// </summary>
     /// <param name="key">The name of the string resource.</param>
     /// <param name="arguments">The list of arguments to be passed to the string resource.</param>
@@ -33,7 +33,7 @@ public interface IFluentLocalizer
         }
 
         return arguments.Length > 0
-            ? string.Format(System.Globalization.CultureInfo.InvariantCulture, localizedString, arguments)
+            ? string.Format(System.Globalization.CultureInfo.CurrentCulture, localizedString, arguments)
             : localizedString;
     }
 }

@@ -219,7 +219,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
         }
 
         result = default!;
-        validationErrorMessage = string.Format(CultureInfo.InvariantCulture, Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate], DisplayName ?? FieldIdentifier.FieldName);
+        validationErrorMessage = Localizer[Localization.LanguageResource.Calendar_FieldMustBeADate, DisplayName ?? FieldIdentifier.FieldName];
         return false;
     }
 
