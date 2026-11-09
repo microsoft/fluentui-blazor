@@ -68,6 +68,7 @@
                                         <span>@GetOptionText(item)</span>
                                         <FluentIcon Value="@BadgeCloseIcon"
                                                     Focusable="true"
+                                                    aria-label="@Localizer[Localization.LanguageResource.AutoComplete_RemoveSelectedItem, GetOptionText(item) ?? string.Empty]"
                                                     OnClick="@(e => RemoveSelectedItemAsync(item))"
                                                     OnClickStopPropagation="true"
                                                     Width="12px" />

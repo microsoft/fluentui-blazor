@@ -88,8 +88,10 @@
 
                                         <div part="day"
                                              class="@GetAnimationClass("day")"
-                                             role="@(ReadOnly || dayProperties.IsDisabled || dayProperties.IsInactive ? null : "button")"
+                                             role="@(ReadOnly || dayProperties.IsInactive ? null : "button")"
                                              tabindex="@(ReadOnly || dayProperties.IsDisabled || dayProperties.IsInactive ? null : 0)"
+                                             aria-disabled="@(!ReadOnly && !dayProperties.IsInactive && dayProperties.IsDisabled ? "true" : null)"
+                                             aria-pressed="@(!ReadOnly && !dayProperties.IsInactive && (dayProperties.IsSelected || dayProperties.IsMultiDaySelected) ? "true" : null)"
                                              disabled="@dayProperties.IsDisabled"
                                              inactive="@dayProperties.IsInactive"
                                              today="@(DisplayToday && dayProperties.IsToday)"
