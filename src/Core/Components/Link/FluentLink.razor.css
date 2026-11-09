@@ -13,3 +13,9 @@ fluent-link[clickable]:hover {
     outline: none;
     text-decoration-line: underline;
 }
+
+fluent-link[clickable]:focus-visible {
+    text-decoration-line: underline;
+    text-decoration-style: double;
+    text-decoration-color: var(--colorStrokeFocus2);
+}

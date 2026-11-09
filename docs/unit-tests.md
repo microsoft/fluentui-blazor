@@ -30,6 +30,12 @@ and discover best practices for creating tests quickly and efficiently.
 
 Automated testing is a great way to ensure that the application code does what its developers want it to do.
 
+For culture-sensitive formatting tests, calculate expected strings using an explicit
+`CultureInfo` and the intended numeric format rather than hard-coding culture-specific
+separators. Globalization data can differ between operating systems, ICU versions,
+and Windows NLS, even for the same culture (for example, `fr-BE`).
+Keep exact string assertions so the tests still verify localized output.
+
 There are different types of tests that can be used to validate the code. 3 of them are:
 
 1. **Unit tests**
@@ -394,4 +400,3 @@ public void FluentButton_FormIdAttribute(string? formId)
     cut.Verify(suffix: formId);
 }
 ```
-
