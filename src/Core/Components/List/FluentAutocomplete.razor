@@ -129,6 +129,7 @@
                             <FluentIcon Value="@IconSearch"
                                         Focusable="true"
                                         @onfocus="@(e => _isOpen = false)"
+                                        OnKeyDownStopPropagation="true"
                                         OnClick="@SwitchOptionsPopupAsync"
                                         OnClickStopPropagation="true" />
                         }
