@@ -57,16 +57,17 @@ public class ToTimeAgoTests
     }
 
     [Theory]
-    [InlineData("de-DE", "Il y a 4.321 ans")]
-    [InlineData("de-CH", "Il y a 4\u2019321 ans")]
-    [InlineData("fr-BE", "Il y a 4\u202f321 ans")]
-    public void ToTimeAgo_Customized_UsesCurrentCulture(string cultureName, string expectedValue)
+    [InlineData("de-DE")]
+    [InlineData("de-CH")]
+    [InlineData("fr-BE")]
+    public void ToTimeAgo_Customized_UsesCurrentCulture(string cultureName)
     {
         var originalCulture = CultureInfo.CurrentCulture;
         try
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
             var delay = TimeSpan.FromDays(4321 * 365);
+            var expectedValue = string.Format(CultureInfo.CurrentCulture, "Il y a {0:N0} ans", 4321);
 
             var result = delay.ToTimeAgo(new FrenchTimeAgoLocalizer());
 

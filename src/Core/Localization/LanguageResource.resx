@@ -346,6 +346,9 @@
   <data name="MessageBar_Dismiss" xml:space="preserve">
     <value>Hide this message</value>
   </data>
+  <data name="Toast_Dismiss" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="DataGrid_SelectColumn_AllChecked" xml:space="preserve">
     <value>All rows are selected</value>
   </data>
@@ -423,6 +426,9 @@
   </data>
   <data name="AutoComplete_MaximumSelectedOptionsMessage" xml:space="preserve">
     <value>The maximum number of {0} selected items has been reached.</value>
+  </data>
+  <data name="AutoComplete_RemoveSelectedItem" xml:space="preserve">
+    <value>Remove {0}</value>
   </data>
   <data name="Wizard_LabelButtonPrevious" xml:space="preserve">
     <value>Previous</value>

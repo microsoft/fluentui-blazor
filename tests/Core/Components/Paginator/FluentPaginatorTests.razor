@@ -81,18 +81,19 @@
     }
 
     [Theory]
-    [InlineData("de-DE", 1, "1,00 item")]
-    [InlineData("de-CH", 1, "1.00 item")]
-    [InlineData("fr-BE", 1, "1,00 item")]
-    [InlineData("de-DE", 4321, "4.321 items")]
-    [InlineData("de-CH", 4321, "4\u2019321 items")]
-    [InlineData("fr-BE", 4321, "4\u202f321 items")]
-    public async Task FluentPaginator_LocalizedSummary_UsesCurrentCulture(string cultureName, int totalItemCount, string expected)
+    [InlineData("de-DE", 1, "{0:N2} item")]
+    [InlineData("de-CH", 1, "{0:N2} item")]
+    [InlineData("fr-BE", 1, "{0:N2} item")]
+    [InlineData("de-DE", 4321, "{0:N0} items")]
+    [InlineData("de-CH", 4321, "{0:N0} items")]
+    [InlineData("fr-BE", 4321, "{0:N0} items")]
+    public async Task FluentPaginator_LocalizedSummary_UsesCurrentCulture(string cultureName, int totalItemCount, string expectedFormat)
     {
         var originalCulture = CultureInfo.CurrentCulture;
         try
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            var expected = string.Format(CultureInfo.CurrentCulture, expectedFormat, totalItemCount);
             Services.AddFluentUIComponents(config => config.Localizer = new NumberFormatLocalizer());
             var state = new PaginationState();
             await state.SetTotalItemCountAsync(totalItemCount);
@@ -108,15 +109,16 @@
     }
 
     [Theory]
-    [InlineData("de-DE", "Page 1.000 of 4.321 {localized}")]
-    [InlineData("de-CH", "Page 1\u2019000 of 4\u2019321 {localized}")]
-    [InlineData("fr-BE", "Page 1\u202f000 of 4\u202f321 {localized}")]
-    public async Task FluentPaginator_LocalizedPageStatus_UsesCurrentCulture(string cultureName, string expected)
+    [InlineData("de-DE")]
+    [InlineData("de-CH")]
+    [InlineData("fr-BE")]
+    public async Task FluentPaginator_LocalizedPageStatus_UsesCurrentCulture(string cultureName)
     {
         var originalCulture = CultureInfo.CurrentCulture;
         try
         {
             CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(cultureName);
+            var expected = string.Format(CultureInfo.CurrentCulture, "Page {0:N0} of {1:N0} {{localized}}", 1000, 4321);
             Services.AddFluentUIComponents(config => config.Localizer = new NumberFormatLocalizer());
             var state = new PaginationState();
             await state.SetItemsPerPageAsync(1);
