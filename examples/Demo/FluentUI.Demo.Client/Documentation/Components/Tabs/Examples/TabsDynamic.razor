@@ -1,11 +1,14 @@
-﻿@using FluentUI.Demo.SampleData
+﻿@inject IJSRuntime JS
+@using FluentUI.Demo.SampleData
 @using static FluentUI.Demo.SampleData.DateAndTime  @* To use MonthItem *@
 
 <FluentTabs @bind-ActiveTabId="@SelectedTabId" Style="@CommonStyles.NeutralBorder1">
 
     @foreach (var item in Items)
     {
-        <FluentTab Id="@item.Index">
+        <FluentTab Id="@item.Index"
+                   aria-description="Press Delete to remove this tab"
+                   @onkeydown="@(e => OnTabKeyDown(e, item.Index))">
 
             @* Tab Header *@
             <HeaderTemplate>
@@ -41,6 +44,33 @@
         {
             Items.Add(newItem);
             SelectedTabId = newItem.Index;
+        }
+    }
+
+    string? FocusTabId;
+
+    void OnTabKeyDown(KeyboardEventArgs e, string tabId)
+    {
+        if (e.Key != "Delete")
+        {
+            return;
+        }
+
+        RemoveTab(tabId);
+
+        // Move the focus to the newly selected tab, so keyboard users don't lose their position.
+        FocusTabId = SelectedTabId;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (FocusTabId is not null)
+        {
+            var tabId = FocusTabId;
+            FocusTabId = null;
+
+            await using var tab = await JS.InvokeAsync<IJSObjectReference>("document.getElementById", tabId);
+            await tab.InvokeVoidAsync("focus");
         }
     }
 
