@@ -167,10 +167,12 @@
 
   <!-- Resources Localization  -->
   <ItemGroup>
+    <PackageReference Include="Markdig.Signed" />
     <PackageReference Include="Microsoft.CodeAnalysis.ResxSourceGenerator">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
 
     <EmbeddedResource Update="Localization\LanguageResource.resx">
       <Public>true</Public>

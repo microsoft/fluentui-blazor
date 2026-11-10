@@ -23,7 +23,7 @@
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
     <!-- MCP SDK (aligned with the MCP 2026-07-28 specification) -->
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.12.0" />
-    <PackageVersion Include="ModelContextProtocol" Version="2.3.1" />
+    <PackageVersion Include="ModelContextProtocol" Version="2.4.0" />
     <!-- Test dependencies -->
     <PackageVersion Include="bunit" Version="2.13.3" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
@@ -37,8 +37,8 @@
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.2" />
     <PackageVersion Include="Microsoft.Extensions.TimeProvider.Testing" Version="10.11.0" />
     <!-- Shared dependencies -->
-    <PackageVersion Include="Markdig.Signed" Version="1.5.0" />
-    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.318" />
+    <PackageVersion Include="Markdig.Signed" Version="1.5.1" />
+    <PackageVersion Include="Meziantou.Analyzer" Version="3.0.320" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.9.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
     <PackageVersion Include="Microsoft.OData.Client" Version="8.4.4" />
@@ -63,9 +63,9 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfCoreVersion8)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.CommandLine" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Abstractions" Version="$(RuntimeVersion8)" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="$(RuntimeVersion8)" />
     <PackageVersion Include="System.Text.Json" Version="$(RuntimeVersion8)" />
