@@ -1,5 +1,4 @@
-﻿@inject IJSRuntime JS
-@using FluentUI.Demo.SampleData
+﻿@using FluentUI.Demo.SampleData
 @using static FluentUI.Demo.SampleData.DateAndTime  @* To use MonthItem *@
 
 <FluentTabs @bind-ActiveTabId="@SelectedTabId" Style="@CommonStyles.NeutralBorder1">
@@ -8,7 +7,7 @@
     {
         <FluentTab Id="@item.Index"
                    aria-description="Press Delete to remove this tab"
-                   @onkeydown="@(e => OnTabKeyDown(e, item.Index))">
+                   @onkeydown="@(e => { if (e.Code == "Delete") { RemoveTab(item.Index); } })">
 
             @* Tab Header *@
             <HeaderTemplate>
@@ -16,6 +15,7 @@
                     <FluentLabel>@item.Name</FluentLabel>
                     <FluentIcon Tooltip="Delete"
                                 Value="@(new Icons.Regular.Size12.Dismiss())"
+                                tabindex="-1"
                                 OnClick="@(e => RemoveTab(item.Index))" />
                 </FluentStack>
             </HeaderTemplate>
@@ -30,7 +30,7 @@
 
 </FluentTabs>
 
-<FluentButton Id="@AddButtonId" OnClick="AddTab" Disabled="@(Items.Count > 11)">Add and select</FluentButton>
+<FluentButton OnClick="AddTab" Disabled="@(Items.Count > 11)">Add and select</FluentButton>
 
 @code
 {
@@ -44,35 +44,6 @@
         {
             Items.Add(newItem);
             SelectedTabId = newItem.Index;
-        }
-    }
-
-    const string AddButtonId = "tabs-dynamic-add";
-    string? FocusElementId;
-
-    void OnTabKeyDown(KeyboardEventArgs e, string tabId)
-    {
-        if (e.Key != "Delete")
-        {
-            return;
-        }
-
-        RemoveTab(tabId);
-
-        // Move the focus to the newly selected tab (or to the "Add and select" button when no tabs remain),
-        // so keyboard users don't lose their position.
-        FocusElementId = SelectedTabId ?? AddButtonId;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (FocusElementId is not null)
-        {
-            var elementId = FocusElementId;
-            FocusElementId = null;
-
-            await using var element = await JS.InvokeAsync<IJSObjectReference>("document.getElementById", elementId);
-            await element.InvokeVoidAsync("focus");
         }
     }
 
