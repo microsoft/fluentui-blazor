@@ -60,6 +60,9 @@ In this case, the mobile picker will be used. This could be useful to use the na
 > [!WARNING] This mode is limited in features and does not support the UI customization.
 > The following parameters are ignored: `Culture`, `DisabledTimeFunc`.
 
+The browser and operating system determine the native picker's displayed time format (12-hour or 24-hour).
+Its underlying HTML value uses `HH:mm`, or `HH:mm:ss` when seconds are nonzero.
+
 {{ TimePickerRendering }}
 
 [!NOTE] Active HTML form controls like `<input type="time">` have limited styling capabilities.

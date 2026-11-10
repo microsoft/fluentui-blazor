@@ -68,6 +68,7 @@
                                         <span>@GetOptionText(item)</span>
                                         <FluentIcon Value="@BadgeCloseIcon"
                                                     Focusable="true"
+                                                    aria-label="@Localizer[Localization.LanguageResource.AutoComplete_RemoveSelectedItem, GetOptionText(item) ?? string.Empty]"
                                                     OnClick="@(e => RemoveSelectedItemAsync(item))"
                                                     OnClickStopPropagation="true"
                                                     Width="12px" />
@@ -128,6 +129,7 @@
                             <FluentIcon Value="@IconSearch"
                                         Focusable="true"
                                         @onfocus="@(e => _isOpen = false)"
+                                        OnKeyDownStopPropagation="true"
                                         OnClick="@SwitchOptionsPopupAsync"
                                         OnClickStopPropagation="true" />
                         }

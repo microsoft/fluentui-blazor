@@ -975,6 +975,72 @@ value=""2022-02-20"">20</div>");
     }
 
     [Fact]
+    public void FluentCalendar_SelectMode_Multiple_SelectedDaysArePressed()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        IEnumerable<DateTime> SelectedDays = [];
+        string[] DAYS = ["2022-06-15", "2022-06-18", "2022-06-25"];
+        string NOT_SELECTED_DAY = "2022-06-16";
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" PickerMonth="@System.DateTime.Parse(DAYS[0])" SelectMode="CalendarSelectMode.Multiple"
+        @bind-SelectedDates="@SelectedDays" />);
+
+        // Act: select 3 days
+        foreach (var value in DAYS)
+        {
+            calendar.Find($"div[value='{value}']").Click();
+        }
+
+        // Assert
+        foreach (var value in DAYS)
+        {
+            Assert.Equal("true", calendar.Find($"div[value='{value}']").GetAttribute("aria-pressed"));
+        }
+
+        Assert.False(calendar.Find($"div[value='{NOT_SELECTED_DAY}']").HasAttribute("aria-pressed"));
+
+        // Act: unselect the first day
+        calendar.Find($"div[value='{DAYS[0]}']").Click();
+
+        // Assert
+        Assert.False(calendar.Find($"div[value='{DAYS[0]}']").HasAttribute("aria-pressed"));
+        Assert.Equal("true", calendar.Find($"div[value='{DAYS[1]}']").GetAttribute("aria-pressed"));
+    }
+
+    [Fact]
+    public void FluentCalendar_SelectMode_Range_SelectedDaysArePressed()
+    {
+        using var context = new DateTimeProviderContext(DateTime.Now);
+        IEnumerable<DateTime> SelectedDays = [];
+        string[] RANGE = ["2022-06-15", "2022-06-16", "2022-06-17", "2022-06-18"];
+        string OUTSIDE_DAY = "2022-06-19";
+
+        // Arrange
+        var calendar = Render(@<FluentCalendar TValue="DateTime" PickerMonth="@System.DateTime.Parse(RANGE[0])" SelectMode="CalendarSelectMode.Range"
+        @bind-SelectedDates="@SelectedDays" />);
+
+        // Act: select the first and last days of the range
+        calendar.Find($"div[value='{RANGE[0]}']").Click();
+        calendar.Find($"div[value='{RANGE[^1]}']").Click();
+
+        // Assert
+        foreach (var value in RANGE)
+        {
+            Assert.Equal("true", calendar.Find($"div[value='{value}']").GetAttribute("aria-pressed"));
+        }
+
+        Assert.False(calendar.Find($"div[value='{OUTSIDE_DAY}']").HasAttribute("aria-pressed"));
+
+        // Act: click a day inside the range to reset the selection
+        calendar.Find($"div[value='{RANGE[2]}']").Click();
+
+        // Assert
+        Assert.Empty(SelectedDays);
+        Assert.Empty(calendar.FindAll("div[part='day'][aria-pressed]"));
+    }
+
+    [Fact]
     public void FluentCalendar_SelectMode_Range_WithSelectDatesHover()
     {
         using var context = new DateTimeProviderContext(DateTime.Now);
