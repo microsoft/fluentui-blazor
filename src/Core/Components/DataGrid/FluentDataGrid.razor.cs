@@ -905,7 +905,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
         _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
         if (component.IsDisposed)
         {
-            await StopGridControllerAsync();
+            try
+            {
+                await StopGridControllerAsync();
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException ||
+                                       ex is InvalidOperationException)
+            {
+                // Match normal disposal when the JavaScript runtime is no longer available.
+            }
+
             return false;
         }
 
