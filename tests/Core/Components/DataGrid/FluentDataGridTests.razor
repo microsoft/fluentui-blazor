@@ -53,6 +53,67 @@
     }
 
     [Fact]
+    public async Task OnAfterRenderAsync_DisposedDuringInitialize_StopsLateControllerWithoutFurtherInterop()
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var controller = JSInterop.SetupModule("controller");
+        controller.Mode = JSRuntimeMode.Loose;
+        var controllerReference = await JSInterop.JSRuntime.InvokeAsync<IJSObjectReference>("import", "controller");
+        var initialization = new DeferredInitializationHandler();
+        module.AddInvocationHandler(initialization);
+        var cut = Render<LifecycleDataGrid>(parameters => parameters
+            .Add(p => p.Items, GetCustomers().AsQueryable())
+            .Add(p => p.AutoFit, true)
+            .Add(p => p.AutoItemsPerPage, true));
+        var renderTask = cut.InvokeAsync(() => cut.Instance.AfterRenderAsync(firstRender: true));
+        Assert.False(renderTask.IsCompleted);
+        module.VerifyInvoke("Microsoft.FluentUI.Blazor.DataGrid.Initialize", 1);
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        var invocationCount = module.Invocations.Count;
+
+        initialization.SetResult(controllerReference);
+        await renderTask;
+
+        Assert.Equal(invocationCount, module.Invocations.Count);
+        controller.VerifyInvoke("stop", 1);
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        controller.VerifyInvoke("stop", 1);
+    }
+
+    [Theory]
+    [InlineData("DynamicItemsPerPage")]
+    [InlineData("AutoFitGridColumns")]
+    [InlineData("EnableColumnResizing")]
+    [InlineData("EnableColumnReordering")]
+    public async Task OnAfterRenderAsync_DisposedDuringInterop_DoesNotContinueInterop(string operation)
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var controller = module.SetupModule("Microsoft.FluentUI.Blazor.DataGrid.Initialize", invocation => true);
+        controller.Mode = JSRuntimeMode.Loose;
+        var pendingCall = module.SetupVoid($"Microsoft.FluentUI.Blazor.DataGrid.{operation}", invocation => true);
+        var cut = Render<LifecycleDataGrid>(parameters => parameters
+            .Add(p => p.Items, GetCustomers().AsQueryable())
+            .Add(p => p.AutoFit, true)
+            .Add(p => p.AutoItemsPerPage, true)
+            .Add(p => p.ResizableColumns, true)
+            .Add(p => p.ReorderableColumns, true)
+            .AddChildContent(@<PropertyColumn TGridItem="Customer" TProp="string" Property="@(customer => customer.Name)" />));
+        var renderTask = cut.InvokeAsync(() => cut.Instance.AfterRenderAsync(firstRender: true));
+        Assert.False(renderTask.IsCompleted);
+        module.VerifyInvoke($"Microsoft.FluentUI.Blazor.DataGrid.{operation}", 1);
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        var invocationCount = module.Invocations.Count;
+
+        pendingCall.SetVoidResult();
+        await renderTask;
+
+        Assert.Equal(invocationCount, module.Invocations.Count);
+        controller.VerifyInvoke("stop", 1);
+    }
+
+    [Fact]
     public void FluentDataGrid_NoHeader()
     {
         // Arrange && Act
@@ -3277,6 +3338,16 @@
     }
 
     private record GridRow(Dictionary<string, string> Properties);
+    private sealed class DeferredInitializationHandler() : JSRuntimeInvocationHandler<IJSObjectReference>(
+        invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.DataGrid.Initialize", isCatchAllHandler: false);
+
+    private sealed class LifecycleDataGrid(LibraryConfiguration configuration) : FluentDataGrid<Customer>(configuration)
+    {
+        protected override Task OnAfterRenderAsync(bool firstRender) => Task.CompletedTask;
+
+        public Task AfterRenderAsync(bool firstRender) => base.OnAfterRenderAsync(firstRender);
+    }
+
     private record Customer(int Id, string Name, DateTime CreatedDate, CustomerStatus Status);
 
 
