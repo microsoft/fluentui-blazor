@@ -52,6 +52,85 @@
         Assert.Empty(keyCodeService.Listeners);
     }
 
+    [Theory]
+    [InlineData(null, false, false)]
+    [InlineData(nameof(JSDisconnectedException), false, false)]
+    [InlineData(nameof(JSDisconnectedException), true, false)]
+    [InlineData(nameof(OperationCanceledException), false, false)]
+    [InlineData(nameof(OperationCanceledException), true, false)]
+    [InlineData(nameof(InvalidOperationException), false, false)]
+    [InlineData(nameof(InvalidOperationException), true, false)]
+    [InlineData(nameof(JSException), false, true)]
+    [InlineData(nameof(JSException), true, true)]
+    public async Task OnAfterRenderAsync_DisposedDuringInitialize_StopsLateControllerWithoutFurtherInterop(
+        string? exceptionType, bool throwOnDispose, bool shouldPropagate)
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        Exception? exception = exceptionType switch
+        {
+            null => null,
+            nameof(JSDisconnectedException) => new JSDisconnectedException("Disconnected."),
+            nameof(OperationCanceledException) => new OperationCanceledException("Canceled."),
+            nameof(InvalidOperationException) => new InvalidOperationException("Interop unavailable."),
+            nameof(JSException) => new JSException("Unexpected JavaScript error."),
+            _ => throw new ArgumentOutOfRangeException(nameof(exceptionType))
+        };
+        var controller = new TrackingGridController(exception, throwOnDispose);
+        var initialization = new DeferredInitializationHandler();
+        module.AddInvocationHandler(initialization);
+        var cut = Render<LifecycleDataGrid>(parameters => parameters
+            .Add(p => p.Items, GetCustomers().AsQueryable())
+            .Add(p => p.AutoFit, true)
+            .Add(p => p.AutoItemsPerPage, true));
+        var renderTask = cut.InvokeAsync(() => cut.Instance.AfterRenderAsync(firstRender: true));
+        Assert.False(renderTask.IsCompleted);
+        module.VerifyInvoke("Microsoft.FluentUI.Blazor.DataGrid.Initialize", 1);
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        var invocationCount = module.Invocations.Count;
+
+        initialization.SetResult(controller);
+        var renderException = await Record.ExceptionAsync(() => renderTask);
+
+        Assert.Same(shouldPropagate ? exception : null, renderException);
+        Assert.Equal(invocationCount, module.Invocations.Count);
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        Assert.Equal(1, controller.StopCount);
+        Assert.Equal(1, controller.DisposeCount);
+    }
+
+    [Theory]
+    [InlineData("DynamicItemsPerPage")]
+    [InlineData("AutoFitGridColumns")]
+    [InlineData("EnableColumnResizing")]
+    [InlineData("EnableColumnReordering")]
+    public async Task OnAfterRenderAsync_DisposedDuringInterop_DoesNotContinueInterop(string operation)
+    {
+        var module = JSInterop.SetupModule(matcher => matcher.Arguments.Any(arg => arg?.ToString()?.EndsWith("DataGrid/FluentDataGrid.razor.js") == true));
+        module.Mode = JSRuntimeMode.Loose;
+        var controller = module.SetupModule("Microsoft.FluentUI.Blazor.DataGrid.Initialize", invocation => true);
+        controller.Mode = JSRuntimeMode.Loose;
+        var pendingCall = module.SetupVoid($"Microsoft.FluentUI.Blazor.DataGrid.{operation}", invocation => true);
+        var cut = Render<LifecycleDataGrid>(parameters => parameters
+            .Add(p => p.Items, GetCustomers().AsQueryable())
+            .Add(p => p.AutoFit, true)
+            .Add(p => p.AutoItemsPerPage, true)
+            .Add(p => p.ResizableColumns, true)
+            .Add(p => p.ReorderableColumns, true)
+            .AddChildContent(@<PropertyColumn TGridItem="Customer" TProp="string" Property="@(customer => customer.Name)" />));
+        var renderTask = cut.InvokeAsync(() => cut.Instance.AfterRenderAsync(firstRender: true));
+        Assert.False(renderTask.IsCompleted);
+        module.VerifyInvoke($"Microsoft.FluentUI.Blazor.DataGrid.{operation}", 1);
+        await cut.InvokeAsync(() => cut.Instance.DisposeAsync().AsTask());
+        var invocationCount = module.Invocations.Count;
+
+        pendingCall.SetVoidResult();
+        await renderTask;
+
+        Assert.Equal(invocationCount, module.Invocations.Count);
+        controller.VerifyInvoke("stop", 1);
+    }
+
     [Fact]
     public void FluentDataGrid_NoHeader()
     {
@@ -3277,6 +3356,43 @@
     }
 
     private record GridRow(Dictionary<string, string> Properties);
+    private sealed class TrackingGridController(Exception? exception, bool throwOnDispose) : IJSObjectReference
+    {
+        public int StopCount { get; private set; }
+
+        public int DisposeCount { get; private set; }
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object?[]? args)
+            => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+
+        public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+        {
+            Assert.Equal("stop", identifier);
+            StopCount++;
+            return exception is not null && !throwOnDispose
+                ? ValueTask.FromException<TValue>(exception)
+                : ValueTask.FromResult(default(TValue)!);
+        }
+
+        public ValueTask DisposeAsync()
+        {
+            DisposeCount++;
+            return exception is not null && throwOnDispose
+                ? ValueTask.FromException(exception)
+                : ValueTask.CompletedTask;
+        }
+    }
+
+    private sealed class DeferredInitializationHandler() : JSRuntimeInvocationHandler<IJSObjectReference>(
+        invocation => invocation.Identifier == "Microsoft.FluentUI.Blazor.DataGrid.Initialize", isCatchAllHandler: false);
+
+    private sealed class LifecycleDataGrid(LibraryConfiguration configuration) : FluentDataGrid<Customer>(configuration)
+    {
+        protected override Task OnAfterRenderAsync(bool firstRender) => Task.CompletedTask;
+
+        public Task AfterRenderAsync(bool firstRender) => base.OnAfterRenderAsync(firstRender);
+    }
+
     private record Customer(int Id, string Name, DateTime CreatedDate, CustomerStatus Status);
 
 
