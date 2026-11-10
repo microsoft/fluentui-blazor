@@ -30,7 +30,7 @@
 
 </FluentTabs>
 
-<FluentButton OnClick="AddTab" Disabled="@(Items.Count > 11)">Add and select</FluentButton>
+<FluentButton Id="@AddButtonId" OnClick="AddTab" Disabled="@(Items.Count > 11)">Add and select</FluentButton>
 
 @code
 {
@@ -47,7 +47,8 @@
         }
     }
 
-    string? FocusTabId;
+    const string AddButtonId = "tabs-dynamic-add";
+    string? FocusElementId;
 
     void OnTabKeyDown(KeyboardEventArgs e, string tabId)
     {
@@ -58,19 +59,20 @@
 
         RemoveTab(tabId);
 
-        // Move the focus to the newly selected tab, so keyboard users don't lose their position.
-        FocusTabId = SelectedTabId;
+        // Move the focus to the newly selected tab (or to the "Add and select" button when no tabs remain),
+        // so keyboard users don't lose their position.
+        FocusElementId = SelectedTabId ?? AddButtonId;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (FocusTabId is not null)
+        if (FocusElementId is not null)
         {
-            var tabId = FocusTabId;
-            FocusTabId = null;
+            var elementId = FocusElementId;
+            FocusElementId = null;
 
-            await using var tab = await JS.InvokeAsync<IJSObjectReference>("document.getElementById", tabId);
-            await tab.InvokeVoidAsync("focus");
+            await using var element = await JS.InvokeAsync<IJSObjectReference>("document.getElementById", elementId);
+            await element.InvokeVoidAsync("focus");
         }
     }
 
