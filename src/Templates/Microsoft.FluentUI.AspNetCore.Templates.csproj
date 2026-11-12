@@ -30,10 +30,10 @@
     <MicrosoftAspNetCorePackageVersionForNet8>8.0.31</MicrosoftAspNetCorePackageVersionForNet8>
     <MicrosoftAspNetCorePackageVersionForNet9>9.0.20</MicrosoftAspNetCorePackageVersionForNet9>
     <MicrosoftAspNetCorePackageVersionForNet10>10.0.12</MicrosoftAspNetCorePackageVersionForNet10>
-    <MicrosoftAspNetCorePackageVersionForNet11>11.0.0-rc.1.26425.128</MicrosoftAspNetCorePackageVersionForNet11>
+    <MicrosoftAspNetCorePackageVersionForNet11>11.0.0</MicrosoftAspNetCorePackageVersionForNet11>
     <MicrosoftAspNetCoreOpenApi9Version>9.0.20</MicrosoftAspNetCoreOpenApi9Version>
     <MicrosoftAspNetCoreOpenApi10Version>10.0.12</MicrosoftAspNetCoreOpenApi10Version>
-	  <MicrosoftAspNetCoreOpenApi11Version>11.0.0-rc.1.26425.128</MicrosoftAspNetCoreOpenApi11Version>
+	  <MicrosoftAspNetCoreOpenApi11Version>11.0.0</MicrosoftAspNetCoreOpenApi11Version>
     <MicrosoftDataSqlClientExtensionsAzureVersion>1.0.0</MicrosoftDataSqlClientExtensionsAzureVersion>
     <OpenTelemetryNet8Version>1.9.0</OpenTelemetryNet8Version>
     <OpenTelemetryLTSVersion>1.15.1</OpenTelemetryLTSVersion>
