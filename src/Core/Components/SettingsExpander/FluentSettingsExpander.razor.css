@@ -175,7 +175,7 @@
     }
 
     /* Compact actions (switch, checkbox, button) stay next to the text, like in Windows settings */
-    .fluent-settings-expander > [header] > [action]:has(> fluent-switch, > fluent-checkbox, > fluent-button):not(:has(> :not(fluent-switch, fluent-checkbox, fluent-button, span))) {
+    .fluent-settings-expander > [header] > [action]:has(> fluent-button, > fluent-field > :is(fluent-switch, fluent-checkbox)):not(:has(fluent-slider, fluent-dropdown, fluent-select, fluent-combobox, fluent-text-input, fluent-text-area, fluent-number-input, fluent-search, fluent-radio-group)) {
       order: 0;
       flex: 0 0 auto;
       margin-inline-start: 0;
