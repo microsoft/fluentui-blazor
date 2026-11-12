@@ -171,6 +171,32 @@
         Assert.Equal(isExpectedClicked, isClicked);
     }
 
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public void FluentIcon_OnKeyDownStopPropagation_Enter_ControlsBubblingAndPreservesClick(bool customIcon, bool stopPropagation)
+    {
+        // Arrange
+        Icon icon = customIcon ? new Icons.Samples.MyCircle() : new Icons.Samples.Info();
+        var clickCount = 0;
+        var parentKeyDownCount = 0;
+        var cut = Render(@<div @onkeydown="@(() => parentKeyDownCount++)">
+                             <FluentIcon Value="@icon"
+                                         Focusable="true"
+                                         OnClick="@(() => clickCount++)"
+                                         OnKeyDownStopPropagation="@stopPropagation" />
+                         </div>);
+
+        // Act
+        cut.Find("[role='button']").KeyDown(Key.Enter);
+
+        // Assert
+        Assert.Equal(1, clickCount);
+        Assert.Equal(stopPropagation ? 0 : 1, parentKeyDownCount);
+    }
+
     // [Fact]
     // public void FluentIcon_ButtonStart()
     // {

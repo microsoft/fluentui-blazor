@@ -99,6 +99,13 @@ public partial class FluentIcon<Icon> : FluentComponentBase, ITooltipComponent, 
     public bool OnClickPreventDefault { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the keydown event should stop propagation.
+    /// Default is <see langword="false"/>.
+    /// </summary>
+    [Parameter]
+    public bool OnKeyDownStopPropagation { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the icon is focusable (adding tab-index="0" and role="button"),
     /// allows the icon to be focused sequentially (generally with the Tab key).
     /// </summary>

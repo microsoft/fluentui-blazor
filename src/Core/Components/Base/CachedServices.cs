@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------------
 
 using System.Collections.Concurrent;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 
@@ -77,17 +78,43 @@ internal class CachedServices : IDisposable
     /// <summary />
     public async Task DisposeTooltipAsync(IFluentComponentBase component)
     {
-        if (TooltipService is null || string.IsNullOrEmpty(component.Id) || component is FluentTooltip)
+        if (!TryGetTooltipServiceForDisposal(component, out var tooltipService))
         {
             return;
         }
 
-        var isRemoved = TooltipService.Items.TryRemove(component.Id, out var tooltip);
+        var isRemoved = tooltipService.Items.TryRemove(component.Id!, out var tooltip);
 
         if (isRemoved && tooltip is not null)
         {
-            await TooltipService.OnUpdatedAsync.Invoke(tooltip);
+            await tooltipService.OnUpdatedAsync.Invoke(tooltip);
         }
+    }
+
+    /// <summary>
+    /// Tries to retrieve the cached tooltip service for component cleanup.
+    /// Never resolves services from the service provider.
+    /// </summary>
+    private bool TryGetTooltipServiceForDisposal(
+        IFluentComponentBase component,
+        [NotNullWhen(true)] out ITooltipService? tooltipService)
+    {
+        tooltipService = null;
+
+        if (string.IsNullOrEmpty(component.Id) ||
+            component is FluentTooltip)
+        {
+            return false;
+        }
+
+        if (!_services.TryGetValue(typeof(ITooltipService), out var service) ||
+            service is not ITooltipService cachedTooltipService)
+        {
+            return false;
+        }
+
+        tooltipService = cachedTooltipService;
+        return true;
     }
 
     /// <summary />

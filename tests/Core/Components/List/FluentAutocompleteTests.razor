@@ -154,6 +154,31 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_RemoveSelectedItem_BadgeCloseHasAccessibleName()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="true"
+                                              OnOptionsSearch="@OnOptionsSearch" />);
+
+        cut.Find("fluent-text-input").Click();
+
+        var options = cut.FindAll("fluent-option");
+        var id1 = options[0].GetAttribute("id");
+
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = $"{id1}" });
+
+        // Act
+        var closeIcon = cut.Find("span.fluent-badge svg");
+
+        // Assert - The close button announces which item it removes
+        Assert.Equal("Remove Eight", closeIcon.GetAttribute("aria-label"));
+    }
+
+    [Fact]
     public void FluentAutocomplete_SelectedOptionTemplate()
     {
         // Arrange
@@ -357,6 +382,31 @@
         // Assert - Popover should be closed
         popover = cut.Find("fluent-popover-b");
         Assert.Equal("false", popover.GetAttribute("opened"));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FluentAutocomplete_KeyDown_EnterOnSearchIcon_TogglesPopoverOnce(bool initiallyOpen)
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Items="@Digits" />);
+
+        if (initiallyOpen)
+        {
+            cut.Find("fluent-text-input").Click();
+        }
+
+        // Act
+        cut.Find("div[slot='end'] svg[focusable='true']")
+           .KeyDown(new KeyboardEventArgs { Key = "Enter" });
+
+        // Assert
+        Assert.Equal(initiallyOpen ? "false" : "true", cut.Find("fluent-popover-b").GetAttribute("opened"));
+        Assert.Empty(cut.FindComponent<FluentAutocomplete<string, string>>().Instance.SelectedItems);
     }
 
     [Fact]

@@ -101,7 +101,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
      * Handles keydown events on the autocomplete input to manage option hovering and selection.
      */
     private keydownHandler = (e: KeyboardEvent): void => {
-      if (this.input.hasAttribute('readonly') || this.input.hasAttribute('disabled')) {
+      if (e.target !== this.input || this.input.hasAttribute('readonly') || this.input.hasAttribute('disabled')) {
         return;
       }
 
