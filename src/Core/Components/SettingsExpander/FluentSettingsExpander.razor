@@ -1,4 +1,4 @@
-﻿@namespace Microsoft.FluentUI.AspNetCore.Components
+@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @inherits FluentComponentBase
 
@@ -36,7 +36,7 @@
         </div>
         @if (ActionTemplate is not null)
         {
-            <div action @onclick:stopPropagation="true">
+            <div action inert="@Disabled" @onclick:stopPropagation="true">
                 @ActionTemplate
             </div>
         }

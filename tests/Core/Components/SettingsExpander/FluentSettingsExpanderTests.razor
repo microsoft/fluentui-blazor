@@ -158,4 +158,16 @@
         Assert.False(expanded);
         Assert.True(cut.Find("[panel]").HasAttribute("hidden"));
     }
+    [Fact]
+    public void FluentSettingsExpander_Disabled_ActionIsInert_AndReactivates()
+    {
+        var cut = Render<FluentSettingsExpander>(p => p
+            .Add(c => c.Disabled, true)
+            .Add(c => c.ActionTemplate, "<button>Go</button>"));
+
+        Assert.True(cut.Find("[action]").HasAttribute("inert"));
+
+        cut.Render(p => p.Add(c => c.Disabled, false));
+
+        Assert.False(cut.Find("[action]").HasAttribute("inert"));    }
 }
