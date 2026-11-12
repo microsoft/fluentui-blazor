@@ -1,4 +1,4 @@
-﻿<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonVoice())"
+<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonVoice())"
                         Title="Select a voice"
                         @bind-Expanded="@expanded">
     <ActionTemplate>
@@ -35,7 +35,7 @@
                         Title="Verbosity level"
                         Description="Press the narrator key + V to change the verbosity level."
                         Style="margin-top: 8px;"
-                        Expanded="true">
+                        @bind-Expanded="@verbosityExpanded">
     <ActionTemplate>
         <FluentSelect TOption="string" TValue="string"
                       Items="@levels"
@@ -72,6 +72,7 @@
     static readonly string[] capitalization = ["Do not announce", "Increase pitch", "Say \"cap\""];
 
     bool expanded = true;
+    bool verbosityExpanded = true;
     string? voice = voices[0];
     string? level = levels[2];
     string? capital = capitalization[0];
