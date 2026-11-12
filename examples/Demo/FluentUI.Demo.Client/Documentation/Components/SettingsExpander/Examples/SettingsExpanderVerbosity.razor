@@ -1,10 +1,11 @@
-<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonVoice())"
+﻿<FluentSettingsExpander Icon="@(new Icons.Regular.Size20.PersonVoice())"
                         Title="Select a voice"
                         @bind-Expanded="@expanded">
     <ActionTemplate>
         <FluentSelect TOption="string" TValue="string"
                       Items="@voices"
                       @bind-Value="@voice"
+                      AriaLabel="Select a voice"
                       Style="width: 280px;" />
     </ActionTemplate>
     <ChildContent>
@@ -12,20 +13,20 @@
                                 Title="Speed"
                                 Description="Press the narrator key and the plus sign to change the speech rate.">
             <ActionTemplate>
-                <FluentSlider @bind-Value="@speed" Style="width: 200px;" />
+                <FluentSlider @bind-Value="@speed" AriaLabel="Speed" Style="width: 200px;" />
             </ActionTemplate>
         </FluentSettingsExpander>
         <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.ArrowUp())"
                                 Title="Pitch">
             <ActionTemplate>
-                <FluentSlider @bind-Value="@pitch" Style="width: 200px;" />
+                <FluentSlider @bind-Value="@pitch" AriaLabel="Pitch" Style="width: 200px;" />
             </ActionTemplate>
         </FluentSettingsExpander>
         <FluentSettingsExpander Icon="@(new Icons.Regular.Size20.Speaker2())"
                                 Title="Volume"
                                 Description="Press the narrator key and the plus sign to change the volume.">
             <ActionTemplate>
-                <FluentSlider @bind-Value="@volume" Style="width: 200px;" />
+                <FluentSlider @bind-Value="@volume" AriaLabel="Volume" Style="width: 200px;" />
             </ActionTemplate>
         </FluentSettingsExpander>
     </ChildContent>
@@ -40,6 +41,7 @@
         <FluentSelect TOption="string" TValue="string"
                       Items="@levels"
                       @bind-Value="@level"
+                      AriaLabel="Verbosity level"
                       Style="width: 200px;" />
     </ActionTemplate>
     <ChildContent>
@@ -59,6 +61,7 @@
                 <FluentSelect TOption="string" TValue="string"
                               Items="@capitalization"
                               @bind-Value="@capital"
+                              AriaLabel="Change how capitalized text is read"
                               Style="width: 160px;" />
             </ActionTemplate>
         </FluentSettingsExpander>
