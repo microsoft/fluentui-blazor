@@ -82,4 +82,68 @@ public class CachedServicesTests : Bunit.BunitContext
         // Assert
         Assert.Null(button.Id);
     }
+
+    [Fact]
+    public async Task CachedServices_DisposeTooltipAsync_RemovesTooltip()
+    {
+        ITooltipService tooltipService = new TooltipService();
+        Services.AddScoped(factory => tooltipService);
+
+        // Arrange
+        var cachedServices = new CachedServices(Services);
+        var button = new FluentButton(default!);
+        await cachedServices.RenderTooltipAsync(button, label: "abc");
+
+        // Act
+        await cachedServices.DisposeTooltipAsync(button);
+
+        // Assert
+        Assert.Empty(tooltipService.Items);
+    }
+
+    [Fact]
+    public async Task CachedServices_DisposeTooltipAsync_ServiceProviderDisposed()
+    {
+        using var provider = new ServiceCollection()
+            .AddScoped<LibraryConfiguration>()
+            .AddScoped<ITooltipService, TooltipService>()
+            .BuildServiceProvider();
+        using var scope = provider.CreateScope();
+        var tooltipService = scope.ServiceProvider.GetRequiredService<ITooltipService>();
+
+        // Arrange
+        var cachedServices = new CachedServices(scope.ServiceProvider);
+        var button = new FluentButton(default!);
+        await cachedServices.RenderTooltipAsync(button, label: "abc");
+        scope.Dispose();
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => cachedServices.DisposeTooltipAsync(button));
+
+        // Assert
+        Assert.Null(exception);
+        Assert.Empty(tooltipService.Items);
+    }
+
+    [Fact]
+    public async Task CachedServices_DisposeTooltipAsync_ServiceNeverResolved()
+    {
+        using var provider = new ServiceCollection()
+            .AddScoped<LibraryConfiguration>()
+            .AddScoped<ITooltipService, TooltipService>()
+            .BuildServiceProvider();
+        using var scope = provider.CreateScope();
+
+        // Arrange
+        var cachedServices = new CachedServices(scope.ServiceProvider);
+        IFluentComponentBase button = new FluentButton(default!);
+        button.Id = "my-button";
+        scope.Dispose();
+
+        // Act
+        var exception = await Record.ExceptionAsync(() => cachedServices.DisposeTooltipAsync(button));
+
+        // Assert
+        Assert.Null(exception);
+    }
 }

@@ -54,6 +54,18 @@ public class FluentToastTests : Bunit.BunitContext
     }
 
     [Fact]
+    public void FluentToast_DoesNotSetListItemRole()
+    {
+        // Arrange & Act
+        var cut = Render<FluentToast>(parameters => parameters
+            .Add(p => p.Title, "My Toast")
+            .Add(p => p.Opened, true));
+
+        // Assert: a 'listitem' role without a 'list' parent is announced as 'Group' by screen readers
+        Assert.DoesNotContain("role=\"listitem\"", cut.Markup);
+    }
+
+    [Fact]
     public void FluentToast_AppliesWidthStyle()
     {
         // Arrange & Act

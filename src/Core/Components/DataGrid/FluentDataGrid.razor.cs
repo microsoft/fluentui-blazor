@@ -829,27 +829,15 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender && _gridReference is not null)
+        var component = (IFluentComponentBase)this;
+        if (component.IsDisposed)
         {
-            // Import the JavaScript module
-            if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
-            {
-                return;
-            }
+            return;
+        }
 
-            _selfReference = DotNetObjectReference.Create(this);
-
-            _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
-            if (AutoItemsPerPage)
-            {
-
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.DynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
-            }
-
-            if (AutoFit)
-            {
-                await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
-            }
+        if (firstRender && _gridReference is not null && !await TryInitializeGridAsync())
+        {
+            return;
         }
 
         SaveStateToQueryString();
@@ -860,7 +848,17 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.CheckColumnPopupPosition", _gridReference);
         }
 
+        if (component.IsDisposed)
+        {
+            return;
+        }
+
         await UpdateColumnInteractionsAsync();
+
+        if (component.IsDisposed)
+        {
+            return;
+        }
 
         if (_restoreHeaderUiFocusColumn is not null)
         {
@@ -868,6 +866,11 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             _restoreHeaderUiFocusColumn = null;
 
             await focusColumn.FocusOptionsButtonAsync();
+        }
+
+        if (component.IsDisposed)
+        {
+            return;
         }
 
         if (_pendingHeaderUiReopenColumn is not null && _pendingHeaderUiReopenKind != ColumnHeaderUiKind.None)
@@ -883,7 +886,61 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
     }
 
     /// <inheritdoc />
-    protected override async ValueTask DisposeAsync(IJSObjectReference jsModule)
+    protected override ValueTask DisposeAsync(IJSObjectReference jsModule) => StopGridControllerAsync();
+
+    /// <summary>
+    /// Initializes grid interop while checking for disposal after awaited calls and cleaning up a late controller.
+    /// </summary>
+    /// <returns><see langword="true"/> if initialization completed and rendering can safely continue; otherwise, <see langword="false"/>.</returns>
+    private async Task<bool> TryInitializeGridAsync()
+    {
+        if (!await JSModule.TryImportJavaScriptModuleAsync(JAVASCRIPT_FILE))
+        {
+            return false;
+        }
+
+        var component = (IFluentComponentBase)this;
+        _selfReference = DotNetObjectReference.Create(this);
+
+        _gridController = await JSModule.ObjectReference.InvokeAsync<IJSObjectReference>("Microsoft.FluentUI.Blazor.DataGrid.Initialize", _gridReference, AutoFocus);
+        if (component.IsDisposed)
+        {
+            try
+            {
+                await StopGridControllerAsync();
+            }
+            catch (Exception ex) when (ex is JSDisconnectedException ||
+                                       ex is OperationCanceledException ||
+                                       ex is InvalidOperationException)
+            {
+                // Match normal disposal when the JavaScript runtime is no longer available.
+            }
+
+            return false;
+        }
+
+        if (AutoItemsPerPage)
+        {
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.DynamicItemsPerPage", _gridReference, DotNetObjectReference.Create(this), (int)RowSize);
+            if (component.IsDisposed)
+            {
+                return false;
+            }
+        }
+
+        if (AutoFit)
+        {
+            await JSModule.ObjectReference.InvokeVoidAsync("Microsoft.FluentUI.Blazor.DataGrid.AutoFitGridColumns", _gridReference, _columns.Count);
+        }
+
+        return !component.IsDisposed;
+    }
+
+    /// <summary>
+    /// Stops and releases the grid controller during disposal or when initialization completes after disposal.
+    /// Clears the reference before awaiting cleanup to prevent duplicate disposal.
+    /// </summary>
+    private async ValueTask StopGridControllerAsync()
     {
         if (_gridController is not null)
         {
@@ -916,7 +973,7 @@ public partial class FluentDataGrid<TGridItem> : FluentComponentBase, IHandleEve
             }
         }
 
-        if (_checkColumnReordering && _gridReference is not null && JSModule.Imported && _selfReference is not null)
+        if (!((IFluentComponentBase)this).IsDisposed && _checkColumnReordering && _gridReference is not null && JSModule.Imported && _selfReference is not null)
         {
             _checkColumnReordering = false;
             if (ReorderableColumns)

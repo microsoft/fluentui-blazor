@@ -5,7 +5,9 @@
 
     @foreach (var item in Items)
     {
-        <FluentTab Id="@item.Index">
+        <FluentTab Id="@item.Index"
+                   aria-description="Press Delete to remove this tab"
+                   @onkeydown="@(e => { if (e.Code == "Delete") { RemoveTab(item.Index); } })">
 
             @* Tab Header *@
             <HeaderTemplate>
@@ -13,6 +15,7 @@
                     <FluentLabel>@item.Name</FluentLabel>
                     <FluentIcon Tooltip="Delete"
                                 Value="@(new Icons.Regular.Size12.Dismiss())"
+                                tabindex="-1"
                                 OnClick="@(e => RemoveTab(item.Index))" />
                 </FluentStack>
             </HeaderTemplate>
