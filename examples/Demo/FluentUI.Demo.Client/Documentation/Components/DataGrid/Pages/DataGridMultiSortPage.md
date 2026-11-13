@@ -22,15 +22,29 @@ is named for what it does to the sort rather than repeating the word:
 | Add | The grid is sorted by another column | Adds the column as the next sort level, ascending. |
 | Clear | The column is sorted on | Stops sorting by this column, keeping the other levels. |
 | Clear all | More than one column is sorted on | Removes every sort level, leaving the grid unsorted. |
-| Reset | More than one column is sorted on, and some column declares a sort | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
+| Reset | Some column declares a sort, and the grid is not sorted that way | Returns to the sort the columns declare through `IsDefaultSortColumn`. |
 
 Set `ShowMultiSortActions` to false to leave the headers exactly as they are in single sort mode. Sorting by several
 columns then only happens through <kbd>Shift</kbd> + click, <kbd>Shift</kbd> + <kbd>Enter</kbd> and the grid's sort
 methods — see the note under Accessibility before using it.
 
 Declaring `IsDefaultSortColumn` on more than one column gives the grid a multi-column sort to start with, applied in the
-order the columns are declared. `ResetSortAsync`, removing the last sort level and <kbd>Shift</kbd> + <kbd>s</kbd> all
-return to it; **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
+order the columns are declared. `ResetSortAsync`, **Reset** and <kbd>Shift</kbd> + <kbd>s</kbd> return to it;
+removing the last sort level, **Clear all** and `ClearSortAsync` leave the grid unsorted instead.
+
+Set `DefaultSortPriority` to sort the declared columns in another order. Lower numbers sort first, and columns without
+a priority follow those with one, in the order they are declared. With these columns, the grid starts sorted by start
+date, newest first, then by name, although the name column comes first:
+
+```razor
+<PropertyColumn Title="Full Name" Property="@(e => e.FullName)" Sortable="true"
+                IsDefaultSortColumn="true" DefaultSortPriority="2" />
+<PropertyColumn Title="Start Date" Property="@(e => e.StartDate)" Sortable="true"
+                IsDefaultSortColumn="true" InitialSortDirection="DataGridSortDirection.Descending" DefaultSortPriority="1" />
+```
+
+The data is requested in that order from the first request. In single sort mode, the grid is sorted by the declared
+column that sorts first, the one with the lowest `DefaultSortPriority` value.
 
 ## Example
 
@@ -118,7 +132,7 @@ Sorting by several columns can be done entirely from the keyboard, with a screen
   with a screen reader that does not pass <kbd>Shift</kbd> + <kbd>Enter</kbd> through, so only do it when your
   application offers its own UI for sorting.
 - Right-clicking a header removes that column from the sort, and <kbd>Shift</kbd> + <kbd>s</kbd> returns to the sort
-  the columns declare, as it does in single sort mode.
+  the columns declare, even from an unsorted grid. It does the same in single sort mode.
 
 The sort state is exposed as follows:
 
