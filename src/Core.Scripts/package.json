@@ -20,7 +20,7 @@
     "esbuild": "0.28.2",
     "esbuild-plugin-inline-css": "0.0.1",
     "eslint": "10.14.0",
-    "glob": "^13.0.7",
+    "glob": "^14.0.4",
     "imask": "^7.6.1",
     "rimraf": "6.1.4",
     "tabbable": "6.5.1",
