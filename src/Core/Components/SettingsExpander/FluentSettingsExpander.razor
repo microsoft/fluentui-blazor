@@ -1,0 +1,77 @@
+@namespace Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Extensions
+@inherits FluentComponentBase
+
+<div id="@Id"
+     class="@ClassValue"
+     style="@StyleValue"
+     expandable="@IsExpandable"
+     expanded="@(IsExpandable && Expanded)"
+     disabled="@Disabled"
+     role="group"
+     aria-labelledby="@(HasTitle ? TitleId : null)"
+     aria-describedby="@(HasDescription ? DescriptionId : null)"
+     aria-disabled="@Disabled"
+     @attributes="@AdditionalAttributes">
+    <div header @onclick="HeaderClickAsync">
+        @if (Icon is not null)
+        {
+            <span icon aria-hidden="true">
+                <FluentIcon Value="@Icon" />
+            </span>
+        }
+        <div info>
+            @if (!string.IsNullOrEmpty(Title))
+            {
+                <span heading id="@TitleId">@Title</span>
+            }
+            @if (DescriptionTemplate is not null)
+            {
+                <span description id="@DescriptionId">@DescriptionTemplate</span>
+            }
+            else if (!string.IsNullOrEmpty(Description))
+            {
+                <span description id="@DescriptionId">@Description</span>
+            }
+        </div>
+        @if (ActionTemplate is not null)
+        {
+            <div action inert="@Disabled" @onclick:stopPropagation="true">
+                @ActionTemplate
+            </div>
+        }
+        @if (HasLink)
+        {
+            <span link-icon aria-hidden="true">
+                <FluentIcon Value="@(new CoreIcons.Regular.Size20.Open())" />
+            </span>
+            <a link
+               href="@Href"
+               target="@Target.ToAttributeValue()"
+               rel="@(Target == LinkTarget.Blank ? "noopener noreferrer" : null)"
+               aria-label="@(HasTitle ? null : AccessibleName)"
+               aria-labelledby="@(HasTitle ? TitleId : null)"
+               aria-describedby="@(HasDescription ? DescriptionId : null)"></a>
+        }
+        @if (IsExpandable)
+        {
+            <FluentButton expand-button
+                          Type="ButtonType.Button"
+                          Appearance="ButtonAppearance.Subtle"
+                          IconOnly="true"
+                          IconStart="@(new CoreIcons.Regular.Size20.ChevronDown())"
+                          Title="@AccessibleName"
+                          Disabled="@Disabled"
+                          aria-expanded="@(Expanded ? "true" : "false")"
+                          aria-controls="@PanelId"
+                          StopPropagation="true"
+                          OnClick="@ToggleAsync" />
+        }
+    </div>
+    @if (IsExpandable)
+    {
+        <div panel id="@PanelId" role="group" aria-labelledby="@(HasTitle ? TitleId : null)" hidden="@(!Expanded)">
+            @ChildContent
+        </div>
+    }
+</div>

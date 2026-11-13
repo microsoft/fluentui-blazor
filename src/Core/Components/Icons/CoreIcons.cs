@@ -81,6 +81,8 @@ internal static partial class CoreIcons
 
             public class MoreHorizontal : Icon { public MoreHorizontal() : base("MoreHorizontal", IconVariant.Regular, IconSize.Size20, "<path d=\"M6.25 10a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Zm5 0a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0ZM15 11.25a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5Z\"/>") { } }
 
+            public class Open : Icon { public Open() : base("Open", IconVariant.Regular, IconSize.Size20, "<path d=\"M6.25 4.5A1.75 1.75 0 0 0 4.5 6.25v7.5c0 .97.78 1.75 1.75 1.75h7.5c.97 0 1.75-.78 1.75-1.75v-2a.5.5 0 0 0-1 0v2a.75.75 0 0 1-.75.75h-7.5a.75.75 0 0 1-.75-.75v-7.5c0-.41.34-.75.75-.75h2a.5.5 0 0 0 0-1h-2Zm4.5 0a.5.5 0 0 0 0 1h3.04L9.15 10.15a.5.5 0 1 0 .7.7l4.65-4.64v3.04a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5h-4.25Z\" />") { } }
+
             public class QuestionCircle : Icon { public QuestionCircle() : base("QuestionCircle", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16Zm0 1a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm0 10.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5Zm0-8a2.5 2.5 0 0 1 1.65 4.38l-.15.12-.22.17-.09.07-.16.15c-.33.36-.53.85-.53 1.61a.5.5 0 0 1-1 0 3.2 3.2 0 0 1 1.16-2.62l.25-.19.12-.1A1.5 1.5 0 0 0 10 6.5c-.83 0-1.5.67-1.5 1.5a.5.5 0 0 1-1 0A2.5 2.5 0 0 1 10 5.5Z\"></path>") { } };
 
             public class PresenceAvailable : Icon { public PresenceAvailable() : base("PresenceAvailable", IconVariant.Regular, IconSize.Size20, "<path d=\"M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20ZM2 10a8 8 0 1 1 16 0 8 8 0 0 1-16 0Zm12.2-3.2a1 1 0 0 1 0 1.4l-4.5 4.5a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.4L9 10.58l3.8-3.8a1 1 0 0 1 1.4 0Z\"/>") { } }
