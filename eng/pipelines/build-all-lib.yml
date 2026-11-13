@@ -143,13 +143,13 @@ extends:
           displayName: 'Install .NET 10.0'
           inputs:
             version: 10.0.x
-            includePreviewVersions: true
+            includePreviewVersions: false
 
         - task: UseDotNet@2
           displayName: 'Install .NET 11.0'
           inputs:
-            version: 11.0.100-rc.1.26425.128
-            includePreviewVersions: true
+            version: 11.0.100
+            includePreviewVersions: false
 
         # Set version number (exclude some folders)
         - task: PowerShell@2
