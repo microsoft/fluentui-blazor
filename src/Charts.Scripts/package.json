@@ -31,7 +31,7 @@
     "@types/d3-sankey": "^0.12.5",
     "esbuild": "0.28.2",
     "esbuild-plugin-inline-css": "0.0.1",
-    "glob": "^13.0.6",
+    "glob": "^13.0.7",
     "rimraf": "6.1.4"
   },
   "dependencies": {
