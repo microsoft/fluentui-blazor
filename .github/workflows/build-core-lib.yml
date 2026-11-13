@@ -62,12 +62,13 @@ jobs:
        uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
        with:
         dotnet-version: 10.0.x
-        dotnet-quality: preview
+        dotnet-quality: ga
 
      - name: Setup .NET 11.0
        uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
        with:
-        dotnet-version: 11.0.100-rc.1.26425.128
+        dotnet-version: 11.0.100
+        dotnet-quality: ga
 
      # Build
 
@@ -236,12 +237,13 @@ jobs:
       uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
       with:
         dotnet-version: 10.0.x
-        dotnet-quality: preview
+        dotnet-quality: ga
 
     - name: Setup .NET 11.0
       uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
       with:
-        dotnet-version: 11.0.100-rc.1.26425.128
+        dotnet-version: 11.0.100
+        dotnet-quality: ga
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4.39.2
