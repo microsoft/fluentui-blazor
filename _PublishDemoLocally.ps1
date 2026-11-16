@@ -11,11 +11,13 @@ Write-Host "👉 Configuration setup..." -ForegroundColor Cyan
 Write-Host ""
 
 # Ask for .NET version
-$dotnetVersionChoice = Read-Host "❓ Which .NET version do you want to use? (9 for net9.0, 10 for net10.0) [default: 10]"
+$dotnetVersionChoice = Read-Host "❓ Which .NET version do you want to use? (9 for net9.0, 10 for net10.0, 11 for net11.0) [default: 11]"
 if ($dotnetVersionChoice -eq "9") {
     $NetVersion = "net9.0"
-} elseif ($dotnetVersionChoice -eq "" -or $dotnetVersionChoice -eq "10") {
+} elseif ($dotnetVersionChoice -eq "10") {
     $NetVersion = "net10.0"
+} elseif ($dotnetVersionChoice -eq "" -or $dotnetVersionChoice -eq "11") {
+    $NetVersion = "net11.0"
 } else {
     Write-Host "⛔ Invalid choice." -ForegroundColor Red
     exit 1
