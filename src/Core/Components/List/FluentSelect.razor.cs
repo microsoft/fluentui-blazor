@@ -45,7 +45,7 @@ public partial class FluentSelect<TOption, [DynamicallyAccessedMembers(Dynamical
     protected virtual bool IsImmediate => this is IFluentInputImmediate;
 
     /// <summary />
-    protected virtual string? DropdownStyle => new StyleBuilder()
+    protected virtual string? DropdownStyle => new StyleBuilder(InputStyle)
         .Build();
 
     /// <summary />

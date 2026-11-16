@@ -10,6 +10,8 @@
              LabelTemplate="@LabelTemplate.CombinedWith(ChildContent)"
              tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)">
     <fluent-switch @ref="@Element"
+                   class="@InputClass"
+                   style="@InputStyle"
                    aria-label="@AriaLabel"
                    autofocus="@Autofocus"
                    checked="@(CurrentValue ? "true" : null)"

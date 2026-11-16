@@ -8,6 +8,7 @@
     <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
         <FluentField InputComponent="@this" ValueExpression="@ValidationFieldExpression" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
             <fluent-dropdown @ref="@Element"
+                             class="@InputClass"
                              id="@Id"
                              appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
                              placeholder="@Placeholder"
