@@ -193,7 +193,7 @@ We also have a document that explains and shows how to [write and develop unit t
 ### 🏆 Contributors
 
 <a href="https://github.com/microsoft/fluentui-blazor/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=microsoft/fluentui-blazor" />
+  <img src="https://contrib.rocks/image?repo=microsoft/fluentui-blazor" alt="FluentUI Blazor contributors" />
 </a>
 
 Made with [contrib.rocks](https://contrib.rocks).
