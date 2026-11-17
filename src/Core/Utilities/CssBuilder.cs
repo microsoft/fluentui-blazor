@@ -49,6 +49,17 @@ public readonly partial struct CssBuilder
     }
 
     /// <summary>
+    /// Combines two CSS class strings in argument order using the builder's validation and deduplication.
+    /// </summary>
+    /// <param name="first">The CSS classes to include first.</param>
+    /// <param name="second">The CSS classes to append.</param>
+    /// <returns>The combined CSS classes, or <see langword="null"/> if none remain.</returns>
+    internal static string? Combine(string? first, string? second) => new CssBuilder()
+        .AddClass(first)
+        .AddClass(second)
+        .Build();
+
+    /// <summary>
     /// Adds one or more CSS Classes to the builder with space separator.
     /// </summary>
     /// <param name="values">Space-separated CSS Classes to add</param>

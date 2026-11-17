@@ -38,6 +38,17 @@ public readonly struct StyleBuilder
     }
 
     /// <summary>
+    /// Combines two inline style strings in argument order using the builder's formatting and deduplication.
+    /// </summary>
+    /// <param name="first">The inline styles to include first.</param>
+    /// <param name="second">The inline styles to append.</param>
+    /// <returns>The combined inline styles, or <see langword="null"/> if both are empty.</returns>
+    internal static string? Combine(string? first, string? second) => new StyleBuilder()
+        .AddStyle(first)
+        .AddStyle(second)
+        .Build();
+
+    /// <summary>
     /// Adds a conditional in-line style to the builder with space separator and closing semicolon.
     /// </summary>
     /// <param name="style"></param>

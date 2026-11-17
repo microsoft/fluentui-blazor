@@ -8,7 +8,6 @@
     <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
         <FluentField InputComponent="@this" ValueExpression="@ValidationFieldExpression" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
             <fluent-dropdown @ref="@Element"
-                             class="@InputClass"
                              id="@Id"
                              appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
                              placeholder="@Placeholder"
@@ -22,6 +21,7 @@
                              aria-readonly="@(ReadOnly ? "true" : null)"
                              required="@Required"
                              size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
+                             class="@InputClass"
                              style="@DropdownStyle"
                              tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)"
                              type="@DropdownType"

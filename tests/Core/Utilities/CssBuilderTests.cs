@@ -9,6 +9,21 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
 public partial class CssBuilderTests
 {
+    [Theory]
+    [InlineData(null, null, null)]
+    [InlineData("", "   ", null)]
+    [InlineData(null, "second", "second")]
+    [InlineData("first", null, "first")]
+    [InlineData("first", "second", "first second")]
+    [InlineData(" first  shared ", "shared second ", "first shared second")]
+    [InlineData("first 123-invalid", "second", "first second")]
+    public void Combine_ClassStrings_ReturnsCombinedClasses(string? first, string? second, string? expected)
+    {
+        var result = CssBuilder.Combine(first, second);
+
+        Assert.Equal(expected, result);
+    }
+
     [Fact]
     public void CssBuilder_AddSingleClasses()
     {

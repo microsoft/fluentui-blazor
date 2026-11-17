@@ -8,7 +8,7 @@
     <CascadingValue Value="(InternalListContext)GetCurrentContext()" Name="ListContextBase" TValue="InternalListContext" IsFixed="true">
         <FluentField InputComponent="@this" ValueExpression="@ValidationFieldExpression" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
             <div id="@Id"
-                 class="@CombineClass("fluent-listbox", InputClass)"
+                 class="@CssBuilder.Combine(InputClass, "fluent-listbox")"
                  style="@InputStyle"
                  appearance="@(Appearance.ToAttributeValue(isNull: ListAppearance.Outline, returnEmptyAsNull: true))"
                  slot="@FluentSlot.FieldInput"
