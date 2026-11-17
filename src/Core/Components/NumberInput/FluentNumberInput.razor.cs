@@ -48,7 +48,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         Max = (TValue)defaults.Max;
         Step = (TValue)defaults.Step;
 
-        MessageCondition = CreateRequiredMessageCondition(() => string.IsNullOrEmpty(CurrentValueAsString));
+        MessageCondition ??= CreateRequiredMessageCondition(() => string.IsNullOrEmpty(CurrentValueAsString));
 
     }
 

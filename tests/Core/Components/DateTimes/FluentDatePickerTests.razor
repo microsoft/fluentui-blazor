@@ -16,6 +16,35 @@
         Services.AddFluentUIComponents();
     }
 
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FluentDatePicker_GlobalMessageCondition_ControlsMessageVisibility(bool showMessage)
+    {
+        Services.GetRequiredService<LibraryConfiguration>().DefaultValues
+            .For<FluentDatePicker<DateTime?>>()
+            .Set(p => p.MessageCondition, _ => showMessage);
+
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Message="Custom validation message" />);
+
+        Assert.Equal(showMessage, cut.Markup.Contains("Custom validation message", StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void FluentDatePicker_LocalMessageCondition_OverridesGlobalDefault(bool showMessage)
+    {
+        Services.GetRequiredService<LibraryConfiguration>().DefaultValues
+            .For<FluentDatePicker<DateTime?>>()
+            .Set(p => p.MessageCondition, _ => !showMessage);
+
+        var cut = Render(@<FluentDatePicker TValue="DateTime?" Message="Custom validation message"
+                                          MessageCondition="@(_ => showMessage)" />);
+
+        Assert.Equal(showMessage, cut.Markup.Contains("Custom validation message", StringComparison.Ordinal));
+    }
+
     [Fact]
     public void FluentDatePicker_Required_EmptyFocusOut_ShowsDefaultRequiredMessage()
     {

@@ -28,7 +28,7 @@ public partial class FluentDatePicker<TValue> : FluentCalendarBase<TValue>
     /// <param name="configuration">The configuration settings to apply to the date picker. Cannot be null.</param>
     public FluentDatePicker(LibraryConfiguration configuration) : base(configuration)
     {
-        MessageCondition = CreateRequiredMessageCondition(
+        MessageCondition ??= CreateRequiredMessageCondition(
             () => CurrentValue.IsNullOrDefault(),
             useFieldFocusLost: true);
     }
