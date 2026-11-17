@@ -5,11 +5,17 @@
 @if (Visible ?? true)
 {
     <div class="@ClassValue" style="@StyleValue" id="@Id" @attributes="@AdditionalAttributes" display="@Display.ToAttributeValue(returnEmptyAsNull: true)">
+        @* aria-expanded/aria-controls belong on the button (FluentLayout.ts keeps them in sync).
+           FluentButton renders role="button" only when Title is not empty, so set it here too:
+           IconTitle="" must not leave these ARIA attributes on a role-less element. *@
         <FluentButton Appearance="@ButtonAppearance.Transparent"
                       Color="var(--colorNeutralForegroundOnBrand)"
                       IconStart="@Icon"
                       Title="@IconTitle"
-                      IconOnly="true" />
+                      IconOnly="true"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="@($"{Id}-drawer")" />
     </div>
 
     <fluent-drawer hamburger

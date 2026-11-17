@@ -62,6 +62,11 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     const changed = element.hasAttribute('mobile') !== mobile;
     element.toggleAttribute('mobile', mobile);
 
+    // The hamburger controls the nav area on desktop and the drawer on mobile.
+    if (changed) {
+      updateLayoutHamburgers(element);
+    }
+
     if (changed || force) {
       try {
         await element._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', mobile ? 'mobile' : 'desktop');
@@ -69,7 +74,25 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
       catch (error) {
         console.error('FluentLayout: unable to synchronize the breakpoint with .NET.', error);
       }
+
+      // With NavigationDeferredLoading, .NET renders the nav area only now: sync again.
+      if (changed) {
+        updateLayoutHamburgers(element);
+      }
     }
+  }
+
+  /**
+   * Updates every hamburger of this layout, but not those of a nested layout.
+   * They all share the same nav area on desktop.
+   */
+  function updateLayoutHamburgers(layoutContainer: HTMLElement): void {
+    layoutContainer.querySelectorAll<HTMLElement>('.fluent-layout-hamburger')
+      .forEach(hamburger => {
+        if (hamburger.closest('.fluent-layout') === layoutContainer) {
+          updateHamburgerExpanded(hamburger, layoutContainer);
+        }
+      });
   }
 
   /**
@@ -78,6 +101,38 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
   function isMobile(element: HTMLElement): boolean {
     const maxWidth = parseInt(element.getAttribute('breakdown-width') ?? '768', 10);
     return element.offsetWidth <= maxWidth;
+  }
+
+  /**
+   * Sets aria-expanded and aria-controls on the hamburger button, not on the role-less wrapper div.
+   * On desktop they refer to the nav area (aria-controls only when the nav area has an id),
+   * on mobile to the drawer.
+   * The state is always read from the DOM (nav [hidden], drawer dialog open): aria-expanded is output only.
+   * @param hamburger The hamburger wrapper element
+   * @param layoutContainer The parent layout, if any
+   */
+  function updateHamburgerExpanded(hamburger: HTMLElement, layoutContainer: HTMLElement | null): void {
+    const button = hamburger.querySelector('fluent-button');
+    if (!button) {
+      return;
+    }
+
+    const layoutNav = layoutContainer?.querySelector('.fluent-layout-item[area="nav"]') ?? null;
+    const drawerId = hamburger.id + '-drawer';
+    const drawer = document.getElementById(drawerId) as any;
+    const controlsNav = !!(layoutContainer && layoutNav && !isMobile(layoutContainer));
+    const isExpanded = controlsNav
+      ? !layoutNav!.hasAttribute('hidden')
+      : drawer?.dialog?.open === true;
+    const controls = controlsNav ? layoutNav!.id : drawerId;
+
+    button.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    if (controls) {
+      button.setAttribute('aria-controls', controls);
+    }
+    else {
+      button.removeAttribute('aria-controls');
+    }
   }
 
   /**
@@ -137,6 +192,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     const dialog = document.getElementById(id + '-drawer') as any;
     const closeButton = document.getElementById(id + '-drawer-close-button');
 
+    // Initial state (e.g. the nav area is visible on desktop)
+    updateHamburgerExpanded(element, layoutContainer);
+
     if (element) {
 
       dialog?.addEventListener('click', (event: MouseEvent) => {
@@ -147,45 +205,41 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         }
       });
 
-      element.addEventListener('click', (event: MouseEvent) => {
-        const layoutNav = layoutContainer ? layoutContainer.querySelector('.fluent-layout-item[area="nav"]') : null;
-        const isExpanded = element.getAttribute('aria-expanded') === 'true';
-        const newValue = !isExpanded;
-        const isMobileSize = isMobile(layoutContainer ?? document.body);
-
-        // Show or hide the nav area
-        if (layoutNav && !isMobileSize) {
-          element.setAttribute('aria-expanded', newValue ? 'true' : 'false');
-          layoutNav.toggleAttribute('hidden', newValue);
+      // Registered once, so the state stays right however the drawer opens or closes
+      // (hamburger click, ShowAsync/HideAsync, Escape, close button, nav item click).
+      dialog?.addEventListener('toggle', (e: any) => {
+        if (e.target !== dialog) {
+          return;
         }
 
-        // Show or hide the fluent-drawer
+        const newState = (e.detail?.newState ?? e.newState) === 'open';
+
+        updateHamburgerExpanded(element, layoutContainer);
+        try {
+          element._fluentHamburgerDotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
+        }
+        catch (error) {
+        }
+      });
+
+      element.addEventListener('click', (event: MouseEvent) => {
+        const layoutNav = layoutContainer?.querySelector('.fluent-layout-item[area="nav"]') ?? null;
+        const isMobileSize = isMobile(layoutContainer ?? document.body);
+
+        // Show or hide the nav area (aria-expanded="true" when the nav is visible)
+        if (layoutNav && !isMobileSize) {
+          layoutNav.toggleAttribute('hidden', !layoutNav.hasAttribute('hidden'));
+          updateLayoutHamburgers(layoutContainer!);
+          updateHamburgerExpanded(element, layoutContainer);
+        }
+
+        // Show or hide the fluent-drawer: the 'toggle' event above updates aria-expanded
         else if (isMobileSize && dialog) {
-
-          // Add a Toggle event
-          if (!dialog.toggleRegistered) {
-            dialog.toggleRegistered = true;
-            dialog.addEventListener('toggle', (e: any) => {
-              // Toggle the aria-expanded attribute
-
-              const newState = (e.detail?.newState ?? e.newState) === `open`;
-
-              element.setAttribute('aria-expanded', newState ? 'true' : 'false');
-              try {
-                element._fluentHamburgerDotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
-              }
-              catch (error) {
-              }
-
-            });
-          }
-
-          // Show or hide
-          if (newValue) {
-            dialog.show();
+          if (dialog.dialog?.open) {
+            dialog.hide();
           }
           else {
-            dialog.hide();
+            dialog.show();
           }
         }
       });
@@ -212,18 +266,28 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    * without a .NET reference. This lets the hamburger open/close the fluent-drawer even when
    * rendered statically, since `HamburgerInitialize` is otherwise only called from
    * `OnAfterRenderAsync`, which never runs without an interactive render mode.
+   * Also called after each enhanced navigation, which merges the server HTML into the DOM.
    */
   export function LayoutAutoInitialize() {
 
     document.querySelectorAll<HTMLElement>('.fluent-layout').forEach(element => {
-      if (!element.id || (element as any).fluentLayoutInitialized) {
+      if (!element.id) {
         return;
       }
 
-      Initialize(null, element.id);
+      if (!(element as any).fluentLayoutInitialized) {
+        Initialize(null, element.id);
+      }
 
       element.querySelectorAll<HTMLElement>('.fluent-layout-hamburger').forEach(hamburger => {
-        if (!hamburger.id || (hamburger as any).fluentHamburgerInitialized) {
+        if (!hamburger.id) {
+          return;
+        }
+
+        // Enhanced navigation keeps this element but resets its button to the server-rendered
+        // aria-expanded="false" and removes the nav area's [hidden]: re-sync the state.
+        if ((hamburger as any).fluentHamburgerInitialized) {
+          updateHamburgerExpanded(hamburger, element);
           return;
         }
 

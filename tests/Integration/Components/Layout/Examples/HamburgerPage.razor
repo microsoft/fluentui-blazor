@@ -1,0 +1,54 @@
+@page "/layout/hamburger"
+@page "/layout/hamburger/{DisplayName}"
+
+@* The hamburger controls the drawer on mobile and, with Display="DesktopMobile", the nav area on desktop.
+   Query: ?deferred=true (NavigationDeferredLoading), ?second=true (a second hamburger), ?notitle=true (IconTitle=""), ?nonavid=true (nav area without Id). *@
+<FluentLayout Id="layout" Height="400px" NavigationDeferredLoading="@Deferred">
+
+    <FluentLayoutItem Area="@LayoutArea.Header">
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
+            <FluentLayoutHamburger @ref="@Hamburger" Id="hamburger" Display="@Display" PanelHeader="Navigation" IconTitle="@(NoTitle ? string.Empty : null)" />
+            @if (Second)
+            {
+                <FluentLayoutHamburger Id="hamburger2" Display="@Display" PanelHeader="Navigation" />
+            }
+            <span>Hamburger test</span>
+        </FluentStack>
+    </FluentLayoutItem>
+
+    <FluentLayoutItem Id="@(NoNavId ? null : "nav")" Area="@LayoutArea.Navigation" Width="150px">
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+        </ul>
+    </FluentLayoutItem>
+
+    <FluentLayoutItem Area="@LayoutArea.Content">
+        <FluentButton Id="show-drawer" OnClick="@(() => Hamburger.ShowAsync())">Show the drawer</FluentButton>
+    </FluentLayoutItem>
+
+</FluentLayout>
+
+@code
+{
+    private FluentLayoutHamburger Hamburger = default!;
+
+    [Parameter]
+    public string? DisplayName { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool Deferred { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool Second { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool NoTitle { get; set; }
+
+    [SupplyParameterFromQuery]
+    public bool NoNavId { get; set; }
+
+    private HamburgerDisplay Display => string.Equals(DisplayName, "desktop-mobile", StringComparison.OrdinalIgnoreCase)
+        ? HamburgerDisplay.DesktopMobile
+        : HamburgerDisplay.MobileOnly;
+}
