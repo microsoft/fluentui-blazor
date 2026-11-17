@@ -31,6 +31,21 @@
     }
 
     [Fact]
+    public void FluentRadio_ReflectionActivation_CreatesInstanceForApiDocumentation()
+    {
+        // Arrange & Act
+        var radio = Activator.CreateInstance(
+            typeof(FluentRadio<string>),
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic,
+            binder: null,
+            args: new object?[] { null },
+            culture: null);
+
+        // Assert
+        Assert.NotNull(Assert.IsType<FluentRadio<string>>(radio).Id);
+    }
+
+    [Fact]
     public void FluentRadio_Value()
     {
         // Arrange & Act

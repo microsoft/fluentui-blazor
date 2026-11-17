@@ -327,10 +327,12 @@
     public void FluentRadioGroup_AddRadio_NullId()
     {
         // Arrange & Act
-        var cut = Render(@<FluentRadioGroup TValue="string" />);
+        var cut = Render(@<FluentRadioGroup TValue="string">
+            <FluentRadio Id="@null" />
+        </FluentRadioGroup>);
 
         // Act
-        var result = cut.FindComponent<FluentRadioGroup<string>>().Instance.AddRadio(new FluentRadio<string>(id: null));
+        var result = cut.FindComponent<FluentRadioGroup<string>>().Instance.AddRadio(cut.FindComponent<FluentRadio<string>>().Instance);
 
         // Assert
         Assert.Null(result);
@@ -340,10 +342,12 @@
     public void FluentRadioGroup_RemoveRadio_NullId()
     {
         // Arrange & Act
-        var cut = Render(@<FluentRadioGroup TValue="string" />);
+        var cut = Render(@<FluentRadioGroup TValue="string">
+            <FluentRadio Id="@null" />
+        </FluentRadioGroup>);
 
         // Act
-        var result = cut.FindComponent<FluentRadioGroup<string>>().Instance.RemoveRadio(new FluentRadio<string>(id: null));
+        var result = cut.FindComponent<FluentRadioGroup<string>>().Instance.RemoveRadio(cut.FindComponent<FluentRadio<string>>().Instance);
 
         // Assert
         Assert.Null(result);
