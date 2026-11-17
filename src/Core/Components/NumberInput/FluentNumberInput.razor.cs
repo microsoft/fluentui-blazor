@@ -60,7 +60,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
     /// <summary>
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
-    protected virtual string? ComponentStyleValue => new StyleBuilder(InputStyle)
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
         .Build();
 
     /// <inheritdoc cref="IFluentComponentElementBase.Element" />

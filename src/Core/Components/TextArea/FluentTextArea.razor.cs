@@ -31,7 +31,7 @@ public partial class FluentTextArea : FluentInputImmediateBase<string?>, IFluent
     /// <summary>
     /// Gets the CSS class to apply to the internal web-component.
     /// </summary>
-    protected virtual string? ComponentStyleValue => new StyleBuilder(InputStyle)
+    protected virtual string? ComponentStyleValue => new StyleBuilder()
         .AddStyle("height", Height)
         .Build();
 

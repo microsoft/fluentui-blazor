@@ -5,7 +5,7 @@
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" Size="@Size.ToFieldSize()" >
     <fluent-textarea @ref="@Element"
                      class="@InputClass"
-                     style="@ComponentStyleValue"
+                     style="@StyleBuilder.Combine(ComponentStyleValue, InputStyle)"
                      appearance="@Appearance.ToAttributeValue()"
                      autocomplete="@AutoComplete"
                      autofocus="@Autofocus"
