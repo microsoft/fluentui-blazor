@@ -21,6 +21,7 @@
     [InlineData(true)]
     public void FluentDatePicker_GlobalMessageCondition_ControlsMessageVisibility(bool showMessage)
     {
+        using var context = new DateTimeProviderContext(new DateTime(2026, 9, 30));
         Services.GetRequiredService<LibraryConfiguration>().DefaultValues
             .For<FluentDatePicker<DateTime?>>()
             .Set(p => p.MessageCondition, _ => showMessage);
@@ -35,6 +36,7 @@
     [InlineData(true)]
     public void FluentDatePicker_LocalMessageCondition_OverridesGlobalDefault(bool showMessage)
     {
+        using var context = new DateTimeProviderContext(new DateTime(2026, 9, 30));
         Services.GetRequiredService<LibraryConfiguration>().DefaultValues
             .For<FluentDatePicker<DateTime?>>()
             .Set(p => p.MessageCondition, _ => !showMessage);
