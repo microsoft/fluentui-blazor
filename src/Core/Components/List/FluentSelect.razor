@@ -22,7 +22,7 @@
                              required="@Required"
                              size="@(Size.ToAttributeValue(isNull: ListSize.Medium, returnEmptyAsNull: true))"
                              class="@InputClass"
-                             style="@DropdownStyle"
+                             style="@StyleBuilder.Combine(DropdownStyle, InputStyle);"
                              tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)"
                              type="@DropdownType"
                              @ondropdownchange="@OnDropdownChangeHandlerAsync"
