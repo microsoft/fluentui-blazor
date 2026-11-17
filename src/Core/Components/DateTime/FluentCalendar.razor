@@ -6,7 +6,7 @@
 
 <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue">
     <div id="@Id"
-         class="@(new CssBuilder(CalendarClass).AddClass(InputClass).Build())"
+         class="@CombineClass(CalendarClass, InputClass)"
          style="@InputStyle"
          slot="@FluentSlot.FieldInput"
          readonly="@(ReadOnly ? true : null)"

@@ -252,6 +252,15 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     [Parameter]
     public bool UseNativeConstraintValidationUI { get; set; }
 
+    /// <summary>
+    /// Combines two CSS class strings.
+    /// </summary>
+    /// <param name="first">The CSS classes to include first.</param>
+    /// <param name="second">The CSS classes to append.</param>
+    /// <returns>The combined CSS classes.</returns>
+    protected static string? CombineClass(string? first, string? second) 
+        => new CssBuilder(first).AddClass(second).Build();
+
     /// <summary />
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "TODO")]
     protected virtual async Task ChangeHandlerAsync(ChangeEventArgs e)
