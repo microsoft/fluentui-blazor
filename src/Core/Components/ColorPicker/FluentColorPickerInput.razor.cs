@@ -32,7 +32,7 @@ public partial class FluentColorPickerInput : FluentInputImmediateBase<string?>,
             useFieldFocusLost: true);
 
         // Default message displayed when the value is invalid
-        MessageCondition = field =>
+        MessageCondition ??= field =>
         {
             if (!string.IsNullOrEmpty(CurrentValueAsString) && !HexColorRegex().IsMatch(CurrentValueAsString))
             {
