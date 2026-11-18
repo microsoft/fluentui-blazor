@@ -212,7 +212,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.ListBoxContainer {
     */
     private get activeIndex(): number {
       const items = this.getItems();
-      const activeIndex = items.findIndex(i => i.active);
+      const activeIndex = items.findIndex(i => i.hasAttribute('active'));
 
       if (activeIndex >= 0) {
         return activeIndex;
