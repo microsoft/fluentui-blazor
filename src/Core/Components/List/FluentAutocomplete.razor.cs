@@ -481,12 +481,12 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
             return;
         }
 
-        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
-
-        if (!Multiple && _internalSelectedItem is not null)
+        if (!Multiple && _internalSelectedItem is not null && SelectedOptionTemplate is null)
         {
             await SetInputFocusAsync();
         }
+
+        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
     }
 
     /// <summary>

@@ -24,7 +24,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     if (!input) return;
 
     const selectedItem = input.querySelector<HTMLElement>('[slot="start"] > [role="button"][aria-haspopup="listbox"]');
-    if (selectedItem) {
+    if (selectedItem && selectedItem.querySelector('span[auto-complete][alone]')) {
       selectedItem.focus();
       return;
     }

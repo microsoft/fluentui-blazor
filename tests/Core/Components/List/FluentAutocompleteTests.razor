@@ -80,6 +80,63 @@
     }
 
     [Fact]
+    public void FluentAutocomplete_ClickWithSelectedOptionTemplate_DoesNotRedirectFocus()
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Items="@Digits"
+                                              Multiple="false"
+                                              SelectedItem="@Digits[0]">
+            <SelectedOptionTemplate>
+                <span>@context</span>
+            </SelectedOptionTemplate>
+        </FluentAutocomplete>);
+
+        // Act
+        cut.Find("fluent-text-input").Click();
+
+        // Assert
+        Assert.Empty(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"]);
+        Assert.NotEmpty(cut.FindAll("fluent-option"));
+    }
+
+    [Fact]
+    public async Task FluentAutocomplete_ClickWithSlowSearch_FocusesBeforeSearchCompletes()
+    {
+        // Arrange
+        var searchCompletion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                              TOption="string"
+                                              TValue="string"
+                                              Multiple="false"
+                                              SelectedItem="@Digits[0]"
+                                              OnOptionsSearch="@(async args =>
+                                              {
+                                                  await searchCompletion.Task;
+                                                  args.Items = Digits;
+                                              })" />);
+
+        // Act
+        var clickTask = cut.Find("fluent-text-input").ClickAsync(new MouseEventArgs());
+
+        // Assert
+        try
+        {
+            cut.WaitForAssertion(() =>
+                Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"]));
+        }
+        finally
+        {
+            searchCompletion.SetResult();
+            await clickTask;
+        }
+
+        Assert.Single(JSInterop.Invocations["Microsoft.FluentUI.Blazor.Components.Autocomplete.setFocus"]);
+    }
+
+    [Fact]
     public void FluentAutocomplete_ReadOnly_DoesNotOpenOptions()
     {
         // Arrange
