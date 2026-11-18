@@ -23,6 +23,12 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
     const input = document.getElementById(id) as TextInput;
     if (!input) return;
 
+    const selectedItem = input.querySelector<HTMLElement>('[slot="start"] > [role="button"][aria-haspopup="listbox"]');
+    if (selectedItem) {
+      selectedItem.focus();
+      return;
+    }
+
     input.focus();
 
     // Move the cursor to the end of the input value
@@ -101,7 +107,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Autocomplete {
      * Handles keydown events on the autocomplete input to manage option hovering and selection.
      */
     private keydownHandler = (e: KeyboardEvent): void => {
-      if (e.target !== this.input || this.input.hasAttribute('readonly') || this.input.hasAttribute('disabled')) {
+      const selectedItem = this.input.querySelector('[slot="start"] > [role="button"][aria-haspopup="listbox"]');
+      if ((e.target !== this.input && e.target !== selectedItem) || this.input.hasAttribute('readonly') || this.input.hasAttribute('disabled')) {
         return;
       }
 

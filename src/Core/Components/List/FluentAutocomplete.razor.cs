@@ -474,6 +474,21 @@ public partial class FluentAutocomplete<TOption, [DynamicallyAccessedMembers(Dyn
         await SetInputFocusAsync();
     }
 
+    private async Task OnTextInputClickAsync()
+    {
+        if (IsUserInteractionDisabled)
+        {
+            return;
+        }
+
+        await DisplayFilteredOptionsAsync(showWhenInputIsEmpty: true);
+
+        if (!Multiple && _internalSelectedItem is not null)
+        {
+            await SetInputFocusAsync();
+        }
+    }
+
     /// <summary>
     /// Detect when the user presses 'Backspace' or 'ArrowDown' keys in the text input.
     /// </summary>
