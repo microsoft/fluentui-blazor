@@ -183,7 +183,7 @@ public abstract partial class FluentListBase<TOption, [DynamicallyAccessedMember
     /// </summary>
     protected void ConfigureRequiredValidation(bool useFieldFocusLost = false)
     {
-        MessageCondition = CreateRequiredMessageCondition(
+        MessageCondition ??= CreateRequiredMessageCondition(
             () => IsSelectionEmptyForRequiredValidation,
             useFieldFocusLost,
             fieldIdentifierProvider: () => FluentField.CreateFieldIdentifier(

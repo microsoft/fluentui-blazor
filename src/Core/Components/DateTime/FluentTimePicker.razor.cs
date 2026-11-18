@@ -26,7 +26,7 @@ public partial class FluentTimePicker<TValue> : FluentInputBase<TValue>
             throw new InvalidOperationException($"The type parameter {typeof(TValue)} is not supported. Supported types are DateTime, DateTime?, TimeOnly, and TimeOnly?.");
         }
 
-        MessageCondition = CreateRequiredMessageCondition(
+        MessageCondition ??= CreateRequiredMessageCondition(
             () => CurrentValue.IsNullOrDefault(),
             useFieldFocusLost: true);
     }

@@ -24,15 +24,6 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
         Id = Identifier.NewId();
     }
 
-    /// <summary>
-    /// For unit testing purposes only.
-    /// </summary>
-    /// <param name="id"></param>
-    internal FluentRadio(string? id) : this(LibraryConfiguration.Empty)
-    {
-        Id = id;
-    }
-
     /// <summary />
     [CascadingParameter(Name = "RadioGroup")]
     internal FluentRadioGroup<TValue> Owner { get; set; } = default!;

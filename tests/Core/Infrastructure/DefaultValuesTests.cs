@@ -10,6 +10,34 @@ public class DefaultValuesTests
 {
     private static FluentDivider CreateDivider() => new(new LibraryConfiguration());
 
+    [Theory]
+    [InlineData(typeof(FluentTextInput))]
+    [InlineData(typeof(FluentTextArea))]
+    [InlineData(typeof(FluentNumberInput<int>))]
+    [InlineData(typeof(FluentCheckbox))]
+    [InlineData(typeof(FluentSwitch))]
+    [InlineData(typeof(FluentRadioGroup<string>))]
+    [InlineData(typeof(FluentCalendar<DateTime?>))]
+    [InlineData(typeof(FluentDatePicker<DateTime?>))]
+    [InlineData(typeof(FluentTimePicker<TimeOnly?>))]
+    [InlineData(typeof(FluentColorPickerInput))]
+    [InlineData(typeof(FluentSelect<string, string>))]
+    [InlineData(typeof(FluentListbox<string, string>))]
+    [InlineData(typeof(FluentAutocomplete<string, string>))]
+    [InlineData(typeof(FluentCombobox<string, string>))]
+    public void Constructor_GlobalMessageCondition_PreservesConfiguredCondition(Type componentType)
+    {
+        var configuration = new LibraryConfiguration();
+        Func<IFluentField, bool> condition = _ => false;
+        configuration.DefaultValues.ForAny<FluentInputBase<object>>()
+            .Set(p => p.MessageCondition, condition);
+
+        var component = Assert.IsAssignableFrom<IFluentField>(
+            Activator.CreateInstance(componentType, configuration));
+
+        Assert.Same(condition, component.MessageCondition);
+    }
+
     // Plain POCO (no IFluentComponentBase constraint required by DefaultValuesComponentBuilder<T>) used to
     // exercise Set() edge cases that are not easily reproducible using real Fluent components.
     private sealed class SamplePoco
