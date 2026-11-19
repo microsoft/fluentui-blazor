@@ -280,7 +280,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
       }
 
       element.querySelectorAll<HTMLElement>('.fluent-layout-hamburger').forEach(hamburger => {
-        if (!hamburger.id) {
+        if (!hamburger.id || hamburger.closest('.fluent-layout') !== element) {
           return;
         }
 
