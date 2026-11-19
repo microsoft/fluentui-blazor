@@ -1,0 +1,48 @@
+@page "/layout/hamburger-nested"
+@attribute [ExcludeFromInteractiveRouting]
+
+@* Static SSR (no circuit): only the startup script wires the hamburgers, as it does after an enhanced navigation.
+   A narrow layout (below its mobile breakpoint) nested in a desktop-width layout, each with its own hamburger.
+   The nested hamburger must open its own drawer, not toggle the nav area of the outer layout. *@
+<FluentLayout Id="outer" Height="600px">
+
+    <FluentLayoutItem Area="@LayoutArea.Header">
+        <FluentStack VerticalAlignment="VerticalAlignment.Center">
+            <FluentLayoutHamburger Id="outer-hamburger" Display="HamburgerDisplay.DesktopMobile" PanelHeader="Outer navigation" />
+            <span>Outer layout</span>
+        </FluentStack>
+    </FluentLayoutItem>
+
+    <FluentLayoutItem Id="outer-nav" Area="@LayoutArea.Navigation" Width="150px">
+        <ul>
+            <li>Outer item 1</li>
+            <li>Outer item 2</li>
+        </ul>
+    </FluentLayoutItem>
+
+    <FluentLayoutItem Area="@LayoutArea.Content">
+
+        <FluentLayout Id="inner" Width="400px" Height="300px">
+
+            <FluentLayoutItem Area="@LayoutArea.Header">
+                <FluentStack VerticalAlignment="VerticalAlignment.Center">
+                    <FluentLayoutHamburger Id="inner-hamburger" PanelHeader="Inner navigation" />
+                    <span>Inner layout</span>
+                </FluentStack>
+            </FluentLayoutItem>
+
+            <FluentLayoutItem Id="inner-nav" Area="@LayoutArea.Navigation" Width="100px">
+                <ul>
+                    <li>Inner item 1</li>
+                </ul>
+            </FluentLayoutItem>
+
+            <FluentLayoutItem Area="@LayoutArea.Content">
+                <span>Inner content</span>
+            </FluentLayoutItem>
+
+        </FluentLayout>
+
+    </FluentLayoutItem>
+
+</FluentLayout>

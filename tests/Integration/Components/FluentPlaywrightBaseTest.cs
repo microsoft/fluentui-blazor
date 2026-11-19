@@ -37,7 +37,8 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
     /// </summary>
     protected virtual StartServerFixture Server { get; set; }
 
-    public async Task<IPage> WaitOpenPageAsync(string url, bool? openDevTools = null, bool? openHeadlessBrowser = null)
+    // interactive: false for a statically rendered page, which never connects a circuit.
+    public async Task<IPage> WaitOpenPageAsync(string url, bool? openDevTools = null, bool? openHeadlessBrowser = null, bool interactive = true)
     {
         _playwright = await Playwright.Playwright.CreateAsync();
         _browser = await _playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions()
@@ -50,6 +51,11 @@ public abstract class FluentPlaywrightBaseTest : IAsyncDisposable, IDisposable
         page.Console += (_, msg) => Trace.WriteLine(msg.Text);
 
         await page.GotoAsync($"{Server.BaseUrl}{url}");
+        if (!interactive)
+        {
+            return page;
+        }
+
         await page.WaitForConsoleMessageAsync(new PageWaitForConsoleMessageOptions()
         {
             Predicate = msg => msg.Text.Contains("WebSocket connected"),

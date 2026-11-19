@@ -294,6 +294,40 @@ public class FluentLayoutHamburgerTests : FluentPlaywrightBaseTest
         await AssertControlsAsync(page, button, navHasId ? "nav" : null);
     }
 
+    [Fact]
+    public async Task FluentLayoutHamburger_NestedLayout_OpensItsOwnDrawer()
+    {
+        // Arrange: a 400px layout (mobile) nested in a desktop-width layout, statically rendered.
+        // Without a circuit, the startup script (also run after each enhanced navigation) wires every hamburger:
+        // the nested one must be wired to its own layout, not to the outer one that contains it.
+        var page = await WaitOpenPageAsync("/layout/hamburger-nested", openHeadlessBrowser: true, interactive: false);
+        await page.SetViewportSizeAsync(Desktop.Width, Desktop.Height);
+        await page.ReloadAsync();
+
+        await page.WaitForFunctionAsync("""
+            () => ['outer', 'inner'].every(name =>
+                document.getElementById(name)?.fluentLayoutInitialized === true
+                && document.getElementById(name + '-hamburger')?.fluentHamburgerInitialized === true)
+            """);
+
+        var outerButton = page.Locator("#outer-hamburger > fluent-button");
+        var innerButton = page.Locator("#inner-hamburger > fluent-button");
+        var outerNav = page.Locator("#outer-nav");
+        await Assertions.Expect(page.Locator("#outer")).Not.ToHaveAttributeAsync("mobile", "");
+        await Assertions.Expect(page.Locator("#inner")).ToHaveAttributeAsync("mobile", "");
+        await Assertions.Expect(outerButton).ToHaveAttributeAsync("aria-expanded", "true");
+        await Assertions.Expect(innerButton).ToHaveAttributeAsync("aria-expanded", "false");
+
+        // Act
+        await innerButton.ClickAsync();
+
+        // Assert: the nested drawer opens, and the outer nav area and hamburger are unchanged.
+        await Assertions.Expect(innerButton).ToHaveAttributeAsync("aria-expanded", "true");
+        Assert.True(await page.EvaluateAsync<bool>("() => document.getElementById('inner-hamburger-drawer')?.dialog?.open === true"));
+        await Assertions.Expect(outerNav).Not.ToHaveAttributeAsync("hidden", "");
+        await Assertions.Expect(outerButton).ToHaveAttributeAsync("aria-expanded", "true");
+    }
+
     /// <summary>
     /// Checks aria-controls, and that it references an element of the page.
     /// </summary>
