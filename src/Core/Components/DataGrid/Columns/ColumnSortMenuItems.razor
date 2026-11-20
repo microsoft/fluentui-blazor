@@ -53,9 +53,10 @@
     </FluentMenuItem>
 }
 
-@* Going back to the declared sort is only worth offering when the columns declare one; without it, resetting and
-   clearing would do the same thing. It comes after the two that clear, which belong together. *@
-@if (Grid.SortColumns.Count > 1 && Grid.HasDeclaredSort)
+@* Going back to the declared sort is only worth offering when the columns declare one, as without it resetting and
+   clearing would do the same thing, and when the grid is not already sorted that way. It comes after the two that
+   clear, which belong together. *@
+@if (Grid.HasDeclaredSort && !Grid.IsSortedAsDeclared)
 {
     <FluentMenuItem OnClick="@ResetAllSortsAsync"
                     @onkeydown="@(args => HandleKeyDownAsync(args, ResetAllSortsAsync))"
