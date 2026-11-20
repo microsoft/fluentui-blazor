@@ -9,6 +9,22 @@ namespace Microsoft.FluentUI.AspNetCore.Components.Tests.Utilities;
 
 public class StyleBuilderTests
 {
+    [Theory]
+    [InlineData(null, null, null)]
+    [InlineData("", "   ", null)]
+    [InlineData(null, "color: red", "color: red;")]
+    [InlineData("color: red;", null, "color: red;")]
+    [InlineData(" color: red; ", " background: blue; ", "color: red; background: blue;")]
+    [InlineData("color: red", "color: red;", "color: red;")]
+    [InlineData("color: red;", "color: blue;", "color: red; color: blue;")]
+    [InlineData("color: red; background: blue;", "margin: 0;", "color: red; background: blue; margin: 0;")]
+    public void Combine_StyleStrings_ReturnsCombinedStyles(string? first, string? second, string? expected)
+    {
+        var result = StyleBuilder.Combine(first, second);
+
+        Assert.Equal(expected, result);
+    }
+
     [Fact]
     public void StyleBuilder_Raw()
     {

@@ -9,6 +9,8 @@
              LabelTemplate="@LabelTemplate.CombinedWith(ChildContent)"
              Size="@Size.ToFieldSize()">
     <fluent-checkbox @ref="@Element"
+                     class="@InputClass"
+                     style="@InputStyle"
                      aria-label="@AriaLabel"
                      autofocus="@Autofocus"
                      checked="@(_checked ? "true" : null)"

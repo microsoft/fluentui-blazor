@@ -69,6 +69,8 @@ public class InputBaseTests : Bunit.BunitContext
     [InlineData("Message", "my-message", null, null, "Add_MessageCondition_AlwaysTrue")]
     [InlineData("MessageState", MessageState.Success, null, "color: var(--success);", "Add_MessageCondition_AlwaysTrue")]
     [InlineData("InputSlot", "input", null, "slot=\"input\"")]
+    [InlineData("InputClass", "my-input-class", "class", null, "Check_InputCssAttributes")]
+    [InlineData("InputStyle", "border: 1px solid red;", "style", null, "Check_InputCssAttributes")]
     [InlineData("LostFocus", "input", null, null, "Check_LostFocus")]
     public void InputBase_DefaultProperties(string attributeName, object attributeValue, string? htmlAttribute = null, object? htmlValue = null, string? extraCondition = null)
     {
@@ -81,7 +83,10 @@ public class InputBaseTests : Bunit.BunitContext
 
         JSInterop.Mode = JSRuntimeMode.Loose;
 
-        foreach (var componentType in BaseHelpers.GetDerivedTypes(baseType: typeof(FluentInputBase<>), except: Excluded))
+        // Render all component types for CSS attribute checks; otherwise, exclude types without the requested property.
+        var excluded = extraCondition == "Check_InputCssAttributes" ? Type.EmptyTypes : Excluded;
+
+        foreach (var componentType in BaseHelpers.GetDerivedTypes(baseType: typeof(FluentInputBase<>), except: excluded))
         {
             // Convert to generic type if needed
             var type = ComponentInitializer.TryGetValue(componentType, out var value)
@@ -99,6 +104,11 @@ public class InputBaseTests : Bunit.BunitContext
                 // Extra conditions
                 switch (extraCondition)
                 {
+                    case "Check_InputCssAttributes":
+                        attributes.Add("Class", "my-field-class");
+                        attributes.Add("Style", "padding: 2px;");
+                        break;
+
                     case "Set_LabelPosition_Before":
                         attributes.Add("Label", "my-label");
                         attributes.Add("LabelPosition", LabelPosition.Before);
@@ -117,6 +127,18 @@ public class InputBaseTests : Bunit.BunitContext
             var isMatch = string.IsNullOrEmpty(htmlAttribute)
                         ? renderedComponent.Markup.Contains(htmlValue.ToString() ?? "")
                         : renderedComponent.Markup.ContainsAttribute(htmlAttribute, htmlValue);
+
+            if (extraCondition == "Check_InputCssAttributes")
+            {
+                var input = renderedComponent.Find("[slot='input']");
+                var field = renderedComponent.Find("fluent-field");
+                var expected = htmlValue.ToString()!;
+
+                isMatch = input.GetAttribute(htmlAttribute!)?.Contains(expected, StringComparison.Ordinal) == true
+                       && field.GetAttribute(htmlAttribute!)?.Contains(expected, StringComparison.Ordinal) != true
+                       && field.ClassList.Contains("my-field-class")
+                       && field.GetAttribute("style")?.Contains("padding: 2px;", StringComparison.Ordinal) == true;
+            }
 
             // LostFocus
             if (extraCondition == "Check_LostFocus")

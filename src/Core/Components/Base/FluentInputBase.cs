@@ -175,6 +175,20 @@ public abstract partial class FluentInputBase<TValue> : InputBase<TValue>, IFlue
     #region FluentInputBase
 
     /// <summary>
+    /// Gets or sets the CSS classes applied to the input host element (e.g. <c>&lt;fluent-text-input&gt;</c>),
+    /// not the field wrapper or elements inside the shadow DOM.
+    /// </summary>
+    [Parameter]
+    public virtual string? InputClass { get; set; }
+
+    /// <summary>
+    /// Gets or sets the inline styles applied to the input host element (e.g. <c>&lt;fluent-text-input&gt;</c>),
+    /// not the field wrapper or elements inside the shadow DOM.
+    /// </summary>
+    [Parameter]
+    public virtual string? InputStyle { get; set; }
+
+    /// <summary>
     /// Gets the class builder, containing the default margin and padding values.
     /// </summary>
     protected virtual CssBuilder DefaultClassBuilder => new CssBuilder(Class)
