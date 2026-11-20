@@ -55,7 +55,7 @@ jobs:
      - name: Setup .NET 9.0
        uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
        with:
-        dotnet-version: 9.0.305
+        dotnet-version: 9.0.321
         dotnet-quality: ga
 
      - name: Setup .NET 10.0
@@ -160,7 +160,7 @@ jobs:
      # Test Coverage
 
      - name: Report Generator
-       uses: danielpalme/ReportGenerator-GitHub-Action@861674232075b2c6bd1405a04c4bb9b150653e81 # v5.5.12
+       uses: danielpalme/ReportGenerator-GitHub-Action@5f3701a41d14548c9b8e575a5c235230e515cbc0 # v5.6.0
        with:
          reports: '**/*.cobertura.xml'
          targetdir: 'CoverageReports'
@@ -195,8 +195,8 @@ jobs:
        shell: pwsh
        working-directory: ${{ github.workspace }}
        run: |
-         # Use the NetVersion from Directory.Build.props (currently net9.0)
-         ./tests/Integration/bin/Release/net9.0/playwright.ps1 install
+         # Use the ExampleNetVersion from Directory.Build.props (currently net10.0)
+         ./tests/Integration/bin/Release/net10.0/playwright.ps1 install
 
      - name: Run Integration Tests
        if: env.INTEGRATION_TEST != ''
@@ -230,7 +230,7 @@ jobs:
     - name: Setup .NET 9.0
       uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
       with:
-        dotnet-version: 9.0.305
+        dotnet-version: 9.0.321
         dotnet-quality: ga
 
     - name: Setup .NET 10.0
@@ -246,7 +246,7 @@ jobs:
         dotnet-quality: ga
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4.39.2
+      uses: github/codeql-action/init@1bd86f2fdb4b86187fa4059f16f31a3202acc9ea # v4.39.4
       with:
         languages: ${{ matrix.language }}
 
@@ -259,4 +259,4 @@ jobs:
         done
 
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@1fc58d04a4d4374f921bdac573c3811c240f9c26 # v4.39.2
+      uses: github/codeql-action/analyze@1bd86f2fdb4b86187fa4059f16f31a3202acc9ea # v4.39.4
