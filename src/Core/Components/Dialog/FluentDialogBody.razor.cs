@@ -21,6 +21,7 @@ public partial class FluentDialogBody : FluentComponentBase
 
     /// <summary />
     protected string? StyleValue => DefaultStyleBuilder
+        .AddStyle("height", "100%", when: FixedHeaderFooter && !IsDrawer() && !string.IsNullOrEmpty(Instance?.Options.Height))
         .Build();
 
     /// <summary />
