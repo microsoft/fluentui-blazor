@@ -129,6 +129,14 @@
     }
 
     [Fact]
+    public void FluentLayout_Hamburger_EmptyIconTitle_KeepsButtonRole()
+    {
+        var cut = Render(@<FluentLayoutHamburger IconTitle="" />);
+
+        Assert.Equal("button", cut.Find(".fluent-layout-hamburger > fluent-button").GetAttribute("role"));
+    }
+
+    [Fact]
     public void FluentLayout_Hamburger_OutsideLayout()
     {
         // Arrange && Act
