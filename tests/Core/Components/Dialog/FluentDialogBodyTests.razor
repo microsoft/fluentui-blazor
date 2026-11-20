@@ -84,6 +84,27 @@
         }
     }
 
+    [Theory]
+    [InlineData(null, true, false, null)]
+    [InlineData("400px", true, false, "height: 100%;")]
+    [InlineData("400px", false, false, null)]
+    [InlineData("400px", true, true, null)]
+    public void FluentDialogBody_ExplicitHeight_AppliesOnlyToFixedDialog(
+        string? height, bool fixedHeaderFooter, bool isDrawer, string? expectedStyle)
+    {
+        var options = new DialogOptions { Height = height, IsDrawer = isDrawer };
+        var instance = new DialogInstance(DialogService, typeof(Templates.DialogRender), options);
+
+        var cut = Render(
+    @<CascadingValue Value="@instance">
+        <FluentDialogBody FixedHeaderFooter="@fixedHeaderFooter">My content</FluentDialogBody>
+    </CascadingValue>
+    );
+
+        var body = cut.Find(isDrawer ? "fluent-drawer-body" : "fluent-dialog-body");
+        Assert.Equal(expectedStyle, body.GetAttribute("style"));
+    }
+
     [Fact]
     public async Task FluentDialogBody_HeaderActions()
     {
