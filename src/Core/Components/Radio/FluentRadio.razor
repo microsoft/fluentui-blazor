@@ -11,7 +11,9 @@
              LabelWidth="@LabelWidth"
              Disabled="@GetDisabled()"
              LabelPosition="@Components.LabelPosition.After">
-    <fluent-radio id="@Id"
+    <fluent-radio @ref="_element"
+                  id="@Id"
+                  checked="@IsChecked()"
                   disabled="@GetDisabled()"
                   slot="@FluentSlot.FieldInput"
                   name="@Owner?.GetGroupName()"

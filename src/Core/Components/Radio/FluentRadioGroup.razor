@@ -3,7 +3,8 @@
 @inherits FluentInputBase<TValue>
 @typeparam TValue
 
-<CascadingValue Value="this" IsFixed="true" Name="RadioGroup">
+@* IsFixed="false": the radios must re-render when the group changes (Value, Disabled, ...) to keep their `checked` state in sync. *@
+<CascadingValue Value="this" IsFixed="false" Name="RadioGroup">
     <FluentField InputComponent="@this" ForId="@Id" Class="@ClassValue" Style="@StyleValue" IncludeInputSlot="false">
         <fluent-radio-group @ref="@Element"
                             id="@Id"
@@ -19,7 +20,7 @@
                             aria-label="@AriaLabel"
                             autofocus="@Autofocus"
                             tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)"
-                            value="@(RadioValue?.Invoke(Value) ?? Value?.ToString())"
+                            value="@GetGroupValue()"
                             @onradiochange="@RadioChangeHandlerAsync"
                             @onfocusout="@FocusOutHandlerAsync"
                             @attributes="@AdditionalAttributes">

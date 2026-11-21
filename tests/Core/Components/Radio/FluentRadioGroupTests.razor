@@ -353,6 +353,78 @@
         Assert.Null(result);
     }
 
+    [Fact]
+    public void FluentRadioGroup_CheckedRadio_FollowsValue_WhenDisabledChanges()
+    {
+        // Arrange: Disabled is bound to the same value as Value (issue #5639)
+        var cut = Render<FluentRadioGroup<bool>>(parameters => parameters
+            .Add(p => p.Value, true)
+            .Add(p => p.Disabled, true)
+            .Add(p => p.ChildContent, @<text>
+                <FluentRadio TValue="bool" Value="true" Label="True" />
+                <FluentRadio TValue="bool" Value="false" Label="False" />
+            </text>));
+
+        // Assert
+        AssertCheckedRadio(cut, "True");
+
+        // Act: enable the group and change the value
+        cut.Render(parameters => parameters
+            .Add(p => p.Value, false)
+            .Add(p => p.Disabled, false));
+
+        // Assert
+        AssertCheckedRadio(cut, "False");
+
+        // Act: disable the group and change the value
+        cut.Render(parameters => parameters
+            .Add(p => p.Value, true)
+            .Add(p => p.Disabled, true));
+
+        // Assert
+        AssertCheckedRadio(cut, "True");
+    }
+
+    [Fact]
+    public void FluentRadioGroup_CheckedRadio_FollowsValue_WhenRadioIsDisabled()
+    {
+        // Arrange
+        var cut = Render<FluentRadioGroup<string>>(parameters => parameters
+            .Add(p => p.Value, "one")
+            .Add(p => p.ChildContent, @<text>
+                <FluentRadio TValue="string" Value="@("one")" />
+                <FluentRadio TValue="string" Value="@("two")" Disabled="true" />
+            </text>));
+
+        // Act
+        cut.Render(parameters => parameters.Add(p => p.Value, "two"));
+
+        // Assert
+        AssertCheckedRadio(cut, "two");
+    }
+
+    [Fact]
+    public void FluentRadio_ObservesCheckedAttribute()
+    {
+        // Arrange & Act
+        var cut = Render(
+            @<FluentRadioGroup TValue="string" Value="@("one")">
+                <FluentRadio Value="@("one")" />
+                <FluentRadio Value="@("two")" />
+            </FluentRadioGroup>);
+
+        // Assert
+        var invocations = JSInterop.Invocations["Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange"]
+                                   .Where(i => i.Arguments.Count > 1 && Equals(i.Arguments[1], "checked"));
+        Assert.Equal(2, invocations.Count());
+    }
+
+    private static void AssertCheckedRadio<TValue>(IRenderedComponent<FluentRadioGroup<TValue>> cut, string expectedValue)
+    {
+        var radios = cut.FindAll("fluent-radio");
+        Assert.All(radios, radio => Assert.Equal(radio.GetAttribute("value") == expectedValue, radio.HasAttribute("checked")));
+    }
+
     private sealed class RadioGroupValidationModel
     {
         [Required(ErrorMessage = "Selection is required")]

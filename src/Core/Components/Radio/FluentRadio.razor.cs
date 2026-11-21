@@ -14,6 +14,7 @@ namespace Microsoft.FluentUI.AspNetCore.Components;
 public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TValue> : FluentComponentBase, IDisposable
 {
     private bool _disposedValue;
+    private ElementReference _element;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentRadio{TRadioValue}"/> class with the specified library configuration.
@@ -69,6 +70,26 @@ public partial class FluentRadio<[DynamicallyAccessedMembers(DynamicallyAccessed
         }
 
         Owner.AddRadio(this);
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // The `fluent-radio-group` web component ignores value changes while it (or the target radio) is disabled.
+            // Sync the `checked` JavaScript property from the `checked` attribute rendered by Blazor.
+            await JSRuntime.TryInvokeFluentVoidAsync("Microsoft.FluentUI.Blazor.Utilities.Attributes.observeAttributeChange", _element, "checked", "boolean");
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary />
+    internal bool IsChecked()
+    {
+        var groupValue = Owner.GetGroupValue();
+        return groupValue is not null && string.Equals(GetValue(), groupValue, StringComparison.Ordinal);
     }
 
     /// <summary />
