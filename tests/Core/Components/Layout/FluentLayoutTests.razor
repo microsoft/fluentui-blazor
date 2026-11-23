@@ -172,6 +172,27 @@
     }
 
     [Fact]
+    public void FluentLayout_Hamburger_ButtonControlsDrawer()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentLayout Id="my-id">
+            <FluentLayoutItem Area="LayoutArea.Header">
+                <FluentLayoutHamburger Id="my-hamburger" />
+            </FluentLayoutItem>
+            <FluentLayoutItem Area="LayoutArea.Content">Content</FluentLayoutItem>
+        </FluentLayout>);
+
+        // Assert
+        var button = cut.Find(".fluent-layout-hamburger fluent-button");
+        Assert.Equal("my-hamburger-drawer", button.GetAttribute("aria-controls"));
+        Assert.NotNull(cut.Find("#my-hamburger-drawer"));
+
+        // The role-less wrapper must not carry aria-expanded
+        var wrapper = cut.Find(".fluent-layout-hamburger");
+        Assert.Null(wrapper.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
     public void FluentLayout_InvalidArea()
     {
         // Arrange && Act

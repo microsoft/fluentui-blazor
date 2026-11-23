@@ -136,6 +136,9 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     const layoutContainer = containerId ? document.getElementById(containerId) : null;
     const dialog = document.getElementById(id + '-drawer') as any;
     const closeButton = document.getElementById(id + '-drawer-close-button');
+    // The element with the button role is the inner fluent-button, which carries aria-expanded.
+    // Look it up at event time: it may be created or replaced after initialisation.
+    const getButton = () => element.querySelector('fluent-button');
 
     if (element) {
 
@@ -149,13 +152,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
       element.addEventListener('click', (event: MouseEvent) => {
         const layoutNav = layoutContainer ? layoutContainer.querySelector('.fluent-layout-item[area="nav"]') : null;
-        const isExpanded = element.getAttribute('aria-expanded') === 'true';
+        const isExpanded = getButton()?.getAttribute('aria-expanded') === 'true';
         const newValue = !isExpanded;
         const isMobileSize = isMobile(layoutContainer ?? document.body);
 
         // Show or hide the nav area
         if (layoutNav && !isMobileSize) {
-          element.setAttribute('aria-expanded', newValue ? 'true' : 'false');
+          getButton()?.setAttribute('aria-expanded', newValue ? 'true' : 'false');
           layoutNav.toggleAttribute('hidden', newValue);
         }
 
@@ -170,7 +173,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
               const newState = (e.detail?.newState ?? e.newState) === `open`;
 
-              element.setAttribute('aria-expanded', newState ? 'true' : 'false');
+              getButton()?.setAttribute('aria-expanded', newState ? 'true' : 'false');
               try {
                 element._fluentHamburgerDotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
               }
