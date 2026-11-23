@@ -1,0 +1,53 @@
+@page "/dialog/height/{Source}"
+@inject IDialogService DialogService
+
+<link rel="stylesheet" href="_content/Microsoft.FluentUI.AspNetCore.Components/Microsoft.FluentUI.AspNetCore.Components.bundle.scp.css" />
+
+<FluentDialogProvider />
+
+<button id="open-dialog" disabled="@(!RendererInfo.IsInteractive)" @onclick="OpenDialogAsync">Open dialog</button>
+
+<FluentDialog Id="declarative-dialog" Style="height: 400px;" @ref="_dialog">
+    <FluentDialogBody>
+        <TitleTemplate>Dialog title</TitleTemplate>
+        <ChildContent>
+            @Content
+        </ChildContent>
+        <ActionTemplate>
+            <button>OK</button>
+        </ActionTemplate>
+    </FluentDialogBody>
+</FluentDialog>
+
+@code {
+    private FluentDialog _dialog = default!;
+
+    private RenderFragment Content => @<div style="height: 40px;">Short content</div>;
+
+    [Parameter]
+    public string Source { get; set; } = string.Empty;
+
+    private Task OpenDialogAsync()
+    {
+        if (Source == "declarative-style")
+        {
+            return _dialog.ShowAsync();
+        }
+
+        _ = DialogService.ShowDialogAsync<FluentDialogBody>(options =>
+        {
+            options.Header.Title = "Dialog title";
+            options.Parameters.Add(nameof(FluentDialogBody.ChildContent), Content);
+            if (Source == "options-height")
+            {
+                options.Height = "400px";
+            }
+            else if (Source == "options-style")
+            {
+                options.Style = "height: 400px;";
+            }
+        });
+
+        return Task.CompletedTask;
+    }
+}

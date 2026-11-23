@@ -221,6 +221,9 @@ Setting `<FluentDialogBody FixedHeaderFooter="true">` changes the layout so that
  - The **header** and the **footer** (`ActionTemplate`) stay pinned at the top/bottom.
  - Only the **content** (`ChildContent`) scrolls when it overflows.
 
+Centered dialogs size to their content by default. To set a fixed height while keeping the footer at the bottom,
+use `DialogOptions.Height`, `DialogOptions.Style`, or `<FluentDialog Style="height: 400px;">`.
+
 **When to use it**
 
  - The dialog/drawer content may exceed the available height (long forms, lists, logs, terms of service, etc.).

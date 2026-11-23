@@ -6,6 +6,8 @@
 /* Dialog -> scrollable = false */
 fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable]) {
   grid-template-rows: min-content minmax(0, 1fr) min-content;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 fluent-dialog[fuib] fluent-dialog-body[fuib]:not([scrollable])>div[slot="action"] {
