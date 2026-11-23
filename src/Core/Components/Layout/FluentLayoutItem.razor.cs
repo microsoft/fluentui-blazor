@@ -16,7 +16,10 @@ public partial class FluentLayoutItem : FluentComponentBase
     private readonly Dictionary<string, string> _extraStyles = new(StringComparer.Ordinal);
 
     /// <summary />
-    public FluentLayoutItem(LibraryConfiguration configuration) : base(configuration) { }
+    public FluentLayoutItem(LibraryConfiguration configuration) : base(configuration)
+    {
+        Id = Identifier.NewId();
+    }
 
     /// <summary>
     /// Gets or sets the Scrollbar Width to compute the correct Aside position.
@@ -102,15 +105,6 @@ public partial class FluentLayoutItem : FluentComponentBase
     protected override void OnInitialized()
     {
         LayoutContainer?.AddItem(this);
-    }
-
-    /// <summary />
-    protected override void OnParametersSet()
-    {
-        if (Area == LayoutArea.Navigation && string.IsNullOrWhiteSpace(Id))
-        {
-            Id = Identifier.NewId();
-        }
     }
 
     /// <summary>

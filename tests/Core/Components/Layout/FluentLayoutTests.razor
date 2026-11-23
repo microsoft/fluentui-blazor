@@ -162,20 +162,32 @@
         Assert.Null(wrapper.GetAttribute("aria-controls"));
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData(" ")]
-    public void FluentLayoutItem_NavigationWithoutId_GeneratesStableId(string? id)
+    [Fact]
+    public void FluentLayoutItem_OmittedId_GeneratesStableId()
     {
-        var cut = Render(@<FluentLayoutItem Area="LayoutArea.Navigation" Id="@id">Navigation</FluentLayoutItem>);
+        var cut = Render(@<FluentLayoutItem Area="LayoutArea.Navigation">Navigation</FluentLayoutItem>);
         var navigationId = cut.Find("[area=nav]").Id;
 
         Assert.False(string.IsNullOrWhiteSpace(navigationId));
 
-        cut.Render();
+        cut.FindComponent<FluentLayoutItem>()
+           .Render(parameters => parameters.Add(component => component.Class, "updated-navigation"));
 
         Assert.Equal(navigationId, cut.Find("[area=nav]").Id);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentLayoutItem_ExplicitBlankId_PreservesValue(string? id)
+    {
+        var cut = Render(@<FluentLayoutItem Area="LayoutArea.Navigation" Id="my-navigation">Navigation</FluentLayoutItem>);
+
+        cut.FindComponent<FluentLayoutItem>()
+           .Render(parameters => parameters.Add(component => component.Id, id));
+
+        Assert.Equal(id, cut.Find("[area=nav]").GetAttribute("id"));
     }
 
     [Fact]
