@@ -185,6 +185,7 @@
         // Assert
         var button = cut.Find(".fluent-layout-hamburger fluent-button");
         Assert.Equal("my-hamburger-drawer", button.GetAttribute("aria-controls"));
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
         Assert.NotNull(cut.Find("#my-hamburger-drawer"));
 
         // The role-less wrapper must not carry aria-expanded
