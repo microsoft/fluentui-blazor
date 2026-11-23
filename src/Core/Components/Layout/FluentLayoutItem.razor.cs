@@ -104,6 +104,15 @@ public partial class FluentLayoutItem : FluentComponentBase
         LayoutContainer?.AddItem(this);
     }
 
+    /// <summary />
+    protected override void OnParametersSet()
+    {
+        if (Area == LayoutArea.Navigation && string.IsNullOrWhiteSpace(Id))
+        {
+            Id = Identifier.NewId();
+        }
+    }
+
     /// <summary>
     /// Asynchronously refreshes the current state of the component.
     /// </summary>
