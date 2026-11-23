@@ -1,4 +1,5 @@
 import { DotNet } from "../../d-ts/Microsoft.JSInterop";
+import type { Drawer } from "@fluentui/web-components";
 
 export namespace Microsoft.FluentUI.Blazor.Components.Layout {
 
@@ -63,13 +64,45 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     element.toggleAttribute('mobile', mobile);
 
     if (changed || force) {
+      updateHamburgers(element);
       try {
         await element._fluentDotNetHelper?.invokeMethodAsync('FluentLayout_MediaChangedAsync', mobile ? 'mobile' : 'desktop');
       }
       catch (error) {
         console.error('FluentLayout: unable to synchronize the breakpoint with .NET.', error);
       }
+      // Deferred navigation may have been rendered by .NET.
+      updateHamburgers(element);
     }
+  }
+
+  function updateHamburgerState(element: HTMLElement): void {
+    const button = element.querySelector('fluent-button');
+    if (!button) {
+      return;
+    }
+
+    const layout = element.closest<HTMLElement>('.fluent-layout');
+    const nav = layout && !isMobile(layout) ? layout.querySelector(':scope > .fluent-layout-item[area="nav"]') : null;
+    const drawer = document.getElementById(element.id + '-drawer') as Drawer | null;
+    const expanded = nav ? !nav.hasAttribute('hidden') : drawer?.dialog?.open === true;
+    const controls = (nav ?? drawer)?.id;
+
+    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    if (controls) {
+      button.setAttribute('aria-controls', controls);
+    }
+    else {
+      button.removeAttribute('aria-controls');
+    }
+  }
+
+  function updateHamburgers(layout: HTMLElement): void {
+    layout.querySelectorAll<HTMLElement>('.fluent-layout-hamburger').forEach(hamburger => {
+      if (hamburger.closest('.fluent-layout') === layout) {
+        updateHamburgerState(hamburger);
+      }
+    });
   }
 
   /**
@@ -122,6 +155,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
       return;
     }
 
+    updateHamburgerState(element);
+
     // Allow upgrading a static (null) initialization to an interactive one.
     if (element.fluentHamburgerInitialized) {
       if (dotNetHelper !== null) {
@@ -134,7 +169,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
     element._fluentHamburgerDotNetHelper = dotNetHelper;
 
     const layoutContainer = containerId ? document.getElementById(containerId) : null;
-    const dialog = document.getElementById(id + '-drawer') as any;
+    const dialog = document.getElementById(id + '-drawer') as Drawer | null;
     const closeButton = document.getElementById(id + '-drawer-close-button');
 
     if (element) {
@@ -143,49 +178,43 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
         const target = event.target;
 
         if (target instanceof Element && target.closest('.fluent-navitem')) {
-          dialog.hide();
+          dialog?.hide();
+        }
+      });
+
+      dialog?.addEventListener('toggle', async event => {
+        if (event.target !== dialog) {
+          return;
+        }
+
+        updateHamburgerState(element);
+        try {
+          await element._fluentHamburgerDotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', dialog.dialog?.open === true);
+        }
+        catch (error) {
+          console.error('FluentLayout: unable to notify .NET of the drawer state.', error);
         }
       });
 
       element.addEventListener('click', (event: MouseEvent) => {
-        const layoutNav = layoutContainer ? layoutContainer.querySelector('.fluent-layout-item[area="nav"]') : null;
-        const isExpanded = element.getAttribute('aria-expanded') === 'true';
-        const newValue = !isExpanded;
+        const layoutNav = layoutContainer?.querySelector(':scope > .fluent-layout-item[area="nav"]');
         const isMobileSize = isMobile(layoutContainer ?? document.body);
 
         // Show or hide the nav area
-        if (layoutNav && !isMobileSize) {
-          element.setAttribute('aria-expanded', newValue ? 'true' : 'false');
-          layoutNav.toggleAttribute('hidden', newValue);
+        if (layoutContainer && layoutNav && !isMobileSize) {
+          layoutNav.toggleAttribute('hidden');
+          updateHamburgers(layoutContainer);
         }
 
         // Show or hide the fluent-drawer
         else if (isMobileSize && dialog) {
 
-          // Add a Toggle event
-          if (!dialog.toggleRegistered) {
-            dialog.toggleRegistered = true;
-            dialog.addEventListener('toggle', (e: any) => {
-              // Toggle the aria-expanded attribute
-
-              const newState = (e.detail?.newState ?? e.newState) === `open`;
-
-              element.setAttribute('aria-expanded', newState ? 'true' : 'false');
-              try {
-                element._fluentHamburgerDotNetHelper?.invokeMethodAsync('FluentLayout_HamburgerClickAsync', newState);
-              }
-              catch (error) {
-              }
-
-            });
-          }
-
           // Show or hide
-          if (newValue) {
-            dialog.show();
+          if (dialog.dialog?.open) {
+            dialog.hide();
           }
           else {
-            dialog.hide();
+            dialog.show();
           }
         }
       });
@@ -201,7 +230,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
       // Hide the drawer when the close button is clicked
       if (closeButton) {
         closeButton.addEventListener('click', (event: MouseEvent) => {
-          dialog.hide();
+          dialog?.hide();
         });
       }
     }
@@ -212,18 +241,19 @@ export namespace Microsoft.FluentUI.Blazor.Components.Layout {
    * without a .NET reference. This lets the hamburger open/close the fluent-drawer even when
    * rendered statically, since `HamburgerInitialize` is otherwise only called from
    * `OnAfterRenderAsync`, which never runs without an interactive render mode.
+   * Repeated calls resynchronize existing buttons after enhanced navigation.
    */
   export function LayoutAutoInitialize() {
 
     document.querySelectorAll<HTMLElement>('.fluent-layout').forEach(element => {
-      if (!element.id || (element as any).fluentLayoutInitialized) {
+      if (!element.id) {
         return;
       }
 
       Initialize(null, element.id);
 
       element.querySelectorAll<HTMLElement>('.fluent-layout-hamburger').forEach(hamburger => {
-        if (!hamburger.id || (hamburger as any).fluentHamburgerInitialized) {
+        if (!hamburger.id || hamburger.closest('.fluent-layout') !== element) {
           return;
         }
 

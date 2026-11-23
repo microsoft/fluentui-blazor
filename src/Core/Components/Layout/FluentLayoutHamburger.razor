@@ -9,7 +9,11 @@
                       Color="var(--colorNeutralForegroundOnBrand)"
                       IconStart="@Icon"
                       Title="@IconTitle"
-                      IconOnly="true" />
+                      IconOnly="true"
+                      role="button"
+                      aria-label="@(string.IsNullOrWhiteSpace(IconTitle) ? Localizer[Localization.LanguageResource.LayoutHamburger_Title] : IconTitle)"
+                      aria-controls="@($"{Id}-drawer")"
+                      aria-expanded="false" />
     </div>
 
     <fluent-drawer hamburger

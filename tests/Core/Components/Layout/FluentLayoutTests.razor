@@ -128,6 +128,76 @@
         cut.Verify();
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentLayout_Hamburger_EmptyIconTitle_KeepsAccessibleButton(string title)
+    {
+        var cut = Render(@<FluentLayoutHamburger IconTitle="@title" />);
+        var button = cut.Find(".fluent-layout-hamburger > fluent-button");
+
+        Assert.Equal("button", button.GetAttribute("role"));
+        Assert.Equal("Menu", button.GetAttribute("aria-label"));
+    }
+
+    [Theory]
+    [InlineData("Static", false)]
+    [InlineData("Server", true)]
+    public void FluentLayout_Hamburger_RenderModes_ExposesCollapsedDrawer(string rendererName, bool interactive)
+    {
+        SetRendererInfo(new RendererInfo(rendererName, interactive));
+
+        var cut = Render(@<FluentLayout>
+            <FluentLayoutItem Area="LayoutArea.Header">
+                <FluentLayoutHamburger Id="my-hamburger" IconTitle="Navigation" />
+            </FluentLayoutItem>
+        </FluentLayout>);
+        var wrapper = cut.Find(".fluent-layout-hamburger");
+        var button = cut.Find(".fluent-layout-hamburger > fluent-button");
+
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+        Assert.Equal(cut.Find("#my-hamburger-drawer").Id, button.GetAttribute("aria-controls"));
+        Assert.Equal("Navigation", button.GetAttribute("aria-label"));
+        Assert.Null(wrapper.GetAttribute("aria-expanded"));
+        Assert.Null(wrapper.GetAttribute("aria-controls"));
+    }
+
+    [Fact]
+    public void FluentLayoutItem_OmittedId_GeneratesStableId()
+    {
+        var cut = Render(@<FluentLayoutItem Area="LayoutArea.Navigation">Navigation</FluentLayoutItem>);
+        var navigationId = cut.Find("[area=nav]").Id;
+
+        Assert.False(string.IsNullOrWhiteSpace(navigationId));
+
+        cut.FindComponent<FluentLayoutItem>()
+           .Render(parameters => parameters.Add(component => component.Class, "updated-navigation"));
+
+        Assert.Equal(navigationId, cut.Find("[area=nav]").Id);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void FluentLayoutItem_ExplicitBlankId_PreservesValue(string? id)
+    {
+        var cut = Render(@<FluentLayoutItem Area="LayoutArea.Navigation" Id="my-navigation">Navigation</FluentLayoutItem>);
+
+        cut.FindComponent<FluentLayoutItem>()
+           .Render(parameters => parameters.Add(component => component.Id, id));
+
+        Assert.Equal(id, cut.Find("[area=nav]").GetAttribute("id"));
+    }
+
+    [Fact]
+    public void FluentLayoutItem_NavigationWithId_PreservesId()
+    {
+        var cut = Render(@<FluentLayoutItem Area="LayoutArea.Navigation" Id="my-navigation">Navigation</FluentLayoutItem>);
+
+        Assert.Equal("my-navigation", cut.Find("[area=nav]").Id);
+    }
+
     [Fact]
     public void FluentLayout_Hamburger_OutsideLayout()
     {
