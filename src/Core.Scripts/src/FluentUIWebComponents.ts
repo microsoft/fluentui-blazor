@@ -1,4 +1,5 @@
 import * as FluentUIComponents from '@fluentui/web-components'
+import { css } from '@microsoft/fast-element';
 import { defineOnce } from './RegistrationState';
 
 
@@ -41,7 +42,18 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
       FluentUIComponents.DialogBody.define(FluentUIComponents.DialogBodyDefinition);
     });
     defineOnce('fluentui:web-components:dialog', () => {
-      FluentUIComponents.Dialog.define(FluentUIComponents.DialogDefinition);
+      // Keep this inside the shadow root to target [open]: external ::part styles cannot filter that attribute,
+      // and :open is unsupported in WebKit 26. Unconditional display: flex would also reveal closed dialogs.
+      const dialogDefinition: typeof FluentUIComponents.DialogDefinition = {
+        ...FluentUIComponents.DialogDefinition,
+        styles: [FluentUIComponents.DialogDefinition.styles ?? [], css`
+          :host([fuib]:not([position])) dialog[open] {
+            display: flex;
+            flex-direction: column;
+          }
+        `].flat(),
+      };
+      FluentUIComponents.Dialog.define(dialogDefinition);
     });
     defineOnce('fluentui:web-components:divider', () => {
       FluentUIComponents.Divider.define(FluentUIComponents.DividerDefinition);
