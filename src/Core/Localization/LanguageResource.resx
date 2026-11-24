@@ -466,4 +466,14 @@
     <value>Dropped, position {0} of {1}</value>
     <comment>{0} is the position of the item and {1} the number of items in the list</comment>
   </data>
+  <data name="Overflow_StatusNoItems" xml:space="preserve">
+    <value>No items in overflow</value>
+  </data>
+  <data name="Overflow_StatusSingleItem" xml:space="preserve">
+    <value>1 item in overflow</value>
+  </data>
+  <data name="Overflow_StatusMultipleItems" xml:space="preserve">
+    <value>{0} items in overflow</value>
+    <comment>{0} is the number of items in overflow</comment>
+  </data>
 </root>

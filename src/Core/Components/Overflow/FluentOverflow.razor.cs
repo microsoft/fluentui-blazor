@@ -5,6 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.FluentUI.AspNetCore.Components.Localization;
 using Microsoft.FluentUI.AspNetCore.Components.Utilities;
 using Microsoft.JSInterop;
 
@@ -19,6 +20,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     private int _measuredOverflowCount;
     private int[] _overflowIndices = [];
     private bool _itemsWereSupplied;
+    private string? _statusAnnouncement;
 
     private int RenderedItemCount => MaxRenderedItems > 0 ? Math.Min(MaxRenderedItems, _sourceItems.Count) : _sourceItems.Count;
     private int PreOverflowCount => _sourceItems.Count - RenderedItemCount;
@@ -154,6 +156,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        var previousOverflowCount = OverflowCount;
         var items = Items;
         if (items is null)
         {
@@ -167,6 +170,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
             }
 
             _itemsWereSupplied = false;
+            UpdateOverflowStatus(previousOverflowCount);
             return;
         }
 
@@ -174,6 +178,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         _sourceItems = items.ToArray();
         _overflowIndices = _overflowIndices.Where(index => index >= 0 && index < RenderedItemCount).ToArray();
         UpdateOverflowItems();
+        UpdateOverflowStatus(previousOverflowCount);
     }
 
     private void UpdateOverflowItems()
@@ -203,10 +208,12 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     /// <summary />
     public async Task OverflowRaisedAsync(OverflowItem[] items)
     {
+        var previousOverflowCount = OverflowCount;
         _renderedOverflowItems = items;
         _measuredOverflowCount = items.Length;
         _overflowIndices = items.Select(item => item.Index).ToArray();
         UpdateOverflowItems();
+        UpdateOverflowStatus(previousOverflowCount);
 
         if (OnOverflowRaised.HasDelegate)
         {
@@ -231,6 +238,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
             return;
         }
 
+        var previousOverflowCount = OverflowCount;
         _renderedOverflowItems = args.Items?.Select(item => new OverflowItem
         {
             Id = item.Id,
@@ -240,6 +248,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         _measuredOverflowCount = Math.Max(0, args.OverflowCount);
         _overflowIndices = _renderedOverflowItems.Select(item => item.Index).ToArray();
         UpdateOverflowItems();
+        UpdateOverflowStatus(previousOverflowCount);
 
         if (OnOverflowRaised.HasDelegate)
         {
@@ -247,5 +256,21 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         }
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateOverflowStatus(int previousOverflowCount)
+    {
+        var overflowCount = OverflowCount;
+        if (overflowCount == previousOverflowCount)
+        {
+            return;
+        }
+
+        _statusAnnouncement = overflowCount switch
+        {
+            0 => Localizer[LanguageResource.Overflow_StatusNoItems],
+            1 => Localizer[LanguageResource.Overflow_StatusSingleItem],
+            _ => Localizer[LanguageResource.Overflow_StatusMultipleItems, overflowCount],
+        };
     }
 }
