@@ -216,14 +216,6 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
         await InvokeAsync(StateHasChanged);
     }
 
-    private async Task OnMoreKeyDownAsync(KeyboardEventArgs args)
-    {
-        if (HasDefaultMoreAction && args.Key is "Enter" or " ")
-        {
-            await OnMoreClick.InvokeAsync(new MouseEventArgs());
-        }
-    }
-
     private async Task OnOverflowChangedAsync(OverflowChangedEventArgs args)
     {
         if (!string.Equals(args.Id, Id, StringComparison.Ordinal))

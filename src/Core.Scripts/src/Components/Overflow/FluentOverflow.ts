@@ -150,6 +150,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.setDefaultAttributes();
       this.triggerSlot.addEventListener('slotchange', this.handleCustomizationSlotChange);
       this.menuSlot.addEventListener('slotchange', this.handleCustomizationSlotChange);
+      this.addEventListener('keydown', this.handleTriggerKeyDown);
       this.addEventListener('toggle', this.handleTooltipToggle, true);
 
       this.controller?.disconnect();
@@ -230,6 +231,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.controller = undefined;
       this.triggerSlot.removeEventListener('slotchange', this.handleCustomizationSlotChange);
       this.menuSlot.removeEventListener('slotchange', this.handleCustomizationSlotChange);
+      this.removeEventListener('keydown', this.handleTriggerKeyDown);
       this.removeEventListener('toggle', this.handleTooltipToggle, true);
     }
 
@@ -308,6 +310,32 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     private readonly handleCustomizationSlotChange = (): void => {
       this.updateOverflowPresentation();
       this.controller?.requestRefresh();
+    };
+
+    /** Toggles a slotted tooltip when its custom trigger is activated by keyboard. */
+    private readonly handleTriggerKeyDown = (event: KeyboardEvent): void => {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+
+      const trigger = this.getTriggerElement();
+      if (!trigger || !(trigger instanceof HTMLElement) || !trigger.contains(event.target as Node)) {
+        return;
+      }
+
+      const tooltip = document.querySelector<HTMLElement & { showPopover(): void; hidePopover(): void }>(
+        `fluent-tooltip[anchor="${trigger.id}"]`,
+      );
+      if (!tooltip) {
+        return;
+      }
+
+      event.preventDefault();
+      if (tooltip.matches(':popover-open')) {
+        tooltip.hidePopover();
+      } else {
+        tooltip.showPopover();
+      }
     };
 
     /** Emits overflow details when the slotted tooltip opens or closes. */

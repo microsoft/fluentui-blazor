@@ -1,6 +1,7 @@
-<div class="resizable-horizontal">
+﻿<div class="resizable-horizontal">
     <FluentOverflow TItem="string"
                     OnOverflowRaised="OverflowHandler">
+                    
         <ChildContent>
             @foreach (var item in Items)
             {
@@ -8,11 +9,13 @@
             }
         </ChildContent>
         <MoreTemplate>
-            <FluentButton Appearance="ButtonAppearance.Subtle"
-                          Style="min-width: 32px; max-width:32px;"
-                          OnClick="@(() => _popupOpened = !_popupOpened)">
-                @($"+{context.ItemsOverflow.Count()}")
-            </FluentButton>
+            
+                <FluentButton Appearance="ButtonAppearance.Subtle"
+                              Style="min-width: 32px; max-width:32px;"
+                              OnClick="@(() => _popupOpened = !_popupOpened)">
+                    @($"+{context.ItemsOverflow.Count()}")
+                </FluentButton>
+            
         </MoreTemplate>
         <OverflowTemplate>
             <FluentPopover AnchorId="@context.IdMoreButton"
@@ -40,9 +43,9 @@
 
 @code
 {
-    static string[] Catalog = new[] { "Blazor", "WPF", "Microsoft", "Framework",
-                                      "Electron", "WinForms", "MAUI", "Fluent", "Reality",
-                                      "Office", "Installation", "Azure", "DevOps" };
+    static string[] Catalog = new[] { "Blazor", "WPF", "Microsoft", ".NET",
+                                      "WinUI", "WinForms", "MAUI", "Fluent", "GitHub",
+                                      "Office 365", "Installation", "Azure", "DevOps" };
 
     List<string> Items = new List<string>() { Catalog[0], Catalog[1] };
 

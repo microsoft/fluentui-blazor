@@ -23,25 +23,28 @@
             @ItemTemplate?.Invoke(item)
         }
     }
-    <div id="@IdMoreButton"
-         class="fluent-overflow-more"
-         style="@MoreButtonStyleValue"
-         slot="trigger"
-         role="@(HasDefaultMoreAction ? "button" : null)"
-         tabindex="@(MoreTemplate is null ? "0" : null)"
-         @onclick="@(HasDefaultMoreAction ? OnMoreClick : default)"
-         @onkeydown="OnMoreKeyDownAsync">
-        @if (MoreTemplate != null)
-        {
-            @MoreTemplate(OverflowContext)
-        }
-        else
-        {
+    @if (MoreTemplate is null)
+    {
+        <button id="@IdMoreButton"
+                class="fluent-overflow-more"
+                style="@MoreButtonStyleValue"
+                slot="trigger"
+                type="button"
+                @onclick="@(HasDefaultMoreAction ? OnMoreClick : default)">
             <FluentBadge Appearance="BadgeAppearance.Filled"
                          Style="min-width: 32px; max-width:32px;"
                          Content="@($"+{OverflowCount}")" />
-        }
-    </div>
+        </button>
+    }
+    else
+    {
+        <div id="@IdMoreButton"
+             class="fluent-overflow-more"
+             style="@MoreButtonStyleValue"
+             slot="trigger">
+            @MoreTemplate(OverflowContext)
+        </div>
+    }
 </fluent-overflow>
 @if (OverflowTemplate != null)
 {

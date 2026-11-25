@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Xunit
 @inherits FluentUITestContext
 
@@ -363,14 +363,11 @@
         </FluentOverflow>);
         var trigger = cut.Find("#overflow-more");
 
-        Assert.Equal("button", trigger.GetAttribute("role"));
-        Assert.Equal("0", trigger.GetAttribute("tabindex"));
+        Assert.Equal("button", trigger.TagName, ignoreCase: true);
+        Assert.Equal("button", trigger.GetAttribute("type"));
         trigger.Click();
-        trigger.KeyDown("Enter");
-        trigger.KeyDown(" ");
-        trigger.KeyDown("Escape");
 
-        Assert.Equal(3, invocationCount);
+        Assert.Equal(1, invocationCount);
     }
 
     [Fact]
@@ -379,8 +376,8 @@
         var cut = Render(@<FluentOverflow TItem="string" Id="overflow"><span>Item</span></FluentOverflow>);
         var trigger = cut.Find("#overflow-more");
 
-        Assert.Equal("0", trigger.GetAttribute("tabindex"));
-        Assert.False(trigger.HasAttribute("role"));
+        Assert.Equal("button", trigger.TagName, ignoreCase: true);
+        Assert.Equal("button", trigger.GetAttribute("type"));
     }
 
     [Fact]
@@ -394,7 +391,6 @@
 
         Assert.False(trigger.HasAttribute("role"));
         Assert.False(trigger.HasAttribute("tabindex"));
-        trigger.KeyDown("Enter");
         Assert.Equal(0, invocationCount);
     }
 
