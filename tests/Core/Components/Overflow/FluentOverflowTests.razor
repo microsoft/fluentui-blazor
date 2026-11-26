@@ -373,7 +373,7 @@
             OverflowCount = 1,
         });
 
-        Assert.Equal(IFluentLocalizer.GetDefault("Overflow_StatusSingleItem"), cut.Find("[overflow-status]").TextContent);
+        Assert.Equal(IFluentLocalizer.GetDefault("Overflow_StatusItemCount", 1), cut.Find("[overflow-status]").TextContent);
 
         await host.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
         {

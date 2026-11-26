@@ -469,11 +469,8 @@
   <data name="Overflow_StatusNoItems" xml:space="preserve">
     <value>No items in overflow</value>
   </data>
-  <data name="Overflow_StatusSingleItem" xml:space="preserve">
-    <value>1 item in overflow</value>
-  </data>
-  <data name="Overflow_StatusMultipleItems" xml:space="preserve">
-    <value>{0} items in overflow</value>
+  <data name="Overflow_StatusItemCount" xml:space="preserve">
+    <value>Overflow item count:{0}</value>
     <comment>{0} is the number of items in overflow</comment>
   </data>
 </root>
