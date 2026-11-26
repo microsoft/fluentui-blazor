@@ -150,6 +150,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.setDefaultAttributes();
       this.triggerSlot.addEventListener('slotchange', this.handleCustomizationSlotChange);
       this.menuSlot.addEventListener('slotchange', this.handleCustomizationSlotChange);
+      this.syncTriggerFocusListener();
+      this.addEventListener('click', this.handleTriggerClick);
       this.addEventListener('keydown', this.handleTriggerKeyDown);
       this.addEventListener('toggle', this.handleTooltipToggle, true);
 
@@ -231,6 +233,8 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
       this.controller = undefined;
       this.triggerSlot.removeEventListener('slotchange', this.handleCustomizationSlotChange);
       this.menuSlot.removeEventListener('slotchange', this.handleCustomizationSlotChange);
+      this.removeTriggerFocusListener();
+      this.removeEventListener('click', this.handleTriggerClick);
       this.removeEventListener('keydown', this.handleTriggerKeyDown);
       this.removeEventListener('toggle', this.handleTooltipToggle, true);
     }
@@ -307,25 +311,90 @@ export namespace Microsoft.FluentUI.Blazor.Components.Overflow {
     }
 
     /** Refreshes the presentation when a customization slot changes. */
+    private observedTriggerForFocus?: HTMLElement;
+
     private readonly handleCustomizationSlotChange = (): void => {
       this.updateOverflowPresentation();
+      this.syncTriggerFocusListener();
       this.controller?.requestRefresh();
     };
 
-    /** Toggles a slotted tooltip when its custom trigger is activated by keyboard. */
-    private readonly handleTriggerKeyDown = (event: KeyboardEvent): void => {
-      if (event.key !== 'Enter' && event.key !== ' ') {
+    private syncTriggerFocusListener(): void {
+      const trigger = this.getTriggerElement();
+      if (!(trigger instanceof HTMLElement) || trigger === this.observedTriggerForFocus) {
         return;
       }
 
+      this.removeTriggerFocusListener();
+      this.observedTriggerForFocus = trigger;
+      trigger.addEventListener('focusout', this.handleTriggerFocusOut);
+    }
+
+    private removeTriggerFocusListener(): void {
+      this.observedTriggerForFocus?.removeEventListener('focusout', this.handleTriggerFocusOut);
+      this.observedTriggerForFocus = undefined;
+    }
+
+    private readonly handleTriggerFocusOut = (event: FocusEvent): void => {
+      const trigger = this.observedTriggerForFocus;
+      if (!trigger) {
+        return;
+      }
+
+      const relatedTarget = event.relatedTarget;
+      if (relatedTarget instanceof Node && trigger.contains(relatedTarget)) {
+        return;
+      }
+
+      const tooltip = this.getAnchoredTooltip(trigger);
+      if (tooltip?.matches(':popover-open')) {
+        tooltip.hidePopover();
+      }
+    };
+
+    /** Finds the tooltip associated with the custom trigger. */
+    private getAnchoredTooltip(trigger: HTMLElement): (HTMLElement & { showPopover(): void; hidePopover(): void }) | undefined {
+      return Array.from(document.querySelectorAll<HTMLElement & { showPopover(): void; hidePopover(): void }>('fluent-tooltip'))
+        .find((tooltip) => tooltip.getAttribute('anchor') === trigger.id);
+    }
+
+    /** Toggles an anchored tooltip after native trigger activation. */
+    private readonly handleTriggerClick = (event: MouseEvent): void => {
       const trigger = this.getTriggerElement();
       if (!trigger || !(trigger instanceof HTMLElement) || !trigger.contains(event.target as Node)) {
         return;
       }
 
-      const tooltip = document.querySelector<HTMLElement & { showPopover(): void; hidePopover(): void }>(
-        `fluent-tooltip[anchor="${trigger.id}"]`,
-      );
+      const tooltip = this.getAnchoredTooltip(trigger);
+      if (!tooltip) {
+        return;
+      }
+
+      if (tooltip.matches(':popover-open')) {
+        tooltip.hidePopover();
+      } else {
+        tooltip.showPopover();
+      }
+    };
+
+    /** Toggles a slotted tooltip for non-native custom triggers. */
+    private readonly handleTriggerKeyDown = (event: KeyboardEvent): void => {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+
+      const target = event.target;
+      if (target instanceof HTMLButtonElement
+        || (target instanceof HTMLElement && ['a', 'button', 'input', 'summary', 'select', 'fluent-button', 'fluent-link'].includes(target.localName))) {
+        return;
+      }
+
+      const trigger = this.getTriggerElement();
+      if (!trigger || !(trigger instanceof HTMLElement) || !trigger.contains(target as Node)) {
+        return;
+      }
+
+      const tooltip = this.getAnchoredTooltip(trigger);
       if (!tooltip) {
         return;
       }
