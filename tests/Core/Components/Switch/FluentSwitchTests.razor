@@ -55,6 +55,26 @@
     }
 
     [Fact]
+    public void FluentSwitch_HasSwitchRole()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch Label="My label" />);
+
+        // Assert
+        Assert.Equal("switch", cut.Find("fluent-switch").GetAttribute("role"));
+    }
+
+    [Fact]
+    public void FluentSwitch_HasAriaChecked()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch Label="My label" />);
+
+        // Assert
+        Assert.Equal("false", cut.Find("fluent-switch").GetAttribute("aria-checked"));
+    }
+
+    [Fact]
     public void FluentSwitch_Default_TrueValue()
     {
         // Arrange && Act

@@ -11,8 +11,10 @@
              tabindex="@AdditionalAttributes.GetValueIfNoAdditionalAttribute("tabindex", "-1", when: () => ReadOnly)">
     <fluent-switch @ref="@Element"
                    aria-label="@AriaLabel"
+                   role="switch"
                    autofocus="@Autofocus"
                    checked="@(CurrentValue ? "true" : null)"
+                   aria-checked="@(CurrentValue ? "true" : "false")"
                    disabled="@Disabled"
                    id="@Id"
                    name="@Name"
