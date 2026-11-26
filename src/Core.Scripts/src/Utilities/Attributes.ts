@@ -12,7 +12,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     elementOrId: HTMLElement | string,
     shadowSelector: string,
     attributeName: string,
-    attributeValue: string) {
+    attributeValue: string | null) {
 
     // Get the element reference
     let element: HTMLElement | null;
@@ -30,8 +30,12 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     const shadowElement = element.shadowRoot?.querySelector(shadowSelector);
 
     if (shadowElement) {
-      // Add the attribute to the found shadow element
-      shadowElement.setAttribute(attributeName, attributeValue);
+      if (attributeValue === null) {
+        shadowElement.removeAttribute(attributeName);
+      } else {
+        // Add the attribute to the found shadow element
+        shadowElement.setAttribute(attributeName, attributeValue);
+      }
     }
   }
 

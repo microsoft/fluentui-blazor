@@ -36,6 +36,37 @@
     }
 
     [Fact]
+    public void FluentNumber_SpinButtonSemantics_DefaultValue_ExposesRoleNameAndValue()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNumberInput TValue="int" Label="Quantity" Value="42" Min="10" Max="100" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("spinbutton", input.GetAttribute("role"));
+        Assert.Equal("Quantity", input.GetAttribute("aria-label"));
+        Assert.Equal("10", input.GetAttribute("aria-valuemin"));
+        Assert.Equal("100", input.GetAttribute("aria-valuemax"));
+        Assert.Equal("42", input.GetAttribute("aria-valuenow"));
+    }
+
+    [Fact]
+    public void FluentNumber_SpinButtonSemantics_RequiredReadonlyDisabled_ExposesStates()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNumberInput TValue="int" AriaLabel="Quantity" Value="42" Required="true" ReadOnly="true" Disabled="true" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("spinbutton", input.GetAttribute("role"));
+        Assert.Equal("Quantity, Required", input.GetAttribute("aria-label"));
+        Assert.Equal("42", input.GetAttribute("aria-valuenow"));
+        Assert.Equal("true", input.GetAttribute("aria-readonly"));
+        Assert.Equal("true", input.GetAttribute("aria-required"));
+        Assert.Equal("true", input.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
     public void FluentNumber_Required_FocusOut_ShowsDefaultRequiredMessage()
     {
         var cut = Render(@<FluentNumberInput TValue="int?" Required="true" />);

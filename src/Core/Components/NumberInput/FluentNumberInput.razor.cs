@@ -175,7 +175,41 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
             }
         }
 
+        await ApplySpinButtonAccessibilityAsync();
+
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task ApplySpinButtonAccessibilityAsync()
+    {
+        var attributes = new (string Name, string? Value)[]
+        {
+            ("role", "spinbutton"),
+            ("aria-label", GetAriaLabelWithRequired()),
+            ("aria-valuemin", FormatAriaValue(Min)),
+            ("aria-valuemax", FormatAriaValue(Max)),
+            ("aria-valuenow", FormatAriaValue(CurrentValue)),
+            ("aria-readonly", ReadOnly ? "true" : null),
+            ("aria-required", Required == true ? "true" : null),
+            ("aria-disabled", Disabled == true ? "true" : null),
+        };
+
+        foreach (var attribute in attributes)
+        {
+            await JSRuntime.InvokeVoidAsync(
+                "Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
+                Element,
+                ".control",
+                attribute.Name,
+                attribute.Value);
+        }
+    }
+
+    private static string? FormatAriaValue(TValue? value)
+    {
+        return value is null
+            ? null
+            : Convert.ToString(value, CultureInfo.InvariantCulture);
     }
 
     /// <summary>
