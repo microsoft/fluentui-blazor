@@ -156,7 +156,7 @@ public partial class FluentOverflow<TItem> : FluentComponentBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        var previousOverflowCount = OverflowCount;
+        var previousOverflowCount = _itemsWereSupplied ? _overflowItems.Count : _measuredOverflowCount;
         var items = Items;
         if (items is null)
         {
