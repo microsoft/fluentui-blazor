@@ -55,6 +55,16 @@
     }
 
     [Fact]
+    public void FluentSwitch_Label_HasSwitchRole()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentSwitch Label="My label" />);
+
+        // Assert
+        Assert.Equal("switch", cut.Find("fluent-switch").GetAttribute("role"));
+    }
+
+    [Fact]
     public void FluentSwitch_Default_TrueValue()
     {
         // Arrange && Act
