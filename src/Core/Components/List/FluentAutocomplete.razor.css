@@ -51,6 +51,11 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete][alone] {
   line-height: var(--lineHeightBase300);
 }
 
+/* The selection satisfies Required: the native required inner input (emptied after a selection) must not look invalid */
+fluent-text-input[auto-complete]:has(div[slot="start"] > div > *) {
+  --colorPaletteRedBorder2: var(--colorNeutralStroke1);
+}
+
 fluent-text-input:has(span[auto-complete][alone])::part(control) {
   display: none;
 }
