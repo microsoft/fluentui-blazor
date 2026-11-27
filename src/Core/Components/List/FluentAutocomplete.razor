@@ -40,7 +40,7 @@
                          Name="@Name"
                          auto-complete="true"
                          dismiss="@(ShowDismiss ? null : "hidden")"
-                         has-selection="@(_internalSelectedItems.Any() ? "true" : null)"
+                         selected-count="@(_internalSelectedItems.Count > 0 ? _internalSelectedItems.Count.ToString(System.Globalization.CultureInfo.InvariantCulture) : null)"
                          Width="@Width"
                          AutoComplete="off"
                          Tooltip="@Tooltip"
