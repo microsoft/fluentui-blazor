@@ -125,13 +125,13 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
       const target = document.getElementById(targetId);
       const menuList = menu.querySelector("fluent-menu-list") as MenuList;
 
-      // Position the popover relative to the target element
+      // Anchor the popover to the target so the fluent-menu position fallbacks keep it within the viewport
       if (target && menuList) {
-        const rect = target.getBoundingClientRect();
-        menuList.style.position = "fixed";
-        menuList.style.margin = "0";
-        menuList.style.top = `${rect.bottom + targetOffsetTop}px`;
-        menuList.style.left = `${rect.left + targetOffsetLeft}px`;
+        const anchorName = CSS.escape(`--anchor-${targetId}`);
+        target.style.setProperty("anchor-name", anchorName);
+        menuList.style.setProperty("position-anchor", anchorName);
+        menuList.style.setProperty("margin-block-start", `${targetOffsetTop}px`);
+        menuList.style.setProperty("margin-inline-start", `${targetOffsetLeft}px`);
       }
     }
 
