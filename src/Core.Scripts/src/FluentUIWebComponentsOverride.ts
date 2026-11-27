@@ -92,7 +92,7 @@ export namespace Microsoft.FluentUI.Override {
             return;
         }
 
-        // Scroll/resize listeners of each open dropdown, removed when the dropdown closes.
+        // Listeners and observers of each open dropdown, removed when the dropdown closes.
         const repositionControllers = new WeakMap<DropdownElement, AbortController>();
 
         const dropdown = await registry.whenDefined('fluent-dropdown');
@@ -110,18 +110,28 @@ export namespace Microsoft.FluentUI.Override {
                 return;
             }
 
+            // The inline max-height (e.g. FluentSelect.Height) is the upper limit of the listbox height; 50vh by default.
+            const configuredMaxHeight = listbox.style.getPropertyValue('max-height');
+            const maxHeightLimit = configuredMaxHeight || '50vh';
+
             // Place the listbox below the field, or above it when there is not enough room below,
             // replacing the CSS anchor rules of the listbox (position-anchor, anchor(), anchor-size()).
             const reposition = () => {
                 const field = this.getBoundingClientRect();
-                const maxHeight = window.innerHeight / 2;
+
+                // Measure the height the listbox would have with its configured limit only.
+                listbox.style.setProperty('max-height', maxHeightLimit);
+                const listboxHeight = listbox.getBoundingClientRect().height;
+
                 const spaceBelow = window.innerHeight - field.bottom;
-                const openAbove = spaceBelow < Math.min(listbox.scrollHeight, maxHeight) && field.top > spaceBelow;
+                const spaceAbove = field.top;
+                const openAbove = spaceBelow < listboxHeight && spaceAbove > spaceBelow;
+                const availableSpace = Math.max(openAbove ? spaceAbove : spaceBelow, 0);
 
                 const styles: Record<string, string> = {
                     'position-anchor': 'none',
                     'position-try-fallbacks': 'none',
-                    '--listbox-max-height': `${maxHeight}px`,
+                    'max-height': `min(${maxHeightLimit}, ${availableSpace}px)`,
                     'min-width': `${field.width}px`,
                     'left': `${field.left}px`,
                     'top': openAbove ? 'auto' : `${field.bottom}px`,
@@ -131,10 +141,40 @@ export namespace Microsoft.FluentUI.Override {
                 Object.entries(styles).forEach(([name, value]) => listbox.style.setProperty(name, value));
             };
 
-            // Without CSS anchor, the listbox must follow the field when the page scrolls or is resized.
+            // Observer callbacks are deferred to the next frame, so the size changes made by `reposition`
+            // are not reported in the same frame (no "ResizeObserver loop" error) and bursts are merged.
+            let frame = 0;
+            const scheduleReposition = () => {
+                cancelAnimationFrame(frame);
+                frame = requestAnimationFrame(reposition);
+            };
+
+            // Without CSS anchor, the listbox must follow the field when the page scrolls or is resized,
+            // when the field or the listbox is resized, and when the options change.
             const controller = new AbortController();
             window.addEventListener('scroll', reposition, { passive: true, capture: true, signal: controller.signal });
             window.addEventListener('resize', reposition, { passive: true, signal: controller.signal });
+
+            const resizeObserver = new ResizeObserver(scheduleReposition);
+            resizeObserver.observe(this);
+            resizeObserver.observe(listbox);
+
+            const optionsObserver = new MutationObserver(scheduleReposition);
+            optionsObserver.observe(listbox, { childList: true, subtree: true, characterData: true });
+
+            controller.signal.addEventListener('abort', () => {
+                cancelAnimationFrame(frame);
+                resizeObserver.disconnect();
+                optionsObserver.disconnect();
+
+                // Restore the configured max-height, so it is measured again at the next opening.
+                if (configuredMaxHeight) {
+                    listbox.style.setProperty('max-height', configuredMaxHeight);
+                } else {
+                    listbox.style.removeProperty('max-height');
+                }
+            });
+
             repositionControllers.set(this, controller);
 
             reposition();
