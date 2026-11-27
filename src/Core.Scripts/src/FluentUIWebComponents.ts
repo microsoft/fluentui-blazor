@@ -1,5 +1,5 @@
 import * as FluentUIComponents from '@fluentui/web-components'
-import { css } from '@microsoft/fast-element';
+import { css, ViewTemplate } from '@microsoft/fast-element';
 import { defineOnce } from './RegistrationState';
 
 
@@ -65,13 +65,57 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
       FluentUIComponents.Drawer.define(FluentUIComponents.DrawerDefinition);
     });
     defineOnce('fluentui:web-components:dropdown', () => {
-      FluentUIComponents.Dropdown.define(FluentUIComponents.DropdownDefinition);
+      // Expose the internal `.control` element as `part="control"`,
+      // so it can be styled from outside the shadow DOM (e.g. `fluent-dropdown::part(control) { min-width: 0; }`).
+      const controlTag = '<div class="control">';
+      const template = FluentUIComponents.DropdownDefinition.template as unknown as ViewTemplate;
+      const canExposeControl = template instanceof ViewTemplate
+        && typeof template.html === 'string'
+        && template.html.includes(controlTag);
+
+      const dropdownDefinition: typeof FluentUIComponents.DropdownDefinition = {
+        // Spread the original dropdown definition first, so we can override the template and styles below.
+        ...FluentUIComponents.DropdownDefinition,
+
+        // Expose the internal `.control` element as `part="control"` if possible.
+        template: canExposeControl
+          ? new ViewTemplate((template.html as string).replace(controlTag, '<div class="control" part="control">'), template.factories) as unknown as typeof FluentUIComponents.DropdownDefinition.template
+          : FluentUIComponents.DropdownDefinition.template,
+        
+        // Allow grid/flex shrinkage and keep the indicator visible with long selected text.
+        styles: [FluentUIComponents.DropdownDefinition.styles ?? [], css`
+          :host {
+            min-width: 0;
+          }
+
+          .control {
+            min-width: 0;
+            grid-template-columns: minmax(0, 1fr) var(--_indicator-size);
+          }
+        `].flat(),
+      };
+
+      FluentUIComponents.Dropdown.define(dropdownDefinition);
     });
     defineOnce('fluentui:web-components:dropdown-option', () => {
       FluentUIComponents.DropdownOption.define(FluentUIComponents.DropdownOptionDefinition);
     });
     defineOnce('fluentui:web-components:field', () => {
       FluentUIComponents.Field.define(FluentUIComponents.FieldDefinition);
+
+      // Width is applied to the field wrapper; keep this default overridable by component and user styles.
+      // Because of the dropdown and listbox whose styles we've overridden in this file
+      const listWidthStyles = new CSSStyleSheet();
+      listWidthStyles.replaceSync(`
+        :where(fluent-field:has(> fluent-dropdown, > .fluent-listbox)) {
+          width: 160px;
+        }
+
+        :where(fluent-field > .fluent-listbox) {
+          min-width: 0;
+        }
+      `);
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, listWidthStyles];
     });
     defineOnce('fluentui:web-components:image', () => {
       FluentUIComponents.Image.define(FluentUIComponents.ImageDefinition);
@@ -83,7 +127,16 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
       FluentUIComponents.Link.define(FluentUIComponents.LinkDefinition);
     });
     defineOnce('fluentui:web-components:listbox', () => {
-      FluentUIComponents.Listbox.define(FluentUIComponents.ListboxDefinition);
+      const listboxDefinition: typeof FluentUIComponents.ListboxDefinition = {
+        ...FluentUIComponents.ListboxDefinition,
+        // Remove the `min-inline-size: 160px` imposed by the web component.
+        styles: [FluentUIComponents.ListboxDefinition.styles ?? [], css`
+          :host {
+            min-inline-size: 0;
+          }
+        `].flat(),
+      };
+      FluentUIComponents.Listbox.define(listboxDefinition);
     });
     defineOnce('fluentui:web-components:menu-button', () => {
       FluentUIComponents.MenuButton.define(FluentUIComponents.MenuButtonDefinition);
