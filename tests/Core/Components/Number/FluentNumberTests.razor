@@ -1,4 +1,5 @@
-﻿@using Xunit;
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
 @inherits FluentUITestContext
 @code
 {
@@ -17,7 +18,7 @@
 
     [Fact]
     public void FluentNumber_Default_Integer()
-    {        
+    {
         // Arrange and Act
         var cut = Render(@<FluentNumberInput Label="int" Width="100px" Value="1234" />);
 
@@ -27,7 +28,7 @@
 
     [Fact]
     public void FluentNumber_Default_Double()
-    {        
+    {
         // Arrange and Act
         var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" Culture="@GetInvariantCulture()" />);
 
@@ -48,6 +49,8 @@
         Assert.Equal("10", input.GetAttribute("aria-valuemin"));
         Assert.Equal("100", input.GetAttribute("aria-valuemax"));
         Assert.Equal("42", input.GetAttribute("aria-valuenow"));
+        Assert.Equal("polite", input.GetAttribute("aria-live"));
+        Assert.Equal("true", input.GetAttribute("aria-atomic"));
     }
 
     [Fact]
@@ -67,6 +70,18 @@
     }
 
     [Fact]
+    public void FluentField_NumberInput_CopiesAccessibleNameToInternalControl()
+    {
+        // Arrange & Act
+        using var context = new IdentifierContext(_ => "myId");
+        var cut = Render(@<FluentNumberInput TValue="int" Label="Number" Value="0" />);
+
+        // Assert
+        var invocations = JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow", 9);
+        Assert.Equal(9, invocations.Count);
+    }
+
+    [Fact]
     public void FluentNumber_Required_FocusOut_ShowsDefaultRequiredMessage()
     {
         var cut = Render(@<FluentNumberInput TValue="int?" Required="true" />);
@@ -78,7 +93,7 @@
 
     [Fact]
     public void FluentNumber_NoStepButtons()
-    {        
+    {
         // Arrange and Act
         var cut = Render(@<FluentNumberInput Label="int" Width="100px" Value="1234" Step="0" />);
 

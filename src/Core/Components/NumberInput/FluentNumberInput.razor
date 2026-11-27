@@ -1,4 +1,4 @@
-@namespace Microsoft.FluentUI.AspNetCore.Components
+﻿@namespace Microsoft.FluentUI.AspNetCore.Components
 @using Microsoft.FluentUI.AspNetCore.Components.Extensions
 @typeparam TValue
 @inherits FluentInputImmediateBase<TValue>
@@ -17,6 +17,8 @@
                        aria-readonly="@(ReadOnly ? "true" : null)"
                        aria-required="@(Required == true ? "true" : null)"
                        aria-disabled="@(Disabled == true ? "true" : null)"
+                       aria-live="polite"
+                       aria-atomic="true"
                        disabled="@Disabled"
                        id="@Id"
                        inputmode="numeric"
@@ -46,7 +48,7 @@
             {
                 @EndTemplate
             }
-            
+
             @if (StepButtons != NumberInputStepVisibility.Hidden && IsNotEquals(Step, ZeroValue))
             {
                 <div auto-hide="@(StepButtons == NumberInputStepVisibility.Auto ? "true" : null)">
@@ -56,7 +58,7 @@
                                     Color="@Color.Default" />
                     </div>
                     <div button-step="down">
-                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())" 
+                        <FluentIcon Value="@(new CoreIcons.Regular.Size20.ChevronDown())"
                                     OnClick="@DecrementValue"
                                     Color="@Color.Default" />
                     </div>

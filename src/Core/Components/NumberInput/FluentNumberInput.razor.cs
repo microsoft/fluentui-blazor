@@ -205,6 +205,9 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
         }
     }
 
+    /// <summary>
+    /// Formats a value for the ARIA value attributes using invariant decimal notation.
+    /// </summary>
     private static string? FormatAriaValue(TValue? value)
     {
         return value is null
