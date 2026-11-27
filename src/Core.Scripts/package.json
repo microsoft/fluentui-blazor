@@ -15,15 +15,15 @@
   "type": "module",
   "devDependencies": {
     "@types/sortablejs": "^1.15.9",
-    "@typescript-eslint/eslint-plugin": "8.72.2",
-    "@typescript-eslint/parser": "8.72.2",
+    "@typescript-eslint/eslint-plugin": "8.73.0",
+    "@typescript-eslint/parser": "8.73.0",
     "esbuild": "0.28.2",
     "esbuild-plugin-inline-css": "0.0.1",
-    "eslint": "10.14.0",
+    "eslint": "10.15.0",
     "glob": "^14.0.6",
     "imask": "^7.6.1",
     "rimraf": "6.1.4",
-    "tabbable": "6.5.1",
+    "tabbable": "6.5.2",
     "typescript": "5.9.3"
   },
   "dependencies": {
