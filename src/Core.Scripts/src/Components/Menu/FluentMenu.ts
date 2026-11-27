@@ -4,6 +4,7 @@ import { DotNet } from "../../d-ts/Microsoft.JSInterop";
 export namespace Microsoft.FluentUI.Blazor.Components.Menu {
   const menuAbortControllers = new Map<string, AbortController>();
   const menuListsWithMouseOutWorkaround = new WeakSet<MenuList>();
+  const targetAnchorRestorers = new WeakMap<MenuList, () => void>();
 
   // Closes an open submenu when the pointer leaves, even if its parent menu item retains focus.
   function handleMenuListMouseOut(event: MouseEvent) {
@@ -115,28 +116,76 @@ export namespace Microsoft.FluentUI.Blazor.Components.Menu {
   /**
    * Opens the menu with the specified id, optionally positioning it relative to a target element with specified offsets.
    * @param id The id of the fluent-menu element to open.
-   * @param targetId The id of the target element to position the menu relative to. If null, the menu will open in its default position.
-   * @param targetOffsetLeft The left offset from the target element to open the menu. Default is 0.
+   * @param targetId The id of the target element to anchor the menu to. If null, the menu will open relative to its trigger.
+   * @param targetOffsetLeft The inline offset from the target element. Default is 0.
+   * @param targetOffsetTop The block offset from the target element, applied above the target when the menu flips. Default is 0.
    */
   export function OpenMenu(id: string, targetId: string | null = null, targetOffsetLeft: number = 0, targetOffsetTop: number = 0) {
-    const menu = document.getElementById(id) as Menu;
+    const menu = document.getElementById(id) as Menu | null;
+    const target = targetId ? document.getElementById(targetId) : null;
+    const menuList = menu?.querySelector("fluent-menu-list") as MenuList | null;
 
-    if (targetId) {
-      const target = document.getElementById(targetId);
-      const menuList = menu.querySelector("fluent-menu-list") as MenuList;
+    // Position the popover relative to the target element
+    if (target && menuList) {
+      anchorMenuListToTarget(menuList, target, `--anchor-${targetId}`, targetOffsetLeft, targetOffsetTop);
+    }
 
-      // Position the popover relative to the target element
-      if (target && menuList) {
-        const rect = target.getBoundingClientRect();
-        menuList.style.position = "fixed";
-        menuList.style.margin = "0";
-        menuList.style.top = `${rect.bottom + targetOffsetTop}px`;
-        menuList.style.left = `${rect.left + targetOffsetLeft}px`;
+    menu?.openMenu();
+  }
+
+  /**
+   * Anchors the menu list to the target so the fluent-menu position fallbacks keep it within the viewport.
+   * The original anchoring is restored when the menu closes.
+   * @param menuList The fluent-menu-list element to position.
+   * @param target The element the menu list is anchored to.
+   * @param anchorName The CSS anchor name (dashed ident) shared by the target and the menu list.
+   * @param offsetLeft The inline offset, in pixels, from the target.
+   * @param offsetTop The block offset, in pixels, from the target (applied upward when the menu flips).
+   */
+  function anchorMenuListToTarget(menuList: MenuList, target: HTMLElement, anchorName: string, offsetLeft: number, offsetTop: number) {
+    // Undo a previous target anchoring if the menu is reopened on another target before closing.
+    targetAnchorRestorers.get(menuList)?.();
+
+    const restoreMenuListStyle = saveInlineStyle(menuList, ["position-anchor", "margin-block-start", "margin-inline-start"]);
+    const restoreTargetStyle = saveInlineStyle(target, ["anchor-name"]);
+
+    // Override the fluent-menu trigger anchor; its `position-try-fallbacks` then flip the menu around the target.
+    target.style.setProperty("anchor-name", anchorName);
+    menuList.style.setProperty("position-anchor", anchorName);
+
+    // Margins (not top/left) keep the offsets compatible with the native flip, which mirrors them.
+    menuList.style.setProperty("margin-block-start", `${offsetTop}px`);
+    menuList.style.setProperty("margin-inline-start", `${offsetLeft}px`);
+
+    // Restores the trigger anchoring so subsequent openings use the default position.
+    const restore = () => {
+      menuList.removeEventListener("toggle", restoreOnClose);
+      targetAnchorRestorers.delete(menuList);
+      restoreMenuListStyle();
+      restoreTargetStyle();
+    };
+    const restoreOnClose = (event: ToggleEvent) => {
+      if (event.newState === "closed") {
+        restore();
       }
-    }
+    };
 
-    if (menu) {
-      menu.openMenu();
-    }
+    menuList.addEventListener("toggle", restoreOnClose);
+    targetAnchorRestorers.set(menuList, restore);
+  }
+
+  /**
+   * Saves the inline values of the specified style properties and returns a function restoring them.
+   */
+  function saveInlineStyle(element: HTMLElement, properties: string[]): () => void {
+    const savedValues = properties.map(property => [property, element.style.getPropertyValue(property)] as const);
+
+    return () => savedValues.forEach(([property, value]) => {
+      if (value) {
+        element.style.setProperty(property, value);
+      } else {
+        element.style.removeProperty(property);
+      }
+    });
   }
 }
