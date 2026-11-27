@@ -39,6 +39,40 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     }
   }
 
+  /** Copies multiple attributes to a shadow DOM element with a single JavaScript call. */
+  export function copyToShadowMultiple(
+    elementOrId: HTMLElement | string,
+    shadowSelector: string,
+    attributeNames: string[],
+    attributeValues: (string | null)[]) {
+
+    let element: HTMLElement | null;
+    if (typeof elementOrId === 'string') {
+      element = document.getElementById(elementOrId);
+    } else {
+      element = elementOrId;
+    }
+
+    if (!element) {
+      return;
+    }
+
+    const shadowElement = element.shadowRoot?.querySelector(shadowSelector);
+    if (!shadowElement) {
+      return;
+    }
+
+    for (let index = 0; index < attributeNames.length; index++) {
+      const attributeName = attributeNames[index];
+      const attributeValue = attributeValues[index];
+      if (attributeValue === null) {
+        shadowElement.removeAttribute(attributeName);
+      } else {
+        shadowElement.setAttribute(attributeName, attributeValue);
+      }
+    }
+  }
+
   /**
    * Applies custom CSS to an element inside a shadow DOM by injecting a scoped <style> element into
    * the shadow root. Unlike a `::part()` selector applied from outside, this can also target

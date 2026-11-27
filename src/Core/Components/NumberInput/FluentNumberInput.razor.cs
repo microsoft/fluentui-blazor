@@ -32,6 +32,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
     private readonly Type UnderlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
     private readonly TValue ZeroValue;
+    private string?[]? _lastSpinButtonAccessibilityAttributes;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumberInput{TValue}"/> class.
@@ -194,15 +195,23 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
             ("aria-disabled", Disabled == true ? "true" : null),
         };
 
-        foreach (var attribute in attributes)
+        var attributeNames = attributes.Select(attribute => attribute.Name).ToArray();
+        var attributeValues = attributes.Select(attribute => attribute.Value).ToArray();
+
+        if (_lastSpinButtonAccessibilityAttributes is not null &&
+            attributeValues.SequenceEqual(_lastSpinButtonAccessibilityAttributes))
         {
-            await JSRuntime.InvokeVoidAsync(
-                "Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadow",
-                Element,
-                ".control",
-                attribute.Name,
-                attribute.Value);
+            return;
         }
+
+        await JSRuntime.InvokeVoidAsync(
+            "Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadowMultiple",
+            Element,
+            ".control",
+            attributeNames,
+            attributeValues);
+
+        _lastSpinButtonAccessibilityAttributes = attributeValues;
     }
 
     /// <summary>
