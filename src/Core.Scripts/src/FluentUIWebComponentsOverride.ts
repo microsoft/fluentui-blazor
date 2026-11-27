@@ -114,31 +114,83 @@ export namespace Microsoft.FluentUI.Override {
             const configuredMaxHeight = listbox.style.getPropertyValue('max-height');
             const maxHeightLimit = configuredMaxHeight || '50vh';
 
+            const controller = new AbortController();
+
+            // Height the listbox would have with its configured max-height only (not limited by the available space),
+            // measured without changing its styles, so the scroll position of the listbox is preserved.
+            const measureListboxHeight = (): number => {
+                const style = getComputedStyle(listbox);
+                const paddingTop = parseFloat(style.paddingTop) || 0;
+                const paddingBottom = parseFloat(style.paddingBottom) || 0;
+                const borderTop = parseFloat(style.borderTopWidth) || 0;
+                const borderBottom = parseFloat(style.borderBottomWidth) || 0;
+
+                // `scrollHeight` is the full height of the options, padding included.
+                const height = style.boxSizing === 'border-box'
+                    ? listbox.scrollHeight + borderTop + borderBottom
+                    : listbox.scrollHeight - paddingTop - paddingBottom;
+
+                // The limit can be any CSS max-height value (px, vh, %, calc(), none...): a hidden probe with the
+                // same box model resolves it, without touching the listbox.
+                const probe = document.createElement('div');
+                probe.style.cssText = 'position: fixed; visibility: hidden; pointer-events: none; top: 0; left: 0; width: 0;';
+                probe.style.setProperty('box-sizing', style.boxSizing);
+                probe.style.setProperty('padding', `${paddingTop}px 0 ${paddingBottom}px`);
+                probe.style.setProperty('border-style', 'solid');
+                probe.style.setProperty('border-width', `${borderTop}px 0 ${borderBottom}px`);
+                probe.style.setProperty('height', `${Math.max(height, 0)}px`);
+                probe.style.setProperty('max-height', maxHeightLimit);
+                document.body.appendChild(probe);
+                const measuredHeight = probe.getBoundingClientRect().height;
+                probe.remove();
+
+                return measuredHeight;
+            };
+
             // Place the listbox below the field, or above it when there is not enough room below,
             // replacing the CSS anchor rules of the listbox (position-anchor, anchor(), anchor-size()).
             const reposition = () => {
-                const field = this.getBoundingClientRect();
+                // A dropdown removed while open is closed without `openChanged`: stop following the page.
+                if (!this.isConnected) {
+                    controller.abort();
+                    repositionControllers.delete(this);
+                    return;
+                }
 
-                // Measure the height the listbox would have with its configured limit only.
-                listbox.style.setProperty('max-height', maxHeightLimit);
-                const listboxHeight = listbox.getBoundingClientRect().height;
+                const field = this.getBoundingClientRect();
+                const viewportWidth = document.documentElement.clientWidth;
+
+                const listboxHeight = measureListboxHeight();
+                const listboxWidth = Math.max(listbox.getBoundingClientRect().width, field.width);
 
                 const spaceBelow = window.innerHeight - field.bottom;
                 const spaceAbove = field.top;
                 const openAbove = spaceBelow < listboxHeight && spaceAbove > spaceBelow;
                 const availableSpace = Math.max(openAbove ? spaceAbove : spaceBelow, 0);
 
+                // Align the listbox with the inline-start edge of the field (right edge in RTL),
+                // or with the opposite edge when it would overflow the viewport.
+                const isRtl = getComputedStyle(this).direction === 'rtl';
+                const fitsFromLeft = field.left + listboxWidth <= viewportWidth;
+                const fitsFromRight = field.right - listboxWidth >= 0;
+                const alignRight = isRtl ? fitsFromRight || !fitsFromLeft : !fitsFromLeft && fitsFromRight;
+
                 const styles: Record<string, string> = {
                     'position-anchor': 'none',
                     'position-try-fallbacks': 'none',
                     'max-height': `min(${maxHeightLimit}, ${availableSpace}px)`,
                     'min-width': `${field.width}px`,
-                    'left': `${field.left}px`,
+                    'left': alignRight ? 'auto' : `${field.left}px`,
+                    'right': alignRight ? `${viewportWidth - field.right}px` : 'auto',
                     'top': openAbove ? 'auto' : `${field.bottom}px`,
                     'bottom': openAbove ? `${window.innerHeight - field.top}px` : 'auto',
                 };
 
-                Object.entries(styles).forEach(([name, value]) => listbox.style.setProperty(name, value));
+                Object.entries(styles).forEach(([name, value]) => {
+                    if (listbox.style.getPropertyValue(name) !== value) {
+                        listbox.style.setProperty(name, value);
+                    }
+                });
             };
 
             // Observer callbacks are deferred to the next frame, so the size changes made by `reposition`
@@ -151,9 +203,14 @@ export namespace Microsoft.FluentUI.Override {
 
             // Without CSS anchor, the listbox must follow the field when the page scrolls or is resized,
             // when the field or the listbox is resized, and when the options change.
-            const controller = new AbortController();
-            window.addEventListener('scroll', reposition, { passive: true, capture: true, signal: controller.signal });
-            window.addEventListener('resize', reposition, { passive: true, signal: controller.signal });
+            // Scrolling inside the listbox does not move it: it is ignored, so its scroll position is never disturbed.
+            const onScroll = (e: Event) => {
+                if (!(e.target instanceof Node && listbox.contains(e.target))) {
+                    scheduleReposition();
+                }
+            };
+            window.addEventListener('scroll', onScroll, { passive: true, capture: true, signal: controller.signal });
+            window.addEventListener('resize', scheduleReposition, { passive: true, signal: controller.signal });
 
             const resizeObserver = new ResizeObserver(scheduleReposition);
             resizeObserver.observe(this);
