@@ -160,9 +160,23 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
 
       inputElement.mask = IMask(inputElement, maskOptions);
 
+      const syncAriaValueNow = () => {
+        const maskedNumber = inputElement.mask as (InputMask & { number?: number }) | undefined;
+        const unmaskedValue = maskedNumber?.unmaskedValue?.trim() ?? '';
+        const numericValue = maskedNumber?.number;
+
+        if (unmaskedValue.length === 0 || typeof numericValue !== 'number' || !Number.isFinite(numericValue)) {
+          inputElement.removeAttribute('aria-valuenow');
+          return;
+        }
+
+        inputElement.setAttribute('aria-valuenow', Object.is(numericValue, -0) ? '0' : String(numericValue));
+      };
+
       // Workaround to update FluentTextInput value
       inputElement.maskInputHandler = () => {
         (fluentText as any)._currentValue = inputElement.value;
+        syncAriaValueNow();
       };
       inputElement.addEventListener('input', inputElement.maskInputHandler);
 
@@ -175,6 +189,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
         if (currentInputValue !== currentMaskValue) {
           inputElement.mask?.updateValue();
         }
+        syncAriaValueNow();
       }
 
       inputElement.maskChangeObserver = new MutationObserver(() => {
@@ -216,6 +231,7 @@ export namespace Microsoft.FluentUI.Blazor.Components.TextMasked {
           
           inputElement.mask!.unmaskedValue = String(newValue);
           (fluentText as any)._currentValue = inputElement.value;
+          syncAriaValueNow();
           inputElement.dispatchEvent(new Event('change', { bubbles: true }));
         };
         inputElement.addEventListener('keydown', inputElement.maskKeydownHandler);
