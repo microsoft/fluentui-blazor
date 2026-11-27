@@ -1,4 +1,4 @@
-@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Tests.Extensions
 @using Xunit
 @inherits FluentUITestContext
 
@@ -352,6 +352,37 @@
     {
         var cut = Render(@<FluentOverflow TItem="string" Items="@(new[] { "Item" })" />);
         Assert.Empty(cut.FindAll("fluent-overflow > span"));
+    }
+
+    [Fact]
+    public async Task FluentOverflow_OverflowStateChange_UpdatesStatusAnnouncement()
+    {
+        var cut = Render(@<FluentOverflow TItem="string" Id="overflow"><span>Item</span></FluentOverflow>);
+        var host = cut.Find("fluent-overflow");
+
+        var status = cut.Find("[overflow-status]");
+        Assert.Equal("status", status.GetAttribute("role"));
+        Assert.Equal("polite", status.GetAttribute("aria-live"));
+        Assert.Equal("true", status.GetAttribute("aria-atomic"));
+        Assert.Empty(status.TextContent);
+
+        await host.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "overflow",
+            Items = [new() { Id = "item", Text = "Item", Index = 0 }],
+            OverflowCount = 1,
+        });
+
+        Assert.Equal(IFluentLocalizer.GetDefault("Overflow_StatusItemCount", 1), cut.Find("[overflow-status]").TextContent);
+
+        await host.TriggerEventAsync("onoverflowchange", new OverflowChangedEventArgs
+        {
+            Id = "overflow",
+            Items = [],
+            OverflowCount = 0,
+        });
+
+        Assert.Equal(IFluentLocalizer.GetDefault("Overflow_StatusNoItems"), cut.Find("[overflow-status]").TextContent);
     }
 
     [Fact]
