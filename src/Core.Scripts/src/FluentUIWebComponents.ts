@@ -82,10 +82,15 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
           ? new ViewTemplate((template.html as string).replace(controlTag, '<div class="control" part="control">'), template.factories) as unknown as typeof FluentUIComponents.DropdownDefinition.template
           : FluentUIComponents.DropdownDefinition.template,
         
-        // Remove the `min-width: 160px` imposed by the web component.
+        // Allow grid/flex shrinkage and keep the indicator visible with long selected text.
         styles: [FluentUIComponents.DropdownDefinition.styles ?? [], css`
+          :host {
+            min-width: 0;
+          }
+
           .control {
             min-width: 0;
+            grid-template-columns: minmax(0, 1fr) var(--_indicator-size);
           }
         `].flat(),
       };
