@@ -52,7 +52,7 @@ fluent-text-input[auto-complete] .fluent-badge[auto-complete][alone] {
 }
 
 /* The selection satisfies Required: the native required inner input (emptied after a selection) must not look invalid */
-fluent-text-input[auto-complete]:has(div[slot="start"] > div > *) {
+fluent-text-input[auto-complete][has-selection] {
   --colorPaletteRedBorder2: var(--colorNeutralStroke1);
 }
 

@@ -40,6 +40,7 @@
                          Name="@Name"
                          auto-complete="true"
                          dismiss="@(ShowDismiss ? null : "hidden")"
+                         has-selection="@(_internalSelectedItems.Any() ? "true" : null)"
                          Width="@Width"
                          AutoComplete="off"
                          Tooltip="@Tooltip"
