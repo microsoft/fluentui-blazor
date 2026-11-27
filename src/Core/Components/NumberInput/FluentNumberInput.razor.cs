@@ -32,6 +32,7 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
 
     private readonly Type UnderlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
     private readonly TValue ZeroValue;
+    private string?[]? _lastSpinButtonAccessibilityAttributes;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="FluentNumberInput{TValue}"/> class.
@@ -175,7 +176,52 @@ public partial class FluentNumberInput<TValue> : FluentInputImmediateBase<TValue
             }
         }
 
+        await ApplySpinButtonAccessibilityAsync();
+
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task ApplySpinButtonAccessibilityAsync()
+    {
+        var attributes = new (string Name, string? Value)[]
+        {
+            ("role", "spinbutton"),
+            ("aria-label", GetAriaLabelWithRequired()),
+            ("aria-valuemin", FormatAriaValue(Min)),
+            ("aria-valuemax", FormatAriaValue(Max)),
+            ("aria-valuenow", FormatAriaValue(CurrentValue)),
+            ("aria-readonly", ReadOnly ? "true" : null),
+            ("aria-required", Required == true ? "true" : null),
+            ("aria-disabled", Disabled == true ? "true" : null),
+        };
+
+        var attributeNames = attributes.Select(attribute => attribute.Name).ToArray();
+        var attributeValues = attributes.Select(attribute => attribute.Value).ToArray();
+
+        if (_lastSpinButtonAccessibilityAttributes is not null &&
+            attributeValues.SequenceEqual(_lastSpinButtonAccessibilityAttributes))
+        {
+            return;
+        }
+
+        await JSRuntime.InvokeVoidAsync(
+            "Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadowMultiple",
+            Element,
+            ".control",
+            attributeNames,
+            attributeValues);
+
+        _lastSpinButtonAccessibilityAttributes = attributeValues;
+    }
+
+    /// <summary>
+    /// Formats a value for the ARIA value attributes using invariant decimal notation.
+    /// </summary>
+    private static string? FormatAriaValue(TValue? value)
+    {
+        return value is null
+            ? null
+            : Convert.ToString(value, CultureInfo.InvariantCulture);
     }
 
     /// <summary>

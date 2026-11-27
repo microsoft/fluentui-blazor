@@ -1,4 +1,5 @@
-﻿@using Xunit;
+﻿@using Microsoft.FluentUI.AspNetCore.Components.Utilities
+@using Xunit;
 @inherits FluentUITestContext
 @code
 {
@@ -17,7 +18,7 @@
 
     [Fact]
     public void FluentNumber_Default_Integer()
-    {        
+    {
         // Arrange and Act
         var cut = Render(@<FluentNumberInput Label="int" Width="100px" Value="1234" />);
 
@@ -27,12 +28,82 @@
 
     [Fact]
     public void FluentNumber_Default_Double()
-    {        
+    {
         // Arrange and Act
         var cut = Render(@<FluentNumberInput Label="double" Width="100px" Value="1234.56" Culture="@GetInvariantCulture()" />);
 
         // Assert
         cut.Verify();
+    }
+
+    [Fact]
+    public void FluentNumber_SpinButtonSemantics_DefaultValue_ExposesRoleNameAndValue()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNumberInput TValue="int" Label="Quantity" Value="42" Min="10" Max="100" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("spinbutton", input.GetAttribute("role"));
+        Assert.Equal("Quantity", input.GetAttribute("aria-label"));
+        Assert.Equal("10", input.GetAttribute("aria-valuemin"));
+        Assert.Equal("100", input.GetAttribute("aria-valuemax"));
+        Assert.Equal("42", input.GetAttribute("aria-valuenow"));
+        Assert.Equal("polite", input.GetAttribute("aria-live"));
+        Assert.Equal("true", input.GetAttribute("aria-atomic"));
+    }
+
+    [Fact]
+    public void FluentNumber_SpinButtonSemantics_RequiredReadonlyDisabled_ExposesStates()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNumberInput TValue="int" AriaLabel="Quantity" Value="42" Required="true" ReadOnly="true" Disabled="true" />);
+
+        // Assert
+        var input = cut.Find("fluent-text-input");
+        Assert.Equal("spinbutton", input.GetAttribute("role"));
+        Assert.Equal("Quantity, Required", input.GetAttribute("aria-label"));
+        Assert.Equal("42", input.GetAttribute("aria-valuenow"));
+        Assert.Equal("true", input.GetAttribute("aria-readonly"));
+        Assert.Equal("true", input.GetAttribute("aria-required"));
+        Assert.Equal("true", input.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
+    public void FluentField_NumberInput_CopiesAccessibleNameToInternalControl()
+    {
+        // Arrange & Act
+        using var context = new IdentifierContext(_ => "myId");
+        var cut = Render(@<FluentNumberInput TValue="int" Label="Number" Value="0" />);
+
+        // Assert
+        JSInterop.VerifyInvoke("Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadowMultiple", 1);
+    }
+
+    [Fact]
+    public void FluentNumber_SpinButtonAccessibility_BatchesOnlyChangedSets()
+    {
+        // Arrange & Act
+        var cut = Render(@<FluentNumberInput TValue="int" Label="Quantity" Value="42" Min="10" Max="100" />);
+        var number = cut.FindComponent<FluentNumberInput<int>>();
+
+        const string identifier = "Microsoft.FluentUI.Blazor.Utilities.Attributes.copyToShadowMultiple";
+        Assert.Single(JSInterop.Invocations[identifier]);
+
+        // Same accessibility set: no additional interop
+        cut.Render();
+        Assert.Single(JSInterop.Invocations[identifier]);
+
+        // Changed value: one batched interop
+        number.Render(parameters => parameters.Add(component => component.Value, 43));
+        Assert.Equal(2, JSInterop.Invocations[identifier].Count);
+
+        var invocation = JSInterop.Invocations[identifier].Last();
+        Assert.Equal(".control", invocation.Arguments[1]);
+        var attributeNames = Assert.IsAssignableFrom<IEnumerable<string>>(invocation.Arguments[2]);
+        var attributeValues = Assert.IsAssignableFrom<IEnumerable<string?>>(invocation.Arguments[3]);
+        Assert.Contains("aria-valuenow", attributeNames);
+        Assert.Contains("43", attributeValues);
     }
 
     [Fact]
@@ -47,7 +118,7 @@
 
     [Fact]
     public void FluentNumber_NoStepButtons()
-    {        
+    {
         // Arrange and Act
         var cut = Render(@<FluentNumberInput Label="int" Width="100px" Value="1234" Step="0" />);
 

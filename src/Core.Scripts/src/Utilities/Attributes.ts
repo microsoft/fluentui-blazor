@@ -12,7 +12,7 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     elementOrId: HTMLElement | string,
     shadowSelector: string,
     attributeName: string,
-    attributeValue: string) {
+    attributeValue: string | null) {
 
     // Get the element reference
     let element: HTMLElement | null;
@@ -30,8 +30,46 @@ export namespace Microsoft.FluentUI.Blazor.Utilities.Attributes {
     const shadowElement = element.shadowRoot?.querySelector(shadowSelector);
 
     if (shadowElement) {
-      // Add the attribute to the found shadow element
-      shadowElement.setAttribute(attributeName, attributeValue);
+      if (attributeValue === null) {
+        shadowElement.removeAttribute(attributeName);
+      } else {
+        // Add the attribute to the found shadow element
+        shadowElement.setAttribute(attributeName, attributeValue);
+      }
+    }
+  }
+
+  /** Copies multiple attributes to a shadow DOM element with a single JavaScript call. */
+  export function copyToShadowMultiple(
+    elementOrId: HTMLElement | string,
+    shadowSelector: string,
+    attributeNames: string[],
+    attributeValues: (string | null)[]) {
+
+    let element: HTMLElement | null;
+    if (typeof elementOrId === 'string') {
+      element = document.getElementById(elementOrId);
+    } else {
+      element = elementOrId;
+    }
+
+    if (!element) {
+      return;
+    }
+
+    const shadowElement = element.shadowRoot?.querySelector(shadowSelector);
+    if (!shadowElement) {
+      return;
+    }
+
+    for (let index = 0; index < attributeNames.length; index++) {
+      const attributeName = attributeNames[index];
+      const attributeValue = attributeValues[index];
+      if (attributeValue === null) {
+        shadowElement.removeAttribute(attributeName);
+      } else {
+        shadowElement.setAttribute(attributeName, attributeValue);
+      }
     }
   }
 
