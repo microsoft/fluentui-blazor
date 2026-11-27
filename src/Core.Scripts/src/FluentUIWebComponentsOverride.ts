@@ -16,6 +16,11 @@ export namespace Microsoft.FluentUI.Override {
         showPopover(): void;
     }
 
+    interface DropdownElement extends HTMLElement {
+        listbox?: HTMLElement;
+        openChanged(prev: boolean, next: boolean): void;
+    }
+
     /**
      * Override the default behavior of the Fluent UI Web Components to use Blazor's features.
     */
@@ -66,7 +71,74 @@ export namespace Microsoft.FluentUI.Override {
 
             // Menus connected before this override (prerendered markup) did not go through it.
             document.querySelectorAll<Menu>('fluent-menu').forEach(MenuDisabledTrigger.keepClosedWhileTriggerDisabled);
+
+            /**
+             * fluent-dropdown
+             */
+            await fixDropdownListboxScrollOnWebKit(registry);
         });
+    }
+
+    /**
+     * WebKit resets the scroll position of a CSS anchor-positioned popover on `pointerdown`,
+     * so an option tapped or clicked after scrolling is not selected (https://github.com/microsoft/fluentui/issues/36823).
+     * On WebKit, the opened listbox is positioned with explicit coordinates instead of CSS anchor positioning.
+     */
+    async function fixDropdownListboxScrollOnWebKit(registry: CustomElementRegistry): Promise<void> {
+        // Only WebKit browsers (Safari and every iOS browser) using CSS anchor positioning are affected.
+        // Without anchor positioning support, the web component already uses its own JavaScript fallback.
+        const isWebKit = /^Apple/.test(navigator.vendor);
+        if (!isWebKit || !CSS.supports('anchor-name: --anchor')) {
+            return;
+        }
+
+        // Scroll/resize listeners of each open dropdown, removed when the dropdown closes.
+        const repositionControllers = new WeakMap<DropdownElement, AbortController>();
+
+        const dropdown = await registry.whenDefined('fluent-dropdown');
+        const dropdownOpenChanged = dropdown.prototype.openChanged;
+
+        dropdown.prototype.openChanged = function (this: DropdownElement, prev: boolean, next: boolean): void {
+            dropdownOpenChanged.call(this, prev, next);
+
+            // Stop following the page of a previous opening.
+            repositionControllers.get(this)?.abort();
+            repositionControllers.delete(this);
+
+            const listbox = this.listbox;
+            if (!next || !listbox) {
+                return;
+            }
+
+            // Place the listbox below the field, or above it when there is not enough room below,
+            // replacing the CSS anchor rules of the listbox (position-anchor, anchor(), anchor-size()).
+            const reposition = () => {
+                const field = this.getBoundingClientRect();
+                const maxHeight = window.innerHeight / 2;
+                const spaceBelow = window.innerHeight - field.bottom;
+                const openAbove = spaceBelow < Math.min(listbox.scrollHeight, maxHeight) && field.top > spaceBelow;
+
+                const styles: Record<string, string> = {
+                    'position-anchor': 'none',
+                    'position-try-fallbacks': 'none',
+                    '--listbox-max-height': `${maxHeight}px`,
+                    'min-width': `${field.width}px`,
+                    'left': `${field.left}px`,
+                    'top': openAbove ? 'auto' : `${field.bottom}px`,
+                    'bottom': openAbove ? `${window.innerHeight - field.top}px` : 'auto',
+                };
+
+                Object.entries(styles).forEach(([name, value]) => listbox.style.setProperty(name, value));
+            };
+
+            // Without CSS anchor, the listbox must follow the field when the page scrolls or is resized.
+            const controller = new AbortController();
+            window.addEventListener('scroll', reposition, { passive: true, capture: true, signal: controller.signal });
+            window.addEventListener('resize', reposition, { passive: true, signal: controller.signal });
+            repositionControllers.set(this, controller);
+
+            reposition();
+        };
     }
 
     /* 
