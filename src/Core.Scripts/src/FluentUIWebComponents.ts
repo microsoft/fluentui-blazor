@@ -102,6 +102,20 @@ export namespace Microsoft.FluentUI.Blazor.FluentUIWebComponents {
     });
     defineOnce('fluentui:web-components:field', () => {
       FluentUIComponents.Field.define(FluentUIComponents.FieldDefinition);
+
+      // Width is applied to the field wrapper; keep this default overridable by component and user styles.
+      // Because of the dropdown and listbox whose styles we've overridden in this file
+      const listWidthStyles = new CSSStyleSheet();
+      listWidthStyles.replaceSync(`
+        :where(fluent-field:has(> fluent-dropdown, > .fluent-listbox)) {
+          width: 160px;
+        }
+
+        :where(fluent-field > .fluent-listbox) {
+          min-width: 0;
+        }
+      `);
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, listWidthStyles];
     });
     defineOnce('fluentui:web-components:image', () => {
       FluentUIComponents.Image.define(FluentUIComponents.ImageDefinition);
