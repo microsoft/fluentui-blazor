@@ -378,6 +378,36 @@
         Assert.Equal("Eight", customElement.TextContent);
     }
 
+    [Theory]
+    [InlineData(false, "1")]
+    [InlineData(true, "2")]
+    public void FluentAutocomplete_TextOnlySelectedOptionTemplate_SetsSelectedCountAttribute(bool multiple, string expectedCount)
+    {
+        // Arrange
+        var cut = Render(@<FluentAutocomplete Id="my-list"
+                                          TOption="string"
+                                          TValue="string"
+                                          Multiple="@multiple"
+                                          Required="true"
+                                          OnOptionsSearch="@OnOptionsSearch">
+            <SelectedOptionTemplate>@context</SelectedOptionTemplate>
+        </FluentAutocomplete>);
+
+        Assert.False(cut.Find("fluent-text-input").HasAttribute("selected-count"));
+
+        // Act
+        cut.Find("fluent-text-input").Click();
+        var options = cut.FindAll("fluent-option");
+        var selectedOptions = multiple
+            ? $"{options[0].GetAttribute("id")};{options[1].GetAttribute("id")}"
+            : options[0].GetAttribute("id");
+        cut.Find(".fluent-listbox")
+           .TriggerEvent("onlistchange", new DropdownEventArgs { SelectedOptions = selectedOptions });
+
+        // Assert
+        Assert.Equal(expectedCount, cut.Find("fluent-text-input").GetAttribute("selected-count"));
+    }
+
     [Fact]
     public void FluentAutocomplete_ShowProgressIndicator_DisplaysSpinner()
     {
